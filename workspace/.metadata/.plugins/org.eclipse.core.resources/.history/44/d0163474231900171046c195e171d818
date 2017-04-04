@@ -1,0 +1,187 @@
+
+package model;
+
+import persistence.*;
+import model.visitor.*;
+
+
+/* Additional import section end */
+
+public class ComponentLst extends PersistentObject implements PersistentComponentLst{
+    
+    /** Throws persistence exception if the object with the given id does not exist. */
+    public static ComponentLst4Public getById(long objectId) throws PersistenceException{
+        long classId = ConnectionHandler.getTheConnectionHandler().theComponentLstFacade.getClass(objectId);
+        return (ComponentLst4Public)PersistentProxi.createProxi(objectId, classId);
+    }
+    
+    public static ComponentLst4Public createComponentLst() throws PersistenceException{
+        return createComponentLst(false);
+    }
+    
+    public static ComponentLst4Public createComponentLst(boolean delayed$Persistence) throws PersistenceException {
+        PersistentComponentLst result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theComponentLstFacade
+                .newDelayedComponentLst();
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theComponentLstFacade
+                .newComponentLst(-1);
+        }
+        java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
+        result.initialize(result, final$$Fields);
+        result.initializeOnCreation();
+        return result;
+    }
+    
+    public static ComponentLst4Public createComponentLst(boolean delayed$Persistence,ComponentLst4Public This) throws PersistenceException {
+        PersistentComponentLst result = null;
+        if(delayed$Persistence){
+            result = ConnectionHandler.getTheConnectionHandler().theComponentLstFacade
+                .newDelayedComponentLst();
+            result.setDelayed$Persistence(true);
+        }else{
+            result = ConnectionHandler.getTheConnectionHandler().theComponentLstFacade
+                .newComponentLst(-1);
+        }
+        java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
+        result.initialize(This, final$$Fields);
+        result.initializeOnCreation();
+        return result;
+    }
+    
+    public java.util.HashMap<String,Object> toHashtable(java.util.HashMap<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
+    java.util.HashMap<String,Object> result = null;
+        if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
+            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            result.put("parts", this.getParts().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
+            String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
+            if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
+        }
+        return result;
+    }
+    
+    public ComponentLst provideCopy() throws PersistenceException{
+        ComponentLst result = this;
+        result = new ComponentLst(this.This, 
+                                  this.getId());
+        this.copyingPrivateUserAttributes(result);
+        return result;
+    }
+    
+    public boolean hasEssentialFields() throws PersistenceException{
+        return false;
+    }
+    protected ComponentLst_PartsProxi parts;
+    protected PersistentComponentLst This;
+    
+    public ComponentLst(PersistentComponentLst This,long id) throws PersistenceException {
+        /* Shall not be used by clients for object construction! Use static create operation instead! */
+        super(id);
+        this.parts = new ComponentLst_PartsProxi(this);
+        if (This != null && !(this.isTheSameAs(This))) this.This = This;        
+    }
+    
+    static public long getTypeId() {
+        return 117;
+    }
+    
+    public long getClassId() {
+        return getTypeId();
+    }
+    
+    public void store() throws PersistenceException {
+        if(!this.isDelayed$Persistence()) return;
+        if (this.getClassId() == 117) ConnectionHandler.getTheConnectionHandler().theComponentLstFacade
+            .newComponentLst(this.getId());
+        super.store();
+        this.getParts().store();
+        if(!this.isTheSameAs(this.getThis())){
+            this.getThis().store();
+            ConnectionHandler.getTheConnectionHandler().theComponentLstFacade.ThisSet(this.getId(), getThis());
+        }
+        
+    }
+    
+    public ComponentLst_PartsProxi getParts() throws PersistenceException {
+        return this.parts;
+    }
+    protected void setThis(PersistentComponentLst newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if (newValue.isTheSameAs(this)){
+            this.This = null;
+            return;
+        }
+        if(newValue.isTheSameAs(this.This)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.This = (PersistentComponentLst)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theComponentLstFacade.ThisSet(this.getId(), newValue);
+        }
+    }
+    public PersistentComponentLst getThis() throws PersistenceException {
+        if(this.This == null){
+            PersistentComponentLst result = (PersistentComponentLst)PersistentProxi.createProxi(this.getId(),this.getClassId());
+            result.getTheObject();
+            return result;
+        }return (PersistentComponentLst)this.This;
+    }
+    
+    public void accept(AnythingVisitor visitor) throws PersistenceException {
+        visitor.handleComponentLst(this);
+    }
+    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleComponentLst(this);
+    }
+    public <E extends model.UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleComponentLst(this);
+    }
+    public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleComponentLst(this);
+    }
+    public int getLeafInfo() throws PersistenceException{
+        if (this.getParts().getLength() > 0) return 1;
+        return 0;
+    }
+    
+    
+    public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
+				throws PersistenceException{
+        this.setThis((PersistentComponentLst)This);
+		if(this.isTheSameAs(This)){
+		}
+    }
+    
+    
+    // Start of section that contains operations that must be implemented.
+    
+    public void addPart(final Component4Public component, final long quantity) 
+				throws PersistenceException{
+    	
+        
+    }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+        
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
+        
+    }
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+        
+    }
+    
+    
+    // Start of section that contains overridden operations only.
+    
+
+    /* Start of protected part that is not overridden by persistence generator */
+    
+    /* End of protected part that is not overridden by persistence generator */
+    
+}

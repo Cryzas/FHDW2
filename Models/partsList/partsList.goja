@@ -1,0 +1,39 @@
+model partsList {
+
+server Server {
+	Component ** currentComponents##currComps;
+	void createProduct(String name);
+	void createMaterial(String name);
+	void addPart(Product product, Component component, Integer quantity) throws PartsListException;
+	ComponentLst fetchMaterials(Component component);
+}
+
+abstract class Component {
+	public prior String name;
+	abstract extern boolean contains(Component component);
+}
+
+class Material extends Component {}
+
+class Product extends Component {
+	ComponentLst components;
+	void addPart(Component component, Integer quantity) throws PartsListException;
+}
+
+class ComponentLst {
+	QuantifiedComponent ** parts; 
+	void addPart(Component component, Integer quantity);
+	extern boolean contains(Component component);
+}
+
+class QuantifiedComponent {
+	public prior Integer quantity;
+	public final prior Component component;
+	void addQuantity(Integer quantity);
+	extern boolean contains(Component component);
+}
+
+exception PartsListException{}
+
+}
+
