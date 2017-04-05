@@ -267,7 +267,7 @@ public class Server extends PersistentObject implements PersistentServer{
     // Start of section that contains operations that must be implemented.
     
     public void addPart(final Product4Public product, final Component4Public component, final long quantity) 
-				throws PersistenceException{
+				throws model.PartsListException, PersistenceException{
     	product.addPart(component, quantity);
     	getThis().signalChanged(true);
         

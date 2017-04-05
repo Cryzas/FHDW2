@@ -37,6 +37,8 @@ public  class RemoteServer extends RemoteServerMaster {
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
+        }catch(model.PartsListException e0){
+            return createExceptionResult(e0, this);
         }
     }
     

@@ -11,5 +11,8 @@ public abstract class UserExceptionStandardVisitor implements UserExceptionVisit
     public void handleRestrictionException(RestrictionException restrictionException) throws ModelException{
         this.standardHandling(restrictionException);
     }
+    public void handlePartsListException(PartsListException partsListException) throws ModelException{
+        this.standardHandling(partsListException);
+    }
     protected abstract void standardHandling(UserException userException) throws ModelException;
 }

@@ -2,6 +2,7 @@
 package model;
 
 import persistence.*;
+
 import model.visitor.*;
 
 
@@ -172,18 +173,18 @@ public class Product extends model.Component implements PersistentProduct{
     // Start of section that contains operations that must be implemented.
     
     public void addPart(final Component4Public component, final long quantity) 
-				throws PersistenceException{
+				throws model.PartsListException, PersistenceException{
+    	if (component.contains(getThis())) {
+    		throw new PartsListException("Geht nicht, weil zyklisch!");
+		}
     	getThis().getComponents().addPart(component, quantity);        
     }
     public boolean contains(final Component4Public component) 
 				throws PersistenceException{
-        //TODO: implement method: contains
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"contains\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
+    	if (getThis().equals(component)) {
+			return true;
+		}
+        return getThis().getComponents().contains(component);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{        

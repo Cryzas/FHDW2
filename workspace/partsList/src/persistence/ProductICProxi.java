@@ -63,7 +63,7 @@ public class ProductICProxi extends ComponentICProxi implements PersistentProduc
         ((PersistentProduct)this.getTheObject()).initialize(This, final$$Fields);
     }
     public void addPart(final Component4Public component, final long quantity) 
-				throws PersistenceException{
+				throws model.PartsListException, PersistenceException{
         ((PersistentProduct)this.getTheObject()).addPart(component, quantity);
     }
     public boolean contains(final Component4Public component) 

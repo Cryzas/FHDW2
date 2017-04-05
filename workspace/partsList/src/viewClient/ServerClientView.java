@@ -490,6 +490,9 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 				handleException(me);
 				this.close();
 			}
+			catch(PartsListException e) {
+				getStatusBar().setText(e.getMessage());
+			}
 			
 		}
 		protected String checkCompleteParameterSet(){

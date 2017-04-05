@@ -207,13 +207,10 @@ public class QuantifiedComponent extends PersistentObject implements PersistentQ
     }
     public boolean contains(final Component4Public component) 
 				throws PersistenceException{
-        //TODO: implement method: contains
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"contains\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
+        if (getThis().getComponent().equals(component)) {
+			return true;
+		}
+        return false;
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

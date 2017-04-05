@@ -18,7 +18,7 @@ public interface Product4Public extends Component4Public {
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
     public void addPart(final Component4Public component, final long quantity) 
-				throws PersistenceException;
+				throws model.PartsListException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void initializeOnCreation() 

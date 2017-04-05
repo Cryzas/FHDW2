@@ -26,7 +26,7 @@ public interface Server4Public extends Invoker, Anything, Remote, AbstractPersis
     public void signalChanged(final boolean signal) 
 				throws PersistenceException;
     public void addPart(final Product4Public product, final Component4Public component, final long quantity) 
-				throws PersistenceException;
+				throws model.PartsListException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void createMaterial(final String name) 

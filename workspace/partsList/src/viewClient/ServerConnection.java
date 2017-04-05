@@ -41,7 +41,8 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void addPart(ProductView product, ComponentView component, long quantity) throws ModelException{
+    @SuppressWarnings("unchecked")
+    public synchronized void addPart(ProductView product, ComponentView component, long quantity) throws ModelException, PartsListException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             if (product == null){
@@ -59,6 +60,8 @@ public class ServerConnection extends ConnectionMaster {
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -119)
+                    throw PartsListException.fromHashtableToPartsListException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 throw new ModelException ("Fatal error (unknown exception code:" + (Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName) + ")",0);
             }
         }catch(IOException ioe){

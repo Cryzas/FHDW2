@@ -103,7 +103,7 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
         ((PersistentServer)this.getTheObject()).signalChanged(signal);
     }
     public void addPart(final Product4Public product, final Component4Public component, final long quantity) 
-				throws PersistenceException{
+				throws model.PartsListException, PersistenceException{
         ((PersistentServer)this.getTheObject()).addPart(product, component, quantity);
     }
     public void connected(final String user) 

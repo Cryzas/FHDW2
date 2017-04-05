@@ -172,13 +172,14 @@ public class ComponentLst extends PersistentObject implements PersistentComponen
     }
     public boolean contains(final Component4Public component) 
 				throws PersistenceException{
-        //TODO: implement method: contains
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"contains\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
+    	java.util.Iterator<QuantifiedComponent4Public> parts = getThis().getParts().iterator();
+    	while(parts.hasNext()){
+    		QuantifiedComponent4Public current = parts.next();
+    		if( current.getComponent().contains(component)){
+    			return true;
+    		}
+    	}
+        return false;
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

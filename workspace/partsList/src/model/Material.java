@@ -142,13 +142,10 @@ public class Material extends model.Component implements PersistentMaterial{
     
     public boolean contains(final Component4Public component) 
 				throws PersistenceException{
-        //TODO: implement method: contains
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"contains\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
+        if (getThis().equals(component)) {
+			return true;
+		}
+        return false;
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
