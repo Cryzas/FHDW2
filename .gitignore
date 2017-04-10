@@ -2,3 +2,5 @@ PersistenceGeneratorConfiguration.xml
 workspace/.metadata/
 workspace/.recommenders/
 workspace/**/.classpath
+Backup/
+DB-Scripts/
