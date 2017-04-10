@@ -175,7 +175,7 @@ public class Product extends model.Component implements PersistentProduct{
     public void addPart(final Component4Public component, final long quantity) 
 				throws model.PartsListException, PersistenceException{
     	if (component.contains(getThis())) {
-    		throw new PartsListException("Geht nicht weil zyklisch!");
+    		throw new PartsListException("GEHT NICHT WEIL ZYKLISCH!!!");
 		}
     	getThis().getComponents().addPart(component, quantity);        
     }
