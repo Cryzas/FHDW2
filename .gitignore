@@ -4,3 +4,4 @@ workspace/.recommenders/
 workspace/**/.classpath
 Backup/
 DB-Scripts/
+Models/partsList/.PersistenceGeneratorConfiguration.xml
