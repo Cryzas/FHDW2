@@ -47,6 +47,10 @@ public class ComponentLstICProxi extends PersistentInCacheProxiOptimistic implem
 				throws PersistenceException{
         ((PersistentComponentLst)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public ComponentLst4Public addList(final ComponentLst4Public argument) 
+				throws PersistenceException{
+        return ((PersistentComponentLst)this.getTheObject()).addList(argument);
+    }
     public void addPart(final Component4Public component, final long quantity) 
 				throws PersistenceException{
         ((PersistentComponentLst)this.getTheObject()).addPart(component, quantity);
@@ -59,6 +63,10 @@ public class ComponentLstICProxi extends PersistentInCacheProxiOptimistic implem
 				throws PersistenceException{
         ((PersistentComponentLst)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public ComponentLst4Public fetchMaterials() 
+				throws PersistenceException{
+        return ((PersistentComponentLst)this.getTheObject()).fetchMaterials();
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentComponentLst)this.getTheObject()).initializeOnCreation();
@@ -66,6 +74,10 @@ public class ComponentLstICProxi extends PersistentInCacheProxiOptimistic implem
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentComponentLst)this.getTheObject()).initializeOnInstantiation();
+    }
+    public ComponentLst4Public multiply(final long factor) 
+				throws PersistenceException{
+        return ((PersistentComponentLst)this.getTheObject()).multiply(factor);
     }
 
     

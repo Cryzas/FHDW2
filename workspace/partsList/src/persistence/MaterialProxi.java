@@ -60,6 +60,10 @@ public class MaterialProxi extends ComponentProxi implements PersistentMaterial{
 				throws PersistenceException{
         ((PersistentMaterial)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public ComponentLst4Public fetchMaterials() 
+				throws PersistenceException{
+        return ((PersistentMaterial)this.getTheObject()).fetchMaterials();
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentMaterial)this.getTheObject()).initializeOnCreation();

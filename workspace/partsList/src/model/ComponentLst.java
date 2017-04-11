@@ -158,6 +158,16 @@ public class ComponentLst extends PersistentObject implements PersistentComponen
     
     // Start of section that contains operations that must be implemented.
     
+    public ComponentLst4Public addList(final ComponentLst4Public argument) 
+				throws PersistenceException{
+        //TODO: implement method: addList
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"addList\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void addPart(final Component4Public component, final long quantity) 
 				throws PersistenceException{
     	java.util.Iterator<QuantifiedComponent4Public> parts = getThis().getParts().iterator();
@@ -185,6 +195,16 @@ public class ComponentLst extends PersistentObject implements PersistentComponen
 				throws PersistenceException{
         
     }
+    public ComponentLst4Public fetchMaterials() 
+				throws PersistenceException{
+        //TODO: implement method: fetchMaterials
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"fetchMaterials\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         
@@ -192,6 +212,16 @@ public class ComponentLst extends PersistentObject implements PersistentComponen
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         
+    }
+    public ComponentLst4Public multiply(final long factor) 
+				throws PersistenceException{
+        //TODO: implement method: multiply
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"multiply\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
     }
     
     

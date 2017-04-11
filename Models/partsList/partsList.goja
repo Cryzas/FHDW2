@@ -11,6 +11,8 @@ server Server {
 abstract class Component {
 	public prior String name;
 	abstract extern boolean contains(Component component);
+	abstract ComponentLst fetchMaterials();
+
 }
 
 class Material extends Component {}
@@ -24,6 +26,9 @@ class ComponentLst {
 	QuantifiedComponent ** parts; 
 	void addPart(Component component, Integer quantity);
 	extern boolean contains(Component component);
+	ComponentLst fetchMaterials();
+	ComponentLst multiply(Integer factor);
+	ComponentLst addList(ComponentLst argument);
 }
 
 class QuantifiedComponent {
@@ -31,6 +36,8 @@ class QuantifiedComponent {
 	public final prior Component component;
 	void addQuantity(Integer quantity);
 	extern boolean contains(Component component);
+	ComponentLst fetchMaterials();
+	QuantifiedComponent multiply(Integer factor);
 }
 
 exception PartsListException{}

@@ -64,6 +64,10 @@ public class QuantifiedComponentProxi extends PersistentProxi implements Persist
 				throws PersistenceException{
         ((PersistentQuantifiedComponent)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public ComponentLst4Public fetchMaterials() 
+				throws PersistenceException{
+        return ((PersistentQuantifiedComponent)this.getTheObject()).fetchMaterials();
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentQuantifiedComponent)this.getTheObject()).initializeOnCreation();
@@ -71,6 +75,10 @@ public class QuantifiedComponentProxi extends PersistentProxi implements Persist
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentQuantifiedComponent)this.getTheObject()).initializeOnInstantiation();
+    }
+    public QuantifiedComponent4Public multiply(final long factor) 
+				throws PersistenceException{
+        return ((PersistentQuantifiedComponent)this.getTheObject()).multiply(factor);
     }
 
     

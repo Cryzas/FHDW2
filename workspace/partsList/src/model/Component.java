@@ -98,7 +98,6 @@ public abstract class Component extends PersistentObject implements PersistentCo
     
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
         
     }
     public void initializeOnCreation() 

@@ -74,6 +74,10 @@ public class ProductICProxi extends ComponentICProxi implements PersistentProduc
 				throws PersistenceException{
         ((PersistentProduct)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public ComponentLst4Public fetchMaterials() 
+				throws PersistenceException{
+        return ((PersistentProduct)this.getTheObject()).fetchMaterials();
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentProduct)this.getTheObject()).initializeOnCreation();

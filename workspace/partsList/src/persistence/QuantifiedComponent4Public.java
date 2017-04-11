@@ -21,9 +21,13 @@ public interface QuantifiedComponent4Public extends Anything, AbstractPersistent
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
+    public ComponentLst4Public fetchMaterials() 
+				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
+				throws PersistenceException;
+    public QuantifiedComponent4Public multiply(final long factor) 
 				throws PersistenceException;
 
 }

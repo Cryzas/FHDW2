@@ -216,6 +216,16 @@ public class QuantifiedComponent extends PersistentObject implements PersistentQ
 				throws PersistenceException{
         
     }
+    public ComponentLst4Public fetchMaterials() 
+				throws PersistenceException{
+        //TODO: implement method: fetchMaterials
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"fetchMaterials\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         
@@ -223,6 +233,16 @@ public class QuantifiedComponent extends PersistentObject implements PersistentQ
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         
+    }
+    public QuantifiedComponent4Public multiply(final long factor) 
+				throws PersistenceException{
+        //TODO: implement method: multiply
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"multiply\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
     }
     
     

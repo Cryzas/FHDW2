@@ -34,6 +34,10 @@ public abstract class ComponentProxi extends PersistentProxi implements Persiste
 				throws PersistenceException{
         ((PersistentComponent)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public ComponentLst4Public fetchMaterials() 
+				throws PersistenceException{
+        return ((PersistentComponent)this.getTheObject()).fetchMaterials();
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentComponent)this.getTheObject()).initializeOnCreation();
