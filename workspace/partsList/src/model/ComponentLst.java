@@ -160,13 +160,12 @@ public class ComponentLst extends PersistentObject implements PersistentComponen
     
     public ComponentLst4Public addList(final ComponentLst4Public argument) 
 				throws PersistenceException{
-        //TODO: implement method: addList
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"addList\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
+    	java.util.Iterator<QuantifiedComponent4Public> parts2 = argument.getParts().iterator();
+    	while(parts2.hasNext()){
+    		QuantifiedComponent4Public current2 = parts2.next();
+			getThis().addPart(current2.getComponent(), current2.getQuantity());
+    	}
+        return getThis();
     }
     public void addPart(final Component4Public component, final long quantity) 
 				throws PersistenceException{
@@ -197,13 +196,14 @@ public class ComponentLst extends PersistentObject implements PersistentComponen
     }
     public ComponentLst4Public fetchMaterials() 
 				throws PersistenceException{
-        //TODO: implement method: fetchMaterials
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"fetchMaterials\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
+    	ComponentLst4Public list = ComponentLst.createComponentLst();
+    	java.util.Iterator<QuantifiedComponent4Public> parts = getThis().getParts().iterator();
+    	while(parts.hasNext()){
+    		QuantifiedComponent4Public current = parts.next();
+    		list.addList(current.fetchMaterials());
+    	}
+    	return list;
+    	
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -215,13 +215,13 @@ public class ComponentLst extends PersistentObject implements PersistentComponen
     }
     public ComponentLst4Public multiply(final long factor) 
 				throws PersistenceException{
-        //TODO: implement method: multiply
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"multiply\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
+        ComponentLst4Public list = ComponentLst.createComponentLst();
+    	java.util.Iterator<QuantifiedComponent4Public> parts = getThis().getParts().iterator();
+    	while(parts.hasNext()){
+    		QuantifiedComponent4Public current = parts.next();
+    		list.addPart(current.getComponent(), current.getQuantity() * factor);
+    	}
+    	return list;
     }
     
     

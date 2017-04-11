@@ -102,12 +102,10 @@ public abstract class Component extends PersistentObject implements PersistentCo
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
         
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
         
     }
     

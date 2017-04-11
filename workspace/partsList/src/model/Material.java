@@ -153,13 +153,9 @@ public class Material extends model.Component implements PersistentMaterial{
     }
     public ComponentLst4Public fetchMaterials() 
 				throws PersistenceException{
-        //TODO: implement method: fetchMaterials
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"fetchMaterials\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
+    	ComponentLst4Public list = ComponentLst.createComponentLst();
+    	list.addPart(getThis(), 1);
+    	return list;
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

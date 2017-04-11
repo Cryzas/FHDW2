@@ -191,13 +191,7 @@ public class Product extends model.Component implements PersistentProduct{
     }
     public ComponentLst4Public fetchMaterials() 
 				throws PersistenceException{
-        //TODO: implement method: fetchMaterials
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"fetchMaterials\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
+        return getThis().getComponents().fetchMaterials();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -207,7 +201,6 @@ public class Product extends model.Component implements PersistentProduct{
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         super.initializeOnInstantiation();
-		//TODO: implement method: initializeOnInstantiation
     }
     
     

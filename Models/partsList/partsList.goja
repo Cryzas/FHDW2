@@ -23,7 +23,7 @@ class Product extends Component {
 }
 
 class ComponentLst {
-	QuantifiedComponent ** parts; 
+	public QuantifiedComponent ** parts; 
 	void addPart(Component component, Integer quantity);
 	extern boolean contains(Component component);
 	ComponentLst fetchMaterials();

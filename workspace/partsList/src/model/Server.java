@@ -298,13 +298,7 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public ComponentLst4Public fetchMaterials(final Component4Public component) 
 				throws PersistenceException{
-        //TODO: implement method: fetchMaterials
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"fetchMaterials\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
+        return component.fetchMaterials();
     }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{

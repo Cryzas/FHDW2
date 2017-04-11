@@ -5,6 +5,7 @@ import model.visitor.*;
 
 public interface ComponentLst4Public extends Anything, AbstractPersistentProxi {
     
+    public ComponentLst_PartsProxi getParts() throws PersistenceException ;
     
     public void accept(AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;
