@@ -174,14 +174,7 @@ public class ComponentLst extends PersistentObject implements PersistentComponen
     }
     public boolean contains(final Component4Public component) 
 				throws PersistenceException{
-    	java.util.Iterator<QuantifiedComponent4Public> parts = getThis().getParts().iterator();
-    	while(parts.hasNext()){
-    		QuantifiedComponent4Public current = parts.next();
-    		if( current.getComponent().contains(component)){
-    			return true;
-    		}
-    	}
-        return false;
+    	return getThis().getParts().findFirst(arg -> arg.getComponent().contains(component)) != null;
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

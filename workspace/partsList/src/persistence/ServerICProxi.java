@@ -110,6 +110,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws model.PartsListException, PersistenceException{
         ((PersistentServer)this.getTheObject()).addPart(product, component, quantity);
     }
+    public void clearComponents() 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).clearComponents();
+    }
     public void connected(final String user) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).connected(user);
@@ -119,11 +123,11 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
         ((PersistentServer)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
     public void createMaterial(final String name) 
-				throws PersistenceException{
+				throws model.PartsListException, PersistenceException{
         ((PersistentServer)this.getTheObject()).createMaterial(name);
     }
     public void createProduct(final String name) 
-				throws PersistenceException{
+				throws model.PartsListException, PersistenceException{
         ((PersistentServer)this.getTheObject()).createProduct(name);
     }
     public void disconnected() 
@@ -133,6 +137,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public ComponentLst4Public fetchMaterials(final Component4Public component) 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).fetchMaterials(component);
+    }
+    public void findComponents(final String name) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).findComponents(name);
     }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{

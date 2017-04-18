@@ -25,6 +25,11 @@ public abstract class Component extends PersistentObject implements PersistentCo
         return result;
     }
     
+    public static ComponentSearchList getComponentByName(String name) throws PersistenceException{
+        return ConnectionHandler.getTheConnectionHandler().theComponentFacade
+            .getComponentByName(name);
+    }
+    
     public abstract Component provideCopy() throws PersistenceException;
     
     public boolean hasEssentialFields() throws PersistenceException{

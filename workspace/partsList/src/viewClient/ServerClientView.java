@@ -319,9 +319,11 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 
     interface MenuItemVisitor{
         ImageView handle(AddPartPRMTRProductPRMTRComponentPRMTRIntegerPRMTRMenuItem menuItem);
+        ImageView handle(ClearComponentsPRMTRMenuItem menuItem);
         ImageView handle(CreateMaterialPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(CreateProductPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(FetchMaterialsPRMTRComponentPRMTRMenuItem menuItem);
+        ImageView handle(FindComponentsPRMTRStringPRMTRMenuItem menuItem);
     }
     private abstract class ServerMenuItem extends MenuItem{
         private ServerMenuItem(){
@@ -330,6 +332,11 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         abstract protected ImageView accept(MenuItemVisitor visitor);
     }
     private class AddPartPRMTRProductPRMTRComponentPRMTRIntegerPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class ClearComponentsPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -349,9 +356,37 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
             return visitor.handle(this);
         }
     }
+    private class FindComponentsPRMTRStringPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
     private java.util.Vector<javafx.scene.control.Button> getToolButtonsForStaticOperations() {
         java.util.Vector<javafx.scene.control.Button> result = new java.util.Vector<javafx.scene.control.Button>();
         javafx.scene.control.Button currentButton = null;
+        currentButton = new javafx.scene.control.Button("clearComponents");
+        currentButton.setGraphic(new ClearComponentsPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                Alert confirm = new Alert(AlertType.CONFIRMATION);
+                confirm.setTitle(GUIConstants.ConfirmButtonText);
+                confirm.setHeaderText(null);
+                confirm.setContentText("clearComponents" + GUIConstants.ConfirmQuestionMark);
+                confirm.setX( getPointForView().getX() );
+                confirm.setY( getPointForView().getY() );
+                Optional<ButtonType> buttonResult = confirm.showAndWait();
+                if (buttonResult.get() == ButtonType.OK) {
+                    try {
+                        getConnection().clearComponents();
+                        getConnection().setEagerRefresh();
+                        
+                    }catch(ModelException me){
+                        handleException(me);
+                    }
+                }
+            }
+        });
+        result.add(currentButton);
         currentButton = new javafx.scene.control.Button("createMaterial ... ");
         currentButton.setGraphic(new CreateMaterialPRMTRStringPRMTRMenuItem().getGraphic());
         currentButton.setOnAction(new EventHandler<ActionEvent>(){
@@ -376,11 +411,46 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
             }
         });
         result.add(currentButton);
+        currentButton = new javafx.scene.control.Button("findComponents ... ");
+        currentButton.setGraphic(new FindComponentsPRMTRStringPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final ServerFindComponentsStringMssgWizard wizard = new ServerFindComponentsStringMssgWizard("findComponents");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.setX( getPointForView().getX());
+                wizard.setY( getPointForView().getY());
+                wizard.showAndWait();
+            }
+        });
+        result.add(currentButton);
         return result;
     }
     private ContextMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations, final Point2D menuPos) {
         final ContextMenu result = new ContextMenu();
         MenuItem item = null;
+        item = new ClearComponentsPRMTRMenuItem();
+        item.setText("(S) clearComponents");
+        item.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                Alert confirm = new Alert(AlertType.CONFIRMATION);
+                confirm.setTitle(GUIConstants.ConfirmButtonText);
+                confirm.setHeaderText(null);
+                confirm.setContentText("clearComponents" + GUIConstants.ConfirmQuestionMark);
+                confirm.setX( getPointForView().getX() );
+                confirm.setY( getPointForView().getY() );
+                Optional<ButtonType> buttonResult = confirm.showAndWait();
+                if (buttonResult.get() == ButtonType.OK) {
+                    try {
+                        getConnection().clearComponents();
+                        getConnection().setEagerRefresh();
+                        
+                    }catch(ModelException me){
+                        handleException(me);
+                    }
+                }
+            }
+        });
+        if (withStaticOperations) result.getItems().add(item);
         item = new CreateMaterialPRMTRStringPRMTRMenuItem();
         item.setText("(S) createMaterial ... ");
         item.setOnAction(new EventHandler<ActionEvent>(){
@@ -398,6 +468,18 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         item.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
                 final ServerCreateProductStringMssgWizard wizard = new ServerCreateProductStringMssgWizard("createProduct");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.setX( getPointForView().getX());
+                wizard.setY( getPointForView().getY());
+                wizard.showAndWait();
+            }
+        });
+        if (withStaticOperations) result.getItems().add(item);
+        item = new FindComponentsPRMTRStringPRMTRMenuItem();
+        item.setText("(S) findComponents ... ");
+        item.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final ServerFindComponentsStringMssgWizard wizard = new ServerFindComponentsStringMssgWizard("findComponents");
                 wizard.setWidth(getNavigationPanel().getWidth());
                 wizard.setX( getPointForView().getX());
                 wizard.setY( getPointForView().getY());
@@ -543,6 +625,9 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 				handleException(me);
 				this.close();
 			}
+			catch(PartsListException e) {
+				getStatusBar().setText(e.getMessage());
+			}
 			
 		}
 		protected String checkCompleteParameterSet(){
@@ -575,6 +660,47 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 		protected void perform() {
 			try {
 				getConnection().createProduct(((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			catch(PartsListException e) {
+				getStatusBar().setText(e.getMessage());
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+	}
+
+	class ServerFindComponentsStringMssgWizard extends Wizard {
+
+		protected ServerFindComponentsStringMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new FindComponentsPRMTRStringPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerFindComponentsStringMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().findComponents(((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
 				getConnection().setEagerRefresh();
 				this.close();	
 			} catch(ModelException me){

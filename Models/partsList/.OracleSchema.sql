@@ -99,6 +99,8 @@ create table Cmpnnt(
     PrdctCmpnntsCls number,
     constraint FPrdctCmpnnts foreign key (PrdctCmpnntsCls) references Cls (id)    
 );
+create index INmCmpnnt on Cmpnnt (CmpnntNm);
+
 
 create table CmmnDt(
     id number primary key,

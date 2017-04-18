@@ -29,6 +29,28 @@ public class ComponentFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
+    public ComponentSearchList getComponentByName(String name) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".CmpnntFacade.getCmpnntByNm(?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            callable.setString(2, name);
+            callable.execute();
+            ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
+            ComponentSearchList result = new ComponentSearchList();
+            while (list.next()) {
+                long classId = list.getLong(2);
+                long objectId = list.getLong(1);
+                PersistentComponent proxi = (PersistentComponent)PersistentProxi.createProxi(objectId, classId);
+                result.add(proxi);
+            }
+            list.close();
+            callable.close();
+            return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
     public void nameSet(long ComponentId, String nameVal) throws PersistenceException {
         try{
             CallableStatement callable;
