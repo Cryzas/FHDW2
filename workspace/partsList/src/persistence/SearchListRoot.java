@@ -121,6 +121,15 @@ public abstract class SearchListRoot<T extends AbstractPersistentRoot> {
 			procedure.doItTo(current);
 		}
 	}
+	public <R> R aggregate (R neutral, Aggregtor<T,R> aggregator) throws PersistenceException{
+		R result = neutral;
+		Iterator<T> i = this.iterator();
+		while (i.hasNext()){
+			T current = i.next();
+			result = aggregator.compose(result,current);
+		}
+		return result;
+	}
 	public <R> R aggregate (Aggregtion<T,R> aggregation) throws PersistenceException{
 		R result = aggregation.neutral();
 		Iterator<T> i = this.iterator();
@@ -190,6 +199,16 @@ public abstract class SearchListRoot<T extends AbstractPersistentRoot> {
 		}
 		return result;
 	}
+	public <R,E extends UserException> R aggregateException (R neutral, AggregtorException<T,R,E> aggregator) throws PersistenceException, E{
+		R result = neutral;
+		Iterator<T> i = this.iterator();
+		while (i.hasNext()){
+			T current = i.next();
+			result = aggregator.compose(result,current);
+		}
+		return result;
+	}
+	
 	public <R extends AbstractPersistentRoot> SearchListRoot<R> productFunction (Fnction<T,R> function, boolean unique) throws PersistenceException, UserException{
 		SearchListRoot<R> result = new DefaultSearchListRoot<R>(){};
 		Iterator<T> entries = this.iterator();

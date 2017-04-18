@@ -232,7 +232,8 @@ public class QuantifiedComponent extends PersistentObject implements PersistentQ
     }
     public QuantifiedComponent4Public multiply(final long factor) 
 				throws PersistenceException{
-        return QuantifiedComponent.createQuantifiedComponent(getThis().getQuantity() * factor, getThis().getComponent());
+    	getThis().setQuantity(getThis().getQuantity()*factor);
+        return getThis();
     }
     
     

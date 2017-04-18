@@ -160,24 +160,17 @@ public class ComponentLst extends PersistentObject implements PersistentComponen
     
     public ComponentLst4Public addList(final ComponentLst4Public argument) 
 				throws PersistenceException{
-    	java.util.Iterator<QuantifiedComponent4Public> parts2 = argument.getParts().iterator();
-    	while(parts2.hasNext()){
-    		QuantifiedComponent4Public current2 = parts2.next();
-			getThis().addPart(current2.getComponent(), current2.getQuantity());
-    	}
+    	getThis().getParts().applyToAll(arg -> getThis().addPart(arg.getComponent(), arg.getQuantity()));
         return getThis();
     }
     public void addPart(final Component4Public component, final long quantity) 
 				throws PersistenceException{
-    	java.util.Iterator<QuantifiedComponent4Public> parts = getThis().getParts().iterator();
-    	while(parts.hasNext()){
-    		QuantifiedComponent4Public current = parts.next();
-    		if( current.getComponent().equals(component)){
-    			current.addQuantity(quantity);
-    			return;
-    		}
-    	}
-    	getThis().getParts().add(QuantifiedComponent.createQuantifiedComponent(quantity, component));
+    	QuantifiedComponent4Public oldEntry = getThis().getParts().findFirst(arg -> arg.getComponent().equals(component));    	
+    	if (oldEntry != null) {
+			oldEntry.addQuantity(quantity);
+		} else {
+			getThis().getParts().add(QuantifiedComponent.createQuantifiedComponent(quantity, component));
+		}
     }
     public boolean contains(final Component4Public component) 
 				throws PersistenceException{
@@ -196,14 +189,7 @@ public class ComponentLst extends PersistentObject implements PersistentComponen
     }
     public ComponentLst4Public fetchMaterials() 
 				throws PersistenceException{
-    	ComponentLst4Public list = ComponentLst.createComponentLst();
-    	java.util.Iterator<QuantifiedComponent4Public> parts = getThis().getParts().iterator();
-    	while(parts.hasNext()){
-    		QuantifiedComponent4Public current = parts.next();
-    		list.addList(current.fetchMaterials());
-    	}
-    	return list;
-    	
+    	return getThis().getParts().aggregate(ComponentLst.createComponentLst(), (result,argument) -> result.addList(argument.fetchMaterials()));
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -215,13 +201,8 @@ public class ComponentLst extends PersistentObject implements PersistentComponen
     }
     public ComponentLst4Public multiply(final long factor) 
 				throws PersistenceException{
-        ComponentLst4Public list = ComponentLst.createComponentLst();
-    	java.util.Iterator<QuantifiedComponent4Public> parts = getThis().getParts().iterator();
-    	while(parts.hasNext()){
-    		QuantifiedComponent4Public current = parts.next();
-    		list.addPart(current.getComponent(), current.getQuantity() * factor);
-    	}
-    	return list;
+    	getThis().getParts().applyToAll(argument -> argument.multiply(factor));
+    	return getThis();
     }
     
     
