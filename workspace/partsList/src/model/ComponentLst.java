@@ -160,7 +160,7 @@ public class ComponentLst extends PersistentObject implements PersistentComponen
     
     public ComponentLst4Public addList(final ComponentLst4Public argument) 
 				throws PersistenceException{
-    	getThis().getParts().applyToAll(arg -> getThis().addPart(arg.getComponent(), arg.getQuantity()));
+    	argument.getParts().applyToAll(arg -> getThis().addPart(arg.getComponent(), arg.getQuantity()));
         return getThis();
     }
     public void addPart(final Component4Public component, final long quantity) 
