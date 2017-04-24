@@ -16,7 +16,6 @@ public class ComponentQuantifiedComponentWrapper extends AssociationInTreeWrappe
 	
 	
 	public String toString(){
-    	//TODO: Implement toString in wrapper class for association component in class QuantifiedComponent
     	return this.getWrappedObject().toString();
     }
 

@@ -16,7 +16,6 @@ public class PartsComponentLstWrapper extends AssociationInTreeWrapper {
 	
 	
 	public String toString(){
-    	//TODO: Implement toString in wrapper class for association parts in class ComponentLst
     	return this.getWrappedObject().toString();
     }
 

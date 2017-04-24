@@ -16,7 +16,6 @@ public class CurrentComponentsServerWrapper extends AssociationInTreeWrapper {
 	
 	
 	public String toString(){
-    	//TODO: Implement toString in wrapper class for association currentComponents in class Server
     	return this.getWrappedObject().toString();
     }
 

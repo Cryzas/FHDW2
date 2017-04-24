@@ -16,8 +16,7 @@ public class MaterialsProductWrapper extends AssociationInTreeWrapper {
 	
 	
 	public String toString(){
-    	//TODO: Implement toString in wrapper class for association materials in class Product
-    	return this.getWrappedObject().toString();
+    	return "Materials";
     }
 
     /*End of protected part that is not overridden by persistence generator*/
