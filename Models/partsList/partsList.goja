@@ -6,9 +6,9 @@ server Server {
 	void createMaterial(String name, Fraction price) throws PartsListException;
 	void addPart(Product product, Component component, Integer quantity) throws PartsListException;
 	ComponentLst fetchMaterials(Component component);
-	Fraction fetchOverallPrice(Component component);
    void findComponents(String name);
 	void clearComponents();
+	void changePrice(Component component, Fraction price);
 }
 
 abstract class Component {
@@ -16,7 +16,9 @@ abstract class Component {
 	abstract extern boolean contains(Component component);
 	abstract ComponentLst fetchMaterials();
 	abstract Fraction fetchOverallPrice();
-	prior Fraction price;
+	public prior Fraction price;
+	derived Fraction overAllPrice;
+	void changePrice(Fraction price);
 }
 
 class Material extends Component {}
@@ -31,9 +33,9 @@ class ComponentLst {
 	void addPart(Component component, Integer quantity);
 	extern boolean contains(Component component);
 	ComponentLst fetchMaterials();
+	Fraction fetchOverallPrice();
 	ComponentLst multiply(Integer factor);
 	ComponentLst addList(ComponentLst argument);
-	Fraction fetchOverallPrice();
 }
 
 class QuantifiedComponent {
@@ -42,8 +44,8 @@ class QuantifiedComponent {
 	void addQuantity(Integer quantity);
 	extern boolean contains(Component component);
 	ComponentLst fetchMaterials();
-	QuantifiedComponent multiply(Integer factor);
 	Fraction fetchOverallPrice();
+	QuantifiedComponent multiply(Integer factor);
 }
 
 exception PartsListException{}

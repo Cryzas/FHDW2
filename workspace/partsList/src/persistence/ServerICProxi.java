@@ -110,6 +110,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws model.PartsListException, PersistenceException{
         ((PersistentServer)this.getTheObject()).addPart(product, component, quantity);
     }
+    public void changePrice(final Component4Public component, final common.Fraction price) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).changePrice(component, price);
+    }
     public void clearComponents() 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).clearComponents();
@@ -137,10 +141,6 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public ComponentLst4Public fetchMaterials(final Component4Public component) 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).fetchMaterials(component);
-    }
-    public common.Fraction fetchOverallPrice(final Component4Public component) 
-				throws PersistenceException{
-        return ((PersistentServer)this.getTheObject()).fetchOverallPrice(component);
     }
     public void findComponents(final String name) 
 				throws PersistenceException{

@@ -52,6 +52,10 @@ public class MaterialProxi extends ComponentProxi implements PersistentMaterial{
 				throws PersistenceException{
         ((PersistentMaterial)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public void changePrice(final common.Fraction price) 
+				throws PersistenceException{
+        ((PersistentMaterial)this.getTheObject()).changePrice(price);
+    }
     public boolean contains(final Component4Public component) 
 				throws PersistenceException{
         return ((PersistentMaterial)this.getTheObject()).contains(component);
@@ -67,6 +71,10 @@ public class MaterialProxi extends ComponentProxi implements PersistentMaterial{
     public common.Fraction fetchOverallPrice() 
 				throws PersistenceException{
         return ((PersistentMaterial)this.getTheObject()).fetchOverallPrice();
+    }
+    public common.Fraction getOverAllPrice() 
+				throws PersistenceException{
+        return ((PersistentMaterial)this.getTheObject()).getOverAllPrice();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

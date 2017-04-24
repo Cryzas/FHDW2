@@ -62,6 +62,10 @@ public class ProductProxi extends ComponentProxi implements PersistentProduct{
 				throws model.PartsListException, PersistenceException{
         ((PersistentProduct)this.getTheObject()).addPart(component, quantity);
     }
+    public void changePrice(final common.Fraction price) 
+				throws PersistenceException{
+        ((PersistentProduct)this.getTheObject()).changePrice(price);
+    }
     public boolean contains(final Component4Public component) 
 				throws PersistenceException{
         return ((PersistentProduct)this.getTheObject()).contains(component);
@@ -77,6 +81,10 @@ public class ProductProxi extends ComponentProxi implements PersistentProduct{
     public common.Fraction fetchOverallPrice() 
 				throws PersistenceException{
         return ((PersistentProduct)this.getTheObject()).fetchOverallPrice();
+    }
+    public common.Fraction getOverAllPrice() 
+				throws PersistenceException{
+        return ((PersistentProduct)this.getTheObject()).getOverAllPrice();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

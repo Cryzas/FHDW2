@@ -10,12 +10,14 @@ public abstract class Component extends ViewObject implements ComponentView{
     
     protected String name;
     protected common.Fraction price;
+    protected common.Fraction overAllPrice;
     
-    public Component(String name,common.Fraction price,long id, long classId) {
+    public Component(String name,common.Fraction price,common.Fraction overAllPrice,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.name = name;
-        this.price = price;        
+        this.price = price;
+        this.overAllPrice = overAllPrice;        
     }
     
     public String getName()throws ModelException{
@@ -29,6 +31,9 @@ public abstract class Component extends ViewObject implements ComponentView{
     }
     public void setPrice(common.Fraction newValue) throws ModelException {
         this.price = newValue;
+    }
+    public common.Fraction getOverAllPrice()throws ModelException{
+        return this.overAllPrice;
     }
     
     
@@ -58,8 +63,12 @@ public abstract class Component extends ViewObject implements ComponentView{
     public int getPriceIndex() throws ModelException {
         return 0 + 1;
     }
+    public int getOverAllPriceIndex() throws ModelException {
+        return 0 + 1 + 1;
+    }
     public int getRowCount(){
         return 0 
+            + 1
             + 1
             + 1;
     }
@@ -70,10 +79,14 @@ public abstract class Component extends ViewObject implements ComponentView{
                 rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return "price";
                 rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return "overAllPrice";
+                rowIndex = rowIndex - 1;
             } else {
                 if(rowIndex == 0) return this.getName();
                 rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return this.getPrice();
+                rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return this.getOverAllPrice();
                 rowIndex = rowIndex - 1;
             }
             throw new ModelException("Table index out of bounds!", -1);
@@ -95,6 +108,7 @@ public abstract class Component extends ViewObject implements ComponentView{
             this.setPrice(common.Fraction.parse(newValue));
             return;
         }
+        rowIndex = rowIndex - 1;
         rowIndex = rowIndex - 1;
     }
     /* Start of protected part that is not overridden by persistence generator */

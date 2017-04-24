@@ -10,6 +10,7 @@ public interface ComponentView extends Anything, AbstractViewRoot {
     public void setName(String newValue) throws ModelException ;
     public common.Fraction getPrice()throws ModelException;
     public void setPrice(common.Fraction newValue) throws ModelException ;
+    public common.Fraction getOverAllPrice()throws ModelException;
     
     public void accept(ComponentVisitor visitor) throws ModelException;
     public <R> R accept(ComponentReturnVisitor<R>  visitor) throws ModelException;

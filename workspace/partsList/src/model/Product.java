@@ -2,7 +2,6 @@
 package model;
 
 import persistence.*;
-
 import model.visitor.*;
 
 

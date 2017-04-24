@@ -1,6 +1,7 @@
 
 package model;
 
+import common.Fraction;
 import persistence.*;
 
 
@@ -20,6 +21,7 @@ public abstract class Component extends PersistentObject implements PersistentCo
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
             result.put("name", this.getName());
             result.put("price", this.getPrice().toString());
+            result.put("overAllPrice", this.getOverAllPrice().toString());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -130,6 +132,14 @@ public abstract class Component extends PersistentObject implements PersistentCo
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    public Fraction getOverAllPrice() throws PersistenceException {
+		return getThis().fetchOverallPrice();
+	}
+
+	public void changePrice(Fraction price) throws PersistenceException {
+		getThis().setPrice(price);
+	}
     
     /* End of protected part that is not overridden by persistence generator */
     

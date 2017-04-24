@@ -319,11 +319,11 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 
     interface MenuItemVisitor{
         ImageView handle(AddPartPRMTRProductPRMTRComponentPRMTRIntegerPRMTRMenuItem menuItem);
+        ImageView handle(ChangePricePRMTRComponentPRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(ClearComponentsPRMTRMenuItem menuItem);
         ImageView handle(CreateMaterialPRMTRStringPRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(CreateProductPRMTRStringPRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(FetchMaterialsPRMTRComponentPRMTRMenuItem menuItem);
-        ImageView handle(FetchOverallPricePRMTRComponentPRMTRMenuItem menuItem);
         ImageView handle(FindComponentsPRMTRStringPRMTRMenuItem menuItem);
     }
     private abstract class ServerMenuItem extends MenuItem{
@@ -333,6 +333,11 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         abstract protected ImageView accept(MenuItemVisitor visitor);
     }
     private class AddPartPRMTRProductPRMTRComponentPRMTRIntegerPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class ChangePricePRMTRComponentPRMTRFractionPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -353,11 +358,6 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         }
     }
     private class FetchMaterialsPRMTRComponentPRMTRMenuItem extends ServerMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class FetchOverallPricePRMTRComponentPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -516,6 +516,19 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                 result.getItems().add(item);
             }
             if (selected instanceof ComponentView){
+                item = new ChangePricePRMTRComponentPRMTRFractionPRMTRMenuItem();
+                item.setText("changePrice ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final ServerChangePriceComponentFractionMssgWizard wizard = new ServerChangePriceComponentFractionMssgWizard("changePrice");
+                        wizard.setFirstArgument((ComponentView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.setX( getPointForView().getX());
+                        wizard.setY( getPointForView().getY());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
                 item = new FetchMaterialsPRMTRComponentPRMTRMenuItem();
                 item.setText("fetchMaterials");
                 item.setOnAction(new EventHandler<ActionEvent>(){
@@ -532,32 +545,6 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                                 ViewRoot result = (ViewRoot)getConnection().fetchMaterials((ComponentView)selected);
                                 getConnection().setEagerRefresh();
                                 ReturnValueView view = new ReturnValueView(result, new javafx.geometry.Dimension2D(getNavigationPanel().getWidth()*8/9,getNavigationPanel().getHeight()*8/9), ServerClientView.this);
-                                view.setX( getPointForView().getX() );
-                                view.setY( getPointForView().getY() );
-                                view.showAndWait();
-                            }catch(ModelException me){
-                                handleException(me);
-                            }
-                        }
-                    }
-                });
-                result.getItems().add(item);
-                item = new FetchOverallPricePRMTRComponentPRMTRMenuItem();
-                item.setText("fetchOverallPrice");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        Alert confirm = new Alert(AlertType.CONFIRMATION);
-                        confirm.setTitle(GUIConstants.ConfirmButtonText);
-                        confirm.setHeaderText(null);
-                        confirm.setContentText("fetchOverallPrice" + GUIConstants.ConfirmQuestionMark);
-                        confirm.setX( getPointForView().getX() );
-                        confirm.setY( getPointForView().getY() );
-                        Optional<ButtonType> buttonResult = confirm.showAndWait();
-                        if (buttonResult.get() == ButtonType.OK) {
-                            try {
-                                common.Fraction result = getConnection().fetchOverallPrice((ComponentView)selected);
-                                getConnection().setEagerRefresh();
-                                ReturnValueView view = new ReturnValueView(result, new javafx.geometry.Dimension2D(getNavigationPanel().getWidth()*8/9,getNavigationPanel().getHeight()*8/9));
                                 view.setX( getPointForView().getX() );
                                 view.setY( getPointForView().getY() );
                                 view.showAndWait();
@@ -630,6 +617,60 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 		public void setFirstArgument(ProductView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerChangePriceComponentFractionMssgWizard extends Wizard {
+
+		protected ServerChangePriceComponentFractionMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new ChangePricePRMTRComponentPRMTRFractionPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerChangePriceComponentFractionMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().changePrice(firstArgument, ((FractionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new FractionSelectionPanel("price", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private ComponentView firstArgument; 
+	
+		public void setFirstArgument(ComponentView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
+				selectionPanel0.preset(firstArgument.getPrice());
+				if (!selectionPanel0.check()) selectionPanel0.preset("");
+			}catch(ModelException me){
+				 handleException(me);
+			}
 			this.check();
 		}
 		

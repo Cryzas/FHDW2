@@ -1283,6 +1283,7 @@ class ProductDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Component$$name = "Component$$name";
     protected static final String Component$$price = "Component$$price";
+    protected static final String Component$$overAllPrice = "Component$$overAllPrice";
     protected static final String Product$$components = "Product$$components";
     
     protected ProductDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1303,6 +1304,13 @@ class ProductDefaultDetailPanel extends DefaultDetailPanel{
         }catch(ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }
+        try{
+            BaseTypePanel panel = new FractionPanel(this, "overAllPrice", this.getAnything().getOverAllPrice());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(Component$$overAllPrice, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
         
     }
     protected view.ProductView getAnything(){
@@ -1314,6 +1322,7 @@ class MaterialDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Component$$name = "Component$$name";
     protected static final String Component$$price = "Component$$price";
+    protected static final String Component$$overAllPrice = "Component$$overAllPrice";
     
     protected MaterialDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1330,6 +1339,13 @@ class MaterialDefaultDetailPanel extends DefaultDetailPanel{
             BaseTypePanel panel = new FractionPanel(this, "price", this.getAnything().getPrice());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(Component$$price, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new FractionPanel(this, "overAllPrice", this.getAnything().getOverAllPrice());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(Component$$overAllPrice, panel);
         }catch(ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }

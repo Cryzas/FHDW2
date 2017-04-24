@@ -271,6 +271,11 @@ public class Server extends PersistentObject implements PersistentServer{
 		getThis().signalChanged(true);
 
 	}
+    public void changePrice(final Component4Public component, final common.Fraction price) 
+				throws PersistenceException{
+        component.changePrice(price);
+        getThis().signalChanged(true);
+    }
     public void clearComponents() 
 				throws PersistenceException{
 		getThis().getCurrentComponents().filter(x -> false);
@@ -310,10 +315,6 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
 		return component.fetchMaterials();
 	}
-    public common.Fraction fetchOverallPrice(final Component4Public component) 
-				throws PersistenceException{
-        return component.fetchOverallPrice();
-    }
     public void findComponents(final String name) 
 				throws PersistenceException{
 		Component.getComponentByName(name).applyToAll(x -> {
