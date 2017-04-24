@@ -18,6 +18,12 @@ public abstract class ComponentICProxi extends PersistentInCacheProxiOptimistic 
     public void setName(String newValue) throws PersistenceException {
         ((PersistentComponent)this.getTheObject()).setName(newValue);
     }
+    public common.Fraction getPrice() throws PersistenceException {
+        return ((PersistentComponent)this.getTheObject()).getPrice();
+    }
+    public void setPrice(common.Fraction newValue) throws PersistenceException {
+        ((PersistentComponent)this.getTheObject()).setPrice(newValue);
+    }
     public abstract PersistentComponent getThis() throws PersistenceException ;
     
     
@@ -37,6 +43,10 @@ public abstract class ComponentICProxi extends PersistentInCacheProxiOptimistic 
     public ComponentLst4Public fetchMaterials() 
 				throws PersistenceException{
         return ((PersistentComponent)this.getTheObject()).fetchMaterials();
+    }
+    public common.Fraction fetchOverallPrice() 
+				throws PersistenceException{
+        return ((PersistentComponent)this.getTheObject()).fetchOverallPrice();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

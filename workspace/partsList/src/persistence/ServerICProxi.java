@@ -122,13 +122,13 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public void createMaterial(final String name) 
+    public void createMaterial(final String name, final common.Fraction price) 
 				throws model.PartsListException, PersistenceException{
-        ((PersistentServer)this.getTheObject()).createMaterial(name);
+        ((PersistentServer)this.getTheObject()).createMaterial(name, price);
     }
-    public void createProduct(final String name) 
+    public void createProduct(final String name, final common.Fraction price) 
 				throws model.PartsListException, PersistenceException{
-        ((PersistentServer)this.getTheObject()).createProduct(name);
+        ((PersistentServer)this.getTheObject()).createProduct(name, price);
     }
     public void disconnected() 
 				throws PersistenceException{
@@ -137,6 +137,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public ComponentLst4Public fetchMaterials(final Component4Public component) 
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).fetchMaterials(component);
+    }
+    public common.Fraction fetchOverallPrice(final Component4Public component) 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).fetchOverallPrice(component);
     }
     public void findComponents(final String name) 
 				throws PersistenceException{

@@ -78,6 +78,10 @@ public class ProductICProxi extends ComponentICProxi implements PersistentProduc
 				throws PersistenceException{
         return ((PersistentProduct)this.getTheObject()).fetchMaterials();
     }
+    public common.Fraction fetchOverallPrice() 
+				throws PersistenceException{
+        return ((PersistentProduct)this.getTheObject()).fetchOverallPrice();
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentProduct)this.getTheObject()).initializeOnCreation();

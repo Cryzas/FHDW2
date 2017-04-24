@@ -320,9 +320,10 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
     interface MenuItemVisitor{
         ImageView handle(AddPartPRMTRProductPRMTRComponentPRMTRIntegerPRMTRMenuItem menuItem);
         ImageView handle(ClearComponentsPRMTRMenuItem menuItem);
-        ImageView handle(CreateMaterialPRMTRStringPRMTRMenuItem menuItem);
-        ImageView handle(CreateProductPRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(CreateMaterialPRMTRStringPRMTRFractionPRMTRMenuItem menuItem);
+        ImageView handle(CreateProductPRMTRStringPRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(FetchMaterialsPRMTRComponentPRMTRMenuItem menuItem);
+        ImageView handle(FetchOverallPricePRMTRComponentPRMTRMenuItem menuItem);
         ImageView handle(FindComponentsPRMTRStringPRMTRMenuItem menuItem);
     }
     private abstract class ServerMenuItem extends MenuItem{
@@ -341,17 +342,22 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
             return visitor.handle(this);
         }
     }
-    private class CreateMaterialPRMTRStringPRMTRMenuItem extends ServerMenuItem{
+    private class CreateMaterialPRMTRStringPRMTRFractionPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
     }
-    private class CreateProductPRMTRStringPRMTRMenuItem extends ServerMenuItem{
+    private class CreateProductPRMTRStringPRMTRFractionPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
     }
     private class FetchMaterialsPRMTRComponentPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class FetchOverallPricePRMTRComponentPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -388,10 +394,10 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         });
         result.add(currentButton);
         currentButton = new javafx.scene.control.Button("createMaterial ... ");
-        currentButton.setGraphic(new CreateMaterialPRMTRStringPRMTRMenuItem().getGraphic());
+        currentButton.setGraphic(new CreateMaterialPRMTRStringPRMTRFractionPRMTRMenuItem().getGraphic());
         currentButton.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
-                final ServerCreateMaterialStringMssgWizard wizard = new ServerCreateMaterialStringMssgWizard("createMaterial");
+                final ServerCreateMaterialStringFractionMssgWizard wizard = new ServerCreateMaterialStringFractionMssgWizard("createMaterial");
                 wizard.setWidth(getNavigationPanel().getWidth());
                 wizard.setX( getPointForView().getX());
                 wizard.setY( getPointForView().getY());
@@ -400,10 +406,10 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         });
         result.add(currentButton);
         currentButton = new javafx.scene.control.Button("createProduct ... ");
-        currentButton.setGraphic(new CreateProductPRMTRStringPRMTRMenuItem().getGraphic());
+        currentButton.setGraphic(new CreateProductPRMTRStringPRMTRFractionPRMTRMenuItem().getGraphic());
         currentButton.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
-                final ServerCreateProductStringMssgWizard wizard = new ServerCreateProductStringMssgWizard("createProduct");
+                final ServerCreateProductStringFractionMssgWizard wizard = new ServerCreateProductStringFractionMssgWizard("createProduct");
                 wizard.setWidth(getNavigationPanel().getWidth());
                 wizard.setX( getPointForView().getX());
                 wizard.setY( getPointForView().getY());
@@ -451,11 +457,11 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
             }
         });
         if (withStaticOperations) result.getItems().add(item);
-        item = new CreateMaterialPRMTRStringPRMTRMenuItem();
+        item = new CreateMaterialPRMTRStringPRMTRFractionPRMTRMenuItem();
         item.setText("(S) createMaterial ... ");
         item.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
-                final ServerCreateMaterialStringMssgWizard wizard = new ServerCreateMaterialStringMssgWizard("createMaterial");
+                final ServerCreateMaterialStringFractionMssgWizard wizard = new ServerCreateMaterialStringFractionMssgWizard("createMaterial");
                 wizard.setWidth(getNavigationPanel().getWidth());
                 wizard.setX( getPointForView().getX());
                 wizard.setY( getPointForView().getY());
@@ -463,11 +469,11 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
             }
         });
         if (withStaticOperations) result.getItems().add(item);
-        item = new CreateProductPRMTRStringPRMTRMenuItem();
+        item = new CreateProductPRMTRStringPRMTRFractionPRMTRMenuItem();
         item.setText("(S) createProduct ... ");
         item.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
-                final ServerCreateProductStringMssgWizard wizard = new ServerCreateProductStringMssgWizard("createProduct");
+                final ServerCreateProductStringFractionMssgWizard wizard = new ServerCreateProductStringFractionMssgWizard("createProduct");
                 wizard.setWidth(getNavigationPanel().getWidth());
                 wizard.setX( getPointForView().getX());
                 wizard.setY( getPointForView().getY());
@@ -526,6 +532,32 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                                 ViewRoot result = (ViewRoot)getConnection().fetchMaterials((ComponentView)selected);
                                 getConnection().setEagerRefresh();
                                 ReturnValueView view = new ReturnValueView(result, new javafx.geometry.Dimension2D(getNavigationPanel().getWidth()*8/9,getNavigationPanel().getHeight()*8/9), ServerClientView.this);
+                                view.setX( getPointForView().getX() );
+                                view.setY( getPointForView().getY() );
+                                view.showAndWait();
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
+                    }
+                });
+                result.getItems().add(item);
+                item = new FetchOverallPricePRMTRComponentPRMTRMenuItem();
+                item.setText("fetchOverallPrice");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        Alert confirm = new Alert(AlertType.CONFIRMATION);
+                        confirm.setTitle(GUIConstants.ConfirmButtonText);
+                        confirm.setHeaderText(null);
+                        confirm.setContentText("fetchOverallPrice" + GUIConstants.ConfirmQuestionMark);
+                        confirm.setX( getPointForView().getX() );
+                        confirm.setY( getPointForView().getY() );
+                        Optional<ButtonType> buttonResult = confirm.showAndWait();
+                        if (buttonResult.get() == ButtonType.OK) {
+                            try {
+                                common.Fraction result = getConnection().fetchOverallPrice((ComponentView)selected);
+                                getConnection().setEagerRefresh();
+                                ReturnValueView view = new ReturnValueView(result, new javafx.geometry.Dimension2D(getNavigationPanel().getWidth()*8/9,getNavigationPanel().getHeight()*8/9));
                                 view.setX( getPointForView().getX() );
                                 view.setY( getPointForView().getY() );
                                 view.showAndWait();
@@ -604,21 +636,22 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 		
 	}
 
-	class ServerCreateMaterialStringMssgWizard extends Wizard {
+	class ServerCreateMaterialStringFractionMssgWizard extends Wizard {
 
-		protected ServerCreateMaterialStringMssgWizard(String operationName){
+		protected ServerCreateMaterialStringFractionMssgWizard(String operationName){
 			super(ServerClientView.this);
 			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new CreateMaterialPRMTRStringPRMTRMenuItem ().getGraphic());
+			getOkButton().setGraphic(new CreateMaterialPRMTRStringPRMTRFractionPRMTRMenuItem ().getGraphic());
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerCreateMaterialStringMssgWizard.help";
+			this.helpFileName = "ServerCreateMaterialStringFractionMssgWizard.help";
 			super.initialize();		
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().createMaterial(((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().createMaterial(((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult(),
+									((FractionSelectionPanel)getParametersPanel().getChildren().get(1)).getResult());
 				getConnection().setEagerRefresh();
 				this.close();	
 			} catch(ModelException me){
@@ -637,7 +670,8 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 			return false;
 		}
 		protected void addParameters(){
-			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));		
+			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));
+			getParametersPanel().getChildren().add(new FractionSelectionPanel("price", this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -645,21 +679,22 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 		
 	}
 
-	class ServerCreateProductStringMssgWizard extends Wizard {
+	class ServerCreateProductStringFractionMssgWizard extends Wizard {
 
-		protected ServerCreateProductStringMssgWizard(String operationName){
+		protected ServerCreateProductStringFractionMssgWizard(String operationName){
 			super(ServerClientView.this);
 			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new CreateProductPRMTRStringPRMTRMenuItem ().getGraphic());
+			getOkButton().setGraphic(new CreateProductPRMTRStringPRMTRFractionPRMTRMenuItem ().getGraphic());
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerCreateProductStringMssgWizard.help";
+			this.helpFileName = "ServerCreateProductStringFractionMssgWizard.help";
 			super.initialize();		
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().createProduct(((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().createProduct(((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult(),
+									((FractionSelectionPanel)getParametersPanel().getChildren().get(1)).getResult());
 				getConnection().setEagerRefresh();
 				this.close();	
 			} catch(ModelException me){
@@ -678,7 +713,8 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 			return false;
 		}
 		protected void addParameters(){
-			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));		
+			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));
+			getParametersPanel().getChildren().add(new FractionSelectionPanel("price", this));		
 		}	
 		protected void handleDependencies(int i) {
 		}

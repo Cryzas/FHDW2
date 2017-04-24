@@ -67,6 +67,10 @@ public class ComponentLstICProxi extends PersistentInCacheProxiOptimistic implem
 				throws PersistenceException{
         return ((PersistentComponentLst)this.getTheObject()).fetchMaterials();
     }
+    public common.Fraction fetchOverallPrice() 
+				throws PersistenceException{
+        return ((PersistentComponentLst)this.getTheObject()).fetchOverallPrice();
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentComponentLst)this.getTheObject()).initializeOnCreation();

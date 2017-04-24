@@ -51,9 +51,10 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.HashMap<?,?> createMaterial(String name){
+    public synchronized java.util.HashMap<?,?> createMaterial(String name, String priceAsString){
         try {
-            ((PersistentServer)this.server).createMaterial(name);
+            common.Fraction price = common.Fraction.parse(priceAsString);
+            ((PersistentServer)this.server).createMaterial(name, price);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -62,9 +63,10 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.HashMap<?,?> createProduct(String name){
+    public synchronized java.util.HashMap<?,?> createProduct(String name, String priceAsString){
         try {
-            ((PersistentServer)this.server).createProduct(name);
+            common.Fraction price = common.Fraction.parse(priceAsString);
+            ((PersistentServer)this.server).createProduct(name, price);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -78,6 +80,16 @@ public  class RemoteServer extends RemoteServerMaster {
             PersistentComponent component = (PersistentComponent)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(componentProxiString));
             ComponentLst4Public result = ((PersistentServer)this.server).fetchMaterials(component);
             return createOKResult(result, 1, this);
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> fetchOverallPrice(String componentProxiString){
+        try {
+            PersistentComponent component = (PersistentComponent)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(componentProxiString));
+            common.Fraction result = ((PersistentServer)this.server).fetchOverallPrice(component);
+            return createOKResult(result);
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
         }

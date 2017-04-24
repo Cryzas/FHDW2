@@ -11,9 +11,9 @@ public class Product extends view.objects.Component implements ProductView{
     
     protected ComponentLstView components;
     
-    public Product(String name,ComponentLstView components,long id, long classId) {
+    public Product(String name,common.Fraction price,ComponentLstView components,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((String)name,id, classId);
+        super((String)name,(common.Fraction)price,id, classId);
         this.components = components;        
     }
     
@@ -90,8 +90,12 @@ public class Product extends view.objects.Component implements ProductView{
     public int getNameIndex() throws ModelException {
         return 0;
     }
+    public int getPriceIndex() throws ModelException {
+        return 0 + 1;
+    }
     public int getRowCount(){
         return 0 
+            + 1
             + 1;
     }
     public Object getValueAt(int rowIndex, int columnIndex){
@@ -99,8 +103,12 @@ public class Product extends view.objects.Component implements ProductView{
             if(columnIndex == 0){
                 if(rowIndex == 0) return "name";
                 rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return "price";
+                rowIndex = rowIndex - 1;
             } else {
                 if(rowIndex == 0) return this.getName();
+                rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return this.getPrice();
                 rowIndex = rowIndex - 1;
             }
             throw new ModelException("Table index out of bounds!", -1);
@@ -115,6 +123,11 @@ public class Product extends view.objects.Component implements ProductView{
     public void setValueAt(String newValue, int rowIndex) throws Exception {
         if(rowIndex == 0){
             this.setName(newValue);
+            return;
+        }
+        rowIndex = rowIndex - 1;
+        if(rowIndex == 0){
+            this.setPrice(common.Fraction.parse(newValue));
             return;
         }
         rowIndex = rowIndex - 1;

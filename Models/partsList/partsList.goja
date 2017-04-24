@@ -2,10 +2,11 @@ model partsList {
 
 server Server {
 	Component ** currentComponents##currComps;
-	void createProduct(String name) throws PartsListException;
-	void createMaterial(String name) throws PartsListException;
+	void createProduct(String name, Fraction price) throws PartsListException;
+	void createMaterial(String name, Fraction price) throws PartsListException;
 	void addPart(Product product, Component component, Integer quantity) throws PartsListException;
 	ComponentLst fetchMaterials(Component component);
+	Fraction fetchOverallPrice(Component component);
    void findComponents(String name);
 	void clearComponents();
 }
@@ -14,6 +15,8 @@ abstract class Component {
 	indexed public prior String name;
 	abstract extern boolean contains(Component component);
 	abstract ComponentLst fetchMaterials();
+	abstract Fraction fetchOverallPrice();
+	public prior Fraction price;
 }
 
 class Material extends Component {}
@@ -28,6 +31,7 @@ class ComponentLst {
 	void addPart(Component component, Integer quantity);
 	extern boolean contains(Component component);
 	ComponentLst fetchMaterials();
+	Fraction fetchOverallPrice();
 	ComponentLst multiply(Integer factor);
 	ComponentLst addList(ComponentLst argument);
 }
@@ -38,6 +42,7 @@ class QuantifiedComponent {
 	void addQuantity(Integer quantity);
 	extern boolean contains(Component component);
 	ComponentLst fetchMaterials();
+	Fraction fetchOverallPrice();
 	QuantifiedComponent multiply(Integer factor);
 }
 

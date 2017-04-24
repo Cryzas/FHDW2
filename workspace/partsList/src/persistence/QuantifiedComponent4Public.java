@@ -23,6 +23,8 @@ public interface QuantifiedComponent4Public extends Anything, AbstractPersistent
 				throws PersistenceException;
     public ComponentLst4Public fetchMaterials() 
 				throws PersistenceException;
+    public common.Fraction fetchOverallPrice() 
+				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 

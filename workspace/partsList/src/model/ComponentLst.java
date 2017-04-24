@@ -2,6 +2,7 @@
 package model;
 
 import persistence.*;
+import common.Fraction;
 import model.visitor.*;
 
 
@@ -183,6 +184,10 @@ public class ComponentLst extends PersistentObject implements PersistentComponen
     public ComponentLst4Public fetchMaterials() 
 				throws PersistenceException{
     	return getThis().getParts().aggregate(ComponentLst.createComponentLst(), (result,argument) -> result.addList(argument.fetchMaterials()));
+    }
+    public common.Fraction fetchOverallPrice() 
+				throws PersistenceException{
+    	return getThis().getParts().aggregate(Fraction.Null, (result, argument) -> result.add(argument.fetchOverallPrice()));
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

@@ -1282,6 +1282,7 @@ class ErrorDisplayDefaultDetailPanel extends DefaultDetailPanel{
 class ProductDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Component$$name = "Component$$name";
+    protected static final String Component$$price = "Component$$price";
     protected static final String Product$$components = "Product$$components";
     
     protected ProductDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1295,6 +1296,13 @@ class ProductDefaultDetailPanel extends DefaultDetailPanel{
         }catch(ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }
+        try{
+            BaseTypePanel panel = new FractionPanel(this, "price", this.getAnything().getPrice());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(Component$$price, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
         
     }
     protected view.ProductView getAnything(){
@@ -1305,6 +1313,7 @@ class ProductDefaultDetailPanel extends DefaultDetailPanel{
 class MaterialDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Component$$name = "Component$$name";
+    protected static final String Component$$price = "Component$$price";
     
     protected MaterialDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1314,6 +1323,13 @@ class MaterialDefaultDetailPanel extends DefaultDetailPanel{
             BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(Component$$name, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new FractionPanel(this, "price", this.getAnything().getPrice());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(Component$$price, panel);
         }catch(ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }

@@ -72,6 +72,10 @@ public class QuantifiedComponentICProxi extends PersistentInCacheProxiOptimistic
 				throws PersistenceException{
         return ((PersistentQuantifiedComponent)this.getTheObject()).fetchMaterials();
     }
+    public common.Fraction fetchOverallPrice() 
+				throws PersistenceException{
+        return ((PersistentQuantifiedComponent)this.getTheObject()).fetchOverallPrice();
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentQuantifiedComponent)this.getTheObject()).initializeOnCreation();

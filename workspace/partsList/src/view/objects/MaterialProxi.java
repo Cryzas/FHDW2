@@ -13,7 +13,8 @@ public class MaterialProxi extends ComponentProxi implements MaterialView{
     
     public MaterialView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         String name = (String)resultTable.get("name");
-        MaterialView result$$ = new Material((String)name, this.getId(), this.getClassId());
+        common.Fraction price = common.Fraction.parse((String)resultTable.get("price"));
+        MaterialView result$$ = new Material((String)name,(common.Fraction)price, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }

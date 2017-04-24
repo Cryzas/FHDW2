@@ -64,6 +64,10 @@ public class MaterialProxi extends ComponentProxi implements PersistentMaterial{
 				throws PersistenceException{
         return ((PersistentMaterial)this.getTheObject()).fetchMaterials();
     }
+    public common.Fraction fetchOverallPrice() 
+				throws PersistenceException{
+        return ((PersistentMaterial)this.getTheObject()).fetchOverallPrice();
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentMaterial)this.getTheObject()).initializeOnCreation();

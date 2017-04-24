@@ -222,6 +222,10 @@ public class QuantifiedComponent extends PersistentObject implements PersistentQ
     	list.addList(getThis().getComponent().fetchMaterials().multiply(getThis().getQuantity()));
     	return list;
     }
+    public common.Fraction fetchOverallPrice() 
+				throws PersistenceException{
+        return getThis().getComponent().fetchOverallPrice().mul(getThis().getQuantity());
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         

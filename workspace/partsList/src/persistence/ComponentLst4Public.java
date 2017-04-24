@@ -24,6 +24,8 @@ public interface ComponentLst4Public extends Anything, AbstractPersistentProxi {
 				throws PersistenceException;
     public ComponentLst4Public fetchMaterials() 
 				throws PersistenceException;
+    public common.Fraction fetchOverallPrice() 
+				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 

@@ -31,11 +31,13 @@ public interface Server4Public extends Invoker, Anything, Remote, AbstractPersis
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
-    public void createMaterial(final String name) 
+    public void createMaterial(final String name, final common.Fraction price) 
 				throws model.PartsListException, PersistenceException;
-    public void createProduct(final String name) 
+    public void createProduct(final String name, final common.Fraction price) 
 				throws model.PartsListException, PersistenceException;
     public ComponentLst4Public fetchMaterials(final Component4Public component) 
+				throws PersistenceException;
+    public common.Fraction fetchOverallPrice(final Component4Public component) 
 				throws PersistenceException;
     public void findComponents(final String name) 
 				throws PersistenceException;
