@@ -13,7 +13,6 @@ public class ProductProxi extends ComponentProxi implements ProductView{
     
     public ProductView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         String name = (String)resultTable.get("name");
-        common.Fraction price = common.Fraction.parse((String)resultTable.get("price"));
         common.Fraction overAllPrice = common.Fraction.parse((String)resultTable.get("overAllPrice"));
         ViewProxi components = null;
         String components$String = (String)resultTable.get("components");
@@ -22,7 +21,7 @@ public class ProductProxi extends ComponentProxi implements ProductView{
             components = view.objects.ViewProxi.createProxi(components$Info,connectionKey);
             components.setToString(components$Info.getToString());
         }
-        ProductView result$$ = new Product((String)name,(common.Fraction)price,(common.Fraction)overAllPrice,(ComponentLstView)components, this.getId(), this.getClassId());
+        ProductView result$$ = new Product((String)name,(common.Fraction)overAllPrice,(ComponentLstView)components, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }

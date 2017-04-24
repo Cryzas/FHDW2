@@ -696,13 +696,6 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 		public void setFirstArgument(ComponentView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
-			try{
-				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
-				selectionPanel0.preset(firstArgument.getPrice());
-				if (!selectionPanel0.check()) selectionPanel0.preset("");
-			}catch(ModelException me){
-				 handleException(me);
-			}
 			this.check();
 		}
 		

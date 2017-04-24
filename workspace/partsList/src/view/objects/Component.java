@@ -9,14 +9,12 @@ import view.*;
 public abstract class Component extends ViewObject implements ComponentView{
     
     protected String name;
-    protected common.Fraction price;
     protected common.Fraction overAllPrice;
     
-    public Component(String name,common.Fraction price,common.Fraction overAllPrice,long id, long classId) {
+    public Component(String name,common.Fraction overAllPrice,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.name = name;
-        this.price = price;
         this.overAllPrice = overAllPrice;        
     }
     
@@ -25,12 +23,6 @@ public abstract class Component extends ViewObject implements ComponentView{
     }
     public void setName(String newValue) throws ModelException {
         this.name = newValue;
-    }
-    public common.Fraction getPrice()throws ModelException{
-        return this.price;
-    }
-    public void setPrice(common.Fraction newValue) throws ModelException {
-        this.price = newValue;
     }
     public common.Fraction getOverAllPrice()throws ModelException{
         return this.overAllPrice;
@@ -60,15 +52,11 @@ public abstract class Component extends ViewObject implements ComponentView{
     public int getNameIndex() throws ModelException {
         return 0;
     }
-    public int getPriceIndex() throws ModelException {
-        return 0 + 1;
-    }
     public int getOverAllPriceIndex() throws ModelException {
-        return 0 + 1 + 1;
+        return 0 + 1;
     }
     public int getRowCount(){
         return 0 
-            + 1
             + 1
             + 1;
     }
@@ -77,14 +65,10 @@ public abstract class Component extends ViewObject implements ComponentView{
             if(columnIndex == 0){
                 if(rowIndex == 0) return "name";
                 rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return "price";
-                rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return "overAllPrice";
                 rowIndex = rowIndex - 1;
             } else {
                 if(rowIndex == 0) return this.getName();
-                rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return this.getPrice();
                 rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return this.getOverAllPrice();
                 rowIndex = rowIndex - 1;
@@ -101,11 +85,6 @@ public abstract class Component extends ViewObject implements ComponentView{
     public void setValueAt(String newValue, int rowIndex) throws Exception {
         if(rowIndex == 0){
             this.setName(newValue);
-            return;
-        }
-        rowIndex = rowIndex - 1;
-        if(rowIndex == 0){
-            this.setPrice(common.Fraction.parse(newValue));
             return;
         }
         rowIndex = rowIndex - 1;

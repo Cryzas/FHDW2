@@ -17,8 +17,6 @@ abstract class Component {
 	abstract extern boolean contains(Component component);
 	abstract ComponentLst fetchMaterials();
 	abstract Fraction fetchOverallPrice();
-	void changePrice(Fraction price);
-	prior Fraction price;
 	derived Fraction overAllPrice;
 }
 

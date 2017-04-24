@@ -56,10 +56,6 @@ public class MaterialICProxi extends ComponentICProxi implements PersistentMater
 				throws PersistenceException{
         ((PersistentMaterial)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void changePrice(final common.Fraction price) 
-				throws PersistenceException{
-        ((PersistentMaterial)this.getTheObject()).changePrice(price);
-    }
     public boolean contains(final Component4Public component) 
 				throws PersistenceException{
         return ((PersistentMaterial)this.getTheObject()).contains(component);

@@ -11,41 +11,39 @@ import model.visitor.*;
 public class Product extends model.Component implements PersistentProduct{
     
     
-    public static Product4Public createProduct(String name,common.Fraction price) throws PersistenceException{
-        return createProduct(name,price,false);
+    public static Product4Public createProduct(String name) throws PersistenceException{
+        return createProduct(name,false);
     }
     
-    public static Product4Public createProduct(String name,common.Fraction price,boolean delayed$Persistence) throws PersistenceException {
+    public static Product4Public createProduct(String name,boolean delayed$Persistence) throws PersistenceException {
         PersistentProduct result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theProductFacade
-                .newDelayedProduct(name,price);
+                .newDelayedProduct(name);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theProductFacade
-                .newProduct(name,price,-1);
+                .newProduct(name,-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
         final$$Fields.put("name", name);
-        final$$Fields.put("price", price);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static Product4Public createProduct(String name,common.Fraction price,boolean delayed$Persistence,Product4Public This) throws PersistenceException {
+    public static Product4Public createProduct(String name,boolean delayed$Persistence,Product4Public This) throws PersistenceException {
         PersistentProduct result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theProductFacade
-                .newDelayedProduct(name,price);
+                .newDelayedProduct(name);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theProductFacade
-                .newProduct(name,price,-1);
+                .newProduct(name,-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
         final$$Fields.put("name", name);
-        final$$Fields.put("price", price);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -73,7 +71,6 @@ public class Product extends model.Component implements PersistentProduct{
     public Product provideCopy() throws PersistenceException{
         Product result = this;
         result = new Product(this.name, 
-                             this.price, 
                              this.This, 
                              this.components, 
                              this.getId());
@@ -86,9 +83,9 @@ public class Product extends model.Component implements PersistentProduct{
     }
     protected PersistentComponentLst components;
     
-    public Product(String name,common.Fraction price,PersistentComponent This,PersistentComponentLst components,long id) throws PersistenceException {
+    public Product(String name,PersistentComponent This,PersistentComponentLst components,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((String)name,(common.Fraction)price,(PersistentComponent)This,id);
+        super((String)name,(PersistentComponent)This,id);
         this.components = components;        
     }
     
@@ -103,7 +100,7 @@ public class Product extends model.Component implements PersistentProduct{
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         if (this.getClassId() == 115) ConnectionHandler.getTheConnectionHandler().theProductFacade
-            .newProduct(name,price,this.getId());
+            .newProduct(name,this.getId());
         super.store();
         if(this.getComponents() != null){
             this.getComponents().store();
@@ -169,7 +166,6 @@ public class Product extends model.Component implements PersistentProduct{
         this.setThis((PersistentProduct)This);
 		if(this.isTheSameAs(This)){
 			this.setName((String)final$$Fields.get("name"));
-			this.setPrice((common.Fraction)final$$Fields.get("price"));
 		}
     }
     

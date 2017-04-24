@@ -14,8 +14,6 @@ public interface Component4Public extends Anything, AbstractPersistentProxi {
     
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
-    public void changePrice(final common.Fraction price) 
-				throws PersistenceException;
     public boolean contains(final Component4Public component) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 

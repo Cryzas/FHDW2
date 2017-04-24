@@ -92,7 +92,6 @@ create table Cmpnnt(
     Cls number not null,
     constraint FCmpnntCls foreign key (Cls) references Cls (id) on delete cascade,
     CmpnntNm varchar2(2000),
-    CmpnntPrc varchar2(2000),
     CmpnntThis number,
     CmpnntThisCls number,
     constraint FCmpnntThis foreign key (CmpnntThisCls) references Cls (id),

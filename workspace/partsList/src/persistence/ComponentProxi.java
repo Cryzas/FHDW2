@@ -18,12 +18,6 @@ public abstract class ComponentProxi extends PersistentProxi implements Persiste
     public void setName(String newValue) throws PersistenceException {
         ((PersistentComponent)this.getTheObject()).setName(newValue);
     }
-    public common.Fraction getPrice() throws PersistenceException {
-        return ((PersistentComponent)this.getTheObject()).getPrice();
-    }
-    public void setPrice(common.Fraction newValue) throws PersistenceException {
-        ((PersistentComponent)this.getTheObject()).setPrice(newValue);
-    }
     public abstract PersistentComponent getThis() throws PersistenceException ;
     
     
@@ -31,10 +25,6 @@ public abstract class ComponentProxi extends PersistentProxi implements Persiste
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentComponent)this.getTheObject()).initialize(This, final$$Fields);
-    }
-    public void changePrice(final common.Fraction price) 
-				throws PersistenceException{
-        ((PersistentComponent)this.getTheObject()).changePrice(price);
     }
     public boolean contains(final Component4Public component) 
 				throws PersistenceException{

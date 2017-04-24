@@ -16,18 +16,17 @@ public class MaterialFacade{
 	}
 
     /* If idCreateIfLessZero is negative, a new id is generated. */
-    public PersistentMaterial newMaterial(String name,common.Fraction price,long idCreateIfLessZero) throws PersistenceException {
+    public PersistentMaterial newMaterial(String name,long idCreateIfLessZero) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
-            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".MtrlFacade.newMtrl(?,?,?); end;");
+            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".MtrlFacade.newMtrl(?,?); end;");
             callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
             callable.setString(2, name);
-            callable.setString(3, price.toString());
-            callable.setLong(4, idCreateIfLessZero);
+            callable.setLong(3, idCreateIfLessZero);
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Material result = new Material(name,price,null,id);
+            Material result = new Material(name,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentMaterial)PersistentProxi.createProxi(id, 116);
         }catch(SQLException se) {
@@ -35,7 +34,7 @@ public class MaterialFacade{
         }
     }
     
-    public PersistentMaterial newDelayedMaterial(String name,common.Fraction price) throws PersistenceException {
+    public PersistentMaterial newDelayedMaterial(String name) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
             callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".MtrlFacade.newDelayedMtrl(); end;");
@@ -43,7 +42,7 @@ public class MaterialFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Material result = new Material(name,price,null,id);
+            Material result = new Material(name,null,id);
             Cache.getTheCache().put(result);
             return (PersistentMaterial)PersistentProxi.createProxi(id, 116);
         }catch(SQLException se) {
@@ -65,10 +64,9 @@ public class MaterialFacade{
                 return null;
             }
             PersistentComponent This = null;
-            if (obj.getLong(4) != 0)
-                This = (PersistentComponent)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+            if (obj.getLong(3) != 0)
+                This = (PersistentComponent)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
             Material result = new Material(obj.getString(2) == null ? "" : obj.getString(2) /* In Oracle "" = null !!! */,
-                                           (obj.getString(3) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(3))),
                                            This,
                                            MaterialId);
             obj.close();
