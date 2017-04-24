@@ -32,6 +32,10 @@ public abstract class ComponentICProxi extends PersistentInCacheProxiOptimistic 
 				throws PersistenceException{
         ((PersistentComponent)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public void changePrice(final common.Fraction price) 
+				throws PersistenceException{
+        ((PersistentComponent)this.getTheObject()).changePrice(price);
+    }
     public boolean contains(final Component4Public component) 
 				throws PersistenceException{
         return ((PersistentComponent)this.getTheObject()).contains(component);
@@ -47,6 +51,10 @@ public abstract class ComponentICProxi extends PersistentInCacheProxiOptimistic 
     public common.Fraction fetchOverallPrice() 
 				throws PersistenceException{
         return ((PersistentComponent)this.getTheObject()).fetchOverallPrice();
+    }
+    public common.Fraction getOverAllPrice() 
+				throws PersistenceException{
+        return ((PersistentComponent)this.getTheObject()).getOverAllPrice();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

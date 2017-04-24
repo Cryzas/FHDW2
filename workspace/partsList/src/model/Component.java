@@ -20,6 +20,7 @@ public abstract class Component extends PersistentObject implements PersistentCo
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
             result.put("name", this.getName());
             result.put("price", this.getPrice().toString());
+            result.put("overAllPrice", this.getOverAllPrice().toString());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
         }

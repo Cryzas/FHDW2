@@ -6,7 +6,6 @@ import model.visitor.*;
 public interface Component4Public extends Anything, AbstractPersistentProxi {
     
     public String getName() throws PersistenceException ;
-    public common.Fraction getPrice() throws PersistenceException ;
     
     public void accept(ComponentVisitor visitor) throws PersistenceException;
     public <R> R accept(ComponentReturnVisitor<R>  visitor) throws PersistenceException;
@@ -15,6 +14,8 @@ public interface Component4Public extends Anything, AbstractPersistentProxi {
     
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
+    public void changePrice(final common.Fraction price) 
+				throws PersistenceException;
     public boolean contains(final Component4Public component) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
@@ -22,6 +23,8 @@ public interface Component4Public extends Anything, AbstractPersistentProxi {
     public ComponentLst4Public fetchMaterials() 
 				throws PersistenceException;
     public common.Fraction fetchOverallPrice() 
+				throws PersistenceException;
+    public common.Fraction getOverAllPrice() 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;

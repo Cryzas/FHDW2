@@ -22,6 +22,9 @@ public abstract class ComponentProxi extends ViewProxi implements ComponentView{
     public void setPrice(common.Fraction newValue) throws ModelException {
         ((Component)this.getTheObject()).setPrice(newValue);
     }
+    public common.Fraction getOverAllPrice()throws ModelException{
+        return ((Component)this.getTheObject()).getOverAllPrice();
+    }
     
     
     

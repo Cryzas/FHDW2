@@ -5,6 +5,7 @@ server Server {
 	void createProduct(String name, Fraction price) throws PartsListException;
 	void createMaterial(String name, Fraction price) throws PartsListException;
 	void addPart(Product product, Component component, Integer quantity) throws PartsListException;
+	void changePrice(Component component, Fraction price);
 	ComponentLst fetchMaterials(Component component);
 	Fraction fetchOverallPrice(Component component);
    void findComponents(String name);
@@ -16,7 +17,9 @@ abstract class Component {
 	abstract extern boolean contains(Component component);
 	abstract ComponentLst fetchMaterials();
 	abstract Fraction fetchOverallPrice();
-	public prior Fraction price;
+	void changePrice(Fraction price);
+	prior Fraction price;
+	derived Fraction overAllPrice;
 }
 
 class Material extends Component {}
