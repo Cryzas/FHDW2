@@ -1285,6 +1285,7 @@ class ProductDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String Component$$price = "Component$$price";
     protected static final String Component$$overAllPrice = "Component$$overAllPrice";
     protected static final String Product$$components = "Product$$components";
+    protected static final String Product$$materials = "Product$$materials";
     
     protected ProductDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);

@@ -21,6 +21,8 @@ public interface Product4Public extends Component4Public {
 				throws model.PartsListException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
+    public ComponentLst4Public getMaterials() 
+				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 

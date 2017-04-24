@@ -280,7 +280,6 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
 		getThis().getCurrentComponents().filter(x -> false);
 		getThis().signalChanged(true);
-
 	}
     public void connected(final String user) 
 				throws PersistenceException{
@@ -310,10 +309,6 @@ public class Server extends PersistentObject implements PersistentServer{
     public void disconnected() 
 				throws PersistenceException{
 
-	}
-    public ComponentLst4Public fetchMaterials(final Component4Public component) 
-				throws PersistenceException{
-		return component.fetchMaterials();
 	}
     public void findComponents(final String name) 
 				throws PersistenceException{

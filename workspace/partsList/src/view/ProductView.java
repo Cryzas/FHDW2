@@ -6,6 +6,7 @@ public interface ProductView extends ComponentView {
     
     public ComponentLstView getComponents()throws ModelException;
     public void setComponents(ComponentLstView newValue) throws ModelException ;
+    public ComponentLstView getMaterials()throws ModelException;
     
     public void accept(ComponentVisitor visitor) throws ModelException;
     public <R> R accept(ComponentReturnVisitor<R>  visitor) throws ModelException;

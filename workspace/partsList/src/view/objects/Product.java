@@ -10,11 +10,13 @@ import view.visitor.*;
 public class Product extends view.objects.Component implements ProductView{
     
     protected ComponentLstView components;
+    protected ComponentLstView materials;
     
-    public Product(String name,common.Fraction price,common.Fraction overAllPrice,ComponentLstView components,long id, long classId) {
+    public Product(String name,common.Fraction price,common.Fraction overAllPrice,ComponentLstView components,ComponentLstView materials,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super((String)name,(common.Fraction)price,(common.Fraction)overAllPrice,id, classId);
-        this.components = components;        
+        this.components = components;
+        this.materials = materials;        
     }
     
     static public long getTypeId() {
@@ -30,6 +32,9 @@ public class Product extends view.objects.Component implements ProductView{
     }
     public void setComponents(ComponentLstView newValue) throws ModelException {
         this.components = newValue;
+    }
+    public ComponentLstView getMaterials()throws ModelException{
+        return this.materials;
     }
     
     public void accept(ComponentVisitor visitor) throws ModelException {
@@ -62,6 +67,10 @@ public class Product extends view.objects.Component implements ProductView{
         if (components != null) {
             ((ViewProxi)components).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(components.getClassId(), components.getId())));
         }
+        ComponentLstView materials = this.getMaterials();
+        if (materials != null) {
+            ((ViewProxi)materials).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(materials.getClassId(), materials.getId())));
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {
@@ -71,20 +80,26 @@ public class Product extends view.objects.Component implements ProductView{
         int index = originalIndex;
         if(index == 0 && this.getComponents() != null) return new ComponentsProductWrapper(this, originalIndex, (ViewRoot)this.getComponents());
         if(this.getComponents() != null) index = index - 1;
+        if(index == 0 && this.getMaterials() != null) return new MaterialsProductWrapper(this, originalIndex, (ViewRoot)this.getMaterials());
+        if(this.getMaterials() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getComponents() == null ? 0 : 1);
+            + (this.getComponents() == null ? 0 : 1)
+            + (this.getMaterials() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         return true 
-            && (this.getComponents() == null ? true : false);
+            && (this.getComponents() == null ? true : false)
+            && (this.getMaterials() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
         if(this.getComponents() != null && this.getComponents().equals(child)) return result;
         if(this.getComponents() != null) result = result + 1;
+        if(this.getMaterials() != null && this.getMaterials().equals(child)) return result;
+        if(this.getMaterials() != null) result = result + 1;
         return -1;
     }
     public int getNameIndex() throws ModelException {

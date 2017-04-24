@@ -22,7 +22,14 @@ public class ProductProxi extends ComponentProxi implements ProductView{
             components = view.objects.ViewProxi.createProxi(components$Info,connectionKey);
             components.setToString(components$Info.getToString());
         }
-        ProductView result$$ = new Product((String)name,(common.Fraction)price,(common.Fraction)overAllPrice,(ComponentLstView)components, this.getId(), this.getClassId());
+        ViewProxi materials = null;
+        String materials$String = (String)resultTable.get("materials");
+        if (materials$String != null) {
+            common.ProxiInformation materials$Info = common.RPCConstantsAndServices.createProxiInformation(materials$String);
+            materials = view.objects.ViewProxi.createProxi(materials$Info,connectionKey);
+            materials.setToString(materials$Info.getToString());
+        }
+        ProductView result$$ = new Product((String)name,(common.Fraction)price,(common.Fraction)overAllPrice,(ComponentLstView)components,(ComponentLstView)materials, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -34,21 +41,27 @@ public class ProductProxi extends ComponentProxi implements ProductView{
         int index = originalIndex;
         if(index == 0 && this.getComponents() != null) return new ComponentsProductWrapper(this, originalIndex, (ViewRoot)this.getComponents());
         if(this.getComponents() != null) index = index - 1;
+        if(index == 0 && this.getMaterials() != null) return new MaterialsProductWrapper(this, originalIndex, (ViewRoot)this.getMaterials());
+        if(this.getMaterials() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getComponents() == null ? 0 : 1);
+            + (this.getComponents() == null ? 0 : 1)
+            + (this.getMaterials() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
-            && (this.getComponents() == null ? true : false);
+            && (this.getComponents() == null ? true : false)
+            && (this.getMaterials() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
         if(this.getComponents() != null && this.getComponents().equals(child)) return result;
         if(this.getComponents() != null) result = result + 1;
+        if(this.getMaterials() != null && this.getMaterials().equals(child)) return result;
+        if(this.getMaterials() != null) result = result + 1;
         return -1;
     }
     
@@ -57,6 +70,9 @@ public class ProductProxi extends ComponentProxi implements ProductView{
     }
     public void setComponents(ComponentLstView newValue) throws ModelException {
         ((Product)this.getTheObject()).setComponents(newValue);
+    }
+    public ComponentLstView getMaterials()throws ModelException{
+        return ((Product)this.getTheObject()).getMaterials();
     }
     
     public void accept(ComponentVisitor visitor) throws ModelException {

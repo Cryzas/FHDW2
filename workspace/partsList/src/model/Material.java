@@ -60,8 +60,8 @@ public class Material extends model.Component implements PersistentMaterial{
         return result;
     }
     
-    public Component provideCopy() throws PersistenceException{
-        Component result = this;
+    public Material provideCopy() throws PersistenceException{
+        Material result = this;
         result = new Material(this.name, 
                               this.price, 
                               this.This, 

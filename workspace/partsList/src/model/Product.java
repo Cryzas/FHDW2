@@ -63,6 +63,15 @@ public class Product extends model.Component implements PersistentProduct{
                     if(forGUI && components.hasEssentialFields())components.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
+            AbstractPersistentRoot materials = (AbstractPersistentRoot)this.getMaterials();
+            if (materials != null) {
+                result.put("materials", materials.createProxiInformation(false, essentialLevel <= 1));
+                if(depth > 1) {
+                    materials.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && materials.hasEssentialFields())materials.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -159,6 +168,7 @@ public class Product extends model.Component implements PersistentProduct{
     }
     public int getLeafInfo() throws PersistenceException{
         if (this.getComponents() != null) return 1;
+        if (this.getMaterials() != null) return 1;
         return 0;
     }
     
@@ -199,6 +209,10 @@ public class Product extends model.Component implements PersistentProduct{
     public common.Fraction fetchOverallPrice() 
 				throws PersistenceException{
        return getThis().getComponents().fetchOverallPrice().add(getThis().getPrice());
+    }
+    public ComponentLst4Public getMaterials() 
+				throws PersistenceException{
+        return getThis().fetchMaterials();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

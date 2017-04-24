@@ -5,7 +5,6 @@ server Server {
 	void createProduct(String name, Fraction price) throws PartsListException;
 	void createMaterial(String name, Fraction price) throws PartsListException;
 	void addPart(Product product, Component component, Integer quantity) throws PartsListException;
-	ComponentLst fetchMaterials(Component component);
    void findComponents(String name);
 	void clearComponents();
 	void changePrice(Component component, Fraction price);
@@ -25,6 +24,7 @@ class Material extends Component {}
 
 class Product extends Component {
 	ComponentLst components;
+	derived ComponentLst materials;
 	void addPart(Component component, Integer quantity) throws PartsListException;
 }
 

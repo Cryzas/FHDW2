@@ -323,7 +323,6 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         ImageView handle(ClearComponentsPRMTRMenuItem menuItem);
         ImageView handle(CreateMaterialPRMTRStringPRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(CreateProductPRMTRStringPRMTRFractionPRMTRMenuItem menuItem);
-        ImageView handle(FetchMaterialsPRMTRComponentPRMTRMenuItem menuItem);
         ImageView handle(FindComponentsPRMTRStringPRMTRMenuItem menuItem);
     }
     private abstract class ServerMenuItem extends MenuItem{
@@ -353,11 +352,6 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         }
     }
     private class CreateProductPRMTRStringPRMTRFractionPRMTRMenuItem extends ServerMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class FetchMaterialsPRMTRComponentPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -526,32 +520,6 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                         wizard.setX( getPointForView().getX());
                         wizard.setY( getPointForView().getY());
                         wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-                item = new FetchMaterialsPRMTRComponentPRMTRMenuItem();
-                item.setText("fetchMaterials");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        Alert confirm = new Alert(AlertType.CONFIRMATION);
-                        confirm.setTitle(GUIConstants.ConfirmButtonText);
-                        confirm.setHeaderText(null);
-                        confirm.setContentText("fetchMaterials" + GUIConstants.ConfirmQuestionMark);
-                        confirm.setX( getPointForView().getX() );
-                        confirm.setY( getPointForView().getY() );
-                        Optional<ButtonType> buttonResult = confirm.showAndWait();
-                        if (buttonResult.get() == ButtonType.OK) {
-                            try {
-                                ViewRoot result = (ViewRoot)getConnection().fetchMaterials((ComponentView)selected);
-                                getConnection().setEagerRefresh();
-                                ReturnValueView view = new ReturnValueView(result, new javafx.geometry.Dimension2D(getNavigationPanel().getWidth()*8/9,getNavigationPanel().getHeight()*8/9), ServerClientView.this);
-                                view.setX( getPointForView().getX() );
-                                view.setY( getPointForView().getY() );
-                                view.showAndWait();
-                            }catch(ModelException me){
-                                handleException(me);
-                            }
-                        }
                     }
                 });
                 result.getItems().add(item);

@@ -37,8 +37,6 @@ public interface Server4Public extends Invoker, Anything, Remote, AbstractPersis
 				throws model.PartsListException, PersistenceException;
     public void createProduct(final String name, final common.Fraction price) 
 				throws model.PartsListException, PersistenceException;
-    public ComponentLst4Public fetchMaterials(final Component4Public component) 
-				throws PersistenceException;
     public void findComponents(final String name) 
 				throws PersistenceException;
     public void handleException(final Command command, final PersistenceException exception) 

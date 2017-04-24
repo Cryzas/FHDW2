@@ -138,10 +138,6 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).disconnected();
     }
-    public ComponentLst4Public fetchMaterials(final Component4Public component) 
-				throws PersistenceException{
-        return ((PersistentServer)this.getTheObject()).fetchMaterials(component);
-    }
     public void findComponents(final String name) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).findComponents(name);

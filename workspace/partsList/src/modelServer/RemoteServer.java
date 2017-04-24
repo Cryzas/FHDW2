@@ -86,16 +86,6 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.HashMap<?,?> fetchMaterials(String componentProxiString){
-        try {
-            PersistentComponent component = (PersistentComponent)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(componentProxiString));
-            ComponentLst4Public result = ((PersistentServer)this.server).fetchMaterials(component);
-            return createOKResult(result, 1, this);
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
     public synchronized java.util.HashMap<?,?> findComponents(String name){
         try {
             ((PersistentServer)this.server).findComponents(name);
