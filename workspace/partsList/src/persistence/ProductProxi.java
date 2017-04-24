@@ -78,10 +78,6 @@ public class ProductProxi extends ComponentProxi implements PersistentProduct{
 				throws PersistenceException{
         return ((PersistentProduct)this.getTheObject()).fetchOverallPrice();
     }
-    public common.Fraction getOverAllPrice() 
-				throws PersistenceException{
-        return ((PersistentProduct)this.getTheObject()).getOverAllPrice();
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentProduct)this.getTheObject()).initializeOnCreation();

@@ -271,11 +271,6 @@ public class Server extends PersistentObject implements PersistentServer{
 		getThis().signalChanged(true);
 
 	}
-    public void changePrice(final Component4Public component, final common.Fraction price) 
-				throws PersistenceException{
-        //TODO: implement method: changePrice
-        
-    }
     public void clearComponents() 
 				throws PersistenceException{
 		getThis().getCurrentComponents().filter(x -> false);

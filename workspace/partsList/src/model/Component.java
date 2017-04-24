@@ -19,7 +19,7 @@ public abstract class Component extends PersistentObject implements PersistentCo
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
             result.put("name", this.getName());
-            result.put("overAllPrice", this.getOverAllPrice().toString());
+            result.put("price", this.getPrice().toString());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -37,12 +37,14 @@ public abstract class Component extends PersistentObject implements PersistentCo
         return false;
     }
     protected String name;
+    protected common.Fraction price;
     protected PersistentComponent This;
     
-    public Component(String name,PersistentComponent This,long id) throws PersistenceException {
+    public Component(String name,common.Fraction price,PersistentComponent This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
+        this.price = price;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -72,6 +74,13 @@ public abstract class Component extends PersistentObject implements PersistentCo
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theComponentFacade.nameSet(this.getId(), newValue);
         this.name = newValue;
     }
+    public common.Fraction getPrice() throws PersistenceException {
+        return this.price;
+    }
+    public void setPrice(common.Fraction newValue) throws PersistenceException {
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theComponentFacade.priceSet(this.getId(), newValue);
+        this.price = newValue;
+    }
     protected void setThis(PersistentComponent newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if (newValue.isTheSameAs(this)){
@@ -96,6 +105,7 @@ public abstract class Component extends PersistentObject implements PersistentCo
         this.setThis((PersistentComponent)This);
 		if(this.isTheSameAs(This)){
 			this.setName((String)final$$Fields.get("name"));
+			this.setPrice((common.Fraction)final$$Fields.get("price"));
 		}
     }
     

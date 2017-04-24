@@ -187,7 +187,7 @@ public class ComponentLst extends PersistentObject implements PersistentComponen
     }
     public common.Fraction fetchOverallPrice() 
 				throws PersistenceException{
-    	return getThis().getParts().aggregate(Fraction.Null, (result, argument) -> result.add(argument.fetchOverallPrice()));
+        return getThis().getParts().aggregate(Fraction.Null, (result, argument) -> result.add(argument.fetchOverallPrice()));
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

@@ -42,17 +42,6 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.HashMap<?,?> changePrice(String componentProxiString, String priceAsString){
-        try {
-            PersistentComponent component = (PersistentComponent)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(componentProxiString));
-            common.Fraction price = common.Fraction.parse(priceAsString);
-            ((PersistentServer)this.server).changePrice(component, price);
-            return createOKResult();
-        }catch(PersistenceException pe){
-            return createExceptionResult(pe);
-        }
-    }
-    
     public synchronized java.util.HashMap<?,?> clearComponents(){
         try {
             ((PersistentServer)this.server).clearComponents();

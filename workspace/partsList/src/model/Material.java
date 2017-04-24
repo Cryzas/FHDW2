@@ -10,39 +10,41 @@ import model.visitor.*;
 public class Material extends model.Component implements PersistentMaterial{
     
     
-    public static Material4Public createMaterial(String name) throws PersistenceException{
-        return createMaterial(name,false);
+    public static Material4Public createMaterial(String name,common.Fraction price) throws PersistenceException{
+        return createMaterial(name,price,false);
     }
     
-    public static Material4Public createMaterial(String name,boolean delayed$Persistence) throws PersistenceException {
+    public static Material4Public createMaterial(String name,common.Fraction price,boolean delayed$Persistence) throws PersistenceException {
         PersistentMaterial result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theMaterialFacade
-                .newDelayedMaterial(name);
+                .newDelayedMaterial(name,price);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theMaterialFacade
-                .newMaterial(name,-1);
+                .newMaterial(name,price,-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
         final$$Fields.put("name", name);
+        final$$Fields.put("price", price);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static Material4Public createMaterial(String name,boolean delayed$Persistence,Material4Public This) throws PersistenceException {
+    public static Material4Public createMaterial(String name,common.Fraction price,boolean delayed$Persistence,Material4Public This) throws PersistenceException {
         PersistentMaterial result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theMaterialFacade
-                .newDelayedMaterial(name);
+                .newDelayedMaterial(name,price);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theMaterialFacade
-                .newMaterial(name,-1);
+                .newMaterial(name,price,-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
         final$$Fields.put("name", name);
+        final$$Fields.put("price", price);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -61,6 +63,7 @@ public class Material extends model.Component implements PersistentMaterial{
     public Material provideCopy() throws PersistenceException{
         Material result = this;
         result = new Material(this.name, 
+                              this.price, 
                               this.This, 
                               this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -71,9 +74,9 @@ public class Material extends model.Component implements PersistentMaterial{
         return false;
     }
     
-    public Material(String name,PersistentComponent This,long id) throws PersistenceException {
+    public Material(String name,common.Fraction price,PersistentComponent This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((String)name,(PersistentComponent)This,id);        
+        super((String)name,(common.Fraction)price,(PersistentComponent)This,id);        
     }
     
     static public long getTypeId() {
@@ -87,7 +90,7 @@ public class Material extends model.Component implements PersistentMaterial{
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         if (this.getClassId() == 116) ConnectionHandler.getTheConnectionHandler().theMaterialFacade
-            .newMaterial(name,this.getId());
+            .newMaterial(name,price,this.getId());
         super.store();
         
     }
@@ -134,6 +137,7 @@ public class Material extends model.Component implements PersistentMaterial{
         this.setThis((PersistentMaterial)This);
 		if(this.isTheSameAs(This)){
 			this.setName((String)final$$Fields.get("name"));
+			this.setPrice((common.Fraction)final$$Fields.get("price"));
 		}
     }
     

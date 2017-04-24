@@ -22,8 +22,6 @@ public interface Component4Public extends Anything, AbstractPersistentProxi {
 				throws PersistenceException;
     public common.Fraction fetchOverallPrice() 
 				throws PersistenceException;
-    public common.Fraction getOverAllPrice() 
-				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 

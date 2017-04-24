@@ -16,17 +16,18 @@ public class ProductFacade{
 	}
 
     /* If idCreateIfLessZero is negative, a new id is generated. */
-    public PersistentProduct newProduct(String name,long idCreateIfLessZero) throws PersistenceException {
+    public PersistentProduct newProduct(String name,common.Fraction price,long idCreateIfLessZero) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
-            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".PrdctFacade.newPrdct(?,?); end;");
+            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".PrdctFacade.newPrdct(?,?,?); end;");
             callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
             callable.setString(2, name);
-            callable.setLong(3, idCreateIfLessZero);
+            callable.setString(3, price.toString());
+            callable.setLong(4, idCreateIfLessZero);
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Product result = new Product(name,null,null,id);
+            Product result = new Product(name,price,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentProduct)PersistentProxi.createProxi(id, 115);
         }catch(SQLException se) {
@@ -34,7 +35,7 @@ public class ProductFacade{
         }
     }
     
-    public PersistentProduct newDelayedProduct(String name) throws PersistenceException {
+    public PersistentProduct newDelayedProduct(String name,common.Fraction price) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
             callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".PrdctFacade.newDelayedPrdct(); end;");
@@ -42,7 +43,7 @@ public class ProductFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Product result = new Product(name,null,null,id);
+            Product result = new Product(name,price,null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentProduct)PersistentProxi.createProxi(id, 115);
         }catch(SQLException se) {
@@ -64,12 +65,13 @@ public class ProductFacade{
                 return null;
             }
             PersistentComponent This = null;
-            if (obj.getLong(3) != 0)
-                This = (PersistentComponent)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
+            if (obj.getLong(4) != 0)
+                This = (PersistentComponent)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
             PersistentComponentLst components = null;
-            if (obj.getLong(5) != 0)
-                components = (PersistentComponentLst)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
+            if (obj.getLong(6) != 0)
+                components = (PersistentComponentLst)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
             Product result = new Product(obj.getString(2) == null ? "" : obj.getString(2) /* In Oracle "" = null !!! */,
+                                         (obj.getString(3) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(3))),
                                          This,
                                          components,
                                          ProductId);

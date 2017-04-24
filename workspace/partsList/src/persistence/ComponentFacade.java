@@ -63,6 +63,18 @@ public class ComponentFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
+    public void priceSet(long ComponentId, common.Fraction priceVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".CmpnntFacade.prcSet(?, ?); end;");
+            callable.setLong(1, ComponentId);
+            callable.setString(2, priceVal.toString());
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
     public void ThisSet(long ComponentId, Component4Public ThisVal) throws PersistenceException {
         try{
             CallableStatement callable;

@@ -10,9 +10,9 @@ import view.visitor.*;
 public class Material extends view.objects.Component implements MaterialView{
     
     
-    public Material(String name,common.Fraction overAllPrice,long id, long classId) {
+    public Material(String name,common.Fraction price,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((String)name,(common.Fraction)overAllPrice,id, classId);        
+        super((String)name,(common.Fraction)price,id, classId);        
     }
     
     static public long getTypeId() {
@@ -72,7 +72,7 @@ public class Material extends view.objects.Component implements MaterialView{
     public int getNameIndex() throws ModelException {
         return 0;
     }
-    public int getOverAllPriceIndex() throws ModelException {
+    public int getPriceIndex() throws ModelException {
         return 0 + 1;
     }
     public int getRowCount(){
@@ -85,12 +85,12 @@ public class Material extends view.objects.Component implements MaterialView{
             if(columnIndex == 0){
                 if(rowIndex == 0) return "name";
                 rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return "overAllPrice";
+                if(rowIndex == 0) return "price";
                 rowIndex = rowIndex - 1;
             } else {
                 if(rowIndex == 0) return this.getName();
                 rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return this.getOverAllPrice();
+                if(rowIndex == 0) return this.getPrice();
                 rowIndex = rowIndex - 1;
             }
             throw new ModelException("Table index out of bounds!", -1);
@@ -108,10 +108,14 @@ public class Material extends view.objects.Component implements MaterialView{
             return;
         }
         rowIndex = rowIndex - 1;
+        if(rowIndex == 0){
+            this.setPrice(common.Fraction.parse(newValue));
+            return;
+        }
         rowIndex = rowIndex - 1;
     }
     public boolean hasTransientFields(){
-        return true;
+        return false;
     }
     /* Start of protected part that is not overridden by persistence generator */
     
