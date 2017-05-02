@@ -12,20 +12,10 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		
 	  private static ICProxiFactory [] getTheICProxiFactories(){
 		if (iCProxiFactories == null){
-			iCProxiFactories = new ICProxiFactory[19];
-        iCProxiFactories[0] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new CommandCoordinatorICProxi(objectId);
-            }
-        };
+			iCProxiFactories = new ICProxiFactory[25];
         iCProxiFactories[1] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ServerICProxi(objectId);
-            }
-        };
-        iCProxiFactories[13] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new QuantifiedComponentICProxi(objectId);
             }
         };
         iCProxiFactories[2] = new ICProxiFactory(){
@@ -43,9 +33,39 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new MaterialICProxi(objectId);
             }
         };
+        iCProxiFactories[0] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new CommandCoordinatorICProxi(objectId);
+            }
+        };
+        iCProxiFactories[13] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new QuantifiedComponentICProxi(objectId);
+            }
+        };
+        iCProxiFactories[21] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new CreateMaterialCommandICProxi(objectId);
+            }
+        };
+        iCProxiFactories[19] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new AddPartCommandICProxi(objectId);
+            }
+        };
         iCProxiFactories[16] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ComponentLstICProxi(objectId);
+            }
+        };
+        iCProxiFactories[22] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new CreateProductCommandICProxi(objectId);
+            }
+        };
+        iCProxiFactories[23] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new PartsListManagerICProxi(objectId);
             }
         };
         iCProxiFactories[3] = new ICProxiFactory(){

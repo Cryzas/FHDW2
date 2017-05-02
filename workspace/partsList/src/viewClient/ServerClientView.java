@@ -321,6 +321,7 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         ImageView handle(AddPartPRMTRProductPRMTRComponentPRMTRIntegerPRMTRMenuItem menuItem);
         ImageView handle(ChangePricePRMTRComponentPRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(ClearComponentsPRMTRMenuItem menuItem);
+        ImageView handle(ClearErrorPRMTRErrorDisplayPRMTRMenuItem menuItem);
         ImageView handle(CreateMaterialPRMTRStringPRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(CreateProductPRMTRStringPRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(FindComponentsPRMTRStringPRMTRMenuItem menuItem);
@@ -342,6 +343,11 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         }
     }
     private class ClearComponentsPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class ClearErrorPRMTRErrorDisplayPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -494,6 +500,31 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                 this.handleException(me);
                 return result;
             }
+            if (selected instanceof ErrorDisplayView){
+                item = new ClearErrorPRMTRErrorDisplayPRMTRMenuItem();
+                item.setText("clearError");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        Alert confirm = new Alert(AlertType.CONFIRMATION);
+                        confirm.setTitle(GUIConstants.ConfirmButtonText);
+                        confirm.setHeaderText(null);
+                        confirm.setContentText("clearError" + GUIConstants.ConfirmQuestionMark);
+                        confirm.setX( getPointForView().getX() );
+                        confirm.setY( getPointForView().getY() );
+                        Optional<ButtonType> buttonResult = confirm.showAndWait();
+                        if (buttonResult.get() == ButtonType.OK) {
+                            try {
+                                getConnection().clearError((ErrorDisplayView)selected);
+                                getConnection().setEagerRefresh();
+                                
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
+                    }
+                });
+                result.getItems().add(item);
+            }
             if (selected instanceof ProductView){
                 item = new AddPartPRMTRProductPRMTRComponentPRMTRIntegerPRMTRMenuItem();
                 item.setText("addPart ... ");
@@ -558,9 +589,6 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 			} catch(ModelException me){
 				handleException(me);
 				this.close();
-			}
-			catch(PartsListException e) {
-				getStatusBar().setText(e.getMessage());
 			}
 			
 		}

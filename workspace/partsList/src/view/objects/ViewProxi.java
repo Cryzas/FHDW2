@@ -55,15 +55,10 @@ public abstract class ViewProxi extends ViewRoot {
 	
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [19];
+		proxiFactories = new ProxiFactory [25];
         proxiFactories[1] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ServerProxi(objectId, classId, connectionKey);
-            }
-        };
-        proxiFactories[13] = new ProxiFactory(){
-            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
-                return new QuantifiedComponentProxi(objectId, classId, connectionKey);
             }
         };
         proxiFactories[2] = new ProxiFactory(){
@@ -81,9 +76,19 @@ public abstract class ViewProxi extends ViewRoot {
                 return new MaterialProxi(objectId, classId, connectionKey);
             }
         };
+        proxiFactories[13] = new ProxiFactory(){
+            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
+                return new QuantifiedComponentProxi(objectId, classId, connectionKey);
+            }
+        };
         proxiFactories[16] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ComponentLstProxi(objectId, classId, connectionKey);
+            }
+        };
+        proxiFactories[23] = new ProxiFactory(){
+            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
+                return new PartsListManagerProxi(objectId, classId, connectionKey);
             }
         };
 	}

@@ -218,9 +218,7 @@ public class QuantifiedComponent extends PersistentObject implements PersistentQ
     }
     public ComponentLst4Public fetchMaterials() 
 				throws PersistenceException{
-    	ComponentLst4Public list = ComponentLst.createComponentLst();
-    	list.addList(getThis().getComponent().fetchMaterials().multiply(getThis().getQuantity()));
-    	return list;
+    	return getThis().getComponent().fetchMaterials().multiply(getThis().getQuantity());
     }
     public common.Fraction fetchOverallPrice() 
 				throws PersistenceException{

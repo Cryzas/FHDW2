@@ -91,42 +91,74 @@ public class ComponentLstFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public long partsAdd(long ComponentLstId, QuantifiedComponent4Public partsVal) throws PersistenceException {
+    public PersistentQuantifiedComponent partsAdd(long ComponentLstId, Component4Public indxxVal, QuantifiedComponent4Public partsVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".CmpnntLstFacade.prtsAdd(?, ?, ?); end;");
-            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".CmpnntLstFacade.prtsAdd(?, ?, ?, ?, ?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
             callable.setLong(2, ComponentLstId);
-            callable.setLong(3, partsVal.getId());
-            callable.setLong(4, partsVal.getClassId());
+            callable.setLong(3, indxxVal.getId());
+            callable.setLong(4, indxxVal.getClassId());
+            callable.setLong(5, partsVal.getId());
+            callable.setLong(6, partsVal.getClassId());
             callable.execute();
-            long result = callable.getLong(1);
+            ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
+            PersistentQuantifiedComponent result = null;
+            if (list.next()) result = (PersistentQuantifiedComponent)PersistentProxi.createListEntryProxi(list.getLong(1), list.getLong(2), list.getLong(3));
+            list.close();
             callable.close();
             return result;
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void partsRem(long partsId) throws PersistenceException {
+    public PersistentQuantifiedComponent partsRem(long ComponentLstId, Component4Public indxxVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".CmpnntLstFacade.prtsRem(?); end;");
-            callable.setLong(1, partsId);
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".CmpnntLstFacade.prtsRem(?,?,?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            callable.setLong(2, ComponentLstId);
+            callable.setLong(3, indxxVal.getId());
+            callable.setLong(4, indxxVal.getClassId());
             callable.execute();
+            ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
+            PersistentQuantifiedComponent result = null;
+            if (list.next()) result = (PersistentQuantifiedComponent)PersistentProxi.createListEntryProxi(list.getLong(1), list.getLong(2), list.getLong(3));
+            list.close();
             callable.close();
+            return result;
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public QuantifiedComponentList partsGet(long ComponentLstId) throws PersistenceException {
+    public PersistentQuantifiedComponent partsGet(long ComponentLstId, Component4Public indxxVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".CmpnntLstFacade.prtsGet(?); end;");
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".CmpnntLstFacade.prtsGet(?,?,?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            callable.setLong(2, ComponentLstId);
+            callable.setLong(3, indxxVal.getId());
+            callable.setLong(4, indxxVal.getClassId());
+            callable.execute();
+            ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
+            PersistentQuantifiedComponent result = null;
+            if (list.next()) result = (PersistentQuantifiedComponent)PersistentProxi.createListEntryProxi(list.getLong(1), list.getLong(2), list.getLong(3));
+            list.close();
+            callable.close();
+            return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public QuantifiedComponentSearchList partsGetValues(long ComponentLstId) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".CmpnntLstFacade.prtsGetValues(?); end;");
             callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
             callable.setLong(2, ComponentLstId);
             callable.execute();
             ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
-            QuantifiedComponentList result = new QuantifiedComponentList();
+            QuantifiedComponentSearchList result = new QuantifiedComponentSearchList();
             while (list.next()) {
                 result.add((PersistentQuantifiedComponent)PersistentProxi.createListEntryProxi(list.getLong(1), list.getLong(2), list.getLong(3)));
             }

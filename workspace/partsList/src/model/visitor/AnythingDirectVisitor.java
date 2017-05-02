@@ -15,6 +15,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleComponentLst(ComponentLst4Public componentLst) throws PersistenceException;
     
+    public abstract void handlePartsListManager(PartsListManager4Public partsListManager) throws PersistenceException;
+    
     public abstract void handleComponent(Component4Public component) throws PersistenceException;
     
     public void handleProduct(Product4Public product) throws PersistenceException{
@@ -25,6 +27,15 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException;
     
+    public void handleCreateMaterialCommand(CreateMaterialCommand4Public createMaterialCommand) throws PersistenceException{
+        this.handleCommonDate(createMaterialCommand);
+    }
+    public void handleAddPartCommand(AddPartCommand4Public addPartCommand) throws PersistenceException{
+        this.handleCommonDate(addPartCommand);
+    }
+    public void handleCreateProductCommand(CreateProductCommand4Public createProductCommand) throws PersistenceException{
+        this.handleCommonDate(createProductCommand);
+    }
     public abstract void handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException;
     
     

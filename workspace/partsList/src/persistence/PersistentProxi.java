@@ -19,20 +19,10 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
 	
   private static ListProxiFactory [] getTheListProxiFactories(){
 	if (listProxiFactories == null){
-		listProxiFactories = new ListProxiFactory[19];
-        listProxiFactories[0] = new ListProxiFactory(){
-            AbstractPersistentRoot create(long objectId, long entryId){
-                return new CommandCoordinatorListEntryProxi(objectId, entryId);
-            }
-        };
+		listProxiFactories = new ListProxiFactory[25];
         listProxiFactories[1] = new ListProxiFactory(){
             AbstractPersistentRoot create(long objectId, long entryId){
                 return new ServerListEntryProxi(objectId, entryId);
-            }
-        };
-        listProxiFactories[13] = new ListProxiFactory(){
-            AbstractPersistentRoot create(long objectId, long entryId){
-                return new QuantifiedComponentListEntryProxi(objectId, entryId);
             }
         };
         listProxiFactories[2] = new ListProxiFactory(){
@@ -50,9 +40,39 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
                 return new MaterialListEntryProxi(objectId, entryId);
             }
         };
+        listProxiFactories[0] = new ListProxiFactory(){
+            AbstractPersistentRoot create(long objectId, long entryId){
+                return new CommandCoordinatorListEntryProxi(objectId, entryId);
+            }
+        };
+        listProxiFactories[13] = new ListProxiFactory(){
+            AbstractPersistentRoot create(long objectId, long entryId){
+                return new QuantifiedComponentListEntryProxi(objectId, entryId);
+            }
+        };
+        listProxiFactories[21] = new ListProxiFactory(){
+            AbstractPersistentRoot create(long objectId, long entryId){
+                return new CreateMaterialCommandListEntryProxi(objectId, entryId);
+            }
+        };
+        listProxiFactories[19] = new ListProxiFactory(){
+            AbstractPersistentRoot create(long objectId, long entryId){
+                return new AddPartCommandListEntryProxi(objectId, entryId);
+            }
+        };
         listProxiFactories[16] = new ListProxiFactory(){
             AbstractPersistentRoot create(long objectId, long entryId){
                 return new ComponentLstListEntryProxi(objectId, entryId);
+            }
+        };
+        listProxiFactories[22] = new ListProxiFactory(){
+            AbstractPersistentRoot create(long objectId, long entryId){
+                return new CreateProductCommandListEntryProxi(objectId, entryId);
+            }
+        };
+        listProxiFactories[23] = new ListProxiFactory(){
+            AbstractPersistentRoot create(long objectId, long entryId){
+                return new PartsListManagerListEntryProxi(objectId, entryId);
             }
         };
         listProxiFactories[3] = new ListProxiFactory(){
@@ -70,20 +90,10 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
   }
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [19];
-        proxiFactories[0] = new ProxiFactory(){
-            AbstractPersistentRoot create(long objectId){
-                return new CommandCoordinatorProxi(objectId);
-            }
-        };
+		proxiFactories = new ProxiFactory [25];
         proxiFactories[1] = new ProxiFactory(){
             AbstractPersistentRoot create(long objectId){
                 return new ServerProxi(objectId);
-            }
-        };
-        proxiFactories[13] = new ProxiFactory(){
-            AbstractPersistentRoot create(long objectId){
-                return new QuantifiedComponentProxi(objectId);
             }
         };
         proxiFactories[2] = new ProxiFactory(){
@@ -101,9 +111,39 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
                 return new MaterialProxi(objectId);
             }
         };
+        proxiFactories[0] = new ProxiFactory(){
+            AbstractPersistentRoot create(long objectId){
+                return new CommandCoordinatorProxi(objectId);
+            }
+        };
+        proxiFactories[13] = new ProxiFactory(){
+            AbstractPersistentRoot create(long objectId){
+                return new QuantifiedComponentProxi(objectId);
+            }
+        };
+        proxiFactories[21] = new ProxiFactory(){
+            AbstractPersistentRoot create(long objectId){
+                return new CreateMaterialCommandProxi(objectId);
+            }
+        };
+        proxiFactories[19] = new ProxiFactory(){
+            AbstractPersistentRoot create(long objectId){
+                return new AddPartCommandProxi(objectId);
+            }
+        };
         proxiFactories[16] = new ProxiFactory(){
             AbstractPersistentRoot create(long objectId){
                 return new ComponentLstProxi(objectId);
+            }
+        };
+        proxiFactories[22] = new ProxiFactory(){
+            AbstractPersistentRoot create(long objectId){
+                return new CreateProductCommandProxi(objectId);
+            }
+        };
+        proxiFactories[23] = new ProxiFactory(){
+            AbstractPersistentRoot create(long objectId){
+                return new PartsListManagerProxi(objectId);
             }
         };
         proxiFactories[3] = new ProxiFactory(){

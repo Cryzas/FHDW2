@@ -1,74 +1,85 @@
 package persistence;
 
 import model.*;
+import java.util.Hashtable;
 
-import java.util.Iterator;
-import java.util.Vector;
+public class ComponentLst_PartsProxi implements PersistentMapProxi<Component4Public,QuantifiedComponent4Public>{
 
-public class ComponentLst_PartsProxi extends PersistentListProxi<QuantifiedComponent4Public> {
+	private ComponentLst owner;
 
-  	private QuantifiedComponentList list;
-  	private ComponentLst owner;
+	private Hashtable<Component4Public, QuantifiedComponent4Public> data;
+	private QuantifiedComponentSearchList values;
 
-  	public ComponentLst_PartsProxi(ComponentLst owner) {
-    	this.owner = owner;
-  	}
-  	public QuantifiedComponentList getList() throws PersistenceException{
-    	if (this.list == null) {
-      		if (this.owner.isDelayed$Persistence()) {
-        		this.list = new QuantifiedComponentList();
-      		} else {
-        		this.list = ConnectionHandler
-                		    .getTheConnectionHandler()
-                      		.theComponentLstFacade.partsGet(this.owner.getId());
-      		}
-    	}
-    	return this.list;
-  	}
-	protected Vector<QuantifiedComponent4Public> getData() {
-		return this.list.data;
+	public ComponentLst_PartsProxi(ComponentLst owner) {
+		this.owner = owner;
+		this.data = new Hashtable<Component4Public, QuantifiedComponent4Public>();
 	}
- 
-  	public Iterator<QuantifiedComponent4Public> iterator() throws PersistenceException{
-    	return this.getList().iterator(this);
-  	}
-  	public long getLength() throws PersistenceException{
-	  	return this.getList().getLength();
-  	}
-  	public void add(QuantifiedComponent4Public entry) throws PersistenceException {
-    	if (entry != null) {
-      		QuantifiedComponentList list = this.getList();
-      		long entryId = 0;
-      		if (!this.owner.isDelayed$Persistence()) {
-        		entry.store();  	
-        		entryId = ConnectionHandler.getTheConnectionHandler().theComponentLstFacade
-        	               	.partsAdd(owner.getId(), entry);
-      		}
-      		list.add((QuantifiedComponent4Public)PersistentProxi.createListEntryProxi(entry.getId(),
-            		                   entry.getClassId(),
-        	    	                   entryId));
-      		
-    	}
-  	}
-  	protected void remove(PersistentListEntryProxi entry) throws PersistenceException {
-    	if (!this.owner.isDelayed$Persistence()) {
-      		ConnectionHandler.getTheConnectionHandler().theComponentLstFacade.partsRem(entry.getListEntryId());
-    	}
-    	
-  	}
-  	public ComponentLst_PartsProxi copy(ComponentLst owner) throws PersistenceException {
-  		ComponentLst_PartsProxi result = new ComponentLst_PartsProxi(owner);
-  		result.list = this.getList().copy();
-  		return result;
-  	}	 
-  	public void store() throws PersistenceException {
-  		java.util.Iterator<QuantifiedComponent4Public> entries = (this.list == null ? new java.util.Vector<QuantifiedComponent4Public>().iterator() : this.list.iterator(this));
-  		while (entries.hasNext()){
-  			QuantifiedComponent4Public current = entries.next();
-  			current.store();
-      		long entryId = ConnectionHandler.getTheConnectionHandler().theComponentLstFacade
-            	           .partsAdd(owner.getId(), current);
-        	((PersistentListEntryProxi)current).setListEntryId(entryId);
+
+	public synchronized QuantifiedComponent4Public put(Component4Public key, QuantifiedComponent4Public entry) throws PersistenceException {
+		if (key == null) throw new PersistenceException("Null not allowed for map keys!",0);
+		if (entry == null) throw new PersistenceException("Null not allowed for map values!",0);
+		QuantifiedComponent4Public result = null;
+		
+		if (!this.owner.isDelayed$Persistence()){
+			key.store();
+			entry.store();
+			result = ConnectionHandler.getTheConnectionHandler().theComponentLstFacade.partsAdd(owner.getId(), key, entry);
+		} else {
+			result = this.data.get(key);
+		}
+		this.data.put(key, entry);
+		this.values = null;
+		
+		return result;
+	}
+
+	public synchronized QuantifiedComponent4Public get(Component4Public key) throws PersistenceException {
+		QuantifiedComponent4Public result = this.data.get(key);
+		if (result == null && !this.owner.isDelayed$Persistence()) {
+			result = ConnectionHandler.getTheConnectionHandler().theComponentLstFacade.partsGet(owner.getId(), key);
+			if (result != null)
+				this.data.put(key, result);
+		}
+		return result;
+	}
+
+	public synchronized QuantifiedComponent4Public remove(Component4Public key) throws PersistenceException {
+		
+		QuantifiedComponent4Public result = this.data.remove(key);
+		this.values = null;
+		if (!this.owner.isDelayed$Persistence()){
+			result = ConnectionHandler.getTheConnectionHandler().theComponentLstFacade.partsRem(this.owner.getId(), key);
+		}
+		return result;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public ComponentLst_PartsProxi copy(ComponentLst owner) throws PersistenceException {
+		ComponentLst_PartsProxi result = new ComponentLst_PartsProxi(owner);
+		result.data = (Hashtable<Component4Public, QuantifiedComponent4Public>) this.data.clone();
+		return result;
+	}
+	
+	public QuantifiedComponentSearchList getValues() throws PersistenceException {
+		if (this.values == null) {
+			if (this.owner.isDelayed$Persistence()){
+				this.values = new QuantifiedComponentSearchList();
+				for (QuantifiedComponent4Public current : this.data.values()) {
+					this.values.add(current);
+				}
+			} else {
+				this.values = ConnectionHandler.getTheConnectionHandler().theComponentLstFacade.partsGetValues(owner.getId());
+			}		
+		}
+		return this.values;
+	}
+	public void store() throws PersistenceException {
+		java.util.Iterator<Component4Public> keys = this.data.keySet().iterator();
+		while (keys.hasNext()){
+			Component4Public key = keys.next();
+			key.store();
+			data.get(key).store();
+			ConnectionHandler.getTheConnectionHandler().theComponentLstFacade.partsAdd(owner.getId(), key, data.get(key));
 		}
 	}
 }

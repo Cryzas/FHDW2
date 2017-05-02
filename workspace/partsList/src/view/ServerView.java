@@ -8,8 +8,8 @@ import view.visitor.*;
 
 public interface ServerView extends Anything, Remote, AbstractViewRoot {
     
-    public java.util.Vector<ComponentView> getCurrentComponents()throws ModelException;
-    public void setCurrentComponents(java.util.Vector<ComponentView> newValue) throws ModelException ;
+    public PartsListManagerView getManager()throws ModelException;
+    public void setManager(PartsListManagerView newValue) throws ModelException ;
     public java.util.Vector<ErrorDisplayView> getErrors()throws ModelException;
     public void setErrors(java.util.Vector<ErrorDisplayView> newValue) throws ModelException ;
     public String getUser()throws ModelException;

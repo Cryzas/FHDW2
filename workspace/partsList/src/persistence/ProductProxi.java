@@ -54,6 +54,10 @@ public class ProductProxi extends ComponentProxi implements PersistentProduct{
     }
     
     
+    public void addPart(final Component4Public component, final long quantity, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentProduct)this.getTheObject()).addPart(component, quantity, invoker);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentProduct)this.getTheObject()).initialize(This, final$$Fields);

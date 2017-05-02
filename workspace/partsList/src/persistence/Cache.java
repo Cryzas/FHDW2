@@ -274,12 +274,16 @@ public class Cache {
 	
 	private void initializeNumber2NameMap() {
 		this.number2NameMap = new Hashtable<Integer,String>();
+		this.number2NameMap.put(120, "AddPartCommand");
 		this.number2NameMap.put(-101, "CommandCoordinator");
 		this.number2NameMap.put(-105, "CommandExecuter");
 		this.number2NameMap.put(104, "CommonDate");
 		this.number2NameMap.put(117, "ComponentLst");
+		this.number2NameMap.put(122, "CreateMaterialCommand");
+		this.number2NameMap.put(123, "CreateProductCommand");
 		this.number2NameMap.put(-103, "ErrorDisplay");
 		this.number2NameMap.put(116, "Material");
+		this.number2NameMap.put(124, "PartsListManager");
 		this.number2NameMap.put(115, "Product");
 		this.number2NameMap.put(114, "QuantifiedComponent");
 		this.number2NameMap.put(-102, "Server");	

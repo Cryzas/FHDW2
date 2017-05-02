@@ -3,7 +3,7 @@ package persistence;
 
 public interface PersistentServer extends Invoker, Anything, Remote, AbstractPersistentProxi, Server4Public {
     
-    public Server_CurrentComponentsProxi getCurrentComponents() throws PersistenceException ;
+    public void setManager(PartsListManager4Public newValue) throws PersistenceException ;
     public Server_ErrorsProxi getErrors() throws PersistenceException ;
     public String getPassword() throws PersistenceException ;
     public void setPassword(String newValue) throws PersistenceException ;

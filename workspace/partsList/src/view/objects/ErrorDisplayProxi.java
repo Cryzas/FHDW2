@@ -12,8 +12,7 @@ public class ErrorDisplayProxi extends ViewProxi implements ErrorDisplayView{
     }
     
     public ErrorDisplayView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
-        String message = (String)resultTable.get("message");
-        ErrorDisplayView result$$ = new ErrorDisplay((String)message, this.getId(), this.getClassId());
+        ErrorDisplayView result$$ = new ErrorDisplay( this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -36,12 +35,6 @@ public class ErrorDisplayProxi extends ViewProxi implements ErrorDisplayView{
         return -1;
     }
     
-    public String getMessage()throws ModelException{
-        return ((ErrorDisplay)this.getTheObject()).getMessage();
-    }
-    public void setMessage(String newValue) throws ModelException {
-        ((ErrorDisplay)this.getTheObject()).setMessage(newValue);
-    }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleErrorDisplay(this);
@@ -57,7 +50,7 @@ public class ErrorDisplayProxi extends ViewProxi implements ErrorDisplayView{
     }
     
     public boolean hasTransientFields(){
-        return true;
+        return false;
     }
     
     public javafx.scene.image.Image getImage(){

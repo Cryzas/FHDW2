@@ -56,7 +56,7 @@ public class ComponentLst extends PersistentObject implements PersistentComponen
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            result.put("parts", this.getParts().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
+            result.put("parts", this.getParts().getValues().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -144,7 +144,7 @@ public class ComponentLst extends PersistentObject implements PersistentComponen
          return visitor.handleComponentLst(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getParts().getLength() > 0) return 1;
+        if( this.getParts().getValues().getLength() > 0) return 1;
         return 0;
     }
     
@@ -161,21 +161,21 @@ public class ComponentLst extends PersistentObject implements PersistentComponen
     
     public ComponentLst4Public addList(final ComponentLst4Public argument) 
 				throws PersistenceException{
-    	argument.getParts().applyToAll(arg -> getThis().addPart(arg.getComponent(), arg.getQuantity()));
+    	argument.getParts().getValues().applyToAll(arg -> getThis().addPart(arg.getComponent(), arg.getQuantity()));
         return getThis();
     }
     public void addPart(final Component4Public component, final long quantity) 
 				throws PersistenceException{
-    	QuantifiedComponent4Public oldEntry = getThis().getParts().findFirst(arg -> arg.getComponent().equals(component));    	
+    	QuantifiedComponent4Public oldEntry = getThis().getParts().get(component);   	
     	if (oldEntry != null) {
 			oldEntry.addQuantity(quantity);
 		} else {
-			getThis().getParts().add(QuantifiedComponent.createQuantifiedComponent(quantity, component));
+			getThis().getParts().put(component, QuantifiedComponent.createQuantifiedComponent(quantity, component, true));
 		}
     }
     public boolean contains(final Component4Public component) 
 				throws PersistenceException{
-    	return getThis().getParts().findFirst(arg -> arg.getComponent().contains(component)) != null;
+    	return getThis().getParts().getValues().findFirst(arg -> arg.getComponent().contains(component)) != null;
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -183,11 +183,11 @@ public class ComponentLst extends PersistentObject implements PersistentComponen
     }
     public ComponentLst4Public fetchMaterials() 
 				throws PersistenceException{
-    	return getThis().getParts().aggregate(ComponentLst.createComponentLst(), (result,argument) -> result.addList(argument.fetchMaterials()));
+    	return getThis().getParts().getValues().aggregate(ComponentLst.createComponentLst(true), (result,argument) -> result.addList(argument.fetchMaterials()));
     }
     public common.Fraction fetchOverallPrice() 
 				throws PersistenceException{
-        return getThis().getParts().aggregate(Fraction.Null, (result, argument) -> result.add(argument.fetchOverallPrice()));
+        return getThis().getParts().getValues().aggregate(Fraction.Null, (result, argument) -> result.add(argument.fetchOverallPrice()));
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -199,7 +199,7 @@ public class ComponentLst extends PersistentObject implements PersistentComponen
     }
     public ComponentLst4Public multiply(final long factor) 
 				throws PersistenceException{
-    	getThis().getParts().applyToAll(argument -> argument.multiply(factor));
+    	getThis().getParts().getValues().applyToAll(argument -> argument.multiply(factor));
     	return getThis();
     }
     

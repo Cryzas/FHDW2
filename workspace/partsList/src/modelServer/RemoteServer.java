@@ -37,8 +37,6 @@ public  class RemoteServer extends RemoteServerMaster {
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
-        }catch(model.PartsListException e0){
-            return createExceptionResult(e0, this);
         }
     }
     
@@ -56,6 +54,16 @@ public  class RemoteServer extends RemoteServerMaster {
     public synchronized java.util.HashMap<?,?> clearComponents(){
         try {
             ((PersistentServer)this.server).clearComponents();
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> clearError(String errorProxiString){
+        try {
+            PersistentErrorDisplay error = (PersistentErrorDisplay)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(errorProxiString));
+            ((PersistentServer)this.server).clearError(error);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

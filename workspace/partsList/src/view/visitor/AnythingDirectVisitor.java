@@ -13,6 +13,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleComponentLst(ComponentLstView componentLst) throws ModelException;
     
+    public abstract void handlePartsListManager(PartsListManagerView partsListManager) throws ModelException;
+    
     public abstract void handleComponent(ComponentView component) throws ModelException;
     
     public void handleProduct(ProductView product) throws ModelException{

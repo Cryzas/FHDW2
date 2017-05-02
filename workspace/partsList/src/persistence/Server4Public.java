@@ -5,6 +5,7 @@ import model.visitor.*;
 
 public interface Server4Public extends Invoker, Anything, Remote, AbstractPersistentProxi {
     
+    public PartsListManager4Public getManager() throws PersistenceException ;
     
     public void accept(InvokerVisitor visitor) throws PersistenceException;
     public <R> R accept(InvokerReturnVisitor<R>  visitor) throws PersistenceException;
@@ -26,10 +27,12 @@ public interface Server4Public extends Invoker, Anything, Remote, AbstractPersis
     public void signalChanged(final boolean signal) 
 				throws PersistenceException;
     public void addPart(final Product4Public product, final Component4Public component, final long quantity) 
-				throws model.PartsListException, PersistenceException;
+				throws PersistenceException;
     public void changePrice(final Component4Public component, final common.Fraction price) 
 				throws PersistenceException;
     public void clearComponents() 
+				throws PersistenceException;
+    public void clearError(final ErrorDisplay4Public error) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;

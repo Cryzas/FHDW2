@@ -173,6 +173,16 @@ public class Product extends model.Component implements PersistentProduct{
     }
     
     
+    public void addPart(final Component4Public component, final long quantity, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
+		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
+		AddPartCommand4Public command = model.meta.AddPartCommand.createAddPartCommand(quantity, nw, d1170);
+		command.setComponent(component);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentProduct)This);

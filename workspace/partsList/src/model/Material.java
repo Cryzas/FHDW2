@@ -157,7 +157,7 @@ public class Material extends model.Component implements PersistentMaterial{
     }
     public ComponentLst4Public fetchMaterials() 
 				throws PersistenceException{
-    	ComponentLst4Public list = ComponentLst.createComponentLst();
+    	ComponentLst4Public list = ComponentLst.createComponentLst(true);
     	list.addPart(getThis(), 1);
     	return list;
     }

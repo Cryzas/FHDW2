@@ -22,8 +22,11 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
         return -102;
     }
     
-    public Server_CurrentComponentsProxi getCurrentComponents() throws PersistenceException {
-        return ((PersistentServer)this.getTheObject()).getCurrentComponents();
+    public PartsListManager4Public getManager() throws PersistenceException {
+        return ((PersistentServer)this.getTheObject()).getManager();
+    }
+    public void setManager(PartsListManager4Public newValue) throws PersistenceException {
+        ((PersistentServer)this.getTheObject()).setManager(newValue);
     }
     public Server_ErrorsProxi getErrors() throws PersistenceException {
         return ((PersistentServer)this.getTheObject()).getErrors();
@@ -107,7 +110,7 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
         ((PersistentServer)this.getTheObject()).signalChanged(signal);
     }
     public void addPart(final Product4Public product, final Component4Public component, final long quantity) 
-				throws model.PartsListException, PersistenceException{
+				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).addPart(product, component, quantity);
     }
     public void changePrice(final Component4Public component, final common.Fraction price) 
@@ -117,6 +120,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void clearComponents() 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).clearComponents();
+    }
+    public void clearError(final ErrorDisplay4Public error) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).clearError(error);
     }
     public void connected(final String user) 
 				throws PersistenceException{

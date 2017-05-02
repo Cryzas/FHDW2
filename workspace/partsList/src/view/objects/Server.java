@@ -10,14 +10,14 @@ import view.visitor.*;
 
 public class Server extends ViewObject implements ServerView{
     
-    protected java.util.Vector<ComponentView> currentComponents;
+    protected PartsListManagerView manager;
     protected java.util.Vector<ErrorDisplayView> errors;
     protected String user;
     
-    public Server(java.util.Vector<ComponentView> currentComponents,java.util.Vector<ErrorDisplayView> errors,String user,long id, long classId) {
+    public Server(PartsListManagerView manager,java.util.Vector<ErrorDisplayView> errors,String user,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
-        this.currentComponents = currentComponents;
+        this.manager = manager;
         this.errors = errors;
         this.user = user;        
     }
@@ -30,11 +30,11 @@ public class Server extends ViewObject implements ServerView{
         return getTypeId();
     }
     
-    public java.util.Vector<ComponentView> getCurrentComponents()throws ModelException{
-        return this.currentComponents;
+    public PartsListManagerView getManager()throws ModelException{
+        return this.manager;
     }
-    public void setCurrentComponents(java.util.Vector<ComponentView> newValue) throws ModelException {
-        this.currentComponents = newValue;
+    public void setManager(PartsListManagerView newValue) throws ModelException {
+        this.manager = newValue;
     }
     public java.util.Vector<ErrorDisplayView> getErrors()throws ModelException{
         return this.errors;
@@ -75,9 +75,9 @@ public class Server extends ViewObject implements ServerView{
     }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
-        java.util.Vector<?> currentComponents = this.getCurrentComponents();
-        if (currentComponents != null) {
-            ViewObject.resolveVectorProxies(currentComponents, resultTable);
+        PartsListManagerView manager = this.getManager();
+        if (manager != null) {
+            ((ViewProxi)manager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(manager.getClassId(), manager.getId())));
         }
         java.util.Vector<?> errors = this.getErrors();
         if (errors != null) {
@@ -90,29 +90,26 @@ public class Server extends ViewObject implements ServerView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
         int index = originalIndex;
-        if(index < this.getCurrentComponents().size()) return new CurrentComponentsServerWrapper(this, originalIndex, (ViewRoot)this.getCurrentComponents().get(index));
-        index = index - this.getCurrentComponents().size();
+        if(index == 0 && this.getManager() != null) return new ManagerServerWrapper(this, originalIndex, (ViewRoot)this.getManager());
+        if(this.getManager() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getCurrentComponents().size());
+            + (this.getManager() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         return true 
-            && (this.getCurrentComponents().size() == 0);
+            && (this.getManager() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
-        java.util.Iterator<?> getCurrentComponentsIterator = this.getCurrentComponents().iterator();
-        while(getCurrentComponentsIterator.hasNext()){
-            if(getCurrentComponentsIterator.next().equals(child)) return result;
-            result = result + 1;
-        }
+        if(this.getManager() != null && this.getManager().equals(child)) return result;
+        if(this.getManager() != null) result = result + 1;
         return -1;
     }
     public int getUserIndex() throws ModelException {
-        return 0 + this.getCurrentComponents().size();
+        return 0 + (this.getManager() == null ? 0 : 1);
     }
     public int getRowCount(){
         return 0 

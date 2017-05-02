@@ -9,12 +9,10 @@ import view.visitor.*;
 
 public class ErrorDisplay extends ViewObject implements ErrorDisplayView{
     
-    protected String message;
     
-    public ErrorDisplay(String message,long id, long classId) {
+    public ErrorDisplay(long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super(id, classId);
-        this.message = message;        
+        super(id, classId);        
     }
     
     static public long getTypeId() {
@@ -25,12 +23,6 @@ public class ErrorDisplay extends ViewObject implements ErrorDisplayView{
         return getTypeId();
     }
     
-    public String getMessage()throws ModelException{
-        return this.message;
-    }
-    public void setMessage(String newValue) throws ModelException {
-        this.message = newValue;
-    }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleErrorDisplay(this);
@@ -65,21 +57,13 @@ public class ErrorDisplay extends ViewObject implements ErrorDisplayView{
         
         return -1;
     }
-    public int getMessageIndex() throws ModelException {
-        return 0;
-    }
     public int getRowCount(){
-        return 0 
-            + 1;
+        return 0 ;
     }
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
-                if(rowIndex == 0) return "message";
-                rowIndex = rowIndex - 1;
             } else {
-                if(rowIndex == 0) return this.getMessage();
-                rowIndex = rowIndex - 1;
             }
             throw new ModelException("Table index out of bounds!", -1);
         } catch (ModelException e){
@@ -91,14 +75,10 @@ public class ErrorDisplay extends ViewObject implements ErrorDisplayView{
         return true;
     }
     public void setValueAt(String newValue, int rowIndex) throws Exception {
-        if(rowIndex == 0){
-            this.setMessage(newValue);
-            return;
-        }
-        rowIndex = rowIndex - 1;
+        
     }
     public boolean hasTransientFields(){
-        return true;
+        return false;
     }
     /* Start of protected part that is not overridden by persistence generator */
     

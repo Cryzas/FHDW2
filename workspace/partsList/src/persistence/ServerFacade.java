@@ -29,7 +29,7 @@ public class ServerFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Server result = new Server(null,password,user,hackCount,hackDelay,id);
+            Server result = new Server(null,null,password,user,hackCount,hackDelay,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentServer)PersistentProxi.createProxi(id, -102);
         }catch(SQLException se) {
@@ -45,7 +45,7 @@ public class ServerFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Server result = new Server(null,password,user,hackCount,hackDelay,id);
+            Server result = new Server(null,null,password,user,hackCount,hackDelay,id);
             Cache.getTheCache().put(result);
             return (PersistentServer)PersistentProxi.createProxi(id, -102);
         }catch(SQLException se) {
@@ -66,14 +66,18 @@ public class ServerFacade{
                 callable.close();
                 return null;
             }
-            PersistentServer This = null;
+            PersistentPartsListManager manager = null;
             if (obj.getLong(2) != 0)
-                This = (PersistentServer)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
-            Server result = new Server(This,
-                                       obj.getString(4) == null ? "" : obj.getString(4) /* In Oracle "" = null !!! */,
-                                       obj.getString(5) == null ? "" : obj.getString(5) /* In Oracle "" = null !!! */,
-                                       obj.getLong(6),
-                                       obj.getTimestamp(7),
+                manager = (PersistentPartsListManager)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+            PersistentServer This = null;
+            if (obj.getLong(4) != 0)
+                This = (PersistentServer)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+            Server result = new Server(manager,
+                                       This,
+                                       obj.getString(6) == null ? "" : obj.getString(6) /* In Oracle "" = null !!! */,
+                                       obj.getString(7) == null ? "" : obj.getString(7) /* In Oracle "" = null !!! */,
+                                       obj.getLong(8),
+                                       obj.getTimestamp(9),
                                        ServerId);
             obj.close();
             callable.close();
@@ -121,48 +125,15 @@ public class ServerFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public long currentComponentsAdd(long ServerId, Component4Public currentComponentsVal) throws PersistenceException {
+    public void managerSet(long ServerId, PartsListManager4Public managerVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".SrvrFacade.currCompsAdd(?, ?, ?); end;");
-            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
-            callable.setLong(2, ServerId);
-            callable.setLong(3, currentComponentsVal.getId());
-            callable.setLong(4, currentComponentsVal.getClassId());
-            callable.execute();
-            long result = callable.getLong(1);
-            callable.close();
-            return result;
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
-    }
-    public void currentComponentsRem(long currentComponentsId) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".SrvrFacade.currCompsRem(?); end;");
-            callable.setLong(1, currentComponentsId);
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".SrvrFacade.mngrSet(?, ?, ?); end;");
+            callable.setLong(1, ServerId);
+            callable.setLong(2, managerVal.getId());
+            callable.setLong(3, managerVal.getClassId());
             callable.execute();
             callable.close();
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
-    }
-    public ComponentList currentComponentsGet(long ServerId) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".SrvrFacade.currCompsGet(?); end;");
-            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
-            callable.setLong(2, ServerId);
-            callable.execute();
-            ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
-            ComponentList result = new ComponentList();
-            while (list.next()) {
-                result.add((PersistentComponent)PersistentProxi.createListEntryProxi(list.getLong(1), list.getLong(2), list.getLong(3)));
-            }
-            list.close();
-            callable.close();
-            return result;
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }

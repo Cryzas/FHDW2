@@ -13,12 +13,17 @@ public class ServerProxi extends ViewProxi implements ServerView{
     
     @SuppressWarnings("unchecked")
     public ServerView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
-        java.util.Vector<String> currentComponents_string = (java.util.Vector<String>)resultTable.get("currentComponents");
-        java.util.Vector<ComponentView> currentComponents = ViewProxi.getProxiVector(currentComponents_string, connectionKey);
+        ViewProxi manager = null;
+        String manager$String = (String)resultTable.get("manager");
+        if (manager$String != null) {
+            common.ProxiInformation manager$Info = common.RPCConstantsAndServices.createProxiInformation(manager$String);
+            manager = view.objects.ViewProxi.createProxi(manager$Info,connectionKey);
+            manager.setToString(manager$Info.getToString());
+        }
         java.util.Vector<String> errors_string = (java.util.Vector<String>)resultTable.get("errors");
         java.util.Vector<ErrorDisplayView> errors = ViewProxi.getProxiVector(errors_string, connectionKey);
         String user = (String)resultTable.get("user");
-        ServerView result$$ = new Server(currentComponents,errors,(String)user, this.getId(), this.getClassId());
+        ServerView result$$ = new Server((PartsListManagerView)manager,errors,(String)user, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -28,34 +33,31 @@ public class ServerProxi extends ViewProxi implements ServerView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
         int index = originalIndex;
-        if(index < this.getCurrentComponents().size()) return new CurrentComponentsServerWrapper(this, originalIndex, (ViewRoot)this.getCurrentComponents().get(index));
-        index = index - this.getCurrentComponents().size();
+        if(index == 0 && this.getManager() != null) return new ManagerServerWrapper(this, originalIndex, (ViewRoot)this.getManager());
+        if(this.getManager() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getCurrentComponents().size());
+            + (this.getManager() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
-            && (this.getCurrentComponents().size() == 0);
+            && (this.getManager() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
-        java.util.Iterator<?> getCurrentComponentsIterator = this.getCurrentComponents().iterator();
-        while(getCurrentComponentsIterator.hasNext()){
-            if(getCurrentComponentsIterator.next().equals(child)) return result;
-            result = result + 1;
-        }
+        if(this.getManager() != null && this.getManager().equals(child)) return result;
+        if(this.getManager() != null) result = result + 1;
         return -1;
     }
     
-    public java.util.Vector<ComponentView> getCurrentComponents()throws ModelException{
-        return ((Server)this.getTheObject()).getCurrentComponents();
+    public PartsListManagerView getManager()throws ModelException{
+        return ((Server)this.getTheObject()).getManager();
     }
-    public void setCurrentComponents(java.util.Vector<ComponentView> newValue) throws ModelException {
-        ((Server)this.getTheObject()).setCurrentComponents(newValue);
+    public void setManager(PartsListManagerView newValue) throws ModelException {
+        ((Server)this.getTheObject()).setManager(newValue);
     }
     public java.util.Vector<ErrorDisplayView> getErrors()throws ModelException{
         return ((Server)this.getTheObject()).getErrors();

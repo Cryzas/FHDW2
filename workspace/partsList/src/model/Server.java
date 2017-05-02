@@ -66,7 +66,15 @@ public class Server extends PersistentObject implements PersistentServer{
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            result.put("currentComponents", this.getCurrentComponents().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
+            AbstractPersistentRoot manager = (AbstractPersistentRoot)this.getManager();
+            if (manager != null) {
+                result.put("manager", manager.createProxiInformation(false, essentialLevel <= 1));
+                if(depth > 1) {
+                    manager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && manager.hasEssentialFields())manager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
             result.put("errors", this.getErrors().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
             result.put("user", this.getUser());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
@@ -82,7 +90,8 @@ public class Server extends PersistentObject implements PersistentServer{
     
     public Server provideCopy() throws PersistenceException{
         Server result = this;
-        result = new Server(this.This, 
+        result = new Server(this.manager, 
+                            this.This, 
                             this.password, 
                             this.user, 
                             this.hackCount, 
@@ -100,7 +109,7 @@ public class Server extends PersistentObject implements PersistentServer{
     protected model.UserException userException = null;
     protected boolean changed = false;
     
-    protected Server_CurrentComponentsProxi currentComponents;
+    protected PersistentPartsListManager manager;
     protected PersistentServer This;
     protected Server_ErrorsProxi errors;
     protected String password;
@@ -108,10 +117,10 @@ public class Server extends PersistentObject implements PersistentServer{
     protected long hackCount;
     protected java.sql.Timestamp hackDelay;
     
-    public Server(PersistentServer This,String password,String user,long hackCount,java.sql.Timestamp hackDelay,long id) throws PersistenceException {
+    public Server(PersistentPartsListManager manager,PersistentServer This,String password,String user,long hackCount,java.sql.Timestamp hackDelay,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.currentComponents = new Server_CurrentComponentsProxi(this);
+        this.manager = manager;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;
         this.errors = new Server_ErrorsProxi(this);
         this.password = password;
@@ -133,7 +142,10 @@ public class Server extends PersistentObject implements PersistentServer{
         if (this.getClassId() == -102) ConnectionHandler.getTheConnectionHandler().theServerFacade
             .newServer(password,user,hackCount,hackDelay,this.getId());
         super.store();
-        this.getCurrentComponents().store();
+        if(this.getManager() != null){
+            this.getManager().store();
+            ConnectionHandler.getTheConnectionHandler().theServerFacade.managerSet(this.getId(), getManager());
+        }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theServerFacade.ThisSet(this.getId(), getThis());
@@ -141,8 +153,19 @@ public class Server extends PersistentObject implements PersistentServer{
         
     }
     
-    public Server_CurrentComponentsProxi getCurrentComponents() throws PersistenceException {
-        return this.currentComponents;
+    public PartsListManager4Public getManager() throws PersistenceException {
+        return this.manager;
+    }
+    public void setManager(PartsListManager4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.manager)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.manager = (PersistentPartsListManager)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theServerFacade.managerSet(this.getId(), newValue);
+        }
     }
     protected void setThis(PersistentServer newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -237,7 +260,7 @@ public class Server extends PersistentObject implements PersistentServer{
          return visitor.handleServer(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getCurrentComponents().getLength() > 0) return 1;
+        if (this.getManager() != null) return 1;
         return 0;
     }
     
@@ -266,9 +289,8 @@ public class Server extends PersistentObject implements PersistentServer{
     // Start of section that contains operations that must be implemented.
     
     public void addPart(final Product4Public product, final Component4Public component, final long quantity) 
-				throws model.PartsListException, PersistenceException{
-		product.addPart(component, quantity);
-		getThis().signalChanged(true);
+				throws PersistenceException{
+		product.addPart(component, quantity, getThis());
 
 	}
     public void changePrice(final Component4Public component, final common.Fraction price) 
@@ -278,9 +300,14 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void clearComponents() 
 				throws PersistenceException{
-		getThis().getCurrentComponents().filter(x -> false);
+    	getThis().getManager().clearComponents();
 		getThis().signalChanged(true);
 	}
+    public void clearError(final ErrorDisplay4Public error) 
+				throws PersistenceException{
+    	getThis().getErrors().filter(arg -> !arg.equals(error));
+    	getThis().signalChanged(true);
+    }
     public void connected(final String user) 
 				throws PersistenceException{
 
@@ -291,20 +318,11 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void createMaterial(final String name, final common.Fraction price) 
 				throws model.PartsListException, PersistenceException{
-    	if (Component.getComponentByName(name).iterator().hasNext()) {
-			throw new PartsListException("Komponente existiert bereits");
-		}
-		getThis().getCurrentComponents().add(Material.createMaterial(name, price));
-		getThis().signalChanged(true);
-        
+    	getThis().getManager().createMaterial(name, price, getThis());        
     }
     public void createProduct(final String name, final common.Fraction price) 
 				throws model.PartsListException, PersistenceException{
-    	if (Component.getComponentByName(name).iterator().hasNext()) {
-			throw new PartsListException("Komponente existiert bereits");
-		}
-		getThis().getCurrentComponents().add(Product.createProduct(name, price));
-		getThis().signalChanged(true);
+    	getThis().getManager().createProduct(name, price, getThis());    
     }
     public void disconnected() 
 				throws PersistenceException{
@@ -312,10 +330,7 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void findComponents(final String name) 
 				throws PersistenceException{
-		Component.getComponentByName(name).applyToAll(x -> {
-			if (getThis().getCurrentComponents().findFirst(c -> c.equals(x)) == null)
-				getThis().getCurrentComponents().add(x);
-		});
+		getThis().getManager().findComponents(name);
 		getThis().signalChanged(true);
 	}
     public void handleException(final Command command, final PersistenceException exception) 
@@ -355,7 +370,7 @@ public class Server extends PersistentObject implements PersistentServer{
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
-
+    	getThis().setManager(PartsListManager.createPartsListManager());
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{

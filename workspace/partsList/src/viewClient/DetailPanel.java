@@ -1191,9 +1191,6 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleServer(view.ServerView object){
         result = new ServerDefaultDetailPanel(handler, object);
     }
-    public void handleQuantifiedComponent(view.QuantifiedComponentView object){
-        result = new QuantifiedComponentDefaultDetailPanel(handler, object);
-    }
     public void handleErrorDisplay(view.ErrorDisplayView object){
         result = new ErrorDisplayDefaultDetailPanel(handler, object);
     }
@@ -1203,8 +1200,14 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleMaterial(view.MaterialView object){
         result = new MaterialDefaultDetailPanel(handler, object);
     }
+    public void handleQuantifiedComponent(view.QuantifiedComponentView object){
+        result = new QuantifiedComponentDefaultDetailPanel(handler, object);
+    }
     public void handleComponentLst(view.ComponentLstView object){
         result = new ComponentLstDefaultDetailPanel(handler, object);
+    }
+    public void handlePartsListManager(view.PartsListManagerView object){
+        result = new PartsListManagerDefaultDetailPanel(handler, object);
     }
 
 }
@@ -1213,7 +1216,7 @@ class DetailPanelFactory implements AnythingVisitor {
 
 class ServerDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String Server$$currentComponents = "Server$$currentComponents";
+    protected static final String Server$$manager = "Server$$manager";
     protected static final String Server$$user = "Server$$user";
     
     protected ServerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1234,44 +1237,12 @@ class ServerDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
-class QuantifiedComponentDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String QuantifiedComponent$$quantity = "QuantifiedComponent$$quantity";
-    protected static final String QuantifiedComponent$$component = "QuantifiedComponent$$component";
-    
-    protected QuantifiedComponentDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        try{
-            BaseTypePanel panel = new IntegerPanel(this, "quantity", this.getAnything().getQuantity());
-            this.getScrollablePane().getChildren().add(panel);
-            this.panels.put(QuantifiedComponent$$quantity, panel);
-        }catch(ModelException e){
-            this.getExceptionAndEventhandler().handleException(e);
-        }
-        
-    }
-    protected view.QuantifiedComponentView getAnything(){
-        return (view.QuantifiedComponentView)this.anything;
-    }
-}
-
 class ErrorDisplayDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String ErrorDisplay$$message = "ErrorDisplay$$message";
     
     protected ErrorDisplayDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
-        try{
-            BaseTypePanel panel = new StringPanel(this, "message", this.getAnything().getMessage());
-            this.getScrollablePane().getChildren().add(panel);
-            this.panels.put(ErrorDisplay$$message, panel);
-        }catch(ModelException e){
-            this.getExceptionAndEventhandler().handleException(e);
-        }
         
     }
     protected view.ErrorDisplayView getAnything(){
@@ -1357,6 +1328,29 @@ class MaterialDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class QuantifiedComponentDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String QuantifiedComponent$$quantity = "QuantifiedComponent$$quantity";
+    protected static final String QuantifiedComponent$$component = "QuantifiedComponent$$component";
+    
+    protected QuantifiedComponentDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new IntegerPanel(this, "quantity", this.getAnything().getQuantity());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(QuantifiedComponent$$quantity, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.QuantifiedComponentView getAnything(){
+        return (view.QuantifiedComponentView)this.anything;
+    }
+}
+
 class ComponentLstDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String ComponentLst$$parts = "ComponentLst$$parts";
@@ -1369,5 +1363,20 @@ class ComponentLstDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ComponentLstView getAnything(){
         return (view.ComponentLstView)this.anything;
+    }
+}
+
+class PartsListManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String PartsListManager$$currentComponents = "PartsListManager$$currentComponents";
+    
+    protected PartsListManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.PartsListManagerView getAnything(){
+        return (view.PartsListManagerView)this.anything;
     }
 }

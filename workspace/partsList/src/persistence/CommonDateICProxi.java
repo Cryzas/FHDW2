@@ -35,6 +35,18 @@ public class CommonDateICProxi extends PersistentInCacheProxi implements Persist
         ((PersistentCommonDate)this.getTheObject()).setCommitDate(newValue);
     }
     
+    public void accept(CommonDateVisitor visitor) throws PersistenceException {
+        visitor.handleCommonDate(this);
+    }
+    public <R> R accept(CommonDateReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleCommonDate(this);
+    }
+    public <E extends model.UserException>  void accept(CommonDateExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleCommonDate(this);
+    }
+    public <R, E extends model.UserException> R accept(CommonDateReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleCommonDate(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleCommonDate(this);
     }

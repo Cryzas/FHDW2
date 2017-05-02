@@ -52,5 +52,9 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		result = "Material: " + material.getName();
 		
 	}
+	@Override
+	public void handlePartsListManager(PartsListManager4Public partsListManager) throws PersistenceException {
+		result = "Current Components";		
+	}
 
 }
