@@ -1,0 +1,45 @@
+model transaction {
+
+server Server {
+ 	public Manager manager;
+	void book(Transfer transfer);
+	void createAccount(String description);
+	void createTransfer(String description, Account fromAcc, Account toAcc, Fraction amount);
+}
+
+class Manager {
+	public Account ** currentAccounts;
+	public Transfer ** openTransfers;
+	active void createAccount(String description);
+	active void createTransfer(Account fromAcc, Account toAcc, String description, Fraction amount);
+	active void book(Transfer transfer);
+}
+
+class Account { 
+	public Integer number;
+	public prior String description;
+	public Fraction balance;
+	public Entry ** entries;
+	void book(Entry entry);
+}
+
+abstract class Entry {
+	public prior String description;
+	public prior Fraction amount;
+	public prior Account otherAcc;
+}
+
+class Transfer {
+	public prior String description;
+	public prior Fraction amount;
+	public prior Account fromAcc;
+	public prior Account toAcc;
+	void book();
+}
+
+class Debit extends Entry { }
+
+class Credit extends Entry { }
+
+}
+
