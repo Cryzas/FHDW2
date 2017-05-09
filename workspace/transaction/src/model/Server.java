@@ -293,6 +293,11 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
     	getThis().getManager().book(transfer, getThis());
     }
+    public void clearAccounts() 
+				throws PersistenceException{
+        getThis().getManager().clearAccounts();
+        getThis().signalChanged(true);
+    }
     public void connected(final String user) 
 				throws PersistenceException{
         
@@ -312,6 +317,17 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void disconnected() 
 				throws PersistenceException{
+        
+    }
+    public void findAccountByNumber(final long number) 
+				throws PersistenceException{
+    	getThis().getManager().findAccountByNumber(number);
+        getThis().signalChanged(true);
+    }
+    public void findAccountByString(final String name) 
+				throws PersistenceException{
+    	getThis().getManager().findAccountByName(name);
+        getThis().signalChanged(true);
         
     }
     public void handleException(final Command command, final PersistenceException exception) 

@@ -23,11 +23,17 @@ public interface Manager4Public extends Anything, AbstractPersistentProxi {
 				throws PersistenceException;
     public void book(final Transfer4Public transfer) 
 				throws PersistenceException;
+    public void clearAccounts() 
+				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void createAccount(final String description) 
 				throws PersistenceException;
     public void createTransfer(final Account4Public fromAcc, final Account4Public toAcc, final String description, final common.Fraction amount) 
+				throws PersistenceException;
+    public void findAccountByName(final String name) 
+				throws PersistenceException;
+    public void findAccountByNumber(final long number) 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;

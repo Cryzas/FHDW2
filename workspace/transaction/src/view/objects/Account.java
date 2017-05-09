@@ -34,9 +34,6 @@ public class Account extends ViewObject implements AccountView{
     public long getNumber()throws ModelException{
         return this.number;
     }
-    public void setNumber(long newValue) throws ModelException {
-        this.number = newValue;
-    }
     public String getDescription()throws ModelException{
         return this.description;
     }
@@ -144,10 +141,6 @@ public class Account extends ViewObject implements AccountView{
         return true;
     }
     public void setValueAt(String newValue, int rowIndex) throws Exception {
-        if(rowIndex == 0){
-            this.setNumber(Long.parseLong(newValue));
-            return;
-        }
         rowIndex = rowIndex - 1;
         if(rowIndex == 0){
             this.setDescription(newValue);
@@ -161,7 +154,7 @@ public class Account extends ViewObject implements AccountView{
         rowIndex = rowIndex - 1;
     }
     public boolean hasTransientFields(){
-        return false;
+        return true;
     }
     /* Start of protected part that is not overridden by persistence generator */
     

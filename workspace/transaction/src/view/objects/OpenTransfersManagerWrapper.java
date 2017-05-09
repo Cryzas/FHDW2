@@ -16,7 +16,6 @@ public class OpenTransfersManagerWrapper extends AssociationInTreeWrapper {
 	
 	
 	public String toString(){
-    	//TODO: Implement toString in wrapper class for association openTransfers in class Manager
     	return this.getWrappedObject().toString();
     }
 

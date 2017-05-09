@@ -7,7 +7,6 @@ import view.visitor.*;
 public interface AccountView extends Anything, AbstractViewRoot {
     
     public long getNumber()throws ModelException;
-    public void setNumber(long newValue) throws ModelException ;
     public String getDescription()throws ModelException;
     public void setDescription(String newValue) throws ModelException ;
     public common.Fraction getBalance()throws ModelException;

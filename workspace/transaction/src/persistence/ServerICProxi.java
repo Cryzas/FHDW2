@@ -113,6 +113,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).book(transfer);
     }
+    public void clearAccounts() 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).clearAccounts();
+    }
     public void connected(final String user) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).connected(user);
@@ -132,6 +136,14 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void disconnected() 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).disconnected();
+    }
+    public void findAccountByNumber(final long number) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).findAccountByNumber(number);
+    }
+    public void findAccountByString(final String name) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).findAccountByString(name);
     }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{

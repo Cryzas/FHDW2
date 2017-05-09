@@ -16,8 +16,7 @@ public class ToAccTransferWrapper extends AssociationInTreeWrapper {
 	
 	
 	public String toString(){
-    	//TODO: Implement toString in wrapper class for association toAcc in class Transfer
-    	return this.getWrappedObject().toString();
+    	return "To: " + this.getWrappedObject().toString();
     }
 
     /*End of protected part that is not overridden by persistence generator*/

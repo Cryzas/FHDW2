@@ -91,26 +91,48 @@ public class ManagerFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public long currentAccountsAdd(long ManagerId, Account4Public currentAccountsVal) throws PersistenceException {
+    public PersistentAccount currentAccountsAdd(long ManagerId, String indxxVal, Account4Public currentAccountsVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".MngrFacade.crrntAccntsAdd(?, ?, ?); end;");
-            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".MngrFacade.crrntAccntsAdd(?, ?, ?, ?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
             callable.setLong(2, ManagerId);
-            callable.setLong(3, currentAccountsVal.getId());
-            callable.setLong(4, currentAccountsVal.getClassId());
+            callable.setString(3, indxxVal);
+            callable.setLong(4, currentAccountsVal.getId());
+            callable.setLong(5, currentAccountsVal.getClassId());
             callable.execute();
-            long result = callable.getLong(1);
+            ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
+            PersistentAccount result = null;
+            if (list.next()) result = (PersistentAccount)PersistentProxi.createListEntryProxi(list.getLong(1), list.getLong(2), list.getLong(3));
+            list.close();
             callable.close();
             return result;
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void currentAccountsRem(long currentAccountsId) throws PersistenceException {
+    public PersistentAccount currentAccountsRem(long ManagerId, String indxxVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".MngrFacade.crrntAccntsRem(?); end;");
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".MngrFacade.crrntAccntsRem(?,?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            callable.setLong(2, ManagerId);
+            callable.setString(3, indxxVal);
+            callable.execute();
+            ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
+            PersistentAccount result = null;
+            if (list.next()) result = (PersistentAccount)PersistentProxi.createListEntryProxi(list.getLong(1), list.getLong(2), list.getLong(3));
+            list.close();
+            callable.close();
+            return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void currentAccountsRemEntr(long currentAccountsId) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".MngrFacade.crrntAccntsRemEntr(?); end;");
             callable.setLong(1, currentAccountsId);
             callable.execute();
             callable.close();
@@ -118,17 +140,37 @@ public class ManagerFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public AccountList currentAccountsGet(long ManagerId) throws PersistenceException {
+    public PersistentAccount currentAccountsGet(long ManagerId, String indxxVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".MngrFacade.crrntAccntsGet(?); end;");
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".MngrFacade.crrntAccntsGet(?,?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            callable.setLong(2, ManagerId);
+            callable.setString(3, indxxVal);
+            callable.execute();
+            ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
+            PersistentAccount result = null;
+            if (list.next()) result = (PersistentAccount)PersistentProxi.createListEntryProxi(list.getLong(1), list.getLong(2), list.getLong(3));
+            list.close();
+            callable.close();
+            return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public java.util.Hashtable<String,Account4Public> currentAccountsGetValues(long ManagerId) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".MngrFacade.crrntAccntsGetValues(?); end;");
             callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
             callable.setLong(2, ManagerId);
             callable.execute();
             ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
-            AccountList result = new AccountList();
+            java.util.Hashtable<String,Account4Public> result = new java.util.Hashtable<String,Account4Public>();
             while (list.next()) {
-                result.add((PersistentAccount)PersistentProxi.createListEntryProxi(list.getLong(1), list.getLong(2), list.getLong(3)));
+                Account4Public value = (Account4Public)PersistentProxi.createListEntryProxi(list.getLong(1), list.getLong(2), list.getLong(3));
+                String key = list.getString(4);
+                result.put(key,value);
             }
             list.close();
             callable.close();

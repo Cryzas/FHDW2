@@ -16,7 +16,6 @@ public class ManagerServerWrapper extends AssociationInTreeWrapper {
 	
 	
 	public String toString(){
-    	//TODO: Implement toString in wrapper class for association manager in class Server
     	return this.getWrappedObject().toString();
     }
 

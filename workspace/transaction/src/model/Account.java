@@ -25,11 +25,11 @@ public class Account extends PersistentObject implements PersistentAccount{
         PersistentAccount result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theAccountFacade
-                .newDelayedAccount(0,description,common.Fraction.Null);
+                .newDelayedAccount(description,common.Fraction.Null);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theAccountFacade
-                .newAccount(0,description,common.Fraction.Null,-1);
+                .newAccount(description,common.Fraction.Null,-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
         final$$Fields.put("description", description);
@@ -43,11 +43,11 @@ public class Account extends PersistentObject implements PersistentAccount{
         PersistentAccount result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theAccountFacade
-                .newDelayedAccount(0,description,common.Fraction.Null);
+                .newDelayedAccount(description,common.Fraction.Null);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theAccountFacade
-                .newAccount(0,description,common.Fraction.Null,-1);
+                .newAccount(description,common.Fraction.Null,-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
         final$$Fields.put("description", description);
@@ -70,10 +70,14 @@ public class Account extends PersistentObject implements PersistentAccount{
         return result;
     }
     
+    public static AccountSearchList getAccountByDescription(String description) throws PersistenceException{
+        return ConnectionHandler.getTheConnectionHandler().theAccountFacade
+            .getAccountByDescription(description);
+    }
+    
     public Account provideCopy() throws PersistenceException{
         Account result = this;
-        result = new Account(this.number, 
-                             this.description, 
+        result = new Account(this.description, 
                              this.balance, 
                              this.This, 
                              this.getId());
@@ -84,16 +88,14 @@ public class Account extends PersistentObject implements PersistentAccount{
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected long number;
     protected String description;
     protected common.Fraction balance;
     protected Account_EntriesProxi entries;
     protected PersistentAccount This;
     
-    public Account(long number,String description,common.Fraction balance,PersistentAccount This,long id) throws PersistenceException {
+    public Account(String description,common.Fraction balance,PersistentAccount This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.number = number;
         this.description = description;
         this.balance = balance;
         this.entries = new Account_EntriesProxi(this);
@@ -111,7 +113,7 @@ public class Account extends PersistentObject implements PersistentAccount{
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         if (this.getClassId() == 130) ConnectionHandler.getTheConnectionHandler().theAccountFacade
-            .newAccount(number,description,balance,this.getId());
+            .newAccount(description,balance,this.getId());
         super.store();
         this.getEntries().store();
         if(!this.isTheSameAs(this.getThis())){
@@ -121,13 +123,6 @@ public class Account extends PersistentObject implements PersistentAccount{
         
     }
     
-    public long getNumber() throws PersistenceException {
-        return this.number;
-    }
-    public void setNumber(long newValue) throws PersistenceException {
-        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theAccountFacade.numberSet(this.getId(), newValue);
-        this.number = newValue;
-    }
     public String getDescription() throws PersistenceException {
         return this.description;
     }
@@ -210,6 +205,10 @@ public class Account extends PersistentObject implements PersistentAccount{
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         
+    }
+    public long getNumber() 
+				throws PersistenceException{
+        return this.getId();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

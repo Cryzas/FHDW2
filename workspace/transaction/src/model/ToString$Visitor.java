@@ -34,7 +34,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleAccount(Account4Public account) throws PersistenceException {
-		result = "Account: " + account.getDescription();
+		result = account.getDescription();
 		
 	}
 	@Override

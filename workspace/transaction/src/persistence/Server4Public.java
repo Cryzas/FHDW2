@@ -28,11 +28,17 @@ public interface Server4Public extends Invoker, Anything, Remote, AbstractPersis
 				throws PersistenceException;
     public void book(final Transfer4Public transfer) 
 				throws PersistenceException;
+    public void clearAccounts() 
+				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void createAccount(final String description) 
 				throws PersistenceException;
     public void createTransfer(final String description, final Account4Public fromAcc, final Account4Public toAcc, final common.Fraction amount) 
+				throws PersistenceException;
+    public void findAccountByNumber(final long number) 
+				throws PersistenceException;
+    public void findAccountByString(final String name) 
 				throws PersistenceException;
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException;

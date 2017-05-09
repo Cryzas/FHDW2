@@ -5,7 +5,6 @@ import model.visitor.*;
 
 public interface Account4Public extends Anything, AbstractPersistentProxi {
     
-    public long getNumber() throws PersistenceException ;
     public String getDescription() throws PersistenceException ;
     public common.Fraction getBalance() throws PersistenceException ;
     public Account_EntriesProxi getEntries() throws PersistenceException ;
@@ -20,6 +19,8 @@ public interface Account4Public extends Anything, AbstractPersistentProxi {
     public void book(final Entry4Public entry) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException;
+    public long getNumber() 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;

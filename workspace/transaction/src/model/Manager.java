@@ -55,7 +55,7 @@ public class Manager extends PersistentObject implements PersistentManager{
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            result.put("currentAccounts", this.getCurrentAccounts().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
+            result.put("currentAccounts", this.getCurrentAccounts().getValues().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
             result.put("openTransfers", this.getOpenTransfers().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
@@ -150,8 +150,8 @@ public class Manager extends PersistentObject implements PersistentManager{
          return visitor.handleManager(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getCurrentAccounts().getLength() > 0) return 1;
         if (this.getOpenTransfers().getLength() > 0) return 1;
+        if( this.getCurrentAccounts().getValues().getLength() > 0) return 1;
         return 0;
     }
     
@@ -201,19 +201,31 @@ public class Manager extends PersistentObject implements PersistentManager{
         transfer.book();
         getThis().getOpenTransfers().filter(arg -> !arg.equals(transfer));
     }
+    public void clearAccounts() 
+				throws PersistenceException{   
+		getThis().getCurrentAccounts().filter(arg -> false);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         
     }
     public void createAccount(final String description) 
 				throws PersistenceException{
-    	getThis().getCurrentAccounts().add(Account.createAccount(description));
+    	getThis().getCurrentAccounts().put(description, Account.createAccount(description));
         
     }
     public void createTransfer(final Account4Public fromAcc, final Account4Public toAcc, final String description, final common.Fraction amount) 
 				throws PersistenceException{
     	getThis().getOpenTransfers().add(Transfer.createTransfer(description, amount, fromAcc, toAcc));
         
+    }
+    public void findAccountByName(final String name) 
+				throws PersistenceException{
+    	Account.getAccountByDescription(name).applyToAll(this::addIfNotExists);
+    }
+    public void findAccountByNumber(final long number) 
+				throws PersistenceException{
+    	addIfNotExists(Account.getById(number));
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -229,6 +241,12 @@ public class Manager extends PersistentObject implements PersistentManager{
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    private void addIfNotExists(Account4Public toBeAdded) throws PersistenceException {
+    	if (getThis().getCurrentAccounts().get(toBeAdded.getDescription()) == null) {
+			getThis().getCurrentAccounts().put(toBeAdded.getDescription(), toBeAdded);
+		}
+    }
     
     /* End of protected part that is not overridden by persistence generator */
     

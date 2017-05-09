@@ -66,6 +66,10 @@ public class ManagerICProxi extends PersistentInCacheProxiOptimistic implements 
 				throws PersistenceException{
         ((PersistentManager)this.getTheObject()).book(transfer);
     }
+    public void clearAccounts() 
+				throws PersistenceException{
+        ((PersistentManager)this.getTheObject()).clearAccounts();
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
@@ -77,6 +81,14 @@ public class ManagerICProxi extends PersistentInCacheProxiOptimistic implements 
     public void createTransfer(final Account4Public fromAcc, final Account4Public toAcc, final String description, final common.Fraction amount) 
 				throws PersistenceException{
         ((PersistentManager)this.getTheObject()).createTransfer(fromAcc, toAcc, description, amount);
+    }
+    public void findAccountByName(final String name) 
+				throws PersistenceException{
+        ((PersistentManager)this.getTheObject()).findAccountByName(name);
+    }
+    public void findAccountByNumber(final long number) 
+				throws PersistenceException{
+        ((PersistentManager)this.getTheObject()).findAccountByNumber(number);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

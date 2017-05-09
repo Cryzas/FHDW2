@@ -201,7 +201,6 @@ public class PartsListManager extends PersistentObject implements PersistentPart
     public void findComponents(final String name) 
 				throws PersistenceException{
     	Component.getComponentByName(name).applyToAll(this::addIfNotExists);
-        
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

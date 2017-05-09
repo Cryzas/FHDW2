@@ -319,8 +319,11 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 
     interface MenuItemVisitor{
         ImageView handle(BookPRMTRTransferPRMTRMenuItem menuItem);
+        ImageView handle(ClearAccountsPRMTRMenuItem menuItem);
         ImageView handle(CreateAccountPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(CreateTransferPRMTRStringPRMTRAccountPRMTRAccountPRMTRFractionPRMTRMenuItem menuItem);
+        ImageView handle(FindAccountByNumberPRMTRIntegerPRMTRMenuItem menuItem);
+        ImageView handle(FindAccountByStringPRMTRStringPRMTRMenuItem menuItem);
     }
     private abstract class ServerMenuItem extends MenuItem{
         private ServerMenuItem(){
@@ -329,6 +332,11 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         abstract protected ImageView accept(MenuItemVisitor visitor);
     }
     private class BookPRMTRTransferPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class ClearAccountsPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -343,9 +351,42 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
             return visitor.handle(this);
         }
     }
+    private class FindAccountByNumberPRMTRIntegerPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class FindAccountByStringPRMTRStringPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
     private java.util.Vector<javafx.scene.control.Button> getToolButtonsForStaticOperations() {
         java.util.Vector<javafx.scene.control.Button> result = new java.util.Vector<javafx.scene.control.Button>();
         javafx.scene.control.Button currentButton = null;
+        currentButton = new javafx.scene.control.Button("clearAccounts");
+        currentButton.setGraphic(new ClearAccountsPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                Alert confirm = new Alert(AlertType.CONFIRMATION);
+                confirm.setTitle(GUIConstants.ConfirmButtonText);
+                confirm.setHeaderText(null);
+                confirm.setContentText("clearAccounts" + GUIConstants.ConfirmQuestionMark);
+                confirm.setX( getPointForView().getX() );
+                confirm.setY( getPointForView().getY() );
+                Optional<ButtonType> buttonResult = confirm.showAndWait();
+                if (buttonResult.get() == ButtonType.OK) {
+                    try {
+                        getConnection().clearAccounts();
+                        getConnection().setEagerRefresh();
+                        
+                    }catch(ModelException me){
+                        handleException(me);
+                    }
+                }
+            }
+        });
+        result.add(currentButton);
         currentButton = new javafx.scene.control.Button("createAccount ... ");
         currentButton.setGraphic(new CreateAccountPRMTRStringPRMTRMenuItem().getGraphic());
         currentButton.setOnAction(new EventHandler<ActionEvent>(){
@@ -370,11 +411,58 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
             }
         });
         result.add(currentButton);
+        currentButton = new javafx.scene.control.Button("findAccountByNumber ... ");
+        currentButton.setGraphic(new FindAccountByNumberPRMTRIntegerPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final ServerFindAccountByNumberIntegerMssgWizard wizard = new ServerFindAccountByNumberIntegerMssgWizard("findAccountByNumber");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.setX( getPointForView().getX());
+                wizard.setY( getPointForView().getY());
+                wizard.showAndWait();
+            }
+        });
+        result.add(currentButton);
+        currentButton = new javafx.scene.control.Button("findAccountByString ... ");
+        currentButton.setGraphic(new FindAccountByStringPRMTRStringPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final ServerFindAccountByStringStringMssgWizard wizard = new ServerFindAccountByStringStringMssgWizard("findAccountByString");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.setX( getPointForView().getX());
+                wizard.setY( getPointForView().getY());
+                wizard.showAndWait();
+            }
+        });
+        result.add(currentButton);
         return result;
     }
     private ContextMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations, final Point2D menuPos) {
         final ContextMenu result = new ContextMenu();
         MenuItem item = null;
+        item = new ClearAccountsPRMTRMenuItem();
+        item.setText("(S) clearAccounts");
+        item.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                Alert confirm = new Alert(AlertType.CONFIRMATION);
+                confirm.setTitle(GUIConstants.ConfirmButtonText);
+                confirm.setHeaderText(null);
+                confirm.setContentText("clearAccounts" + GUIConstants.ConfirmQuestionMark);
+                confirm.setX( getPointForView().getX() );
+                confirm.setY( getPointForView().getY() );
+                Optional<ButtonType> buttonResult = confirm.showAndWait();
+                if (buttonResult.get() == ButtonType.OK) {
+                    try {
+                        getConnection().clearAccounts();
+                        getConnection().setEagerRefresh();
+                        
+                    }catch(ModelException me){
+                        handleException(me);
+                    }
+                }
+            }
+        });
+        if (withStaticOperations) result.getItems().add(item);
         item = new CreateAccountPRMTRStringPRMTRMenuItem();
         item.setText("(S) createAccount ... ");
         item.setOnAction(new EventHandler<ActionEvent>(){
@@ -392,6 +480,30 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         item.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
                 final ServerCreateTransferStringAccountAccountFractionMssgWizard wizard = new ServerCreateTransferStringAccountAccountFractionMssgWizard("createTransfer");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.setX( getPointForView().getX());
+                wizard.setY( getPointForView().getY());
+                wizard.showAndWait();
+            }
+        });
+        if (withStaticOperations) result.getItems().add(item);
+        item = new FindAccountByNumberPRMTRIntegerPRMTRMenuItem();
+        item.setText("(S) findAccountByNumber ... ");
+        item.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final ServerFindAccountByNumberIntegerMssgWizard wizard = new ServerFindAccountByNumberIntegerMssgWizard("findAccountByNumber");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.setX( getPointForView().getX());
+                wizard.setY( getPointForView().getY());
+                wizard.showAndWait();
+            }
+        });
+        if (withStaticOperations) result.getItems().add(item);
+        item = new FindAccountByStringPRMTRStringPRMTRMenuItem();
+        item.setText("(S) findAccountByString ... ");
+        item.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final ServerFindAccountByStringStringMssgWizard wizard = new ServerFindAccountByStringStringMssgWizard("findAccountByString");
                 wizard.setWidth(getNavigationPanel().getWidth());
                 wizard.setX( getPointForView().getX());
                 wizard.setY( getPointForView().getY());
@@ -523,6 +635,82 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 			getParametersPanel().getChildren().add(panel2);
 			panel2.setBrowserRoot((ViewRoot) getConnection().getServerView());
 			getParametersPanel().getChildren().add(new FractionSelectionPanel("amount", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+	}
+
+	class ServerFindAccountByNumberIntegerMssgWizard extends Wizard {
+
+		protected ServerFindAccountByNumberIntegerMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new FindAccountByNumberPRMTRIntegerPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerFindAccountByNumberIntegerMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().findAccountByNumber(((IntegerSelectionPanel)getParametersPanel().getChildren().get(0)).getResult().longValue());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new IntegerSelectionPanel("number", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+	}
+
+	class ServerFindAccountByStringStringMssgWizard extends Wizard {
+
+		protected ServerFindAccountByStringStringMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new FindAccountByStringPRMTRStringPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerFindAccountByStringStringMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().findAccountByString(((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));		
 		}	
 		protected void handleDependencies(int i) {
 		}

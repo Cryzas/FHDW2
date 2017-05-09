@@ -38,6 +38,15 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.HashMap<?,?> clearAccounts(){
+        try {
+            ((PersistentServer)this.server).clearAccounts();
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.HashMap<?,?> createAccount(String description){
         try {
             ((PersistentServer)this.server).createAccount(description);
@@ -53,6 +62,25 @@ public  class RemoteServer extends RemoteServerMaster {
             PersistentAccount toAcc = (PersistentAccount)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(toAccProxiString));
             common.Fraction amount = common.Fraction.parse(amountAsString);
             ((PersistentServer)this.server).createTransfer(description, fromAcc, toAcc, amount);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> findAccountByNumber(String numberAsString){
+        try {
+            long number = new Long(numberAsString).longValue();
+            ((PersistentServer)this.server).findAccountByNumber(number);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> findAccountByString(String name){
+        try {
+            ((PersistentServer)this.server).findAccountByString(name);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

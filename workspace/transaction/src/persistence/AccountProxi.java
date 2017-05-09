@@ -18,12 +18,6 @@ public class AccountProxi extends PersistentProxi implements PersistentAccount{
         return 130;
     }
     
-    public long getNumber() throws PersistenceException {
-        return ((PersistentAccount)this.getTheObject()).getNumber();
-    }
-    public void setNumber(long newValue) throws PersistenceException {
-        ((PersistentAccount)this.getTheObject()).setNumber(newValue);
-    }
     public String getDescription() throws PersistenceException {
         return ((PersistentAccount)this.getTheObject()).getDescription();
     }
@@ -68,6 +62,10 @@ public class AccountProxi extends PersistentProxi implements PersistentAccount{
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentAccount)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public long getNumber() 
+				throws PersistenceException{
+        return ((PersistentAccount)this.getTheObject()).getNumber();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

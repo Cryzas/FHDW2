@@ -54,9 +54,6 @@ public class AccountProxi extends ViewProxi implements AccountView{
     public long getNumber()throws ModelException{
         return ((Account)this.getTheObject()).getNumber();
     }
-    public void setNumber(long newValue) throws ModelException {
-        ((Account)this.getTheObject()).setNumber(newValue);
-    }
     public String getDescription()throws ModelException{
         return ((Account)this.getTheObject()).getDescription();
     }
@@ -90,7 +87,7 @@ public class AccountProxi extends ViewProxi implements AccountView{
     }
     
     public boolean hasTransientFields(){
-        return false;
+        return true;
     }
     
     public javafx.scene.image.Image getImage(){

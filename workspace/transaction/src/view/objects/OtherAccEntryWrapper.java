@@ -16,8 +16,7 @@ public class OtherAccEntryWrapper extends AssociationInTreeWrapper {
 	
 	
 	public String toString(){
-    	//TODO: Implement toString in wrapper class for association otherAcc in class Entry
-    	return this.getWrappedObject().toString();
+    	return "Anderer Acc: " + this.getWrappedObject().toString();
     }
 
     /*End of protected part that is not overridden by persistence generator*/

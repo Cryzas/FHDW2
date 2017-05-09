@@ -48,13 +48,14 @@ create table Accnt(
     id number primary key,
     Cls number not null,
     constraint FAccntCls foreign key (Cls) references Cls (id) on delete cascade,
-    AccntNmbr number,
     AccntDscrptn varchar2(2000),
     AccntBlnc varchar2(2000),
     AccntThis number,
     AccntThisCls number,
     constraint FAccntThis foreign key (AccntThisCls) references Cls (id)    
 );
+create index IDscrptnAccnt on Accnt (AccntDscrptn);
+
 
 create table Srvr(
     id number primary key,
@@ -204,12 +205,14 @@ create index IFrmAccntEntrs on AccntEntrs(frm);
 create table MngrCrrntAccnts(
     id number primary key,
     frm number not null,
+    MngrCrrntAccntsindxx varchar2(2000) not null,
     crrntAccnts number not null,
     Cls number not null,
     constraint FMngrCrrntAccntsCls foreign key(Cls) references Cls(id) on delete cascade,
     constraint FMngrCrrntAccntsfrm foreign key(frm) references Mngr(id)
 );
 create index IFrmMngrCrrntAccnts on MngrCrrntAccnts(frm);
+create index IIndxxMngrCrrntAccnts on MngrCrrntAccnts(MngrCrrntAccntsindxx);
 
 create table MngrOpnTrnsfrs(
     id number primary key,

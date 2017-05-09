@@ -5,19 +5,25 @@ server Server {
 	void book(Transfer transfer);
 	void createAccount(String description);
 	void createTransfer(String description, Account fromAcc, Account toAcc, Fraction amount);
+	void findAccountByNumber(Integer number);
+	void findAccountByString(String name);
+	void clearAccounts();
 }
 
 class Manager {
-	public Account ** currentAccounts;
+	public Account ** String ** currentAccounts;
 	public Transfer ** openTransfers;
 	active void createAccount(String description);
 	active void createTransfer(Account fromAcc, Account toAcc, String description, Fraction amount);
 	active void book(Transfer transfer);
+	void findAccountByNumber(Integer number);
+	void findAccountByName(String name);
+	void clearAccounts();
 }
 
 class Account { 
-	public Integer number;
-	public prior String description;
+	public derived Integer number;
+	public indexed prior String description;
 	public Fraction balance;
 	public Entry ** entries;
 	void book(Entry entry);
