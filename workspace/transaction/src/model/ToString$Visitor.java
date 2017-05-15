@@ -30,43 +30,40 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleTransferManager(TransferManager4Public transferManager) throws PersistenceException {
-		// TODO Auto-generated method stub
+		result = "Transfers";
 		
 	}
 	@Override
 	public void handleDebit(Debit4Public debit) throws PersistenceException {
-		// TODO Auto-generated method stub
+		result = "Debit: " + debit.getTransfer().getSubject();
 		
 	}
 	@Override
 	public void handleAccount(Account4Public account) throws PersistenceException {
-		// TODO Auto-generated method stub
+		result = account.getName();
 		
 	}
 	@Override
 	public void handleServer(Server4Public server) throws PersistenceException {
-		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void handleAccountWrppr(AccountWrppr4Public accountWrppr) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = accountWrppr.fetchAccount().getName();	
 	}
 	@Override
 	public void handleCredit(Credit4Public credit) throws PersistenceException {
-		// TODO Auto-generated method stub
+		result = "Credit: " + credit.getTransfer().getSubject();
 		
 	}
 	@Override
 	public void handleTransfer(Transfer4Public transfer) throws PersistenceException {
-		// TODO Auto-generated method stub
+		result = transfer.getSubject();
 		
 	}
 	@Override
 	public void handleAccountManager(AccountManager4Public accountManager) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "Accounts";		
 	}
 
 }
