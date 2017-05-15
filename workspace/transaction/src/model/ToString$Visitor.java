@@ -29,31 +29,44 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		result = anything.getClassId() + ";" + anything.getId();
 	}
 	@Override
-	public void handleServer(Server4Public server) throws PersistenceException {
-		
-	}
-	@Override
-	public void handleAccount(Account4Public account) throws PersistenceException {
-		result = account.getDescription();
+	public void handleTransferManager(TransferManager4Public transferManager) throws PersistenceException {
+		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void handleDebit(Debit4Public debit) throws PersistenceException {
-		result = "Debit: " + debit.getDescription() + " to " + debit.getOtherAcc().getDescription();
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleAccount(Account4Public account) throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleServer(Server4Public server) throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleAccountWrppr(AccountWrppr4Public accountWrppr) throws PersistenceException {
+		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void handleCredit(Credit4Public credit) throws PersistenceException {
-		result = "Credit: " + credit.getDescription() + " from " + credit.getOtherAcc().getDescription();
+		// TODO Auto-generated method stub
 		
 	}
 	@Override
 	public void handleTransfer(Transfer4Public transfer) throws PersistenceException {
-		result = "Transfer: " + transfer.getDescription();		
+		// TODO Auto-generated method stub
+		
 	}
 	@Override
-	public void handleManager(Manager4Public manager) throws PersistenceException {
-		result = "Manager";		
+	public void handleAccountManager(AccountManager4Public accountManager) throws PersistenceException {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

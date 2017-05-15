@@ -12,31 +12,37 @@ public abstract class EntryICProxi extends PersistentInCacheProxiOptimistic impl
     }
     
     
-    public String getDescription() throws PersistenceException {
-        return ((PersistentEntry)this.getTheObject()).getDescription();
+    public Transfer4Public getTransfer() throws PersistenceException {
+        return ((PersistentEntry)this.getTheObject()).getTransfer();
     }
-    public void setDescription(String newValue) throws PersistenceException {
-        ((PersistentEntry)this.getTheObject()).setDescription(newValue);
+    public void setTransfer(Transfer4Public newValue) throws PersistenceException {
+        ((PersistentEntry)this.getTheObject()).setTransfer(newValue);
     }
-    public common.Fraction getAmount() throws PersistenceException {
-        return ((PersistentEntry)this.getTheObject()).getAmount();
+    public SubjInterface getSubService() throws PersistenceException {
+        return ((PersistentEntry)this.getTheObject()).getSubService();
     }
-    public void setAmount(common.Fraction newValue) throws PersistenceException {
-        ((PersistentEntry)this.getTheObject()).setAmount(newValue);
-    }
-    public Account4Public getOtherAcc() throws PersistenceException {
-        return ((PersistentEntry)this.getTheObject()).getOtherAcc();
-    }
-    public void setOtherAcc(Account4Public newValue) throws PersistenceException {
-        ((PersistentEntry)this.getTheObject()).setOtherAcc(newValue);
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        ((PersistentEntry)this.getTheObject()).setSubService(newValue);
     }
     public abstract PersistentEntry getThis() throws PersistenceException ;
     
     
     
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentEntry)this.getTheObject()).deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentEntry)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentEntry)this.getTheObject()).register(observee);
+    }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentEntry)this.getTheObject()).updateObservers(event);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

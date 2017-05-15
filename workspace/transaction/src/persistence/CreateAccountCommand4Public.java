@@ -3,14 +3,14 @@ package persistence;
 
 import model.visitor.*;
 
-public interface CreateAccountCommand4Public extends Anything, ManagerCommand, CommonDate4Public, AbstractPersistentProxi {
+public interface CreateAccountCommand4Public extends Anything, AccountManagerCommand, CommonDate4Public, AbstractPersistentProxi {
     
-    public String getDescription() throws PersistenceException ;
-    public void setDescription(String newValue) throws PersistenceException ;
+    public String getName() throws PersistenceException ;
+    public void setName(String newValue) throws PersistenceException ;
     public Invoker getInvoker() throws PersistenceException ;
     public void setInvoker(Invoker newValue) throws PersistenceException ;
-    public Manager4Public getCommandReceiver() throws PersistenceException ;
-    public void setCommandReceiver(Manager4Public newValue) throws PersistenceException ;
+    public AccountManager4Public getCommandReceiver() throws PersistenceException ;
+    public void setCommandReceiver(AccountManager4Public newValue) throws PersistenceException ;
     
     public void accept(CommonDateVisitor visitor) throws PersistenceException;
     public <R> R accept(CommonDateReturnVisitor<R>  visitor) throws PersistenceException;
@@ -24,10 +24,10 @@ public interface CreateAccountCommand4Public extends Anything, ManagerCommand, C
     public <R> R accept(CommandReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends model.UserException>  void accept(CommandExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
-    public void accept(ManagerCommandVisitor visitor) throws PersistenceException;
-    public <R> R accept(ManagerCommandReturnVisitor<R>  visitor) throws PersistenceException;
-    public <E extends model.UserException>  void accept(ManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E;
-    public <R, E extends model.UserException> R accept(ManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
+    public void accept(AccountManagerCommandVisitor visitor) throws PersistenceException;
+    public <R> R accept(AccountManagerCommandReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends model.UserException>  void accept(AccountManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends model.UserException> R accept(AccountManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
     public void checkException() 
 				throws model.UserException, PersistenceException;

@@ -16,26 +16,26 @@ public class AccountFacade{
 	}
 
     /* If idCreateIfLessZero is negative, a new id is generated. */
-    public PersistentAccount newAccount(String description,common.Fraction balance,long idCreateIfLessZero) throws PersistenceException {
+    public PersistentAccount newAccount(String name,common.Fraction balance,long idCreateIfLessZero) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
             callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".AccntFacade.newAccnt(?,?,?); end;");
             callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
-            callable.setString(2, description);
+            callable.setString(2, name);
             callable.setString(3, balance.toString());
             callable.setLong(4, idCreateIfLessZero);
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Account result = new Account(description,balance,null,id);
+            Account result = new Account(null,null,name,balance,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
-            return (PersistentAccount)PersistentProxi.createProxi(id, 130);
+            return (PersistentAccount)PersistentProxi.createProxi(id, 115);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
     
-    public PersistentAccount newDelayedAccount(String description,common.Fraction balance) throws PersistenceException {
+    public PersistentAccount newDelayedAccount(String name,common.Fraction balance) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
             callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".AccntFacade.newDelayedAccnt(); end;");
@@ -43,9 +43,9 @@ public class AccountFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Account result = new Account(description,balance,null,id);
+            Account result = new Account(null,null,name,balance,id);
             Cache.getTheCache().put(result);
-            return (PersistentAccount)PersistentProxi.createProxi(id, 130);
+            return (PersistentAccount)PersistentProxi.createProxi(id, 115);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
@@ -64,12 +64,16 @@ public class AccountFacade{
                 callable.close();
                 return null;
             }
-            PersistentAccount This = null;
+            SubjInterface subService = null;
+            if (obj.getLong(2) != 0)
+                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+            PersistentAccountHandle This = null;
             if (obj.getLong(4) != 0)
-                This = (PersistentAccount)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
-            Account result = new Account(obj.getString(2) == null ? "" : obj.getString(2) /* In Oracle "" = null !!! */,
-                                         (obj.getString(3) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(3))),
+                This = (PersistentAccountHandle)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+            Account result = new Account(subService,
                                          This,
+                                         obj.getString(6) == null ? "" : obj.getString(6) /* In Oracle "" = null !!! */,
+                                         (obj.getString(7) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(7))),
                                          AccountId);
             obj.close();
             callable.close();
@@ -81,26 +85,12 @@ public class AccountFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public long getClass(long objectId) throws PersistenceException{
+    public AccountSearchList getAccountByName(String name) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".AccntFacade.getClass(?); end;");
-            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
-            callable.setLong(2, objectId);
-            callable.execute();
-            long result = callable.getLong(1);
-            callable.close();
-            return result;
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
-    }
-    public AccountSearchList getAccountByDescription(String description) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".AccntFacade.getAccntByDscrptn(?); end;");
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".AccntFacade.getAccntByNm(?); end;");
             callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
-            callable.setString(2, description);
+            callable.setString(2, name);
             callable.execute();
             ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
             AccountSearchList result = new AccountSearchList();
@@ -117,12 +107,12 @@ public class AccountFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void descriptionSet(long AccountId, String descriptionVal) throws PersistenceException {
+    public void nameSet(long AccountId, String nameVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".AccntFacade.dscrptnSet(?, ?); end;");
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".AccntFacade.nmSet(?, ?); end;");
             callable.setLong(1, AccountId);
-            callable.setString(2, descriptionVal);
+            callable.setString(2, nameVal);
             callable.execute();
             callable.close();
         }catch(SQLException se) {
@@ -183,19 +173,6 @@ public class AccountFacade{
             list.close();
             callable.close();
             return result;
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
-    }
-    public void ThisSet(long AccountId, Account4Public ThisVal) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".AccntFacade.ThisSet(?, ?, ?); end;");
-            callable.setLong(1, AccountId);
-            callable.setLong(2, ThisVal.getId());
-            callable.setLong(3, ThisVal.getClassId());
-            callable.execute();
-            callable.close();
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }

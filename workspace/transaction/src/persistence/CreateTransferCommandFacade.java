@@ -16,26 +16,26 @@ public class CreateTransferCommandFacade{
 	}
 
     /* If idCreateIfLessZero is negative, a new id is generated. */
-    public PersistentCreateTransferCommand newCreateTransferCommand(String description,common.Fraction amount,long idCreateIfLessZero) throws PersistenceException {
+    public PersistentCreateTransferCommand newCreateTransferCommand(common.Fraction amount,String subject,long idCreateIfLessZero) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
             callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".CrtTrnsfrCMDFacade.newCrtTrnsfrCMD(?,?,?); end;");
             callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
-            callable.setString(2, description);
-            callable.setString(3, amount.toString());
+            callable.setString(2, amount.toString());
+            callable.setString(3, subject);
             callable.setLong(4, idCreateIfLessZero);
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            CreateTransferCommand result = new CreateTransferCommand(null,null,description,amount,null,null,null,id);
+            CreateTransferCommand result = new CreateTransferCommand(null,null,amount,subject,null,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
-            return (PersistentCreateTransferCommand)PersistentProxi.createProxi(id, 136);
+            return (PersistentCreateTransferCommand)PersistentProxi.createProxi(id, 126);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
     
-    public PersistentCreateTransferCommand newDelayedCreateTransferCommand(String description,common.Fraction amount) throws PersistenceException {
+    public PersistentCreateTransferCommand newDelayedCreateTransferCommand(common.Fraction amount,String subject) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
             callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".CrtTrnsfrCMDFacade.newDelayedCrtTrnsfrCMD(); end;");
@@ -43,9 +43,9 @@ public class CreateTransferCommandFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            CreateTransferCommand result = new CreateTransferCommand(null,null,description,amount,null,null,null,id);
+            CreateTransferCommand result = new CreateTransferCommand(null,null,amount,subject,null,null,null,id);
             Cache.getTheCache().put(result);
-            return (PersistentCreateTransferCommand)PersistentProxi.createProxi(id, 136);
+            return (PersistentCreateTransferCommand)PersistentProxi.createProxi(id, 126);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
@@ -64,25 +64,25 @@ public class CreateTransferCommandFacade{
                 callable.close();
                 return null;
             }
-            PersistentAccount fromAcc = null;
+            PersistentAccountHandle fromAccount = null;
             if (obj.getLong(2) != 0)
-                fromAcc = (PersistentAccount)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
-            PersistentAccount toAcc = null;
+                fromAccount = (PersistentAccountHandle)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+            PersistentAccountHandle toAccount = null;
             if (obj.getLong(4) != 0)
-                toAcc = (PersistentAccount)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+                toAccount = (PersistentAccountHandle)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
             Invoker invoker = null;
             if (obj.getLong(8) != 0)
                 invoker = (Invoker)PersistentProxi.createProxi(obj.getLong(8), obj.getLong(9));
-            PersistentManager commandReceiver = null;
+            PersistentTransferManager commandReceiver = null;
             if (obj.getLong(10) != 0)
-                commandReceiver = (PersistentManager)PersistentProxi.createProxi(obj.getLong(10), obj.getLong(11));
+                commandReceiver = (PersistentTransferManager)PersistentProxi.createProxi(obj.getLong(10), obj.getLong(11));
             PersistentCommonDate myCommonDate = null;
             if (obj.getLong(12) != 0)
                 myCommonDate = (PersistentCommonDate)PersistentProxi.createProxi(obj.getLong(12), obj.getLong(13));
-            CreateTransferCommand result = new CreateTransferCommand(fromAcc,
-                                                                     toAcc,
-                                                                     obj.getString(6) == null ? "" : obj.getString(6) /* In Oracle "" = null !!! */,
-                                                                     (obj.getString(7) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(7))),
+            CreateTransferCommand result = new CreateTransferCommand(fromAccount,
+                                                                     toAccount,
+                                                                     (obj.getString(6) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(6))),
+                                                                     obj.getString(7) == null ? "" : obj.getString(7) /* In Oracle "" = null !!! */,
                                                                      invoker,
                                                                      commandReceiver,
                                                                      myCommonDate,
@@ -110,38 +110,26 @@ public class CreateTransferCommandFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void fromAccSet(long CreateTransferCommandId, Account4Public fromAccVal) throws PersistenceException {
+    public void fromAccountSet(long CreateTransferCommandId, AccountHandle4Public fromAccountVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".CrtTrnsfrCMDFacade.frmAccSet(?, ?, ?); end;");
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".CrtTrnsfrCMDFacade.frmAccntSet(?, ?, ?); end;");
             callable.setLong(1, CreateTransferCommandId);
-            callable.setLong(2, fromAccVal.getId());
-            callable.setLong(3, fromAccVal.getClassId());
+            callable.setLong(2, fromAccountVal.getId());
+            callable.setLong(3, fromAccountVal.getClassId());
             callable.execute();
             callable.close();
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void toAccSet(long CreateTransferCommandId, Account4Public toAccVal) throws PersistenceException {
+    public void toAccountSet(long CreateTransferCommandId, AccountHandle4Public toAccountVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".CrtTrnsfrCMDFacade.tAccSet(?, ?, ?); end;");
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".CrtTrnsfrCMDFacade.tAccntSet(?, ?, ?); end;");
             callable.setLong(1, CreateTransferCommandId);
-            callable.setLong(2, toAccVal.getId());
-            callable.setLong(3, toAccVal.getClassId());
-            callable.execute();
-            callable.close();
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
-    }
-    public void descriptionSet(long CreateTransferCommandId, String descriptionVal) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".CrtTrnsfrCMDFacade.dscrptnSet(?, ?); end;");
-            callable.setLong(1, CreateTransferCommandId);
-            callable.setString(2, descriptionVal);
+            callable.setLong(2, toAccountVal.getId());
+            callable.setLong(3, toAccountVal.getClassId());
             callable.execute();
             callable.close();
         }catch(SQLException se) {
@@ -154,6 +142,18 @@ public class CreateTransferCommandFacade{
             callable = this.con.prepareCall("Begin " + this.schemaName + ".CrtTrnsfrCMDFacade.amntSet(?, ?); end;");
             callable.setLong(1, CreateTransferCommandId);
             callable.setString(2, amountVal.toString());
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void subjectSet(long CreateTransferCommandId, String subjectVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".CrtTrnsfrCMDFacade.sbjctSet(?, ?); end;");
+            callable.setLong(1, CreateTransferCommandId);
+            callable.setString(2, subjectVal);
             callable.execute();
             callable.close();
         }catch(SQLException se) {
@@ -173,7 +173,7 @@ public class CreateTransferCommandFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void commandReceiverSet(long CreateTransferCommandId, Manager4Public commandReceiverVal) throws PersistenceException {
+    public void commandReceiverSet(long CreateTransferCommandId, TransferManager4Public commandReceiverVal) throws PersistenceException {
         try{
             CallableStatement callable;
             callable = this.con.prepareCall("Begin " + this.schemaName + ".CrtTrnsfrCMDFacade.cReceiverSet(?, ?, ?); end;");

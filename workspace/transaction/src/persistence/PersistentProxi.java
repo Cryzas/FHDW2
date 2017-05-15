@@ -19,13 +19,18 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
 	
   private static ListProxiFactory [] getTheListProxiFactories(){
 	if (listProxiFactories == null){
-		listProxiFactories = new ListProxiFactory[39];
-        listProxiFactories[29] = new ListProxiFactory(){
+		listProxiFactories = new ListProxiFactory[33];
+        listProxiFactories[13] = new ListProxiFactory(){
+            AbstractPersistentRoot create(long objectId, long entryId){
+                return new TransferManagerListEntryProxi(objectId, entryId);
+            }
+        };
+        listProxiFactories[14] = new ListProxiFactory(){
             AbstractPersistentRoot create(long objectId, long entryId){
                 return new AccountListEntryProxi(objectId, entryId);
             }
         };
-        listProxiFactories[30] = new ListProxiFactory(){
+        listProxiFactories[15] = new ListProxiFactory(){
             AbstractPersistentRoot create(long objectId, long entryId){
                 return new DebitListEntryProxi(objectId, entryId);
             }
@@ -35,14 +40,19 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
                 return new ServerListEntryProxi(objectId, entryId);
             }
         };
-        listProxiFactories[25] = new ListProxiFactory(){
+        listProxiFactories[2] = new ListProxiFactory(){
             AbstractPersistentRoot create(long objectId, long entryId){
                 return new ErrorDisplayListEntryProxi(objectId, entryId);
             }
         };
-        listProxiFactories[34] = new ListProxiFactory(){
+        listProxiFactories[17] = new ListProxiFactory(){
             AbstractPersistentRoot create(long objectId, long entryId){
-                return new ManagerListEntryProxi(objectId, entryId);
+                return new AccountWrpprListEntryProxi(objectId, entryId);
+            }
+        };
+        listProxiFactories[29] = new ListProxiFactory(){
+            AbstractPersistentRoot create(long objectId, long entryId){
+                return new SubjListEntryProxi(objectId, entryId);
             }
         };
         listProxiFactories[0] = new ListProxiFactory(){
@@ -50,27 +60,32 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
                 return new CommandCoordinatorListEntryProxi(objectId, entryId);
             }
         };
-        listProxiFactories[32] = new ListProxiFactory(){
+        listProxiFactories[19] = new ListProxiFactory(){
             AbstractPersistentRoot create(long objectId, long entryId){
                 return new CreditListEntryProxi(objectId, entryId);
             }
         };
-        listProxiFactories[38] = new ListProxiFactory(){
+        listProxiFactories[28] = new ListProxiFactory(){
             AbstractPersistentRoot create(long objectId, long entryId){
                 return new BookCommandListEntryProxi(objectId, entryId);
             }
         };
-        listProxiFactories[33] = new ListProxiFactory(){
+        listProxiFactories[20] = new ListProxiFactory(){
             AbstractPersistentRoot create(long objectId, long entryId){
                 return new TransferListEntryProxi(objectId, entryId);
             }
         };
-        listProxiFactories[35] = new ListProxiFactory(){
+        listProxiFactories[21] = new ListProxiFactory(){
+            AbstractPersistentRoot create(long objectId, long entryId){
+                return new AccountManagerListEntryProxi(objectId, entryId);
+            }
+        };
+        listProxiFactories[25] = new ListProxiFactory(){
             AbstractPersistentRoot create(long objectId, long entryId){
                 return new CreateTransferCommandListEntryProxi(objectId, entryId);
             }
         };
-        listProxiFactories[36] = new ListProxiFactory(){
+        listProxiFactories[22] = new ListProxiFactory(){
             AbstractPersistentRoot create(long objectId, long entryId){
                 return new CreateAccountCommandListEntryProxi(objectId, entryId);
             }
@@ -90,13 +105,18 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
   }
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [39];
-        proxiFactories[29] = new ProxiFactory(){
+		proxiFactories = new ProxiFactory [33];
+        proxiFactories[13] = new ProxiFactory(){
+            AbstractPersistentRoot create(long objectId){
+                return new TransferManagerProxi(objectId);
+            }
+        };
+        proxiFactories[14] = new ProxiFactory(){
             AbstractPersistentRoot create(long objectId){
                 return new AccountProxi(objectId);
             }
         };
-        proxiFactories[30] = new ProxiFactory(){
+        proxiFactories[15] = new ProxiFactory(){
             AbstractPersistentRoot create(long objectId){
                 return new DebitProxi(objectId);
             }
@@ -106,14 +126,19 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
                 return new ServerProxi(objectId);
             }
         };
-        proxiFactories[25] = new ProxiFactory(){
+        proxiFactories[2] = new ProxiFactory(){
             AbstractPersistentRoot create(long objectId){
                 return new ErrorDisplayProxi(objectId);
             }
         };
-        proxiFactories[34] = new ProxiFactory(){
+        proxiFactories[17] = new ProxiFactory(){
             AbstractPersistentRoot create(long objectId){
-                return new ManagerProxi(objectId);
+                return new AccountWrpprProxi(objectId);
+            }
+        };
+        proxiFactories[29] = new ProxiFactory(){
+            AbstractPersistentRoot create(long objectId){
+                return new SubjProxi(objectId);
             }
         };
         proxiFactories[0] = new ProxiFactory(){
@@ -121,27 +146,32 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
                 return new CommandCoordinatorProxi(objectId);
             }
         };
-        proxiFactories[32] = new ProxiFactory(){
+        proxiFactories[19] = new ProxiFactory(){
             AbstractPersistentRoot create(long objectId){
                 return new CreditProxi(objectId);
             }
         };
-        proxiFactories[38] = new ProxiFactory(){
+        proxiFactories[28] = new ProxiFactory(){
             AbstractPersistentRoot create(long objectId){
                 return new BookCommandProxi(objectId);
             }
         };
-        proxiFactories[33] = new ProxiFactory(){
+        proxiFactories[20] = new ProxiFactory(){
             AbstractPersistentRoot create(long objectId){
                 return new TransferProxi(objectId);
             }
         };
-        proxiFactories[35] = new ProxiFactory(){
+        proxiFactories[21] = new ProxiFactory(){
+            AbstractPersistentRoot create(long objectId){
+                return new AccountManagerProxi(objectId);
+            }
+        };
+        proxiFactories[25] = new ProxiFactory(){
             AbstractPersistentRoot create(long objectId){
                 return new CreateTransferCommandProxi(objectId);
             }
         };
-        proxiFactories[36] = new ProxiFactory(){
+        proxiFactories[22] = new ProxiFactory(){
             AbstractPersistentRoot create(long objectId){
                 return new CreateAccountCommandProxi(objectId);
             }

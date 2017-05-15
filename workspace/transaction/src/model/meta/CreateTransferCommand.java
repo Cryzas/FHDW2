@@ -15,20 +15,20 @@ public class CreateTransferCommand extends PersistentObject implements Persisten
         return (CreateTransferCommand4Public)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static CreateTransferCommand4Public createCreateTransferCommand(String description,common.Fraction amount,java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
-        return createCreateTransferCommand(description,amount,createDate,commitDate,false);
+    public static CreateTransferCommand4Public createCreateTransferCommand(common.Fraction amount,String subject,java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
+        return createCreateTransferCommand(amount,subject,createDate,commitDate,false);
     }
     
-    public static CreateTransferCommand4Public createCreateTransferCommand(String description,common.Fraction amount,java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
-        if (description == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+    public static CreateTransferCommand4Public createCreateTransferCommand(common.Fraction amount,String subject,java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
+        if (subject == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentCreateTransferCommand result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theCreateTransferCommandFacade
-                .newDelayedCreateTransferCommand(description,amount);
+                .newDelayedCreateTransferCommand(amount,subject);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theCreateTransferCommandFacade
-                .newCreateTransferCommand(description,amount,-1);
+                .newCreateTransferCommand(amount,subject,-1);
         }
         ((PersistentCreateTransferCommand)result).setMyCommonDate(CommonDate.createCommonDate(createDate, createDate));
         return result;
@@ -37,30 +37,30 @@ public class CreateTransferCommand extends PersistentObject implements Persisten
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
-    protected PersistentAccount fromAcc;
-    protected PersistentAccount toAcc;
-    protected String description;
+    protected PersistentAccountHandle fromAccount;
+    protected PersistentAccountHandle toAccount;
     protected common.Fraction amount;
+    protected String subject;
     protected Invoker invoker;
-    protected PersistentManager commandReceiver;
+    protected PersistentTransferManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateTransferCommand(PersistentAccount fromAcc,PersistentAccount toAcc,String description,common.Fraction amount,Invoker invoker,PersistentManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
+    public CreateTransferCommand(PersistentAccountHandle fromAccount,PersistentAccountHandle toAccount,common.Fraction amount,String subject,Invoker invoker,PersistentTransferManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.fromAcc = fromAcc;
-        this.toAcc = toAcc;
-        this.description = description;
+        this.fromAccount = fromAccount;
+        this.toAccount = toAccount;
         this.amount = amount;
+        this.subject = subject;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
         this.myCommonDate = myCommonDate;        
     }
     
     static public long getTypeId() {
-        return 136;
+        return 126;
     }
     
     public long getClassId() {
@@ -69,16 +69,16 @@ public class CreateTransferCommand extends PersistentObject implements Persisten
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 136) ConnectionHandler.getTheConnectionHandler().theCreateTransferCommandFacade
-            .newCreateTransferCommand(description,amount,this.getId());
+        if (this.getClassId() == 126) ConnectionHandler.getTheConnectionHandler().theCreateTransferCommandFacade
+            .newCreateTransferCommand(amount,subject,this.getId());
         super.store();
-        if(this.getFromAcc() != null){
-            this.getFromAcc().store();
-            ConnectionHandler.getTheConnectionHandler().theCreateTransferCommandFacade.fromAccSet(this.getId(), getFromAcc());
+        if(this.getFromAccount() != null){
+            this.getFromAccount().store();
+            ConnectionHandler.getTheConnectionHandler().theCreateTransferCommandFacade.fromAccountSet(this.getId(), getFromAccount());
         }
-        if(this.getToAcc() != null){
-            this.getToAcc().store();
-            ConnectionHandler.getTheConnectionHandler().theCreateTransferCommandFacade.toAccSet(this.getId(), getToAcc());
+        if(this.getToAccount() != null){
+            this.getToAccount().store();
+            ConnectionHandler.getTheConnectionHandler().theCreateTransferCommandFacade.toAccountSet(this.getId(), getToAccount());
         }
         if(this.getInvoker() != null){
             this.getInvoker().store();
@@ -95,41 +95,33 @@ public class CreateTransferCommand extends PersistentObject implements Persisten
         
     }
     
-    public Account4Public getFromAcc() throws PersistenceException {
-        return this.fromAcc;
+    public AccountHandle4Public getFromAccount() throws PersistenceException {
+        return this.fromAccount;
     }
-    public void setFromAcc(Account4Public newValue) throws PersistenceException {
+    public void setFromAccount(AccountHandle4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.fromAcc)) return;
+        if(newValue.isTheSameAs(this.fromAccount)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.fromAcc = (PersistentAccount)PersistentProxi.createProxi(objectId, classId);
+        this.fromAccount = (PersistentAccountHandle)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theCreateTransferCommandFacade.fromAccSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theCreateTransferCommandFacade.fromAccountSet(this.getId(), newValue);
         }
     }
-    public Account4Public getToAcc() throws PersistenceException {
-        return this.toAcc;
+    public AccountHandle4Public getToAccount() throws PersistenceException {
+        return this.toAccount;
     }
-    public void setToAcc(Account4Public newValue) throws PersistenceException {
+    public void setToAccount(AccountHandle4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.toAcc)) return;
+        if(newValue.isTheSameAs(this.toAccount)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.toAcc = (PersistentAccount)PersistentProxi.createProxi(objectId, classId);
+        this.toAccount = (PersistentAccountHandle)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theCreateTransferCommandFacade.toAccSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theCreateTransferCommandFacade.toAccountSet(this.getId(), newValue);
         }
-    }
-    public String getDescription() throws PersistenceException {
-        return this.description;
-    }
-    public void setDescription(String newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCreateTransferCommandFacade.descriptionSet(this.getId(), newValue);
-        this.description = newValue;
     }
     public common.Fraction getAmount() throws PersistenceException {
         return this.amount;
@@ -137,6 +129,14 @@ public class CreateTransferCommand extends PersistentObject implements Persisten
     public void setAmount(common.Fraction newValue) throws PersistenceException {
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCreateTransferCommandFacade.amountSet(this.getId(), newValue);
         this.amount = newValue;
+    }
+    public String getSubject() throws PersistenceException {
+        return this.subject;
+    }
+    public void setSubject(String newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCreateTransferCommandFacade.subjectSet(this.getId(), newValue);
+        this.subject = newValue;
     }
     public Invoker getInvoker() throws PersistenceException {
         return this.invoker;
@@ -152,15 +152,15 @@ public class CreateTransferCommand extends PersistentObject implements Persisten
             ConnectionHandler.getTheConnectionHandler().theCreateTransferCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
-    public Manager4Public getCommandReceiver() throws PersistenceException {
+    public TransferManager4Public getCommandReceiver() throws PersistenceException {
         return this.commandReceiver;
     }
-    public void setCommandReceiver(Manager4Public newValue) throws PersistenceException {
+    public void setCommandReceiver(TransferManager4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.commandReceiver)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.commandReceiver = (PersistentManager)PersistentProxi.createProxi(objectId, classId);
+        this.commandReceiver = (PersistentTransferManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateTransferCommandFacade.commandReceiverSet(this.getId(), newValue);
@@ -221,6 +221,18 @@ public class CreateTransferCommand extends PersistentObject implements Persisten
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateTransferCommand(this);
     }
+    public void accept(TransferManagerCommandVisitor visitor) throws PersistenceException {
+        visitor.handleCreateTransferCommand(this);
+    }
+    public <R> R accept(TransferManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleCreateTransferCommand(this);
+    }
+    public <E extends model.UserException>  void accept(TransferManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleCreateTransferCommand(this);
+    }
+    public <R, E extends model.UserException> R accept(TransferManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleCreateTransferCommand(this);
+    }
     public void accept(CommandVisitor visitor) throws PersistenceException {
         visitor.handleCreateTransferCommand(this);
     }
@@ -233,21 +245,9 @@ public class CreateTransferCommand extends PersistentObject implements Persisten
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateTransferCommand(this);
     }
-    public void accept(ManagerCommandVisitor visitor) throws PersistenceException {
-        visitor.handleCreateTransferCommand(this);
-    }
-    public <R> R accept(ManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleCreateTransferCommand(this);
-    }
-    public <E extends model.UserException>  void accept(ManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleCreateTransferCommand(this);
-    }
-    public <R, E extends model.UserException> R accept(ManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleCreateTransferCommand(this);
-    }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getFromAcc() != null) return 1;
-        if (this.getToAcc() != null) return 1;
+        if (this.getFromAccount() != null) return 1;
+        if (this.getToAccount() != null) return 1;
         if (this.getCommandReceiver() != null) return 1;
         return 0;
     }
@@ -263,7 +263,7 @@ public class CreateTransferCommand extends PersistentObject implements Persisten
     }
     public void execute() 
 				throws PersistenceException{
-        this.commandReceiver.createTransfer(this.getFromAcc(), this.getToAcc(), this.getDescription(), this.getAmount());
+        this.commandReceiver.createTransfer(this.getFromAccount(), this.getToAccount(), this.getAmount(), this.getSubject());
 		
     }
     public Invoker fetchInvoker() 

@@ -3,9 +3,10 @@ package persistence;
 
 import model.visitor.*;
 
-public interface Server4Public extends Invoker, Anything, Remote, AbstractPersistentProxi {
+public interface Server4Public extends Invoker, Anything, SubjInterface, Remote, AbstractPersistentProxi {
     
-    public Manager4Public getManager() throws PersistenceException ;
+    public AccountManager4Public getAccounts() throws PersistenceException ;
+    public TransferManager4Public getTransfers() throws PersistenceException ;
     
     public void accept(InvokerVisitor visitor) throws PersistenceException;
     public <R> R accept(InvokerReturnVisitor<R>  visitor) throws PersistenceException;
@@ -15,6 +16,10 @@ public interface Server4Public extends Invoker, Anything, Remote, AbstractPersis
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends model.UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException;
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     public void accept(RemoteVisitor visitor) throws PersistenceException;
     public <R> R accept(RemoteReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends model.UserException>  void accept(RemoteExceptionVisitor<E> visitor) throws PersistenceException, E;
@@ -26,19 +31,19 @@ public interface Server4Public extends Invoker, Anything, Remote, AbstractPersis
 				throws PersistenceException;
     public void signalChanged(final boolean signal) 
 				throws PersistenceException;
-    public void book(final Transfer4Public transfer) 
+    public void book(final AbstractTransfer4Public tranfer) 
 				throws PersistenceException;
     public void clearAccounts() 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
-    public void createAccount(final String description) 
+    public void createAccount(final String name) 
 				throws PersistenceException;
-    public void createTransfer(final String description, final Account4Public fromAcc, final Account4Public toAcc, final common.Fraction amount) 
+    public void createCredit(final Account4Public myAccount, final AccountHandle4Public otherAccount, final common.Fraction amount, final String subject) 
 				throws PersistenceException;
-    public void findAccountByNumber(final long number) 
+    public void createDebit(final Account4Public myAccount, final AccountHandle4Public otherAccount, final common.Fraction amount, final String subject) 
 				throws PersistenceException;
-    public void findAccountByString(final String name) 
+    public void findAccounts(final String name) 
 				throws PersistenceException;
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException;

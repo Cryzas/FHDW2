@@ -55,13 +55,18 @@ public abstract class ViewProxi extends ViewRoot {
 	
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [39];
-        proxiFactories[29] = new ProxiFactory(){
+		proxiFactories = new ProxiFactory [33];
+        proxiFactories[13] = new ProxiFactory(){
+            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
+                return new TransferManagerProxi(objectId, classId, connectionKey);
+            }
+        };
+        proxiFactories[14] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new AccountProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[30] = new ProxiFactory(){
+        proxiFactories[15] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new DebitProxi(objectId, classId, connectionKey);
             }
@@ -71,24 +76,29 @@ public abstract class ViewProxi extends ViewRoot {
                 return new ServerProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[25] = new ProxiFactory(){
+        proxiFactories[2] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ErrorDisplayProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[34] = new ProxiFactory(){
+        proxiFactories[17] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
-                return new ManagerProxi(objectId, classId, connectionKey);
+                return new AccountWrpprProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[32] = new ProxiFactory(){
+        proxiFactories[19] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new CreditProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[33] = new ProxiFactory(){
+        proxiFactories[20] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new TransferProxi(objectId, classId, connectionKey);
+            }
+        };
+        proxiFactories[21] = new ProxiFactory(){
+            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
+                return new AccountManagerProxi(objectId, classId, connectionKey);
             }
         };
 	}

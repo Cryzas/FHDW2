@@ -5,7 +5,7 @@ import persistence.*;
 
 public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
-    public abstract void handleAccount(Account4Public account) throws PersistenceException;
+    public abstract void handleTransferManager(TransferManager4Public transferManager) throws PersistenceException;
     
     public abstract void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException;
     
@@ -19,11 +19,24 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleServer(Server4Public server) throws PersistenceException;
     
+    public abstract void handleAbstractTransfer(AbstractTransfer4Public abstractTransfer) throws PersistenceException;
+    
+    public void handleTransfer(Transfer4Public transfer) throws PersistenceException{
+        this.handleAbstractTransfer(transfer);
+    }
     public abstract void handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException;
     
-    public abstract void handleTransfer(Transfer4Public transfer) throws PersistenceException;
+    public abstract void handleAccountHandle(AccountHandle4Public accountHandle) throws PersistenceException;
     
-    public abstract void handleManager(Manager4Public manager) throws PersistenceException;
+    public void handleAccount(Account4Public account) throws PersistenceException{
+        this.handleAccountHandle(account);
+    }
+    public void handleAccountWrppr(AccountWrppr4Public accountWrppr) throws PersistenceException{
+        this.handleAccountHandle(accountWrppr);
+    }
+    public abstract void handleAccountManager(AccountManager4Public accountManager) throws PersistenceException;
+    
+    public abstract void handleSubj(Subj4Public subj) throws PersistenceException;
     
     public abstract void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException;
     

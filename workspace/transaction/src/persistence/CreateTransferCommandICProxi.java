@@ -19,26 +19,20 @@ public class CreateTransferCommandICProxi extends PersistentInCacheProxi impleme
     }
     
     public long getClassId() {
-        return 136;
+        return 126;
     }
     
-    public Account4Public getFromAcc() throws PersistenceException {
-        return ((PersistentCreateTransferCommand)this.getTheObject()).getFromAcc();
+    public AccountHandle4Public getFromAccount() throws PersistenceException {
+        return ((PersistentCreateTransferCommand)this.getTheObject()).getFromAccount();
     }
-    public void setFromAcc(Account4Public newValue) throws PersistenceException {
-        ((PersistentCreateTransferCommand)this.getTheObject()).setFromAcc(newValue);
+    public void setFromAccount(AccountHandle4Public newValue) throws PersistenceException {
+        ((PersistentCreateTransferCommand)this.getTheObject()).setFromAccount(newValue);
     }
-    public Account4Public getToAcc() throws PersistenceException {
-        return ((PersistentCreateTransferCommand)this.getTheObject()).getToAcc();
+    public AccountHandle4Public getToAccount() throws PersistenceException {
+        return ((PersistentCreateTransferCommand)this.getTheObject()).getToAccount();
     }
-    public void setToAcc(Account4Public newValue) throws PersistenceException {
-        ((PersistentCreateTransferCommand)this.getTheObject()).setToAcc(newValue);
-    }
-    public String getDescription() throws PersistenceException {
-        return ((PersistentCreateTransferCommand)this.getTheObject()).getDescription();
-    }
-    public void setDescription(String newValue) throws PersistenceException {
-        ((PersistentCreateTransferCommand)this.getTheObject()).setDescription(newValue);
+    public void setToAccount(AccountHandle4Public newValue) throws PersistenceException {
+        ((PersistentCreateTransferCommand)this.getTheObject()).setToAccount(newValue);
     }
     public common.Fraction getAmount() throws PersistenceException {
         return ((PersistentCreateTransferCommand)this.getTheObject()).getAmount();
@@ -46,16 +40,22 @@ public class CreateTransferCommandICProxi extends PersistentInCacheProxi impleme
     public void setAmount(common.Fraction newValue) throws PersistenceException {
         ((PersistentCreateTransferCommand)this.getTheObject()).setAmount(newValue);
     }
+    public String getSubject() throws PersistenceException {
+        return ((PersistentCreateTransferCommand)this.getTheObject()).getSubject();
+    }
+    public void setSubject(String newValue) throws PersistenceException {
+        ((PersistentCreateTransferCommand)this.getTheObject()).setSubject(newValue);
+    }
     public Invoker getInvoker() throws PersistenceException {
         return ((PersistentCreateTransferCommand)this.getTheObject()).getInvoker();
     }
     public void setInvoker(Invoker newValue) throws PersistenceException {
         ((PersistentCreateTransferCommand)this.getTheObject()).setInvoker(newValue);
     }
-    public Manager4Public getCommandReceiver() throws PersistenceException {
+    public TransferManager4Public getCommandReceiver() throws PersistenceException {
         return ((PersistentCreateTransferCommand)this.getTheObject()).getCommandReceiver();
     }
-    public void setCommandReceiver(Manager4Public newValue) throws PersistenceException {
+    public void setCommandReceiver(TransferManager4Public newValue) throws PersistenceException {
         ((PersistentCreateTransferCommand)this.getTheObject()).setCommandReceiver(newValue);
     }
     public CommonDate4Public getMyCommonDate() throws PersistenceException {
@@ -101,6 +101,18 @@ public class CreateTransferCommandICProxi extends PersistentInCacheProxi impleme
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateTransferCommand(this);
     }
+    public void accept(TransferManagerCommandVisitor visitor) throws PersistenceException {
+        visitor.handleCreateTransferCommand(this);
+    }
+    public <R> R accept(TransferManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleCreateTransferCommand(this);
+    }
+    public <E extends model.UserException>  void accept(TransferManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleCreateTransferCommand(this);
+    }
+    public <R, E extends model.UserException> R accept(TransferManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleCreateTransferCommand(this);
+    }
     public void accept(CommandVisitor visitor) throws PersistenceException {
         visitor.handleCreateTransferCommand(this);
     }
@@ -111,18 +123,6 @@ public class CreateTransferCommandICProxi extends PersistentInCacheProxi impleme
          visitor.handleCreateTransferCommand(this);
     }
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleCreateTransferCommand(this);
-    }
-    public void accept(ManagerCommandVisitor visitor) throws PersistenceException {
-        visitor.handleCreateTransferCommand(this);
-    }
-    public <R> R accept(ManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleCreateTransferCommand(this);
-    }
-    public <E extends model.UserException>  void accept(ManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleCreateTransferCommand(this);
-    }
-    public <R, E extends model.UserException> R accept(ManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateTransferCommand(this);
     }
     

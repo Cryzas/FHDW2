@@ -18,17 +18,6 @@ public abstract class Entry extends PersistentObject implements PersistentEntry{
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            result.put("description", this.getDescription());
-            result.put("amount", this.getAmount().toString());
-            AbstractPersistentRoot otherAcc = (AbstractPersistentRoot)this.getOtherAcc();
-            if (otherAcc != null) {
-                result.put("otherAcc", otherAcc.createProxiInformation(false, essentialLevel <= 1));
-                if(depth > 1) {
-                    otherAcc.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && otherAcc.hasEssentialFields())otherAcc.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
-            }
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -40,22 +29,20 @@ public abstract class Entry extends PersistentObject implements PersistentEntry{
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected String description;
-    protected common.Fraction amount;
-    protected PersistentAccount otherAcc;
+    protected PersistentTransfer transfer;
+    protected SubjInterface subService;
     protected PersistentEntry This;
     
-    public Entry(String description,common.Fraction amount,PersistentAccount otherAcc,PersistentEntry This,long id) throws PersistenceException {
+    public Entry(PersistentTransfer transfer,SubjInterface subService,PersistentEntry This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.description = description;
-        this.amount = amount;
-        this.otherAcc = otherAcc;
+        this.transfer = transfer;
+        this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
     static public long getTypeId() {
-        return 132;
+        return 119;
     }
     
     public long getClassId() {
@@ -65,9 +52,13 @@ public abstract class Entry extends PersistentObject implements PersistentEntry{
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         super.store();
-        if(this.getOtherAcc() != null){
-            this.getOtherAcc().store();
-            ConnectionHandler.getTheConnectionHandler().theEntryFacade.otherAccSet(this.getId(), getOtherAcc());
+        if(this.getTransfer() != null){
+            this.getTransfer().store();
+            ConnectionHandler.getTheConnectionHandler().theEntryFacade.transferSet(this.getId(), getTransfer());
+        }
+        if(this.getSubService() != null){
+            this.getSubService().store();
+            ConnectionHandler.getTheConnectionHandler().theEntryFacade.subServiceSet(this.getId(), getSubService());
         }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
@@ -76,33 +67,32 @@ public abstract class Entry extends PersistentObject implements PersistentEntry{
         
     }
     
-    public String getDescription() throws PersistenceException {
-        return this.description;
+    public Transfer4Public getTransfer() throws PersistenceException {
+        return this.transfer;
     }
-    public void setDescription(String newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theEntryFacade.descriptionSet(this.getId(), newValue);
-        this.description = newValue;
-    }
-    public common.Fraction getAmount() throws PersistenceException {
-        return this.amount;
-    }
-    public void setAmount(common.Fraction newValue) throws PersistenceException {
-        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theEntryFacade.amountSet(this.getId(), newValue);
-        this.amount = newValue;
-    }
-    public Account4Public getOtherAcc() throws PersistenceException {
-        return this.otherAcc;
-    }
-    public void setOtherAcc(Account4Public newValue) throws PersistenceException {
+    public void setTransfer(Transfer4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.otherAcc)) return;
+        if(newValue.isTheSameAs(this.transfer)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.otherAcc = (PersistentAccount)PersistentProxi.createProxi(objectId, classId);
+        this.transfer = (PersistentTransfer)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theEntryFacade.otherAccSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theEntryFacade.transferSet(this.getId(), newValue);
+        }
+    }
+    public SubjInterface getSubService() throws PersistenceException {
+        return this.subService;
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.subService)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.subService = (SubjInterface)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theEntryFacade.subServiceSet(this.getId(), newValue);
         }
     }
     protected void setThis(PersistentEntry newValue) throws PersistenceException {
@@ -128,9 +118,7 @@ public abstract class Entry extends PersistentObject implements PersistentEntry{
 				throws PersistenceException{
         this.setThis((PersistentEntry)This);
 		if(this.isTheSameAs(This)){
-			this.setDescription((String)final$$Fields.get("description"));
-			this.setAmount((common.Fraction)final$$Fields.get("amount"));
-			this.setOtherAcc((PersistentAccount)final$$Fields.get("otherAcc"));
+			this.setTransfer((PersistentTransfer)final$$Fields.get("transfer"));
 		}
     }
     

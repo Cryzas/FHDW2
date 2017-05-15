@@ -41,13 +41,13 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void book(TransferView transfer) throws ModelException{
+    public synchronized void book(AbstractTransferView tranfer) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
-            if (transfer == null){
+            if (tranfer == null){
                 parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
             } else {
-                parameters.add(((view.objects.ViewProxi)transfer).createProxiInformation());
+                parameters.add(((view.objects.ViewProxi)tranfer).createProxiInformation());
             }
             java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "book", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
@@ -80,10 +80,10 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void createAccount(String description) throws ModelException{
+    public synchronized void createAccount(String name) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
-            parameters.add(description);
+            parameters.add(name);
             java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "createAccount", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
@@ -98,22 +98,22 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void createTransfer(String description, AccountView fromAcc, AccountView toAcc, common.Fraction amount) throws ModelException{
+    public synchronized void createCredit(AccountView myAccount, AccountHandleView otherAccount, common.Fraction amount, String subject) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
-            parameters.add(description);
-            if (fromAcc == null){
+            if (myAccount == null){
                 parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
             } else {
-                parameters.add(((view.objects.ViewProxi)fromAcc).createProxiInformation());
+                parameters.add(((view.objects.ViewProxi)myAccount).createProxiInformation());
             }
-            if (toAcc == null){
+            if (otherAccount == null){
                 parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
             } else {
-                parameters.add(((view.objects.ViewProxi)toAcc).createProxiInformation());
+                parameters.add(((view.objects.ViewProxi)otherAccount).createProxiInformation());
             }
             parameters.add(amount.toString());
-            java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "createTransfer", parameters);
+            parameters.add(subject);
+            java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "createCredit", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
@@ -127,11 +127,22 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void findAccountByNumber(long number) throws ModelException{
+    public synchronized void createDebit(AccountView myAccount, AccountHandleView otherAccount, common.Fraction amount, String subject) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
-            parameters.add(new Long(number).toString());
-            java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "findAccountByNumber", parameters);
+            if (myAccount == null){
+                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
+            } else {
+                parameters.add(((view.objects.ViewProxi)myAccount).createProxiInformation());
+            }
+            if (otherAccount == null){
+                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
+            } else {
+                parameters.add(((view.objects.ViewProxi)otherAccount).createProxiInformation());
+            }
+            parameters.add(amount.toString());
+            parameters.add(subject);
+            java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "createDebit", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
@@ -145,11 +156,11 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void findAccountByString(String name) throws ModelException{
+    public synchronized void findAccounts(String name) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             parameters.add(name);
-            java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "findAccountByString", parameters);
+            java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "findAccounts", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());

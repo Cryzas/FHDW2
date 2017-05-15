@@ -16,26 +16,24 @@ public class CreditFacade{
 	}
 
     /* If idCreateIfLessZero is negative, a new id is generated. */
-    public PersistentCredit newCredit(String description,common.Fraction amount,long idCreateIfLessZero) throws PersistenceException {
+    public PersistentCredit newCredit(long idCreateIfLessZero) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
-            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".CrdtFacade.newCrdt(?,?,?); end;");
+            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".CrdtFacade.newCrdt(?); end;");
             callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
-            callable.setString(2, description);
-            callable.setString(3, amount.toString());
-            callable.setLong(4, idCreateIfLessZero);
+            callable.setLong(2, idCreateIfLessZero);
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Credit result = new Credit(description,amount,null,null,id);
+            Credit result = new Credit(null,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
-            return (PersistentCredit)PersistentProxi.createProxi(id, 133);
+            return (PersistentCredit)PersistentProxi.createProxi(id, 120);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
     
-    public PersistentCredit newDelayedCredit(String description,common.Fraction amount) throws PersistenceException {
+    public PersistentCredit newDelayedCredit() throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
             callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".CrdtFacade.newDelayedCrdt(); end;");
@@ -43,9 +41,9 @@ public class CreditFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Credit result = new Credit(description,amount,null,null,id);
+            Credit result = new Credit(null,null,null,id);
             Cache.getTheCache().put(result);
-            return (PersistentCredit)PersistentProxi.createProxi(id, 133);
+            return (PersistentCredit)PersistentProxi.createProxi(id, 120);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
@@ -64,15 +62,17 @@ public class CreditFacade{
                 callable.close();
                 return null;
             }
-            PersistentAccount otherAcc = null;
+            PersistentTransfer transfer = null;
+            if (obj.getLong(2) != 0)
+                transfer = (PersistentTransfer)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+            SubjInterface subService = null;
             if (obj.getLong(4) != 0)
-                otherAcc = (PersistentAccount)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
             PersistentEntry This = null;
             if (obj.getLong(6) != 0)
                 This = (PersistentEntry)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
-            Credit result = new Credit(obj.getString(2) == null ? "" : obj.getString(2) /* In Oracle "" = null !!! */,
-                                       (obj.getString(3) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(3))),
-                                       otherAcc,
+            Credit result = new Credit(transfer,
+                                       subService,
                                        This,
                                        CreditId);
             obj.close();

@@ -15,14 +15,14 @@ public class CreateAccountCommandProxi extends PersistentProxi implements Persis
     
     
     public long getClassId() {
-        return 137;
+        return 123;
     }
     
-    public String getDescription() throws PersistenceException {
-        return ((PersistentCreateAccountCommand)this.getTheObject()).getDescription();
+    public String getName() throws PersistenceException {
+        return ((PersistentCreateAccountCommand)this.getTheObject()).getName();
     }
-    public void setDescription(String newValue) throws PersistenceException {
-        ((PersistentCreateAccountCommand)this.getTheObject()).setDescription(newValue);
+    public void setName(String newValue) throws PersistenceException {
+        ((PersistentCreateAccountCommand)this.getTheObject()).setName(newValue);
     }
     public Invoker getInvoker() throws PersistenceException {
         return ((PersistentCreateAccountCommand)this.getTheObject()).getInvoker();
@@ -30,10 +30,10 @@ public class CreateAccountCommandProxi extends PersistentProxi implements Persis
     public void setInvoker(Invoker newValue) throws PersistenceException {
         ((PersistentCreateAccountCommand)this.getTheObject()).setInvoker(newValue);
     }
-    public Manager4Public getCommandReceiver() throws PersistenceException {
+    public AccountManager4Public getCommandReceiver() throws PersistenceException {
         return ((PersistentCreateAccountCommand)this.getTheObject()).getCommandReceiver();
     }
-    public void setCommandReceiver(Manager4Public newValue) throws PersistenceException {
+    public void setCommandReceiver(AccountManager4Public newValue) throws PersistenceException {
         ((PersistentCreateAccountCommand)this.getTheObject()).setCommandReceiver(newValue);
     }
     public CommonDate4Public getMyCommonDate() throws PersistenceException {
@@ -91,16 +91,16 @@ public class CreateAccountCommandProxi extends PersistentProxi implements Persis
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateAccountCommand(this);
     }
-    public void accept(ManagerCommandVisitor visitor) throws PersistenceException {
+    public void accept(AccountManagerCommandVisitor visitor) throws PersistenceException {
         visitor.handleCreateAccountCommand(this);
     }
-    public <R> R accept(ManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(AccountManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleCreateAccountCommand(this);
     }
-    public <E extends model.UserException>  void accept(ManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(AccountManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleCreateAccountCommand(this);
     }
-    public <R, E extends model.UserException> R accept(ManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(AccountManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateAccountCommand(this);
     }
     

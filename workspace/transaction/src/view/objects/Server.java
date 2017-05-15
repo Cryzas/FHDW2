@@ -10,14 +10,16 @@ import view.visitor.*;
 
 public class Server extends ViewObject implements ServerView{
     
-    protected ManagerView manager;
+    protected AccountManagerView accounts;
+    protected TransferManagerView transfers;
     protected java.util.Vector<ErrorDisplayView> errors;
     protected String user;
     
-    public Server(ManagerView manager,java.util.Vector<ErrorDisplayView> errors,String user,long id, long classId) {
+    public Server(AccountManagerView accounts,TransferManagerView transfers,java.util.Vector<ErrorDisplayView> errors,String user,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
-        this.manager = manager;
+        this.accounts = accounts;
+        this.transfers = transfers;
         this.errors = errors;
         this.user = user;        
     }
@@ -30,11 +32,17 @@ public class Server extends ViewObject implements ServerView{
         return getTypeId();
     }
     
-    public ManagerView getManager()throws ModelException{
-        return this.manager;
+    public AccountManagerView getAccounts()throws ModelException{
+        return this.accounts;
     }
-    public void setManager(ManagerView newValue) throws ModelException {
-        this.manager = newValue;
+    public void setAccounts(AccountManagerView newValue) throws ModelException {
+        this.accounts = newValue;
+    }
+    public TransferManagerView getTransfers()throws ModelException{
+        return this.transfers;
+    }
+    public void setTransfers(TransferManagerView newValue) throws ModelException {
+        this.transfers = newValue;
     }
     public java.util.Vector<ErrorDisplayView> getErrors()throws ModelException{
         return this.errors;
@@ -75,9 +83,13 @@ public class Server extends ViewObject implements ServerView{
     }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
-        ManagerView manager = this.getManager();
-        if (manager != null) {
-            ((ViewProxi)manager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(manager.getClassId(), manager.getId())));
+        AccountManagerView accounts = this.getAccounts();
+        if (accounts != null) {
+            ((ViewProxi)accounts).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(accounts.getClassId(), accounts.getId())));
+        }
+        TransferManagerView transfers = this.getTransfers();
+        if (transfers != null) {
+            ((ViewProxi)transfers).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(transfers.getClassId(), transfers.getId())));
         }
         java.util.Vector<?> errors = this.getErrors();
         if (errors != null) {
@@ -90,26 +102,32 @@ public class Server extends ViewObject implements ServerView{
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
         int index = originalIndex;
-        if(index == 0 && this.getManager() != null) return new ManagerServerWrapper(this, originalIndex, (ViewRoot)this.getManager());
-        if(this.getManager() != null) index = index - 1;
+        if(index == 0 && this.getAccounts() != null) return new AccountsServerWrapper(this, originalIndex, (ViewRoot)this.getAccounts());
+        if(this.getAccounts() != null) index = index - 1;
+        if(index == 0 && this.getTransfers() != null) return new TransfersServerWrapper(this, originalIndex, (ViewRoot)this.getTransfers());
+        if(this.getTransfers() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getManager() == null ? 0 : 1);
+            + (this.getAccounts() == null ? 0 : 1)
+            + (this.getTransfers() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         return true 
-            && (this.getManager() == null ? true : false);
+            && (this.getAccounts() == null ? true : false)
+            && (this.getTransfers() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
-        if(this.getManager() != null && this.getManager().equals(child)) return result;
-        if(this.getManager() != null) result = result + 1;
+        if(this.getAccounts() != null && this.getAccounts().equals(child)) return result;
+        if(this.getAccounts() != null) result = result + 1;
+        if(this.getTransfers() != null && this.getTransfers().equals(child)) return result;
+        if(this.getTransfers() != null) result = result + 1;
         return -1;
     }
     public int getUserIndex() throws ModelException {
-        return 0 + (this.getManager() == null ? 0 : 1);
+        return 0 + (this.getAccounts() == null ? 0 : 1) + (this.getTransfers() == null ? 0 : 1);
     }
     public int getRowCount(){
         return 0 

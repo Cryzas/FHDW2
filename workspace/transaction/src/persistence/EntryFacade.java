@@ -29,37 +29,26 @@ public class EntryFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void descriptionSet(long EntryId, String descriptionVal) throws PersistenceException {
+    public void transferSet(long EntryId, Transfer4Public transferVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".EntrFacade.dscrptnSet(?, ?); end;");
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".EntrFacade.trnsfrSet(?, ?, ?); end;");
             callable.setLong(1, EntryId);
-            callable.setString(2, descriptionVal);
+            callable.setLong(2, transferVal.getId());
+            callable.setLong(3, transferVal.getClassId());
             callable.execute();
             callable.close();
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void amountSet(long EntryId, common.Fraction amountVal) throws PersistenceException {
+    public void subServiceSet(long EntryId, SubjInterface subServiceVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".EntrFacade.amntSet(?, ?); end;");
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".EntrFacade.sbSrvcSet(?, ?, ?); end;");
             callable.setLong(1, EntryId);
-            callable.setString(2, amountVal.toString());
-            callable.execute();
-            callable.close();
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
-    }
-    public void otherAccSet(long EntryId, Account4Public otherAccVal) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".EntrFacade.othrAccSet(?, ?, ?); end;");
-            callable.setLong(1, EntryId);
-            callable.setLong(2, otherAccVal.getId());
-            callable.setLong(3, otherAccVal.getClassId());
+            callable.setLong(2, subServiceVal.getId());
+            callable.setLong(3, subServiceVal.getClassId());
             callable.execute();
             callable.close();
         }catch(SQLException se) {

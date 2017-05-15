@@ -5,6 +5,9 @@ import view.*;
 
 public abstract class UserExceptionStandardVisitor implements UserExceptionVisitor {
     
+    public void handleAccountException(AccountException accountException) throws ModelException{
+        this.standardHandling(accountException);
+    }
     public void handleCycleException(CycleException cycleException) throws ModelException{
         this.standardHandling(cycleException);
     }

@@ -15,20 +15,20 @@ public class CreateAccountCommand extends PersistentObject implements Persistent
         return (CreateAccountCommand4Public)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static CreateAccountCommand4Public createCreateAccountCommand(String description,java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
-        return createCreateAccountCommand(description,createDate,commitDate,false);
+    public static CreateAccountCommand4Public createCreateAccountCommand(String name,java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
+        return createCreateAccountCommand(name,createDate,commitDate,false);
     }
     
-    public static CreateAccountCommand4Public createCreateAccountCommand(String description,java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
-        if (description == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+    public static CreateAccountCommand4Public createCreateAccountCommand(String name,java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
+        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentCreateAccountCommand result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theCreateAccountCommandFacade
-                .newDelayedCreateAccountCommand(description);
+                .newDelayedCreateAccountCommand(name);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theCreateAccountCommandFacade
-                .newCreateAccountCommand(description,-1);
+                .newCreateAccountCommand(name,-1);
         }
         ((PersistentCreateAccountCommand)result).setMyCommonDate(CommonDate.createCommonDate(createDate, createDate));
         return result;
@@ -37,24 +37,24 @@ public class CreateAccountCommand extends PersistentObject implements Persistent
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
-    protected String description;
+    protected String name;
     protected Invoker invoker;
-    protected PersistentManager commandReceiver;
+    protected PersistentAccountManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateAccountCommand(String description,Invoker invoker,PersistentManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
+    public CreateAccountCommand(String name,Invoker invoker,PersistentAccountManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.description = description;
+        this.name = name;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
         this.myCommonDate = myCommonDate;        
     }
     
     static public long getTypeId() {
-        return 137;
+        return 123;
     }
     
     public long getClassId() {
@@ -63,8 +63,8 @@ public class CreateAccountCommand extends PersistentObject implements Persistent
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 137) ConnectionHandler.getTheConnectionHandler().theCreateAccountCommandFacade
-            .newCreateAccountCommand(description,this.getId());
+        if (this.getClassId() == 123) ConnectionHandler.getTheConnectionHandler().theCreateAccountCommandFacade
+            .newCreateAccountCommand(name,this.getId());
         super.store();
         if(this.getInvoker() != null){
             this.getInvoker().store();
@@ -81,13 +81,13 @@ public class CreateAccountCommand extends PersistentObject implements Persistent
         
     }
     
-    public String getDescription() throws PersistenceException {
-        return this.description;
+    public String getName() throws PersistenceException {
+        return this.name;
     }
-    public void setDescription(String newValue) throws PersistenceException {
+    public void setName(String newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCreateAccountCommandFacade.descriptionSet(this.getId(), newValue);
-        this.description = newValue;
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theCreateAccountCommandFacade.nameSet(this.getId(), newValue);
+        this.name = newValue;
     }
     public Invoker getInvoker() throws PersistenceException {
         return this.invoker;
@@ -103,15 +103,15 @@ public class CreateAccountCommand extends PersistentObject implements Persistent
             ConnectionHandler.getTheConnectionHandler().theCreateAccountCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
-    public Manager4Public getCommandReceiver() throws PersistenceException {
+    public AccountManager4Public getCommandReceiver() throws PersistenceException {
         return this.commandReceiver;
     }
-    public void setCommandReceiver(Manager4Public newValue) throws PersistenceException {
+    public void setCommandReceiver(AccountManager4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.commandReceiver)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.commandReceiver = (PersistentManager)PersistentProxi.createProxi(objectId, classId);
+        this.commandReceiver = (PersistentAccountManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateAccountCommandFacade.commandReceiverSet(this.getId(), newValue);
@@ -184,16 +184,16 @@ public class CreateAccountCommand extends PersistentObject implements Persistent
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateAccountCommand(this);
     }
-    public void accept(ManagerCommandVisitor visitor) throws PersistenceException {
+    public void accept(AccountManagerCommandVisitor visitor) throws PersistenceException {
         visitor.handleCreateAccountCommand(this);
     }
-    public <R> R accept(ManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(AccountManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleCreateAccountCommand(this);
     }
-    public <E extends model.UserException>  void accept(ManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(AccountManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleCreateAccountCommand(this);
     }
-    public <R, E extends model.UserException> R accept(ManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(AccountManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateAccountCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{
@@ -212,8 +212,12 @@ public class CreateAccountCommand extends PersistentObject implements Persistent
     }
     public void execute() 
 				throws PersistenceException{
-        this.commandReceiver.createAccount(this.getDescription());
-		
+        try{
+			this.commandReceiver.createAccount(this.getName());
+		}
+		catch(model.AccountException e){
+			this.commandException = e;
+		}
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{

@@ -18,11 +18,23 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
         return -102;
     }
     
-    public Manager4Public getManager() throws PersistenceException {
-        return ((PersistentServer)this.getTheObject()).getManager();
+    public AccountManager4Public getAccounts() throws PersistenceException {
+        return ((PersistentServer)this.getTheObject()).getAccounts();
     }
-    public void setManager(Manager4Public newValue) throws PersistenceException {
-        ((PersistentServer)this.getTheObject()).setManager(newValue);
+    public void setAccounts(AccountManager4Public newValue) throws PersistenceException {
+        ((PersistentServer)this.getTheObject()).setAccounts(newValue);
+    }
+    public TransferManager4Public getTransfers() throws PersistenceException {
+        return ((PersistentServer)this.getTheObject()).getTransfers();
+    }
+    public void setTransfers(TransferManager4Public newValue) throws PersistenceException {
+        ((PersistentServer)this.getTheObject()).setTransfers(newValue);
+    }
+    public SubjInterface getSubService() throws PersistenceException {
+        return ((PersistentServer)this.getTheObject()).getSubService();
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        ((PersistentServer)this.getTheObject()).setSubService(newValue);
     }
     public Server_ErrorsProxi getErrors() throws PersistenceException {
         return ((PersistentServer)this.getTheObject()).getErrors();
@@ -79,6 +91,18 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleServer(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleServer(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleServer(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleServer(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleServer(this);
+    }
     public void accept(RemoteVisitor visitor) throws PersistenceException {
         visitor.handleServer(this);
     }
@@ -93,9 +117,17 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
     }
     
     
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).register(observee);
     }
     public String server_Menu_Filter(final Anything anything) 
 				throws PersistenceException{
@@ -105,9 +137,13 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).signalChanged(signal);
     }
-    public void book(final Transfer4Public transfer) 
+    public void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).book(transfer);
+        ((PersistentServer)this.getTheObject()).updateObservers(event);
+    }
+    public void book(final AbstractTransfer4Public tranfer) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).book(tranfer);
     }
     public void clearAccounts() 
 				throws PersistenceException{
@@ -121,25 +157,25 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public void createAccount(final String description) 
+    public void createAccount(final String name) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).createAccount(description);
+        ((PersistentServer)this.getTheObject()).createAccount(name);
     }
-    public void createTransfer(final String description, final Account4Public fromAcc, final Account4Public toAcc, final common.Fraction amount) 
+    public void createCredit(final Account4Public myAccount, final AccountHandle4Public otherAccount, final common.Fraction amount, final String subject) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).createTransfer(description, fromAcc, toAcc, amount);
+        ((PersistentServer)this.getTheObject()).createCredit(myAccount, otherAccount, amount, subject);
+    }
+    public void createDebit(final Account4Public myAccount, final AccountHandle4Public otherAccount, final common.Fraction amount, final String subject) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createDebit(myAccount, otherAccount, amount, subject);
     }
     public void disconnected() 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).disconnected();
     }
-    public void findAccountByNumber(final long number) 
+    public void findAccounts(final String name) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).findAccountByNumber(number);
-    }
-    public void findAccountByString(final String name) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).findAccountByString(name);
+        ((PersistentServer)this.getTheObject()).findAccounts(name);
     }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{

@@ -5,7 +5,7 @@ import viewClient.*;
 
 import view.visitor.*;
 
-public class AccountProxi extends ViewProxi implements AccountView{
+public class AccountProxi extends AccountHandleProxi implements AccountView{
     
     public AccountProxi(long objectId, long classId, ExceptionAndEventHandler connectionKey) {
         super(objectId, classId, connectionKey);
@@ -13,12 +13,11 @@ public class AccountProxi extends ViewProxi implements AccountView{
     
     @SuppressWarnings("unchecked")
     public AccountView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
-        long number = new Long((String)resultTable.get("number")).longValue();
-        String description = (String)resultTable.get("description");
+        String name = (String)resultTable.get("name");
         common.Fraction balance = common.Fraction.parse((String)resultTable.get("balance"));
         java.util.Vector<String> entries_string = (java.util.Vector<String>)resultTable.get("entries");
         java.util.Vector<EntryView> entries = ViewProxi.getProxiVector(entries_string, connectionKey);
-        AccountView result$$ = new Account((long)number,(String)description,(common.Fraction)balance,entries, this.getId(), this.getClassId());
+        AccountView result$$ = new Account((String)name,(common.Fraction)balance,entries, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -51,14 +50,11 @@ public class AccountProxi extends ViewProxi implements AccountView{
         return -1;
     }
     
-    public long getNumber()throws ModelException{
-        return ((Account)this.getTheObject()).getNumber();
+    public String getName()throws ModelException{
+        return ((Account)this.getTheObject()).getName();
     }
-    public String getDescription()throws ModelException{
-        return ((Account)this.getTheObject()).getDescription();
-    }
-    public void setDescription(String newValue) throws ModelException {
-        ((Account)this.getTheObject()).setDescription(newValue);
+    public void setName(String newValue) throws ModelException {
+        ((Account)this.getTheObject()).setName(newValue);
     }
     public common.Fraction getBalance()throws ModelException{
         return ((Account)this.getTheObject()).getBalance();
@@ -73,6 +69,18 @@ public class AccountProxi extends ViewProxi implements AccountView{
         ((Account)this.getTheObject()).setEntries(newValue);
     }
     
+    public void accept(AccountHandleVisitor visitor) throws ModelException {
+        visitor.handleAccount(this);
+    }
+    public <R> R accept(AccountHandleReturnVisitor<R>  visitor) throws ModelException {
+         return visitor.handleAccount(this);
+    }
+    public <E extends view.UserException>  void accept(AccountHandleExceptionVisitor<E> visitor) throws ModelException, E {
+         visitor.handleAccount(this);
+    }
+    public <R, E extends view.UserException> R accept(AccountHandleReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+         return visitor.handleAccount(this);
+    }
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleAccount(this);
     }
@@ -87,7 +95,7 @@ public class AccountProxi extends ViewProxi implements AccountView{
     }
     
     public boolean hasTransientFields(){
-        return true;
+        return false;
     }
     
     public javafx.scene.image.Image getImage(){

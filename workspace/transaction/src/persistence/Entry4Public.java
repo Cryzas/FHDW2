@@ -3,11 +3,9 @@ package persistence;
 
 import model.visitor.*;
 
-public interface Entry4Public extends Anything, AbstractPersistentProxi {
+public interface Entry4Public extends Anything, SubjInterface, AbstractPersistentProxi {
     
-    public String getDescription() throws PersistenceException ;
-    public common.Fraction getAmount() throws PersistenceException ;
-    public Account4Public getOtherAcc() throws PersistenceException ;
+    public Transfer4Public getTransfer() throws PersistenceException ;
     
     public void accept(EntryVisitor visitor) throws PersistenceException;
     public <R> R accept(EntryReturnVisitor<R>  visitor) throws PersistenceException;

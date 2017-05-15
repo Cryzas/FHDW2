@@ -29,7 +29,7 @@ public class ServerFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Server result = new Server(null,null,password,user,hackCount,hackDelay,id);
+            Server result = new Server(null,null,null,null,password,user,hackCount,hackDelay,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentServer)PersistentProxi.createProxi(id, -102);
         }catch(SQLException se) {
@@ -45,7 +45,7 @@ public class ServerFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Server result = new Server(null,null,password,user,hackCount,hackDelay,id);
+            Server result = new Server(null,null,null,null,password,user,hackCount,hackDelay,id);
             Cache.getTheCache().put(result);
             return (PersistentServer)PersistentProxi.createProxi(id, -102);
         }catch(SQLException se) {
@@ -66,18 +66,26 @@ public class ServerFacade{
                 callable.close();
                 return null;
             }
-            PersistentManager manager = null;
+            PersistentAccountManager accounts = null;
             if (obj.getLong(2) != 0)
-                manager = (PersistentManager)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
-            PersistentServer This = null;
+                accounts = (PersistentAccountManager)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+            PersistentTransferManager transfers = null;
             if (obj.getLong(4) != 0)
-                This = (PersistentServer)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
-            Server result = new Server(manager,
+                transfers = (PersistentTransferManager)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+            SubjInterface subService = null;
+            if (obj.getLong(6) != 0)
+                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
+            PersistentServer This = null;
+            if (obj.getLong(8) != 0)
+                This = (PersistentServer)PersistentProxi.createProxi(obj.getLong(8), obj.getLong(9));
+            Server result = new Server(accounts,
+                                       transfers,
+                                       subService,
                                        This,
-                                       obj.getString(6) == null ? "" : obj.getString(6) /* In Oracle "" = null !!! */,
-                                       obj.getString(7) == null ? "" : obj.getString(7) /* In Oracle "" = null !!! */,
-                                       obj.getLong(8),
-                                       obj.getTimestamp(9),
+                                       obj.getString(10) == null ? "" : obj.getString(10) /* In Oracle "" = null !!! */,
+                                       obj.getString(11) == null ? "" : obj.getString(11) /* In Oracle "" = null !!! */,
+                                       obj.getLong(12),
+                                       obj.getTimestamp(13),
                                        ServerId);
             obj.close();
             callable.close();
@@ -125,13 +133,39 @@ public class ServerFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void managerSet(long ServerId, Manager4Public managerVal) throws PersistenceException {
+    public void accountsSet(long ServerId, AccountManager4Public accountsVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".SrvrFacade.mngrSet(?, ?, ?); end;");
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".SrvrFacade.accntsSet(?, ?, ?); end;");
             callable.setLong(1, ServerId);
-            callable.setLong(2, managerVal.getId());
-            callable.setLong(3, managerVal.getClassId());
+            callable.setLong(2, accountsVal.getId());
+            callable.setLong(3, accountsVal.getClassId());
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void transfersSet(long ServerId, TransferManager4Public transfersVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".SrvrFacade.trnsfrsSet(?, ?, ?); end;");
+            callable.setLong(1, ServerId);
+            callable.setLong(2, transfersVal.getId());
+            callable.setLong(3, transfersVal.getClassId());
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void subServiceSet(long ServerId, SubjInterface subServiceVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".SrvrFacade.sbSrvcSet(?, ?, ?); end;");
+            callable.setLong(1, ServerId);
+            callable.setLong(2, subServiceVal.getId());
+            callable.setLong(3, subServiceVal.getClassId());
             callable.execute();
             callable.close();
         }catch(SQLException se) {

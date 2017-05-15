@@ -12,16 +12,7 @@ public class CreditProxi extends EntryProxi implements CreditView{
     }
     
     public CreditView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
-        String description = (String)resultTable.get("description");
-        common.Fraction amount = common.Fraction.parse((String)resultTable.get("amount"));
-        ViewProxi otherAcc = null;
-        String otherAcc$String = (String)resultTable.get("otherAcc");
-        if (otherAcc$String != null) {
-            common.ProxiInformation otherAcc$Info = common.RPCConstantsAndServices.createProxiInformation(otherAcc$String);
-            otherAcc = view.objects.ViewProxi.createProxi(otherAcc$Info,connectionKey);
-            otherAcc.setToString(otherAcc$Info.getToString());
-        }
-        CreditView result$$ = new Credit((String)description,(common.Fraction)amount,(AccountView)otherAcc, this.getId(), this.getClassId());
+        CreditView result$$ = new Credit( this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -30,24 +21,17 @@ public class CreditProxi extends EntryProxi implements CreditView{
         return RemoteDepth;
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        int index = originalIndex;
-        if(index == 0 && this.getOtherAcc() != null) return new OtherAccEntryWrapper(this, originalIndex, (ViewRoot)this.getOtherAcc());
-        if(this.getOtherAcc() != null) index = index - 1;
+        
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 
-            + (this.getOtherAcc() == null ? 0 : 1);
+        return 0 ;
     }
     public boolean isLeaf() throws ModelException {
-        if (this.object == null) return this.getLeafInfo() == 0;
-        return true 
-            && (this.getOtherAcc() == null ? true : false);
+        return true;
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        int result = 0;
-        if(this.getOtherAcc() != null && this.getOtherAcc().equals(child)) return result;
-        if(this.getOtherAcc() != null) result = result + 1;
+        
         return -1;
     }
     

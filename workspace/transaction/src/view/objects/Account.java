@@ -7,38 +7,33 @@ import view.visitor.*;
 
 /* Additional import section end */
 
-public class Account extends ViewObject implements AccountView{
+public class Account extends view.objects.AccountHandle implements AccountView{
     
-    protected long number;
-    protected String description;
+    protected String name;
     protected common.Fraction balance;
     protected java.util.Vector<EntryView> entries;
     
-    public Account(long number,String description,common.Fraction balance,java.util.Vector<EntryView> entries,long id, long classId) {
+    public Account(String name,common.Fraction balance,java.util.Vector<EntryView> entries,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
-        this.number = number;
-        this.description = description;
+        this.name = name;
         this.balance = balance;
         this.entries = entries;        
     }
     
     static public long getTypeId() {
-        return 130;
+        return 115;
     }
     
     public long getClassId() {
         return getTypeId();
     }
     
-    public long getNumber()throws ModelException{
-        return this.number;
+    public String getName()throws ModelException{
+        return this.name;
     }
-    public String getDescription()throws ModelException{
-        return this.description;
-    }
-    public void setDescription(String newValue) throws ModelException {
-        this.description = newValue;
+    public void setName(String newValue) throws ModelException {
+        this.name = newValue;
     }
     public common.Fraction getBalance()throws ModelException{
         return this.balance;
@@ -53,6 +48,18 @@ public class Account extends ViewObject implements AccountView{
         this.entries = newValue;
     }
     
+    public void accept(AccountHandleVisitor visitor) throws ModelException {
+        visitor.handleAccount(this);
+    }
+    public <R> R accept(AccountHandleReturnVisitor<R>  visitor) throws ModelException {
+         return visitor.handleAccount(this);
+    }
+    public <E extends view.UserException>  void accept(AccountHandleExceptionVisitor<E> visitor) throws ModelException, E {
+         visitor.handleAccount(this);
+    }
+    public <R, E extends view.UserException> R accept(AccountHandleReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+         return visitor.handleAccount(this);
+    }
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleAccount(this);
     }
@@ -99,34 +106,26 @@ public class Account extends ViewObject implements AccountView{
         }
         return -1;
     }
-    public int getNumberIndex() throws ModelException {
+    public int getNameIndex() throws ModelException {
         return 0;
     }
-    public int getDescriptionIndex() throws ModelException {
-        return 0 + 1;
-    }
     public int getBalanceIndex() throws ModelException {
-        return 0 + 1 + 1;
+        return 0 + 1;
     }
     public int getRowCount(){
         return 0 
-            + 1
             + 1
             + 1;
     }
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
-                if(rowIndex == 0) return "number";
-                rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return "description";
+                if(rowIndex == 0) return "name";
                 rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return "balance";
                 rowIndex = rowIndex - 1;
             } else {
-                if(rowIndex == 0) return new Long(getNumber());
-                rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return this.getDescription();
+                if(rowIndex == 0) return this.getName();
                 rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return this.getBalance();
                 rowIndex = rowIndex - 1;
@@ -141,9 +140,8 @@ public class Account extends ViewObject implements AccountView{
         return true;
     }
     public void setValueAt(String newValue, int rowIndex) throws Exception {
-        rowIndex = rowIndex - 1;
         if(rowIndex == 0){
-            this.setDescription(newValue);
+            this.setName(newValue);
             return;
         }
         rowIndex = rowIndex - 1;
@@ -154,7 +152,7 @@ public class Account extends ViewObject implements AccountView{
         rowIndex = rowIndex - 1;
     }
     public boolean hasTransientFields(){
-        return true;
+        return false;
     }
     /* Start of protected part that is not overridden by persistence generator */
     

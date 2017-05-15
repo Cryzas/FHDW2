@@ -28,10 +28,10 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.HashMap<?,?> book(String transferProxiString){
+    public synchronized java.util.HashMap<?,?> book(String tranferProxiString){
         try {
-            PersistentTransfer transfer = (PersistentTransfer)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(transferProxiString));
-            ((PersistentServer)this.server).book(transfer);
+            PersistentAbstractTransfer tranfer = (PersistentAbstractTransfer)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(tranferProxiString));
+            ((PersistentServer)this.server).book(tranfer);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -47,40 +47,42 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.HashMap<?,?> createAccount(String description){
+    public synchronized java.util.HashMap<?,?> createAccount(String name){
         try {
-            ((PersistentServer)this.server).createAccount(description);
+            ((PersistentServer)this.server).createAccount(name);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
         }
     }
     
-    public synchronized java.util.HashMap<?,?> createTransfer(String description, String fromAccProxiString, String toAccProxiString, String amountAsString){
+    public synchronized java.util.HashMap<?,?> createCredit(String myAccountProxiString, String otherAccountProxiString, String amountAsString, String subject){
         try {
-            PersistentAccount fromAcc = (PersistentAccount)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(fromAccProxiString));
-            PersistentAccount toAcc = (PersistentAccount)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(toAccProxiString));
+            PersistentAccount myAccount = (PersistentAccount)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(myAccountProxiString));
+            PersistentAccountHandle otherAccount = (PersistentAccountHandle)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(otherAccountProxiString));
             common.Fraction amount = common.Fraction.parse(amountAsString);
-            ((PersistentServer)this.server).createTransfer(description, fromAcc, toAcc, amount);
+            ((PersistentServer)this.server).createCredit(myAccount, otherAccount, amount, subject);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
         }
     }
     
-    public synchronized java.util.HashMap<?,?> findAccountByNumber(String numberAsString){
+    public synchronized java.util.HashMap<?,?> createDebit(String myAccountProxiString, String otherAccountProxiString, String amountAsString, String subject){
         try {
-            long number = new Long(numberAsString).longValue();
-            ((PersistentServer)this.server).findAccountByNumber(number);
+            PersistentAccount myAccount = (PersistentAccount)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(myAccountProxiString));
+            PersistentAccountHandle otherAccount = (PersistentAccountHandle)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(otherAccountProxiString));
+            common.Fraction amount = common.Fraction.parse(amountAsString);
+            ((PersistentServer)this.server).createDebit(myAccount, otherAccount, amount, subject);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
         }
     }
     
-    public synchronized java.util.HashMap<?,?> findAccountByString(String name){
+    public synchronized java.util.HashMap<?,?> findAccounts(String name){
         try {
-            ((PersistentServer)this.server).findAccountByString(name);
+            ((PersistentServer)this.server).findAccounts(name);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

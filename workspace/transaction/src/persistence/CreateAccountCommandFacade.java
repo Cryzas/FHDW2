@@ -16,25 +16,25 @@ public class CreateAccountCommandFacade{
 	}
 
     /* If idCreateIfLessZero is negative, a new id is generated. */
-    public PersistentCreateAccountCommand newCreateAccountCommand(String description,long idCreateIfLessZero) throws PersistenceException {
+    public PersistentCreateAccountCommand newCreateAccountCommand(String name,long idCreateIfLessZero) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
             callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".CrtAccntCMDFacade.newCrtAccntCMD(?,?); end;");
             callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
-            callable.setString(2, description);
+            callable.setString(2, name);
             callable.setLong(3, idCreateIfLessZero);
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            CreateAccountCommand result = new CreateAccountCommand(description,null,null,null,id);
+            CreateAccountCommand result = new CreateAccountCommand(name,null,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
-            return (PersistentCreateAccountCommand)PersistentProxi.createProxi(id, 137);
+            return (PersistentCreateAccountCommand)PersistentProxi.createProxi(id, 123);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
     
-    public PersistentCreateAccountCommand newDelayedCreateAccountCommand(String description) throws PersistenceException {
+    public PersistentCreateAccountCommand newDelayedCreateAccountCommand(String name) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
             callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".CrtAccntCMDFacade.newDelayedCrtAccntCMD(); end;");
@@ -42,9 +42,9 @@ public class CreateAccountCommandFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            CreateAccountCommand result = new CreateAccountCommand(description,null,null,null,id);
+            CreateAccountCommand result = new CreateAccountCommand(name,null,null,null,id);
             Cache.getTheCache().put(result);
-            return (PersistentCreateAccountCommand)PersistentProxi.createProxi(id, 137);
+            return (PersistentCreateAccountCommand)PersistentProxi.createProxi(id, 123);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
@@ -66,9 +66,9 @@ public class CreateAccountCommandFacade{
             Invoker invoker = null;
             if (obj.getLong(3) != 0)
                 invoker = (Invoker)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
-            PersistentManager commandReceiver = null;
+            PersistentAccountManager commandReceiver = null;
             if (obj.getLong(5) != 0)
-                commandReceiver = (PersistentManager)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
+                commandReceiver = (PersistentAccountManager)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
             PersistentCommonDate myCommonDate = null;
             if (obj.getLong(7) != 0)
                 myCommonDate = (PersistentCommonDate)PersistentProxi.createProxi(obj.getLong(7), obj.getLong(8));
@@ -100,12 +100,12 @@ public class CreateAccountCommandFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void descriptionSet(long CreateAccountCommandId, String descriptionVal) throws PersistenceException {
+    public void nameSet(long CreateAccountCommandId, String nameVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".CrtAccntCMDFacade.dscrptnSet(?, ?); end;");
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".CrtAccntCMDFacade.nmSet(?, ?); end;");
             callable.setLong(1, CreateAccountCommandId);
-            callable.setString(2, descriptionVal);
+            callable.setString(2, nameVal);
             callable.execute();
             callable.close();
         }catch(SQLException se) {
@@ -125,7 +125,7 @@ public class CreateAccountCommandFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void commandReceiverSet(long CreateAccountCommandId, Manager4Public commandReceiverVal) throws PersistenceException {
+    public void commandReceiverSet(long CreateAccountCommandId, AccountManager4Public commandReceiverVal) throws PersistenceException {
         try{
             CallableStatement callable;
             callable = this.con.prepareCall("Begin " + this.schemaName + ".CrtAccntCMDFacade.cReceiverSet(?, ?, ?); end;");

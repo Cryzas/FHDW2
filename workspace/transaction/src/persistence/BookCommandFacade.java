@@ -27,7 +27,7 @@ public class BookCommandFacade{
             callable.close();
             BookCommand result = new BookCommand(null,null,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
-            return (PersistentBookCommand)PersistentProxi.createProxi(id, 139);
+            return (PersistentBookCommand)PersistentProxi.createProxi(id, 129);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
@@ -43,7 +43,7 @@ public class BookCommandFacade{
             callable.close();
             BookCommand result = new BookCommand(null,null,null,null,id);
             Cache.getTheCache().put(result);
-            return (PersistentBookCommand)PersistentProxi.createProxi(id, 139);
+            return (PersistentBookCommand)PersistentProxi.createProxi(id, 129);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
@@ -62,19 +62,19 @@ public class BookCommandFacade{
                 callable.close();
                 return null;
             }
-            PersistentTransfer transfer = null;
+            PersistentAbstractTransfer tranfer = null;
             if (obj.getLong(2) != 0)
-                transfer = (PersistentTransfer)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+                tranfer = (PersistentAbstractTransfer)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
             Invoker invoker = null;
             if (obj.getLong(4) != 0)
                 invoker = (Invoker)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
-            PersistentManager commandReceiver = null;
+            PersistentTransferManager commandReceiver = null;
             if (obj.getLong(6) != 0)
-                commandReceiver = (PersistentManager)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
+                commandReceiver = (PersistentTransferManager)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
             PersistentCommonDate myCommonDate = null;
             if (obj.getLong(8) != 0)
                 myCommonDate = (PersistentCommonDate)PersistentProxi.createProxi(obj.getLong(8), obj.getLong(9));
-            BookCommand result = new BookCommand(transfer,
+            BookCommand result = new BookCommand(tranfer,
                                                  invoker,
                                                  commandReceiver,
                                                  myCommonDate,
@@ -102,13 +102,13 @@ public class BookCommandFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void transferSet(long BookCommandId, Transfer4Public transferVal) throws PersistenceException {
+    public void tranferSet(long BookCommandId, AbstractTransfer4Public tranferVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".BkCMDFacade.trnsfrSet(?, ?, ?); end;");
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".BkCMDFacade.trnfrSet(?, ?, ?); end;");
             callable.setLong(1, BookCommandId);
-            callable.setLong(2, transferVal.getId());
-            callable.setLong(3, transferVal.getClassId());
+            callable.setLong(2, tranferVal.getId());
+            callable.setLong(3, tranferVal.getClassId());
             callable.execute();
             callable.close();
         }catch(SQLException se) {
@@ -128,7 +128,7 @@ public class BookCommandFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void commandReceiverSet(long BookCommandId, Manager4Public commandReceiverVal) throws PersistenceException {
+    public void commandReceiverSet(long BookCommandId, TransferManager4Public commandReceiverVal) throws PersistenceException {
         try{
             CallableStatement callable;
             callable = this.con.prepareCall("Begin " + this.schemaName + ".BkCMDFacade.cReceiverSet(?, ?, ?); end;");

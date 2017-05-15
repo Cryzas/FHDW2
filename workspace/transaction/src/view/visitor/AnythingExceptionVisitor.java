@@ -3,12 +3,11 @@ package view.visitor;
 
 import view.*;
 
-public interface AnythingExceptionVisitor<E extends view.UserException> extends EntryExceptionVisitor<E>{
+public interface AnythingExceptionVisitor<E extends view.UserException> extends AbstractTransferExceptionVisitor<E>,AccountHandleExceptionVisitor<E>,EntryExceptionVisitor<E>{
     
-    public void handleAccount(AccountView account) throws ModelException, E;
+    public void handleAccountManager(AccountManagerView accountManager) throws ModelException, E;
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException, E;
-    public void handleManager(ManagerView manager) throws ModelException, E;
     public void handleServer(ServerView server) throws ModelException, E;
-    public void handleTransfer(TransferView transfer) throws ModelException, E;
+    public void handleTransferManager(TransferManagerView transferManager) throws ModelException, E;
     
 }

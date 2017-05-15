@@ -36,24 +36,24 @@ public class BookCommand extends PersistentObject implements PersistentBookComma
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
-    protected PersistentTransfer transfer;
+    protected PersistentAbstractTransfer tranfer;
     protected Invoker invoker;
-    protected PersistentManager commandReceiver;
+    protected PersistentTransferManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public BookCommand(PersistentTransfer transfer,Invoker invoker,PersistentManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
+    public BookCommand(PersistentAbstractTransfer tranfer,Invoker invoker,PersistentTransferManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.transfer = transfer;
+        this.tranfer = tranfer;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
         this.myCommonDate = myCommonDate;        
     }
     
     static public long getTypeId() {
-        return 139;
+        return 129;
     }
     
     public long getClassId() {
@@ -62,12 +62,12 @@ public class BookCommand extends PersistentObject implements PersistentBookComma
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 139) ConnectionHandler.getTheConnectionHandler().theBookCommandFacade
+        if (this.getClassId() == 129) ConnectionHandler.getTheConnectionHandler().theBookCommandFacade
             .newBookCommand(this.getId());
         super.store();
-        if(this.getTransfer() != null){
-            this.getTransfer().store();
-            ConnectionHandler.getTheConnectionHandler().theBookCommandFacade.transferSet(this.getId(), getTransfer());
+        if(this.getTranfer() != null){
+            this.getTranfer().store();
+            ConnectionHandler.getTheConnectionHandler().theBookCommandFacade.tranferSet(this.getId(), getTranfer());
         }
         if(this.getInvoker() != null){
             this.getInvoker().store();
@@ -84,18 +84,18 @@ public class BookCommand extends PersistentObject implements PersistentBookComma
         
     }
     
-    public Transfer4Public getTransfer() throws PersistenceException {
-        return this.transfer;
+    public AbstractTransfer4Public getTranfer() throws PersistenceException {
+        return this.tranfer;
     }
-    public void setTransfer(Transfer4Public newValue) throws PersistenceException {
+    public void setTranfer(AbstractTransfer4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.transfer)) return;
+        if(newValue.isTheSameAs(this.tranfer)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.transfer = (PersistentTransfer)PersistentProxi.createProxi(objectId, classId);
+        this.tranfer = (PersistentAbstractTransfer)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theBookCommandFacade.transferSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theBookCommandFacade.tranferSet(this.getId(), newValue);
         }
     }
     public Invoker getInvoker() throws PersistenceException {
@@ -112,15 +112,15 @@ public class BookCommand extends PersistentObject implements PersistentBookComma
             ConnectionHandler.getTheConnectionHandler().theBookCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
-    public Manager4Public getCommandReceiver() throws PersistenceException {
+    public TransferManager4Public getCommandReceiver() throws PersistenceException {
         return this.commandReceiver;
     }
-    public void setCommandReceiver(Manager4Public newValue) throws PersistenceException {
+    public void setCommandReceiver(TransferManager4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.commandReceiver)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.commandReceiver = (PersistentManager)PersistentProxi.createProxi(objectId, classId);
+        this.commandReceiver = (PersistentTransferManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theBookCommandFacade.commandReceiverSet(this.getId(), newValue);
@@ -181,6 +181,18 @@ public class BookCommand extends PersistentObject implements PersistentBookComma
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleBookCommand(this);
     }
+    public void accept(TransferManagerCommandVisitor visitor) throws PersistenceException {
+        visitor.handleBookCommand(this);
+    }
+    public <R> R accept(TransferManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleBookCommand(this);
+    }
+    public <E extends model.UserException>  void accept(TransferManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleBookCommand(this);
+    }
+    public <R, E extends model.UserException> R accept(TransferManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleBookCommand(this);
+    }
     public void accept(CommandVisitor visitor) throws PersistenceException {
         visitor.handleBookCommand(this);
     }
@@ -193,20 +205,8 @@ public class BookCommand extends PersistentObject implements PersistentBookComma
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleBookCommand(this);
     }
-    public void accept(ManagerCommandVisitor visitor) throws PersistenceException {
-        visitor.handleBookCommand(this);
-    }
-    public <R> R accept(ManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleBookCommand(this);
-    }
-    public <E extends model.UserException>  void accept(ManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleBookCommand(this);
-    }
-    public <R, E extends model.UserException> R accept(ManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleBookCommand(this);
-    }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getTransfer() != null) return 1;
+        if (this.getTranfer() != null) return 1;
         if (this.getCommandReceiver() != null) return 1;
         return 0;
     }
@@ -222,7 +222,7 @@ public class BookCommand extends PersistentObject implements PersistentBookComma
     }
     public void execute() 
 				throws PersistenceException{
-        this.commandReceiver.book(this.getTransfer());
+        this.commandReceiver.book(this.getTranfer());
 		
     }
     public Invoker fetchInvoker() 

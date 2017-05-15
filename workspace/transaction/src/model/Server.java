@@ -67,13 +67,22 @@ public class Server extends PersistentObject implements PersistentServer{
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            AbstractPersistentRoot manager = (AbstractPersistentRoot)this.getManager();
-            if (manager != null) {
-                result.put("manager", manager.createProxiInformation(false, essentialLevel <= 1));
+            AbstractPersistentRoot accounts = (AbstractPersistentRoot)this.getAccounts();
+            if (accounts != null) {
+                result.put("accounts", accounts.createProxiInformation(false, essentialLevel <= 1));
                 if(depth > 1) {
-                    manager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                    accounts.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
                 }else{
-                    if(forGUI && manager.hasEssentialFields())manager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                    if(forGUI && accounts.hasEssentialFields())accounts.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
+                }
+            }
+            AbstractPersistentRoot transfers = (AbstractPersistentRoot)this.getTransfers();
+            if (transfers != null) {
+                result.put("transfers", transfers.createProxiInformation(false, essentialLevel <= 1));
+                if(depth > 1) {
+                    transfers.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
+                }else{
+                    if(forGUI && transfers.hasEssentialFields())transfers.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
                 }
             }
             result.put("errors", this.getErrors().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
@@ -91,7 +100,9 @@ public class Server extends PersistentObject implements PersistentServer{
     
     public Server provideCopy() throws PersistenceException{
         Server result = this;
-        result = new Server(this.manager, 
+        result = new Server(this.accounts, 
+                            this.transfers, 
+                            this.subService, 
                             this.This, 
                             this.password, 
                             this.user, 
@@ -110,7 +121,9 @@ public class Server extends PersistentObject implements PersistentServer{
     protected model.UserException userException = null;
     protected boolean changed = false;
     
-    protected PersistentManager manager;
+    protected PersistentAccountManager accounts;
+    protected PersistentTransferManager transfers;
+    protected SubjInterface subService;
     protected PersistentServer This;
     protected Server_ErrorsProxi errors;
     protected String password;
@@ -118,10 +131,12 @@ public class Server extends PersistentObject implements PersistentServer{
     protected long hackCount;
     protected java.sql.Timestamp hackDelay;
     
-    public Server(PersistentManager manager,PersistentServer This,String password,String user,long hackCount,java.sql.Timestamp hackDelay,long id) throws PersistenceException {
+    public Server(PersistentAccountManager accounts,PersistentTransferManager transfers,SubjInterface subService,PersistentServer This,String password,String user,long hackCount,java.sql.Timestamp hackDelay,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.manager = manager;
+        this.accounts = accounts;
+        this.transfers = transfers;
+        this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;
         this.errors = new Server_ErrorsProxi(this);
         this.password = password;
@@ -143,9 +158,17 @@ public class Server extends PersistentObject implements PersistentServer{
         if (this.getClassId() == -102) ConnectionHandler.getTheConnectionHandler().theServerFacade
             .newServer(password,user,hackCount,hackDelay,this.getId());
         super.store();
-        if(this.getManager() != null){
-            this.getManager().store();
-            ConnectionHandler.getTheConnectionHandler().theServerFacade.managerSet(this.getId(), getManager());
+        if(this.getAccounts() != null){
+            this.getAccounts().store();
+            ConnectionHandler.getTheConnectionHandler().theServerFacade.accountsSet(this.getId(), getAccounts());
+        }
+        if(this.getTransfers() != null){
+            this.getTransfers().store();
+            ConnectionHandler.getTheConnectionHandler().theServerFacade.transfersSet(this.getId(), getTransfers());
+        }
+        if(this.getSubService() != null){
+            this.getSubService().store();
+            ConnectionHandler.getTheConnectionHandler().theServerFacade.subServiceSet(this.getId(), getSubService());
         }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
@@ -154,18 +177,46 @@ public class Server extends PersistentObject implements PersistentServer{
         
     }
     
-    public Manager4Public getManager() throws PersistenceException {
-        return this.manager;
+    public AccountManager4Public getAccounts() throws PersistenceException {
+        return this.accounts;
     }
-    public void setManager(Manager4Public newValue) throws PersistenceException {
+    public void setAccounts(AccountManager4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.manager)) return;
+        if(newValue.isTheSameAs(this.accounts)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.manager = (PersistentManager)PersistentProxi.createProxi(objectId, classId);
+        this.accounts = (PersistentAccountManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theServerFacade.managerSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theServerFacade.accountsSet(this.getId(), newValue);
+        }
+    }
+    public TransferManager4Public getTransfers() throws PersistenceException {
+        return this.transfers;
+    }
+    public void setTransfers(TransferManager4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.transfers)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.transfers = (PersistentTransferManager)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theServerFacade.transfersSet(this.getId(), newValue);
+        }
+    }
+    public SubjInterface getSubService() throws PersistenceException {
+        return this.subService;
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.subService)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.subService = (SubjInterface)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theServerFacade.subServiceSet(this.getId(), newValue);
         }
     }
     protected void setThis(PersistentServer newValue) throws PersistenceException {
@@ -248,6 +299,18 @@ public class Server extends PersistentObject implements PersistentServer{
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleServer(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleServer(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleServer(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleServer(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleServer(this);
+    }
     public void accept(RemoteVisitor visitor) throws PersistenceException {
         visitor.handleServer(this);
     }
@@ -261,11 +324,21 @@ public class Server extends PersistentObject implements PersistentServer{
          return visitor.handleServer(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getManager() != null) return 1;
+        if (this.getAccounts() != null) return 1;
+        if (this.getTransfers() != null) return 1;
         return 0;
     }
     
     
+    public synchronized void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentServer)This);
@@ -276,6 +349,15 @@ public class Server extends PersistentObject implements PersistentServer{
 			this.setHackDelay((java.sql.Timestamp)final$$Fields.get("hackDelay"));
 		}
     }
+    public synchronized void register(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.register(observee);
+    }
     public String server_Menu_Filter(final Anything anything) 
 				throws PersistenceException{
         String result = "+++";
@@ -285,49 +367,62 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
         this.changed = signal;
     }
+    public synchronized void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.updateObservers(event);
+    }
     
     
     // Start of section that contains operations that must be implemented.
     
-    public void book(final Transfer4Public transfer) 
+    public void book(final AbstractTransfer4Public tranfer) 
 				throws PersistenceException{
-    	getThis().getManager().book(transfer, getThis());
+        //TODO: implement method: book
+        
     }
     public void clearAccounts() 
 				throws PersistenceException{
-        getThis().getManager().clearAccounts();
-        getThis().signalChanged(true);
+        //TODO: implement method: clearAccounts
+        
     }
     public void connected(final String user) 
 				throws PersistenceException{
+        //TODO: implement method: connected
         
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
+        //TODO: implement method: copyingPrivateUserAttributes
         
     }
-    public void createAccount(final String description) 
+    public void createAccount(final String name) 
 				throws PersistenceException{
-    	getThis().getManager().createAccount(description, getThis());   
+        //TODO: implement method: createAccount
+        
     }
-    public void createTransfer(final String description, final Account4Public fromAcc, final Account4Public toAcc, final common.Fraction amount) 
+    public void createCredit(final Account4Public myAccount, final AccountHandle4Public otherAccount, final common.Fraction amount, final String subject) 
 				throws PersistenceException{
-    	getThis().getManager().createTransfer(fromAcc, toAcc, description, amount, getThis()); 
+        //TODO: implement method: createCredit
+        
+    }
+    public void createDebit(final Account4Public myAccount, final AccountHandle4Public otherAccount, final common.Fraction amount, final String subject) 
+				throws PersistenceException{
+        //TODO: implement method: createDebit
         
     }
     public void disconnected() 
 				throws PersistenceException{
+        //TODO: implement method: disconnected
         
     }
-    public void findAccountByNumber(final long number) 
+    public void findAccounts(final String name) 
 				throws PersistenceException{
-    	getThis().getManager().findAccountByNumber(number);
-        getThis().signalChanged(true);
-    }
-    public void findAccountByString(final String name) 
-				throws PersistenceException{
-    	getThis().getManager().findAccountByName(name);
-        getThis().signalChanged(true);
+        //TODO: implement method: findAccounts
         
     }
     public void handleException(final Command command, final PersistenceException exception) 
@@ -367,10 +462,12 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-    	getThis().setManager(Manager.createManager());
+        //TODO: implement method: initializeOnCreation
+        
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
+        //TODO: implement method: initializeOnInstantiation
         
     }
     

@@ -16,26 +16,26 @@ public class TransferFacade{
 	}
 
     /* If idCreateIfLessZero is negative, a new id is generated. */
-    public PersistentTransfer newTransfer(String description,common.Fraction amount,long idCreateIfLessZero) throws PersistenceException {
+    public PersistentTransfer newTransfer(String subject,common.Fraction amount,long idCreateIfLessZero) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
             callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".TrnsfrFacade.newTrnsfr(?,?,?); end;");
             callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
-            callable.setString(2, description);
+            callable.setString(2, subject);
             callable.setString(3, amount.toString());
             callable.setLong(4, idCreateIfLessZero);
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Transfer result = new Transfer(description,amount,null,null,null,id);
+            Transfer result = new Transfer(subject,null,null,null,null,amount,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
-            return (PersistentTransfer)PersistentProxi.createProxi(id, 134);
+            return (PersistentTransfer)PersistentProxi.createProxi(id, 121);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
     
-    public PersistentTransfer newDelayedTransfer(String description,common.Fraction amount) throws PersistenceException {
+    public PersistentTransfer newDelayedTransfer(String subject,common.Fraction amount) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
             callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".TrnsfrFacade.newDelayedTrnsfr(); end;");
@@ -43,9 +43,9 @@ public class TransferFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Transfer result = new Transfer(description,amount,null,null,null,id);
+            Transfer result = new Transfer(subject,null,null,null,null,amount,id);
             Cache.getTheCache().put(result);
-            return (PersistentTransfer)PersistentProxi.createProxi(id, 134);
+            return (PersistentTransfer)PersistentProxi.createProxi(id, 121);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
@@ -64,20 +64,24 @@ public class TransferFacade{
                 callable.close();
                 return null;
             }
-            PersistentAccount fromAcc = null;
-            if (obj.getLong(4) != 0)
-                fromAcc = (PersistentAccount)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
-            PersistentAccount toAcc = null;
-            if (obj.getLong(6) != 0)
-                toAcc = (PersistentAccount)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
-            PersistentTransfer This = null;
-            if (obj.getLong(8) != 0)
-                This = (PersistentTransfer)PersistentProxi.createProxi(obj.getLong(8), obj.getLong(9));
+            SubjInterface subService = null;
+            if (obj.getLong(3) != 0)
+                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
+            PersistentAbstractTransfer This = null;
+            if (obj.getLong(5) != 0)
+                This = (PersistentAbstractTransfer)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
+            PersistentAccount fromAccount = null;
+            if (obj.getLong(7) != 0)
+                fromAccount = (PersistentAccount)PersistentProxi.createProxi(obj.getLong(7), obj.getLong(8));
+            PersistentAccount toAccount = null;
+            if (obj.getLong(9) != 0)
+                toAccount = (PersistentAccount)PersistentProxi.createProxi(obj.getLong(9), obj.getLong(10));
             Transfer result = new Transfer(obj.getString(2) == null ? "" : obj.getString(2) /* In Oracle "" = null !!! */,
-                                           (obj.getString(3) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(3))),
-                                           fromAcc,
-                                           toAcc,
+                                           subService,
                                            This,
+                                           fromAccount,
+                                           toAccount,
+                                           (obj.getString(11) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(11))),
                                            TransferId);
             obj.close();
             callable.close();
@@ -89,26 +93,26 @@ public class TransferFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public long getClass(long objectId) throws PersistenceException{
+    public void fromAccountSet(long TransferId, Account4Public fromAccountVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".TrnsfrFacade.getClass(?); end;");
-            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
-            callable.setLong(2, objectId);
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".TrnsfrFacade.frmAccntSet(?, ?, ?); end;");
+            callable.setLong(1, TransferId);
+            callable.setLong(2, fromAccountVal.getId());
+            callable.setLong(3, fromAccountVal.getClassId());
             callable.execute();
-            long result = callable.getLong(1);
             callable.close();
-            return result;
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void descriptionSet(long TransferId, String descriptionVal) throws PersistenceException {
+    public void toAccountSet(long TransferId, Account4Public toAccountVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".TrnsfrFacade.dscrptnSet(?, ?); end;");
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".TrnsfrFacade.tAccntSet(?, ?, ?); end;");
             callable.setLong(1, TransferId);
-            callable.setString(2, descriptionVal);
+            callable.setLong(2, toAccountVal.getId());
+            callable.setLong(3, toAccountVal.getClassId());
             callable.execute();
             callable.close();
         }catch(SQLException se) {
@@ -121,45 +125,6 @@ public class TransferFacade{
             callable = this.con.prepareCall("Begin " + this.schemaName + ".TrnsfrFacade.amntSet(?, ?); end;");
             callable.setLong(1, TransferId);
             callable.setString(2, amountVal.toString());
-            callable.execute();
-            callable.close();
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
-    }
-    public void fromAccSet(long TransferId, Account4Public fromAccVal) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".TrnsfrFacade.frmAccSet(?, ?, ?); end;");
-            callable.setLong(1, TransferId);
-            callable.setLong(2, fromAccVal.getId());
-            callable.setLong(3, fromAccVal.getClassId());
-            callable.execute();
-            callable.close();
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
-    }
-    public void toAccSet(long TransferId, Account4Public toAccVal) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".TrnsfrFacade.tAccSet(?, ?, ?); end;");
-            callable.setLong(1, TransferId);
-            callable.setLong(2, toAccVal.getId());
-            callable.setLong(3, toAccVal.getClassId());
-            callable.execute();
-            callable.close();
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
-    }
-    public void ThisSet(long TransferId, Transfer4Public ThisVal) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".TrnsfrFacade.ThisSet(?, ?, ?); end;");
-            callable.setLong(1, TransferId);
-            callable.setLong(2, ThisVal.getId());
-            callable.setLong(3, ThisVal.getClassId());
             callable.execute();
             callable.close();
         }catch(SQLException se) {

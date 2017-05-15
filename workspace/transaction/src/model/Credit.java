@@ -10,43 +10,39 @@ import model.visitor.*;
 public class Credit extends model.Entry implements PersistentCredit{
     
     
-    public static Credit4Public createCredit(String description,common.Fraction amount,Account4Public otherAcc) throws PersistenceException{
-        return createCredit(description,amount,otherAcc,false);
+    public static Credit4Public createCredit(Transfer4Public transfer) throws PersistenceException{
+        return createCredit(transfer,false);
     }
     
-    public static Credit4Public createCredit(String description,common.Fraction amount,Account4Public otherAcc,boolean delayed$Persistence) throws PersistenceException {
+    public static Credit4Public createCredit(Transfer4Public transfer,boolean delayed$Persistence) throws PersistenceException {
         PersistentCredit result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theCreditFacade
-                .newDelayedCredit(description,amount);
+                .newDelayedCredit();
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theCreditFacade
-                .newCredit(description,amount,-1);
+                .newCredit(-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
-        final$$Fields.put("description", description);
-        final$$Fields.put("amount", amount);
-        final$$Fields.put("otherAcc", otherAcc);
+        final$$Fields.put("transfer", transfer);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static Credit4Public createCredit(String description,common.Fraction amount,Account4Public otherAcc,boolean delayed$Persistence,Credit4Public This) throws PersistenceException {
+    public static Credit4Public createCredit(Transfer4Public transfer,boolean delayed$Persistence,Credit4Public This) throws PersistenceException {
         PersistentCredit result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theCreditFacade
-                .newDelayedCredit(description,amount);
+                .newDelayedCredit();
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theCreditFacade
-                .newCredit(description,amount,-1);
+                .newCredit(-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
-        final$$Fields.put("description", description);
-        final$$Fields.put("amount", amount);
-        final$$Fields.put("otherAcc", otherAcc);
+        final$$Fields.put("transfer", transfer);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -64,9 +60,8 @@ public class Credit extends model.Entry implements PersistentCredit{
     
     public Credit provideCopy() throws PersistenceException{
         Credit result = this;
-        result = new Credit(this.description, 
-                            this.amount, 
-                            this.otherAcc, 
+        result = new Credit(this.transfer, 
+                            this.subService, 
                             this.This, 
                             this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -77,13 +72,13 @@ public class Credit extends model.Entry implements PersistentCredit{
         return false;
     }
     
-    public Credit(String description,common.Fraction amount,PersistentAccount otherAcc,PersistentEntry This,long id) throws PersistenceException {
+    public Credit(PersistentTransfer transfer,SubjInterface subService,PersistentEntry This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((String)description,(common.Fraction)amount,(PersistentAccount)otherAcc,(PersistentEntry)This,id);        
+        super((PersistentTransfer)transfer,(SubjInterface)subService,(PersistentEntry)This,id);        
     }
     
     static public long getTypeId() {
-        return 133;
+        return 120;
     }
     
     public long getClassId() {
@@ -92,8 +87,8 @@ public class Credit extends model.Entry implements PersistentCredit{
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 133) ConnectionHandler.getTheConnectionHandler().theCreditFacade
-            .newCredit(description,amount,this.getId());
+        if (this.getClassId() == 120) ConnectionHandler.getTheConnectionHandler().theCreditFacade
+            .newCredit(this.getId());
         super.store();
         
     }
@@ -130,20 +125,56 @@ public class Credit extends model.Entry implements PersistentCredit{
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCredit(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleCredit(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleCredit(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleCredit(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleCredit(this);
+    }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getOtherAcc() != null) return 1;
         return 0;
     }
     
     
+    public synchronized void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentCredit)This);
 		if(this.isTheSameAs(This)){
-			this.setDescription((String)final$$Fields.get("description"));
-			this.setAmount((common.Fraction)final$$Fields.get("amount"));
-			this.setOtherAcc((PersistentAccount)final$$Fields.get("otherAcc"));
+			this.setTransfer((PersistentTransfer)final$$Fields.get("transfer"));
 		}
+    }
+    public synchronized void register(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.register(observee);
+    }
+    public synchronized void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.updateObservers(event);
     }
     
     

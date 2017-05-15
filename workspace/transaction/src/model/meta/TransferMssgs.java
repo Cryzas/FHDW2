@@ -4,5 +4,5 @@ public interface TransferMssgs {
     void accept(TransferMssgsVisitor visitor) throws persistence.PersistenceException;
 }
 
-interface TransferDOWNMssgs extends Mssgs, TransferMssgs{}
+interface TransferDOWNMssgs extends AbstractTransferDOWNMssgs, TransferMssgs{}
 interface TransferUPMssgs extends Mssgs, TransferMssgs{}

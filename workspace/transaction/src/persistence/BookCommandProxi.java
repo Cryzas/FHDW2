@@ -15,14 +15,14 @@ public class BookCommandProxi extends PersistentProxi implements PersistentBookC
     
     
     public long getClassId() {
-        return 139;
+        return 129;
     }
     
-    public Transfer4Public getTransfer() throws PersistenceException {
-        return ((PersistentBookCommand)this.getTheObject()).getTransfer();
+    public AbstractTransfer4Public getTranfer() throws PersistenceException {
+        return ((PersistentBookCommand)this.getTheObject()).getTranfer();
     }
-    public void setTransfer(Transfer4Public newValue) throws PersistenceException {
-        ((PersistentBookCommand)this.getTheObject()).setTransfer(newValue);
+    public void setTranfer(AbstractTransfer4Public newValue) throws PersistenceException {
+        ((PersistentBookCommand)this.getTheObject()).setTranfer(newValue);
     }
     public Invoker getInvoker() throws PersistenceException {
         return ((PersistentBookCommand)this.getTheObject()).getInvoker();
@@ -30,10 +30,10 @@ public class BookCommandProxi extends PersistentProxi implements PersistentBookC
     public void setInvoker(Invoker newValue) throws PersistenceException {
         ((PersistentBookCommand)this.getTheObject()).setInvoker(newValue);
     }
-    public Manager4Public getCommandReceiver() throws PersistenceException {
+    public TransferManager4Public getCommandReceiver() throws PersistenceException {
         return ((PersistentBookCommand)this.getTheObject()).getCommandReceiver();
     }
-    public void setCommandReceiver(Manager4Public newValue) throws PersistenceException {
+    public void setCommandReceiver(TransferManager4Public newValue) throws PersistenceException {
         ((PersistentBookCommand)this.getTheObject()).setCommandReceiver(newValue);
     }
     public CommonDate4Public getMyCommonDate() throws PersistenceException {
@@ -79,6 +79,18 @@ public class BookCommandProxi extends PersistentProxi implements PersistentBookC
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleBookCommand(this);
     }
+    public void accept(TransferManagerCommandVisitor visitor) throws PersistenceException {
+        visitor.handleBookCommand(this);
+    }
+    public <R> R accept(TransferManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleBookCommand(this);
+    }
+    public <E extends model.UserException>  void accept(TransferManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleBookCommand(this);
+    }
+    public <R, E extends model.UserException> R accept(TransferManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleBookCommand(this);
+    }
     public void accept(CommandVisitor visitor) throws PersistenceException {
         visitor.handleBookCommand(this);
     }
@@ -89,18 +101,6 @@ public class BookCommandProxi extends PersistentProxi implements PersistentBookC
          visitor.handleBookCommand(this);
     }
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleBookCommand(this);
-    }
-    public void accept(ManagerCommandVisitor visitor) throws PersistenceException {
-        visitor.handleBookCommand(this);
-    }
-    public <R> R accept(ManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleBookCommand(this);
-    }
-    public <E extends model.UserException>  void accept(ManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleBookCommand(this);
-    }
-    public <R, E extends model.UserException> R accept(ManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleBookCommand(this);
     }
     

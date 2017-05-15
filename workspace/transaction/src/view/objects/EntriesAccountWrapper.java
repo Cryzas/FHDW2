@@ -16,6 +16,7 @@ public class EntriesAccountWrapper extends AssociationInTreeWrapper {
 	
 	
 	public String toString(){
+    	//TODO: Implement toString in wrapper class for association entries in class Account
     	return this.getWrappedObject().toString();
     }
 

@@ -8,8 +8,10 @@ import view.visitor.*;
 
 public interface ServerView extends Anything, Remote, AbstractViewRoot {
     
-    public ManagerView getManager()throws ModelException;
-    public void setManager(ManagerView newValue) throws ModelException ;
+    public AccountManagerView getAccounts()throws ModelException;
+    public void setAccounts(AccountManagerView newValue) throws ModelException ;
+    public TransferManagerView getTransfers()throws ModelException;
+    public void setTransfers(TransferManagerView newValue) throws ModelException ;
     public java.util.Vector<ErrorDisplayView> getErrors()throws ModelException;
     public void setErrors(java.util.Vector<ErrorDisplayView> newValue) throws ModelException ;
     public String getUser()throws ModelException;

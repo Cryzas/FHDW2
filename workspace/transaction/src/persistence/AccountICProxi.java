@@ -4,7 +4,7 @@ package persistence;
 
 import model.visitor.*;
 
-public class AccountICProxi extends PersistentInCacheProxiOptimistic implements PersistentAccount{
+public class AccountICProxi extends AccountHandleICProxi implements PersistentAccount{
     
     public AccountICProxi(long objectId) {
         super(objectId);
@@ -19,14 +19,14 @@ public class AccountICProxi extends PersistentInCacheProxiOptimistic implements 
     }
     
     public long getClassId() {
-        return 130;
+        return 115;
     }
     
-    public String getDescription() throws PersistenceException {
-        return ((PersistentAccount)this.getTheObject()).getDescription();
+    public String getName() throws PersistenceException {
+        return ((PersistentAccount)this.getTheObject()).getName();
     }
-    public void setDescription(String newValue) throws PersistenceException {
-        ((PersistentAccount)this.getTheObject()).setDescription(newValue);
+    public void setName(String newValue) throws PersistenceException {
+        ((PersistentAccount)this.getTheObject()).setName(newValue);
     }
     public common.Fraction getBalance() throws PersistenceException {
         return ((PersistentAccount)this.getTheObject()).getBalance();
@@ -41,6 +41,18 @@ public class AccountICProxi extends PersistentInCacheProxiOptimistic implements 
         return ((PersistentAccount)this.getTheObject()).getThis();
     }
     
+    public void accept(AccountHandleVisitor visitor) throws PersistenceException {
+        visitor.handleAccount(this);
+    }
+    public <R> R accept(AccountHandleReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleAccount(this);
+    }
+    public <E extends model.UserException>  void accept(AccountHandleExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleAccount(this);
+    }
+    public <R, E extends model.UserException> R accept(AccountHandleReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleAccount(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleAccount(this);
     }
@@ -53,23 +65,51 @@ public class AccountICProxi extends PersistentInCacheProxiOptimistic implements 
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleAccount(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleAccount(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleAccount(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleAccount(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleAccount(this);
+    }
     
     
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentAccount)this.getTheObject()).deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentAccount)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void book(final Entry4Public entry) 
+    public void register(final ObsInterface observee) 
 				throws PersistenceException{
-        ((PersistentAccount)this.getTheObject()).book(entry);
+        ((PersistentAccount)this.getTheObject()).register(observee);
+    }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentAccount)this.getTheObject()).updateObservers(event);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentAccount)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public long getNumber() 
+    public void credit(final Transfer4Public transfer) 
 				throws PersistenceException{
-        return ((PersistentAccount)this.getTheObject()).getNumber();
+        ((PersistentAccount)this.getTheObject()).credit(transfer);
+    }
+    public void debit(final Transfer4Public transfer) 
+				throws PersistenceException{
+        ((PersistentAccount)this.getTheObject()).debit(transfer);
+    }
+    public Account4Public fetchAccount() 
+				throws PersistenceException{
+        return ((PersistentAccount)this.getTheObject()).fetchAccount();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
