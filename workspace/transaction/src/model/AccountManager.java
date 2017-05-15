@@ -236,38 +236,54 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
     
     public void accountChangedImplementation() 
 				throws PersistenceException{
-        //TODO: implement method: accountChangedImplementation
-        
     }
     public void clearAccounts() 
 				throws PersistenceException{
-        //TODO: implement method: clearAccounts
-        
+    	getThis().getCurrentAccounts().filter(new Predcate<AccountHandle4Public>() {
+			@Override
+			public boolean test(AccountHandle4Public argument) throws PersistenceException {
+				return argument.accept(new AccountHandleReturnVisitor<Boolean>() {
+					@Override
+					public Boolean handleAccount(Account4Public account) throws PersistenceException {
+						return true;
+					}
+					@Override
+					public Boolean handleAccountWrppr(AccountWrppr4Public accountWrppr) throws PersistenceException {
+						return false;
+					}
+				});
+			}
+		});
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
     }
     public void createAccount(final String name) 
 				throws model.AccountException, PersistenceException{
-        //TODO: implement method: createAccount
-        
+    	if (Account.getAccountByName(name).iterator().hasNext())
+    		throw new AccountException(serverConstants.ErrorMessages.ChooseOtherNameMessage);
+    	getThis().getCurrentAccounts().add(Account.createAccount(name));
     }
     public void findAccounts(final String name) 
 				throws PersistenceException{
-        //TODO: implement method: findAccounts
-        
+    	AccountSearchList foundAccounts = Account.getAccountByName(name);
+    	foundAccounts.applyToAll(new Procdure<Account4Public>() {
+			@Override
+			public void doItTo(Account4Public foundAcccount) throws PersistenceException {
+				if (getThis().getCurrentAccounts().findFirst(new Predcate<AccountHandle4Public>() {
+					@Override
+					public boolean test(AccountHandle4Public argument) throws PersistenceException {
+						return argument.fetchAccount().equals(foundAcccount);
+					}
+				}) == null) getThis().getCurrentAccounts().add(AccountWrppr.createAccountWrppr(foundAcccount));
+			}
+		});
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
     }
     
     
@@ -275,6 +291,8 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
     
     /* End of protected part that is not overridden by persistence generator */
     

@@ -162,6 +162,8 @@ public class CommandCoordinator extends PersistentObject implements PersistentCo
 
     /* Start of protected part that is not overridden by persistence generator */
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

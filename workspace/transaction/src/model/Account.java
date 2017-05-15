@@ -219,38 +219,28 @@ public class Account extends model.AccountHandle implements PersistentAccount{
     
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
     }
     public void credit(final Transfer4Public transfer) 
 				throws PersistenceException{
-        //TODO: implement method: credit
-        
+    	getThis().setBalance(getThis().getBalance().add(transfer.getAmount()));
+        Credit4Public credit = Credit.createCredit(transfer);
+        getThis().getEntries().add(credit);
     }
     public void debit(final Transfer4Public transfer) 
 				throws PersistenceException{
-        //TODO: implement method: debit
-        
+    	getThis().setBalance(getThis().getBalance().sub(transfer.getAmount()));
+        Debit4Public debit = Debit.createDebit(transfer);
+        getThis().getEntries().add(debit);
     }
     public Account4Public fetchAccount() 
 				throws PersistenceException{
-        //TODO: implement method: fetchAccount
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"fetchAccount\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
+    	return getThis();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        super.initializeOnCreation();
-		//TODO: implement method: initializeOnCreation
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        super.initializeOnInstantiation();
-		//TODO: implement method: initializeOnInstantiation
     }
     
     
@@ -258,6 +248,8 @@ public class Account extends model.AccountHandle implements PersistentAccount{
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
     
     /* End of protected part that is not overridden by persistence generator */
     

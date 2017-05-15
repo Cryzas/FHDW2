@@ -241,28 +241,22 @@ public class TransferManager extends PersistentObject implements PersistentTrans
     
     public void book(final AbstractTransfer4Public tranfer) 
 				throws PersistenceException{
-        //TODO: implement method: book
-        
+    	tranfer.book();
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
     }
     public void createTransfer(final AccountHandle4Public fromAccount, final AccountHandle4Public toAccount, final common.Fraction amount, final String subject) 
 				throws PersistenceException{
-        //TODO: implement method: createTransfer
-        
+    	Transfer4Public newTransfer =
+    			Transfer.createTransfer(subject, fromAccount.fetchAccount(), toAccount.fetchAccount(), amount);
+    	getThis().getTransfers().add(newTransfer);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
     }
     
     
@@ -270,6 +264,8 @@ public class TransferManager extends PersistentObject implements PersistentTrans
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
     
     /* End of protected part that is not overridden by persistence generator */
     

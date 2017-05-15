@@ -382,48 +382,38 @@ public class Server extends PersistentObject implements PersistentServer{
     
     public void book(final AbstractTransfer4Public tranfer) 
 				throws PersistenceException{
-        //TODO: implement method: book
-        
+        getThis().getTransfers().book(tranfer, getThis());
     }
     public void clearAccounts() 
 				throws PersistenceException{
-        //TODO: implement method: clearAccounts
-        
+    	getThis().getAccounts().clearAccounts();
+    	getThis().signalChanged(true);
     }
     public void connected(final String user) 
 				throws PersistenceException{
-        //TODO: implement method: connected
-        
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
     }
     public void createAccount(final String name) 
 				throws PersistenceException{
-        //TODO: implement method: createAccount
-        
+    	getThis().getAccounts().createAccount(name, getThis());
     }
     public void createCredit(final Account4Public myAccount, final AccountHandle4Public otherAccount, final common.Fraction amount, final String subject) 
 				throws PersistenceException{
-        //TODO: implement method: createCredit
-        
+        getThis().getTransfers().createTransfer(otherAccount, myAccount, amount, subject, getThis());
     }
     public void createDebit(final Account4Public myAccount, final AccountHandle4Public otherAccount, final common.Fraction amount, final String subject) 
 				throws PersistenceException{
-        //TODO: implement method: createDebit
-        
+        getThis().getTransfers().createTransfer(myAccount, otherAccount, amount, subject, getThis());
     }
     public void disconnected() 
 				throws PersistenceException{
-        //TODO: implement method: disconnected
-        
     }
     public void findAccounts(final String name) 
 				throws PersistenceException{
-        //TODO: implement method: findAccounts
-        
+    	getThis().getAccounts().findAccounts(name);
+    	getThis().signalChanged(true);
     }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{
@@ -462,13 +452,11 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
+    	getThis().setAccounts(AccountManager.createAccountManager());
+    	getThis().setTransfers(TransferManager.createTransferManager());
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
     }
     
     
@@ -476,6 +464,8 @@ public class Server extends PersistentObject implements PersistentServer{
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
     
     /* End of protected part that is not overridden by persistence generator */
     

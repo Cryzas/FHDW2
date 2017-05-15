@@ -202,28 +202,16 @@ public class AccountWrppr extends model.AccountHandle implements PersistentAccou
     
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
     }
     public Account4Public fetchAccount() 
 				throws PersistenceException{
-        //TODO: implement method: fetchAccount
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"fetchAccount\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
+    	return getThis().getAccount();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        super.initializeOnCreation();
-		//TODO: implement method: initializeOnCreation
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        super.initializeOnInstantiation();
-		//TODO: implement method: initializeOnInstantiation
     }
     
     
@@ -231,6 +219,8 @@ public class AccountWrppr extends model.AccountHandle implements PersistentAccou
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
     
     /* End of protected part that is not overridden by persistence generator */
     

@@ -90,6 +90,10 @@ public class Fraction {
 		return new Fraction(this.getEnumerator().multiply(argument.getDenominator()).add(argument.getEnumerator().multiply(this.getDenominator())), 
 				            this.getDenominator().multiply(argument.getDenominator()));
 	}
+	public Fraction sub(Fraction argument) {
+		return new Fraction(this.getEnumerator().multiply(argument.getDenominator()).subtract(argument.getEnumerator().multiply(this.getDenominator())), 
+				            this.getDenominator().multiply(argument.getDenominator()));
+	}
 	public Fraction mul(Fraction argument) {
 		return new Fraction(this.getEnumerator().multiply(argument.getEnumerator()), 
 				            this.getDenominator().multiply(argument.getDenominator()));

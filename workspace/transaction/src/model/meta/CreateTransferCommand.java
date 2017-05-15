@@ -285,6 +285,8 @@ public class CreateTransferCommand extends PersistentObject implements Persisten
 
     /* Start of protected part that is not overridden by persistence generator */
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

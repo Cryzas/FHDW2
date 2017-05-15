@@ -61,6 +61,8 @@ public class AccountException extends model.UserException{
 
     /* Start of protected part that is not overridden by persistence generator */
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }
