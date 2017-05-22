@@ -5,6 +5,7 @@ import model.visitor.*;
 
 public interface UserManager4Public extends Service4Public {
     
+    public UserManager_CrrntServersProxi getCrrntServers() throws PersistenceException ;
     
     public void accept(ServiceVisitor visitor) throws PersistenceException;
     public <R> R accept(ServiceReturnVisitor<R>  visitor) throws PersistenceException;
@@ -27,13 +28,15 @@ public interface UserManager4Public extends Service4Public {
 				throws PersistenceException;
     public String userManager_Menu_Filter(final Anything anything) 
 				throws PersistenceException;
+    public void addRight(final Server4Public srvr, final String type) 
+				throws model.UserHasRightException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException;
+    public void findServer(final String name) 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
-				throws PersistenceException;
-    public void userManagerOP() 
 				throws PersistenceException;
 
 }

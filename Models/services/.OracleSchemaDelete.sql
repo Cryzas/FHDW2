@@ -12,4 +12,5 @@ drop table CmmnDt cascade constraints;
 drop table CmmndExctr cascade constraints;
 drop table CmmndCrdntrExctr cascade constraints;
 drop table SrvrSrvcs cascade constraints;
+drop table UsrMngrCrrntSrvrs cascade constraints;
 drop table CmmndExctrCommands cascade constraints;

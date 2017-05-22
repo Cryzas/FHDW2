@@ -30,7 +30,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleServer(Server4Public server) throws PersistenceException {
-		// TODO Auto-generated method stub
+		result = server.getUserName();
 		
 	}
 	@Override

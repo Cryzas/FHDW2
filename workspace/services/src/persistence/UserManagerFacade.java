@@ -77,6 +77,52 @@ public class UserManagerFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
+    public long crrntServersAdd(long UserManagerId, Server4Public crrntServersVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".UsrMngrFacade.crrntSrvrsAdd(?, ?, ?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
+            callable.setLong(2, UserManagerId);
+            callable.setLong(3, crrntServersVal.getId());
+            callable.setLong(4, crrntServersVal.getClassId());
+            callable.execute();
+            long result = callable.getLong(1);
+            callable.close();
+            return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void crrntServersRem(long crrntServersId) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".UsrMngrFacade.crrntSrvrsRem(?); end;");
+            callable.setLong(1, crrntServersId);
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public ServerList crrntServersGet(long UserManagerId) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".UsrMngrFacade.crrntSrvrsGet(?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            callable.setLong(2, UserManagerId);
+            callable.execute();
+            ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
+            ServerList result = new ServerList();
+            while (list.next()) {
+                result.add((PersistentServer)PersistentProxi.createListEntryProxi(list.getLong(1), list.getLong(2), list.getLong(3)));
+            }
+            list.close();
+            callable.close();
+            return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
 
 }
 

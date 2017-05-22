@@ -11,13 +11,15 @@ import view.visitor.*;
 public class Server extends ViewObject implements ServerView{
     
     protected java.util.Vector<ServiceView> services;
+    protected String userName;
     protected java.util.Vector<ErrorDisplayView> errors;
     protected String user;
     
-    public Server(java.util.Vector<ServiceView> services,java.util.Vector<ErrorDisplayView> errors,String user,long id, long classId) {
+    public Server(java.util.Vector<ServiceView> services,String userName,java.util.Vector<ErrorDisplayView> errors,String user,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.services = services;
+        this.userName = userName;
         this.errors = errors;
         this.user = user;        
     }
@@ -35,6 +37,9 @@ public class Server extends ViewObject implements ServerView{
     }
     public void setServices(java.util.Vector<ServiceView> newValue) throws ModelException {
         this.services = newValue;
+    }
+    public String getUserName()throws ModelException{
+        return this.userName;
     }
     public java.util.Vector<ErrorDisplayView> getErrors()throws ModelException{
         return this.errors;
@@ -111,19 +116,27 @@ public class Server extends ViewObject implements ServerView{
         }
         return -1;
     }
-    public int getUserIndex() throws ModelException {
+    public int getUserNameIndex() throws ModelException {
         return 0 + this.getServices().size();
+    }
+    public int getUserIndex() throws ModelException {
+        return 0 + this.getServices().size() + 1;
     }
     public int getRowCount(){
         return 0 
+            + 1
             + 1;
     }
     public Object getValueAt(int rowIndex, int columnIndex){
         try {
             if(columnIndex == 0){
+                if(rowIndex == 0) return "userName";
+                rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return "user";
                 rowIndex = rowIndex - 1;
             } else {
+                if(rowIndex == 0) return this.getUserName();
+                rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return this.getUser();
                 rowIndex = rowIndex - 1;
             }
@@ -137,6 +150,7 @@ public class Server extends ViewObject implements ServerView{
         return true;
     }
     public void setValueAt(String newValue, int rowIndex) throws Exception {
+        rowIndex = rowIndex - 1;
         if(rowIndex == 0){
             this.setUser(newValue);
             return;
@@ -158,7 +172,7 @@ public class Server extends ViewObject implements ServerView{
     }
     
     public boolean hasTransientFields(){
-        return false;
+        return true;
     }
     /* Start of protected part that is not overridden by persistence generator */
     

@@ -2,6 +2,8 @@
 package model;
 
 import persistence.*;
+import model.meta.ServiceSwitchPARAMETER;
+import model.meta.StringFACTORY;
 import model.visitor.*;
 
 
@@ -50,6 +52,7 @@ public class UserManager extends model.Service implements PersistentUserManager{
     java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            result.put("crrntServers", this.getCrrntServers().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
             if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
         }
@@ -68,10 +71,12 @@ public class UserManager extends model.Service implements PersistentUserManager{
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
+    protected UserManager_CrrntServersProxi crrntServers;
     
     public UserManager(PersistentService This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentService)This,id);        
+        super((PersistentService)This,id);
+        this.crrntServers = new UserManager_CrrntServersProxi(this);        
     }
     
     static public long getTypeId() {
@@ -87,9 +92,13 @@ public class UserManager extends model.Service implements PersistentUserManager{
         if (this.getClassId() == -116) ConnectionHandler.getTheConnectionHandler().theUserManagerFacade
             .newUserManager(this.getId());
         super.store();
+        this.getCrrntServers().store();
         
     }
     
+    public UserManager_CrrntServersProxi getCrrntServers() throws PersistenceException {
+        return this.crrntServers;
+    }
     public PersistentUserManager getThis() throws PersistenceException {
         if(this.This == null){
             PersistentUserManager result = (PersistentUserManager)PersistentProxi.createProxi(this.getId(),this.getClassId());
@@ -147,6 +156,7 @@ public class UserManager extends model.Service implements PersistentUserManager{
          return visitor.handleUserManager(this);
     }
     public int getLeafInfo() throws PersistenceException{
+        if (this.getCrrntServers().getLength() > 0) return 1;
         return 0;
     }
     
@@ -166,6 +176,38 @@ public class UserManager extends model.Service implements PersistentUserManager{
     
     // Start of section that contains operations that must be implemented.
     
+    public void addRight(final Server4Public srvr, final String type) 
+				throws model.UserHasRightException, PersistenceException{
+    	Service4Public serv = StringFACTORY.createObjectBySubTypeNameForService(type, new ServiceSwitchPARAMETER() {
+			
+			@Override
+			public UserManager4Public handleUserManager() throws PersistenceException {
+				return UserManager.createUserManager();
+			}
+			
+			@Override
+			public Register4Public handleRegister() throws PersistenceException {
+				return Register.createRegister();
+			}
+			
+			@Override
+			public Customer4Public handleCustomer() throws PersistenceException {
+				return Customer.createCustomer();
+			}
+			
+			@Override
+			public Administrator4Public handleAdministrator() throws PersistenceException {
+				return Administrator.createAdministrator();
+			}
+		});
+    	if (srvr.getServices().findFirst(argument -> argument.getClassId() == serv.getClassId()) == null) {
+    		srvr.getServices().add(serv);
+        	getThis().signalChanged(true);
+		} else {
+			throw new UserHasRightException("Behindert? Der hat das schon!!! Geh dich erhängen!!!");
+		}
+    	
+    }
     public void connected(final String user) 
 				throws PersistenceException{
         //TODO: implement method: connected
@@ -181,6 +223,24 @@ public class UserManager extends model.Service implements PersistentUserManager{
         //TODO: implement method: disconnected
         
     }
+    public void findServer(final String name) 
+				throws PersistenceException{
+    	ServerSearchList foundServers = Server.getServerByUser(name);
+    	foundServers.applyToAll(new Procdure<Server4Public>() {
+			
+			@Override
+			public void doItTo(Server4Public foundServer) throws PersistenceException {
+				if (getThis().getCrrntServers().findFirst(new Predcate<Server4Public>() {
+
+					@Override
+					public boolean test(Server4Public argument) throws PersistenceException {
+						return argument.equals(foundServer);
+					}
+				}) == null) getThis().getCrrntServers().add(foundServer);
+			}
+		});
+    	getThis().signalChanged(true);
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         super.initializeOnCreation();
@@ -190,11 +250,6 @@ public class UserManager extends model.Service implements PersistentUserManager{
 				throws PersistenceException{
         super.initializeOnInstantiation();
 		//TODO: implement method: initializeOnInstantiation
-    }
-    public void userManagerOP() 
-				throws PersistenceException{
-        //TODO: implement method: userManagerOP
-        
     }
     
     

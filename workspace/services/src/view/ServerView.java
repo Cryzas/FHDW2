@@ -10,6 +10,7 @@ public interface ServerView extends Anything, Remote, AbstractViewRoot {
     
     public java.util.Vector<ServiceView> getServices()throws ModelException;
     public void setServices(java.util.Vector<ServiceView> newValue) throws ModelException ;
+    public String getUserName()throws ModelException;
     public java.util.Vector<ErrorDisplayView> getErrors()throws ModelException;
     public void setErrors(java.util.Vector<ErrorDisplayView> newValue) throws ModelException ;
     public String getUser()throws ModelException;

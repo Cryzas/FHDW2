@@ -2,11 +2,14 @@ model services {
 
 server Server {
    public Service ** services;
+	derived public String userName;
 }
-abstract server Service {
+string-factory abstract server Service {
 }
 server UserManager extends Service{
-	void userManagerOP();
+	public Server ** crrntServers;
+	void addRight(Server srvr, ServiceSUBTYPEName type) throws UserHasRightException;
+	void findServer(String name);
 }
 server Administrator extends Service{
 	void administratorOp();
@@ -17,5 +20,7 @@ server Customer extends Service{
 server Register extends Service {
 	void register(String accountName, String password PASSWORD);
 }
+
+exception UserHasRightException{}
 }
 

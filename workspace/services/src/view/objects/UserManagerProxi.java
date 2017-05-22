@@ -15,7 +15,9 @@ public class UserManagerProxi extends ServiceProxi implements UserManagerView{
     public UserManagerView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         java.util.Vector<String> errors_string = (java.util.Vector<String>)resultTable.get("errors");
         java.util.Vector<ErrorDisplayView> errors = ViewProxi.getProxiVector(errors_string, connectionKey);
-        UserManagerView result$$ = new UserManager(errors, this.getId(), this.getClassId());
+        java.util.Vector<String> crrntServers_string = (java.util.Vector<String>)resultTable.get("crrntServers");
+        java.util.Vector<ServerView> crrntServers = ViewProxi.getProxiVector(crrntServers_string, connectionKey);
+        UserManagerView result$$ = new UserManager(errors,crrntServers, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -24,20 +26,36 @@ public class UserManagerProxi extends ServiceProxi implements UserManagerView{
         return RemoteDepth;
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        
+        int index = originalIndex;
+        if(index < this.getCrrntServers().size()) return new CrrntServersUserManagerWrapper(this, originalIndex, (ViewRoot)this.getCrrntServers().get(index));
+        index = index - this.getCrrntServers().size();
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 ;
+        return 0 
+            + (this.getCrrntServers().size());
     }
     public boolean isLeaf() throws ModelException {
-        return true;
+        if (this.object == null) return this.getLeafInfo() == 0;
+        return true 
+            && (this.getCrrntServers().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        
+        int result = 0;
+        java.util.Iterator<?> getCrrntServersIterator = this.getCrrntServers().iterator();
+        while(getCrrntServersIterator.hasNext()){
+            if(getCrrntServersIterator.next().equals(child)) return result;
+            result = result + 1;
+        }
         return -1;
     }
     
+    public java.util.Vector<ServerView> getCrrntServers()throws ModelException{
+        return ((UserManager)this.getTheObject()).getCrrntServers();
+    }
+    public void setCrrntServers(java.util.Vector<ServerView> newValue) throws ModelException {
+        ((UserManager)this.getTheObject()).setCrrntServers(newValue);
+    }
     
     public void accept(ServiceVisitor visitor) throws ModelException {
         visitor.handleUserManager(this);

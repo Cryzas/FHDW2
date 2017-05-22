@@ -22,6 +22,9 @@ public class UserManagerICProxi extends ServiceICProxi implements PersistentUser
         return -116;
     }
     
+    public UserManager_CrrntServersProxi getCrrntServers() throws PersistenceException {
+        return ((PersistentUserManager)this.getTheObject()).getCrrntServers();
+    }
     public PersistentUserManager getThis() throws PersistenceException {
         return ((PersistentUserManager)this.getTheObject()).getThis();
     }
@@ -88,6 +91,10 @@ public class UserManagerICProxi extends ServiceICProxi implements PersistentUser
 				throws PersistenceException{
         return ((PersistentUserManager)this.getTheObject()).userManager_Menu_Filter(anything);
     }
+    public void addRight(final Server4Public srvr, final String type) 
+				throws model.UserHasRightException, PersistenceException{
+        ((PersistentUserManager)this.getTheObject()).addRight(srvr, type);
+    }
     public void connected(final String user) 
 				throws PersistenceException{
         ((PersistentUserManager)this.getTheObject()).connected(user);
@@ -99,6 +106,10 @@ public class UserManagerICProxi extends ServiceICProxi implements PersistentUser
     public void disconnected() 
 				throws PersistenceException{
         ((PersistentUserManager)this.getTheObject()).disconnected();
+    }
+    public void findServer(final String name) 
+				throws PersistenceException{
+        ((PersistentUserManager)this.getTheObject()).findServer(name);
     }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{
@@ -119,10 +130,6 @@ public class UserManagerICProxi extends ServiceICProxi implements PersistentUser
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentUserManager)this.getTheObject()).initializeOnInstantiation();
-    }
-    public void userManagerOP() 
-				throws PersistenceException{
-        ((PersistentUserManager)this.getTheObject()).userManagerOP();
     }
 
     

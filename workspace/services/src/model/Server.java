@@ -68,6 +68,7 @@ public class Server extends PersistentObject implements PersistentServer{
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
             result.put("services", this.getServices().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
+            result.put("userName", this.getUserName());
             result.put("errors", this.getErrors().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
             result.put("user", this.getUser());
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
@@ -280,6 +281,10 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
         //TODO: implement method: disconnected
         
+    }
+    public String getUserName() 
+				throws PersistenceException{
+        return getThis().getUser();
     }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{

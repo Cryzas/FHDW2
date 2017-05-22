@@ -24,9 +24,21 @@ public  class RemoteUserManager extends RemoteService {
         }
     }
     
-    public synchronized java.util.HashMap<?,?> userManagerOP(){
+    public synchronized java.util.HashMap<?,?> addRight(String srvrProxiString, String type){
         try {
-            ((PersistentUserManager)this.server).userManagerOP();
+            PersistentServer srvr = (PersistentServer)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(srvrProxiString));
+            ((PersistentUserManager)this.server).addRight(srvr, type);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserHasRightException e0){
+            return createExceptionResult(e0, this);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> findServer(String name){
+        try {
+            ((PersistentUserManager)this.server).findServer(name);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

@@ -7,5 +7,6 @@ public interface UserExceptionExceptionVisitor<E extends model.UserException> {
     
     public void handleCycleException(model.CycleException cycleException) throws PersistenceException, E;
     public void handleRestrictionException(model.RestrictionException restrictionException) throws PersistenceException, E;
+    public void handleUserHasRightException(model.UserHasRightException userHasRightException) throws PersistenceException, E;
     
 }

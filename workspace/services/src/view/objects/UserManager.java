@@ -10,10 +10,12 @@ import view.visitor.*;
 
 public class UserManager extends view.objects.Service implements UserManagerView{
     
+    protected java.util.Vector<ServerView> crrntServers;
     
-    public UserManager(java.util.Vector<ErrorDisplayView> errors,long id, long classId) {
+    public UserManager(java.util.Vector<ErrorDisplayView> errors,java.util.Vector<ServerView> crrntServers,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super(errors,id, classId);        
+        super(errors,id, classId);
+        this.crrntServers = crrntServers;        
     }
     
     static public long getTypeId() {
@@ -24,6 +26,12 @@ public class UserManager extends view.objects.Service implements UserManagerView
         return getTypeId();
     }
     
+    public java.util.Vector<ServerView> getCrrntServers()throws ModelException{
+        return this.crrntServers;
+    }
+    public void setCrrntServers(java.util.Vector<ServerView> newValue) throws ModelException {
+        this.crrntServers = newValue;
+    }
     
     public void accept(ServiceVisitor visitor) throws ModelException {
         visitor.handleUserManager(this);
@@ -67,23 +75,36 @@ public class UserManager extends view.objects.Service implements UserManagerView
         if (errors != null) {
             ViewObject.resolveVectorProxies(errors, resultTable);
         }
+        java.util.Vector<?> crrntServers = this.getCrrntServers();
+        if (crrntServers != null) {
+            ViewObject.resolveVectorProxies(crrntServers, resultTable);
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {
         
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        
+        int index = originalIndex;
+        if(index < this.getCrrntServers().size()) return new CrrntServersUserManagerWrapper(this, originalIndex, (ViewRoot)this.getCrrntServers().get(index));
+        index = index - this.getCrrntServers().size();
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 ;
+        return 0 
+            + (this.getCrrntServers().size());
     }
     public boolean isLeaf() throws ModelException {
-        return true;
+        return true 
+            && (this.getCrrntServers().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        
+        int result = 0;
+        java.util.Iterator<?> getCrrntServersIterator = this.getCrrntServers().iterator();
+        while(getCrrntServersIterator.hasNext()){
+            if(getCrrntServersIterator.next().equals(child)) return result;
+            result = result + 1;
+        }
         return -1;
     }
     public int getRowCount(){

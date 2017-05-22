@@ -15,10 +15,11 @@ public class ServerProxi extends ViewProxi implements ServerView{
     public ServerView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         java.util.Vector<String> services_string = (java.util.Vector<String>)resultTable.get("services");
         java.util.Vector<ServiceView> services = ViewProxi.getProxiVector(services_string, connectionKey);
+        String userName = (String)resultTable.get("userName");
         java.util.Vector<String> errors_string = (java.util.Vector<String>)resultTable.get("errors");
         java.util.Vector<ErrorDisplayView> errors = ViewProxi.getProxiVector(errors_string, connectionKey);
         String user = (String)resultTable.get("user");
-        ServerView result$$ = new Server(services,errors,(String)user, this.getId(), this.getClassId());
+        ServerView result$$ = new Server(services,(String)userName,errors,(String)user, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -56,6 +57,9 @@ public class ServerProxi extends ViewProxi implements ServerView{
     }
     public void setServices(java.util.Vector<ServiceView> newValue) throws ModelException {
         ((Server)this.getTheObject()).setServices(newValue);
+    }
+    public String getUserName()throws ModelException{
+        return ((Server)this.getTheObject()).getUserName();
     }
     public java.util.Vector<ErrorDisplayView> getErrors()throws ModelException{
         return ((Server)this.getTheObject()).getErrors();
@@ -109,7 +113,7 @@ public class ServerProxi extends ViewProxi implements ServerView{
 		handler.initializeConnection();
 		return result;
     }public boolean hasTransientFields(){
-        return false;
+        return true;
     }
     
     public javafx.scene.image.Image getImage(){

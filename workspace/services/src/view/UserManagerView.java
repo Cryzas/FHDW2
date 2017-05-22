@@ -6,6 +6,8 @@ import view.visitor.*;
 
 public interface UserManagerView extends ServiceView {
     
+    public java.util.Vector<ServerView> getCrrntServers()throws ModelException;
+    public void setCrrntServers(java.util.Vector<ServerView> newValue) throws ModelException ;
     
     public void accept(ServiceVisitor visitor) throws ModelException;
     public <R> R accept(ServiceReturnVisitor<R>  visitor) throws ModelException;

@@ -108,6 +108,16 @@ create table SrvrSrvcs(
 );
 create index IFrmSrvrSrvcs on SrvrSrvcs(frm);
 
+create table UsrMngrCrrntSrvrs(
+    id number primary key,
+    frm number not null,
+    crrntSrvrs number not null,
+    Cls number not null,
+    constraint FUsrMngrCrrntSrvrsCls foreign key(Cls) references Cls(id) on delete cascade,
+    constraint FUsrMngrCrrntSrvrsfrm foreign key(frm) references Srvc(id)
+);
+create index IFrmUsrMngrCrrntSrvrs on UsrMngrCrrntSrvrs(frm);
+
 create table CmmndExctrCommands(
     id number primary key,
     frm number not null,

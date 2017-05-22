@@ -118,6 +118,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).disconnected();
     }
+    public String getUserName() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getUserName();
+    }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).handleException(command, exception);

@@ -1227,12 +1227,20 @@ class AdministratorDefaultDetailPanel extends DefaultDetailPanel{
 class ServerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Server$$services = "Server$$services";
+    protected static final String Server$$userName = "Server$$userName";
     protected static final String Server$$user = "Server$$user";
     
     protected ServerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "userName", this.getAnything().getUserName());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(Server$$userName, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
         try{
             BaseTypePanel panel = new StringPanel(this, "user", this.getAnything().getUser());
             this.getScrollablePane().getChildren().add(panel);
@@ -1274,6 +1282,8 @@ class RegisterDefaultDetailPanel extends DefaultDetailPanel{
 }
 
 class UserManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String UserManager$$crrntServers = "UserManager$$crrntServers";
     
     protected UserManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);

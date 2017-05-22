@@ -318,7 +318,8 @@ public class UserManagerClientView extends BorderPane implements ExceptionAndEve
 
 
     interface MenuItemVisitor{
-        ImageView handle(UserManagerOPPRMTRMenuItem menuItem);
+        ImageView handle(AddRightPRMTRServerPRMTRServiceSUBTYPENamePRMTRMenuItem menuItem);
+        ImageView handle(FindServerPRMTRStringPRMTRMenuItem menuItem);
     }
     private abstract class UserManagerMenuItem extends MenuItem{
         private UserManagerMenuItem(){
@@ -326,7 +327,12 @@ public class UserManagerClientView extends BorderPane implements ExceptionAndEve
         }
         abstract protected ImageView accept(MenuItemVisitor visitor);
     }
-    private class UserManagerOPPRMTRMenuItem extends UserManagerMenuItem{
+    private class AddRightPRMTRServerPRMTRServiceSUBTYPENamePRMTRMenuItem extends UserManagerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class FindServerPRMTRStringPRMTRMenuItem extends UserManagerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -334,26 +340,15 @@ public class UserManagerClientView extends BorderPane implements ExceptionAndEve
     private java.util.Vector<javafx.scene.control.Button> getToolButtonsForStaticOperations() {
         java.util.Vector<javafx.scene.control.Button> result = new java.util.Vector<javafx.scene.control.Button>();
         javafx.scene.control.Button currentButton = null;
-        currentButton = new javafx.scene.control.Button("userManagerOP");
-        currentButton.setGraphic(new UserManagerOPPRMTRMenuItem().getGraphic());
+        currentButton = new javafx.scene.control.Button("findServer ... ");
+        currentButton.setGraphic(new FindServerPRMTRStringPRMTRMenuItem().getGraphic());
         currentButton.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
-                Alert confirm = new Alert(AlertType.CONFIRMATION);
-                confirm.setTitle(GUIConstants.ConfirmButtonText);
-                confirm.setHeaderText(null);
-                confirm.setContentText("userManagerOP" + GUIConstants.ConfirmQuestionMark);
-                confirm.setX( getPointForView().getX() );
-                confirm.setY( getPointForView().getY() );
-                Optional<ButtonType> buttonResult = confirm.showAndWait();
-                if (buttonResult.get() == ButtonType.OK) {
-                    try {
-                        getConnection().userManagerOP();
-                        getConnection().setEagerRefresh();
-                        
-                    }catch(ModelException me){
-                        handleException(me);
-                    }
-                }
+                final UserManagerFindServerStringMssgWizard wizard = new UserManagerFindServerStringMssgWizard("findServer");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.setX( getPointForView().getX());
+                wizard.setY( getPointForView().getY());
+                wizard.showAndWait();
             }
         });
         result.add(currentButton);
@@ -362,26 +357,15 @@ public class UserManagerClientView extends BorderPane implements ExceptionAndEve
     private ContextMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations, final Point2D menuPos) {
         final ContextMenu result = new ContextMenu();
         MenuItem item = null;
-        item = new UserManagerOPPRMTRMenuItem();
-        item.setText("(S) userManagerOP");
+        item = new FindServerPRMTRStringPRMTRMenuItem();
+        item.setText("(S) findServer ... ");
         item.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
-                Alert confirm = new Alert(AlertType.CONFIRMATION);
-                confirm.setTitle(GUIConstants.ConfirmButtonText);
-                confirm.setHeaderText(null);
-                confirm.setContentText("userManagerOP" + GUIConstants.ConfirmQuestionMark);
-                confirm.setX( getPointForView().getX() );
-                confirm.setY( getPointForView().getY() );
-                Optional<ButtonType> buttonResult = confirm.showAndWait();
-                if (buttonResult.get() == ButtonType.OK) {
-                    try {
-                        getConnection().userManagerOP();
-                        getConnection().setEagerRefresh();
-                        
-                    }catch(ModelException me){
-                        handleException(me);
-                    }
-                }
+                final UserManagerFindServerStringMssgWizard wizard = new UserManagerFindServerStringMssgWizard("findServer");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.setX( getPointForView().getX());
+                wizard.setY( getPointForView().getY());
+                wizard.showAndWait();
             }
         });
         if (withStaticOperations) result.getItems().add(item);
@@ -391,6 +375,21 @@ public class UserManagerClientView extends BorderPane implements ExceptionAndEve
             } catch (ModelException me){
                 this.handleException(me);
                 return result;
+            }
+            if (selected instanceof ServerView){
+                item = new AddRightPRMTRServerPRMTRServiceSUBTYPENamePRMTRMenuItem();
+                item.setText("addRight ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final UserManagerAddRightServerServiceSUBTYPENameMssgWizard wizard = new UserManagerAddRightServerServiceSUBTYPENameMssgWizard("addRight");
+                        wizard.setFirstArgument((ServerView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.setX( getPointForView().getX());
+                        wizard.setY( getPointForView().getY());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
             }
             
         }
@@ -405,6 +404,94 @@ public class UserManagerClientView extends BorderPane implements ExceptionAndEve
         this.preCalculatedFilters = switchOff;
     }
     
+	class UserManagerAddRightServerServiceSUBTYPENameMssgWizard extends Wizard {
+
+		protected UserManagerAddRightServerServiceSUBTYPENameMssgWizard(String operationName){
+			super(UserManagerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new AddRightPRMTRServerPRMTRServiceSUBTYPENamePRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "UserManagerAddRightServerServiceSUBTYPENameMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().addRight(firstArgument, ((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			catch(UserHasRightException e) {
+				getStatusBar().setText(e.getMessage());
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new RegExprSelectionPanel("type", this, common.RegularExpressionManager.serviceSUBTYPEName.getRegExpr()));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private ServerView firstArgument; 
+	
+		public void setFirstArgument(ServerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class UserManagerFindServerStringMssgWizard extends Wizard {
+
+		protected UserManagerFindServerStringMssgWizard(String operationName){
+			super(UserManagerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new FindServerPRMTRStringPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "UserManagerFindServerStringMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().findServer(((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+	}
+
 	/* Menu and wizard section end */
 	
 	private ImageView getIconForMenuItem(UserManagerMenuItem menuItem){
