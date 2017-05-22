@@ -318,12 +318,15 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 
 
     interface MenuItemVisitor{
-        ImageView handle(BookPRMTRAbstractTransferPRMTRMenuItem menuItem);
+        ImageView handle(AddTransferPRMTRTransactionPRMTRTransferPRMTRMenuItem menuItem);
+        ImageView handle(BookPRMTRBookablePRMTRMenuItem menuItem);
         ImageView handle(ClearAccountsPRMTRMenuItem menuItem);
         ImageView handle(CreateAccountPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(CreateCreditPRMTRAccountPRMTRAccountHandlePRMTRFractionPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(CreateDebitPRMTRAccountPRMTRAccountHandlePRMTRFractionPRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(CreateTransactionPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(FindAccountsPRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(RemoveTransferPRMTRTransactionPRMTRTransferPRMTRMenuItem menuItem);
     }
     private abstract class ServerMenuItem extends MenuItem{
         private ServerMenuItem(){
@@ -331,7 +334,12 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         }
         abstract protected ImageView accept(MenuItemVisitor visitor);
     }
-    private class BookPRMTRAbstractTransferPRMTRMenuItem extends ServerMenuItem{
+    private class AddTransferPRMTRTransactionPRMTRTransferPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class BookPRMTRBookablePRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -356,7 +364,17 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
             return visitor.handle(this);
         }
     }
+    private class CreateTransactionPRMTRStringPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
     private class FindAccountsPRMTRStringPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class RemoveTransferPRMTRTransactionPRMTRTransferPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -392,6 +410,18 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         currentButton.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
                 final ServerCreateAccountStringMssgWizard wizard = new ServerCreateAccountStringMssgWizard("createAccount");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.setX( getPointForView().getX());
+                wizard.setY( getPointForView().getY());
+                wizard.showAndWait();
+            }
+        });
+        result.add(currentButton);
+        currentButton = new javafx.scene.control.Button("createTransaction ... ");
+        currentButton.setGraphic(new CreateTransactionPRMTRStringPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final ServerCreateTransactionStringMssgWizard wizard = new ServerCreateTransactionStringMssgWizard("createTransaction");
                 wizard.setWidth(getNavigationPanel().getWidth());
                 wizard.setX( getPointForView().getX());
                 wizard.setY( getPointForView().getY());
@@ -451,6 +481,18 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
             }
         });
         if (withStaticOperations) result.getItems().add(item);
+        item = new CreateTransactionPRMTRStringPRMTRMenuItem();
+        item.setText("(S) createTransaction ... ");
+        item.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final ServerCreateTransactionStringMssgWizard wizard = new ServerCreateTransactionStringMssgWizard("createTransaction");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.setX( getPointForView().getX());
+                wizard.setY( getPointForView().getY());
+                wizard.showAndWait();
+            }
+        });
+        if (withStaticOperations) result.getItems().add(item);
         item = new FindAccountsPRMTRStringPRMTRMenuItem();
         item.setText("(S) findAccounts ... ");
         item.setOnAction(new EventHandler<ActionEvent>(){
@@ -498,8 +540,36 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                 });
                 result.getItems().add(item);
             }
-            if (selected instanceof AbstractTransferView){
-                item = new BookPRMTRAbstractTransferPRMTRMenuItem();
+            if (selected instanceof TransactionView){
+                item = new AddTransferPRMTRTransactionPRMTRTransferPRMTRMenuItem();
+                item.setText("addTransfer ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final ServerAddTransferTransactionTransferMssgWizard wizard = new ServerAddTransferTransactionTransferMssgWizard("addTransfer");
+                        wizard.setFirstArgument((TransactionView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.setX( getPointForView().getX());
+                        wizard.setY( getPointForView().getY());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+                item = new RemoveTransferPRMTRTransactionPRMTRTransferPRMTRMenuItem();
+                item.setText("removeTransfer ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final ServerRemoveTransferTransactionTransferMssgWizard wizard = new ServerRemoveTransferTransactionTransferMssgWizard("removeTransfer");
+                        wizard.setFirstArgument((TransactionView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.setX( getPointForView().getX());
+                        wizard.setY( getPointForView().getY());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+            }
+            if (selected instanceof BookableView){
+                item = new BookPRMTRBookablePRMTRMenuItem();
                 item.setText("book");
                 item.setOnAction(new EventHandler<ActionEvent>(){
                     public void handle(javafx.event.ActionEvent e) {
@@ -512,7 +582,7 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                         Optional<ButtonType> buttonResult = confirm.showAndWait();
                         if (buttonResult.get() == ButtonType.OK) {
                             try {
-                                getConnection().book((AbstractTransferView)selected);
+                                getConnection().book((BookableView)selected);
                                 getConnection().setEagerRefresh();
                                 
                             }catch(ModelException me){
@@ -536,6 +606,55 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         this.preCalculatedFilters = switchOff;
     }
     
+	class ServerAddTransferTransactionTransferMssgWizard extends Wizard {
+
+		protected ServerAddTransferTransactionTransferMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new AddTransferPRMTRTransactionPRMTRTransferPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerAddTransferTransactionTransferMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().addTransfer(firstArgument, (TransferView)((ObjectSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			final ObjectSelectionPanel panel1 = new ObjectSelectionPanel("transfer", "view.TransferView", null, this);
+			getParametersPanel().getChildren().add(panel1);
+			panel1.setBrowserRoot((ViewRoot) getConnection().getServerView());		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private TransactionView firstArgument; 
+	
+		public void setFirstArgument(TransactionView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
 	class ServerCreateAccountStringMssgWizard extends Wizard {
 
 		protected ServerCreateAccountStringMssgWizard(String operationName){
@@ -606,9 +725,9 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 			return false;
 		}
 		protected void addParameters(){
-			final ObjectSelectionPanel panel1 = new ObjectSelectionPanel("otherAccount", "view.AccountHandleView", null, this);
-			getParametersPanel().getChildren().add(panel1);
-			panel1.setBrowserRoot((ViewRoot) getConnection().getServerView());
+			final ObjectSelectionPanel panel2 = new ObjectSelectionPanel("otherAccount", "view.AccountHandleView", null, this);
+			getParametersPanel().getChildren().add(panel2);
+			panel2.setBrowserRoot((ViewRoot) getConnection().getServerView());
 			getParametersPanel().getChildren().add(new FractionSelectionPanel("amount", this));
 			getParametersPanel().getChildren().add(new StringSelectionPanel("subject", this));		
 		}	
@@ -659,9 +778,9 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 			return false;
 		}
 		protected void addParameters(){
-			final ObjectSelectionPanel panel2 = new ObjectSelectionPanel("otherAccount", "view.AccountHandleView", null, this);
-			getParametersPanel().getChildren().add(panel2);
-			panel2.setBrowserRoot((ViewRoot) getConnection().getServerView());
+			final ObjectSelectionPanel panel3 = new ObjectSelectionPanel("otherAccount", "view.AccountHandleView", null, this);
+			getParametersPanel().getChildren().add(panel3);
+			panel3.setBrowserRoot((ViewRoot) getConnection().getServerView());
 			getParametersPanel().getChildren().add(new FractionSelectionPanel("amount", this));
 			getParametersPanel().getChildren().add(new StringSelectionPanel("subject", this));		
 		}	
@@ -675,6 +794,44 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
 			this.check();
+		}
+		
+		
+	}
+
+	class ServerCreateTransactionStringMssgWizard extends Wizard {
+
+		protected ServerCreateTransactionStringMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new CreateTransactionPRMTRStringPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerCreateTransactionStringMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().createTransaction(((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new StringSelectionPanel("subject", this));		
+		}	
+		protected void handleDependencies(int i) {
 		}
 		
 		
@@ -713,6 +870,58 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));		
 		}	
 		protected void handleDependencies(int i) {
+		}
+		
+		
+	}
+
+	class ServerRemoveTransferTransactionTransferMssgWizard extends Wizard {
+
+		protected ServerRemoveTransferTransactionTransferMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new RemoveTransferPRMTRTransactionPRMTRTransferPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerRemoveTransferTransactionTransferMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().removeTransfer(firstArgument, (TransferView)((ObjectSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			catch(NotPartException e) {
+				getStatusBar().setText(e.getMessage());
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			final ObjectSelectionPanel panel4 = new ObjectSelectionPanel("transfer", "view.TransferView", null, this);
+			getParametersPanel().getChildren().add(panel4);
+			panel4.setBrowserRoot((ViewRoot) getConnection().getServerView());		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private TransactionView firstArgument; 
+	
+		public void setFirstArgument(TransactionView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
 		}
 		
 		

@@ -4,7 +4,7 @@ package persistence;
 
 import model.visitor.*;
 
-public class TransferProxi extends AbstractTransferProxi implements PersistentTransfer{
+public class TransferProxi extends BookableProxi implements PersistentTransfer{
     
     public TransferProxi(long objectId) {
         super(objectId);
@@ -40,16 +40,16 @@ public class TransferProxi extends AbstractTransferProxi implements PersistentTr
         return ((PersistentTransfer)this.getTheObject()).getThis();
     }
     
-    public void accept(AbstractTransferVisitor visitor) throws PersistenceException {
+    public void accept(BookableVisitor visitor) throws PersistenceException {
         visitor.handleTransfer(this);
     }
-    public <R> R accept(AbstractTransferReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(BookableReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleTransfer(this);
     }
-    public <E extends model.UserException>  void accept(AbstractTransferExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(BookableExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleTransfer(this);
     }
-    public <R, E extends model.UserException> R accept(AbstractTransferReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(BookableReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleTransfer(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
@@ -76,8 +76,24 @@ public class TransferProxi extends AbstractTransferProxi implements PersistentTr
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleTransfer(this);
     }
+    public void accept(bookableHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+        visitor.handleTransfer(this);
+    }
+    public <R> R accept(bookableHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleTransfer(this);
+    }
+    public <E extends model.UserException>  void accept(bookableHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleTransfer(this);
+    }
+    public <R, E extends model.UserException> R accept(bookableHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleTransfer(this);
+    }
     
     
+    public boolean containsbookableHierarchy(final bookableHierarchyHIERARCHY part) 
+				throws PersistenceException{
+        return ((PersistentTransfer)this.getTheObject()).containsbookableHierarchy(part);
+    }
     public void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentTransfer)this.getTheObject()).deregister(observee);
@@ -89,6 +105,10 @@ public class TransferProxi extends AbstractTransferProxi implements PersistentTr
     public void register(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentTransfer)this.getTheObject()).register(observee);
+    }
+    public <T> T strategybookableHierarchy(final bookableHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        return ((PersistentTransfer)this.getTheObject()).strategybookableHierarchy(strategy);
     }
     public void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{

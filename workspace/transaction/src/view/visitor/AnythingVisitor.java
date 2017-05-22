@@ -3,7 +3,7 @@ package view.visitor;
 
 import view.*;
 
-public interface AnythingVisitor extends AbstractTransferVisitor,AccountHandleVisitor,EntryVisitor{
+public interface AnythingVisitor extends AccountHandleVisitor,BookableVisitor,EntryVisitor{
     
     public void handleAccountManager(AccountManagerView accountManager) throws ModelException;
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;

@@ -26,6 +26,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCredit(CreditView credit) throws ModelException{
         this.standardHandling(credit);
     }
+    public void handleTransaction(TransactionView transaction) throws ModelException{
+        this.standardHandling(transaction);
+    }
     public void handleTransfer(TransferView transfer) throws ModelException{
         this.standardHandling(transfer);
     }

@@ -1,7 +1,7 @@
 package persistence;
 
 
-public interface PersistentTransfer extends PersistentAbstractTransfer, Transfer4Public {
+public interface PersistentTransfer extends bookableHierarchyHIERARCHY, PersistentBookable, Transfer4Public {
     
     public void setFromAccount(Account4Public newValue) throws PersistenceException ;
     public void setToAccount(Account4Public newValue) throws PersistenceException ;

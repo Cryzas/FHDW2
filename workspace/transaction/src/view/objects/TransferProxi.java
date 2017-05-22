@@ -5,7 +5,7 @@ import viewClient.*;
 
 import view.visitor.*;
 
-public class TransferProxi extends AbstractTransferProxi implements TransferView{
+public class TransferProxi extends BookableProxi implements TransferView{
     
     public TransferProxi(long objectId, long classId, ExceptionAndEventHandler connectionKey) {
         super(objectId, classId, connectionKey);
@@ -44,16 +44,16 @@ public class TransferProxi extends AbstractTransferProxi implements TransferView
         ((Transfer)this.getTheObject()).setAmount(newValue);
     }
     
-    public void accept(AbstractTransferVisitor visitor) throws ModelException {
+    public void accept(BookableVisitor visitor) throws ModelException {
         visitor.handleTransfer(this);
     }
-    public <R> R accept(AbstractTransferReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(BookableReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleTransfer(this);
     }
-    public <E extends view.UserException>  void accept(AbstractTransferExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends view.UserException>  void accept(BookableExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleTransfer(this);
     }
-    public <R, E extends view.UserException> R accept(AbstractTransferReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends view.UserException> R accept(BookableReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleTransfer(this);
     }
     public void accept(AnythingVisitor visitor) throws ModelException {

@@ -3,7 +3,7 @@ package model.visitor;
 
 import persistence.*;
 
-public interface SubjInterfaceVisitor extends AbstractTransferVisitor,AccountHandleVisitor,EntryVisitor{
+public interface SubjInterfaceVisitor extends AccountHandleVisitor,BookableVisitor,EntryVisitor{
     
     public void handleAccountManager(AccountManager4Public accountManager) throws PersistenceException;
     public void handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException;

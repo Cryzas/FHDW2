@@ -3,7 +3,7 @@ package view.visitor;
 
 import view.*;
 
-public interface AnythingReturnVisitor<R> extends AbstractTransferReturnVisitor<R> ,AccountHandleReturnVisitor<R> ,EntryReturnVisitor<R> {
+public interface AnythingReturnVisitor<R> extends AccountHandleReturnVisitor<R> ,BookableReturnVisitor<R> ,EntryReturnVisitor<R> {
     
     public R handleAccountManager(AccountManagerView accountManager) throws ModelException;
     public R handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;

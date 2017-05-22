@@ -277,17 +277,21 @@ public class Cache {
 		this.number2NameMap.put(115, "Account");
 		this.number2NameMap.put(122, "AccountManager");
 		this.number2NameMap.put(118, "AccountWrppr");
+		this.number2NameMap.put(137, "AddTransferCommand");
 		this.number2NameMap.put(129, "BookCommand");
 		this.number2NameMap.put(-101, "CommandCoordinator");
 		this.number2NameMap.put(-105, "CommandExecuter");
 		this.number2NameMap.put(104, "CommonDate");
 		this.number2NameMap.put(123, "CreateAccountCommand");
+		this.number2NameMap.put(134, "CreateTransactionCommand");
 		this.number2NameMap.put(126, "CreateTransferCommand");
 		this.number2NameMap.put(120, "Credit");
 		this.number2NameMap.put(116, "Debit");
 		this.number2NameMap.put(-103, "ErrorDisplay");
+		this.number2NameMap.put(138, "RemoveTransferCommand");
 		this.number2NameMap.put(-102, "Server");
 		this.number2NameMap.put(130, "Subj");
+		this.number2NameMap.put(135, "Transaction");
 		this.number2NameMap.put(121, "Transfer");
 		this.number2NameMap.put(114, "TransferManager");	
 	}

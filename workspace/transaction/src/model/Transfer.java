@@ -7,7 +7,7 @@ import model.visitor.*;
 
 /* Additional import section end */
 
-public class Transfer extends model.AbstractTransfer implements PersistentTransfer{
+public class Transfer extends model.Bookable implements PersistentTransfer{
     
     
     public static Transfer4Public createTransfer(String subject,Account4Public fromAccount,Account4Public toAccount,common.Fraction amount) throws PersistenceException{
@@ -85,9 +85,9 @@ public class Transfer extends model.AbstractTransfer implements PersistentTransf
     protected PersistentAccount toAccount;
     protected common.Fraction amount;
     
-    public Transfer(String subject,SubjInterface subService,PersistentAbstractTransfer This,PersistentAccount fromAccount,PersistentAccount toAccount,common.Fraction amount,long id) throws PersistenceException {
+    public Transfer(String subject,SubjInterface subService,PersistentBookable This,PersistentAccount fromAccount,PersistentAccount toAccount,common.Fraction amount,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((String)subject,(SubjInterface)subService,(PersistentAbstractTransfer)This,id);
+        super((String)subject,(SubjInterface)subService,(PersistentBookable)This,id);
         this.fromAccount = fromAccount;
         this.toAccount = toAccount;
         this.amount = amount;        
@@ -160,16 +160,16 @@ public class Transfer extends model.AbstractTransfer implements PersistentTransf
         }return (PersistentTransfer)this.This;
     }
     
-    public void accept(AbstractTransferVisitor visitor) throws PersistenceException {
+    public void accept(BookableVisitor visitor) throws PersistenceException {
         visitor.handleTransfer(this);
     }
-    public <R> R accept(AbstractTransferReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(BookableReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleTransfer(this);
     }
-    public <E extends model.UserException>  void accept(AbstractTransferExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(BookableExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleTransfer(this);
     }
-    public <R, E extends model.UserException> R accept(AbstractTransferReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(BookableReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleTransfer(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
@@ -196,11 +196,28 @@ public class Transfer extends model.AbstractTransfer implements PersistentTransf
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleTransfer(this);
     }
+    public void accept(bookableHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
+        visitor.handleTransfer(this);
+    }
+    public <R> R accept(bookableHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleTransfer(this);
+    }
+    public <E extends model.UserException>  void accept(bookableHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleTransfer(this);
+    }
+    public <R, E extends model.UserException> R accept(bookableHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleTransfer(this);
+    }
     public int getLeafInfo() throws PersistenceException{
         return 0;
     }
     
     
+    public boolean containsbookableHierarchy(final bookableHierarchyHIERARCHY part) 
+				throws PersistenceException{
+        if(getThis().equals(part)) return true;
+		return false;
+    }
     public synchronized void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
@@ -228,6 +245,11 @@ public class Transfer extends model.AbstractTransfer implements PersistentTransf
 			getThis().setSubService(subService);
 		}
 		subService.register(observee);
+    }
+    public <T> T strategybookableHierarchy(final bookableHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        T result = strategy.Transfer$$finalize(getThis() );
+		return result;
     }
     public synchronized void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{

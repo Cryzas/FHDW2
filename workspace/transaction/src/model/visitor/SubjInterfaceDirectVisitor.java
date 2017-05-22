@@ -17,11 +17,6 @@ public abstract class SubjInterfaceDirectVisitor implements SubjInterfaceVisitor
     }
     public abstract void handleServer(Server4Public server) throws PersistenceException;
     
-    public abstract void handleAbstractTransfer(AbstractTransfer4Public abstractTransfer) throws PersistenceException;
-    
-    public void handleTransfer(Transfer4Public transfer) throws PersistenceException{
-        this.handleAbstractTransfer(transfer);
-    }
     public abstract void handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException;
     
     public abstract void handleAccountHandle(AccountHandle4Public accountHandle) throws PersistenceException;
@@ -36,5 +31,13 @@ public abstract class SubjInterfaceDirectVisitor implements SubjInterfaceVisitor
     
     public abstract void handleSubj(Subj4Public subj) throws PersistenceException;
     
+    public abstract void handleBookable(Bookable4Public bookable) throws PersistenceException;
+    
+    public void handleTransaction(Transaction4Public transaction) throws PersistenceException{
+        this.handleBookable(transaction);
+    }
+    public void handleTransfer(Transfer4Public transfer) throws PersistenceException{
+        this.handleBookable(transfer);
+    }
     
 }

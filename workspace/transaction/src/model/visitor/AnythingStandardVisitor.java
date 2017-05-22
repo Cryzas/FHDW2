@@ -14,6 +14,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleAccount(Account4Public account) throws PersistenceException{
         this.standardHandling(account);
     }
+    public void handleRemoveTransferCommand(RemoveTransferCommand4Public removeTransferCommand) throws PersistenceException{
+        this.standardHandling(removeTransferCommand);
+    }
     public void handleServer(Server4Public server) throws PersistenceException{
         this.standardHandling(server);
     }
@@ -32,8 +35,14 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCredit(Credit4Public credit) throws PersistenceException{
         this.standardHandling(credit);
     }
+    public void handleCreateTransactionCommand(CreateTransactionCommand4Public createTransactionCommand) throws PersistenceException{
+        this.standardHandling(createTransactionCommand);
+    }
     public void handleBookCommand(BookCommand4Public bookCommand) throws PersistenceException{
         this.standardHandling(bookCommand);
+    }
+    public void handleTransaction(Transaction4Public transaction) throws PersistenceException{
+        this.standardHandling(transaction);
     }
     public void handleTransfer(Transfer4Public transfer) throws PersistenceException{
         this.standardHandling(transfer);
@@ -52,6 +61,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException{
         this.standardHandling(commandExecuter);
+    }
+    public void handleAddTransferCommand(AddTransferCommand4Public addTransferCommand) throws PersistenceException{
+        this.standardHandling(addTransferCommand);
     }
     protected abstract void standardHandling(Anything anything) throws PersistenceException;
 }

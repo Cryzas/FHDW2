@@ -67,9 +67,9 @@ public class TransferFacade{
             SubjInterface subService = null;
             if (obj.getLong(3) != 0)
                 subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
-            PersistentAbstractTransfer This = null;
+            PersistentBookable This = null;
             if (obj.getLong(5) != 0)
-                This = (PersistentAbstractTransfer)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
+                This = (PersistentBookable)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
             PersistentAccount fromAccount = null;
             if (obj.getLong(7) != 0)
                 fromAccount = (PersistentAccount)PersistentProxi.createProxi(obj.getLong(7), obj.getLong(8));

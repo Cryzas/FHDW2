@@ -111,14 +111,16 @@ public class ConnectionHandler {
     public TransferManagerFacade theTransferManagerFacade;
     public AccountFacade theAccountFacade;
     public DebitFacade theDebitFacade;
+    public RemoveTransferCommandFacade theRemoveTransferCommandFacade;
     public ServerFacade theServerFacade;
-    public AbstractTransferFacade theAbstractTransferFacade;
     public ErrorDisplayFacade theErrorDisplayFacade;
     public AccountWrpprFacade theAccountWrpprFacade;
     public SubjFacade theSubjFacade;
     public CommandCoordinatorFacade theCommandCoordinatorFacade;
     public EntryFacade theEntryFacade;
     public CreditFacade theCreditFacade;
+    public CreateTransactionCommandFacade theCreateTransactionCommandFacade;
+    public TransactionFacade theTransactionFacade;
     public BookCommandFacade theBookCommandFacade;
     public AccountHandleFacade theAccountHandleFacade;
     public TransferFacade theTransferFacade;
@@ -127,6 +129,8 @@ public class ConnectionHandler {
     public CreateAccountCommandFacade theCreateAccountCommandFacade;
     public CommonDateFacade theCommonDateFacade;
     public CommandExecuterFacade theCommandExecuterFacade;
+    public BookableFacade theBookableFacade;
+    public AddTransferCommandFacade theAddTransferCommandFacade;
 
 	protected ConnectionHandler(String name) throws PersistenceException {
 		this.name = name;
@@ -154,14 +158,16 @@ public class ConnectionHandler {
             this.theTransferManagerFacade= new TransferManagerFacade(this.schemaName, this.con);
             this.theAccountFacade= new AccountFacade(this.schemaName, this.con);
             this.theDebitFacade= new DebitFacade(this.schemaName, this.con);
+            this.theRemoveTransferCommandFacade= new RemoveTransferCommandFacade(this.schemaName, this.con);
             this.theServerFacade= new ServerFacade(this.schemaName, this.con);
-            this.theAbstractTransferFacade= new AbstractTransferFacade(this.schemaName, this.con);
             this.theErrorDisplayFacade= new ErrorDisplayFacade();
             this.theAccountWrpprFacade= new AccountWrpprFacade(this.schemaName, this.con);
             this.theSubjFacade= new SubjFacade(this.schemaName, this.con);
             this.theCommandCoordinatorFacade= new CommandCoordinatorFacade(this.schemaName, this.con);
             this.theEntryFacade= new EntryFacade(this.schemaName, this.con);
             this.theCreditFacade= new CreditFacade(this.schemaName, this.con);
+            this.theCreateTransactionCommandFacade= new CreateTransactionCommandFacade(this.schemaName, this.con);
+            this.theTransactionFacade= new TransactionFacade(this.schemaName, this.con);
             this.theBookCommandFacade= new BookCommandFacade(this.schemaName, this.con);
             this.theAccountHandleFacade= new AccountHandleFacade(this.schemaName, this.con);
             this.theTransferFacade= new TransferFacade(this.schemaName, this.con);
@@ -170,6 +176,8 @@ public class ConnectionHandler {
             this.theCreateAccountCommandFacade= new CreateAccountCommandFacade(this.schemaName, this.con);
             this.theCommonDateFacade= new CommonDateFacade(this.schemaName, this.con);
             this.theCommandExecuterFacade= new CommandExecuterFacade(this.schemaName, this.con);
+            this.theBookableFacade= new BookableFacade(this.schemaName, this.con);
+            this.theAddTransferCommandFacade= new AddTransferCommandFacade(this.schemaName, this.con);
 		} catch (SQLException sqlExc) {
 			throw new PersistenceException(sqlExc.getMessage(), sqlExc.getErrorCode());
 		}

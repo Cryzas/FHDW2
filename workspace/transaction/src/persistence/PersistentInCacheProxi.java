@@ -12,7 +12,7 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		
 	  private static ICProxiFactory [] getTheICProxiFactories(){
 		if (iCProxiFactories == null){
-			iCProxiFactories = new ICProxiFactory[33];
+			iCProxiFactories = new ICProxiFactory[41];
         iCProxiFactories[13] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new TransferManagerICProxi(objectId);
@@ -26,6 +26,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[15] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new DebitICProxi(objectId);
+            }
+        };
+        iCProxiFactories[37] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new RemoveTransferCommandICProxi(objectId);
             }
         };
         iCProxiFactories[1] = new ICProxiFactory(){
@@ -56,6 +61,16 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[19] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CreditICProxi(objectId);
+            }
+        };
+        iCProxiFactories[33] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new CreateTransactionCommandICProxi(objectId);
+            }
+        };
+        iCProxiFactories[34] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new TransactionICProxi(objectId);
             }
         };
         iCProxiFactories[28] = new ICProxiFactory(){
@@ -91,6 +106,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[4] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CommandExecuterICProxi(objectId);
+            }
+        };
+        iCProxiFactories[36] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new AddTransferCommandICProxi(objectId);
             }
         };
 		}

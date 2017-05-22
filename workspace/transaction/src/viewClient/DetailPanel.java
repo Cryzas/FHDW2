@@ -1209,6 +1209,9 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleCredit(view.CreditView object){
         result = new CreditDefaultDetailPanel(handler, object);
     }
+    public void handleTransaction(view.TransactionView object){
+        result = new TransactionDefaultDetailPanel(handler, object);
+    }
     public void handleTransfer(view.TransferView object){
         result = new TransferDefaultDetailPanel(handler, object);
     }
@@ -1342,9 +1345,32 @@ class CreditDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class TransactionDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String Bookable$$subject = "Bookable$$subject";
+    protected static final String Transaction$$transfers = "Transaction$$transfers";
+    
+    protected TransactionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "subject", this.getAnything().getSubject());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(Bookable$$subject, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.TransactionView getAnything(){
+        return (view.TransactionView)this.anything;
+    }
+}
+
 class TransferDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String AbstractTransfer$$subject = "AbstractTransfer$$subject";
+    protected static final String Bookable$$subject = "Bookable$$subject";
     protected static final String Transfer$$amount = "Transfer$$amount";
     
     protected TransferDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1354,7 +1380,7 @@ class TransferDefaultDetailPanel extends DefaultDetailPanel{
         try{
             BaseTypePanel panel = new StringPanel(this, "subject", this.getAnything().getSubject());
             this.getScrollablePane().getChildren().add(panel);
-            this.panels.put(AbstractTransfer$$subject, panel);
+            this.panels.put(Bookable$$subject, panel);
         }catch(ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }

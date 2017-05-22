@@ -1,0 +1,21 @@
+model services {
+
+server Server {
+   public Service ** services;
+}
+abstract server Service {
+}
+server UserManager extends Service{
+	void userManagerOP();
+}
+server Administrator extends Service{
+	void administratorOp();
+}
+server Customer extends Service{
+	void customerOp();
+}
+server Register extends Service {
+	void register(String accountName, String password PASSWORD);
+}
+}
+

@@ -16,15 +16,25 @@ public interface TransferManager4Public extends Anything, SubjInterface, Abstrac
     public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
-    public void book(final AbstractTransfer4Public tranfer, final Invoker invoker) 
+    public void addTransfer(final Transaction4Public transaction, final Transfer4Public transfer, final Invoker invoker) 
+				throws PersistenceException;
+    public void book(final Bookable4Public bookable, final Invoker invoker) 
+				throws PersistenceException;
+    public void createTransaction(final String subject, final Invoker invoker) 
 				throws PersistenceException;
     public void createTransfer(final AccountHandle4Public fromAccount, final AccountHandle4Public toAccount, final common.Fraction amount, final String subject, final Invoker invoker) 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
-    public void book(final AbstractTransfer4Public tranfer) 
+    public void removeTransfer(final Transaction4Public transaction, final Transfer4Public transfer, final Invoker invoker) 
+				throws PersistenceException;
+    public void addTransfer(final Transaction4Public transaction, final Transfer4Public transfer) 
+				throws PersistenceException;
+    public void book(final Bookable4Public bookable) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException;
+    public void createTransaction(final String subject) 
 				throws PersistenceException;
     public void createTransfer(final AccountHandle4Public fromAccount, final AccountHandle4Public toAccount, final common.Fraction amount, final String subject) 
 				throws PersistenceException;
@@ -32,6 +42,8 @@ public interface TransferManager4Public extends Anything, SubjInterface, Abstrac
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
+    public void removeTransfer(final Transaction4Public transaction, final Transfer4Public transfer) 
+				throws model.NotPartException, PersistenceException;
 
 }
 

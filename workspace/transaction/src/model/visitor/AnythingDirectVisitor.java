@@ -19,11 +19,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleServer(Server4Public server) throws PersistenceException;
     
-    public abstract void handleAbstractTransfer(AbstractTransfer4Public abstractTransfer) throws PersistenceException;
-    
-    public void handleTransfer(Transfer4Public transfer) throws PersistenceException{
-        this.handleAbstractTransfer(transfer);
-    }
     public abstract void handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException;
     
     public abstract void handleAccountHandle(AccountHandle4Public accountHandle) throws PersistenceException;
@@ -40,6 +35,12 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException;
     
+    public void handleRemoveTransferCommand(RemoveTransferCommand4Public removeTransferCommand) throws PersistenceException{
+        this.handleCommonDate(removeTransferCommand);
+    }
+    public void handleCreateTransactionCommand(CreateTransactionCommand4Public createTransactionCommand) throws PersistenceException{
+        this.handleCommonDate(createTransactionCommand);
+    }
     public void handleBookCommand(BookCommand4Public bookCommand) throws PersistenceException{
         this.handleCommonDate(bookCommand);
     }
@@ -49,7 +50,18 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateAccountCommand(CreateAccountCommand4Public createAccountCommand) throws PersistenceException{
         this.handleCommonDate(createAccountCommand);
     }
+    public void handleAddTransferCommand(AddTransferCommand4Public addTransferCommand) throws PersistenceException{
+        this.handleCommonDate(addTransferCommand);
+    }
     public abstract void handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException;
     
+    public abstract void handleBookable(Bookable4Public bookable) throws PersistenceException;
+    
+    public void handleTransaction(Transaction4Public transaction) throws PersistenceException{
+        this.handleBookable(transaction);
+    }
+    public void handleTransfer(Transfer4Public transfer) throws PersistenceException{
+        this.handleBookable(transfer);
+    }
     
 }

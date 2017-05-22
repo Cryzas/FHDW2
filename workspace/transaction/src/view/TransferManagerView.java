@@ -6,8 +6,8 @@ import view.visitor.*;
 
 public interface TransferManagerView extends Anything, AbstractViewRoot {
     
-    public java.util.Vector<AbstractTransferView> getTransfers()throws ModelException;
-    public void setTransfers(java.util.Vector<AbstractTransferView> newValue) throws ModelException ;
+    public java.util.Vector<BookableView> getTransfers()throws ModelException;
+    public void setTransfers(java.util.Vector<BookableView> newValue) throws ModelException ;
     
     public void accept(AnythingVisitor visitor) throws ModelException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException;

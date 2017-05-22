@@ -31,7 +31,9 @@ public interface Server4Public extends Invoker, Anything, SubjInterface, Remote,
 				throws PersistenceException;
     public void signalChanged(final boolean signal) 
 				throws PersistenceException;
-    public void book(final AbstractTransfer4Public tranfer) 
+    public void addTransfer(final Transaction4Public transaction, final Transfer4Public transfer) 
+				throws PersistenceException;
+    public void book(final Bookable4Public bookable) 
 				throws PersistenceException;
     public void clearAccounts() 
 				throws PersistenceException;
@@ -42,6 +44,8 @@ public interface Server4Public extends Invoker, Anything, SubjInterface, Remote,
     public void createCredit(final Account4Public myAccount, final AccountHandle4Public otherAccount, final common.Fraction amount, final String subject) 
 				throws PersistenceException;
     public void createDebit(final Account4Public myAccount, final AccountHandle4Public otherAccount, final common.Fraction amount, final String subject) 
+				throws PersistenceException;
+    public void createTransaction(final String subject) 
 				throws PersistenceException;
     public void findAccounts(final String name) 
 				throws PersistenceException;
@@ -55,6 +59,8 @@ public interface Server4Public extends Invoker, Anything, SubjInterface, Remote,
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
+    public void removeTransfer(final Transaction4Public transaction, final Transfer4Public transfer) 
+				throws model.NotPartException, PersistenceException;
 
 }
 

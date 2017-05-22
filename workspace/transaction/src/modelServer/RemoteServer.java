@@ -28,10 +28,21 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.HashMap<?,?> book(String tranferProxiString){
+    public synchronized java.util.HashMap<?,?> addTransfer(String transactionProxiString, String transferProxiString){
         try {
-            PersistentAbstractTransfer tranfer = (PersistentAbstractTransfer)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(tranferProxiString));
-            ((PersistentServer)this.server).book(tranfer);
+            PersistentTransaction transaction = (PersistentTransaction)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(transactionProxiString));
+            PersistentTransfer transfer = (PersistentTransfer)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(transferProxiString));
+            ((PersistentServer)this.server).addTransfer(transaction, transfer);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> book(String bookableProxiString){
+        try {
+            PersistentBookable bookable = (PersistentBookable)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(bookableProxiString));
+            ((PersistentServer)this.server).book(bookable);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -80,12 +91,34 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.HashMap<?,?> createTransaction(String subject){
+        try {
+            ((PersistentServer)this.server).createTransaction(subject);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.HashMap<?,?> findAccounts(String name){
         try {
             ((PersistentServer)this.server).findAccounts(name);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> removeTransfer(String transactionProxiString, String transferProxiString){
+        try {
+            PersistentTransaction transaction = (PersistentTransaction)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(transactionProxiString));
+            PersistentTransfer transfer = (PersistentTransfer)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(transferProxiString));
+            ((PersistentServer)this.server).removeTransfer(transaction, transfer);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.NotPartException e0){
+            return createExceptionResult(e0, this);
         }
     }
     

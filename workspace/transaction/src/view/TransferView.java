@@ -2,15 +2,15 @@ package view;
 
 import view.visitor.*;
 
-public interface TransferView extends AbstractTransferView {
+public interface TransferView extends BookableView {
     
     public common.Fraction getAmount()throws ModelException;
     public void setAmount(common.Fraction newValue) throws ModelException ;
     
-    public void accept(AbstractTransferVisitor visitor) throws ModelException;
-    public <R> R accept(AbstractTransferReturnVisitor<R>  visitor) throws ModelException;
-    public <E extends view.UserException>  void accept(AbstractTransferExceptionVisitor<E> visitor) throws ModelException, E;
-    public <R, E extends view.UserException> R accept(AbstractTransferReturnExceptionVisitor<R, E>  visitor) throws ModelException, E;
+    public void accept(BookableVisitor visitor) throws ModelException;
+    public <R> R accept(BookableReturnVisitor<R>  visitor) throws ModelException;
+    public <E extends view.UserException>  void accept(BookableExceptionVisitor<E> visitor) throws ModelException, E;
+    public <R, E extends view.UserException> R accept(BookableReturnExceptionVisitor<R, E>  visitor) throws ModelException, E;
     public void accept(AnythingVisitor visitor) throws ModelException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException;
     public <E extends view.UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws ModelException, E;

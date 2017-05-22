@@ -380,9 +380,13 @@ public class Server extends PersistentObject implements PersistentServer{
     
     // Start of section that contains operations that must be implemented.
     
-    public void book(final AbstractTransfer4Public tranfer) 
+    public void addTransfer(final Transaction4Public transaction, final Transfer4Public transfer) 
 				throws PersistenceException{
-        getThis().getTransfers().book(tranfer, getThis());
+        getThis().getTransfers().addTransfer(transaction, transfer, getThis());        
+    }
+    public void book(final Bookable4Public bookable) 
+				throws PersistenceException{
+    	getThis().getTransfers().book(bookable, getThis());
     }
     public void clearAccounts() 
 				throws PersistenceException{
@@ -406,6 +410,10 @@ public class Server extends PersistentObject implements PersistentServer{
     public void createDebit(final Account4Public myAccount, final AccountHandle4Public otherAccount, final common.Fraction amount, final String subject) 
 				throws PersistenceException{
         getThis().getTransfers().createTransfer(myAccount, otherAccount, amount, subject, getThis());
+    }
+    public void createTransaction(final String subject) 
+				throws PersistenceException{
+        getThis().getTransfers().createTransaction(subject, getThis());        
     }
     public void disconnected() 
 				throws PersistenceException{
@@ -457,6 +465,10 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
+    }
+    public void removeTransfer(final Transaction4Public transaction, final Transfer4Public transfer) 
+				throws model.NotPartException, PersistenceException{
+    	getThis().getTransfers().removeTransfer(transaction, transfer, getThis());
     }
     
     

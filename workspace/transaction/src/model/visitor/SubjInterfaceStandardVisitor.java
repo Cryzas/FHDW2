@@ -20,6 +20,9 @@ public abstract class SubjInterfaceStandardVisitor implements SubjInterfaceVisit
     public void handleServer(Server4Public server) throws PersistenceException{
         this.standardHandling(server);
     }
+    public void handleTransaction(Transaction4Public transaction) throws PersistenceException{
+        this.standardHandling(transaction);
+    }
     public void handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException{
         this.standardHandling(errorDisplay);
     }

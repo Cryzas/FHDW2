@@ -22,11 +22,11 @@ public class BookCommandICProxi extends PersistentInCacheProxi implements Persis
         return 129;
     }
     
-    public AbstractTransfer4Public getTranfer() throws PersistenceException {
-        return ((PersistentBookCommand)this.getTheObject()).getTranfer();
+    public Bookable4Public getBookable() throws PersistenceException {
+        return ((PersistentBookCommand)this.getTheObject()).getBookable();
     }
-    public void setTranfer(AbstractTransfer4Public newValue) throws PersistenceException {
-        ((PersistentBookCommand)this.getTheObject()).setTranfer(newValue);
+    public void setBookable(Bookable4Public newValue) throws PersistenceException {
+        ((PersistentBookCommand)this.getTheObject()).setBookable(newValue);
     }
     public Invoker getInvoker() throws PersistenceException {
         return ((PersistentBookCommand)this.getTheObject()).getInvoker();

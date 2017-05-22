@@ -17,11 +17,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleServer(ServerView server) throws ModelException;
     
-    public abstract void handleAbstractTransfer(AbstractTransferView abstractTransfer) throws ModelException;
-    
-    public void handleTransfer(TransferView transfer) throws ModelException{
-        this.handleAbstractTransfer(transfer);
-    }
     public abstract void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;
     
     public abstract void handleAccountHandle(AccountHandleView accountHandle) throws ModelException;
@@ -34,5 +29,13 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleAccountManager(AccountManagerView accountManager) throws ModelException;
     
+    public abstract void handleBookable(BookableView bookable) throws ModelException;
+    
+    public void handleTransaction(TransactionView transaction) throws ModelException{
+        this.handleBookable(transaction);
+    }
+    public void handleTransfer(TransferView transfer) throws ModelException{
+        this.handleBookable(transfer);
+    }
     
 }

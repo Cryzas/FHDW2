@@ -8,7 +8,10 @@ server Server {
 	void findAccounts(String name);
 	void createDebit(Account myAccount, AccountHandle otherAccount, Fraction amount, String subject);
 	void createCredit(Account myAccount, AccountHandle otherAccount, Fraction amount, String subject);
-	void book(AbstractTransfer tranfer);
+	void book(Bookable bookable);
+	void addTransfer(Transaction transaction, Transfer transfer);
+	void createTransaction(String subject);
+	void removeTransfer(Transaction transaction, Transfer transfer) throws NotPartException;
 }
 class AccountManager {
 	public AccountHandle ** currentAccounts;
@@ -18,9 +21,12 @@ class AccountManager {
 	event void accountChanged();
 }
 class TransferManager {
-	public AbstractTransfer ** transfers;
+	public Bookable ** transfers;
 	active void createTransfer(AccountHandle fromAccount, AccountHandle toAccount, Fraction amount, String subject);
-	active void book(AbstractTransfer tranfer);
+	active void book(Bookable bookable);
+	active void addTransfer(Transaction transaction, Transfer transfer);
+	active void createTransaction(String subject);
+	active void removeTransfer(Transaction transaction, Transfer transfer) throws NotPartException;
 }
 abstract class AccountHandle {
 	abstract Account fetchAccount();
@@ -42,15 +48,23 @@ class Debit extends Entry {
 }
 class Credit extends Entry {
 }
-abstract class AbstractTransfer##AbstrTrnsfr {
-	prior public String subject;
-	abstract void book();
-}
-class Transfer extends AbstractTransfer {
+class Transfer extends Bookable {
 	prior public server-only Account fromAccount;
 	prior public server-only Account toAccount; 
 	prior public Fraction amount;
 }
+class Transaction extends Bookable {
+	public Transfer ** transfers hierarchy bookableHierarchy;
+	void addTransfer(Transfer transfer);
+	void removeTransfer(Transfer transfer);
+}
+abstract class Bookable {
+	prior public String subject;
+	abstract void book();
+}
 exception AccountException {}
+exception NotPartException {}
+
+hierarchy bookableHierarchy;
 }
 

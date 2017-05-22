@@ -62,9 +62,9 @@ public class BookCommandFacade{
                 callable.close();
                 return null;
             }
-            PersistentAbstractTransfer tranfer = null;
+            PersistentBookable bookable = null;
             if (obj.getLong(2) != 0)
-                tranfer = (PersistentAbstractTransfer)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+                bookable = (PersistentBookable)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
             Invoker invoker = null;
             if (obj.getLong(4) != 0)
                 invoker = (Invoker)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
@@ -74,7 +74,7 @@ public class BookCommandFacade{
             PersistentCommonDate myCommonDate = null;
             if (obj.getLong(8) != 0)
                 myCommonDate = (PersistentCommonDate)PersistentProxi.createProxi(obj.getLong(8), obj.getLong(9));
-            BookCommand result = new BookCommand(tranfer,
+            BookCommand result = new BookCommand(bookable,
                                                  invoker,
                                                  commandReceiver,
                                                  myCommonDate,
@@ -102,13 +102,13 @@ public class BookCommandFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void tranferSet(long BookCommandId, AbstractTransfer4Public tranferVal) throws PersistenceException {
+    public void bookableSet(long BookCommandId, Bookable4Public bookableVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".BkCMDFacade.trnfrSet(?, ?, ?); end;");
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".BkCMDFacade.bkblSet(?, ?, ?); end;");
             callable.setLong(1, BookCommandId);
-            callable.setLong(2, tranferVal.getId());
-            callable.setLong(3, tranferVal.getClassId());
+            callable.setLong(2, bookableVal.getId());
+            callable.setLong(3, bookableVal.getClassId());
             callable.execute();
             callable.close();
         }catch(SQLException se) {

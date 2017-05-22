@@ -95,7 +95,7 @@ public class TransferManagerFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public long transfersAdd(long TransferManagerId, AbstractTransfer4Public transfersVal) throws PersistenceException {
+    public long transfersAdd(long TransferManagerId, Bookable4Public transfersVal) throws PersistenceException {
         try{
             CallableStatement callable;
             callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".TrnsfrMngrFacade.trnsfrsAdd(?, ?, ?); end;");
@@ -122,7 +122,7 @@ public class TransferManagerFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public AbstractTransferList transfersGet(long TransferManagerId) throws PersistenceException {
+    public BookableList transfersGet(long TransferManagerId) throws PersistenceException {
         try{
             CallableStatement callable;
             callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".TrnsfrMngrFacade.trnsfrsGet(?); end;");
@@ -130,9 +130,9 @@ public class TransferManagerFacade{
             callable.setLong(2, TransferManagerId);
             callable.execute();
             ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
-            AbstractTransferList result = new AbstractTransferList();
+            BookableList result = new BookableList();
             while (list.next()) {
-                result.add((PersistentAbstractTransfer)PersistentProxi.createListEntryProxi(list.getLong(1), list.getLong(2), list.getLong(3)));
+                result.add((PersistentBookable)PersistentProxi.createListEntryProxi(list.getLong(1), list.getLong(2), list.getLong(3)));
             }
             list.close();
             callable.close();

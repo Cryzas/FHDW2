@@ -56,6 +56,27 @@ create table TrnsfrMngr(
     constraint FTrnsfrMngrThis foreign key (TrnsfrMngrThisCls) references Cls (id)    
 );
 
+create table RmvTrnsfrCMD(
+    id number primary key,
+    Cls number not null,
+    constraint FRmvTrnsfrCMDCls foreign key (Cls) references Cls (id) on delete cascade,
+    RmvTrnsfrCMDTrnsctn number,
+    RmvTrnsfrCMDTrnsctnCls number,
+    constraint FRmvTrnsfrCMDTrnsctn foreign key (RmvTrnsfrCMDTrnsctnCls) references Cls (id),
+    RmvTrnsfrCMDTrnsfr number,
+    RmvTrnsfrCMDTrnsfrCls number,
+    constraint FRmvTrnsfrCMDTrnsfr foreign key (RmvTrnsfrCMDTrnsfrCls) references Cls (id),
+    RmvTrnsfrCMDInvoker number,
+    RmvTrnsfrCMDInvokerCls number,
+    constraint FRmvTrnsfrCMDInvoker foreign key (RmvTrnsfrCMDInvokerCls) references Cls (id),
+    RmvTrnsfrCMDCReceiver number,
+    RmvTrnsfrCMDCReceiverCls number,
+    constraint FRmvTrnsfrCMDCReceiver foreign key (RmvTrnsfrCMDCReceiverCls) references Cls (id),
+    RmvTrnsfrCMDMyCmmnDt number,
+    RmvTrnsfrCMDMyCmmnDtCls number,
+    constraint FRmvTrnsfrCMDMyCmmnDt foreign key (RmvTrnsfrCMDMyCmmnDtCls) references Cls (id)    
+);
+
 create table Srvr(
     id number primary key,
     Cls number not null,
@@ -79,26 +100,6 @@ create table Srvr(
 );
 create index IUserSrvr on Srvr (SrvrUser);
 
-
-create table AbstrTrnsfr(
-    id number primary key,
-    Cls number not null,
-    constraint FAbstrTrnsfrCls foreign key (Cls) references Cls (id) on delete cascade,
-    AbstrTrnsfrSbjct varchar2(2000),
-    AbstrTrnsfrSbSrvc number,
-    AbstrTrnsfrSbSrvcCls number,
-    constraint FAbstrTrnsfrSbSrvc foreign key (AbstrTrnsfrSbSrvcCls) references Cls (id),
-    AbstrTrnsfrThis number,
-    AbstrTrnsfrThisCls number,
-    constraint FAbstrTrnsfrThis foreign key (AbstrTrnsfrThisCls) references Cls (id),
-    TrnsfrFrmAccnt number,
-    TrnsfrFrmAccntCls number,
-    constraint FTrnsfrFrmAccnt foreign key (TrnsfrFrmAccntCls) references Cls (id),
-    TrnsfrTAccnt number,
-    TrnsfrTAccntCls number,
-    constraint FTrnsfrTAccnt foreign key (TrnsfrTAccntCls) references Cls (id),
-    TrnsfrAmnt varchar2(2000)    
-);
 
 create table Subj(
     id number primary key,
@@ -130,13 +131,29 @@ create table Entr(
     constraint FEntrThis foreign key (EntrThisCls) references Cls (id)    
 );
 
+create table CrtTrnsctnCMD(
+    id number primary key,
+    Cls number not null,
+    constraint FCrtTrnsctnCMDCls foreign key (Cls) references Cls (id) on delete cascade,
+    CrtTrnsctnCMDSbjct varchar2(2000),
+    CrtTrnsctnCMDInvoker number,
+    CrtTrnsctnCMDInvokerCls number,
+    constraint FCrtTrnsctnCMDInvoker foreign key (CrtTrnsctnCMDInvokerCls) references Cls (id),
+    CrtTrnsctnCMDCReceiver number,
+    CrtTrnsctnCMDCReceiverCls number,
+    constraint FCrtTrnsctnCMDCReceiver foreign key (CrtTrnsctnCMDCReceiverCls) references Cls (id),
+    CrtTrnsctnCMDMyCmmnDt number,
+    CrtTrnsctnCMDMyCmmnDtCls number,
+    constraint FCrtTrnsctnCMDMyCmmnDt foreign key (CrtTrnsctnCMDMyCmmnDtCls) references Cls (id)    
+);
+
 create table BkCMD(
     id number primary key,
     Cls number not null,
     constraint FBkCMDCls foreign key (Cls) references Cls (id) on delete cascade,
-    BkCMDTrnfr number,
-    BkCMDTrnfrCls number,
-    constraint FBkCMDTrnfr foreign key (BkCMDTrnfrCls) references Cls (id),
+    BkCMDBkbl number,
+    BkCMDBkblCls number,
+    constraint FBkCMDBkbl foreign key (BkCMDBkblCls) references Cls (id),
     BkCMDInvoker number,
     BkCMDInvokerCls number,
     constraint FBkCMDInvoker foreign key (BkCMDInvokerCls) references Cls (id),
@@ -232,6 +249,47 @@ create table CmmndExctr(
     constraint FCmmndExctrCls foreign key (Cls) references Cls (id) on delete cascade    
 );
 
+create table Bkbl(
+    id number primary key,
+    Cls number not null,
+    constraint FBkblCls foreign key (Cls) references Cls (id) on delete cascade,
+    BkblSbjct varchar2(2000),
+    BkblSbSrvc number,
+    BkblSbSrvcCls number,
+    constraint FBkblSbSrvc foreign key (BkblSbSrvcCls) references Cls (id),
+    BkblThis number,
+    BkblThisCls number,
+    constraint FBkblThis foreign key (BkblThisCls) references Cls (id),
+    TrnsfrFrmAccnt number,
+    TrnsfrFrmAccntCls number,
+    constraint FTrnsfrFrmAccnt foreign key (TrnsfrFrmAccntCls) references Cls (id),
+    TrnsfrTAccnt number,
+    TrnsfrTAccntCls number,
+    constraint FTrnsfrTAccnt foreign key (TrnsfrTAccntCls) references Cls (id),
+    TrnsfrAmnt varchar2(2000)    
+);
+
+create table AddTrnsfrCMD(
+    id number primary key,
+    Cls number not null,
+    constraint FAddTrnsfrCMDCls foreign key (Cls) references Cls (id) on delete cascade,
+    AddTrnsfrCMDTrnsctn number,
+    AddTrnsfrCMDTrnsctnCls number,
+    constraint FAddTrnsfrCMDTrnsctn foreign key (AddTrnsfrCMDTrnsctnCls) references Cls (id),
+    AddTrnsfrCMDTrnsfr number,
+    AddTrnsfrCMDTrnsfrCls number,
+    constraint FAddTrnsfrCMDTrnsfr foreign key (AddTrnsfrCMDTrnsfrCls) references Cls (id),
+    AddTrnsfrCMDInvoker number,
+    AddTrnsfrCMDInvokerCls number,
+    constraint FAddTrnsfrCMDInvoker foreign key (AddTrnsfrCMDInvokerCls) references Cls (id),
+    AddTrnsfrCMDCReceiver number,
+    AddTrnsfrCMDCReceiverCls number,
+    constraint FAddTrnsfrCMDCReceiver foreign key (AddTrnsfrCMDCReceiverCls) references Cls (id),
+    AddTrnsfrCMDMyCmmnDt number,
+    AddTrnsfrCMDMyCmmnDtCls number,
+    constraint FAddTrnsfrCMDMyCmmnDt foreign key (AddTrnsfrCMDMyCmmnDtCls) references Cls (id)    
+);
+
 create table TrnsfrMngrTrnsfrs(
     id number primary key,
     frm number not null,
@@ -271,6 +329,16 @@ create table CmmndCrdntrExctr(
     constraint FCmmndCrdntrExctrfrm foreign key(frm) references CmmndCrdntr(id)
 );
 create index IFrmCmmndCrdntrExctr on CmmndCrdntrExctr(frm);
+
+create table TrnsctnTrnsfrs(
+    id number primary key,
+    frm number not null,
+    trnsfrs number not null,
+    Cls number not null,
+    constraint FTrnsctnTrnsfrsCls foreign key(Cls) references Cls(id) on delete cascade,
+    constraint FTrnsctnTrnsfrsfrm foreign key(frm) references Bkbl(id)
+);
+create index IFrmTrnsctnTrnsfrs on TrnsctnTrnsfrs(frm);
 
 create table AccntMngrCrrntAccnts(
     id number primary key,

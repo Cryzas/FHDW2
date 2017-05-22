@@ -35,7 +35,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleDebit(Debit4Public debit) throws PersistenceException {
-		result = "Debit: " + debit.getTransfer().getSubject();
+		result = "Debit \"" + debit.getTransfer().getSubject() + "\" to " + debit.getTransfer().getToAccount() + " over " + debit.getTransfer().getAmount();
 		
 	}
 	@Override
@@ -53,17 +53,20 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleCredit(Credit4Public credit) throws PersistenceException {
-		result = "Credit: " + credit.getTransfer().getSubject();
+		result = "Credit \"" + credit.getTransfer().getSubject() + "\" from " + credit.getTransfer().getFromAccount() + " over " + credit.getTransfer().getAmount();
 		
 	}
 	@Override
 	public void handleTransfer(Transfer4Public transfer) throws PersistenceException {
-		result = transfer.getSubject();
-		
+		result = "Transfer " + transfer.getSubject();
 	}
 	@Override
 	public void handleAccountManager(AccountManager4Public accountManager) throws PersistenceException {
 		result = "Accounts";		
+	}
+	@Override
+	public void handleTransaction(Transaction4Public transaction) throws PersistenceException {
+		result = "Transaction: " + transaction.getSubject();
 	}
 
 }

@@ -9,7 +9,7 @@ interface TransferDOWNMssgsVisitor  {
 }
 
 
-interface TransferUPMssgsVisitor extends AbstractTransferUPMssgsVisitor {
+interface TransferUPMssgsVisitor extends BookableUPMssgsVisitor {
 
     
 }

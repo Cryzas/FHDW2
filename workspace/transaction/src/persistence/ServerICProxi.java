@@ -145,9 +145,13 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).updateObservers(event);
     }
-    public void book(final AbstractTransfer4Public tranfer) 
+    public void addTransfer(final Transaction4Public transaction, final Transfer4Public transfer) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).book(tranfer);
+        ((PersistentServer)this.getTheObject()).addTransfer(transaction, transfer);
+    }
+    public void book(final Bookable4Public bookable) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).book(bookable);
     }
     public void clearAccounts() 
 				throws PersistenceException{
@@ -172,6 +176,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void createDebit(final Account4Public myAccount, final AccountHandle4Public otherAccount, final common.Fraction amount, final String subject) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createDebit(myAccount, otherAccount, amount, subject);
+    }
+    public void createTransaction(final String subject) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createTransaction(subject);
     }
     public void disconnected() 
 				throws PersistenceException{
@@ -200,6 +208,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initializeOnInstantiation();
+    }
+    public void removeTransfer(final Transaction4Public transaction, final Transfer4Public transfer) 
+				throws model.NotPartException, PersistenceException{
+        ((PersistentServer)this.getTheObject()).removeTransfer(transaction, transfer);
     }
 
     

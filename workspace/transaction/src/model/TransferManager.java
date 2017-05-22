@@ -181,12 +181,32 @@ public class TransferManager extends PersistentObject implements PersistentTrans
     }
     
     
-    public void book(final AbstractTransfer4Public tranfer, final Invoker invoker) 
+    public void addTransfer(final Transaction4Public transaction, final Transfer4Public transfer, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
+		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
+		AddTransferCommand4Public command = model.meta.AddTransferCommand.createAddTransferCommand(nw, d1170);
+		command.setTransaction(transaction);
+		command.setTransfer(transfer);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void book(final Bookable4Public bookable, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
 		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
 		BookCommand4Public command = model.meta.BookCommand.createBookCommand(nw, d1170);
-		command.setTranfer(tranfer);
+		command.setBookable(bookable);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void createTransaction(final String subject, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
+		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
+		CreateTransactionCommand4Public command = model.meta.CreateTransactionCommand.createCreateTransactionCommand(subject, nw, d1170);
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
@@ -226,6 +246,17 @@ public class TransferManager extends PersistentObject implements PersistentTrans
 		}
 		subService.register(observee);
     }
+    public void removeTransfer(final Transaction4Public transaction, final Transfer4Public transfer, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
+		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
+		RemoveTransferCommand4Public command = model.meta.RemoveTransferCommand.createRemoveTransferCommand(nw, d1170);
+		command.setTransaction(transaction);
+		command.setTransfer(transfer);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public synchronized void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
@@ -239,12 +270,23 @@ public class TransferManager extends PersistentObject implements PersistentTrans
     
     // Start of section that contains operations that must be implemented.
     
-    public void book(final AbstractTransfer4Public tranfer) 
+    public void addTransfer(final Transaction4Public transaction, final Transfer4Public transfer) 
 				throws PersistenceException{
-    	tranfer.book();
+        transaction.addTransfer(transfer);  
+        getThis().getTransfers().removeFirst(transfer);
+    }
+    public void book(final Bookable4Public bookable) 
+				throws PersistenceException{
+    	bookable.book();
+        getThis().getTransfers().removeFirst(bookable);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
+    }
+    public void createTransaction(final String subject) 
+				throws PersistenceException{
+    	Transaction4Public newTransaction =	Transaction.createTransaction(subject);
+    	getThis().getTransfers().add(newTransaction);
     }
     public void createTransfer(final AccountHandle4Public fromAccount, final AccountHandle4Public toAccount, final common.Fraction amount, final String subject) 
 				throws PersistenceException{
@@ -257,6 +299,16 @@ public class TransferManager extends PersistentObject implements PersistentTrans
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
+    }
+    public void removeTransfer(final Transaction4Public transaction, final Transfer4Public transfer) 
+				throws model.NotPartException, PersistenceException{
+    	if (transaction.containsbookableHierarchy(transfer)) {
+			transaction.removeTransfer(transfer);
+			getThis().getTransfers().add(transfer);
+		} else {
+			throw new NotPartException("Transfer kein Teil der Transaction");
+		}
+        
     }
     
     
