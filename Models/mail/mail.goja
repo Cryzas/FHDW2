@@ -1,0 +1,66 @@
+model mail {
+
+server Server {
+	public AccountManager manager;
+	void createAccount(String name);
+	void createDraft(Account account, String subject, String text);
+	void createFolder(Account account, String name);
+	void send(Draft draft);
+	void addReceiver(Draft draft, Account account);
+}
+
+class AccountManager {
+	public Account ** accounts;
+	active void createAccount(String name);
+	active void createDraft(Account account, String subject, String text);
+	active void createFolder(Account account, String name);
+	active void send(Draft draft);
+	active void addReceiver(Draft draft, Account account);
+}
+
+class Account extends abstractAcc {
+	public Folder InBox;
+	public Folder OutBox;
+	public Folder drafts;
+	public Folder ** folders;
+	AccountWrapper wrap();
+}
+
+class Folder {
+	prior public String name;
+	public Mail ** mails;
+	void addMail(Mail mail);
+}
+
+class Draft extends Mail{
+	public prior server-only AccountWrapper sender;
+	MailEntry send();
+	void addReceiver(Account account);
+}
+
+class MailEntry extends Mail{
+	public prior AccountWrapper sender;
+	void answer();
+}
+
+abstract class Mail {
+	public AccountWrapper ** receivers;
+	prior public String subject;
+	prior public String text;
+}
+
+class AccountWrapper extends abstractAcc {
+	prior Account wrapped;
+	Account wrappedAcc();
+}
+
+abstract class abstractAcc { 
+	prior public indexed String name;
+	void receive(MailEntry mail);
+	void createDraft(String subject, String text);
+	void createFolder(String name);
+	void send(Draft draft);
+}
+
+}
+
