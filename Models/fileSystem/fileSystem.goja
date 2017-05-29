@@ -1,0 +1,41 @@
+model fileSystem {
+
+server Server {
+	skip-view public derived FileSystem systemRoot;
+	void create(Directory container, String name, ContaineeSUBTYPEName type);
+	void delete(Containee containee);
+	void clip(Containee containee);
+	void paste(Directory directory) throws FileSystemException;
+	no-view void changeContents(File file, Text contents);
+}
+hierarchy FileTree;
+singleton FileSystem {
+	public Directory systemRoot;
+	public ClipBoard clipBoard;
+}
+class ClipBoard {
+	server-only public ClipBoardState state;
+	void copy(Containee containee);
+	Containee fetchClipped() throws FileSystemException;
+	void deleteClipped();
+}
+abstract class ClipBoardState (EmptyCBState) {}
+class FilledCBState extends ClipBoardState {
+	prior public Containee contents;
+}
+string-factory abstract class Containee {
+	public prior String name;
+	active void delete() throws FileSystemException;
+}
+class Directory extends Containee {
+	public symmetric (server-only parent) Containee ** String ** contents hierarchy FileTree;
+	active void addContainee(Containee containee) throws FileSystemException, CycleException;
+}
+class File extends Containee {
+	public Text contents;
+	active void changeContents(Text newContents);
+}
+exception FileSystemException{}
+
+}
+
