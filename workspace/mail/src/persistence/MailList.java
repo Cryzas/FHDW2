@@ -2,11 +2,10 @@ package persistence;
 
 import java.util.*;
 
-public class MailList {
+public class MailList  extends MailSearchList{
 
-	protected Vector<Mail4Public> data; //List of proxies
 	protected MailList() {
-		this.data = new Vector<Mail4Public>();
+		super();
 	}
 	public Iterator<Mail4Public> iterator(PersistentListProxi<Mail4Public> listProxi) {
 		return new PersistentListIterator<Mail4Public>(listProxi, this.data);

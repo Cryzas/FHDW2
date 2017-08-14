@@ -48,10 +48,10 @@ public class CreateDraftCommandProxi extends PersistentProxi implements Persiste
     public void setCommandReceiver(AccountManager4Public newValue) throws PersistenceException {
         ((PersistentCreateDraftCommand)this.getTheObject()).setCommandReceiver(newValue);
     }
-    public CommonDate4Public getMyCommonDate() throws PersistenceException {
+    public PersistentCommonDate getMyCommonDate() throws PersistenceException {
         return ((PersistentCreateDraftCommand)this.getTheObject()).getMyCommonDate();
     }
-    public void setMyCommonDate(CommonDate4Public newValue) throws PersistenceException {
+    public void setMyCommonDate(PersistentCommonDate newValue) throws PersistenceException {
         ((PersistentCreateDraftCommand)this.getTheObject()).setMyCommonDate(newValue);
     }
     public java.sql.Date getCreateDate() throws PersistenceException {

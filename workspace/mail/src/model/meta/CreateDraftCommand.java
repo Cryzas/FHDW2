@@ -31,7 +31,7 @@ public class CreateDraftCommand extends PersistentObject implements PersistentCr
             result = ConnectionHandler.getTheConnectionHandler().theCreateDraftCommandFacade
                 .newCreateDraftCommand(subject,text,-1);
         }
-        ((PersistentCreateDraftCommand)result).setMyCommonDate(CommonDate.createCommonDate(createDate, createDate));
+        ((PersistentCreateDraftCommand)result).setMyCommonDate((PersistentCommonDate)CommonDate.createCommonDate(createDate, createDate));
         return result;
     }
     
@@ -148,10 +148,10 @@ public class CreateDraftCommand extends PersistentObject implements PersistentCr
             ConnectionHandler.getTheConnectionHandler().theCreateDraftCommandFacade.commandReceiverSet(this.getId(), newValue);
         }
     }
-    public CommonDate4Public getMyCommonDate() throws PersistenceException {
+    public PersistentCommonDate getMyCommonDate() throws PersistenceException {
         return this.myCommonDate;
     }
-    public void setMyCommonDate(CommonDate4Public newValue) throws PersistenceException {
+    public void setMyCommonDate(PersistentCommonDate newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.myCommonDate)) return;
         long objectId = newValue.getId();

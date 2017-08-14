@@ -113,6 +113,14 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).addReceiver(draft, account);
     }
+    public void answerAll(final MailEntry4Public mail, final String subject, final String text) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).answerAll(mail, subject, text);
+    }
+    public void answer(final MailEntry4Public mail, final String subject, final String text) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).answer(mail, subject, text);
+    }
     public void connected(final String user) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).connected(user);

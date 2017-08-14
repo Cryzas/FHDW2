@@ -54,13 +54,21 @@ public class MailEntryProxi extends MailProxi implements PersistentMailEntry{
     }
     
     
+    public FolderSearchList getParentFolder() 
+				throws PersistenceException{
+        return ((PersistentMailEntry)this.getTheObject()).getParentFolder();
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentMailEntry)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void answer() 
+    public Draft4Public answerAll(final String subject, final String text, final AccountWrapper4Public sender) 
 				throws PersistenceException{
-        ((PersistentMailEntry)this.getTheObject()).answer();
+        return ((PersistentMailEntry)this.getTheObject()).answerAll(subject, text, sender);
+    }
+    public Draft4Public answer(final String subject, final String text, final AccountWrapper4Public sender) 
+				throws PersistenceException{
+        return ((PersistentMailEntry)this.getTheObject()).answer(subject, text, sender);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

@@ -2,6 +2,9 @@
 package model;
 
 import persistence.*;
+
+import java.util.Iterator;
+
 import model.visitor.*;
 
 
@@ -171,6 +174,34 @@ public class Folder extends PersistentObject implements PersistentFolder{
 			this.setName((String)final$$Fields.get("name"));
 		}
     }
+    public AccountSearchList inverseGetDrafts() 
+				throws PersistenceException{
+        AccountSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theAccountFacade
+										.inverseGetDrafts(getThis().getId(), getThis().getClassId());
+		return result;
+    }
+    public AccountSearchList inverseGetFolders() 
+				throws PersistenceException{
+        AccountSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theAccountFacade
+										.inverseGetFolders(getThis().getId(), getThis().getClassId());
+		return result;
+    }
+    public AccountSearchList inverseGetInBox() 
+				throws PersistenceException{
+        AccountSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theAccountFacade
+										.inverseGetInBox(getThis().getId(), getThis().getClassId());
+		return result;
+    }
+    public AccountSearchList inverseGetOutBox() 
+				throws PersistenceException{
+        AccountSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theAccountFacade
+										.inverseGetOutBox(getThis().getId(), getThis().getClassId());
+		return result;
+    }
     
     
     // Start of section that contains operations that must be implemented.
@@ -182,6 +213,24 @@ public class Folder extends PersistentObject implements PersistentFolder{
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         
+    }
+    public Account4Public getParentAccount() 
+				throws PersistenceException{
+        AccountSearchList accounts = getThis().inverseGetDrafts();
+        accounts.add(getThis().inverseGetFolders());
+        accounts.add(getThis().inverseGetInBox());
+        accounts.add(getThis().inverseGetOutBox());
+        Iterator<Account4Public> iterator = accounts.iterator();
+        if (iterator.hasNext()) {
+        	return iterator.next();
+        }
+        return null;
+    }
+    public Account4Public getParentAccount(final TDObserver observer) 
+				throws PersistenceException{
+        Account4Public result = getThis().getParentAccount();
+		if(result.isDelayed$Persistence())observer.updateTransientDerived(getThis(), "parentAccount", result);
+		return result;
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

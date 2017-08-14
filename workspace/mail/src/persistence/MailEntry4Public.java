@@ -18,7 +18,9 @@ public interface MailEntry4Public extends Mail4Public {
     
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
-    public void answer() 
+    public Draft4Public answerAll(final String subject, final String text, final AccountWrapper4Public sender) 
+				throws PersistenceException;
+    public Draft4Public answer(final String subject, final String text, final AccountWrapper4Public sender) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;

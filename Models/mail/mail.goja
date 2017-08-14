@@ -7,6 +7,8 @@ server Server {
 	void createFolder(Account account, String name);
 	void send(Draft draft);
 	void addReceiver(Draft draft, Account account);
+	void answer(MailEntry mail, String subject, String text);
+	void answerAll(MailEntry mail, String subject, String text);
 }
 
 class AccountManager {
@@ -16,20 +18,23 @@ class AccountManager {
 	active void createFolder(Account account, String name);
 	active void send(Draft draft);
 	active void addReceiver(Draft draft, Account account);
+	active void answer(MailEntry mail, String subject, String text);
+	active void answerAll(MailEntry mail, String subject, String text);
 }
 
 class Account extends abstractAcc {
-	public Folder InBox;
-	public Folder OutBox;
-	public Folder drafts;
-	public Folder ** folders;
+	public symmetric Folder InBox;
+	public symmetric Folder OutBox;
+	public symmetric Folder drafts;
+	public symmetric Folder ** folders;
 	AccountWrapper wrap();
 }
 
 class Folder {
 	prior public String name;
-	public Mail ** mails;
+	public symmetric (public server-only parentFolder) Mail ** mails;
 	void addMail(Mail mail);
+	public derived server-only Account parentAccount;
 }
 
 class Draft extends Mail{
@@ -40,7 +45,8 @@ class Draft extends Mail{
 
 class MailEntry extends Mail{
 	public prior AccountWrapper sender;
-	void answer();
+	Draft answer(String subject, String text, AccountWrapper sender);
+	Draft answerAll(String subject, String text, AccountWrapper sender);
 }
 
 abstract class Mail {

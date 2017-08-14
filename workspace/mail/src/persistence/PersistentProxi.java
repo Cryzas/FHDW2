@@ -19,10 +19,15 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
 	
   private static ListProxiFactory [] getTheListProxiFactories(){
 	if (listProxiFactories == null){
-		listProxiFactories = new ListProxiFactory[40];
+		listProxiFactories = new ListProxiFactory[42];
         listProxiFactories[18] = new ListProxiFactory(){
             AbstractPersistentRoot create(long objectId, long entryId){
                 return new AccountListEntryProxi(objectId, entryId);
+            }
+        };
+        listProxiFactories[41] = new ListProxiFactory(){
+            AbstractPersistentRoot create(long objectId, long entryId){
+                return new AnswerAllCommandListEntryProxi(objectId, entryId);
             }
         };
         listProxiFactories[1] = new ListProxiFactory(){
@@ -53,6 +58,11 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
         listProxiFactories[21] = new ListProxiFactory(){
             AbstractPersistentRoot create(long objectId, long entryId){
                 return new CreateFolderCommandListEntryProxi(objectId, entryId);
+            }
+        };
+        listProxiFactories[40] = new ListProxiFactory(){
+            AbstractPersistentRoot create(long objectId, long entryId){
+                return new AnswerCommandListEntryProxi(objectId, entryId);
             }
         };
         listProxiFactories[0] = new ListProxiFactory(){
@@ -105,10 +115,15 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
   }
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [40];
+		proxiFactories = new ProxiFactory [42];
         proxiFactories[18] = new ProxiFactory(){
             AbstractPersistentRoot create(long objectId){
                 return new AccountProxi(objectId);
+            }
+        };
+        proxiFactories[41] = new ProxiFactory(){
+            AbstractPersistentRoot create(long objectId){
+                return new AnswerAllCommandProxi(objectId);
             }
         };
         proxiFactories[1] = new ProxiFactory(){
@@ -139,6 +154,11 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
         proxiFactories[21] = new ProxiFactory(){
             AbstractPersistentRoot create(long objectId){
                 return new CreateFolderCommandProxi(objectId);
+            }
+        };
+        proxiFactories[40] = new ProxiFactory(){
+            AbstractPersistentRoot create(long objectId){
+                return new AnswerCommandProxi(objectId);
             }
         };
         proxiFactories[0] = new ProxiFactory(){

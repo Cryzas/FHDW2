@@ -29,7 +29,7 @@ public class SendCommand extends PersistentObject implements PersistentSendComma
             result = ConnectionHandler.getTheConnectionHandler().theSendCommandFacade
                 .newSendCommand(-1);
         }
-        ((PersistentSendCommand)result).setMyCommonDate(CommonDate.createCommonDate(createDate, createDate));
+        ((PersistentSendCommand)result).setMyCommonDate((PersistentCommonDate)CommonDate.createCommonDate(createDate, createDate));
         return result;
     }
     
@@ -126,10 +126,10 @@ public class SendCommand extends PersistentObject implements PersistentSendComma
             ConnectionHandler.getTheConnectionHandler().theSendCommandFacade.commandReceiverSet(this.getId(), newValue);
         }
     }
-    public CommonDate4Public getMyCommonDate() throws PersistenceException {
+    public PersistentCommonDate getMyCommonDate() throws PersistenceException {
         return this.myCommonDate;
     }
-    public void setMyCommonDate(CommonDate4Public newValue) throws PersistenceException {
+    public void setMyCommonDate(PersistentCommonDate newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.myCommonDate)) return;
         long objectId = newValue.getId();

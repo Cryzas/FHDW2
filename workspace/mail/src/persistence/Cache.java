@@ -278,6 +278,8 @@ public class Cache {
 		this.number2NameMap.put(125, "AccountManager");
 		this.number2NameMap.put(139, "AccountWrapper");
 		this.number2NameMap.put(132, "AddReceiverCommand");
+		this.number2NameMap.put(142, "AnswerAllCommand");
+		this.number2NameMap.put(141, "AnswerCommand");
 		this.number2NameMap.put(-101, "CommandCoordinator");
 		this.number2NameMap.put(-105, "CommandExecuter");
 		this.number2NameMap.put(104, "CommonDate");

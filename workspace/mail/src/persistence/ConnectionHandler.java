@@ -109,12 +109,14 @@ public class ConnectionHandler {
 	private String name;
 
     public AccountFacade theAccountFacade;
+    public AnswerAllCommandFacade theAnswerAllCommandFacade;
     public ServerFacade theServerFacade;
     public ErrorDisplayFacade theErrorDisplayFacade;
     public FolderFacade theFolderFacade;
     public AccountWrapperFacade theAccountWrapperFacade;
     public AddReceiverCommandFacade theAddReceiverCommandFacade;
     public CreateFolderCommandFacade theCreateFolderCommandFacade;
+    public AnswerCommandFacade theAnswerCommandFacade;
     public CommandCoordinatorFacade theCommandCoordinatorFacade;
     public DraftFacade theDraftFacade;
     public MailFacade theMailFacade;
@@ -151,12 +153,14 @@ public class ConnectionHandler {
 			callable.execute();
 			callable.close();
             this.theAccountFacade= new AccountFacade(this.schemaName, this.con);
+            this.theAnswerAllCommandFacade= new AnswerAllCommandFacade(this.schemaName, this.con);
             this.theServerFacade= new ServerFacade(this.schemaName, this.con);
             this.theErrorDisplayFacade= new ErrorDisplayFacade();
             this.theFolderFacade= new FolderFacade(this.schemaName, this.con);
             this.theAccountWrapperFacade= new AccountWrapperFacade(this.schemaName, this.con);
             this.theAddReceiverCommandFacade= new AddReceiverCommandFacade(this.schemaName, this.con);
             this.theCreateFolderCommandFacade= new CreateFolderCommandFacade(this.schemaName, this.con);
+            this.theAnswerCommandFacade= new AnswerCommandFacade(this.schemaName, this.con);
             this.theCommandCoordinatorFacade= new CommandCoordinatorFacade(this.schemaName, this.con);
             this.theDraftFacade= new DraftFacade(this.schemaName, this.con);
             this.theMailFacade= new MailFacade(this.schemaName, this.con);

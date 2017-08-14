@@ -179,10 +179,18 @@ public class MailEntry extends model.Mail implements PersistentMailEntry{
     
     // Start of section that contains operations that must be implemented.
     
-    public void answer() 
+    public Draft4Public answerAll(final String subject, final String text, final AccountWrapper4Public sender) 
 				throws PersistenceException{
-        //TODO: implement method: answer
-        
+    	Draft4Public draft = Draft.createDraft(subject, text, sender);
+        draft.getReceivers().applyToAll(receiver -> draft.addReceiver(receiver.wrappedAcc()));
+        draft.getReceivers().removeFirst(sender);
+        return draft;
+    }
+    public Draft4Public answer(final String subject, final String text, final AccountWrapper4Public sender) 
+				throws PersistenceException{
+        Draft4Public draft = Draft.createDraft(subject, text, sender);
+        draft.addReceiver(getThis().getSender().wrappedAcc());
+        return draft;
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

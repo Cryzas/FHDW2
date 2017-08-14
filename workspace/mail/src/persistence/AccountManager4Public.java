@@ -14,6 +14,10 @@ public interface AccountManager4Public extends Anything, AbstractPersistentProxi
     
     public void addReceiver(final Draft4Public draft, final Account4Public account, final Invoker invoker) 
 				throws PersistenceException;
+    public void answerAll(final MailEntry4Public mail, final String subject, final String text, final Invoker invoker) 
+				throws PersistenceException;
+    public void answer(final MailEntry4Public mail, final String subject, final String text, final Invoker invoker) 
+				throws PersistenceException;
     public void createAccount(final String name, final Invoker invoker) 
 				throws PersistenceException;
     public void createDraft(final Account4Public account, final String subject, final String text, final Invoker invoker) 
@@ -25,6 +29,10 @@ public interface AccountManager4Public extends Anything, AbstractPersistentProxi
     public void send(final Draft4Public draft, final Invoker invoker) 
 				throws PersistenceException;
     public void addReceiver(final Draft4Public draft, final Account4Public account) 
+				throws PersistenceException;
+    public void answerAll(final MailEntry4Public mail, final String subject, final String text) 
+				throws PersistenceException;
+    public void answer(final MailEntry4Public mail, final String subject, final String text) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;

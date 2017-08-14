@@ -319,6 +319,8 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 
     interface MenuItemVisitor{
         ImageView handle(AddReceiverPRMTRDraftPRMTRAccountPRMTRMenuItem menuItem);
+        ImageView handle(AnswerAllPRMTRMailEntryPRMTRStringPRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(AnswerPRMTRMailEntryPRMTRStringPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(CreateAccountPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(CreateDraftPRMTRAccountPRMTRStringPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(CreateFolderPRMTRAccountPRMTRStringPRMTRMenuItem menuItem);
@@ -331,6 +333,16 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         abstract protected ImageView accept(MenuItemVisitor visitor);
     }
     private class AddReceiverPRMTRDraftPRMTRAccountPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class AnswerAllPRMTRMailEntryPRMTRStringPRMTRStringPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class AnswerPRMTRMailEntryPRMTRStringPRMTRStringPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -460,6 +472,34 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                 });
                 result.getItems().add(item);
             }
+            if (selected instanceof MailEntryView){
+                item = new AnswerAllPRMTRMailEntryPRMTRStringPRMTRStringPRMTRMenuItem();
+                item.setText("answerAll ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final ServerAnswerAllMailEntryStringStringMssgWizard wizard = new ServerAnswerAllMailEntryStringStringMssgWizard("answerAll");
+                        wizard.setFirstArgument((MailEntryView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.setX( getPointForView().getX());
+                        wizard.setY( getPointForView().getY());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+                item = new AnswerPRMTRMailEntryPRMTRStringPRMTRStringPRMTRMenuItem();
+                item.setText("answer ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final ServerAnswerMailEntryStringStringMssgWizard wizard = new ServerAnswerMailEntryStringStringMssgWizard("answer");
+                        wizard.setFirstArgument((MailEntryView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.setX( getPointForView().getX());
+                        wizard.setY( getPointForView().getY());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+            }
             
         }
         this.addNotGeneratedItems(result,selected);
@@ -516,6 +556,132 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 		public void setFirstArgument(DraftView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerAnswerAllMailEntryStringStringMssgWizard extends Wizard {
+
+		protected ServerAnswerAllMailEntryStringStringMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new AnswerAllPRMTRMailEntryPRMTRStringPRMTRStringPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerAnswerAllMailEntryStringStringMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().answerAll(firstArgument, ((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult(),
+									((StringSelectionPanel)getParametersPanel().getChildren().get(1)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new StringSelectionPanel("subject", this));
+			getParametersPanel().getChildren().add(new StringSelectionPanel("text", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private MailEntryView firstArgument; 
+	
+		public void setFirstArgument(MailEntryView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
+				selectionPanel0.preset(firstArgument.getSubject());
+				if (!selectionPanel0.check()) selectionPanel0.preset("");
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			try{
+				final SelectionPanel selectionPanel1 = (SelectionPanel)getParametersPanel().getChildren().get(1);
+				selectionPanel1.preset(firstArgument.getText());
+				if (!selectionPanel1.check()) selectionPanel1.preset("");
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerAnswerMailEntryStringStringMssgWizard extends Wizard {
+
+		protected ServerAnswerMailEntryStringStringMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new AnswerPRMTRMailEntryPRMTRStringPRMTRStringPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerAnswerMailEntryStringStringMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().answer(firstArgument, ((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult(),
+									((StringSelectionPanel)getParametersPanel().getChildren().get(1)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new StringSelectionPanel("subject", this));
+			getParametersPanel().getChildren().add(new StringSelectionPanel("text", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private MailEntryView firstArgument; 
+	
+		public void setFirstArgument(MailEntryView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
+				selectionPanel0.preset(firstArgument.getSubject());
+				if (!selectionPanel0.check()) selectionPanel0.preset("");
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			try{
+				final SelectionPanel selectionPanel1 = (SelectionPanel)getParametersPanel().getChildren().get(1);
+				selectionPanel1.preset(firstArgument.getText());
+				if (!selectionPanel1.check()) selectionPanel1.preset("");
+			}catch(ModelException me){
+				 handleException(me);
+			}
 			this.check();
 		}
 		

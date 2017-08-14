@@ -7,6 +7,8 @@ public interface AnythingExceptionVisitor<E extends model.UserException> extends
     
     public void handleAccountManager(AccountManager4Public accountManager) throws PersistenceException, E;
     public void handleAddReceiverCommand(AddReceiverCommand4Public addReceiverCommand) throws PersistenceException, E;
+    public void handleAnswerAllCommand(AnswerAllCommand4Public answerAllCommand) throws PersistenceException, E;
+    public void handleAnswerCommand(AnswerCommand4Public answerCommand) throws PersistenceException, E;
     public void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException, E;
     public void handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException, E;
     public void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException, E;

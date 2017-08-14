@@ -58,6 +58,10 @@ public class DraftICProxi extends MailICProxi implements PersistentDraft{
     }
     
     
+    public FolderSearchList getParentFolder() 
+				throws PersistenceException{
+        return ((PersistentDraft)this.getTheObject()).getParentFolder();
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentDraft)this.getTheObject()).initialize(This, final$$Fields);

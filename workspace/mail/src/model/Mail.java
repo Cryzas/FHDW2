@@ -103,6 +103,13 @@ public abstract class Mail extends PersistentObject implements PersistentMail{
     
     
     
+    public FolderSearchList getParentFolder() 
+				throws PersistenceException{
+        FolderSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theFolderFacade
+										.inverseGetMails(getThis().getId(), getThis().getClassId());
+		return result;
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentMail)This);

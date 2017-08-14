@@ -2,11 +2,10 @@ package persistence;
 
 import java.util.*;
 
-public class FolderList {
+public class FolderList  extends FolderSearchList{
 
-	protected Vector<Folder4Public> data; //List of proxies
 	protected FolderList() {
-		this.data = new Vector<Folder4Public>();
+		super();
 	}
 	public Iterator<Folder4Public> iterator(PersistentListProxi<Folder4Public> listProxi) {
 		return new PersistentListIterator<Folder4Public>(listProxi, this.data);

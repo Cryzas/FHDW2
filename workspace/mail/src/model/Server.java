@@ -294,6 +294,14 @@ public class Server extends PersistentObject implements PersistentServer{
     	getThis().getManager().addReceiver(draft, account, getThis());  
         
     }
+    public void answerAll(final MailEntry4Public mail, final String subject, final String text) 
+				throws PersistenceException{
+    	getThis().getManager().answerAll(mail, subject, text, getThis());
+    }
+    public void answer(final MailEntry4Public mail, final String subject, final String text) 
+				throws PersistenceException{
+    	getThis().getManager().answer(mail, subject, text, getThis());
+    }
     public void connected(final String user) 
 				throws PersistenceException{
         

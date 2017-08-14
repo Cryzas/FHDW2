@@ -44,6 +44,26 @@ create table Association3 (
 
 create sequence GlobalSequencer nocache;
 
+create table AnswrAllCMD(
+    id number primary key,
+    Cls number not null,
+    constraint FAnswrAllCMDCls foreign key (Cls) references Cls (id) on delete cascade,
+    AnswrAllCMDMl number,
+    AnswrAllCMDMlCls number,
+    constraint FAnswrAllCMDMl foreign key (AnswrAllCMDMlCls) references Cls (id),
+    AnswrAllCMDSbjct varchar2(2000),
+    AnswrAllCMDTxt varchar2(2000),
+    AnswrAllCMDInvoker number,
+    AnswrAllCMDInvokerCls number,
+    constraint FAnswrAllCMDInvoker foreign key (AnswrAllCMDInvokerCls) references Cls (id),
+    AnswrAllCMDCReceiver number,
+    AnswrAllCMDCReceiverCls number,
+    constraint FAnswrAllCMDCReceiver foreign key (AnswrAllCMDCReceiverCls) references Cls (id),
+    AnswrAllCMDMyCmmnDt number,
+    AnswrAllCMDMyCmmnDtCls number,
+    constraint FAnswrAllCMDMyCmmnDt foreign key (AnswrAllCMDMyCmmnDtCls) references Cls (id)    
+);
+
 create table Srvr(
     id number primary key,
     Cls number not null,
@@ -110,6 +130,26 @@ create table CrtFldrCMD(
     CrtFldrCMDMyCmmnDt number,
     CrtFldrCMDMyCmmnDtCls number,
     constraint FCrtFldrCMDMyCmmnDt foreign key (CrtFldrCMDMyCmmnDtCls) references Cls (id)    
+);
+
+create table AnswrCMD(
+    id number primary key,
+    Cls number not null,
+    constraint FAnswrCMDCls foreign key (Cls) references Cls (id) on delete cascade,
+    AnswrCMDMl number,
+    AnswrCMDMlCls number,
+    constraint FAnswrCMDMl foreign key (AnswrCMDMlCls) references Cls (id),
+    AnswrCMDSbjct varchar2(2000),
+    AnswrCMDTxt varchar2(2000),
+    AnswrCMDInvoker number,
+    AnswrCMDInvokerCls number,
+    constraint FAnswrCMDInvoker foreign key (AnswrCMDInvokerCls) references Cls (id),
+    AnswrCMDCReceiver number,
+    AnswrCMDCReceiverCls number,
+    constraint FAnswrCMDCReceiver foreign key (AnswrCMDCReceiverCls) references Cls (id),
+    AnswrCMDMyCmmnDt number,
+    AnswrCMDMyCmmnDtCls number,
+    constraint FAnswrCMDMyCmmnDt foreign key (AnswrCMDMyCmmnDtCls) references Cls (id)    
 );
 
 create table CmmndCrdntr(
@@ -234,6 +274,9 @@ create table abstrctAcc(
     constraint FAccntWrpprWrppd foreign key (AccntWrpprWrppdCls) references Cls (id)    
 );
 create index INmabstrctAcc on abstrctAcc (abstrctAccNm);
+create index IInBxAccnt on abstrctAcc (AccntInBx, AccntInBxCls);
+create index IOtBxAccnt on abstrctAcc (AccntOtBx, AccntOtBxCls);
+create index IDrftsAccnt on abstrctAcc (AccntDrfts, AccntDrftsCls);
 
 
 create table AccntFldrs(
@@ -246,6 +289,8 @@ create table AccntFldrs(
 );
 create index IFrmAccntFldrs on AccntFldrs(frm);
 
+
+create index IFldrsAccntFldrs on AccntFldrs(fldrs);
 create table FldrMls(
     id number primary key,
     frm number not null,
@@ -256,6 +301,8 @@ create table FldrMls(
 );
 create index IFrmFldrMls on FldrMls(frm);
 
+
+create index IMlsFldrMls on FldrMls(mls);
 create table CmmndCrdntrExctr(
     id number primary key,
     frm number not null,

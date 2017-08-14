@@ -6,6 +6,8 @@ import persistence.*;
 public interface AccountManagerCommandExceptionVisitor<E extends model.UserException> {
     
     public void handleAddReceiverCommand(AddReceiverCommand4Public addReceiverCommand) throws PersistenceException, E;
+    public void handleAnswerAllCommand(AnswerAllCommand4Public answerAllCommand) throws PersistenceException, E;
+    public void handleAnswerCommand(AnswerCommand4Public answerCommand) throws PersistenceException, E;
     public void handleCreateAccountCommand(CreateAccountCommand4Public createAccountCommand) throws PersistenceException, E;
     public void handleCreateDraftCommand(CreateDraftCommand4Public createDraftCommand) throws PersistenceException, E;
     public void handleCreateFolderCommand(CreateFolderCommand4Public createFolderCommand) throws PersistenceException, E;

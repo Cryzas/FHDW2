@@ -159,6 +159,26 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    public void answerAll(final MailEntry4Public mail, final String subject, final String text, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
+		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
+		AnswerAllCommand4Public command = model.meta.AnswerAllCommand.createAnswerAllCommand(subject, text, nw, d1170);
+		command.setMail(mail);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void answer(final MailEntry4Public mail, final String subject, final String text, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
+		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
+		AnswerCommand4Public command = model.meta.AnswerCommand.createAnswerCommand(subject, text, nw, d1170);
+		command.setMail(mail);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void createAccount(final String name, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
@@ -211,6 +231,14 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
     public void addReceiver(final Draft4Public draft, final Account4Public account) 
 				throws PersistenceException{
     	draft.addReceiver(account);
+    }
+    public void answerAll(final MailEntry4Public mail, final String subject, final String text) 
+				throws PersistenceException{
+    	mail.getParentFolder().applyToAll(folder -> folder.getParentAccount().getDrafts().addMail(mail.answerAll(subject, text, folder.getParentAccount().wrap())));
+    }
+    public void answer(final MailEntry4Public mail, final String subject, final String text) 
+				throws PersistenceException{
+    	mail.getParentFolder().applyToAll(folder -> folder.getParentAccount().getDrafts().addMail(mail.answer(subject, text, folder.getParentAccount().wrap())));
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

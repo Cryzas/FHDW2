@@ -1,0 +1,56 @@
+model projectx {
+
+server Server {
+	public ProgramManager programManager;
+	public ModuleManager moduleManager;
+	void createProgram(String name);
+	void addModule(Program program, ModuleAbstract module {moduleManager;modules});
+	void createModule(ModuleAbstractSUBTYPEName type, String name);
+	void addUnit(ModuleWithUnits module, String name, Fraction creditPoints);
+	void changeCPOnUnit(Unit unit, Fraction creditPoints);
+	void changeCPOnModule(ModuleAtomar module, Fraction creditPoints);
+}
+
+class ProgramManager {
+	public Program ** programs;
+	active void createProgram(String name);
+	active void addModule(Program program, ModuleAbstract module);
+}
+
+class ModuleManager {
+	public ModuleAbstract ** modules;
+	active void createModule(ModuleAbstractSUBTYPEName type, String name);
+	active void addUnit(ModuleWithUnits module, String name, Fraction creditPoints);
+	active void changeCPOnUnit(Unit unit, Fraction creditPoints);
+	active void changeCPOnModule(ModuleAtomar module, Fraction creditPoints);
+}
+
+class Program {
+	public ModuleAbstract ** modules;
+	public prior indexed String name;
+	void addModule(ModuleAbstract module);
+}
+
+abstract string-factory class ModuleAbstract {
+	public prior indexed String name;
+	public derived Fraction creditPoints;
+}
+
+class ModuleAtomar extends ModuleAbstract {
+	public Fraction ownCreditPoints;
+	event void changeCPOnModule(Fraction creditPoints);
+}
+
+class ModuleWithUnits extends ModuleAbstract {
+	public symmetric (no-view parentModule) Unit ** units;
+	void addUnit(String name, Fraction creditPoints);
+}
+
+class Unit {
+	public prior String name;
+	public prior Fraction creditPoints;
+	event void changeCPOnUnit(Fraction creditPoints);
+}
+
+}
+

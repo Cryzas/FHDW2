@@ -14,6 +14,8 @@ public interface Mail4Public extends Anything, AbstractPersistentProxi {
     public <E extends model.UserException>  void accept(MailExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(MailReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
+    public FolderSearchList getParentFolder() 
+				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 

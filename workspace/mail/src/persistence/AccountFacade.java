@@ -176,6 +176,90 @@ public class AccountFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
+    public AccountSearchList inverseGetInBox(long objectId, long classId)throws PersistenceException{
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".AccntFacade.iGetInBx(?, ?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            callable.setLong(2, objectId);
+            callable.setLong(3, classId);
+            callable.execute();
+            ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
+            AccountSearchList result = new AccountSearchList();
+            while (list.next()) {
+                if (list.getLong(3) != 0) result.add((PersistentAccount)PersistentProxi.createProxi(list.getLong(3), list.getLong(4)));
+                else result.add((PersistentAccount)PersistentProxi.createProxi(list.getLong(1), list.getLong(2)));
+            }
+            list.close();
+            callable.close();
+            return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public AccountSearchList inverseGetOutBox(long objectId, long classId)throws PersistenceException{
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".AccntFacade.iGetOtBx(?, ?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            callable.setLong(2, objectId);
+            callable.setLong(3, classId);
+            callable.execute();
+            ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
+            AccountSearchList result = new AccountSearchList();
+            while (list.next()) {
+                if (list.getLong(3) != 0) result.add((PersistentAccount)PersistentProxi.createProxi(list.getLong(3), list.getLong(4)));
+                else result.add((PersistentAccount)PersistentProxi.createProxi(list.getLong(1), list.getLong(2)));
+            }
+            list.close();
+            callable.close();
+            return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public AccountSearchList inverseGetDrafts(long objectId, long classId)throws PersistenceException{
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".AccntFacade.iGetDrfts(?, ?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            callable.setLong(2, objectId);
+            callable.setLong(3, classId);
+            callable.execute();
+            ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
+            AccountSearchList result = new AccountSearchList();
+            while (list.next()) {
+                if (list.getLong(3) != 0) result.add((PersistentAccount)PersistentProxi.createProxi(list.getLong(3), list.getLong(4)));
+                else result.add((PersistentAccount)PersistentProxi.createProxi(list.getLong(1), list.getLong(2)));
+            }
+            list.close();
+            callable.close();
+            return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public AccountSearchList inverseGetFolders(long objectId, long classId)throws PersistenceException{
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".AccntFacade.iGetFldrs(?, ?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            callable.setLong(2, objectId);
+            callable.setLong(3, classId);
+            callable.execute();
+            ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
+            AccountSearchList result = new AccountSearchList();
+            while (list.next()) {
+                if (list.getLong(3) != 0) result.add((PersistentAccount)PersistentProxi.createProxi(list.getLong(3), list.getLong(4)));
+                else result.add((PersistentAccount)PersistentProxi.createProxi(list.getLong(1), list.getLong(2)));
+            }
+            list.close();
+            callable.close();
+            return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
 
 }
 

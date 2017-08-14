@@ -7,6 +7,14 @@ public interface PersistentFolder extends Anything, AbstractPersistentProxi, Fol
     public PersistentFolder getThis() throws PersistenceException ;
     
     
+    public AccountSearchList inverseGetDrafts() 
+				throws PersistenceException;
+    public AccountSearchList inverseGetFolders() 
+				throws PersistenceException;
+    public AccountSearchList inverseGetInBox() 
+				throws PersistenceException;
+    public AccountSearchList inverseGetOutBox() 
+				throws PersistenceException;
 
 }
 

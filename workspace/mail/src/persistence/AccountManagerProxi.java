@@ -43,6 +43,14 @@ public class AccountManagerProxi extends PersistentProxi implements PersistentAc
 				throws PersistenceException{
         ((PersistentAccountManager)this.getTheObject()).addReceiver(draft, account, invoker);
     }
+    public void answerAll(final MailEntry4Public mail, final String subject, final String text, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentAccountManager)this.getTheObject()).answerAll(mail, subject, text, invoker);
+    }
+    public void answer(final MailEntry4Public mail, final String subject, final String text, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentAccountManager)this.getTheObject()).answer(mail, subject, text, invoker);
+    }
     public void createAccount(final String name, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentAccountManager)this.getTheObject()).createAccount(name, invoker);
@@ -66,6 +74,14 @@ public class AccountManagerProxi extends PersistentProxi implements PersistentAc
     public void addReceiver(final Draft4Public draft, final Account4Public account) 
 				throws PersistenceException{
         ((PersistentAccountManager)this.getTheObject()).addReceiver(draft, account);
+    }
+    public void answerAll(final MailEntry4Public mail, final String subject, final String text) 
+				throws PersistenceException{
+        ((PersistentAccountManager)this.getTheObject()).answerAll(mail, subject, text);
+    }
+    public void answer(final MailEntry4Public mail, final String subject, final String text) 
+				throws PersistenceException{
+        ((PersistentAccountManager)this.getTheObject()).answer(mail, subject, text);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

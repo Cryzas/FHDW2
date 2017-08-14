@@ -222,14 +222,16 @@ abstract class BaseTypePanel extends HBox {
 
 	private void update() {
 		try {
-			this.updater.update( this.getValueComponent().getComponentValue());
+			this.updater.update(this.getCurrentValue());
 			this.setStatus( Neutral);
 		} catch (ModelException ex) {
 			this.getValueComponent().setComponentValue( ex.getMessage());
 			this.setStatus( NotOK);
 		}
 	}
-
+	protected String getCurrentValue(){
+		return this.getValueComponent().getComponentValue();
+	}
 	public int getStatus() {
 		return this.status;
 	}
@@ -356,6 +358,7 @@ class TextPanel extends BaseTypePanelWithTextField {
 	protected TextPanel(DefaultDetailPanel master, String name, String value) {
 		super(master, name, value);
 		this.value = value;
+		this.adjustTextField();
 		// open text view to see the whole text, independent if text editable
 		this.getValueComponent().setOnMouseClicked( new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
@@ -372,8 +375,7 @@ class TextPanel extends BaseTypePanelWithTextField {
 	protected void setValue(String value) {
 		if (this.value != null && this.value.equals(value)) return;
 		this.value = value;
-		boolean tooLong = value.length() > GUIConstants.TextPreviewLength;
-		this.getValueComponent().setComponentValue(value.substring(0, tooLong ? GUIConstants.TextPreviewLength : value.length()) + (tooLong ? "....." : ""));
+		this.adjustTextField();
 		if( this.isUpdatable()) {
 			try {
 				this.setOK( this.updater.check(getValue()));
@@ -383,10 +385,18 @@ class TextPanel extends BaseTypePanelWithTextField {
 			}
 		}
 	}
-
+	private void adjustTextField() {
+		boolean tooLong = this.value.length() > GUIConstants.TextPreviewLength;
+		this.getValueComponent().setComponentValue(this.value.substring(0, tooLong ? GUIConstants.TextPreviewLength : this.value.length()) + (tooLong ? "....." : ""));
+	}
+	
 	protected void setUpdatable() {
 		this.getUpdateMarker().setVisible(true);
 	}
+	protected String getCurrentValue(){
+		return this.getValue();
+	}
+	
 }
 
 

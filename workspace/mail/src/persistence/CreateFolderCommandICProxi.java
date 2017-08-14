@@ -46,10 +46,10 @@ public class CreateFolderCommandICProxi extends PersistentInCacheProxi implement
     public void setCommandReceiver(AccountManager4Public newValue) throws PersistenceException {
         ((PersistentCreateFolderCommand)this.getTheObject()).setCommandReceiver(newValue);
     }
-    public CommonDate4Public getMyCommonDate() throws PersistenceException {
+    public PersistentCommonDate getMyCommonDate() throws PersistenceException {
         return ((PersistentCreateFolderCommand)this.getTheObject()).getMyCommonDate();
     }
-    public void setMyCommonDate(CommonDate4Public newValue) throws PersistenceException {
+    public void setMyCommonDate(PersistentCommonDate newValue) throws PersistenceException {
         ((PersistentCreateFolderCommand)this.getTheObject()).setMyCommonDate(newValue);
     }
     public java.sql.Date getCreateDate() throws PersistenceException {

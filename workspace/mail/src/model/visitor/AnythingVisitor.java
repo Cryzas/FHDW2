@@ -7,6 +7,8 @@ public interface AnythingVisitor extends CommonDateVisitor,MailVisitor,abstractA
     
     public void handleAccountManager(AccountManager4Public accountManager) throws PersistenceException;
     public void handleAddReceiverCommand(AddReceiverCommand4Public addReceiverCommand) throws PersistenceException;
+    public void handleAnswerAllCommand(AnswerAllCommand4Public answerAllCommand) throws PersistenceException;
+    public void handleAnswerCommand(AnswerCommand4Public answerCommand) throws PersistenceException;
     public void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException;
     public void handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException;
     public void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException;

@@ -53,6 +53,22 @@ public class FolderICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentFolder)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public AccountSearchList inverseGetDrafts() 
+				throws PersistenceException{
+        return ((PersistentFolder)this.getTheObject()).inverseGetDrafts();
+    }
+    public AccountSearchList inverseGetFolders() 
+				throws PersistenceException{
+        return ((PersistentFolder)this.getTheObject()).inverseGetFolders();
+    }
+    public AccountSearchList inverseGetInBox() 
+				throws PersistenceException{
+        return ((PersistentFolder)this.getTheObject()).inverseGetInBox();
+    }
+    public AccountSearchList inverseGetOutBox() 
+				throws PersistenceException{
+        return ((PersistentFolder)this.getTheObject()).inverseGetOutBox();
+    }
     public void addMail(final Mail4Public mail) 
 				throws PersistenceException{
         ((PersistentFolder)this.getTheObject()).addMail(mail);
@@ -60,6 +76,14 @@ public class FolderICProxi extends PersistentInCacheProxiOptimistic implements P
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentFolder)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public Account4Public getParentAccount() 
+				throws PersistenceException{
+        return ((PersistentFolder)this.getTheObject()).getParentAccount();
+    }
+    public Account4Public getParentAccount(final TDObserver observer) 
+				throws PersistenceException{
+        return ((PersistentFolder)this.getTheObject()).getParentAccount(observer);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

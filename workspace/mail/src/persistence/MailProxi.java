@@ -31,6 +31,10 @@ public abstract class MailProxi extends PersistentProxi implements PersistentMai
     
     
     
+    public FolderSearchList getParentFolder() 
+				throws PersistenceException{
+        return ((PersistentMail)this.getTheObject()).getParentFolder();
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentMail)this.getTheObject()).initialize(This, final$$Fields);

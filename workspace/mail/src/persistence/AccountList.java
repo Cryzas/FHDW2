@@ -2,11 +2,10 @@ package persistence;
 
 import java.util.*;
 
-public class AccountList {
+public class AccountList  extends AccountSearchList{
 
-	protected Vector<Account4Public> data; //List of proxies
 	protected AccountList() {
-		this.data = new Vector<Account4Public>();
+		super();
 	}
 	public Iterator<Account4Public> iterator(PersistentListProxi<Account4Public> listProxi) {
 		return new PersistentListIterator<Account4Public>(listProxi, this.data);

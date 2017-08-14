@@ -5,6 +5,12 @@ import persistence.*;
 
 public abstract class CommandStandardVisitor implements CommandVisitor {
     
+    public void handleAnswerCommand(AnswerCommand4Public answerCommand) throws PersistenceException{
+        this.standardHandling(answerCommand);
+    }
+    public void handleAnswerAllCommand(AnswerAllCommand4Public answerAllCommand) throws PersistenceException{
+        this.standardHandling(answerAllCommand);
+    }
     public void handleSendCommand(SendCommand4Public sendCommand) throws PersistenceException{
         this.standardHandling(sendCommand);
     }

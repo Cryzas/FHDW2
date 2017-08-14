@@ -30,7 +30,7 @@ public class CreateFolderCommand extends PersistentObject implements PersistentC
             result = ConnectionHandler.getTheConnectionHandler().theCreateFolderCommandFacade
                 .newCreateFolderCommand(name,-1);
         }
-        ((PersistentCreateFolderCommand)result).setMyCommonDate(CommonDate.createCommonDate(createDate, createDate));
+        ((PersistentCreateFolderCommand)result).setMyCommonDate((PersistentCommonDate)CommonDate.createCommonDate(createDate, createDate));
         return result;
     }
     
@@ -137,10 +137,10 @@ public class CreateFolderCommand extends PersistentObject implements PersistentC
             ConnectionHandler.getTheConnectionHandler().theCreateFolderCommandFacade.commandReceiverSet(this.getId(), newValue);
         }
     }
-    public CommonDate4Public getMyCommonDate() throws PersistenceException {
+    public PersistentCommonDate getMyCommonDate() throws PersistenceException {
         return this.myCommonDate;
     }
-    public void setMyCommonDate(CommonDate4Public newValue) throws PersistenceException {
+    public void setMyCommonDate(PersistentCommonDate newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.myCommonDate)) return;
         long objectId = newValue.getId();

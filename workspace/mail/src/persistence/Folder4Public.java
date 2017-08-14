@@ -19,6 +19,10 @@ public interface Folder4Public extends Anything, AbstractPersistentProxi {
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
+    public Account4Public getParentAccount() 
+				throws PersistenceException;
+    public Account4Public getParentAccount(final TDObserver observer) 
+				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 

@@ -164,6 +164,27 @@ public class FolderFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
+    public FolderSearchList inverseGetMails(long objectId, long classId)throws PersistenceException{
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".FldrFacade.iGetMls(?, ?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            callable.setLong(2, objectId);
+            callable.setLong(3, classId);
+            callable.execute();
+            ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
+            FolderSearchList result = new FolderSearchList();
+            while (list.next()) {
+                if (list.getLong(3) != 0) result.add((PersistentFolder)PersistentProxi.createProxi(list.getLong(3), list.getLong(4)));
+                else result.add((PersistentFolder)PersistentProxi.createProxi(list.getLong(1), list.getLong(2)));
+            }
+            list.close();
+            callable.close();
+            return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
 
 }
 

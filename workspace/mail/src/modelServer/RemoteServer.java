@@ -39,6 +39,26 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.HashMap<?,?> answerAll(String mailProxiString, String subject, String text){
+        try {
+            PersistentMailEntry mail = (PersistentMailEntry)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(mailProxiString));
+            ((PersistentServer)this.server).answerAll(mail, subject, text);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> answer(String mailProxiString, String subject, String text){
+        try {
+            PersistentMailEntry mail = (PersistentMailEntry)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(mailProxiString));
+            ((PersistentServer)this.server).answer(mail, subject, text);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.HashMap<?,?> createAccount(String name){
         try {
             ((PersistentServer)this.server).createAccount(name);

@@ -8,6 +8,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleAccount(Account4Public account) throws PersistenceException{
         this.standardHandling(account);
     }
+    public void handleAnswerAllCommand(AnswerAllCommand4Public answerAllCommand) throws PersistenceException{
+        this.standardHandling(answerAllCommand);
+    }
     public void handleServer(Server4Public server) throws PersistenceException{
         this.standardHandling(server);
     }
@@ -25,6 +28,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleCreateFolderCommand(CreateFolderCommand4Public createFolderCommand) throws PersistenceException{
         this.standardHandling(createFolderCommand);
+    }
+    public void handleAnswerCommand(AnswerCommand4Public answerCommand) throws PersistenceException{
+        this.standardHandling(answerCommand);
     }
     public void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException{
         this.standardHandling(commandCoordinator);

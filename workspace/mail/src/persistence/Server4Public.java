@@ -6,6 +6,7 @@ import model.visitor.*;
 public interface Server4Public extends Invoker, Anything, Remote, AbstractPersistentProxi {
     
     public AccountManager4Public getManager() throws PersistenceException ;
+    public String getUser() throws PersistenceException ;
     
     public void accept(InvokerVisitor visitor) throws PersistenceException;
     public <R> R accept(InvokerReturnVisitor<R>  visitor) throws PersistenceException;
@@ -27,6 +28,10 @@ public interface Server4Public extends Invoker, Anything, Remote, AbstractPersis
     public void signalChanged(final boolean signal) 
 				throws PersistenceException;
     public void addReceiver(final Draft4Public draft, final Account4Public account) 
+				throws PersistenceException;
+    public void answerAll(final MailEntry4Public mail, final String subject, final String text) 
+				throws PersistenceException;
+    public void answer(final MailEntry4Public mail, final String subject, final String text) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
