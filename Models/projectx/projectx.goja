@@ -4,53 +4,110 @@ server Server {
 	public ProgramManager programManager;
 	public ModuleManager moduleManager;
 	void createProgram(String name);
-	void addModule(Program program, ModuleAbstract module {moduleManager;modules});
+	void addModuleToProg(Program program, ModuleAbstract module {moduleManager;modules});
+	void addModuleToGroup(ModuleGroup group, ModuleAbstract module {moduleManager;modules});
 	void createModule(ModuleAbstractSUBTYPEName type, String name);
 	void addUnit(ModuleWithUnits module, String name, Fraction creditPoints);
 	void changeCPOnUnit(Unit unit, Fraction creditPoints);
 	void changeCPOnModule(ModuleAtomar module, Fraction creditPoints);
 }
 
+																									/* Manager Klassen */
 class ProgramManager {
 	public Program ** programs;
-	active void createProgram(String name);
-	active void addModule(Program program, ModuleAbstract module);
+	active void createProgram(String name) throws StudyProgramException;
+	active void addModuleToProg(Program program, ModuleAbstract module) throws CycleException, StudyProgramException;
 }
 
 class ModuleManager {
 	public ModuleAbstract ** modules;
-	active void createModule(ModuleAbstractSUBTYPEName type, String name);
-	active void addUnit(ModuleWithUnits module, String name, Fraction creditPoints);
+	active void createModule(ModuleAbstractSUBTYPEName type, String name) throws StudyProgramException;
+	active void addModuleToGroup(ModuleGroup group, ModuleAbstract module) throws CycleException, StudyProgramException;
+	active void addUnit(ModuleWithUnits module, String name, Fraction creditPoints) throws CycleException, StudyProgramException;
 	active void changeCPOnUnit(Unit unit, Fraction creditPoints);
 	active void changeCPOnModule(ModuleAtomar module, Fraction creditPoints);
 }
 
+																			/* Aufbau eines Studienprogramms */
+hierarchy programHierarchy;
+
 class Program {
-	public ModuleAbstract ** modules;
+	public ModuleAbstract ** modules hierarchy programHierarchy;
 	public prior indexed String name;
-	void addModule(ModuleAbstract module);
+	public derived Fraction creditPoints;
+	void addModule(ModuleAbstract module) throws CycleException, StudyProgramException;
 }
 
 abstract string-factory class ModuleAbstract {
 	public prior indexed String name;
-	public derived Fraction creditPoints;
+	public abstract derived Fraction creditPoints;
 }
 
-class ModuleAtomar extends ModuleAbstract {
-	public Fraction ownCreditPoints;
-	event void changeCPOnModule(Fraction creditPoints);
+class ModuleGroup @@ Gruppe extends ModuleAbstract {
+	public ModuleAbstract ** modules hierarchy programHierarchy;
+	void addModule(ModuleAbstract module) throws CycleException, StudyProgramException;
 }
 
-class ModuleWithUnits extends ModuleAbstract {
-	public symmetric (no-view parentModule) Unit ** units;
-	void addUnit(String name, Fraction creditPoints);
+class ModuleAtomar @@ Atomar extends ModuleAbstract {
+	Fraction ownCreditPoints;
+	void changeCPOnModule(Fraction creditPoints);
+}
+
+class ModuleWithUnits @@ Mit_Units extends ModuleAbstract {
+	public Unit ** units hierarchy programHierarchy;
+	void addUnit(String name, Fraction creditPoints) throws CycleException, StudyProgramException;
 }
 
 class Unit {
 	public prior String name;
 	public prior Fraction creditPoints;
-	event void changeCPOnUnit(Fraction creditPoints);
+	void changeCPOnUnit(Fraction creditPoints);
 }
+
+																			/* Aufbau der Studiengruppen */
+class StudyGroup {
+	public prior indexed String name;
+	public ProgramSGroup program;
+}
+
+hierarchy programHierarchySGroup ## pro_hier_s;
+
+class ProgramSGroup {
+	public ModuleAbstractSGroup ** modules hierarchy programHierarchySGroup;
+	public prior indexed String name;
+	public derived Fraction creditPoints;
+	void addModule(ModuleAbstractSGroup module) throws CycleException, StudyProgramException;
+}
+
+abstract string-factory class ModuleAbstractSGroup ## m_abstr_gr {
+	public prior indexed String name;
+	public abstract derived Fraction creditPoints;
+}
+
+class ModuleGroupSGroup extends ModuleAbstractSGroup {
+	public ModuleAbstractSGroup ** modules hierarchy programHierarchySGroup;
+	void addModule(ModuleAbstractSGroup module) throws CycleException, StudyProgramException;
+}
+
+class ModuleAtomarSGroup extends ModuleAbstractSGroup {
+	Fraction ownCreditPoints;
+	void changeCPOnModule(Fraction creditPoints);
+}
+
+class ModuleWithUnitsSGroup ## m_unit_gr extends ModuleAbstractSGroup {
+	public UnitSGroup ** units hierarchy programHierarchySGroup;
+	void addUnit(String name, Fraction creditPoints) throws CycleException, StudyProgramException;
+}
+
+class UnitSGroup {
+	public prior String name;
+	public prior Fraction creditPoints;
+	void changeCPOnUnit(Fraction creditPoints);
+}
+
+
+																												/* Exceptions */
+exception StudyProgramException{}
 
 }
 

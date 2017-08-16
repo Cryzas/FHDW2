@@ -4,7 +4,8 @@ import persistence.*;
 
 public interface AnythingReturnVisitor<R> extends CommonDateReturnVisitor<R> ,ModuleAbstractReturnVisitor<R> {
     
-    public R handleAddModuleCommand(AddModuleCommand4Public addModuleCommand) throws PersistenceException;
+    public R handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException;
+    public R handleAddModuleToProgCommand(AddModuleToProgCommand4Public addModuleToProgCommand) throws PersistenceException;
     public R handleAddUnitCommand(AddUnitCommand4Public addUnitCommand) throws PersistenceException;
     public R handleChangeCPOnModuleCommand(ChangeCPOnModuleCommand4Public changeCPOnModuleCommand) throws PersistenceException;
     public R handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException;
@@ -18,7 +19,6 @@ public interface AnythingReturnVisitor<R> extends CommonDateReturnVisitor<R> ,Mo
     public R handleProgram(Program4Public program) throws PersistenceException;
     public R handleProgramManager(ProgramManager4Public programManager) throws PersistenceException;
     public R handleServer(Server4Public server) throws PersistenceException;
-    public R handleSubj(Subj4Public subj) throws PersistenceException;
     public R handleUnit(Unit4Public unit) throws PersistenceException;
     
 }

@@ -11,13 +11,10 @@ public class UnitProxi extends ViewProxi implements UnitView{
         super(objectId, classId, connectionKey);
     }
     
-    @SuppressWarnings("unchecked")
     public UnitView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         String name = (String)resultTable.get("name");
         common.Fraction creditPoints = common.Fraction.parse((String)resultTable.get("creditPoints"));
-        java.util.Vector<String> parentModule_string = (java.util.Vector<String>)resultTable.get("parentModule");
-        java.util.Vector<ModuleWithUnitsView> parentModule = ViewProxi.getProxiVector(parentModule_string, connectionKey);
-        UnitView result$$ = new Unit((String)name,(common.Fraction)creditPoints,parentModule, this.getId(), this.getClassId());
+        UnitView result$$ = new Unit((String)name,(common.Fraction)creditPoints, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -51,9 +48,6 @@ public class UnitProxi extends ViewProxi implements UnitView{
     }
     public void setCreditPoints(common.Fraction newValue) throws ModelException {
         ((Unit)this.getTheObject()).setCreditPoints(newValue);
-    }
-    public java.util.Vector<ModuleWithUnitsView> getParentModule()throws ModelException{
-        return ((Unit)this.getTheObject()).getParentModule();
     }
     
     public void accept(AnythingVisitor visitor) throws ModelException {

@@ -11,12 +11,14 @@ public class Program extends ViewObject implements ProgramView{
     
     protected java.util.Vector<ModuleAbstractView> modules;
     protected String name;
+    protected common.Fraction creditPoints;
     
-    public Program(java.util.Vector<ModuleAbstractView> modules,String name,long id, long classId) {
+    public Program(java.util.Vector<ModuleAbstractView> modules,String name,common.Fraction creditPoints,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.modules = modules;
-        this.name = name;        
+        this.name = name;
+        this.creditPoints = creditPoints;        
     }
     
     static public long getTypeId() {
@@ -38,6 +40,9 @@ public class Program extends ViewObject implements ProgramView{
     }
     public void setName(String newValue) throws ModelException {
         this.name = newValue;
+    }
+    public common.Fraction getCreditPoints()throws ModelException{
+        return this.creditPoints;
     }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
@@ -89,8 +94,12 @@ public class Program extends ViewObject implements ProgramView{
     public int getNameIndex() throws ModelException {
         return 0 + this.getModules().size();
     }
+    public int getCreditPointsIndex() throws ModelException {
+        return 0 + this.getModules().size() + 1;
+    }
     public int getRowCount(){
         return 0 
+            + 1
             + 1;
     }
     public Object getValueAt(int rowIndex, int columnIndex){
@@ -98,8 +107,12 @@ public class Program extends ViewObject implements ProgramView{
             if(columnIndex == 0){
                 if(rowIndex == 0) return "name";
                 rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return "creditPoints";
+                rowIndex = rowIndex - 1;
             } else {
                 if(rowIndex == 0) return this.getName();
+                rowIndex = rowIndex - 1;
+                if(rowIndex == 0) return this.getCreditPoints();
                 rowIndex = rowIndex - 1;
             }
             throw new ModelException("Table index out of bounds!", -1);
@@ -117,9 +130,10 @@ public class Program extends ViewObject implements ProgramView{
             return;
         }
         rowIndex = rowIndex - 1;
+        rowIndex = rowIndex - 1;
     }
     public boolean hasTransientFields(){
-        return false;
+        return true;
     }
     /* Start of protected part that is not overridden by persistence generator */
     

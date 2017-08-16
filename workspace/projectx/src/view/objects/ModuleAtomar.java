@@ -9,12 +9,10 @@ import view.visitor.*;
 
 public class ModuleAtomar extends view.objects.ModuleAbstract implements ModuleAtomarView{
     
-    protected common.Fraction ownCreditPoints;
     
-    public ModuleAtomar(String name,common.Fraction creditPoints,common.Fraction ownCreditPoints,long id, long classId) {
+    public ModuleAtomar(String name,common.Fraction creditPoints,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((String)name,(common.Fraction)creditPoints,id, classId);
-        this.ownCreditPoints = ownCreditPoints;        
+        super((String)name,(common.Fraction)creditPoints,id, classId);        
     }
     
     static public long getTypeId() {
@@ -25,12 +23,6 @@ public class ModuleAtomar extends view.objects.ModuleAbstract implements ModuleA
         return getTypeId();
     }
     
-    public common.Fraction getOwnCreditPoints()throws ModelException{
-        return this.ownCreditPoints;
-    }
-    public void setOwnCreditPoints(common.Fraction newValue) throws ModelException {
-        this.ownCreditPoints = newValue;
-    }
     
     public void accept(ModuleAbstractVisitor visitor) throws ModelException {
         visitor.handleModuleAtomar(this);
@@ -83,12 +75,8 @@ public class ModuleAtomar extends view.objects.ModuleAbstract implements ModuleA
     public int getCreditPointsIndex() throws ModelException {
         return 0 + 1;
     }
-    public int getOwnCreditPointsIndex() throws ModelException {
-        return 0 + 1 + 1;
-    }
     public int getRowCount(){
         return 0 
-            + 1
             + 1
             + 1;
     }
@@ -99,14 +87,10 @@ public class ModuleAtomar extends view.objects.ModuleAbstract implements ModuleA
                 rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return "creditPoints";
                 rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return "ownCreditPoints";
-                rowIndex = rowIndex - 1;
             } else {
                 if(rowIndex == 0) return this.getName();
                 rowIndex = rowIndex - 1;
                 if(rowIndex == 0) return this.getCreditPoints();
-                rowIndex = rowIndex - 1;
-                if(rowIndex == 0) return this.getOwnCreditPoints();
                 rowIndex = rowIndex - 1;
             }
             throw new ModelException("Table index out of bounds!", -1);
@@ -124,11 +108,6 @@ public class ModuleAtomar extends view.objects.ModuleAbstract implements ModuleA
             return;
         }
         rowIndex = rowIndex - 1;
-        rowIndex = rowIndex - 1;
-        if(rowIndex == 0){
-            this.setOwnCreditPoints(common.Fraction.parse(newValue));
-            return;
-        }
         rowIndex = rowIndex - 1;
     }
     public boolean hasTransientFields(){

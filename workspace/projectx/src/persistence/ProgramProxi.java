@@ -27,12 +27,6 @@ public class ProgramProxi extends PersistentProxi implements PersistentProgram{
     public void setName(String newValue) throws PersistenceException {
         ((PersistentProgram)this.getTheObject()).setName(newValue);
     }
-    public SubjInterface getSubService() throws PersistenceException {
-        return ((PersistentProgram)this.getTheObject()).getSubService();
-    }
-    public void setSubService(SubjInterface newValue) throws PersistenceException {
-        ((PersistentProgram)this.getTheObject()).setSubService(newValue);
-    }
     public PersistentProgram getThis() throws PersistenceException {
         return ((PersistentProgram)this.getTheObject()).getThis();
     }
@@ -49,43 +43,43 @@ public class ProgramProxi extends PersistentProxi implements PersistentProgram{
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleProgram(this);
     }
-    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+    public void accept(programHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
         visitor.handleProgram(this);
     }
-    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(programHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleProgram(this);
     }
-    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(programHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleProgram(this);
     }
-    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(programHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleProgram(this);
     }
     
     
-    public void deregister(final ObsInterface observee) 
+    public boolean containsprogramHierarchy(final programHierarchyHIERARCHY part) 
 				throws PersistenceException{
-        ((PersistentProgram)this.getTheObject()).deregister(observee);
+        return ((PersistentProgram)this.getTheObject()).containsprogramHierarchy(part);
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentProgram)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void register(final ObsInterface observee) 
+    public <T> T strategyprogramHierarchy(final programHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
-        ((PersistentProgram)this.getTheObject()).register(observee);
-    }
-    public void updateObservers(final model.meta.Mssgs event) 
-				throws PersistenceException{
-        ((PersistentProgram)this.getTheObject()).updateObservers(event);
+        return ((PersistentProgram)this.getTheObject()).strategyprogramHierarchy(strategy);
     }
     public void addModule(final ModuleAbstract4Public module) 
-				throws PersistenceException{
+				throws model.CycleException, model.StudyProgramException, PersistenceException{
         ((PersistentProgram)this.getTheObject()).addModule(module);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentProgram)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public common.Fraction getCreditPoints() 
+				throws PersistenceException{
+        return ((PersistentProgram)this.getTheObject()).getCreditPoints();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

@@ -212,8 +212,12 @@ public class CreateProgramCommand extends PersistentObject implements Persistent
     }
     public void execute() 
 				throws PersistenceException{
-        this.commandReceiver.createProgram(this.getName());
-		
+        try{
+			this.commandReceiver.createProgram(this.getName());
+		}
+		catch(model.StudyProgramException e){
+			this.commandException = e;
+		}
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{

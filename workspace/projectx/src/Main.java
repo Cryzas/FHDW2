@@ -217,7 +217,6 @@ public class Main extends Application implements ServerReporter, ClientReporter 
 		if( this.mainSplitPane == null) {
 			this.mainSplitPane = new SplitPane();
 			this.mainSplitPane.setOrientation( Orientation.VERTICAL );
-// TODO FX Java 8u60: bug RT-40166 default button handling corrupt with usage of TitledPane
 //			this.mainSplitPane.getItems().addAll( this.getTitledClientPanel(), this.getTitledServerPanel() );
 			this.mainSplitPane.getItems().addAll( this.getClientPanel(),  this.getServerPanel() );
 			this.mainSplitPane.setDividerPositions(0.5);

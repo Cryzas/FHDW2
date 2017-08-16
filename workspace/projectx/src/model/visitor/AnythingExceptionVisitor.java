@@ -4,7 +4,8 @@ import persistence.*;
 
 public interface AnythingExceptionVisitor<E extends model.UserException> extends CommonDateExceptionVisitor<E>,ModuleAbstractExceptionVisitor<E>{
     
-    public void handleAddModuleCommand(AddModuleCommand4Public addModuleCommand) throws PersistenceException, E;
+    public void handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException, E;
+    public void handleAddModuleToProgCommand(AddModuleToProgCommand4Public addModuleToProgCommand) throws PersistenceException, E;
     public void handleAddUnitCommand(AddUnitCommand4Public addUnitCommand) throws PersistenceException, E;
     public void handleChangeCPOnModuleCommand(ChangeCPOnModuleCommand4Public changeCPOnModuleCommand) throws PersistenceException, E;
     public void handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException, E;
@@ -18,7 +19,6 @@ public interface AnythingExceptionVisitor<E extends model.UserException> extends
     public void handleProgram(Program4Public program) throws PersistenceException, E;
     public void handleProgramManager(ProgramManager4Public programManager) throws PersistenceException, E;
     public void handleServer(Server4Public server) throws PersistenceException, E;
-    public void handleSubj(Subj4Public subj) throws PersistenceException, E;
     public void handleUnit(Unit4Public unit) throws PersistenceException, E;
     
 }

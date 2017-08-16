@@ -154,9 +154,7 @@ public class CommandExecuter extends PersistentObject implements PersistentComma
 		handler.commit();
     }
     public void handleFatalException(final Throwable t, final Command c) 
-				throws PersistenceException{
-        //TODO: implement method: handleFatalException
-        
+				throws PersistenceException{        
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

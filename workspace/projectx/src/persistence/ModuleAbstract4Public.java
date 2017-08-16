@@ -3,7 +3,7 @@ package persistence;
 
 import model.visitor.*;
 
-public interface ModuleAbstract4Public extends Anything, SubjInterface, AbstractPersistentProxi {
+public interface ModuleAbstract4Public extends Anything, programHierarchyHIERARCHY, AbstractPersistentProxi {
     
     public String getName() throws PersistenceException ;
     

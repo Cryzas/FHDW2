@@ -16,7 +16,8 @@ public class ProgramProxi extends ViewProxi implements ProgramView{
         java.util.Vector<String> modules_string = (java.util.Vector<String>)resultTable.get("modules");
         java.util.Vector<ModuleAbstractView> modules = ViewProxi.getProxiVector(modules_string, connectionKey);
         String name = (String)resultTable.get("name");
-        ProgramView result$$ = new Program(modules,(String)name, this.getId(), this.getClassId());
+        common.Fraction creditPoints = common.Fraction.parse((String)resultTable.get("creditPoints"));
+        ProgramView result$$ = new Program(modules,(String)name,(common.Fraction)creditPoints, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -61,6 +62,9 @@ public class ProgramProxi extends ViewProxi implements ProgramView{
     public void setName(String newValue) throws ModelException {
         ((Program)this.getTheObject()).setName(newValue);
     }
+    public common.Fraction getCreditPoints()throws ModelException{
+        return ((Program)this.getTheObject()).getCreditPoints();
+    }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleProgram(this);
@@ -76,7 +80,7 @@ public class ProgramProxi extends ViewProxi implements ProgramView{
     }
     
     public boolean hasTransientFields(){
-        return false;
+        return true;
     }
     
     public javafx.scene.image.Image getImage(){

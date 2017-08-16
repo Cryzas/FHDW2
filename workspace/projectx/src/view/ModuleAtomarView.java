@@ -4,8 +4,6 @@ import view.visitor.*;
 
 public interface ModuleAtomarView extends ModuleAbstractView {
     
-    public common.Fraction getOwnCreditPoints()throws ModelException;
-    public void setOwnCreditPoints(common.Fraction newValue) throws ModelException ;
     
     public void accept(ModuleAbstractVisitor visitor) throws ModelException;
     public <R> R accept(ModuleAbstractReturnVisitor<R>  visitor) throws ModelException;

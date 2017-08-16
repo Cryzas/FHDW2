@@ -5,13 +5,11 @@ public interface ModuleAtomarMssgsVisitor extends ModuleAtomarDOWNMssgsVisitor, 
 
 interface ModuleAtomarDOWNMssgsVisitor  {
 
-    public void handleModuleAtomarChangeCPOnModuleFractionMssg(ModuleAtomarChangeCPOnModuleFractionMssg event) throws persistence.PersistenceException;
     
 }
 
 
 interface ModuleAtomarUPMssgsVisitor extends ModuleAbstractUPMssgsVisitor {
 
-    public void handleModuleAtomarChangeCPOnModuleFractionMssg(ModuleAtomarChangeCPOnModuleFractionMssg event) throws persistence.PersistenceException;
     
 }

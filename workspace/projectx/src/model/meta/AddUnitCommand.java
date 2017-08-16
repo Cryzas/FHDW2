@@ -242,8 +242,15 @@ public class AddUnitCommand extends PersistentObject implements PersistentAddUni
     }
     public void execute() 
 				throws PersistenceException{
-        this.commandReceiver.addUnit(this.getModule(), this.getName(), this.getCreditPoints());
-		
+        try{
+			this.commandReceiver.addUnit(this.getModule(), this.getName(), this.getCreditPoints());
+		}
+		catch(model.CycleException e){
+			this.commandException = e;
+		}
+		catch(model.StudyProgramException e){
+			this.commandException = e;
+		}
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{

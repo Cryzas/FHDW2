@@ -13,6 +13,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleModuleWithUnits(ModuleWithUnits4Public moduleWithUnits) throws PersistenceException{
         this.handleModuleAbstract(moduleWithUnits);
     }
+    public void handleModuleGroup(ModuleGroup4Public moduleGroup) throws PersistenceException{
+        this.handleModuleAbstract(moduleGroup);
+    }
     public abstract void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException;
     
     public abstract void handleProgram(Program4Public program) throws PersistenceException;
@@ -25,8 +28,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleUnit(Unit4Public unit) throws PersistenceException;
     
-    public abstract void handleSubj(Subj4Public subj) throws PersistenceException;
-    
     public abstract void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException;
     
     public void handleCreateProgramCommand(CreateProgramCommand4Public createProgramCommand) throws PersistenceException{
@@ -35,14 +36,17 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleChangeCPOnModuleCommand(ChangeCPOnModuleCommand4Public changeCPOnModuleCommand) throws PersistenceException{
         this.handleCommonDate(changeCPOnModuleCommand);
     }
-    public void handleAddModuleCommand(AddModuleCommand4Public addModuleCommand) throws PersistenceException{
-        this.handleCommonDate(addModuleCommand);
-    }
     public void handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException{
         this.handleCommonDate(changeCPOnUnitCommand);
     }
+    public void handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException{
+        this.handleCommonDate(addModuleToGroupCommand);
+    }
     public void handleCreateModuleCommand(CreateModuleCommand4Public createModuleCommand) throws PersistenceException{
         this.handleCommonDate(createModuleCommand);
+    }
+    public void handleAddModuleToProgCommand(AddModuleToProgCommand4Public addModuleToProgCommand) throws PersistenceException{
+        this.handleCommonDate(addModuleToProgCommand);
     }
     public void handleAddUnitCommand(AddUnitCommand4Public addUnitCommand) throws PersistenceException{
         this.handleCommonDate(addUnitCommand);

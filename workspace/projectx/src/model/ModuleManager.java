@@ -71,8 +71,7 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
     
     public ModuleManager provideCopy() throws PersistenceException{
         ModuleManager result = this;
-        result = new ModuleManager(this.subService, 
-                                   this.This, 
+        result = new ModuleManager(this.This, 
                                    this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -82,14 +81,12 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
         return false;
     }
     protected ModuleManager_ModulesProxi modules;
-    protected SubjInterface subService;
     protected PersistentModuleManager This;
     
-    public ModuleManager(SubjInterface subService,PersistentModuleManager This,long id) throws PersistenceException {
+    public ModuleManager(PersistentModuleManager This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.modules = new ModuleManager_ModulesProxi(this);
-        this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -107,10 +104,6 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
             .newModuleManager(this.getId());
         super.store();
         this.getModules().store();
-        if(this.getSubService() != null){
-            this.getSubService().store();
-            ConnectionHandler.getTheConnectionHandler().theModuleManagerFacade.subServiceSet(this.getId(), getSubService());
-        }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theModuleManagerFacade.ThisSet(this.getId(), getThis());
@@ -120,20 +113,6 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
     
     public ModuleManager_ModulesProxi getModules() throws PersistenceException {
         return this.modules;
-    }
-    public SubjInterface getSubService() throws PersistenceException {
-        return this.subService;
-    }
-    public void setSubService(SubjInterface newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.subService)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.subService = (SubjInterface)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theModuleManagerFacade.subServiceSet(this.getId(), newValue);
-        }
     }
     protected void setThis(PersistentModuleManager newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -170,24 +149,23 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleModuleManager(this);
     }
-    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
-        visitor.handleModuleManager(this);
-    }
-    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleModuleManager(this);
-    }
-    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleModuleManager(this);
-    }
-    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleModuleManager(this);
-    }
     public int getLeafInfo() throws PersistenceException{
         if (this.getModules().getLength() > 0) return 1;
         return 0;
     }
     
     
+    public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstract4Public module, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
+		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
+		AddModuleToGroupCommand4Public command = model.meta.AddModuleToGroupCommand.createAddModuleToGroupCommand(nw, d1170);
+		command.setGroup(group);
+		command.setModule(module);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
@@ -227,45 +205,22 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public synchronized void deregister(final ObsInterface observee) 
-				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
-		}
-		subService.deregister(observee);
-    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentModuleManager)This);
 		if(this.isTheSameAs(This)){
 		}
     }
-    public synchronized void register(final ObsInterface observee) 
-				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
-		}
-		subService.register(observee);
-    }
-    public synchronized void updateObservers(final model.meta.Mssgs event) 
-				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
-		}
-		subService.updateObservers(event);
-    }
     
     
     // Start of section that contains operations that must be implemented.
     
+    public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstract4Public module) 
+				throws model.CycleException, model.StudyProgramException, PersistenceException{
+    	group.addModule(module);
+    }
     public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
-				throws PersistenceException{
+				throws model.CycleException, model.StudyProgramException, PersistenceException{
     	module.addUnit(name, creditPoints);
     }
     public void changeCPOnModule(final ModuleAtomar4Public module, final common.Fraction creditPoints) 
@@ -281,7 +236,13 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
         
     }
     public void createModule(final String type, final String name) 
-				throws PersistenceException{
+				throws model.StudyProgramException, PersistenceException{
+    	if (ModuleAbstract.getModuleAbstractByName(name).iterator().hasNext()) {
+			throw new StudyProgramException(ModuleAlreadyExistsInDBMessage);
+		}
+    	if (Program.getProgramByName(name).iterator().hasNext()) {
+			throw new StudyProgramException(ProgramAlreadyExistsInDBMessage);
+		}
     	getThis().getModules().add(StringFACTORY.createObjectBySubTypeNameForModuleAbstract(type, new ModuleAbstractSwitchPARAMETER() {
 			
 			@Override
@@ -292,6 +253,11 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
 			@Override
 			public ModuleAtomar4Public handleModuleAtomar() throws PersistenceException {
 				return ModuleAtomar.createModuleAtomar(name);
+			}
+
+			@Override
+			public ModuleGroup4Public handleModuleGroup() throws PersistenceException {
+				return ModuleGroup.createModuleGroup(name);
 			}
     	}));
     }
@@ -309,6 +275,9 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
     
 
     /* Start of protected part that is not overridden by persistence generator */
+
+    static String ProgramAlreadyExistsInDBMessage = "Es existiert bereits ein Programm mit eingegebenem Namen.";
+    static String ModuleAlreadyExistsInDBMessage = "Es existiert bereits ein Modul mit eingegebenem Namen.";
     
     /* End of protected part that is not overridden by persistence generator */
     

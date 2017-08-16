@@ -8,8 +8,8 @@ public abstract class ProgramManagerCommandStandardVisitor implements ProgramMan
     public void handleCreateProgramCommand(CreateProgramCommand4Public createProgramCommand) throws PersistenceException{
         this.standardHandling(createProgramCommand);
     }
-    public void handleAddModuleCommand(AddModuleCommand4Public addModuleCommand) throws PersistenceException{
-        this.standardHandling(addModuleCommand);
+    public void handleAddModuleToProgCommand(AddModuleToProgCommand4Public addModuleToProgCommand) throws PersistenceException{
+        this.standardHandling(addModuleToProgCommand);
     }
     protected abstract void standardHandling(ProgramManagerCommand programManagerCommand) throws PersistenceException;
 }

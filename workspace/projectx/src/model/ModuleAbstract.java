@@ -42,14 +42,12 @@ public abstract class ModuleAbstract extends PersistentObject implements Persist
         return false;
     }
     protected String name;
-    protected SubjInterface subService;
     protected PersistentModuleAbstract This;
     
-    public ModuleAbstract(String name,SubjInterface subService,PersistentModuleAbstract This,long id) throws PersistenceException {
+    public ModuleAbstract(String name,PersistentModuleAbstract This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
-        this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -64,10 +62,6 @@ public abstract class ModuleAbstract extends PersistentObject implements Persist
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         super.store();
-        if(this.getSubService() != null){
-            this.getSubService().store();
-            ConnectionHandler.getTheConnectionHandler().theModuleAbstractFacade.subServiceSet(this.getId(), getSubService());
-        }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theModuleAbstractFacade.ThisSet(this.getId(), getThis());
@@ -82,20 +76,6 @@ public abstract class ModuleAbstract extends PersistentObject implements Persist
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theModuleAbstractFacade.nameSet(this.getId(), newValue);
         this.name = newValue;
-    }
-    public SubjInterface getSubService() throws PersistenceException {
-        return this.subService;
-    }
-    public void setSubService(SubjInterface newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.subService)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.subService = (SubjInterface)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theModuleAbstractFacade.subServiceSet(this.getId(), newValue);
-        }
     }
     protected void setThis(PersistentModuleAbstract newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);

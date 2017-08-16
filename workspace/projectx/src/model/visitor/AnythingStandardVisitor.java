@@ -26,14 +26,14 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException{
         this.standardHandling(changeCPOnUnitCommand);
     }
+    public void handleModuleGroup(ModuleGroup4Public moduleGroup) throws PersistenceException{
+        this.standardHandling(moduleGroup);
+    }
     public void handleModuleManager(ModuleManager4Public moduleManager) throws PersistenceException{
         this.standardHandling(moduleManager);
     }
     public void handleUnit(Unit4Public unit) throws PersistenceException{
         this.standardHandling(unit);
-    }
-    public void handleSubj(Subj4Public subj) throws PersistenceException{
-        this.standardHandling(subj);
     }
     public void handleCreateModuleCommand(CreateModuleCommand4Public createModuleCommand) throws PersistenceException{
         this.standardHandling(createModuleCommand);
@@ -41,17 +41,20 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException{
         this.standardHandling(commandCoordinator);
     }
-    public void handleAddModuleCommand(AddModuleCommand4Public addModuleCommand) throws PersistenceException{
-        this.standardHandling(addModuleCommand);
-    }
     public void handleModuleWithUnits(ModuleWithUnits4Public moduleWithUnits) throws PersistenceException{
         this.standardHandling(moduleWithUnits);
+    }
+    public void handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException{
+        this.standardHandling(addModuleToGroupCommand);
     }
     public void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException{
         this.standardHandling(commonDate);
     }
     public void handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException{
         this.standardHandling(commandExecuter);
+    }
+    public void handleAddModuleToProgCommand(AddModuleToProgCommand4Public addModuleToProgCommand) throws PersistenceException{
+        this.standardHandling(addModuleToProgCommand);
     }
     public void handleAddUnitCommand(AddUnitCommand4Public addUnitCommand) throws PersistenceException{
         this.standardHandling(addUnitCommand);

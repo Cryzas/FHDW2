@@ -25,7 +25,7 @@ public class ProgramManagerFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ProgramManager result = new ProgramManager(null,null,id);
+            ProgramManager result = new ProgramManager(null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentProgramManager)PersistentProxi.createProxi(id, 148);
         }catch(SQLException se) {
@@ -41,7 +41,7 @@ public class ProgramManagerFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ProgramManager result = new ProgramManager(null,null,id);
+            ProgramManager result = new ProgramManager(null,id);
             Cache.getTheCache().put(result);
             return (PersistentProgramManager)PersistentProxi.createProxi(id, 148);
         }catch(SQLException se) {
@@ -62,14 +62,10 @@ public class ProgramManagerFacade{
                 callable.close();
                 return null;
             }
-            SubjInterface subService = null;
-            if (obj.getLong(2) != 0)
-                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
             PersistentProgramManager This = null;
-            if (obj.getLong(4) != 0)
-                This = (PersistentProgramManager)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
-            ProgramManager result = new ProgramManager(subService,
-                                                       This,
+            if (obj.getLong(2) != 0)
+                This = (PersistentProgramManager)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+            ProgramManager result = new ProgramManager(This,
                                                        ProgramManagerId);
             obj.close();
             callable.close();
@@ -137,19 +133,6 @@ public class ProgramManagerFacade{
             list.close();
             callable.close();
             return result;
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
-    }
-    public void subServiceSet(long ProgramManagerId, SubjInterface subServiceVal) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".PrgrmMngrFacade.sbSrvcSet(?, ?, ?); end;");
-            callable.setLong(1, ProgramManagerId);
-            callable.setLong(2, subServiceVal.getId());
-            callable.setLong(3, subServiceVal.getClassId());
-            callable.execute();
-            callable.close();
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }

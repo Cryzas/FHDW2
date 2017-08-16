@@ -6,5 +6,6 @@ public interface UserExceptionReturnExceptionVisitor<R, E extends view.UserExcep
     
     public R handleCycleException(CycleException cycleException) throws ModelException, E;
     public R handleRestrictionException(RestrictionException restrictionException) throws ModelException, E;
+    public R handleStudyProgramException(StudyProgramException studyProgramException) throws ModelException, E;
     
 }

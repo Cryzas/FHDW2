@@ -27,7 +27,7 @@ public class UnitFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Unit result = new Unit(name,creditPoints,null,null,id);
+            Unit result = new Unit(name,creditPoints,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentUnit)PersistentProxi.createProxi(id, 147);
         }catch(SQLException se) {
@@ -43,7 +43,7 @@ public class UnitFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Unit result = new Unit(name,creditPoints,null,null,id);
+            Unit result = new Unit(name,creditPoints,null,id);
             Cache.getTheCache().put(result);
             return (PersistentUnit)PersistentProxi.createProxi(id, 147);
         }catch(SQLException se) {
@@ -64,15 +64,11 @@ public class UnitFacade{
                 callable.close();
                 return null;
             }
-            SubjInterface subService = null;
-            if (obj.getLong(4) != 0)
-                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
             PersistentUnit This = null;
-            if (obj.getLong(6) != 0)
-                This = (PersistentUnit)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
+            if (obj.getLong(4) != 0)
+                This = (PersistentUnit)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
             Unit result = new Unit(obj.getString(2) == null ? "" : obj.getString(2) /* In Oracle "" = null !!! */,
                                    (obj.getString(3) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(3))),
-                                   subService,
                                    This,
                                    UnitId);
             obj.close();
@@ -117,19 +113,6 @@ public class UnitFacade{
             callable = this.con.prepareCall("Begin " + this.schemaName + ".UntFacade.crdtPntsSet(?, ?); end;");
             callable.setLong(1, UnitId);
             callable.setString(2, creditPointsVal.toString());
-            callable.execute();
-            callable.close();
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
-    }
-    public void subServiceSet(long UnitId, SubjInterface subServiceVal) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".UntFacade.sbSrvcSet(?, ?, ?); end;");
-            callable.setLong(1, UnitId);
-            callable.setLong(2, subServiceVal.getId());
-            callable.setLong(3, subServiceVal.getClassId());
             callable.execute();
             callable.close();
         }catch(SQLException se) {

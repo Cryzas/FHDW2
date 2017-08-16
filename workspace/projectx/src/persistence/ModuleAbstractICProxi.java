@@ -18,31 +18,17 @@ public abstract class ModuleAbstractICProxi extends PersistentInCacheProxiOptimi
     public void setName(String newValue) throws PersistenceException {
         ((PersistentModuleAbstract)this.getTheObject()).setName(newValue);
     }
-    public SubjInterface getSubService() throws PersistenceException {
-        return ((PersistentModuleAbstract)this.getTheObject()).getSubService();
-    }
-    public void setSubService(SubjInterface newValue) throws PersistenceException {
-        ((PersistentModuleAbstract)this.getTheObject()).setSubService(newValue);
-    }
     public abstract PersistentModuleAbstract getThis() throws PersistenceException ;
     
     
     
-    public void deregister(final ObsInterface observee) 
-				throws PersistenceException{
-        ((PersistentModuleAbstract)this.getTheObject()).deregister(observee);
-    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentModuleAbstract)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void register(final ObsInterface observee) 
+    public boolean containsprogramHierarchy(final programHierarchyHIERARCHY part) 
 				throws PersistenceException{
-        ((PersistentModuleAbstract)this.getTheObject()).register(observee);
-    }
-    public void updateObservers(final model.meta.Mssgs event) 
-				throws PersistenceException{
-        ((PersistentModuleAbstract)this.getTheObject()).updateObservers(event);
+        return ((PersistentModuleAbstract)this.getTheObject()).containsprogramHierarchy(part);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -59,6 +45,10 @@ public abstract class ModuleAbstractICProxi extends PersistentInCacheProxiOptimi
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentModuleAbstract)this.getTheObject()).initializeOnInstantiation();
+    }
+    public <T> T strategyprogramHierarchy(final programHierarchyHIERARCHYStrategy<T> strategy) 
+				throws PersistenceException{
+        return ((PersistentModuleAbstract)this.getTheObject()).strategyprogramHierarchy(strategy);
     }
 
     

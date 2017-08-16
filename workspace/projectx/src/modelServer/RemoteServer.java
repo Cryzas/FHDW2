@@ -18,9 +18,20 @@ public  class RemoteServer extends RemoteServerMaster {
     }
  
 
-    public synchronized java.util.HashMap<?,?> module_Path_In_AddModule(){
+    public synchronized java.util.HashMap<?,?> module_Path_In_AddModuleToGroup(){
         try {
-            ModuleAbstractSearchList result = ((PersistentServer)this.server).module_Path_In_AddModule();
+            ModuleAbstractSearchList result = ((PersistentServer)this.server).module_Path_In_AddModuleToGroup();
+            return createOKResult(result.getVector(1, 0, false, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> module_Path_In_AddModuleToProg(){
+        try {
+            ModuleAbstractSearchList result = ((PersistentServer)this.server).module_Path_In_AddModuleToProg();
             return createOKResult(result.getVector(1, 0, false, false, true));
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -39,11 +50,22 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.HashMap<?,?> addModule(String programProxiString, String moduleProxiString){
+    public synchronized java.util.HashMap<?,?> addModuleToGroup(String groupProxiString, String moduleProxiString){
+        try {
+            PersistentModuleGroup group = (PersistentModuleGroup)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(groupProxiString));
+            PersistentModuleAbstract module = (PersistentModuleAbstract)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(moduleProxiString));
+            ((PersistentServer)this.server).addModuleToGroup(group, module);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> addModuleToProg(String programProxiString, String moduleProxiString){
         try {
             PersistentProgram program = (PersistentProgram)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(programProxiString));
             PersistentModuleAbstract module = (PersistentModuleAbstract)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(moduleProxiString));
-            ((PersistentServer)this.server).addModule(program, module);
+            ((PersistentServer)this.server).addModuleToProg(program, module);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

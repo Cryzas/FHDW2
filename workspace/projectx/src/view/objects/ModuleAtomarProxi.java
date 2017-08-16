@@ -14,8 +14,7 @@ public class ModuleAtomarProxi extends ModuleAbstractProxi implements ModuleAtom
     public ModuleAtomarView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         String name = (String)resultTable.get("name");
         common.Fraction creditPoints = common.Fraction.parse((String)resultTable.get("creditPoints"));
-        common.Fraction ownCreditPoints = common.Fraction.parse((String)resultTable.get("ownCreditPoints"));
-        ModuleAtomarView result$$ = new ModuleAtomar((String)name,(common.Fraction)creditPoints,(common.Fraction)ownCreditPoints, this.getId(), this.getClassId());
+        ModuleAtomarView result$$ = new ModuleAtomar((String)name,(common.Fraction)creditPoints, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -38,12 +37,6 @@ public class ModuleAtomarProxi extends ModuleAbstractProxi implements ModuleAtom
         return -1;
     }
     
-    public common.Fraction getOwnCreditPoints()throws ModelException{
-        return ((ModuleAtomar)this.getTheObject()).getOwnCreditPoints();
-    }
-    public void setOwnCreditPoints(common.Fraction newValue) throws ModelException {
-        ((ModuleAtomar)this.getTheObject()).setOwnCreditPoints(newValue);
-    }
     
     public void accept(ModuleAbstractVisitor visitor) throws ModelException {
         visitor.handleModuleAtomar(this);

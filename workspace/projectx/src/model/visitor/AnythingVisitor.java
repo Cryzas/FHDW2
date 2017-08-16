@@ -4,7 +4,8 @@ import persistence.*;
 
 public interface AnythingVisitor extends CommonDateVisitor,ModuleAbstractVisitor{
     
-    public void handleAddModuleCommand(AddModuleCommand4Public addModuleCommand) throws PersistenceException;
+    public void handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException;
+    public void handleAddModuleToProgCommand(AddModuleToProgCommand4Public addModuleToProgCommand) throws PersistenceException;
     public void handleAddUnitCommand(AddUnitCommand4Public addUnitCommand) throws PersistenceException;
     public void handleChangeCPOnModuleCommand(ChangeCPOnModuleCommand4Public changeCPOnModuleCommand) throws PersistenceException;
     public void handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException;
@@ -18,7 +19,6 @@ public interface AnythingVisitor extends CommonDateVisitor,ModuleAbstractVisitor
     public void handleProgram(Program4Public program) throws PersistenceException;
     public void handleProgramManager(ProgramManager4Public programManager) throws PersistenceException;
     public void handleServer(Server4Public server) throws PersistenceException;
-    public void handleSubj(Subj4Public subj) throws PersistenceException;
     public void handleUnit(Unit4Public unit) throws PersistenceException;
     
 }

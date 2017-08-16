@@ -26,7 +26,7 @@ public class ModuleWithUnitsFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ModuleWithUnits result = new ModuleWithUnits(name,null,null,id);
+            ModuleWithUnits result = new ModuleWithUnits(name,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentModuleWithUnits)PersistentProxi.createProxi(id, 154);
         }catch(SQLException se) {
@@ -42,7 +42,7 @@ public class ModuleWithUnitsFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ModuleWithUnits result = new ModuleWithUnits(name,null,null,id);
+            ModuleWithUnits result = new ModuleWithUnits(name,null,id);
             Cache.getTheCache().put(result);
             return (PersistentModuleWithUnits)PersistentProxi.createProxi(id, 154);
         }catch(SQLException se) {
@@ -63,14 +63,10 @@ public class ModuleWithUnitsFacade{
                 callable.close();
                 return null;
             }
-            SubjInterface subService = null;
-            if (obj.getLong(3) != 0)
-                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
             PersistentModuleAbstract This = null;
-            if (obj.getLong(5) != 0)
-                This = (PersistentModuleAbstract)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
+            if (obj.getLong(3) != 0)
+                This = (PersistentModuleAbstract)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
             ModuleWithUnits result = new ModuleWithUnits(obj.getString(2) == null ? "" : obj.getString(2) /* In Oracle "" = null !!! */,
-                                                         subService,
                                                          This,
                                                          ModuleWithUnitsId);
             obj.close();
@@ -121,27 +117,6 @@ public class ModuleWithUnitsFacade{
             UnitList result = new UnitList();
             while (list.next()) {
                 result.add((PersistentUnit)PersistentProxi.createListEntryProxi(list.getLong(1), list.getLong(2), list.getLong(3)));
-            }
-            list.close();
-            callable.close();
-            return result;
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
-    }
-    public ModuleWithUnitsSearchList inverseGetUnits(long objectId, long classId)throws PersistenceException{
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".MdlWthUntsFacade.iGetUnts(?, ?); end;");
-            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
-            callable.setLong(2, objectId);
-            callable.setLong(3, classId);
-            callable.execute();
-            ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
-            ModuleWithUnitsSearchList result = new ModuleWithUnitsSearchList();
-            while (list.next()) {
-                if (list.getLong(3) != 0) result.add((PersistentModuleWithUnits)PersistentProxi.createProxi(list.getLong(3), list.getLong(4)));
-                else result.add((PersistentModuleWithUnits)PersistentProxi.createProxi(list.getLong(1), list.getLong(2)));
             }
             list.close();
             callable.close();

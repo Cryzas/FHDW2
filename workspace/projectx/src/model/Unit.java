@@ -70,7 +70,6 @@ public class Unit extends PersistentObject implements PersistentUnit{
             if (leaf) allResults.put(uniqueKey, result);
             result.put("name", this.getName());
             result.put("creditPoints", this.getCreditPoints().toString());
-            result.put("parentModule", this.getParentModule().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, false, false));
         }
         return result;
     }
@@ -79,7 +78,6 @@ public class Unit extends PersistentObject implements PersistentUnit{
         Unit result = this;
         result = new Unit(this.name, 
                           this.creditPoints, 
-                          this.subService, 
                           this.This, 
                           this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -91,15 +89,13 @@ public class Unit extends PersistentObject implements PersistentUnit{
     }
     protected String name;
     protected common.Fraction creditPoints;
-    protected SubjInterface subService;
     protected PersistentUnit This;
     
-    public Unit(String name,common.Fraction creditPoints,SubjInterface subService,PersistentUnit This,long id) throws PersistenceException {
+    public Unit(String name,common.Fraction creditPoints,PersistentUnit This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
         this.creditPoints = creditPoints;
-        this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -116,10 +112,6 @@ public class Unit extends PersistentObject implements PersistentUnit{
         if (this.getClassId() == 147) ConnectionHandler.getTheConnectionHandler().theUnitFacade
             .newUnit(name,creditPoints,this.getId());
         super.store();
-        if(this.getSubService() != null){
-            this.getSubService().store();
-            ConnectionHandler.getTheConnectionHandler().theUnitFacade.subServiceSet(this.getId(), getSubService());
-        }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theUnitFacade.ThisSet(this.getId(), getThis());
@@ -141,20 +133,6 @@ public class Unit extends PersistentObject implements PersistentUnit{
     public void setCreditPoints(common.Fraction newValue) throws PersistenceException {
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theUnitFacade.creditPointsSet(this.getId(), newValue);
         this.creditPoints = newValue;
-    }
-    public SubjInterface getSubService() throws PersistenceException {
-        return this.subService;
-    }
-    public void setSubService(SubjInterface newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.subService)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.subService = (SubjInterface)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theUnitFacade.subServiceSet(this.getId(), newValue);
-        }
     }
     protected void setThis(PersistentUnit newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -191,16 +169,16 @@ public class Unit extends PersistentObject implements PersistentUnit{
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleUnit(this);
     }
-    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+    public void accept(programHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
         visitor.handleUnit(this);
     }
-    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(programHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleUnit(this);
     }
-    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(programHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleUnit(this);
     }
-    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(programHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleUnit(this);
     }
     public int getLeafInfo() throws PersistenceException{
@@ -208,28 +186,10 @@ public class Unit extends PersistentObject implements PersistentUnit{
     }
     
     
-    public void changeCPOnUnit(final common.Fraction creditPoints) 
+    public boolean containsprogramHierarchy(final programHierarchyHIERARCHY part) 
 				throws PersistenceException{
-        model.meta.UnitChangeCPOnUnitFractionMssg event = new model.meta.UnitChangeCPOnUnitFractionMssg(creditPoints, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
-    }
-    public synchronized void deregister(final ObsInterface observee) 
-				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
-		}
-		subService.deregister(observee);
-    }
-    public ModuleWithUnitsSearchList getParentModule() 
-				throws PersistenceException{
-        ModuleWithUnitsSearchList result = null;
-		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theModuleWithUnitsFacade
-										.inverseGetUnits(getThis().getId(), getThis().getClassId());
-		return result;
+        if(getThis().equals(part)) return true;
+		return false;
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -239,43 +199,27 @@ public class Unit extends PersistentObject implements PersistentUnit{
 			this.setCreditPoints((common.Fraction)final$$Fields.get("creditPoints"));
 		}
     }
-    public synchronized void register(final ObsInterface observee) 
+    public <T> T strategyprogramHierarchy(final programHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
-		}
-		subService.register(observee);
-    }
-    public synchronized void updateObservers(final model.meta.Mssgs event) 
-				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
-		}
-		subService.updateObservers(event);
+        T result = strategy.Unit$$finalize(getThis() );
+		return result;
     }
     
     
     // Start of section that contains operations that must be implemented.
     
-    public void changeCPOnUnitImplementation(final common.Fraction creditPoints) 
+    public void changeCPOnUnit(final common.Fraction creditPoints) 
 				throws PersistenceException{
         getThis().setCreditPoints(creditPoints);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        
     }
     
     

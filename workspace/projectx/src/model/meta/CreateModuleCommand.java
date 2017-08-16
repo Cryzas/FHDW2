@@ -223,8 +223,12 @@ public class CreateModuleCommand extends PersistentObject implements PersistentC
     }
     public void execute() 
 				throws PersistenceException{
-        this.commandReceiver.createModule(this.getType(), this.getName());
-		
+        try{
+			this.commandReceiver.createModule(this.getType(), this.getName());
+		}
+		catch(model.StudyProgramException e){
+			this.commandException = e;
+		}
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{

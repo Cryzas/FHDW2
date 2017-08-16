@@ -1213,6 +1213,9 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleModuleManager(view.ModuleManagerView object){
         result = new ModuleManagerDefaultDetailPanel(handler, object);
     }
+    public void handleModuleGroup(view.ModuleGroupView object){
+        result = new ModuleGroupDefaultDetailPanel(handler, object);
+    }
     public void handleUnit(view.UnitView object){
         result = new UnitDefaultDetailPanel(handler, object);
     }
@@ -1231,6 +1234,7 @@ class ProgramDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Program$$modules = "Program$$modules";
     protected static final String Program$$name = "Program$$name";
+    protected static final String Program$$creditPoints = "Program$$creditPoints";
     
     protected ProgramDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1240,6 +1244,13 @@ class ProgramDefaultDetailPanel extends DefaultDetailPanel{
             BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(Program$$name, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new FractionPanel(this, "creditPoints", this.getAnything().getCreditPoints());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(Program$$creditPoints, panel);
         }catch(ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }
@@ -1291,7 +1302,6 @@ class ModuleAtomarDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String ModuleAbstract$$name = "ModuleAbstract$$name";
     protected static final String ModuleAbstract$$creditPoints = "ModuleAbstract$$creditPoints";
-    protected static final String ModuleAtomar$$ownCreditPoints = "ModuleAtomar$$ownCreditPoints";
     
     protected ModuleAtomarDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1308,13 +1318,6 @@ class ModuleAtomarDefaultDetailPanel extends DefaultDetailPanel{
             BaseTypePanel panel = new FractionPanel(this, "creditPoints", this.getAnything().getCreditPoints());
             this.getScrollablePane().getChildren().add(panel);
             this.panels.put(ModuleAbstract$$creditPoints, panel);
-        }catch(ModelException e){
-            this.getExceptionAndEventhandler().handleException(e);
-        }
-        try{
-            BaseTypePanel panel = new FractionPanel(this, "ownCreditPoints", this.getAnything().getOwnCreditPoints());
-            this.getScrollablePane().getChildren().add(panel);
-            this.panels.put(ModuleAtomar$$ownCreditPoints, panel);
         }catch(ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }
@@ -1337,6 +1340,37 @@ class ModuleManagerDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ModuleManagerView getAnything(){
         return (view.ModuleManagerView)this.anything;
+    }
+}
+
+class ModuleGroupDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String ModuleAbstract$$name = "ModuleAbstract$$name";
+    protected static final String ModuleAbstract$$creditPoints = "ModuleAbstract$$creditPoints";
+    protected static final String ModuleGroup$$modules = "ModuleGroup$$modules";
+    
+    protected ModuleGroupDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(ModuleAbstract$$name, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new FractionPanel(this, "creditPoints", this.getAnything().getCreditPoints());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(ModuleAbstract$$creditPoints, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.ModuleGroupView getAnything(){
+        return (view.ModuleGroupView)this.anything;
     }
 }
 

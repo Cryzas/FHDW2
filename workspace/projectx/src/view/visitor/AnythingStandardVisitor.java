@@ -17,6 +17,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleModuleAtomar(ModuleAtomarView moduleAtomar) throws ModelException{
         this.standardHandling(moduleAtomar);
     }
+    public void handleModuleGroup(ModuleGroupView moduleGroup) throws ModelException{
+        this.standardHandling(moduleGroup);
+    }
     public void handleModuleManager(ModuleManagerView moduleManager) throws ModelException{
         this.standardHandling(moduleManager);
     }

@@ -38,6 +38,7 @@ import com.sun.javafx.geom.Point2D;
 import javax.swing.tree.TreeModel;
 
 
+@SuppressWarnings("unused")
 public class ServerClientView extends BorderPane implements ExceptionAndEventHandler{
 
 	private ConnectionMaster 		 connection;
@@ -53,7 +54,6 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 		this.service = service;
 		this.initialize();
 	}
-	@SuppressWarnings("unused")
 	private ServerView getService(){
 		return this.service;
 	}
@@ -293,7 +293,6 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 				getNavigationTree().getSelectionModel().select( getNavigationTree().getRoot());
 			}
 		});
-		//TODO adjust implementation: initializeConnection
 	}
 	public void handleException(ModelException exception) {
 		this.parent.handleException(exception);
@@ -318,7 +317,8 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 
 
     interface MenuItemVisitor{
-        ImageView handle(AddModulePRMTRProgramPRMTRModuleAbstractPRMTRMenuItem menuItem);
+        ImageView handle(AddModuleToGroupPRMTRModuleGroupPRMTRModuleAbstractPRMTRMenuItem menuItem);
+        ImageView handle(AddModuleToProgPRMTRProgramPRMTRModuleAbstractPRMTRMenuItem menuItem);
         ImageView handle(AddUnitPRMTRModuleWithUnitsPRMTRStringPRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(ChangeCPOnModulePRMTRModuleAtomarPRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(ChangeCPOnUnitPRMTRUnitPRMTRFractionPRMTRMenuItem menuItem);
@@ -331,7 +331,12 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         }
         abstract protected ImageView accept(MenuItemVisitor visitor);
     }
-    private class AddModulePRMTRProgramPRMTRModuleAbstractPRMTRMenuItem extends ServerMenuItem{
+    private class AddModuleToGroupPRMTRModuleGroupPRMTRModuleAbstractPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class AddModuleToProgPRMTRProgramPRMTRModuleAbstractPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -425,11 +430,11 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                 return result;
             }
             if (selected instanceof ProgramView){
-                item = new AddModulePRMTRProgramPRMTRModuleAbstractPRMTRMenuItem();
-                item.setText("addModule ... ");
+                item = new AddModuleToProgPRMTRProgramPRMTRModuleAbstractPRMTRMenuItem();
+                item.setText("addModuleToProg ... ");
                 item.setOnAction(new EventHandler<ActionEvent>(){
                     public void handle(javafx.event.ActionEvent e) {
-                        final ServerAddModuleProgramModuleAbstractMssgWizard wizard = new ServerAddModuleProgramModuleAbstractMssgWizard("addModule");
+                        final ServerAddModuleToProgProgramModuleAbstractMssgWizard wizard = new ServerAddModuleToProgProgramModuleAbstractMssgWizard("addModuleToProg");
                         wizard.setFirstArgument((ProgramView)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.setX( getPointForView().getX());
@@ -469,6 +474,21 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                 });
                 result.getItems().add(item);
             }
+            if (selected instanceof ModuleGroupView){
+                item = new AddModuleToGroupPRMTRModuleGroupPRMTRModuleAbstractPRMTRMenuItem();
+                item.setText("addModuleToGroup ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final ServerAddModuleToGroupModuleGroupModuleAbstractMssgWizard wizard = new ServerAddModuleToGroupModuleGroupModuleAbstractMssgWizard("addModuleToGroup");
+                        wizard.setFirstArgument((ModuleGroupView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.setX( getPointForView().getX());
+                        wizard.setY( getPointForView().getY());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+            }
             if (selected instanceof UnitView){
                 item = new ChangeCPOnUnitPRMTRUnitPRMTRFractionPRMTRMenuItem();
                 item.setText("changeCPOnUnit ... ");
@@ -497,21 +517,21 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         this.preCalculatedFilters = switchOff;
     }
     
-	class ServerAddModuleProgramModuleAbstractMssgWizard extends Wizard {
+	class ServerAddModuleToGroupModuleGroupModuleAbstractMssgWizard extends Wizard {
 
-		protected ServerAddModuleProgramModuleAbstractMssgWizard(String operationName){
+		protected ServerAddModuleToGroupModuleGroupModuleAbstractMssgWizard(String operationName){
 			super(ServerClientView.this);
 			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new AddModulePRMTRProgramPRMTRModuleAbstractPRMTRMenuItem ().getGraphic());
+			getOkButton().setGraphic(new AddModuleToGroupPRMTRModuleGroupPRMTRModuleAbstractPRMTRMenuItem ().getGraphic());
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerAddModuleProgramModuleAbstractMssgWizard.help";
+			this.helpFileName = "ServerAddModuleToGroupModuleGroupModuleAbstractMssgWizard.help";
 			super.initialize();		
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().addModule(firstArgument, (ModuleAbstractView)((ObjectSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().addModuleToGroup(firstArgument, (ModuleAbstractView)((ObjectSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
 				getConnection().setEagerRefresh();
 				this.close();	
 			} catch(ModelException me){
@@ -530,7 +550,66 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 			try{
 				final ObjectSelectionPanel panel1 = new ObjectSelectionPanel("module", "view.ModuleAbstractView", null, this);
 				getParametersPanel().getChildren().add(panel1);
-				panel1.setBrowserRoot(new ListRoot(getConnection().module_Path_In_AddModule()));
+				panel1.setBrowserRoot(new ListRoot(getConnection().module_Path_In_AddModuleToGroup()));
+			}catch(ModelException me){;
+				handleException(me);
+				close();
+				return;
+			 }catch(UserException ue){;
+				handleUserException(ue);
+				close();
+				return;
+			 }		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private ModuleGroupView firstArgument; 
+	
+		public void setFirstArgument(ModuleGroupView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
+	class ServerAddModuleToProgProgramModuleAbstractMssgWizard extends Wizard {
+
+		protected ServerAddModuleToProgProgramModuleAbstractMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new AddModuleToProgPRMTRProgramPRMTRModuleAbstractPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerAddModuleToProgProgramModuleAbstractMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().addModuleToProg(firstArgument, (ModuleAbstractView)((ObjectSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			try{
+				final ObjectSelectionPanel panel2 = new ObjectSelectionPanel("module", "view.ModuleAbstractView", null, this);
+				getParametersPanel().getChildren().add(panel2);
+				panel2.setBrowserRoot(new ListRoot(getConnection().module_Path_In_AddModuleToProg()));
 			}catch(ModelException me){;
 				handleException(me);
 				close();

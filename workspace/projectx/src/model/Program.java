@@ -2,6 +2,7 @@
 package model;
 
 import persistence.*;
+import common.Fraction;
 import model.visitor.*;
 
 
@@ -68,6 +69,7 @@ public class Program extends PersistentObject implements PersistentProgram{
             if (leaf) allResults.put(uniqueKey, result);
             result.put("modules", this.getModules().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, false, false));
             result.put("name", this.getName());
+            result.put("creditPoints", this.getCreditPoints().toString());
         }
         return result;
     }
@@ -80,7 +82,6 @@ public class Program extends PersistentObject implements PersistentProgram{
     public Program provideCopy() throws PersistenceException{
         Program result = this;
         result = new Program(this.name, 
-                             this.subService, 
                              this.This, 
                              this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -92,15 +93,13 @@ public class Program extends PersistentObject implements PersistentProgram{
     }
     protected Program_ModulesProxi modules;
     protected String name;
-    protected SubjInterface subService;
     protected PersistentProgram This;
     
-    public Program(String name,SubjInterface subService,PersistentProgram This,long id) throws PersistenceException {
+    public Program(String name,PersistentProgram This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.modules = new Program_ModulesProxi(this);
         this.name = name;
-        this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -118,10 +117,6 @@ public class Program extends PersistentObject implements PersistentProgram{
             .newProgram(name,this.getId());
         super.store();
         this.getModules().store();
-        if(this.getSubService() != null){
-            this.getSubService().store();
-            ConnectionHandler.getTheConnectionHandler().theProgramFacade.subServiceSet(this.getId(), getSubService());
-        }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theProgramFacade.ThisSet(this.getId(), getThis());
@@ -139,20 +134,6 @@ public class Program extends PersistentObject implements PersistentProgram{
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theProgramFacade.nameSet(this.getId(), newValue);
         this.name = newValue;
-    }
-    public SubjInterface getSubService() throws PersistenceException {
-        return this.subService;
-    }
-    public void setSubService(SubjInterface newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.subService)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.subService = (SubjInterface)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theProgramFacade.subServiceSet(this.getId(), newValue);
-        }
     }
     protected void setThis(PersistentProgram newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -189,16 +170,16 @@ public class Program extends PersistentObject implements PersistentProgram{
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleProgram(this);
     }
-    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+    public void accept(programHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
         visitor.handleProgram(this);
     }
-    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(programHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleProgram(this);
     }
-    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(programHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleProgram(this);
     }
-    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(programHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleProgram(this);
     }
     public int getLeafInfo() throws PersistenceException{
@@ -207,14 +188,13 @@ public class Program extends PersistentObject implements PersistentProgram{
     }
     
     
-    public synchronized void deregister(final ObsInterface observee) 
+    public boolean containsprogramHierarchy(final programHierarchyHIERARCHY part) 
 				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
-		}
-		subService.deregister(observee);
+        if(getThis().equals(part)) return true;
+		java.util.Iterator<ModuleAbstract4Public> iterator0 = getThis().getModules().iterator();
+		while(iterator0.hasNext())
+			if(((programHierarchyHIERARCHY)iterator0.next()).containsprogramHierarchy(part)) return true; 
+		return false;
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -223,35 +203,35 @@ public class Program extends PersistentObject implements PersistentProgram{
 			this.setName((String)final$$Fields.get("name"));
 		}
     }
-    public synchronized void register(final ObsInterface observee) 
+    public <T> T strategyprogramHierarchy(final programHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
+        T result$$modules$$Program = strategy.Program$$modules$$$initialize(getThis());
+		java.util.Iterator<?> iterator$$ = getThis().getModules().iterator();
+		while (iterator$$.hasNext()){
+			ModuleAbstract4Public current$$Field = (ModuleAbstract4Public)iterator$$.next();
+			T current$$ = current$$Field.strategyprogramHierarchy(strategy);
+			result$$modules$$Program = strategy.Program$$modules$$consolidate(getThis(), result$$modules$$Program, current$$);
 		}
-		subService.register(observee);
-    }
-    public synchronized void updateObservers(final model.meta.Mssgs event) 
-				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
-		}
-		subService.updateObservers(event);
+		T result = strategy.Program$$finalize(getThis() ,result$$modules$$Program);
+		return result;
     }
     
     
     // Start of section that contains operations that must be implemented.
     
     public void addModule(final ModuleAbstract4Public module) 
-				throws PersistenceException{
+				throws model.CycleException, model.StudyProgramException, PersistenceException{
+    	if(getThis().containsprogramHierarchy(module))
+    		throw new StudyProgramException(AlreadyExistsInParentMessage);
     	getThis().getModules().add(module);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         
+    }
+    public common.Fraction getCreditPoints() 
+				throws PersistenceException{
+        return getThis().getModules().aggregate(Fraction.Null, (result, argument) -> result.add(argument.getCreditPoints()));
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -267,6 +247,8 @@ public class Program extends PersistentObject implements PersistentProgram{
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    static String AlreadyExistsInParentMessage = "Das ausgewählte Modul ist bereits in dem Programm.";
     
     /* End of protected part that is not overridden by persistence generator */
     

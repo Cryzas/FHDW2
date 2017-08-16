@@ -274,7 +274,8 @@ public class Cache {
 	
 	private void initializeNumber2NameMap() {
 		this.number2NameMap = new Hashtable<Integer,String>();
-		this.number2NameMap.put(160, "AddModuleCommand");
+		this.number2NameMap.put(169, "AddModuleToGroupCommand");
+		this.number2NameMap.put(168, "AddModuleToProgCommand");
 		this.number2NameMap.put(161, "AddUnitCommand");
 		this.number2NameMap.put(156, "ChangeCPOnModuleCommand");
 		this.number2NameMap.put(157, "ChangeCPOnUnitCommand");
@@ -285,12 +286,12 @@ public class Cache {
 		this.number2NameMap.put(155, "CreateProgramCommand");
 		this.number2NameMap.put(-144, "ErrorDisplay");
 		this.number2NameMap.put(153, "ModuleAtomar");
+		this.number2NameMap.put(166, "ModuleGroup");
 		this.number2NameMap.put(145, "ModuleManager");
 		this.number2NameMap.put(154, "ModuleWithUnits");
 		this.number2NameMap.put(143, "Program");
 		this.number2NameMap.put(148, "ProgramManager");
 		this.number2NameMap.put(-102, "Server");
-		this.number2NameMap.put(158, "Subj");
 		this.number2NameMap.put(147, "Unit");	
 	}
 	

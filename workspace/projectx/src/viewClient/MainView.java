@@ -21,7 +21,7 @@ public class MainView extends Stage implements ExceptionAndEventHandler{
 	public static int currentFontSize = 12;
 
 //	public static void changeFont(final Object component) { //ML: CF
-//		//TODO change font size in FX
+//		
 //	}
 
 	public MainView() {

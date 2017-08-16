@@ -68,7 +68,6 @@ public class ModuleWithUnits extends model.ModuleAbstract implements PersistentM
     public ModuleWithUnits provideCopy() throws PersistenceException{
         ModuleWithUnits result = this;
         result = new ModuleWithUnits(this.name, 
-                                     this.subService, 
                                      this.This, 
                                      this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -80,9 +79,9 @@ public class ModuleWithUnits extends model.ModuleAbstract implements PersistentM
     }
     protected ModuleWithUnits_UnitsProxi units;
     
-    public ModuleWithUnits(String name,SubjInterface subService,PersistentModuleAbstract This,long id) throws PersistenceException {
+    public ModuleWithUnits(String name,PersistentModuleAbstract This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((String)name,(SubjInterface)subService,(PersistentModuleAbstract)This,id);
+        super((String)name,(PersistentModuleAbstract)This,id);
         this.units = new ModuleWithUnits_UnitsProxi(this);        
     }
     
@@ -138,16 +137,16 @@ public class ModuleWithUnits extends model.ModuleAbstract implements PersistentM
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleModuleWithUnits(this);
     }
-    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+    public void accept(programHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
         visitor.handleModuleWithUnits(this);
     }
-    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(programHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleModuleWithUnits(this);
     }
-    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(programHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleModuleWithUnits(this);
     }
-    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(programHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleModuleWithUnits(this);
     }
     public int getLeafInfo() throws PersistenceException{
@@ -156,14 +155,13 @@ public class ModuleWithUnits extends model.ModuleAbstract implements PersistentM
     }
     
     
-    public synchronized void deregister(final ObsInterface observee) 
+    public boolean containsprogramHierarchy(final programHierarchyHIERARCHY part) 
 				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
-		}
-		subService.deregister(observee);
+        if(getThis().equals(part)) return true;
+		java.util.Iterator<Unit4Public> iterator0 = getThis().getUnits().iterator();
+		while(iterator0.hasNext())
+			if(((programHierarchyHIERARCHY)iterator0.next()).containsprogramHierarchy(part)) return true; 
+		return false;
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -172,35 +170,35 @@ public class ModuleWithUnits extends model.ModuleAbstract implements PersistentM
 			this.setName((String)final$$Fields.get("name"));
 		}
     }
-    public synchronized void register(final ObsInterface observee) 
+    public <T> T strategyprogramHierarchy(final programHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
+        T result$$units$$ModuleWithUnits = strategy.ModuleWithUnits$$units$$$initialize(getThis());
+		java.util.Iterator<?> iterator$$ = getThis().getUnits().iterator();
+		while (iterator$$.hasNext()){
+			Unit4Public current$$Field = (Unit4Public)iterator$$.next();
+			T current$$ = current$$Field.strategyprogramHierarchy(strategy);
+			result$$units$$ModuleWithUnits = strategy.ModuleWithUnits$$units$$consolidate(getThis(), result$$units$$ModuleWithUnits, current$$);
 		}
-		subService.register(observee);
-    }
-    public synchronized void updateObservers(final model.meta.Mssgs event) 
-				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
-		}
-		subService.updateObservers(event);
+		T result = strategy.ModuleWithUnits$$finalize(getThis() ,result$$units$$ModuleWithUnits);
+		return result;
     }
     
     
     // Start of section that contains operations that must be implemented.
     
     public void addUnit(final String name, final common.Fraction creditPoints) 
-				throws PersistenceException{
+				throws model.CycleException, model.StudyProgramException, PersistenceException{
+    	if(getThis().getUnits().findAll(unit -> unit.getName().equals(name)).getLength() > 0)
+    		throw new StudyProgramException(AlreadyExistsInParentMessage);
     	getThis().getUnits().add(Unit.createUnit(name, creditPoints));        
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         
+    }
+    public common.Fraction getCreditPoints() 
+				throws PersistenceException{
+		return getThis().getUnits().aggregate(Fraction.Null, (result, argument) -> result.add(argument.getCreditPoints()));
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -210,17 +208,14 @@ public class ModuleWithUnits extends model.ModuleAbstract implements PersistentM
 				throws PersistenceException{
         super.initializeOnInstantiation();
     }
-
-	@Override
-	public Fraction getCreditPoints() throws PersistenceException {
-		return getThis().getUnits().aggregate(Fraction.Null, (result, argument) -> result.add(argument.getCreditPoints()));
-	}
     
     
     // Start of section that contains overridden operations only.
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    static String AlreadyExistsInParentMessage = "Es existiert bereits eine Unit mit eingegebenem Namen in dem Modul.";
     
     /* End of protected part that is not overridden by persistence generator */
     

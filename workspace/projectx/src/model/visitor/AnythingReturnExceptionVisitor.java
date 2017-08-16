@@ -4,7 +4,8 @@ import persistence.*;
 
 public interface AnythingReturnExceptionVisitor<R, E extends model.UserException> extends CommonDateReturnExceptionVisitor<R, E> ,ModuleAbstractReturnExceptionVisitor<R, E> {
     
-    public R handleAddModuleCommand(AddModuleCommand4Public addModuleCommand) throws PersistenceException, E;
+    public R handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException, E;
+    public R handleAddModuleToProgCommand(AddModuleToProgCommand4Public addModuleToProgCommand) throws PersistenceException, E;
     public R handleAddUnitCommand(AddUnitCommand4Public addUnitCommand) throws PersistenceException, E;
     public R handleChangeCPOnModuleCommand(ChangeCPOnModuleCommand4Public changeCPOnModuleCommand) throws PersistenceException, E;
     public R handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException, E;
@@ -18,7 +19,6 @@ public interface AnythingReturnExceptionVisitor<R, E extends model.UserException
     public R handleProgram(Program4Public program) throws PersistenceException, E;
     public R handleProgramManager(ProgramManager4Public programManager) throws PersistenceException, E;
     public R handleServer(Server4Public server) throws PersistenceException, E;
-    public R handleSubj(Subj4Public subj) throws PersistenceException, E;
     public R handleUnit(Unit4Public unit) throws PersistenceException, E;
     
 }

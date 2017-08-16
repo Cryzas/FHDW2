@@ -25,12 +25,6 @@ public class ModuleManagerICProxi extends PersistentInCacheProxiOptimistic imple
     public ModuleManager_ModulesProxi getModules() throws PersistenceException {
         return ((PersistentModuleManager)this.getTheObject()).getModules();
     }
-    public SubjInterface getSubService() throws PersistenceException {
-        return ((PersistentModuleManager)this.getTheObject()).getSubService();
-    }
-    public void setSubService(SubjInterface newValue) throws PersistenceException {
-        ((PersistentModuleManager)this.getTheObject()).setSubService(newValue);
-    }
     public PersistentModuleManager getThis() throws PersistenceException {
         return ((PersistentModuleManager)this.getTheObject()).getThis();
     }
@@ -47,20 +41,12 @@ public class ModuleManagerICProxi extends PersistentInCacheProxiOptimistic imple
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleModuleManager(this);
     }
-    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
-        visitor.handleModuleManager(this);
-    }
-    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleModuleManager(this);
-    }
-    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleModuleManager(this);
-    }
-    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleModuleManager(this);
-    }
     
     
+    public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstract4Public module, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentModuleManager)this.getTheObject()).addModuleToGroup(group, module, invoker);
+    }
     public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentModuleManager)this.getTheObject()).addUnit(module, name, creditPoints, invoker);
@@ -77,24 +63,16 @@ public class ModuleManagerICProxi extends PersistentInCacheProxiOptimistic imple
 				throws PersistenceException{
         ((PersistentModuleManager)this.getTheObject()).createModule(type, name, invoker);
     }
-    public void deregister(final ObsInterface observee) 
-				throws PersistenceException{
-        ((PersistentModuleManager)this.getTheObject()).deregister(observee);
-    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentModuleManager)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void register(final ObsInterface observee) 
-				throws PersistenceException{
-        ((PersistentModuleManager)this.getTheObject()).register(observee);
-    }
-    public void updateObservers(final model.meta.Mssgs event) 
-				throws PersistenceException{
-        ((PersistentModuleManager)this.getTheObject()).updateObservers(event);
+    public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstract4Public module) 
+				throws model.CycleException, model.StudyProgramException, PersistenceException{
+        ((PersistentModuleManager)this.getTheObject()).addModuleToGroup(group, module);
     }
     public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
-				throws PersistenceException{
+				throws model.CycleException, model.StudyProgramException, PersistenceException{
         ((PersistentModuleManager)this.getTheObject()).addUnit(module, name, creditPoints);
     }
     public void changeCPOnModule(final ModuleAtomar4Public module, final common.Fraction creditPoints) 
@@ -110,7 +88,7 @@ public class ModuleManagerICProxi extends PersistentInCacheProxiOptimistic imple
         ((PersistentModuleManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
     public void createModule(final String type, final String name) 
-				throws PersistenceException{
+				throws model.StudyProgramException, PersistenceException{
         ((PersistentModuleManager)this.getTheObject()).createModule(type, name);
     }
     public void initializeOnCreation() 

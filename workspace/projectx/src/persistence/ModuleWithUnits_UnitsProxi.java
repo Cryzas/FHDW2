@@ -35,9 +35,10 @@ public class ModuleWithUnits_UnitsProxi extends PersistentListProxi<Unit4Public>
   	public long getLength() throws PersistenceException{
 	  	return this.getList().getLength();
   	}
-  	public void add(Unit4Public entry) throws PersistenceException {
+  	public void add(Unit4Public entry) throws PersistenceException , model.CycleException{
     	if (entry != null) {
-      		UnitList list = this.getList();
+      		if (entry.containsprogramHierarchy(this.owner)) throw new model.CycleException("Cycle in programHierarchy detected!");
+			UnitList list = this.getList();
       		long entryId = 0;
       		if (!this.owner.isDelayed$Persistence()) {
         		entry.store();  	

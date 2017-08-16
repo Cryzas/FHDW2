@@ -2,7 +2,6 @@
 package model;
 
 import persistence.*;
-import common.Fraction;
 import model.visitor.*;
 
 
@@ -60,7 +59,6 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
             }
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, inDerived);
             if (leaf) allResults.put(uniqueKey, result);
-            result.put("ownCreditPoints", this.getOwnCreditPoints().toString());
         }
         return result;
     }
@@ -68,7 +66,6 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
     public ModuleAtomar provideCopy() throws PersistenceException{
         ModuleAtomar result = this;
         result = new ModuleAtomar(this.name, 
-                                  this.subService, 
                                   this.This, 
                                   this.ownCreditPoints, 
                                   this.getId());
@@ -81,9 +78,9 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
     }
     protected common.Fraction ownCreditPoints;
     
-    public ModuleAtomar(String name,SubjInterface subService,PersistentModuleAbstract This,common.Fraction ownCreditPoints,long id) throws PersistenceException {
+    public ModuleAtomar(String name,PersistentModuleAbstract This,common.Fraction ownCreditPoints,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((String)name,(SubjInterface)subService,(PersistentModuleAbstract)This,id);
+        super((String)name,(PersistentModuleAbstract)This,id);
         this.ownCreditPoints = ownCreditPoints;        
     }
     
@@ -142,16 +139,16 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleModuleAtomar(this);
     }
-    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+    public void accept(programHierarchyHIERARCHYVisitor visitor) throws PersistenceException {
         visitor.handleModuleAtomar(this);
     }
-    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(programHierarchyHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleModuleAtomar(this);
     }
-    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(programHierarchyHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleModuleAtomar(this);
     }
-    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(programHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleModuleAtomar(this);
     }
     public int getLeafInfo() throws PersistenceException{
@@ -159,21 +156,10 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
     }
     
     
-    public void changeCPOnModule(final common.Fraction creditPoints) 
+    public boolean containsprogramHierarchy(final programHierarchyHIERARCHY part) 
 				throws PersistenceException{
-        model.meta.ModuleAtomarChangeCPOnModuleFractionMssg event = new model.meta.ModuleAtomarChangeCPOnModuleFractionMssg(creditPoints, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
-    }
-    public synchronized void deregister(final ObsInterface observee) 
-				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
-		}
-		subService.deregister(observee);
+        if(getThis().equals(part)) return true;
+		return false;
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -182,35 +168,25 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
 			this.setName((String)final$$Fields.get("name"));
 		}
     }
-    public synchronized void register(final ObsInterface observee) 
+    public <T> T strategyprogramHierarchy(final programHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
-		}
-		subService.register(observee);
-    }
-    public synchronized void updateObservers(final model.meta.Mssgs event) 
-				throws PersistenceException{
-        SubjInterface subService = getThis().getSubService();
-		if (subService == null) {
-			subService = model.Subj.createSubj(this.isDelayed$Persistence());
-			getThis().setSubService(subService);
-		}
-		subService.updateObservers(event);
+        T result = strategy.ModuleAtomar$$finalize(getThis() );
+		return result;
     }
     
     
     // Start of section that contains operations that must be implemented.
     
-    public void changeCPOnModuleImplementation(final common.Fraction creditPoints) 
+    public void changeCPOnModule(final common.Fraction creditPoints) 
 				throws PersistenceException{
         getThis().setOwnCreditPoints(creditPoints);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{ 
+    }
+    public common.Fraction getCreditPoints() 
 				throws PersistenceException{
-        
+    	return getThis().getOwnCreditPoints();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -220,11 +196,6 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
 				throws PersistenceException{
         super.initializeOnInstantiation();
     }
-
-	@Override
-	public Fraction getCreditPoints() throws PersistenceException {
-		return getThis().getOwnCreditPoints();
-	}
     
     
     // Start of section that contains overridden operations only.

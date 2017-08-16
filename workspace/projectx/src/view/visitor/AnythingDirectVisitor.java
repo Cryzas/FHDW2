@@ -13,6 +13,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleModuleWithUnits(ModuleWithUnitsView moduleWithUnits) throws ModelException{
         this.handleModuleAbstract(moduleWithUnits);
     }
+    public void handleModuleGroup(ModuleGroupView moduleGroup) throws ModelException{
+        this.handleModuleAbstract(moduleGroup);
+    }
     public abstract void handleProgram(ProgramView program) throws ModelException;
     
     public abstract void handleServer(ServerView server) throws ModelException;

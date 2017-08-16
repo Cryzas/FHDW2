@@ -25,7 +25,7 @@ public class ModuleManagerFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ModuleManager result = new ModuleManager(null,null,id);
+            ModuleManager result = new ModuleManager(null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentModuleManager)PersistentProxi.createProxi(id, 145);
         }catch(SQLException se) {
@@ -41,7 +41,7 @@ public class ModuleManagerFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ModuleManager result = new ModuleManager(null,null,id);
+            ModuleManager result = new ModuleManager(null,id);
             Cache.getTheCache().put(result);
             return (PersistentModuleManager)PersistentProxi.createProxi(id, 145);
         }catch(SQLException se) {
@@ -62,14 +62,10 @@ public class ModuleManagerFacade{
                 callable.close();
                 return null;
             }
-            SubjInterface subService = null;
-            if (obj.getLong(2) != 0)
-                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
             PersistentModuleManager This = null;
-            if (obj.getLong(4) != 0)
-                This = (PersistentModuleManager)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
-            ModuleManager result = new ModuleManager(subService,
-                                                     This,
+            if (obj.getLong(2) != 0)
+                This = (PersistentModuleManager)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+            ModuleManager result = new ModuleManager(This,
                                                      ModuleManagerId);
             obj.close();
             callable.close();
@@ -137,19 +133,6 @@ public class ModuleManagerFacade{
             list.close();
             callable.close();
             return result;
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
-    }
-    public void subServiceSet(long ModuleManagerId, SubjInterface subServiceVal) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".MdlMngrFacade.sbSrvcSet(?, ?, ?); end;");
-            callable.setLong(1, ModuleManagerId);
-            callable.setLong(2, subServiceVal.getId());
-            callable.setLong(3, subServiceVal.getClassId());
-            callable.execute();
-            callable.close();
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }

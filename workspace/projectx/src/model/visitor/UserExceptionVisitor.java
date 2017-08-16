@@ -6,5 +6,6 @@ public interface UserExceptionVisitor {
     
     public void handleCycleException(model.CycleException cycleException) throws PersistenceException;
     public void handleRestrictionException(model.RestrictionException restrictionException) throws PersistenceException;
+    public void handleStudyProgramException(model.StudyProgramException studyProgramException) throws PersistenceException;
     
 }

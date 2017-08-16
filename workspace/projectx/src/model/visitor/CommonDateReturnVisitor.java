@@ -4,7 +4,8 @@ import persistence.*;
 
 public interface CommonDateReturnVisitor<R> {
     
-    public R handleAddModuleCommand(AddModuleCommand4Public addModuleCommand) throws PersistenceException;
+    public R handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException;
+    public R handleAddModuleToProgCommand(AddModuleToProgCommand4Public addModuleToProgCommand) throws PersistenceException;
     public R handleAddUnitCommand(AddUnitCommand4Public addUnitCommand) throws PersistenceException;
     public R handleChangeCPOnModuleCommand(ChangeCPOnModuleCommand4Public changeCPOnModuleCommand) throws PersistenceException;
     public R handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException;

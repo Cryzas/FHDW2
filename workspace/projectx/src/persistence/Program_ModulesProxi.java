@@ -35,9 +35,10 @@ public class Program_ModulesProxi extends PersistentListProxi<ModuleAbstract4Pub
   	public long getLength() throws PersistenceException{
 	  	return this.getList().getLength();
   	}
-  	public void add(ModuleAbstract4Public entry) throws PersistenceException {
+  	public void add(ModuleAbstract4Public entry) throws PersistenceException , model.CycleException{
     	if (entry != null) {
-      		ModuleAbstractList list = this.getList();
+      		if (entry.containsprogramHierarchy(this.owner)) throw new model.CycleException("Cycle in programHierarchy detected!");
+			ModuleAbstractList list = this.getList();
       		long entryId = 0;
       		if (!this.owner.isDelayed$Persistence()) {
         		entry.store();  	

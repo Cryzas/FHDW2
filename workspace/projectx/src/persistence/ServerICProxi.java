@@ -34,12 +34,6 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void setModuleManager(ModuleManager4Public newValue) throws PersistenceException {
         ((PersistentServer)this.getTheObject()).setModuleManager(newValue);
     }
-    public SubjInterface getSubService() throws PersistenceException {
-        return ((PersistentServer)this.getTheObject()).getSubService();
-    }
-    public void setSubService(SubjInterface newValue) throws PersistenceException {
-        ((PersistentServer)this.getTheObject()).setSubService(newValue);
-    }
     public Server_ErrorsProxi getErrors() throws PersistenceException {
         return ((PersistentServer)this.getTheObject()).getErrors();
     }
@@ -95,18 +89,6 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleServer(this);
     }
-    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
-        visitor.handleServer(this);
-    }
-    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleServer(this);
-    }
-    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleServer(this);
-    }
-    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleServer(this);
-    }
     public void accept(RemoteVisitor visitor) throws PersistenceException {
         visitor.handleServer(this);
     }
@@ -121,21 +103,17 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     }
     
     
-    public void deregister(final ObsInterface observee) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).deregister(observee);
-    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public ModuleAbstractSearchList module_Path_In_AddModule() 
+    public ModuleAbstractSearchList module_Path_In_AddModuleToGroup() 
 				throws model.UserException, PersistenceException{
-        return ((PersistentServer)this.getTheObject()).module_Path_In_AddModule();
+        return ((PersistentServer)this.getTheObject()).module_Path_In_AddModuleToGroup();
     }
-    public void register(final ObsInterface observee) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).register(observee);
+    public ModuleAbstractSearchList module_Path_In_AddModuleToProg() 
+				throws model.UserException, PersistenceException{
+        return ((PersistentServer)this.getTheObject()).module_Path_In_AddModuleToProg();
     }
     public String server_Menu_Filter(final Anything anything) 
 				throws PersistenceException{
@@ -145,13 +123,13 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).signalChanged(signal);
     }
-    public void updateObservers(final model.meta.Mssgs event) 
+    public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstract4Public module) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).updateObservers(event);
+        ((PersistentServer)this.getTheObject()).addModuleToGroup(group, module);
     }
-    public void addModule(final Program4Public program, final ModuleAbstract4Public module) 
+    public void addModuleToProg(final Program4Public program, final ModuleAbstract4Public module) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).addModule(program, module);
+        ((PersistentServer)this.getTheObject()).addModuleToProg(program, module);
     }
     public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
 				throws PersistenceException{

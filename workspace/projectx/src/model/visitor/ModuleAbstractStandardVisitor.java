@@ -11,5 +11,8 @@ public abstract class ModuleAbstractStandardVisitor implements ModuleAbstractVis
     public void handleModuleWithUnits(ModuleWithUnits4Public moduleWithUnits) throws PersistenceException{
         this.standardHandling(moduleWithUnits);
     }
+    public void handleModuleGroup(ModuleGroup4Public moduleGroup) throws PersistenceException{
+        this.standardHandling(moduleGroup);
+    }
     protected abstract void standardHandling(ModuleAbstract4Public moduleAbstract) throws PersistenceException;
 }

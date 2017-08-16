@@ -5,4 +5,4 @@ public interface ModuleAbstractMssgs {
 }
 
 interface ModuleAbstractDOWNMssgs extends Mssgs, ModuleAbstractMssgs{}
-interface ModuleAbstractUPMssgs extends ModuleAtomarUPMssgs, ModuleWithUnitsUPMssgs, ModuleAbstractMssgs{}
+interface ModuleAbstractUPMssgs extends ModuleAtomarUPMssgs, ModuleWithUnitsUPMssgs, ModuleGroupUPMssgs, ModuleAbstractMssgs{}

@@ -5,13 +5,11 @@ public interface UnitMssgsVisitor extends UnitDOWNMssgsVisitor, UnitUPMssgsVisit
 
 interface UnitDOWNMssgsVisitor  {
 
-    public void handleUnitChangeCPOnUnitFractionMssg(UnitChangeCPOnUnitFractionMssg event) throws persistence.PersistenceException;
     
 }
 
 
 interface UnitUPMssgsVisitor  {
 
-    public void handleUnitChangeCPOnUnitFractionMssg(UnitChangeCPOnUnitFractionMssg event) throws persistence.PersistenceException;
     
 }
