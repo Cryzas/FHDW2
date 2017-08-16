@@ -2,7 +2,7 @@
 package model.visitor;
 import persistence.*;
 
-public interface AnythingVisitor extends CommonDateVisitor,ModuleAbstractVisitor{
+public interface AnythingVisitor extends CommonDateVisitor,ModuleAbstractVisitor,ModuleAbstractSGroupVisitor{
     
     public void handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException;
     public void handleAddModuleToProgCommand(AddModuleToProgCommand4Public addModuleToProgCommand) throws PersistenceException;
@@ -18,7 +18,11 @@ public interface AnythingVisitor extends CommonDateVisitor,ModuleAbstractVisitor
     public void handleModuleManager(ModuleManager4Public moduleManager) throws PersistenceException;
     public void handleProgram(Program4Public program) throws PersistenceException;
     public void handleProgramManager(ProgramManager4Public programManager) throws PersistenceException;
+    public void handleProgramSGroup(ProgramSGroup4Public programSGroup) throws PersistenceException;
     public void handleServer(Server4Public server) throws PersistenceException;
+    public void handleStartStudyGroupCommand(StartStudyGroupCommand4Public startStudyGroupCommand) throws PersistenceException;
+    public void handleStudyGroup(StudyGroup4Public studyGroup) throws PersistenceException;
     public void handleUnit(Unit4Public unit) throws PersistenceException;
+    public void handleUnitSGroup(UnitSGroup4Public unitSGroup) throws PersistenceException;
     
 }

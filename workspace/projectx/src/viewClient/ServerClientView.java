@@ -317,34 +317,20 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 
 
     interface MenuItemVisitor{
-        ImageView handle(AddModuleToGroupPRMTRModuleGroupPRMTRModuleAbstractPRMTRMenuItem menuItem);
-        ImageView handle(AddModuleToProgPRMTRProgramPRMTRModuleAbstractPRMTRMenuItem menuItem);
-        ImageView handle(AddUnitPRMTRModuleWithUnitsPRMTRStringPRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(ChangeCPOnModulePRMTRModuleAtomarPRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(ChangeCPOnUnitPRMTRUnitPRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(CreateModulePRMTRModuleAbstractSUBTYPENamePRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(AddModuleToGroupPRMTRModuleGroupPRMTRModuleAbstractPRMTRMenuItem menuItem);
+        ImageView handle(AddModuleToProgPRMTRProgramPRMTRModuleAbstractPRMTRMenuItem menuItem);
         ImageView handle(CreateProgramPRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(StartStudyGroupPRMTRProgramPRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(AddUnitPRMTRModuleWithUnitsPRMTRStringPRMTRFractionPRMTRMenuItem menuItem);
     }
     private abstract class ServerMenuItem extends MenuItem{
         private ServerMenuItem(){
             this.setGraphic(getIconForMenuItem(this));
         }
         abstract protected ImageView accept(MenuItemVisitor visitor);
-    }
-    private class AddModuleToGroupPRMTRModuleGroupPRMTRModuleAbstractPRMTRMenuItem extends ServerMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class AddModuleToProgPRMTRProgramPRMTRModuleAbstractPRMTRMenuItem extends ServerMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
-    }
-    private class AddUnitPRMTRModuleWithUnitsPRMTRStringPRMTRFractionPRMTRMenuItem extends ServerMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
     }
     private class ChangeCPOnModulePRMTRModuleAtomarPRMTRFractionPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
@@ -361,7 +347,27 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
             return visitor.handle(this);
         }
     }
+    private class AddModuleToGroupPRMTRModuleGroupPRMTRModuleAbstractPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class AddModuleToProgPRMTRProgramPRMTRModuleAbstractPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
     private class CreateProgramPRMTRStringPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class StartStudyGroupPRMTRProgramPRMTRStringPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class AddUnitPRMTRModuleWithUnitsPRMTRStringPRMTRFractionPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -369,11 +375,11 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
     private java.util.Vector<javafx.scene.control.Button> getToolButtonsForStaticOperations() {
         java.util.Vector<javafx.scene.control.Button> result = new java.util.Vector<javafx.scene.control.Button>();
         javafx.scene.control.Button currentButton = null;
-        currentButton = new javafx.scene.control.Button("createModule ... ");
+        currentButton = new javafx.scene.control.Button("Modul erstellen ... ");
         currentButton.setGraphic(new CreateModulePRMTRModuleAbstractSUBTYPENamePRMTRStringPRMTRMenuItem().getGraphic());
         currentButton.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
-                final ServerCreateModuleModuleAbstractSUBTYPENameStringMssgWizard wizard = new ServerCreateModuleModuleAbstractSUBTYPENameStringMssgWizard("createModule");
+                final ServerCreateModuleModuleAbstractSUBTYPENameStringMssgWizard wizard = new ServerCreateModuleModuleAbstractSUBTYPENameStringMssgWizard("Modul erstellen");
                 wizard.setWidth(getNavigationPanel().getWidth());
                 wizard.setX( getPointForView().getX());
                 wizard.setY( getPointForView().getY());
@@ -381,11 +387,11 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
             }
         });
         result.add(currentButton);
-        currentButton = new javafx.scene.control.Button("createProgram ... ");
+        currentButton = new javafx.scene.control.Button("Programm erstellen ... ");
         currentButton.setGraphic(new CreateProgramPRMTRStringPRMTRMenuItem().getGraphic());
         currentButton.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
-                final ServerCreateProgramStringMssgWizard wizard = new ServerCreateProgramStringMssgWizard("createProgram");
+                final ServerCreateProgramStringMssgWizard wizard = new ServerCreateProgramStringMssgWizard("Programm erstellen");
                 wizard.setWidth(getNavigationPanel().getWidth());
                 wizard.setX( getPointForView().getX());
                 wizard.setY( getPointForView().getY());
@@ -399,10 +405,10 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         final ContextMenu result = new ContextMenu();
         MenuItem item = null;
         item = new CreateModulePRMTRModuleAbstractSUBTYPENamePRMTRStringPRMTRMenuItem();
-        item.setText("(S) createModule ... ");
+        item.setText("(S) Modul erstellen ... ");
         item.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
-                final ServerCreateModuleModuleAbstractSUBTYPENameStringMssgWizard wizard = new ServerCreateModuleModuleAbstractSUBTYPENameStringMssgWizard("createModule");
+                final ServerCreateModuleModuleAbstractSUBTYPENameStringMssgWizard wizard = new ServerCreateModuleModuleAbstractSUBTYPENameStringMssgWizard("Modul erstellen");
                 wizard.setWidth(getNavigationPanel().getWidth());
                 wizard.setX( getPointForView().getX());
                 wizard.setY( getPointForView().getY());
@@ -411,10 +417,10 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         });
         if (withStaticOperations) result.getItems().add(item);
         item = new CreateProgramPRMTRStringPRMTRMenuItem();
-        item.setText("(S) createProgram ... ");
+        item.setText("(S) Programm erstellen ... ");
         item.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
-                final ServerCreateProgramStringMssgWizard wizard = new ServerCreateProgramStringMssgWizard("createProgram");
+                final ServerCreateProgramStringMssgWizard wizard = new ServerCreateProgramStringMssgWizard("Programm erstellen");
                 wizard.setWidth(getNavigationPanel().getWidth());
                 wizard.setX( getPointForView().getX());
                 wizard.setY( getPointForView().getY());
@@ -431,10 +437,10 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
             }
             if (selected instanceof ProgramView){
                 item = new AddModuleToProgPRMTRProgramPRMTRModuleAbstractPRMTRMenuItem();
-                item.setText("addModuleToProg ... ");
+                item.setText("Modul hinzufügen ... ");
                 item.setOnAction(new EventHandler<ActionEvent>(){
                     public void handle(javafx.event.ActionEvent e) {
-                        final ServerAddModuleToProgProgramModuleAbstractMssgWizard wizard = new ServerAddModuleToProgProgramModuleAbstractMssgWizard("addModuleToProg");
+                        final ServerAddModuleToProgProgramModuleAbstractMssgWizard wizard = new ServerAddModuleToProgProgramModuleAbstractMssgWizard("Modul hinzufügen");
                         wizard.setFirstArgument((ProgramView)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.setX( getPointForView().getX());
@@ -443,14 +449,12 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                     }
                 });
                 result.getItems().add(item);
-            }
-            if (selected instanceof ModuleWithUnitsView){
-                item = new AddUnitPRMTRModuleWithUnitsPRMTRStringPRMTRFractionPRMTRMenuItem();
-                item.setText("addUnit ... ");
+                item = new StartStudyGroupPRMTRProgramPRMTRStringPRMTRMenuItem();
+                item.setText("Studiengruppe eröffnen ... ");
                 item.setOnAction(new EventHandler<ActionEvent>(){
                     public void handle(javafx.event.ActionEvent e) {
-                        final ServerAddUnitModuleWithUnitsStringFractionMssgWizard wizard = new ServerAddUnitModuleWithUnitsStringFractionMssgWizard("addUnit");
-                        wizard.setFirstArgument((ModuleWithUnitsView)selected);
+                        final ServerStartStudyGroupProgramStringMssgWizard wizard = new ServerStartStudyGroupProgramStringMssgWizard("Studiengruppe eröffnen");
+                        wizard.setFirstArgument((ProgramView)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.setX( getPointForView().getX());
                         wizard.setY( getPointForView().getY());
@@ -461,10 +465,10 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
             }
             if (selected instanceof ModuleAtomarView){
                 item = new ChangeCPOnModulePRMTRModuleAtomarPRMTRFractionPRMTRMenuItem();
-                item.setText("changeCPOnModule ... ");
+                item.setText("CP ändern ... ");
                 item.setOnAction(new EventHandler<ActionEvent>(){
                     public void handle(javafx.event.ActionEvent e) {
-                        final ServerChangeCPOnModuleModuleAtomarFractionMssgWizard wizard = new ServerChangeCPOnModuleModuleAtomarFractionMssgWizard("changeCPOnModule");
+                        final ServerChangeCPOnModuleModuleAtomarFractionMssgWizard wizard = new ServerChangeCPOnModuleModuleAtomarFractionMssgWizard("CP ändern");
                         wizard.setFirstArgument((ModuleAtomarView)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.setX( getPointForView().getX());
@@ -474,13 +478,13 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                 });
                 result.getItems().add(item);
             }
-            if (selected instanceof ModuleGroupView){
-                item = new AddModuleToGroupPRMTRModuleGroupPRMTRModuleAbstractPRMTRMenuItem();
-                item.setText("addModuleToGroup ... ");
+            if (selected instanceof ModuleWithUnitsView){
+                item = new AddUnitPRMTRModuleWithUnitsPRMTRStringPRMTRFractionPRMTRMenuItem();
+                item.setText("Unit hinzufügen ... ");
                 item.setOnAction(new EventHandler<ActionEvent>(){
                     public void handle(javafx.event.ActionEvent e) {
-                        final ServerAddModuleToGroupModuleGroupModuleAbstractMssgWizard wizard = new ServerAddModuleToGroupModuleGroupModuleAbstractMssgWizard("addModuleToGroup");
-                        wizard.setFirstArgument((ModuleGroupView)selected);
+                        final ServerAddUnitModuleWithUnitsStringFractionMssgWizard wizard = new ServerAddUnitModuleWithUnitsStringFractionMssgWizard("Unit hinzufügen");
+                        wizard.setFirstArgument((ModuleWithUnitsView)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.setX( getPointForView().getX());
                         wizard.setY( getPointForView().getY());
@@ -491,11 +495,26 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
             }
             if (selected instanceof UnitView){
                 item = new ChangeCPOnUnitPRMTRUnitPRMTRFractionPRMTRMenuItem();
-                item.setText("changeCPOnUnit ... ");
+                item.setText("CP ändern ... ");
                 item.setOnAction(new EventHandler<ActionEvent>(){
                     public void handle(javafx.event.ActionEvent e) {
-                        final ServerChangeCPOnUnitUnitFractionMssgWizard wizard = new ServerChangeCPOnUnitUnitFractionMssgWizard("changeCPOnUnit");
+                        final ServerChangeCPOnUnitUnitFractionMssgWizard wizard = new ServerChangeCPOnUnitUnitFractionMssgWizard("CP ändern");
                         wizard.setFirstArgument((UnitView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.setX( getPointForView().getX());
+                        wizard.setY( getPointForView().getY());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+            }
+            if (selected instanceof ModuleGroupView){
+                item = new AddModuleToGroupPRMTRModuleGroupPRMTRModuleAbstractPRMTRMenuItem();
+                item.setText("Modul hinzufügen ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final ServerAddModuleToGroupModuleGroupModuleAbstractMssgWizard wizard = new ServerAddModuleToGroupModuleGroupModuleAbstractMssgWizard("Modul hinzufügen");
+                        wizard.setFirstArgument((ModuleGroupView)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.setX( getPointForView().getX());
                         wizard.setY( getPointForView().getY());
@@ -879,6 +898,60 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));		
 		}	
 		protected void handleDependencies(int i) {
+		}
+		
+		
+	}
+
+	class ServerStartStudyGroupProgramStringMssgWizard extends Wizard {
+
+		protected ServerStartStudyGroupProgramStringMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new StartStudyGroupPRMTRProgramPRMTRStringPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerStartStudyGroupProgramStringMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().startStudyGroup(firstArgument, ((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+		private ProgramView firstArgument; 
+	
+		public void setFirstArgument(ProgramView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
+				selectionPanel0.preset(firstArgument.getName());
+				if (!selectionPanel0.check()) selectionPanel0.preset("");
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			this.check();
 		}
 		
 		

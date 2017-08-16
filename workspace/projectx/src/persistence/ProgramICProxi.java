@@ -93,6 +93,10 @@ public class ProgramICProxi extends PersistentInCacheProxiOptimistic implements 
 				throws PersistenceException{
         ((PersistentProgram)this.getTheObject()).initializeOnInstantiation();
     }
+    public void startStudyGroup(final String name) 
+				throws PersistenceException{
+        ((PersistentProgram)this.getTheObject()).startStudyGroup(name);
+    }
 
     
 }

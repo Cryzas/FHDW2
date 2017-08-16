@@ -12,15 +12,10 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		
 	  private static ICProxiFactory [] getTheICProxiFactories(){
 		if (iCProxiFactories == null){
-			iCProxiFactories = new ICProxiFactory[75];
+			iCProxiFactories = new ICProxiFactory[85];
         iCProxiFactories[54] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CreateProgramCommandICProxi(objectId);
-            }
-        };
-        iCProxiFactories[42] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new ProgramICProxi(objectId);
             }
         };
         iCProxiFactories[55] = new ICProxiFactory(){
@@ -33,9 +28,24 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new ServerICProxi(objectId);
             }
         };
+        iCProxiFactories[76] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new ProgramSGroupICProxi(objectId);
+            }
+        };
         iCProxiFactories[43] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ErrorDisplayICProxi(objectId);
+            }
+        };
+        iCProxiFactories[77] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new ModuleGroupSGroupICProxi(objectId);
+            }
+        };
+        iCProxiFactories[78] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new ModuleAtomarSGroupICProxi(objectId);
             }
         };
         iCProxiFactories[52] = new ICProxiFactory(){
@@ -43,9 +53,9 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new ModuleAtomarICProxi(objectId);
             }
         };
-        iCProxiFactories[56] = new ICProxiFactory(){
+        iCProxiFactories[84] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
-                return new ChangeCPOnUnitCommandICProxi(objectId);
+                return new StartStudyGroupCommandICProxi(objectId);
             }
         };
         iCProxiFactories[44] = new ICProxiFactory(){
@@ -63,14 +73,14 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new UnitICProxi(objectId);
             }
         };
-        iCProxiFactories[58] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new CreateModuleCommandICProxi(objectId);
-            }
-        };
         iCProxiFactories[0] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CommandCoordinatorICProxi(objectId);
+            }
+        };
+        iCProxiFactories[79] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new StudyGroupICProxi(objectId);
             }
         };
         iCProxiFactories[53] = new ICProxiFactory(){
@@ -83,14 +93,39 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new AddModuleToGroupCommandICProxi(objectId);
             }
         };
-        iCProxiFactories[3] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new CommonDateICProxi(objectId);
-            }
-        };
         iCProxiFactories[67] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new AddModuleToProgCommandICProxi(objectId);
+            }
+        };
+        iCProxiFactories[47] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new ProgramManagerICProxi(objectId);
+            }
+        };
+        iCProxiFactories[42] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new ProgramICProxi(objectId);
+            }
+        };
+        iCProxiFactories[80] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new UnitSGroupICProxi(objectId);
+            }
+        };
+        iCProxiFactories[56] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new ChangeCPOnUnitCommandICProxi(objectId);
+            }
+        };
+        iCProxiFactories[58] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new CreateModuleCommandICProxi(objectId);
+            }
+        };
+        iCProxiFactories[3] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new CommonDateICProxi(objectId);
             }
         };
         iCProxiFactories[4] = new ICProxiFactory(){
@@ -98,9 +133,9 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new CommandExecuterICProxi(objectId);
             }
         };
-        iCProxiFactories[47] = new ICProxiFactory(){
+        iCProxiFactories[81] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
-                return new ProgramManagerICProxi(objectId);
+                return new ModuleWithUnitsSGroupICProxi(objectId);
             }
         };
         iCProxiFactories[60] = new ICProxiFactory(){

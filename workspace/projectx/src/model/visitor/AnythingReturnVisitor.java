@@ -2,7 +2,7 @@
 package model.visitor;
 import persistence.*;
 
-public interface AnythingReturnVisitor<R> extends CommonDateReturnVisitor<R> ,ModuleAbstractReturnVisitor<R> {
+public interface AnythingReturnVisitor<R> extends CommonDateReturnVisitor<R> ,ModuleAbstractReturnVisitor<R> ,ModuleAbstractSGroupReturnVisitor<R> {
     
     public R handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException;
     public R handleAddModuleToProgCommand(AddModuleToProgCommand4Public addModuleToProgCommand) throws PersistenceException;
@@ -18,7 +18,11 @@ public interface AnythingReturnVisitor<R> extends CommonDateReturnVisitor<R> ,Mo
     public R handleModuleManager(ModuleManager4Public moduleManager) throws PersistenceException;
     public R handleProgram(Program4Public program) throws PersistenceException;
     public R handleProgramManager(ProgramManager4Public programManager) throws PersistenceException;
+    public R handleProgramSGroup(ProgramSGroup4Public programSGroup) throws PersistenceException;
     public R handleServer(Server4Public server) throws PersistenceException;
+    public R handleStartStudyGroupCommand(StartStudyGroupCommand4Public startStudyGroupCommand) throws PersistenceException;
+    public R handleStudyGroup(StudyGroup4Public studyGroup) throws PersistenceException;
     public R handleUnit(Unit4Public unit) throws PersistenceException;
+    public R handleUnitSGroup(UnitSGroup4Public unitSGroup) throws PersistenceException;
     
 }

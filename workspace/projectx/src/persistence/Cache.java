@@ -286,13 +286,20 @@ public class Cache {
 		this.number2NameMap.put(155, "CreateProgramCommand");
 		this.number2NameMap.put(-144, "ErrorDisplay");
 		this.number2NameMap.put(153, "ModuleAtomar");
+		this.number2NameMap.put(179, "ModuleAtomarSGroup");
 		this.number2NameMap.put(166, "ModuleGroup");
+		this.number2NameMap.put(178, "ModuleGroupSGroup");
 		this.number2NameMap.put(145, "ModuleManager");
 		this.number2NameMap.put(154, "ModuleWithUnits");
+		this.number2NameMap.put(182, "ModuleWithUnitsSGroup");
 		this.number2NameMap.put(143, "Program");
 		this.number2NameMap.put(148, "ProgramManager");
+		this.number2NameMap.put(177, "ProgramSGroup");
 		this.number2NameMap.put(-102, "Server");
-		this.number2NameMap.put(147, "Unit");	
+		this.number2NameMap.put(185, "StartStudyGroupCommand");
+		this.number2NameMap.put(180, "StudyGroup");
+		this.number2NameMap.put(147, "Unit");
+		this.number2NameMap.put(181, "UnitSGroup");	
 	}
 	
 }

@@ -11,6 +11,7 @@ public interface CommonDateReturnExceptionVisitor<R, E extends model.UserExcepti
     public R handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException, E;
     public R handleCreateModuleCommand(CreateModuleCommand4Public createModuleCommand) throws PersistenceException, E;
     public R handleCreateProgramCommand(CreateProgramCommand4Public createProgramCommand) throws PersistenceException, E;
+    public R handleStartStudyGroupCommand(StartStudyGroupCommand4Public startStudyGroupCommand) throws PersistenceException, E;
     public R handleCommonDate(CommonDate4Public commonDate) throws PersistenceException, E;
     
 }

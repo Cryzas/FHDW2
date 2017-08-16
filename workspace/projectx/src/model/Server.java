@@ -415,6 +415,11 @@ public class Server extends PersistentObject implements PersistentServer{
     public void initializeOnInstantiation() 
 				throws PersistenceException{    
     }
+    public void startStudyGroup(final Program4Public program, final String name) 
+				throws PersistenceException{
+        //TODO: implement method: startStudyGroup
+        
+    }
     
     
     // Start of section that contains overridden operations only.

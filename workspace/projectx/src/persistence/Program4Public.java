@@ -33,6 +33,8 @@ public interface Program4Public extends Anything, programHierarchyHIERARCHY, Abs
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
+    public void startStudyGroup(final String name) 
+				throws PersistenceException;
 
 }
 

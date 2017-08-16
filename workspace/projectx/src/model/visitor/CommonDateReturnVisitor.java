@@ -11,6 +11,7 @@ public interface CommonDateReturnVisitor<R> {
     public R handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException;
     public R handleCreateModuleCommand(CreateModuleCommand4Public createModuleCommand) throws PersistenceException;
     public R handleCreateProgramCommand(CreateProgramCommand4Public createProgramCommand) throws PersistenceException;
+    public R handleStartStudyGroupCommand(StartStudyGroupCommand4Public startStudyGroupCommand) throws PersistenceException;
     public R handleCommonDate(CommonDate4Public commonDate) throws PersistenceException;
     
 }

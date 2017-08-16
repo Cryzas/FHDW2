@@ -3,7 +3,7 @@ package model.meta;
 public interface ModuleAbstractMssgsVisitor extends ModuleAbstractDOWNMssgsVisitor, ModuleAbstractUPMssgsVisitor {}
 
 
-interface ModuleAbstractDOWNMssgsVisitor extends ModuleAtomarDOWNMssgsVisitor, ModuleWithUnitsDOWNMssgsVisitor, ModuleGroupDOWNMssgsVisitor {
+interface ModuleAbstractDOWNMssgsVisitor extends ModuleAtomarDOWNMssgsVisitor, ModuleGroupDOWNMssgsVisitor, ModuleWithUnitsDOWNMssgsVisitor {
 
     
 }

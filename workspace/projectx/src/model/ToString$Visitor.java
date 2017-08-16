@@ -67,5 +67,36 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	public void handleModuleGroup(ModuleGroup4Public moduleGroup) throws PersistenceException {
 		result = "Modulgruppe: " + moduleGroup.getName() + " (" + moduleGroup.getCreditPoints() + " CP)";
 	}
+	@Override
+	public void handleProgramSGroup(ProgramSGroup4Public programSGroup) throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleModuleGroupSGroup(ModuleGroupSGroup4Public moduleGroupSGroup) throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleModuleAtomarSGroup(ModuleAtomarSGroup4Public moduleAtomarSGroup) throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleStudyGroup(StudyGroup4Public studyGroup) throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleUnitSGroup(UnitSGroup4Public unitSGroup) throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void handleModuleWithUnitsSGroup(ModuleWithUnitsSGroup4Public moduleWithUnitsSGroup)
+			throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

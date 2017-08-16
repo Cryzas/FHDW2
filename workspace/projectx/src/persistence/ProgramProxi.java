@@ -89,6 +89,10 @@ public class ProgramProxi extends PersistentProxi implements PersistentProgram{
 				throws PersistenceException{
         ((PersistentProgram)this.getTheObject()).initializeOnInstantiation();
     }
+    public void startStudyGroup(final String name) 
+				throws PersistenceException{
+        ((PersistentProgram)this.getTheObject()).startStudyGroup(name);
+    }
 
     
 }

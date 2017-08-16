@@ -183,6 +183,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initializeOnInstantiation();
     }
+    public void startStudyGroup(final Program4Public program, final String name) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).startStudyGroup(program, name);
+    }
 
     
 }

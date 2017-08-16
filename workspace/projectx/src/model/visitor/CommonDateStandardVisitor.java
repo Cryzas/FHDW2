@@ -11,11 +11,14 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleChangeCPOnModuleCommand(ChangeCPOnModuleCommand4Public changeCPOnModuleCommand) throws PersistenceException{
         this.standardHandling(changeCPOnModuleCommand);
     }
-    public void handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException{
-        this.standardHandling(changeCPOnUnitCommand);
+    public void handleStartStudyGroupCommand(StartStudyGroupCommand4Public startStudyGroupCommand) throws PersistenceException{
+        this.standardHandling(startStudyGroupCommand);
     }
     public void handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException{
         this.standardHandling(addModuleToGroupCommand);
+    }
+    public void handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException{
+        this.standardHandling(changeCPOnUnitCommand);
     }
     public void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException{
         this.standardHandling(commonDate);

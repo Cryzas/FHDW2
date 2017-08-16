@@ -241,6 +241,11 @@ public class Program extends PersistentObject implements PersistentProgram{
 				throws PersistenceException{
         
     }
+    public void startStudyGroup(final String name) 
+				throws PersistenceException{
+        //TODO: implement method: startStudyGroup
+        
+    }
     
     
     // Start of section that contains overridden operations only.

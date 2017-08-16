@@ -3,13 +3,14 @@ model projectx {
 server Server {
 	public ProgramManager programManager;
 	public ModuleManager moduleManager;
-	void createProgram(String name);
-	void addModuleToProg(Program program, ModuleAbstract module {moduleManager;modules});
-	void addModuleToGroup(ModuleGroup group, ModuleAbstract module {moduleManager;modules});
-	void createModule(ModuleAbstractSUBTYPEName type, String name);
-	void addUnit(ModuleWithUnits module, String name, Fraction creditPoints);
-	void changeCPOnUnit(Unit unit, Fraction creditPoints);
-	void changeCPOnModule(ModuleAtomar module, Fraction creditPoints);
+	void createProgram @@ Programm_erstellen(String name);
+	void addModuleToProg @@ Modul_hinzufügen(Program program, ModuleAbstract module {moduleManager;modules});
+	void addModuleToGroup @@ Modul_hinzufügen(ModuleGroup group, ModuleAbstract module {moduleManager;modules});
+	void createModule @@ Modul_erstellen(ModuleAbstractSUBTYPEName type, String name);
+	void addUnit @@ Unit_hinzufügen(ModuleWithUnits module, String name, Fraction creditPoints);
+	void changeCPOnUnit @@ CP_ändern(Unit unit, Fraction creditPoints);
+	void changeCPOnModule @@ CP_ändern(ModuleAtomar module, Fraction creditPoints);
+	void startStudyGroup @@ Studiengruppe_eröffnen(Program program, String name);
 }
 
 																									/* Manager Klassen */
@@ -17,6 +18,7 @@ class ProgramManager {
 	public Program ** programs;
 	active void createProgram(String name) throws StudyProgramException;
 	active void addModuleToProg(Program program, ModuleAbstract module) throws CycleException, StudyProgramException;
+	active void startStudyGroup(Program program, String name);
 }
 
 class ModuleManager {
@@ -36,6 +38,7 @@ class Program {
 	public prior indexed String name;
 	public derived Fraction creditPoints;
 	void addModule(ModuleAbstract module) throws CycleException, StudyProgramException;
+	void startStudyGroup(String name);
 }
 
 abstract string-factory class ModuleAbstract {

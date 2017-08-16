@@ -58,6 +58,8 @@ public interface Server4Public extends Invoker, Anything, Remote, AbstractPersis
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
+    public void startStudyGroup(final Program4Public program, final String name) 
+				throws PersistenceException;
 
 }
 
