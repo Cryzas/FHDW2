@@ -18,6 +18,7 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleProgramManager(ProgramManager4Public programManager) throws PersistenceException;
     public abstract void handleProgram(Program4Public program) throws PersistenceException;
     public abstract void handleUnitSGroup(UnitSGroup4Public unitSGroup) throws PersistenceException;
+    public abstract void handleStudyGroupManager(StudyGroupManager4Public studyGroupManager) throws PersistenceException;
     public abstract void handleModuleWithUnitsSGroup(ModuleWithUnitsSGroup4Public moduleWithUnitsSGroup) throws PersistenceException;
     
 }

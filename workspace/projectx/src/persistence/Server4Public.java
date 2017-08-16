@@ -7,6 +7,7 @@ public interface Server4Public extends Invoker, Anything, Remote, AbstractPersis
     
     public ProgramManager4Public getProgramManager() throws PersistenceException ;
     public ModuleManager4Public getModuleManager() throws PersistenceException ;
+    public StudyGroupManager4Public getGroupManager() throws PersistenceException ;
     public String getUser() throws PersistenceException ;
     
     public void accept(InvokerVisitor visitor) throws PersistenceException;
@@ -22,6 +23,10 @@ public interface Server4Public extends Invoker, Anything, Remote, AbstractPersis
     public <E extends model.UserException>  void accept(RemoteExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(RemoteReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
+    public UnitSGroupSearchList ToUnit_Path_In_SwapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module) 
+				throws model.UserException, PersistenceException;
+    public UnitSGroupSearchList fromUnit_Path_In_SwapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module) 
+				throws model.UserException, PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
     public ModuleAbstractSearchList module_Path_In_AddModuleToGroup() 
@@ -59,6 +64,8 @@ public interface Server4Public extends Invoker, Anything, Remote, AbstractPersis
     public void initializeOnInstantiation() 
 				throws PersistenceException;
     public void startStudyGroup(final Program4Public program, final String name) 
+				throws PersistenceException;
+    public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
 				throws PersistenceException;
 
 }

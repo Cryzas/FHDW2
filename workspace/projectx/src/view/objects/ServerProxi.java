@@ -27,10 +27,17 @@ public class ServerProxi extends ViewProxi implements ServerView{
             moduleManager = view.objects.ViewProxi.createProxi(moduleManager$Info,connectionKey);
             moduleManager.setToString(moduleManager$Info.getToString());
         }
+        ViewProxi groupManager = null;
+        String groupManager$String = (String)resultTable.get("groupManager");
+        if (groupManager$String != null) {
+            common.ProxiInformation groupManager$Info = common.RPCConstantsAndServices.createProxiInformation(groupManager$String);
+            groupManager = view.objects.ViewProxi.createProxi(groupManager$Info,connectionKey);
+            groupManager.setToString(groupManager$Info.getToString());
+        }
         java.util.Vector<String> errors_string = (java.util.Vector<String>)resultTable.get("errors");
         java.util.Vector<ErrorDisplayView> errors = ViewProxi.getProxiVector(errors_string, connectionKey);
         String user = (String)resultTable.get("user");
-        ServerView result$$ = new Server((ProgramManagerView)programManager,(ModuleManagerView)moduleManager,errors,(String)user, this.getId(), this.getClassId());
+        ServerView result$$ = new Server((ProgramManagerView)programManager,(ModuleManagerView)moduleManager,(StudyGroupManagerView)groupManager,errors,(String)user, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -44,18 +51,22 @@ public class ServerProxi extends ViewProxi implements ServerView{
         if(this.getProgramManager() != null) index = index - 1;
         if(index == 0 && this.getModuleManager() != null) return new ModuleManagerServerWrapper(this, originalIndex, (ViewRoot)this.getModuleManager());
         if(this.getModuleManager() != null) index = index - 1;
+        if(index == 0 && this.getGroupManager() != null) return new GroupManagerServerWrapper(this, originalIndex, (ViewRoot)this.getGroupManager());
+        if(this.getGroupManager() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getProgramManager() == null ? 0 : 1)
-            + (this.getModuleManager() == null ? 0 : 1);
+            + (this.getModuleManager() == null ? 0 : 1)
+            + (this.getGroupManager() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
             && (this.getProgramManager() == null ? true : false)
-            && (this.getModuleManager() == null ? true : false);
+            && (this.getModuleManager() == null ? true : false)
+            && (this.getGroupManager() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -63,6 +74,8 @@ public class ServerProxi extends ViewProxi implements ServerView{
         if(this.getProgramManager() != null) result = result + 1;
         if(this.getModuleManager() != null && this.getModuleManager().equals(child)) return result;
         if(this.getModuleManager() != null) result = result + 1;
+        if(this.getGroupManager() != null && this.getGroupManager().equals(child)) return result;
+        if(this.getGroupManager() != null) result = result + 1;
         return -1;
     }
     
@@ -77,6 +90,12 @@ public class ServerProxi extends ViewProxi implements ServerView{
     }
     public void setModuleManager(ModuleManagerView newValue) throws ModelException {
         ((Server)this.getTheObject()).setModuleManager(newValue);
+    }
+    public StudyGroupManagerView getGroupManager()throws ModelException{
+        return ((Server)this.getTheObject()).getGroupManager();
+    }
+    public void setGroupManager(StudyGroupManagerView newValue) throws ModelException {
+        ((Server)this.getTheObject()).setGroupManager(newValue);
     }
     public java.util.Vector<ErrorDisplayView> getErrors()throws ModelException{
         return ((Server)this.getTheObject()).getErrors();

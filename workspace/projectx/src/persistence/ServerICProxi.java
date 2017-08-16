@@ -34,6 +34,12 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void setModuleManager(ModuleManager4Public newValue) throws PersistenceException {
         ((PersistentServer)this.getTheObject()).setModuleManager(newValue);
     }
+    public StudyGroupManager4Public getGroupManager() throws PersistenceException {
+        return ((PersistentServer)this.getTheObject()).getGroupManager();
+    }
+    public void setGroupManager(StudyGroupManager4Public newValue) throws PersistenceException {
+        ((PersistentServer)this.getTheObject()).setGroupManager(newValue);
+    }
     public Server_ErrorsProxi getErrors() throws PersistenceException {
         return ((PersistentServer)this.getTheObject()).getErrors();
     }
@@ -103,6 +109,14 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     }
     
     
+    public UnitSGroupSearchList ToUnit_Path_In_SwapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module) 
+				throws model.UserException, PersistenceException{
+        return ((PersistentServer)this.getTheObject()).ToUnit_Path_In_SwapCPonModuleWithUnits(module);
+    }
+    public UnitSGroupSearchList fromUnit_Path_In_SwapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module) 
+				throws model.UserException, PersistenceException{
+        return ((PersistentServer)this.getTheObject()).fromUnit_Path_In_SwapCPonModuleWithUnits(module);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initialize(This, final$$Fields);
@@ -186,6 +200,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void startStudyGroup(final Program4Public program, final String name) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).startStudyGroup(program, name);
+    }
+    public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).swapCPonModuleWithUnits(module, fromUnit, ToUnit, creditPoints);
     }
 
     

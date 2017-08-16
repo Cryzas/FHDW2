@@ -26,6 +26,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException{
         this.standardHandling(errorDisplay);
     }
+    public void handleSwapCPonModuleWithUnitsCommand(SwapCPonModuleWithUnitsCommand4Public swapCPonModuleWithUnitsCommand) throws PersistenceException{
+        this.standardHandling(swapCPonModuleWithUnitsCommand);
+    }
     public void handleModuleAtomar(ModuleAtomar4Public moduleAtomar) throws PersistenceException{
         this.standardHandling(moduleAtomar);
     }
@@ -70,6 +73,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleCreateModuleCommand(CreateModuleCommand4Public createModuleCommand) throws PersistenceException{
         this.standardHandling(createModuleCommand);
+    }
+    public void handleStudyGroupManager(StudyGroupManager4Public studyGroupManager) throws PersistenceException{
+        this.standardHandling(studyGroupManager);
     }
     public void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException{
         this.standardHandling(commonDate);

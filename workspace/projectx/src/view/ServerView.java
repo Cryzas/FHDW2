@@ -12,6 +12,8 @@ public interface ServerView extends Anything, Remote, AbstractViewRoot {
     public void setProgramManager(ProgramManagerView newValue) throws ModelException ;
     public ModuleManagerView getModuleManager()throws ModelException;
     public void setModuleManager(ModuleManagerView newValue) throws ModelException ;
+    public StudyGroupManagerView getGroupManager()throws ModelException;
+    public void setGroupManager(StudyGroupManagerView newValue) throws ModelException ;
     public java.util.Vector<ErrorDisplayView> getErrors()throws ModelException;
     public void setErrors(java.util.Vector<ErrorDisplayView> newValue) throws ModelException ;
     public String getUser()throws ModelException;

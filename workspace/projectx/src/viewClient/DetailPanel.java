@@ -1240,6 +1240,9 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleUnitSGroup(view.UnitSGroupView object){
         result = new UnitSGroupDefaultDetailPanel(handler, object);
     }
+    public void handleStudyGroupManager(view.StudyGroupManagerView object){
+        result = new StudyGroupManagerDefaultDetailPanel(handler, object);
+    }
     public void handleModuleWithUnitsSGroup(view.ModuleWithUnitsSGroupView object){
         result = new ModuleWithUnitsSGroupDefaultDetailPanel(handler, object);
     }
@@ -1252,6 +1255,7 @@ class ServerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Server$$programManager = "Server$$programManager";
     protected static final String Server$$moduleManager = "Server$$moduleManager";
+    protected static final String Server$$groupManager = "Server$$groupManager";
     protected static final String Server$$user = "Server$$user";
     
     protected ServerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1610,6 +1614,21 @@ class UnitSGroupDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.UnitSGroupView getAnything(){
         return (view.UnitSGroupView)this.anything;
+    }
+}
+
+class StudyGroupManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String StudyGroupManager$$groups = "StudyGroupManager$$groups";
+    
+    protected StudyGroupManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.StudyGroupManagerView getAnything(){
+        return (view.StudyGroupManagerView)this.anything;
     }
 }
 

@@ -76,9 +76,9 @@ public class UnitSGroupICProxi extends PersistentInCacheProxiOptimistic implemen
 				throws PersistenceException{
         return ((PersistentUnitSGroup)this.getTheObject()).strategyprogramHierarchySGroup(strategy);
     }
-    public void changeCPOnUnit(final common.Fraction creditPoints) 
+    public void addCP(final common.Fraction creditPoints) 
 				throws PersistenceException{
-        ((PersistentUnitSGroup)this.getTheObject()).changeCPOnUnit(creditPoints);
+        ((PersistentUnitSGroup)this.getTheObject()).addCP(creditPoints);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -91,6 +91,10 @@ public class UnitSGroupICProxi extends PersistentInCacheProxiOptimistic implemen
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentUnitSGroup)this.getTheObject()).initializeOnInstantiation();
+    }
+    public void subCP(final common.Fraction creditPoints) 
+				throws model.StudyProgramException, PersistenceException{
+        ((PersistentUnitSGroup)this.getTheObject()).subCP(creditPoints);
     }
 
     

@@ -117,6 +117,7 @@ public class ConnectionHandler {
     public ErrorDisplayFacade theErrorDisplayFacade;
     public ModuleGroupSGroupFacade theModuleGroupSGroupFacade;
     public ModuleAtomarSGroupFacade theModuleAtomarSGroupFacade;
+    public SwapCPonModuleWithUnitsCommandFacade theSwapCPonModuleWithUnitsCommandFacade;
     public ModuleAtomarFacade theModuleAtomarFacade;
     public StartStudyGroupCommandFacade theStartStudyGroupCommandFacade;
     public ModuleManagerFacade theModuleManagerFacade;
@@ -132,6 +133,7 @@ public class ConnectionHandler {
     public UnitSGroupFacade theUnitSGroupFacade;
     public ChangeCPOnUnitCommandFacade theChangeCPOnUnitCommandFacade;
     public CreateModuleCommandFacade theCreateModuleCommandFacade;
+    public StudyGroupManagerFacade theStudyGroupManagerFacade;
     public CommonDateFacade theCommonDateFacade;
     public CommandExecuterFacade theCommandExecuterFacade;
     public ModuleWithUnitsSGroupFacade theModuleWithUnitsSGroupFacade;
@@ -169,6 +171,7 @@ public class ConnectionHandler {
             this.theErrorDisplayFacade= new ErrorDisplayFacade();
             this.theModuleGroupSGroupFacade= new ModuleGroupSGroupFacade(this.schemaName, this.con);
             this.theModuleAtomarSGroupFacade= new ModuleAtomarSGroupFacade(this.schemaName, this.con);
+            this.theSwapCPonModuleWithUnitsCommandFacade= new SwapCPonModuleWithUnitsCommandFacade(this.schemaName, this.con);
             this.theModuleAtomarFacade= new ModuleAtomarFacade(this.schemaName, this.con);
             this.theStartStudyGroupCommandFacade= new StartStudyGroupCommandFacade(this.schemaName, this.con);
             this.theModuleManagerFacade= new ModuleManagerFacade(this.schemaName, this.con);
@@ -184,6 +187,7 @@ public class ConnectionHandler {
             this.theUnitSGroupFacade= new UnitSGroupFacade(this.schemaName, this.con);
             this.theChangeCPOnUnitCommandFacade= new ChangeCPOnUnitCommandFacade(this.schemaName, this.con);
             this.theCreateModuleCommandFacade= new CreateModuleCommandFacade(this.schemaName, this.con);
+            this.theStudyGroupManagerFacade= new StudyGroupManagerFacade(this.schemaName, this.con);
             this.theCommonDateFacade= new CommonDateFacade(this.schemaName, this.con);
             this.theCommandExecuterFacade= new CommandExecuterFacade(this.schemaName, this.con);
             this.theModuleWithUnitsSGroupFacade= new ModuleWithUnitsSGroupFacade(this.schemaName, this.con);

@@ -10,39 +10,41 @@ import model.visitor.*;
 public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements PersistentModuleAtomarSGroup{
     
     
-    public static ModuleAtomarSGroup4Public createModuleAtomarSGroup(String name) throws PersistenceException{
-        return createModuleAtomarSGroup(name,false);
+    public static ModuleAtomarSGroup4Public createModuleAtomarSGroup(String name,common.Fraction ownCreditPoints) throws PersistenceException{
+        return createModuleAtomarSGroup(name,ownCreditPoints,false);
     }
     
-    public static ModuleAtomarSGroup4Public createModuleAtomarSGroup(String name,boolean delayed$Persistence) throws PersistenceException {
+    public static ModuleAtomarSGroup4Public createModuleAtomarSGroup(String name,common.Fraction ownCreditPoints,boolean delayed$Persistence) throws PersistenceException {
         PersistentModuleAtomarSGroup result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theModuleAtomarSGroupFacade
-                .newDelayedModuleAtomarSGroup(name,common.Fraction.Null);
+                .newDelayedModuleAtomarSGroup(name,ownCreditPoints);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theModuleAtomarSGroupFacade
-                .newModuleAtomarSGroup(name,common.Fraction.Null,-1);
+                .newModuleAtomarSGroup(name,ownCreditPoints,-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
         final$$Fields.put("name", name);
+        final$$Fields.put("ownCreditPoints", ownCreditPoints);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static ModuleAtomarSGroup4Public createModuleAtomarSGroup(String name,boolean delayed$Persistence,ModuleAtomarSGroup4Public This) throws PersistenceException {
+    public static ModuleAtomarSGroup4Public createModuleAtomarSGroup(String name,common.Fraction ownCreditPoints,boolean delayed$Persistence,ModuleAtomarSGroup4Public This) throws PersistenceException {
         PersistentModuleAtomarSGroup result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theModuleAtomarSGroupFacade
-                .newDelayedModuleAtomarSGroup(name,common.Fraction.Null);
+                .newDelayedModuleAtomarSGroup(name,ownCreditPoints);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theModuleAtomarSGroupFacade
-                .newModuleAtomarSGroup(name,common.Fraction.Null,-1);
+                .newModuleAtomarSGroup(name,ownCreditPoints,-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
         final$$Fields.put("name", name);
+        final$$Fields.put("ownCreditPoints", ownCreditPoints);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -166,6 +168,7 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
         this.setThis((PersistentModuleAtomarSGroup)This);
 		if(this.isTheSameAs(This)){
 			this.setName((String)final$$Fields.get("name"));
+			this.setOwnCreditPoints((common.Fraction)final$$Fields.get("ownCreditPoints"));
 		}
     }
     public <T> T strategyprogramHierarchySGroup(final programHierarchySGroupHIERARCHYStrategy<T> strategy) 
@@ -177,35 +180,21 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
     
     // Start of section that contains operations that must be implemented.
     
-    public void changeCPOnModule(final common.Fraction creditPoints) 
-				throws PersistenceException{
-        //TODO: implement method: changeCPOnModule
-        
-    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
         
     }
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
-        //TODO: implement method: getCreditPoints
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"getCreditPoints\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
+        return getThis().getOwnCreditPoints();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
         super.initializeOnCreation();
-		//TODO: implement method: initializeOnCreation
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         super.initializeOnInstantiation();
-		//TODO: implement method: initializeOnInstantiation
     }
     
     

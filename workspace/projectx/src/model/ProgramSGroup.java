@@ -2,6 +2,7 @@
 package model;
 
 import persistence.*;
+import common.Fraction;
 import model.visitor.*;
 
 
@@ -220,32 +221,25 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
     
     public void addModule(final ModuleAbstractSGroup4Public module) 
 				throws model.CycleException, model.StudyProgramException, PersistenceException{
-        //TODO: implement method: addModule
+    	if(getThis().containsprogramHierarchySGroup(module))
+    		throw new StudyProgramException(AlreadyExistsInParentMessage);
+    	getThis().getModules().add(module);
         
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
         
     }
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
-        //TODO: implement method: getCreditPoints
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"getCreditPoints\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
+    	return getThis().getModules().aggregate(Fraction.Null, (result, argument) -> result.add(argument.getCreditPoints()));
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
         
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
         
     }
     
@@ -254,6 +248,8 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    static String AlreadyExistsInParentMessage = "Das ausgewählte Modul ist bereits in dem Programm.";
     
     /* End of protected part that is not overridden by persistence generator */
     

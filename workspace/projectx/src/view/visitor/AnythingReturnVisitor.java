@@ -11,6 +11,7 @@ public interface AnythingReturnVisitor<R> extends ModuleAbstractReturnVisitor<R>
     public R handleProgramSGroup(ProgramSGroupView programSGroup) throws ModelException;
     public R handleServer(ServerView server) throws ModelException;
     public R handleStudyGroup(StudyGroupView studyGroup) throws ModelException;
+    public R handleStudyGroupManager(StudyGroupManagerView studyGroupManager) throws ModelException;
     public R handleUnit(UnitView unit) throws ModelException;
     public R handleUnitSGroup(UnitSGroupView unitSGroup) throws ModelException;
     

@@ -88,6 +88,13 @@ public class Server extends PersistentObject implements PersistentServer{
                 result.put("moduleManager", proxiInformation);
                 
             }
+            AbstractPersistentRoot groupManager = (AbstractPersistentRoot)this.getGroupManager();
+            if (groupManager != null) {
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    groupManager, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
+                result.put("groupManager", proxiInformation);
+                
+            }
             result.put("errors", this.getErrors().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, true, false));
             result.put("user", this.getUser());
         }
@@ -103,6 +110,7 @@ public class Server extends PersistentObject implements PersistentServer{
         Server result = this;
         result = new Server(this.programManager, 
                             this.moduleManager, 
+                            this.groupManager, 
                             this.This, 
                             this.password, 
                             this.user, 
@@ -123,6 +131,7 @@ public class Server extends PersistentObject implements PersistentServer{
     
     protected PersistentProgramManager programManager;
     protected PersistentModuleManager moduleManager;
+    protected PersistentStudyGroupManager groupManager;
     protected PersistentServer This;
     protected Server_ErrorsProxi errors;
     protected String password;
@@ -130,11 +139,12 @@ public class Server extends PersistentObject implements PersistentServer{
     protected long hackCount;
     protected java.sql.Timestamp hackDelay;
     
-    public Server(PersistentProgramManager programManager,PersistentModuleManager moduleManager,PersistentServer This,String password,String user,long hackCount,java.sql.Timestamp hackDelay,long id) throws PersistenceException {
+    public Server(PersistentProgramManager programManager,PersistentModuleManager moduleManager,PersistentStudyGroupManager groupManager,PersistentServer This,String password,String user,long hackCount,java.sql.Timestamp hackDelay,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.programManager = programManager;
         this.moduleManager = moduleManager;
+        this.groupManager = groupManager;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;
         this.errors = new Server_ErrorsProxi(this);
         this.password = password;
@@ -163,6 +173,10 @@ public class Server extends PersistentObject implements PersistentServer{
         if(this.getModuleManager() != null){
             this.getModuleManager().store();
             ConnectionHandler.getTheConnectionHandler().theServerFacade.moduleManagerSet(this.getId(), getModuleManager());
+        }
+        if(this.getGroupManager() != null){
+            this.getGroupManager().store();
+            ConnectionHandler.getTheConnectionHandler().theServerFacade.groupManagerSet(this.getId(), getGroupManager());
         }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
@@ -197,6 +211,20 @@ public class Server extends PersistentObject implements PersistentServer{
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theServerFacade.moduleManagerSet(this.getId(), newValue);
+        }
+    }
+    public StudyGroupManager4Public getGroupManager() throws PersistenceException {
+        return this.groupManager;
+    }
+    public void setGroupManager(StudyGroupManager4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.groupManager)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.groupManager = (PersistentStudyGroupManager)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theServerFacade.groupManagerSet(this.getId(), newValue);
         }
     }
     protected void setThis(PersistentServer newValue) throws PersistenceException {
@@ -294,10 +322,21 @@ public class Server extends PersistentObject implements PersistentServer{
     public int getLeafInfo() throws PersistenceException{
         if (this.getProgramManager() != null) return 1;
         if (this.getModuleManager() != null) return 1;
+        if (this.getGroupManager() != null) return 1;
         return 0;
     }
     
     
+    public UnitSGroupSearchList ToUnit_Path_In_SwapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module) 
+				throws model.UserException, PersistenceException{
+        	return new UnitSGroupSearchList(module.
+                getUnits().getList());
+    }
+    public UnitSGroupSearchList fromUnit_Path_In_SwapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module) 
+				throws model.UserException, PersistenceException{
+        	return new UnitSGroupSearchList(module.
+                getUnits().getList());
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentServer)This);
@@ -410,6 +449,7 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{ 
     	getThis().setModuleManager(ModuleManager.createModuleManager(true));
     	getThis().setProgramManager(ProgramManager.createProgramManager(true));
+    	getThis().setGroupManager(StudyGroupManager.createStudyGroupManager(true));
     	getThis().signalChanged(true); 
     }
     public void initializeOnInstantiation() 
@@ -417,8 +457,11 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void startStudyGroup(final Program4Public program, final String name) 
 				throws PersistenceException{
-        //TODO: implement method: startStudyGroup
-        
+    	getThis().getGroupManager().startStudyGroup(program, name, getThis());
+    }
+    public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
+				throws PersistenceException{
+    	getThis().getGroupManager().swapCPonModuleWithUnits(module, fromUnit, ToUnit, creditPoints, getThis());
     }
     
     

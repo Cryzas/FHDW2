@@ -25,8 +25,6 @@ public interface ModuleAtomarSGroup4Public extends ModuleAbstractSGroup4Public {
 				throws PersistenceException;
     public <T> T strategyprogramHierarchySGroup(final programHierarchySGroupHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException;
-    public void changeCPOnModule(final common.Fraction creditPoints) 
-				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void initializeOnCreation() 

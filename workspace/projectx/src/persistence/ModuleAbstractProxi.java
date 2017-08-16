@@ -30,6 +30,10 @@ public abstract class ModuleAbstractProxi extends PersistentProxi implements Per
 				throws PersistenceException{
         return ((PersistentModuleAbstract)this.getTheObject()).containsprogramHierarchy(part);
     }
+    public ModuleAbstractSGroup4Public copyForStudyGroup() 
+				throws model.UserException, PersistenceException{
+        return ((PersistentModuleAbstract)this.getTheObject()).copyForStudyGroup();
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentModuleAbstract)this.getTheObject()).copyingPrivateUserAttributes(copy);

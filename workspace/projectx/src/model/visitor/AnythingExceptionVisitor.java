@@ -22,6 +22,8 @@ public interface AnythingExceptionVisitor<E extends model.UserException> extends
     public void handleServer(Server4Public server) throws PersistenceException, E;
     public void handleStartStudyGroupCommand(StartStudyGroupCommand4Public startStudyGroupCommand) throws PersistenceException, E;
     public void handleStudyGroup(StudyGroup4Public studyGroup) throws PersistenceException, E;
+    public void handleStudyGroupManager(StudyGroupManager4Public studyGroupManager) throws PersistenceException, E;
+    public void handleSwapCPonModuleWithUnitsCommand(SwapCPonModuleWithUnitsCommand4Public swapCPonModuleWithUnitsCommand) throws PersistenceException, E;
     public void handleUnit(Unit4Public unit) throws PersistenceException, E;
     public void handleUnitSGroup(UnitSGroup4Public unitSGroup) throws PersistenceException, E;
     

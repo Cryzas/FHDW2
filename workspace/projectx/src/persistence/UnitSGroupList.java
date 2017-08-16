@@ -2,11 +2,10 @@ package persistence;
 
 import java.util.*;
 
-public class UnitSGroupList {
+public class UnitSGroupList  extends UnitSGroupSearchList{
 
-	protected Vector<UnitSGroup4Public> data; //List of proxies
 	protected UnitSGroupList() {
-		this.data = new Vector<UnitSGroup4Public>();
+		super();
 	}
 	public Iterator<UnitSGroup4Public> iterator(PersistentListProxi<UnitSGroup4Public> listProxi) {
 		return new PersistentListIterator<UnitSGroup4Public>(listProxi, this.data);

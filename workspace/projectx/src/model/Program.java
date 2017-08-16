@@ -225,6 +225,12 @@ public class Program extends PersistentObject implements PersistentProgram{
     		throw new StudyProgramException(AlreadyExistsInParentMessage);
     	getThis().getModules().add(module);
     }
+    public ProgramSGroup4Public copyForStudyGroup() 
+				throws model.UserException, PersistenceException{
+    	ProgramSGroup4Public newProgram = ProgramSGroup.createProgramSGroup(getThis().getName());
+    	getThis().getModules().applyToAllException(module -> newProgram.addModule(module.copyForStudyGroup()));
+    	return newProgram;
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         
@@ -239,11 +245,6 @@ public class Program extends PersistentObject implements PersistentProgram{
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        
-    }
-    public void startStudyGroup(final String name) 
-				throws PersistenceException{
-        //TODO: implement method: startStudyGroup
         
     }
     

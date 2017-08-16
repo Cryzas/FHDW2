@@ -77,6 +77,10 @@ public class ProgramICProxi extends PersistentInCacheProxiOptimistic implements 
 				throws model.CycleException, model.StudyProgramException, PersistenceException{
         ((PersistentProgram)this.getTheObject()).addModule(module);
     }
+    public ProgramSGroup4Public copyForStudyGroup() 
+				throws model.UserException, PersistenceException{
+        return ((PersistentProgram)this.getTheObject()).copyForStudyGroup();
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentProgram)this.getTheObject()).copyingPrivateUserAttributes(copy);
@@ -92,10 +96,6 @@ public class ProgramICProxi extends PersistentInCacheProxiOptimistic implements 
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentProgram)this.getTheObject()).initializeOnInstantiation();
-    }
-    public void startStudyGroup(final String name) 
-				throws PersistenceException{
-        ((PersistentProgram)this.getTheObject()).startStudyGroup(name);
     }
 
     

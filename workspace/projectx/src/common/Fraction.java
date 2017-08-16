@@ -110,4 +110,11 @@ public class Fraction {
 	public int hashCode(){
 		return this.getEnumerator().multiply(this.getDenominator()).hashCode();
 	}
+	
+	public boolean lessOrEquals(Fraction argument) {
+		if(argument.equals(this)){
+			return true;
+		}
+		return this.enumerator.multiply(argument.denominator).intValue() <= argument.enumerator.multiply(this.denominator).intValue();
+	}
 }

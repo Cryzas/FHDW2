@@ -12,7 +12,7 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		
 	  private static ICProxiFactory [] getTheICProxiFactories(){
 		if (iCProxiFactories == null){
-			iCProxiFactories = new ICProxiFactory[85];
+			iCProxiFactories = new ICProxiFactory[88];
         iCProxiFactories[54] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CreateProgramCommandICProxi(objectId);
@@ -46,6 +46,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[78] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ModuleAtomarSGroupICProxi(objectId);
+            }
+        };
+        iCProxiFactories[87] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new SwapCPonModuleWithUnitsCommandICProxi(objectId);
             }
         };
         iCProxiFactories[52] = new ICProxiFactory(){
@@ -121,6 +126,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[58] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CreateModuleCommandICProxi(objectId);
+            }
+        };
+        iCProxiFactories[85] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new StudyGroupManagerICProxi(objectId);
             }
         };
         iCProxiFactories[3] = new ICProxiFactory(){

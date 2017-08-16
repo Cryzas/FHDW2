@@ -12,14 +12,16 @@ public class Server extends ViewObject implements ServerView{
     
     protected ProgramManagerView programManager;
     protected ModuleManagerView moduleManager;
+    protected StudyGroupManagerView groupManager;
     protected java.util.Vector<ErrorDisplayView> errors;
     protected String user;
     
-    public Server(ProgramManagerView programManager,ModuleManagerView moduleManager,java.util.Vector<ErrorDisplayView> errors,String user,long id, long classId) {
+    public Server(ProgramManagerView programManager,ModuleManagerView moduleManager,StudyGroupManagerView groupManager,java.util.Vector<ErrorDisplayView> errors,String user,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.programManager = programManager;
         this.moduleManager = moduleManager;
+        this.groupManager = groupManager;
         this.errors = errors;
         this.user = user;        
     }
@@ -43,6 +45,12 @@ public class Server extends ViewObject implements ServerView{
     }
     public void setModuleManager(ModuleManagerView newValue) throws ModelException {
         this.moduleManager = newValue;
+    }
+    public StudyGroupManagerView getGroupManager()throws ModelException{
+        return this.groupManager;
+    }
+    public void setGroupManager(StudyGroupManagerView newValue) throws ModelException {
+        this.groupManager = newValue;
     }
     public java.util.Vector<ErrorDisplayView> getErrors()throws ModelException{
         return this.errors;
@@ -91,6 +99,10 @@ public class Server extends ViewObject implements ServerView{
         if (moduleManager != null) {
             ((ViewProxi)moduleManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(moduleManager.getClassId(), moduleManager.getId())));
         }
+        StudyGroupManagerView groupManager = this.getGroupManager();
+        if (groupManager != null) {
+            ((ViewProxi)groupManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(groupManager.getClassId(), groupManager.getId())));
+        }
         java.util.Vector<?> errors = this.getErrors();
         if (errors != null) {
             ViewObject.resolveVectorProxies(errors, resultTable);
@@ -106,17 +118,21 @@ public class Server extends ViewObject implements ServerView{
         if(this.getProgramManager() != null) index = index - 1;
         if(index == 0 && this.getModuleManager() != null) return new ModuleManagerServerWrapper(this, originalIndex, (ViewRoot)this.getModuleManager());
         if(this.getModuleManager() != null) index = index - 1;
+        if(index == 0 && this.getGroupManager() != null) return new GroupManagerServerWrapper(this, originalIndex, (ViewRoot)this.getGroupManager());
+        if(this.getGroupManager() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getProgramManager() == null ? 0 : 1)
-            + (this.getModuleManager() == null ? 0 : 1);
+            + (this.getModuleManager() == null ? 0 : 1)
+            + (this.getGroupManager() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         return true 
             && (this.getProgramManager() == null ? true : false)
-            && (this.getModuleManager() == null ? true : false);
+            && (this.getModuleManager() == null ? true : false)
+            && (this.getGroupManager() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -124,10 +140,12 @@ public class Server extends ViewObject implements ServerView{
         if(this.getProgramManager() != null) result = result + 1;
         if(this.getModuleManager() != null && this.getModuleManager().equals(child)) return result;
         if(this.getModuleManager() != null) result = result + 1;
+        if(this.getGroupManager() != null && this.getGroupManager().equals(child)) return result;
+        if(this.getGroupManager() != null) result = result + 1;
         return -1;
     }
     public int getUserIndex() throws ModelException {
-        return 0 + (this.getProgramManager() == null ? 0 : 1) + (this.getModuleManager() == null ? 0 : 1);
+        return 0 + (this.getProgramManager() == null ? 0 : 1) + (this.getModuleManager() == null ? 0 : 1) + (this.getGroupManager() == null ? 0 : 1);
     }
     public int getRowCount(){
         return 0 

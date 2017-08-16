@@ -81,10 +81,10 @@ public class Cache {
 		this.garbageCollector.start();
 	}
 
-//	public void reset$For$Test(){
-//		this.garbageCollector.interrupt();
-//		Cache.theCache = null;
-//	}
+	public void reset$For$Test(){
+		this.garbageCollector.interrupt();
+		Cache.theCache = null;
+	}
 
 	public void finalize(){
 		this.garbageCollector.interrupt();
@@ -298,6 +298,8 @@ public class Cache {
 		this.number2NameMap.put(-102, "Server");
 		this.number2NameMap.put(185, "StartStudyGroupCommand");
 		this.number2NameMap.put(180, "StudyGroup");
+		this.number2NameMap.put(186, "StudyGroupManager");
+		this.number2NameMap.put(188, "SwapCPonModuleWithUnitsCommand");
 		this.number2NameMap.put(147, "Unit");
 		this.number2NameMap.put(181, "UnitSGroup");	
 	}

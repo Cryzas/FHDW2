@@ -79,6 +79,10 @@ public class ModuleWithUnitsProxi extends ModuleAbstractProxi implements Persist
 				throws model.CycleException, model.StudyProgramException, PersistenceException{
         ((PersistentModuleWithUnits)this.getTheObject()).addUnit(name, creditPoints);
     }
+    public ModuleAbstractSGroup4Public copyForStudyGroup() 
+				throws model.UserException, PersistenceException{
+        return ((PersistentModuleWithUnits)this.getTheObject()).copyForStudyGroup();
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentModuleWithUnits)this.getTheObject()).copyingPrivateUserAttributes(copy);

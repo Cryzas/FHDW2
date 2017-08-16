@@ -43,6 +43,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException;
     
+    public abstract void handleStudyGroupManager(StudyGroupManager4Public studyGroupManager) throws PersistenceException;
+    
     public abstract void handleStudyGroup(StudyGroup4Public studyGroup) throws PersistenceException;
     
     public abstract void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException;
@@ -52,6 +54,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public void handleChangeCPOnModuleCommand(ChangeCPOnModuleCommand4Public changeCPOnModuleCommand) throws PersistenceException{
         this.handleCommonDate(changeCPOnModuleCommand);
+    }
+    public void handleSwapCPonModuleWithUnitsCommand(SwapCPonModuleWithUnitsCommand4Public swapCPonModuleWithUnitsCommand) throws PersistenceException{
+        this.handleCommonDate(swapCPonModuleWithUnitsCommand);
     }
     public void handleStartStudyGroupCommand(StartStudyGroupCommand4Public startStudyGroupCommand) throws PersistenceException{
         this.handleCommonDate(startStudyGroupCommand);

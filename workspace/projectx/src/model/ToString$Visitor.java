@@ -69,34 +69,37 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleProgramSGroup(ProgramSGroup4Public programSGroup) throws PersistenceException {
-		// TODO Auto-generated method stub
+		result = "Studienprogramm: " + programSGroup.getName() + " (" + programSGroup.getCreditPoints() + " CP)";
 		
 	}
 	@Override
 	public void handleModuleGroupSGroup(ModuleGroupSGroup4Public moduleGroupSGroup) throws PersistenceException {
-		// TODO Auto-generated method stub
+		result = "Modulgruppe: " + moduleGroupSGroup.getName() + " (" + moduleGroupSGroup.getCreditPoints() + " CP)";
 		
 	}
 	@Override
 	public void handleModuleAtomarSGroup(ModuleAtomarSGroup4Public moduleAtomarSGroup) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "Atomares Modul: " + moduleAtomarSGroup.getName() + " (" + moduleAtomarSGroup.getCreditPoints() + " CP)";
 	}
 	@Override
 	public void handleStudyGroup(StudyGroup4Public studyGroup) throws PersistenceException {
-		// TODO Auto-generated method stub
+		result = "Studiengruppe: " + studyGroup.getName();
 		
 	}
 	@Override
 	public void handleUnitSGroup(UnitSGroup4Public unitSGroup) throws PersistenceException {
-		// TODO Auto-generated method stub
+		result = "Unit: " + unitSGroup.getName() + " (" + unitSGroup.getCreditPoints() + " CP)";
 		
 	}
 	@Override
 	public void handleModuleWithUnitsSGroup(ModuleWithUnitsSGroup4Public moduleWithUnitsSGroup)
 			throws PersistenceException {
-		// TODO Auto-generated method stub
+		result = "Modul mit Units: " + moduleWithUnitsSGroup.getName() + " (" + moduleWithUnitsSGroup.getCreditPoints() + " CP)";
 		
+	}
+	@Override
+	public void handleStudyGroupManager(StudyGroupManager4Public studyGroupManager) throws PersistenceException {
+		result = "Studiengruppen";	
 	}
 
 }

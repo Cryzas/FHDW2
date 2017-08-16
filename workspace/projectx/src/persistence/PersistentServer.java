@@ -5,6 +5,7 @@ public interface PersistentServer extends Invoker, Anything, Remote, AbstractPer
     
     public void setProgramManager(ProgramManager4Public newValue) throws PersistenceException ;
     public void setModuleManager(ModuleManager4Public newValue) throws PersistenceException ;
+    public void setGroupManager(StudyGroupManager4Public newValue) throws PersistenceException ;
     public Server_ErrorsProxi getErrors() throws PersistenceException ;
     public String getPassword() throws PersistenceException ;
     public void setPassword(String newValue) throws PersistenceException ;

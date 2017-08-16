@@ -25,6 +25,8 @@ public interface Program4Public extends Anything, programHierarchyHIERARCHY, Abs
 				throws PersistenceException;
     public void addModule(final ModuleAbstract4Public module) 
 				throws model.CycleException, model.StudyProgramException, PersistenceException;
+    public ProgramSGroup4Public copyForStudyGroup() 
+				throws model.UserException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public common.Fraction getCreditPoints() 
@@ -32,8 +34,6 @@ public interface Program4Public extends Anything, programHierarchyHIERARCHY, Abs
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
-				throws PersistenceException;
-    public void startStudyGroup(final String name) 
 				throws PersistenceException;
 
 }

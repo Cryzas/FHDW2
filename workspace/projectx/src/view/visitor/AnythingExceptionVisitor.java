@@ -11,6 +11,7 @@ public interface AnythingExceptionVisitor<E extends view.UserException> extends 
     public void handleProgramSGroup(ProgramSGroupView programSGroup) throws ModelException, E;
     public void handleServer(ServerView server) throws ModelException, E;
     public void handleStudyGroup(StudyGroupView studyGroup) throws ModelException, E;
+    public void handleStudyGroupManager(StudyGroupManagerView studyGroupManager) throws ModelException, E;
     public void handleUnit(UnitView unit) throws ModelException, E;
     public void handleUnitSGroup(UnitSGroupView unitSGroup) throws ModelException, E;
     

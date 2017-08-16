@@ -179,16 +179,6 @@ public class ProgramManager extends PersistentObject implements PersistentProgra
 		if(this.isTheSameAs(This)){
 		}
     }
-    public void startStudyGroup(final Program4Public program, final String name, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
-		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
-		StartStudyGroupCommand4Public command = model.meta.StartStudyGroupCommand.createStartStudyGroupCommand(name, nw, d1170);
-		command.setProgram(program);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
     
     
     // Start of section that contains operations that must be implemented.
@@ -217,11 +207,6 @@ public class ProgramManager extends PersistentObject implements PersistentProgra
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        
-    }
-    public void startStudyGroup(final Program4Public program, final String name) 
-				throws PersistenceException{
-        //TODO: implement method: startStudyGroup
         
     }
     

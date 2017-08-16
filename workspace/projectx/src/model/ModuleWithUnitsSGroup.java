@@ -2,6 +2,7 @@
 package model;
 
 import persistence.*;
+import common.Fraction;
 import model.visitor.*;
 
 
@@ -185,35 +186,32 @@ public class ModuleWithUnitsSGroup extends model.ModuleAbstractSGroup implements
     
     // Start of section that contains operations that must be implemented.
     
-    public void addUnit(final String name, final common.Fraction creditPoints) 
+    public void addUnit(final UnitSGroup4Public unit) 
 				throws model.CycleException, model.StudyProgramException, PersistenceException{
-        //TODO: implement method: addUnit
-        
+    	if(getThis().containsprogramHierarchySGroup(unit))
+    		throw new StudyProgramException(AlreadyExistsInParentMessage);
+    	getThis().getUnits().add(unit);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
         
     }
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
-        //TODO: implement method: getCreditPoints
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"getCreditPoints\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
+		return getThis().getUnits().aggregate(Fraction.Null, (result, argument) -> result.add(argument.getCreditPoints()));
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
         super.initializeOnCreation();
-		//TODO: implement method: initializeOnCreation
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         super.initializeOnInstantiation();
-		//TODO: implement method: initializeOnInstantiation
+    }
+    public void swapCPonModuleWithUnits(final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
+				throws model.StudyProgramException, PersistenceException{
+    	getThis().getUnits().findFirst(unit -> unit.equals(fromUnit)).subCP(creditPoints);
+    	getThis().getUnits().findFirst(unit -> unit.equals(ToUnit)).addCP(creditPoints);
     }
     
     
@@ -221,6 +219,8 @@ public class ModuleWithUnitsSGroup extends model.ModuleAbstractSGroup implements
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    static String AlreadyExistsInParentMessage = "Es existiert bereits eine Unit mit eingegebenem Namen in dem Modul.";
     
     /* End of protected part that is not overridden by persistence generator */
     

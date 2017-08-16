@@ -11,6 +11,7 @@ public interface AnythingReturnExceptionVisitor<R, E extends view.UserException>
     public R handleProgramSGroup(ProgramSGroupView programSGroup) throws ModelException, E;
     public R handleServer(ServerView server) throws ModelException, E;
     public R handleStudyGroup(StudyGroupView studyGroup) throws ModelException, E;
+    public R handleStudyGroupManager(StudyGroupManagerView studyGroupManager) throws ModelException, E;
     public R handleUnit(UnitView unit) throws ModelException, E;
     public R handleUnitSGroup(UnitSGroupView unitSGroup) throws ModelException, E;
     

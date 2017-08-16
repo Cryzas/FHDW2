@@ -41,6 +41,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleUnit(UnitView unit) throws ModelException;
     
+    public abstract void handleStudyGroupManager(StudyGroupManagerView studyGroupManager) throws ModelException;
+    
     public abstract void handleStudyGroup(StudyGroupView studyGroup) throws ModelException;
     
     public abstract void handleProgramManager(ProgramManagerView programManager) throws ModelException;

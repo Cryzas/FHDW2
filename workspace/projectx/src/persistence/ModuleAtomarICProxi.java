@@ -86,6 +86,10 @@ public class ModuleAtomarICProxi extends ModuleAbstractICProxi implements Persis
 				throws PersistenceException{
         ((PersistentModuleAtomar)this.getTheObject()).changeCPOnModule(creditPoints);
     }
+    public ModuleAbstractSGroup4Public copyForStudyGroup() 
+				throws model.UserException, PersistenceException{
+        return ((PersistentModuleAtomar)this.getTheObject()).copyForStudyGroup();
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentModuleAtomar)this.getTheObject()).copyingPrivateUserAttributes(copy);

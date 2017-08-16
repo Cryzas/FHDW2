@@ -51,10 +51,6 @@ public class ProgramManagerProxi extends PersistentProxi implements PersistentPr
 				throws PersistenceException{
         ((PersistentProgramManager)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public void startStudyGroup(final Program4Public program, final String name, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentProgramManager)this.getTheObject()).startStudyGroup(program, name, invoker);
-    }
     public void addModuleToProg(final Program4Public program, final ModuleAbstract4Public module) 
 				throws model.CycleException, model.StudyProgramException, PersistenceException{
         ((PersistentProgramManager)this.getTheObject()).addModuleToProg(program, module);
@@ -74,10 +70,6 @@ public class ProgramManagerProxi extends PersistentProxi implements PersistentPr
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentProgramManager)this.getTheObject()).initializeOnInstantiation();
-    }
-    public void startStudyGroup(final Program4Public program, final String name) 
-				throws PersistenceException{
-        ((PersistentProgramManager)this.getTheObject()).startStudyGroup(program, name);
     }
 
     

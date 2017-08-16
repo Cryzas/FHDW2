@@ -79,9 +79,9 @@ public class ModuleWithUnitsSGroupICProxi extends ModuleAbstractSGroupICProxi im
 				throws PersistenceException{
         return ((PersistentModuleWithUnitsSGroup)this.getTheObject()).strategyprogramHierarchySGroup(strategy);
     }
-    public void addUnit(final String name, final common.Fraction creditPoints) 
+    public void addUnit(final UnitSGroup4Public unit) 
 				throws model.CycleException, model.StudyProgramException, PersistenceException{
-        ((PersistentModuleWithUnitsSGroup)this.getTheObject()).addUnit(name, creditPoints);
+        ((PersistentModuleWithUnitsSGroup)this.getTheObject()).addUnit(unit);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -98,6 +98,10 @@ public class ModuleWithUnitsSGroupICProxi extends ModuleAbstractSGroupICProxi im
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentModuleWithUnitsSGroup)this.getTheObject()).initializeOnInstantiation();
+    }
+    public void swapCPonModuleWithUnits(final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
+				throws model.StudyProgramException, PersistenceException{
+        ((PersistentModuleWithUnitsSGroup)this.getTheObject()).swapCPonModuleWithUnits(fromUnit, ToUnit, creditPoints);
     }
 
     

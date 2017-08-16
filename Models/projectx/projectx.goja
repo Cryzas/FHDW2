@@ -3,14 +3,16 @@ model projectx {
 server Server {
 	public ProgramManager programManager;
 	public ModuleManager moduleManager;
-	void createProgram @@ Programm_erstellen(String name);
-	void addModuleToProg @@ Modul_hinzufügen(Program program, ModuleAbstract module {moduleManager;modules});
-	void addModuleToGroup @@ Modul_hinzufügen(ModuleGroup group, ModuleAbstract module {moduleManager;modules});
-	void createModule @@ Modul_erstellen(ModuleAbstractSUBTYPEName type, String name);
-	void addUnit @@ Unit_hinzufügen(ModuleWithUnits module, String name, Fraction creditPoints);
-	void changeCPOnUnit @@ CP_ändern(Unit unit, Fraction creditPoints);
-	void changeCPOnModule @@ CP_ändern(ModuleAtomar module, Fraction creditPoints);
-	void startStudyGroup @@ Studiengruppe_eröffnen(Program program, String name);
+	public StudyGroupManager groupManager;
+	void createProgram @@ Programm_erstellen (String name);
+	void addModuleToProg @@ Modul_hinzufügen (Program program, ModuleAbstract module {moduleManager;modules});
+	void addModuleToGroup @@ Modul_hinzufügen (ModuleGroup group, ModuleAbstract module {moduleManager;modules});
+	void createModule @@ Modul_erstellen (ModuleAbstractSUBTYPEName type, String name);
+	void addUnit @@ Unit_hinzufügen (ModuleWithUnits module, String name, Fraction creditPoints);
+	void changeCPOnUnit @@ CP_ändern (Unit unit, Fraction creditPoints);
+	void changeCPOnModule @@ CP_ändern (ModuleAtomar module, Fraction creditPoints);
+	void startStudyGroup @@ Studiengruppe_eröffnen (Program program, String name);
+	void swapCPonModuleWithUnits @@ CP_der_Units_ändern (ModuleWithUnitsSGroup module, UnitSGroup fromUnit @@ Von_Unit{;module;units}, UnitSGroup ToUnit @@ Zu_Unit{;module;units}, Fraction creditPoints);
 }
 
 																									/* Manager Klassen */
@@ -18,7 +20,6 @@ class ProgramManager {
 	public Program ** programs;
 	active void createProgram(String name) throws StudyProgramException;
 	active void addModuleToProg(Program program, ModuleAbstract module) throws CycleException, StudyProgramException;
-	active void startStudyGroup(Program program, String name);
 }
 
 class ModuleManager {
@@ -30,6 +31,12 @@ class ModuleManager {
 	active void changeCPOnModule(ModuleAtomar module, Fraction creditPoints);
 }
 
+class StudyGroupManager {
+	public StudyGroup ** groups;
+	active void startStudyGroup(Program program, String name) throws UserException;	
+	active void swapCPonModuleWithUnits ## sCPonMWU(ModuleWithUnitsSGroup module, UnitSGroup fromUnit, UnitSGroup ToUnit, Fraction creditPoints) throws StudyProgramException;
+}
+
 																			/* Aufbau eines Studienprogramms */
 hierarchy programHierarchy;
 
@@ -38,12 +45,13 @@ class Program {
 	public prior indexed String name;
 	public derived Fraction creditPoints;
 	void addModule(ModuleAbstract module) throws CycleException, StudyProgramException;
-	void startStudyGroup(String name);
+	ProgramSGroup copyForStudyGroup() throws UserException;
 }
 
 abstract string-factory class ModuleAbstract {
 	public prior indexed String name;
 	public abstract derived Fraction creditPoints;
+	abstract ModuleAbstractSGroup copyForStudyGroup() throws UserException;
 }
 
 class ModuleGroup @@ Gruppe extends ModuleAbstract {
@@ -65,12 +73,13 @@ class Unit {
 	public prior String name;
 	public prior Fraction creditPoints;
 	void changeCPOnUnit(Fraction creditPoints);
+	UnitSGroup copyForStudyGroup() throws UserException;
 }
 
 																			/* Aufbau der Studiengruppen */
 class StudyGroup {
 	public prior indexed String name;
-	public ProgramSGroup program;
+	public-write ProgramSGroup program;
 }
 
 hierarchy programHierarchySGroup ## pro_hier_s;
@@ -93,19 +102,20 @@ class ModuleGroupSGroup extends ModuleAbstractSGroup {
 }
 
 class ModuleAtomarSGroup extends ModuleAbstractSGroup {
-	Fraction ownCreditPoints;
-	void changeCPOnModule(Fraction creditPoints);
+	prior Fraction ownCreditPoints;
 }
 
 class ModuleWithUnitsSGroup ## m_unit_gr extends ModuleAbstractSGroup {
 	public UnitSGroup ** units hierarchy programHierarchySGroup;
-	void addUnit(String name, Fraction creditPoints) throws CycleException, StudyProgramException;
+	void addUnit(UnitSGroup unit) throws CycleException, StudyProgramException;
+	void swapCPonModuleWithUnits ## sCPonMWU(UnitSGroup fromUnit, UnitSGroup ToUnit, Fraction creditPoints) throws StudyProgramException;
 }
 
 class UnitSGroup {
 	public prior String name;
 	public prior Fraction creditPoints;
-	void changeCPOnUnit(Fraction creditPoints);
+	void addCP(Fraction creditPoints);
+	void subCP(Fraction creditPoints) throws StudyProgramException;
 }
 
 

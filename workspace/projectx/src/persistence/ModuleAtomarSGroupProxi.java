@@ -78,10 +78,6 @@ public class ModuleAtomarSGroupProxi extends ModuleAbstractSGroupProxi implement
 				throws PersistenceException{
         return ((PersistentModuleAtomarSGroup)this.getTheObject()).strategyprogramHierarchySGroup(strategy);
     }
-    public void changeCPOnModule(final common.Fraction creditPoints) 
-				throws PersistenceException{
-        ((PersistentModuleAtomarSGroup)this.getTheObject()).changeCPOnModule(creditPoints);
-    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentModuleAtomarSGroup)this.getTheObject()).copyingPrivateUserAttributes(copy);

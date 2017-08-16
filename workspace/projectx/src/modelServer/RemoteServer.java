@@ -18,6 +18,30 @@ public  class RemoteServer extends RemoteServerMaster {
     }
  
 
+    public synchronized java.util.HashMap<?,?> ToUnit_Path_In_SwapCPonModuleWithUnits(String moduleProxiString){
+        try {
+            PersistentModuleWithUnitsSGroup module = (PersistentModuleWithUnitsSGroup)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(moduleProxiString));
+            UnitSGroupSearchList result = ((PersistentServer)this.server).ToUnit_Path_In_SwapCPonModuleWithUnits(module);
+            return createOKResult(result.getVector(1, 0, false, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> fromUnit_Path_In_SwapCPonModuleWithUnits(String moduleProxiString){
+        try {
+            PersistentModuleWithUnitsSGroup module = (PersistentModuleWithUnitsSGroup)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(moduleProxiString));
+            UnitSGroupSearchList result = ((PersistentServer)this.server).fromUnit_Path_In_SwapCPonModuleWithUnits(module);
+            return createOKResult(result.getVector(1, 0, false, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0);
+        }
+    }
+    
     public synchronized java.util.HashMap<?,?> module_Path_In_AddModuleToGroup(){
         try {
             ModuleAbstractSearchList result = ((PersistentServer)this.server).module_Path_In_AddModuleToGroup();
@@ -127,6 +151,19 @@ public  class RemoteServer extends RemoteServerMaster {
         try {
             PersistentProgram program = (PersistentProgram)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(programProxiString));
             ((PersistentServer)this.server).startStudyGroup(program, name);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> swapCPonModuleWithUnits(String moduleProxiString, String fromUnitProxiString, String ToUnitProxiString, String creditPointsAsString){
+        try {
+            PersistentModuleWithUnitsSGroup module = (PersistentModuleWithUnitsSGroup)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(moduleProxiString));
+            PersistentUnitSGroup fromUnit = (PersistentUnitSGroup)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(fromUnitProxiString));
+            PersistentUnitSGroup ToUnit = (PersistentUnitSGroup)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(ToUnitProxiString));
+            common.Fraction creditPoints = common.Fraction.parse(creditPointsAsString);
+            ((PersistentServer)this.server).swapCPonModuleWithUnits(module, fromUnit, ToUnit, creditPoints);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

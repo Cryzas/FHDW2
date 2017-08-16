@@ -47,6 +47,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleUnitSGroup(UnitSGroupView unitSGroup) throws ModelException{
         this.standardHandling(unitSGroup);
     }
+    public void handleStudyGroupManager(StudyGroupManagerView studyGroupManager) throws ModelException{
+        this.standardHandling(studyGroupManager);
+    }
     public void handleModuleWithUnitsSGroup(ModuleWithUnitsSGroupView moduleWithUnitsSGroup) throws ModelException{
         this.standardHandling(moduleWithUnitsSGroup);
     }

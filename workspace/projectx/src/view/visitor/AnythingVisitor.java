@@ -11,6 +11,7 @@ public interface AnythingVisitor extends ModuleAbstractVisitor,ModuleAbstractSGr
     public void handleProgramSGroup(ProgramSGroupView programSGroup) throws ModelException;
     public void handleServer(ServerView server) throws ModelException;
     public void handleStudyGroup(StudyGroupView studyGroup) throws ModelException;
+    public void handleStudyGroupManager(StudyGroupManagerView studyGroupManager) throws ModelException;
     public void handleUnit(UnitView unit) throws ModelException;
     public void handleUnitSGroup(UnitSGroupView unitSGroup) throws ModelException;
     

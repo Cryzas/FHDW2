@@ -23,7 +23,7 @@ public interface UnitSGroup4Public extends programHierarchySGroupHIERARCHY, Anyt
 				throws PersistenceException;
     public <T> T strategyprogramHierarchySGroup(final programHierarchySGroupHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException;
-    public void changeCPOnUnit(final common.Fraction creditPoints) 
+    public void addCP(final common.Fraction creditPoints) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
@@ -31,6 +31,8 @@ public interface UnitSGroup4Public extends programHierarchySGroupHIERARCHY, Anyt
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
+    public void subCP(final common.Fraction creditPoints) 
+				throws model.StudyProgramException, PersistenceException;
 
 }
 

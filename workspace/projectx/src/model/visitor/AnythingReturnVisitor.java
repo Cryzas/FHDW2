@@ -22,6 +22,8 @@ public interface AnythingReturnVisitor<R> extends CommonDateReturnVisitor<R> ,Mo
     public R handleServer(Server4Public server) throws PersistenceException;
     public R handleStartStudyGroupCommand(StartStudyGroupCommand4Public startStudyGroupCommand) throws PersistenceException;
     public R handleStudyGroup(StudyGroup4Public studyGroup) throws PersistenceException;
+    public R handleStudyGroupManager(StudyGroupManager4Public studyGroupManager) throws PersistenceException;
+    public R handleSwapCPonModuleWithUnitsCommand(SwapCPonModuleWithUnitsCommand4Public swapCPonModuleWithUnitsCommand) throws PersistenceException;
     public R handleUnit(Unit4Public unit) throws PersistenceException;
     public R handleUnitSGroup(UnitSGroup4Public unitSGroup) throws PersistenceException;
     

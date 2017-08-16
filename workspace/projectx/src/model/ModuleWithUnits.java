@@ -192,6 +192,12 @@ public class ModuleWithUnits extends model.ModuleAbstract implements PersistentM
     		throw new StudyProgramException(AlreadyExistsInParentMessage);
     	getThis().getUnits().add(Unit.createUnit(name, creditPoints));        
     }
+    public ModuleAbstractSGroup4Public copyForStudyGroup() 
+				throws model.UserException, PersistenceException{
+    	ModuleWithUnitsSGroup4Public toBeAdded = ModuleWithUnitsSGroup.createModuleWithUnitsSGroup(getThis().getName());
+    	getThis().getUnits().applyToAllException(unit -> toBeAdded.addUnit(unit.copyForStudyGroup()));
+    	return toBeAdded;
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         

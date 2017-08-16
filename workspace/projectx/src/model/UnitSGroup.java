@@ -2,6 +2,7 @@
 package model;
 
 import persistence.*;
+import common.Fraction;
 import model.visitor.*;
 
 
@@ -208,25 +209,27 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
     
     // Start of section that contains operations that must be implemented.
     
-    public void changeCPOnUnit(final common.Fraction creditPoints) 
+    public void addCP(final common.Fraction creditPoints) 
 				throws PersistenceException{
-        //TODO: implement method: changeCPOnUnit
-        
+    	getThis().setCreditPoints(getThis().getCreditPoints().add(creditPoints));
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
         
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
         
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
         
+    }
+    public void subCP(final common.Fraction creditPoints) 
+				throws model.StudyProgramException, PersistenceException{
+    	if(getThis().getCreditPoints().add(creditPoints.mul(Fraction.parse("-1"))).lessOrEquals(Fraction.Null))
+    		throw new StudyProgramException(CreditPointsUnderNullMessage);
+    	getThis().setCreditPoints(getThis().getCreditPoints().add(creditPoints.mul(Fraction.parse("-1"))));
     }
     
     
@@ -235,6 +238,7 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
 
     /* Start of protected part that is not overridden by persistence generator */
     
+    static String CreditPointsUnderNullMessage = "Units müssen mehr als Null Creditpoints haben.";
     /* End of protected part that is not overridden by persistence generator */
     
 }

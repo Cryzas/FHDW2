@@ -69,9 +69,9 @@ public class StartStudyGroupCommandFacade{
             Invoker invoker = null;
             if (obj.getLong(5) != 0)
                 invoker = (Invoker)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
-            PersistentProgramManager commandReceiver = null;
+            PersistentStudyGroupManager commandReceiver = null;
             if (obj.getLong(7) != 0)
-                commandReceiver = (PersistentProgramManager)PersistentProxi.createProxi(obj.getLong(7), obj.getLong(8));
+                commandReceiver = (PersistentStudyGroupManager)PersistentProxi.createProxi(obj.getLong(7), obj.getLong(8));
             PersistentCommonDate myCommonDate = null;
             if (obj.getLong(9) != 0)
                 myCommonDate = (PersistentCommonDate)PersistentProxi.createProxi(obj.getLong(9), obj.getLong(10));
@@ -142,7 +142,7 @@ public class StartStudyGroupCommandFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void commandReceiverSet(long StartStudyGroupCommandId, ProgramManager4Public commandReceiverVal) throws PersistenceException {
+    public void commandReceiverSet(long StartStudyGroupCommandId, StudyGroupManager4Public commandReceiverVal) throws PersistenceException {
         try{
             CallableStatement callable;
             callable = this.con.prepareCall("Begin " + this.schemaName + ".StrtStdGrpCMDFacade.cReceiverSet(?, ?, ?); end;");
