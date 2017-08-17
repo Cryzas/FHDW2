@@ -5,3 +5,4 @@ workspace/**/.classpath
 Backup/
 DB-Scripts/
 Models/**/.PersistenceGeneratorConfiguration.xml
+workspace/**/src/test/TestSupport.java
