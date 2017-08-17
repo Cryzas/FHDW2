@@ -35,17 +35,24 @@ public class StudentProxi extends ViewProxi implements StudentView{
         return RemoteDepth;
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        
+        int index = originalIndex;
+        if(index == 0 && this.getProgram() != null) return new ProgramStudentWrapper(this, originalIndex, (ViewRoot)this.getProgram());
+        if(this.getProgram() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 ;
+        return 0 
+            + (this.getProgram() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
-        return true;
+        if (this.object == null) return this.getLeafInfo() == 0;
+        return true 
+            && (this.getProgram() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        
+        int result = 0;
+        if(this.getProgram() != null && this.getProgram().equals(child)) return result;
+        if(this.getProgram() != null) result = result + 1;
         return -1;
     }
     

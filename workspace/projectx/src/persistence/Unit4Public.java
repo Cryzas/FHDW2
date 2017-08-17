@@ -7,6 +7,7 @@ public interface Unit4Public extends Anything, programHierarchyHIERARCHY, Abstra
     
     public String getName() throws PersistenceException ;
     public common.Fraction getCreditPoints() throws PersistenceException ;
+    public GradeSystem4Public getGradeSystem() throws PersistenceException ;
     
     public void accept(AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;

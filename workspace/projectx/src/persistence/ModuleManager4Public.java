@@ -20,6 +20,8 @@ public interface ModuleManager4Public extends Anything, AbstractPersistentProxi 
 				throws PersistenceException;
     public void changeCPOnUnit(final Unit4Public unit, final common.Fraction creditPoints, final Invoker invoker) 
 				throws PersistenceException;
+    public void changeGradeSystem(final ModuleAtomar4Public module, final String gradeSystem, final Invoker invoker) 
+				throws PersistenceException;
     public void createModule(final String type, final String name, final Invoker invoker) 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
@@ -32,6 +34,8 @@ public interface ModuleManager4Public extends Anything, AbstractPersistentProxi 
 				throws PersistenceException;
     public void changeCPOnUnit(final Unit4Public unit, final common.Fraction creditPoints) 
 				throws PersistenceException;
+    public void changeGradeSystem(final ModuleAtomar4Public module, final String gradeSystem) 
+				throws model.invalidGradeSysteException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void createModule(final String type, final String name) 

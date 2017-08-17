@@ -4,6 +4,9 @@ import expressions.RegularExpressionHandler;
 
 public class RegularExpressionManager {
 
+    public static RegularExpressionHandler gradeSystemSUBTYPEName = new RegularExpressionHandler( "[(Einfach)" + 
+		"(Zehntelnoten)" + 
+		"(Drittelnoten)]" );
     public static RegularExpressionHandler moduleAbstractSGroupSUBTYPEName = new RegularExpressionHandler( "[(ModuleGroupSGroup)" + 
 		"(ModuleAtomarSGroup)" + 
 		"(ModuleWithUnitsSGroup)]" );

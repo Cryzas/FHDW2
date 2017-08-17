@@ -13,6 +13,17 @@ public class StringFACTORY{
         throw new persistence.PersistenceException("No such type name!",0);
     }
     
+    public static final String GradeSystem$FACTORY$SimpleGrade = "Einfach";
+    public static final String GradeSystem$FACTORY$TenthGrade = "Zehntelnoten";
+    public static final String GradeSystem$FACTORY$ThirdGrade = "Drittelnoten";
+    
+    public static persistence.GradeSystem4Public createObjectBySubTypeNameForGradeSystem(String name) throws persistence.PersistenceException {
+        if(name.equals(GradeSystem$FACTORY$SimpleGrade)) return model.SimpleGrade.getTheSimpleGrade();
+        if(name.equals(GradeSystem$FACTORY$TenthGrade)) return model.TenthGrade.getTheTenthGrade();
+        if(name.equals(GradeSystem$FACTORY$ThirdGrade)) return model.ThirdGrade.getTheThirdGrade();
+        throw new persistence.PersistenceException("No such type name!",0);
+    }
+    
     public static final String ModuleAbstractStudent$FACTORY$ModuleWithUnitsStudent = "ModuleWithUnitsStudent";
     public static final String ModuleAbstractStudent$FACTORY$ModuleAtomarStudent = "ModuleAtomarStudent";
     public static final String ModuleAbstractStudent$FACTORY$ModuleGroupStudent = "ModuleGroupStudent";

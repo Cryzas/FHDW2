@@ -55,7 +55,7 @@ public abstract class ViewProxi extends ViewRoot {
 	
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [103];
+		proxiFactories = new ProxiFactory [112];
         proxiFactories[1] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ServerProxi(objectId, classId, connectionKey);
@@ -111,6 +111,11 @@ public abstract class ViewProxi extends ViewRoot {
                 return new ModuleAtomarStudentProxi(objectId, classId, connectionKey);
             }
         };
+        proxiFactories[107] = new ProxiFactory(){
+            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
+                return new ThirdGradeProxi(objectId, classId, connectionKey);
+            }
+        };
         proxiFactories[53] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ModuleWithUnitsProxi(objectId, classId, connectionKey);
@@ -126,6 +131,11 @@ public abstract class ViewProxi extends ViewRoot {
                 return new ProgramManagerProxi(objectId, classId, connectionKey);
             }
         };
+        proxiFactories[108] = new ProxiFactory(){
+            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
+                return new SimpleGradeProxi(objectId, classId, connectionKey);
+            }
+        };
         proxiFactories[42] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ProgramProxi(objectId, classId, connectionKey);
@@ -134,6 +144,11 @@ public abstract class ViewProxi extends ViewRoot {
         proxiFactories[92] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ModuleWithUnitsStudentProxi(objectId, classId, connectionKey);
+            }
+        };
+        proxiFactories[109] = new ProxiFactory(){
+            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
+                return new TenthGradeProxi(objectId, classId, connectionKey);
             }
         };
         proxiFactories[80] = new ProxiFactory(){

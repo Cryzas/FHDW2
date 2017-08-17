@@ -14,7 +14,14 @@ public class ModuleAtomarProxi extends ModuleAbstractProxi implements ModuleAtom
     public ModuleAtomarView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         String name = (String)resultTable.get("name");
         common.Fraction creditPoints = common.Fraction.parse((String)resultTable.get("creditPoints"));
-        ModuleAtomarView result$$ = new ModuleAtomar((String)name,(common.Fraction)creditPoints, this.getId(), this.getClassId());
+        ViewProxi gradeSystem = null;
+        String gradeSystem$String = (String)resultTable.get("gradeSystem");
+        if (gradeSystem$String != null) {
+            common.ProxiInformation gradeSystem$Info = common.RPCConstantsAndServices.createProxiInformation(gradeSystem$String);
+            gradeSystem = view.objects.ViewProxi.createProxi(gradeSystem$Info,connectionKey);
+            gradeSystem.setToString(gradeSystem$Info.getToString());
+        }
+        ModuleAtomarView result$$ = new ModuleAtomar((String)name,(common.Fraction)creditPoints,(GradeSystemView)gradeSystem, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }

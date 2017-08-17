@@ -26,7 +26,7 @@ public class ModuleWithUnitsFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ModuleWithUnits result = new ModuleWithUnits(name,null,id);
+            ModuleWithUnits result = new ModuleWithUnits(name,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentModuleWithUnits)PersistentProxi.createProxi(id, 154);
         }catch(SQLException se) {
@@ -42,7 +42,7 @@ public class ModuleWithUnitsFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ModuleWithUnits result = new ModuleWithUnits(name,null,id);
+            ModuleWithUnits result = new ModuleWithUnits(name,null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentModuleWithUnits)PersistentProxi.createProxi(id, 154);
         }catch(SQLException se) {
@@ -63,10 +63,14 @@ public class ModuleWithUnitsFacade{
                 callable.close();
                 return null;
             }
-            PersistentModuleAbstract This = null;
+            PersistentGradeSystem gradeSystem = null;
             if (obj.getLong(3) != 0)
-                This = (PersistentModuleAbstract)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
+                gradeSystem = (PersistentGradeSystem)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
+            PersistentModuleAbstract This = null;
+            if (obj.getLong(5) != 0)
+                This = (PersistentModuleAbstract)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
             ModuleWithUnits result = new ModuleWithUnits(obj.getString(2) == null ? "" : obj.getString(2) /* In Oracle "" = null !!! */,
+                                                         gradeSystem,
                                                          This,
                                                          ModuleWithUnitsId);
             obj.close();

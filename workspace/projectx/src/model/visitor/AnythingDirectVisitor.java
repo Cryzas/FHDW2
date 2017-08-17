@@ -64,6 +64,17 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleUnitStudent(UnitStudent4Public unitStudent) throws PersistenceException;
     
+    public abstract void handleGradeSystem(GradeSystem4Public gradeSystem) throws PersistenceException;
+    
+    public void handleSimpleGrade(SimpleGrade4Public simpleGrade) throws PersistenceException{
+        this.handleGradeSystem(simpleGrade);
+    }
+    public void handleTenthGrade(TenthGrade4Public tenthGrade) throws PersistenceException{
+        this.handleGradeSystem(tenthGrade);
+    }
+    public void handleThirdGrade(ThirdGrade4Public thirdGrade) throws PersistenceException{
+        this.handleGradeSystem(thirdGrade);
+    }
     public abstract void handleProgramStudent(ProgramStudent4Public programStudent) throws PersistenceException;
     
     public abstract void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException;
@@ -73,6 +84,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public void handleChangeCPOnModuleCommand(ChangeCPOnModuleCommand4Public changeCPOnModuleCommand) throws PersistenceException{
         this.handleCommonDate(changeCPOnModuleCommand);
+    }
+    public void handleChangeGradeSystemCommand(ChangeGradeSystemCommand4Public changeGradeSystemCommand) throws PersistenceException{
+        this.handleCommonDate(changeGradeSystemCommand);
     }
     public void handleSwapCPonModuleWithUnitsCommand(SwapCPonModuleWithUnitsCommand4Public swapCPonModuleWithUnitsCommand) throws PersistenceException{
         this.handleCommonDate(swapCPonModuleWithUnitsCommand);

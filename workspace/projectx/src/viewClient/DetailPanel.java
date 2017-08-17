@@ -1231,6 +1231,9 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleModuleAtomarStudent(view.ModuleAtomarStudentView object){
         result = new ModuleAtomarStudentDefaultDetailPanel(handler, object);
     }
+    public void handleThirdGrade(view.ThirdGradeView object){
+        result = new ThirdGradeDefaultDetailPanel(handler, object);
+    }
     public void handleModuleWithUnits(view.ModuleWithUnitsView object){
         result = new ModuleWithUnitsDefaultDetailPanel(handler, object);
     }
@@ -1240,11 +1243,17 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleProgramManager(view.ProgramManagerView object){
         result = new ProgramManagerDefaultDetailPanel(handler, object);
     }
+    public void handleSimpleGrade(view.SimpleGradeView object){
+        result = new SimpleGradeDefaultDetailPanel(handler, object);
+    }
     public void handleProgram(view.ProgramView object){
         result = new ProgramDefaultDetailPanel(handler, object);
     }
     public void handleModuleWithUnitsStudent(view.ModuleWithUnitsStudentView object){
         result = new ModuleWithUnitsStudentDefaultDetailPanel(handler, object);
+    }
+    public void handleTenthGrade(view.TenthGradeView object){
+        result = new TenthGradeDefaultDetailPanel(handler, object);
     }
     public void handleUnitSGroup(view.UnitSGroupView object){
         result = new UnitSGroupDefaultDetailPanel(handler, object);
@@ -1563,6 +1572,19 @@ class ModuleAtomarStudentDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class ThirdGradeDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected ThirdGradeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.ThirdGradeView getAnything(){
+        return (view.ThirdGradeView)this.anything;
+    }
+}
+
 class ModuleWithUnitsDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String ModuleAbstract$$name = "ModuleAbstract$$name";
@@ -1640,6 +1662,19 @@ class ProgramManagerDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class SimpleGradeDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected SimpleGradeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.SimpleGradeView getAnything(){
+        return (view.SimpleGradeView)this.anything;
+    }
+}
+
 class ProgramDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Program$$modules = "Program$$modules";
@@ -1699,6 +1734,19 @@ class ModuleWithUnitsStudentDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ModuleWithUnitsStudentView getAnything(){
         return (view.ModuleWithUnitsStudentView)this.anything;
+    }
+}
+
+class TenthGradeDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected TenthGradeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.TenthGradeView getAnything(){
+        return (view.TenthGradeView)this.anything;
     }
 }
 
@@ -1784,6 +1832,7 @@ class StudentDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String Student$$lastName = "Student$$lastName";
     protected static final String Student$$birthDate = "Student$$birthDate";
     protected static final String Student$$matrNr = "Student$$matrNr";
+    protected static final String Student$$program = "Student$$program";
     
     protected StudentDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);

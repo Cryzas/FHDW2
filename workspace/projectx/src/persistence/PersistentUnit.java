@@ -5,6 +5,7 @@ public interface PersistentUnit extends Anything, programHierarchyHIERARCHY, Abs
     
     public void setName(String newValue) throws PersistenceException ;
     public void setCreditPoints(common.Fraction newValue) throws PersistenceException ;
+    public void setGradeSystem(GradeSystem4Public newValue) throws PersistenceException ;
     public PersistentUnit getThis() throws PersistenceException ;
     
     

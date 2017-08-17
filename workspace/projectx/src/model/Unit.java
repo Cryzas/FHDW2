@@ -70,6 +70,13 @@ public class Unit extends PersistentObject implements PersistentUnit{
             if (leaf) allResults.put(uniqueKey, result);
             result.put("name", this.getName());
             result.put("creditPoints", this.getCreditPoints().toString());
+            AbstractPersistentRoot gradeSystem = (AbstractPersistentRoot)this.getGradeSystem();
+            if (gradeSystem != null) {
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    gradeSystem, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
+                result.put("gradeSystem", proxiInformation);
+                
+            }
         }
         return result;
     }
@@ -78,6 +85,7 @@ public class Unit extends PersistentObject implements PersistentUnit{
         Unit result = this;
         result = new Unit(this.name, 
                           this.creditPoints, 
+                          this.gradeSystem, 
                           this.This, 
                           this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -89,13 +97,15 @@ public class Unit extends PersistentObject implements PersistentUnit{
     }
     protected String name;
     protected common.Fraction creditPoints;
+    protected PersistentGradeSystem gradeSystem;
     protected PersistentUnit This;
     
-    public Unit(String name,common.Fraction creditPoints,PersistentUnit This,long id) throws PersistenceException {
+    public Unit(String name,common.Fraction creditPoints,PersistentGradeSystem gradeSystem,PersistentUnit This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
         this.creditPoints = creditPoints;
+        this.gradeSystem = gradeSystem;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -112,6 +122,10 @@ public class Unit extends PersistentObject implements PersistentUnit{
         if (this.getClassId() == 147) ConnectionHandler.getTheConnectionHandler().theUnitFacade
             .newUnit(name,creditPoints,this.getId());
         super.store();
+        if(this.getGradeSystem() != null){
+            this.getGradeSystem().store();
+            ConnectionHandler.getTheConnectionHandler().theUnitFacade.gradeSystemSet(this.getId(), getGradeSystem());
+        }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theUnitFacade.ThisSet(this.getId(), getThis());
@@ -133,6 +147,20 @@ public class Unit extends PersistentObject implements PersistentUnit{
     public void setCreditPoints(common.Fraction newValue) throws PersistenceException {
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theUnitFacade.creditPointsSet(this.getId(), newValue);
         this.creditPoints = newValue;
+    }
+    public GradeSystem4Public getGradeSystem() throws PersistenceException {
+        return this.gradeSystem;
+    }
+    public void setGradeSystem(GradeSystem4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.gradeSystem)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.gradeSystem = (PersistentGradeSystem)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theUnitFacade.gradeSystemSet(this.getId(), newValue);
+        }
     }
     protected void setThis(PersistentUnit newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -224,6 +252,7 @@ public class Unit extends PersistentObject implements PersistentUnit{
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
+    	getThis().setGradeSystem(ThirdGrade.getTheThirdGrade());
     }
     
     

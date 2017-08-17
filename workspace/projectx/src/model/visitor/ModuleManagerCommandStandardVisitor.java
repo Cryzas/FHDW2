@@ -8,6 +8,9 @@ public abstract class ModuleManagerCommandStandardVisitor implements ModuleManag
     public void handleChangeCPOnModuleCommand(ChangeCPOnModuleCommand4Public changeCPOnModuleCommand) throws PersistenceException{
         this.standardHandling(changeCPOnModuleCommand);
     }
+    public void handleChangeGradeSystemCommand(ChangeGradeSystemCommand4Public changeGradeSystemCommand) throws PersistenceException{
+        this.standardHandling(changeGradeSystemCommand);
+    }
     public void handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException{
         this.standardHandling(addModuleToGroupCommand);
     }

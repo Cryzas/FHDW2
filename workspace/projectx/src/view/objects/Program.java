@@ -12,13 +12,15 @@ public class Program extends ViewObject implements ProgramView{
     protected java.util.Vector<ModuleAbstractView> modules;
     protected String name;
     protected common.Fraction creditPoints;
+    protected GradeSystemView gradeSystem;
     
-    public Program(java.util.Vector<ModuleAbstractView> modules,String name,common.Fraction creditPoints,long id, long classId) {
+    public Program(java.util.Vector<ModuleAbstractView> modules,String name,common.Fraction creditPoints,GradeSystemView gradeSystem,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.modules = modules;
         this.name = name;
-        this.creditPoints = creditPoints;        
+        this.creditPoints = creditPoints;
+        this.gradeSystem = gradeSystem;        
     }
     
     static public long getTypeId() {
@@ -44,6 +46,12 @@ public class Program extends ViewObject implements ProgramView{
     public common.Fraction getCreditPoints()throws ModelException{
         return this.creditPoints;
     }
+    public GradeSystemView getGradeSystem()throws ModelException{
+        return this.gradeSystem;
+    }
+    public void setGradeSystem(GradeSystemView newValue) throws ModelException {
+        this.gradeSystem = newValue;
+    }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleProgram(this);
@@ -62,6 +70,10 @@ public class Program extends ViewObject implements ProgramView{
         java.util.Vector<?> modules = this.getModules();
         if (modules != null) {
             ViewObject.resolveVectorProxies(modules, resultTable);
+        }
+        GradeSystemView gradeSystem = this.getGradeSystem();
+        if (gradeSystem != null) {
+            ((ViewProxi)gradeSystem).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(gradeSystem.getClassId(), gradeSystem.getId())));
         }
         
     }

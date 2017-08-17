@@ -7,6 +7,7 @@ public interface Program4Public extends Anything, programHierarchyHIERARCHY, Abs
     
     public Program_ModulesProxi getModules() throws PersistenceException ;
     public String getName() throws PersistenceException ;
+    public GradeSystem4Public getGradeSystem() throws PersistenceException ;
     
     public void accept(AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;

@@ -59,6 +59,10 @@ public class ModuleManagerICProxi extends PersistentInCacheProxiOptimistic imple
 				throws PersistenceException{
         ((PersistentModuleManager)this.getTheObject()).changeCPOnUnit(unit, creditPoints, invoker);
     }
+    public void changeGradeSystem(final ModuleAtomar4Public module, final String gradeSystem, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentModuleManager)this.getTheObject()).changeGradeSystem(module, gradeSystem, invoker);
+    }
     public void createModule(final String type, final String name, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentModuleManager)this.getTheObject()).createModule(type, name, invoker);
@@ -82,6 +86,10 @@ public class ModuleManagerICProxi extends PersistentInCacheProxiOptimistic imple
     public void changeCPOnUnit(final Unit4Public unit, final common.Fraction creditPoints) 
 				throws PersistenceException{
         ((PersistentModuleManager)this.getTheObject()).changeCPOnUnit(unit, creditPoints);
+    }
+    public void changeGradeSystem(final ModuleAtomar4Public module, final String gradeSystem) 
+				throws model.invalidGradeSysteException, PersistenceException{
+        ((PersistentModuleManager)this.getTheObject()).changeGradeSystem(module, gradeSystem);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

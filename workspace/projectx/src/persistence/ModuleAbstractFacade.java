@@ -63,6 +63,19 @@ public class ModuleAbstractFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
+    public void gradeSystemSet(long ModuleAbstractId, GradeSystem4Public gradeSystemVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".MdlAbstrctFacade.grdSstmSet(?, ?, ?); end;");
+            callable.setLong(1, ModuleAbstractId);
+            callable.setLong(2, gradeSystemVal.getId());
+            callable.setLong(3, gradeSystemVal.getClassId());
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
     public void ThisSet(long ModuleAbstractId, ModuleAbstract4Public ThisVal) throws PersistenceException {
         try{
             CallableStatement callable;

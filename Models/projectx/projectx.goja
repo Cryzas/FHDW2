@@ -17,6 +17,7 @@ server Server {
 	void swapCPonModuleWithUnits @@ CP_der_Units_ändern (ModuleWithUnitsSGroup module, UnitSGroup fromUnit @@ Von_Unit{;module;units}, UnitSGroup ToUnit @@ Zu_Unit{;module;units}, Fraction creditPoints);
 	void createStudent @@ Student_erstellen (String firstName, String lastName, Date birthDate);
 	void addStudentToGroup @@ Student_hinzufügen (StudyGroup group, Student student {studentManager;students});
+	void changeGradeSystem @@ Notensystem_ändern (ModuleAtomar module, GradeSystemSUBTYPEName gradeSystem);
 }
 
 																									/* Manager Klassen */
@@ -33,6 +34,7 @@ class ModuleManager {
 	active void addUnit(ModuleWithUnits module, String name, Fraction creditPoints) throws CycleException, AlreadyExistsInParentException;
 	active void changeCPOnUnit(Unit unit, Fraction creditPoints);
 	active void changeCPOnModule(ModuleAtomar module, Fraction creditPoints);
+	active void changeGradeSystem (ModuleAtomar module, GradeSystemSUBTYPEName gradeSystem) throws invalidGradeSysteException;
 }
 
 class StudyGroupManager {
@@ -54,6 +56,7 @@ class Program {
 	public ModuleAbstract ** modules hierarchy programHierarchy;
 	public prior indexed String name;
 	public derived Fraction creditPoints;
+	public no-view GradeSystem gradeSystem;
 	void addModule(ModuleAbstract module) throws CycleException, AlreadyExistsInParentException;
 	ProgramSGroup copyForStudyGroup() throws UserException;
 }
@@ -61,6 +64,7 @@ class Program {
 abstract string-factory class ModuleAbstract {
 	public prior indexed String name;
 	public abstract derived Fraction creditPoints;
+	public no-view GradeSystem gradeSystem;
 	abstract ModuleAbstractSGroup copyForStudyGroup() throws UserException;
 }
 
@@ -72,6 +76,7 @@ class ModuleGroup @@ Gruppe extends ModuleAbstract {
 class ModuleAtomar @@ Atomar extends ModuleAbstract {
 	Fraction ownCreditPoints;
 	void changeCPOnModule(Fraction creditPoints);
+	void changeGradeSystem (GradeSystem gradeSystem);
 }
 
 class ModuleWithUnits @@ Mit_Units extends ModuleAbstract {
@@ -82,6 +87,7 @@ class ModuleWithUnits @@ Mit_Units extends ModuleAbstract {
 class Unit {
 	public prior String name;
 	public prior Fraction creditPoints;
+	public no-view GradeSystem gradeSystem;
 	void changeCPOnUnit(Fraction creditPoints);
 	UnitSGroup copyForStudyGroup() throws UserException;
 }
@@ -142,7 +148,7 @@ class Student {
 	public prior String lastName;
 	public prior Date birthDate;
 	public derived Integer matrNr;
-	public-write no-view ProgramStudent program;
+	public-write ProgramStudent program;
 }
 
 hierarchy programHierarchyStudent ## pr_hier_std;
@@ -180,9 +186,14 @@ class UnitStudent {
 	public derived Fraction creditPoints;
 }
 
+																																			/* Noten */
+
+abstract string-factory class GradeSystem (TenthGrade @@ Zehntelnoten, ThirdGrade @@ Drittelnoten, SimpleGrade @@ Einfach) { }
+
 																												/* Exceptions */
 exception UnitSwapException{}
 exception AlreadyExistsInParentException{}
+exception invalidGradeSysteException{}
 
 }
 

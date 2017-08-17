@@ -26,7 +26,7 @@ public class ModuleGroupFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ModuleGroup result = new ModuleGroup(name,null,id);
+            ModuleGroup result = new ModuleGroup(name,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentModuleGroup)PersistentProxi.createProxi(id, 166);
         }catch(SQLException se) {
@@ -42,7 +42,7 @@ public class ModuleGroupFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ModuleGroup result = new ModuleGroup(name,null,id);
+            ModuleGroup result = new ModuleGroup(name,null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentModuleGroup)PersistentProxi.createProxi(id, 166);
         }catch(SQLException se) {
@@ -63,10 +63,14 @@ public class ModuleGroupFacade{
                 callable.close();
                 return null;
             }
-            PersistentModuleAbstract This = null;
+            PersistentGradeSystem gradeSystem = null;
             if (obj.getLong(3) != 0)
-                This = (PersistentModuleAbstract)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
+                gradeSystem = (PersistentGradeSystem)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
+            PersistentModuleAbstract This = null;
+            if (obj.getLong(5) != 0)
+                This = (PersistentModuleAbstract)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
             ModuleGroup result = new ModuleGroup(obj.getString(2) == null ? "" : obj.getString(2) /* In Oracle "" = null !!! */,
+                                                 gradeSystem,
                                                  This,
                                                  ModuleGroupId);
             obj.close();

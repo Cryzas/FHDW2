@@ -38,6 +38,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleModuleAtomarStudent(ModuleAtomarStudentView moduleAtomarStudent) throws ModelException{
         this.standardHandling(moduleAtomarStudent);
     }
+    public void handleThirdGrade(ThirdGradeView thirdGrade) throws ModelException{
+        this.standardHandling(thirdGrade);
+    }
     public void handleModuleWithUnits(ModuleWithUnitsView moduleWithUnits) throws ModelException{
         this.standardHandling(moduleWithUnits);
     }
@@ -47,11 +50,17 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleProgramManager(ProgramManagerView programManager) throws ModelException{
         this.standardHandling(programManager);
     }
+    public void handleSimpleGrade(SimpleGradeView simpleGrade) throws ModelException{
+        this.standardHandling(simpleGrade);
+    }
     public void handleProgram(ProgramView program) throws ModelException{
         this.standardHandling(program);
     }
     public void handleModuleWithUnitsStudent(ModuleWithUnitsStudentView moduleWithUnitsStudent) throws ModelException{
         this.standardHandling(moduleWithUnitsStudent);
+    }
+    public void handleTenthGrade(TenthGradeView tenthGrade) throws ModelException{
+        this.standardHandling(tenthGrade);
     }
     public void handleUnitSGroup(UnitSGroupView unitSGroup) throws ModelException{
         this.standardHandling(unitSGroup);

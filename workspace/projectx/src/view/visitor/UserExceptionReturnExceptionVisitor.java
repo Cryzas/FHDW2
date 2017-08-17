@@ -8,5 +8,6 @@ public interface UserExceptionReturnExceptionVisitor<R, E extends view.UserExcep
     public R handleCycleException(CycleException cycleException) throws ModelException, E;
     public R handleRestrictionException(RestrictionException restrictionException) throws ModelException, E;
     public R handleUnitSwapException(UnitSwapException unitSwapException) throws ModelException, E;
+    public R handleinvalidGradeSysteException(invalidGradeSysteException invalidGradeSysteException) throws ModelException, E;
     
 }

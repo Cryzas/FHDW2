@@ -19,7 +19,7 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
 	
   private static ListProxiFactory [] getTheListProxiFactories(){
 	if (listProxiFactories == null){
-		listProxiFactories = new ListProxiFactory[103];
+		listProxiFactories = new ListProxiFactory[112];
         listProxiFactories[54] = new ListProxiFactory(){
             AbstractPersistentRoot create(long objectId, long entryId){
                 return new CreateProgramCommandListEntryProxi(objectId, entryId);
@@ -100,6 +100,11 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
                 return new ModuleAtomarStudentListEntryProxi(objectId, entryId);
             }
         };
+        listProxiFactories[107] = new ListProxiFactory(){
+            AbstractPersistentRoot create(long objectId, long entryId){
+                return new ThirdGradeListEntryProxi(objectId, entryId);
+            }
+        };
         listProxiFactories[102] = new ListProxiFactory(){
             AbstractPersistentRoot create(long objectId, long entryId){
                 return new AddStudentToGroupCommandListEntryProxi(objectId, entryId);
@@ -130,6 +135,11 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
                 return new ProgramManagerListEntryProxi(objectId, entryId);
             }
         };
+        listProxiFactories[108] = new ListProxiFactory(){
+            AbstractPersistentRoot create(long objectId, long entryId){
+                return new SimpleGradeListEntryProxi(objectId, entryId);
+            }
+        };
         listProxiFactories[42] = new ListProxiFactory(){
             AbstractPersistentRoot create(long objectId, long entryId){
                 return new ProgramListEntryProxi(objectId, entryId);
@@ -138,6 +148,16 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
         listProxiFactories[92] = new ListProxiFactory(){
             AbstractPersistentRoot create(long objectId, long entryId){
                 return new ModuleWithUnitsStudentListEntryProxi(objectId, entryId);
+            }
+        };
+        listProxiFactories[109] = new ListProxiFactory(){
+            AbstractPersistentRoot create(long objectId, long entryId){
+                return new TenthGradeListEntryProxi(objectId, entryId);
+            }
+        };
+        listProxiFactories[110] = new ListProxiFactory(){
+            AbstractPersistentRoot create(long objectId, long entryId){
+                return new ChangeGradeSystemCommandListEntryProxi(objectId, entryId);
             }
         };
         listProxiFactories[80] = new ListProxiFactory(){
@@ -210,7 +230,7 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
   }
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [103];
+		proxiFactories = new ProxiFactory [112];
         proxiFactories[54] = new ProxiFactory(){
             AbstractPersistentRoot create(long objectId){
                 return new CreateProgramCommandProxi(objectId);
@@ -291,6 +311,11 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
                 return new ModuleAtomarStudentProxi(objectId);
             }
         };
+        proxiFactories[107] = new ProxiFactory(){
+            AbstractPersistentRoot create(long objectId){
+                return new ThirdGradeProxi(objectId);
+            }
+        };
         proxiFactories[102] = new ProxiFactory(){
             AbstractPersistentRoot create(long objectId){
                 return new AddStudentToGroupCommandProxi(objectId);
@@ -321,6 +346,11 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
                 return new ProgramManagerProxi(objectId);
             }
         };
+        proxiFactories[108] = new ProxiFactory(){
+            AbstractPersistentRoot create(long objectId){
+                return new SimpleGradeProxi(objectId);
+            }
+        };
         proxiFactories[42] = new ProxiFactory(){
             AbstractPersistentRoot create(long objectId){
                 return new ProgramProxi(objectId);
@@ -329,6 +359,16 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
         proxiFactories[92] = new ProxiFactory(){
             AbstractPersistentRoot create(long objectId){
                 return new ModuleWithUnitsStudentProxi(objectId);
+            }
+        };
+        proxiFactories[109] = new ProxiFactory(){
+            AbstractPersistentRoot create(long objectId){
+                return new TenthGradeProxi(objectId);
+            }
+        };
+        proxiFactories[110] = new ProxiFactory(){
+            AbstractPersistentRoot create(long objectId){
+                return new ChangeGradeSystemCommandProxi(objectId);
             }
         };
         proxiFactories[80] = new ProxiFactory(){

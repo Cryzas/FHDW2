@@ -10,12 +10,14 @@ public abstract class ModuleAbstract extends ViewObject implements ModuleAbstrac
     
     protected String name;
     protected common.Fraction creditPoints;
+    protected GradeSystemView gradeSystem;
     
-    public ModuleAbstract(String name,common.Fraction creditPoints,long id, long classId) {
+    public ModuleAbstract(String name,common.Fraction creditPoints,GradeSystemView gradeSystem,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.name = name;
-        this.creditPoints = creditPoints;        
+        this.creditPoints = creditPoints;
+        this.gradeSystem = gradeSystem;        
     }
     
     public String getName()throws ModelException{
@@ -27,9 +29,19 @@ public abstract class ModuleAbstract extends ViewObject implements ModuleAbstrac
     public common.Fraction getCreditPoints()throws ModelException{
         return this.creditPoints;
     }
+    public GradeSystemView getGradeSystem()throws ModelException{
+        return this.gradeSystem;
+    }
+    public void setGradeSystem(GradeSystemView newValue) throws ModelException {
+        this.gradeSystem = newValue;
+    }
     
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
+        GradeSystemView gradeSystem = this.getGradeSystem();
+        if (gradeSystem != null) {
+            ((ViewProxi)gradeSystem).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(gradeSystem.getClassId(), gradeSystem.getId())));
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {

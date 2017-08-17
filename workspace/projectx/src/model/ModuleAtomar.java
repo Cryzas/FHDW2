@@ -66,6 +66,7 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
     public ModuleAtomar provideCopy() throws PersistenceException{
         ModuleAtomar result = this;
         result = new ModuleAtomar(this.name, 
+                                  this.gradeSystem, 
                                   this.This, 
                                   this.ownCreditPoints, 
                                   this.getId());
@@ -78,9 +79,9 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
     }
     protected common.Fraction ownCreditPoints;
     
-    public ModuleAtomar(String name,PersistentModuleAbstract This,common.Fraction ownCreditPoints,long id) throws PersistenceException {
+    public ModuleAtomar(String name,PersistentGradeSystem gradeSystem,PersistentModuleAbstract This,common.Fraction ownCreditPoints,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((String)name,(PersistentModuleAbstract)This,id);
+        super((String)name,(PersistentGradeSystem)gradeSystem,(PersistentModuleAbstract)This,id);
         this.ownCreditPoints = ownCreditPoints;        
     }
     
@@ -181,6 +182,10 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
 				throws PersistenceException{
         getThis().setOwnCreditPoints(creditPoints);
     }
+    public void changeGradeSystem(final GradeSystem4Public gradeSystem) 
+				throws PersistenceException{
+    	getThis().setGradeSystem(gradeSystem);
+    }
     public ModuleAbstractSGroup4Public copyForStudyGroup() 
 				throws model.UserException, PersistenceException{
     	return ModuleAtomarSGroup.createModuleAtomarSGroup(getThis(), getThis().getCreditPoints());
@@ -199,6 +204,7 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         super.initializeOnInstantiation();
+        getThis().setGradeSystem(ThirdGrade.getTheThirdGrade());
     }
     
     

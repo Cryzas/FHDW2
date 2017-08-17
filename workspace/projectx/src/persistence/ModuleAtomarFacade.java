@@ -27,7 +27,7 @@ public class ModuleAtomarFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ModuleAtomar result = new ModuleAtomar(name,null,ownCreditPoints,id);
+            ModuleAtomar result = new ModuleAtomar(name,null,null,ownCreditPoints,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentModuleAtomar)PersistentProxi.createProxi(id, 153);
         }catch(SQLException se) {
@@ -43,7 +43,7 @@ public class ModuleAtomarFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ModuleAtomar result = new ModuleAtomar(name,null,ownCreditPoints,id);
+            ModuleAtomar result = new ModuleAtomar(name,null,null,ownCreditPoints,id);
             Cache.getTheCache().put(result);
             return (PersistentModuleAtomar)PersistentProxi.createProxi(id, 153);
         }catch(SQLException se) {
@@ -64,12 +64,16 @@ public class ModuleAtomarFacade{
                 callable.close();
                 return null;
             }
-            PersistentModuleAbstract This = null;
+            PersistentGradeSystem gradeSystem = null;
             if (obj.getLong(3) != 0)
-                This = (PersistentModuleAbstract)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
+                gradeSystem = (PersistentGradeSystem)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
+            PersistentModuleAbstract This = null;
+            if (obj.getLong(5) != 0)
+                This = (PersistentModuleAbstract)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
             ModuleAtomar result = new ModuleAtomar(obj.getString(2) == null ? "" : obj.getString(2) /* In Oracle "" = null !!! */,
+                                                   gradeSystem,
                                                    This,
-                                                   (obj.getString(5) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(5))),
+                                                   (obj.getString(7) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(7))),
                                                    ModuleAtomarId);
             obj.close();
             callable.close();

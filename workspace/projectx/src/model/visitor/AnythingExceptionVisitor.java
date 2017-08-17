@@ -2,7 +2,7 @@
 package model.visitor;
 import persistence.*;
 
-public interface AnythingExceptionVisitor<E extends model.UserException> extends CommonDateExceptionVisitor<E>,ModuleAbstractExceptionVisitor<E>,ModuleAbstractSGroupExceptionVisitor<E>,ModuleAbstractStudentExceptionVisitor<E>{
+public interface AnythingExceptionVisitor<E extends model.UserException> extends CommonDateExceptionVisitor<E>,GradeSystemExceptionVisitor<E>,ModuleAbstractExceptionVisitor<E>,ModuleAbstractSGroupExceptionVisitor<E>,ModuleAbstractStudentExceptionVisitor<E>{
     
     public void handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException, E;
     public void handleAddModuleToProgCommand(AddModuleToProgCommand4Public addModuleToProgCommand) throws PersistenceException, E;
@@ -10,6 +10,7 @@ public interface AnythingExceptionVisitor<E extends model.UserException> extends
     public void handleAddUnitCommand(AddUnitCommand4Public addUnitCommand) throws PersistenceException, E;
     public void handleChangeCPOnModuleCommand(ChangeCPOnModuleCommand4Public changeCPOnModuleCommand) throws PersistenceException, E;
     public void handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException, E;
+    public void handleChangeGradeSystemCommand(ChangeGradeSystemCommand4Public changeGradeSystemCommand) throws PersistenceException, E;
     public void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException, E;
     public void handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException, E;
     public void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException, E;

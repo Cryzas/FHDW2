@@ -2,7 +2,7 @@
 package model.visitor;
 import persistence.*;
 
-public interface AnythingReturnVisitor<R> extends CommonDateReturnVisitor<R> ,ModuleAbstractReturnVisitor<R> ,ModuleAbstractSGroupReturnVisitor<R> ,ModuleAbstractStudentReturnVisitor<R> {
+public interface AnythingReturnVisitor<R> extends CommonDateReturnVisitor<R> ,GradeSystemReturnVisitor<R> ,ModuleAbstractReturnVisitor<R> ,ModuleAbstractSGroupReturnVisitor<R> ,ModuleAbstractStudentReturnVisitor<R> {
     
     public R handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException;
     public R handleAddModuleToProgCommand(AddModuleToProgCommand4Public addModuleToProgCommand) throws PersistenceException;
@@ -10,6 +10,7 @@ public interface AnythingReturnVisitor<R> extends CommonDateReturnVisitor<R> ,Mo
     public R handleAddUnitCommand(AddUnitCommand4Public addUnitCommand) throws PersistenceException;
     public R handleChangeCPOnModuleCommand(ChangeCPOnModuleCommand4Public changeCPOnModuleCommand) throws PersistenceException;
     public R handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException;
+    public R handleChangeGradeSystemCommand(ChangeGradeSystemCommand4Public changeGradeSystemCommand) throws PersistenceException;
     public R handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException;
     public R handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException;
     public R handleCommonDate(CommonDate4Public commonDate) throws PersistenceException;

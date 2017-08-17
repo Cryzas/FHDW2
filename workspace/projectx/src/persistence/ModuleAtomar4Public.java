@@ -27,6 +27,8 @@ public interface ModuleAtomar4Public extends ModuleAbstract4Public {
 				throws PersistenceException;
     public void changeCPOnModule(final common.Fraction creditPoints) 
 				throws PersistenceException;
+    public void changeGradeSystem(final GradeSystem4Public gradeSystem) 
+				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void initializeOnCreation() 

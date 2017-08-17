@@ -53,6 +53,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleModuleAtomarStudent(ModuleAtomarStudent4Public moduleAtomarStudent) throws PersistenceException{
         this.standardHandling(moduleAtomarStudent);
     }
+    public void handleThirdGrade(ThirdGrade4Public thirdGrade) throws PersistenceException{
+        this.standardHandling(thirdGrade);
+    }
     public void handleAddStudentToGroupCommand(AddStudentToGroupCommand4Public addStudentToGroupCommand) throws PersistenceException{
         this.standardHandling(addStudentToGroupCommand);
     }
@@ -71,11 +74,20 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleProgramManager(ProgramManager4Public programManager) throws PersistenceException{
         this.standardHandling(programManager);
     }
+    public void handleSimpleGrade(SimpleGrade4Public simpleGrade) throws PersistenceException{
+        this.standardHandling(simpleGrade);
+    }
     public void handleProgram(Program4Public program) throws PersistenceException{
         this.standardHandling(program);
     }
     public void handleModuleWithUnitsStudent(ModuleWithUnitsStudent4Public moduleWithUnitsStudent) throws PersistenceException{
         this.standardHandling(moduleWithUnitsStudent);
+    }
+    public void handleTenthGrade(TenthGrade4Public tenthGrade) throws PersistenceException{
+        this.standardHandling(tenthGrade);
+    }
+    public void handleChangeGradeSystemCommand(ChangeGradeSystemCommand4Public changeGradeSystemCommand) throws PersistenceException{
+        this.standardHandling(changeGradeSystemCommand);
     }
     public void handleUnitSGroup(UnitSGroup4Public unitSGroup) throws PersistenceException{
         this.standardHandling(unitSGroup);

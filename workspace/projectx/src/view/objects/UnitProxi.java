@@ -14,7 +14,14 @@ public class UnitProxi extends ViewProxi implements UnitView{
     public UnitView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         String name = (String)resultTable.get("name");
         common.Fraction creditPoints = common.Fraction.parse((String)resultTable.get("creditPoints"));
-        UnitView result$$ = new Unit((String)name,(common.Fraction)creditPoints, this.getId(), this.getClassId());
+        ViewProxi gradeSystem = null;
+        String gradeSystem$String = (String)resultTable.get("gradeSystem");
+        if (gradeSystem$String != null) {
+            common.ProxiInformation gradeSystem$Info = common.RPCConstantsAndServices.createProxiInformation(gradeSystem$String);
+            gradeSystem = view.objects.ViewProxi.createProxi(gradeSystem$Info,connectionKey);
+            gradeSystem.setToString(gradeSystem$Info.getToString());
+        }
+        UnitView result$$ = new Unit((String)name,(common.Fraction)creditPoints,(GradeSystemView)gradeSystem, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -48,6 +55,12 @@ public class UnitProxi extends ViewProxi implements UnitView{
     }
     public void setCreditPoints(common.Fraction newValue) throws ModelException {
         ((Unit)this.getTheObject()).setCreditPoints(newValue);
+    }
+    public GradeSystemView getGradeSystem()throws ModelException{
+        return ((Unit)this.getTheObject()).getGradeSystem();
+    }
+    public void setGradeSystem(GradeSystemView newValue) throws ModelException {
+        ((Unit)this.getTheObject()).setGradeSystem(newValue);
     }
     
     public void accept(AnythingVisitor visitor) throws ModelException {

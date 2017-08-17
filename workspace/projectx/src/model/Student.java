@@ -216,6 +216,7 @@ public class Student extends PersistentObject implements PersistentStudent{
          return visitor.handleStudent(this);
     }
     public int getLeafInfo() throws PersistenceException{
+        if (this.getProgram() != null) return 1;
         return 0;
     }
     

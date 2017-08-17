@@ -62,6 +62,17 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleUnitStudent(UnitStudentView unitStudent) throws ModelException;
     
+    public abstract void handleGradeSystem(GradeSystemView gradeSystem) throws ModelException;
+    
+    public void handleSimpleGrade(SimpleGradeView simpleGrade) throws ModelException{
+        this.handleGradeSystem(simpleGrade);
+    }
+    public void handleTenthGrade(TenthGradeView tenthGrade) throws ModelException{
+        this.handleGradeSystem(tenthGrade);
+    }
+    public void handleThirdGrade(ThirdGradeView thirdGrade) throws ModelException{
+        this.handleGradeSystem(thirdGrade);
+    }
     public abstract void handleProgramStudent(ProgramStudentView programStudent) throws ModelException;
     
     public abstract void handleProgramManager(ProgramManagerView programManager) throws ModelException;

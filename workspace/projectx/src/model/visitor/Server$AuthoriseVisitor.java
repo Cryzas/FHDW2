@@ -16,11 +16,14 @@ public abstract class Server$AuthoriseVisitor extends AnythingStandardVisitor{
     public abstract void handleModuleManager(PersistentModuleManager moduleManager) throws PersistenceException;
     public abstract void handleStudyGroup(PersistentStudyGroup studyGroup) throws PersistenceException;
     public abstract void handleModuleAtomarStudent(PersistentModuleAtomarStudent moduleAtomarStudent) throws PersistenceException;
+    public abstract void handleThirdGrade(PersistentThirdGrade thirdGrade) throws PersistenceException;
     public abstract void handleModuleWithUnits(PersistentModuleWithUnits moduleWithUnits) throws PersistenceException;
     public abstract void handleProgramStudent(PersistentProgramStudent programStudent) throws PersistenceException;
     public abstract void handleProgramManager(PersistentProgramManager programManager) throws PersistenceException;
+    public abstract void handleSimpleGrade(PersistentSimpleGrade simpleGrade) throws PersistenceException;
     public abstract void handleProgram(PersistentProgram program) throws PersistenceException;
     public abstract void handleModuleWithUnitsStudent(PersistentModuleWithUnitsStudent moduleWithUnitsStudent) throws PersistenceException;
+    public abstract void handleTenthGrade(PersistentTenthGrade tenthGrade) throws PersistenceException;
     public abstract void handleUnitSGroup(PersistentUnitSGroup unitSGroup) throws PersistenceException;
     public abstract void handleModuleGroupStudent(PersistentModuleGroupStudent moduleGroupStudent) throws PersistenceException;
     public abstract void handleStudentManager(PersistentStudentManager studentManager) throws PersistenceException;

@@ -12,7 +12,7 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		
 	  private static ICProxiFactory [] getTheICProxiFactories(){
 		if (iCProxiFactories == null){
-			iCProxiFactories = new ICProxiFactory[103];
+			iCProxiFactories = new ICProxiFactory[112];
         iCProxiFactories[54] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CreateProgramCommandICProxi(objectId);
@@ -93,6 +93,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new ModuleAtomarStudentICProxi(objectId);
             }
         };
+        iCProxiFactories[107] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new ThirdGradeICProxi(objectId);
+            }
+        };
         iCProxiFactories[102] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new AddStudentToGroupCommandICProxi(objectId);
@@ -123,6 +128,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new ProgramManagerICProxi(objectId);
             }
         };
+        iCProxiFactories[108] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new SimpleGradeICProxi(objectId);
+            }
+        };
         iCProxiFactories[42] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ProgramICProxi(objectId);
@@ -131,6 +141,16 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[92] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ModuleWithUnitsStudentICProxi(objectId);
+            }
+        };
+        iCProxiFactories[109] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new TenthGradeICProxi(objectId);
+            }
+        };
+        iCProxiFactories[110] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new ChangeGradeSystemCommandICProxi(objectId);
             }
         };
         iCProxiFactories[80] = new ICProxiFactory(){

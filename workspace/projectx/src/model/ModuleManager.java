@@ -196,6 +196,16 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    public void changeGradeSystem(final ModuleAtomar4Public module, final String gradeSystem, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
+		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
+		ChangeGradeSystemCommand4Public command = model.meta.ChangeGradeSystemCommand.createChangeGradeSystemCommand(gradeSystem, nw, d1170);
+		command.setModule(module);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void createModule(final String type, final String name, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
@@ -230,6 +240,30 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
     public void changeCPOnUnit(final Unit4Public unit, final common.Fraction creditPoints) 
 				throws PersistenceException{
         unit.changeCPOnUnit(creditPoints);
+    }
+    public void changeGradeSystem(final ModuleAtomar4Public module, final String gradeSystem) 
+				throws model.invalidGradeSysteException, PersistenceException{
+    	GradeSystem4Public newSystem = StringFACTORY.createObjectBySubTypeNameForGradeSystem(gradeSystem);
+    	if(newSystem.accept(new GradeSystemReturnVisitor<Boolean>() {
+
+			@Override
+			public Boolean handleSimpleGrade(SimpleGrade4Public simpleGrade) throws PersistenceException {
+				return false;
+			}
+
+			@Override
+			public Boolean handleTenthGrade(TenthGrade4Public tenthGrade) throws PersistenceException {
+				return true;
+			}
+
+			@Override
+			public Boolean handleThirdGrade(ThirdGrade4Public thirdGrade) throws PersistenceException {
+				return false;
+			}
+			})) {
+    		throw new invalidGradeSysteException(InvalidGradeSystemMessage);
+    	}
+    	module.changeGradeSystem(newSystem);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -278,6 +312,7 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
 
     static String ProgramAlreadyExistsInDBMessage = "Es existiert bereits ein Programm mit eingegebenem Namen.";
     static String ModuleAlreadyExistsInDBMessage = "Es existiert bereits ein Modul mit eingegebenem Namen.";
+    static String InvalidGradeSystemMessage = "Typ des Notensystems nicht zulässig.";
     
     /* End of protected part that is not overridden by persistence generator */
     

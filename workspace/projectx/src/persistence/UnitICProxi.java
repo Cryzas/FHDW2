@@ -34,6 +34,12 @@ public class UnitICProxi extends PersistentInCacheProxiOptimistic implements Per
     public void setCreditPoints(common.Fraction newValue) throws PersistenceException {
         ((PersistentUnit)this.getTheObject()).setCreditPoints(newValue);
     }
+    public GradeSystem4Public getGradeSystem() throws PersistenceException {
+        return ((PersistentUnit)this.getTheObject()).getGradeSystem();
+    }
+    public void setGradeSystem(GradeSystem4Public newValue) throws PersistenceException {
+        ((PersistentUnit)this.getTheObject()).setGradeSystem(newValue);
+    }
     public PersistentUnit getThis() throws PersistenceException {
         return ((PersistentUnit)this.getTheObject()).getThis();
     }
