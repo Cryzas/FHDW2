@@ -27,7 +27,7 @@ public interface ModuleWithUnitsSGroup4Public extends ModuleAbstractSGroup4Publi
     public <T> T strategyprogramHierarchySGroup(final programHierarchySGroupHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException;
     public void addUnit(final UnitSGroup4Public unit) 
-				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException;
+				throws model.CycleException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void initializeOnCreation() 

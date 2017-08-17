@@ -223,9 +223,7 @@ public class ProgramStudent extends PersistentObject implements PersistentProgra
     // Start of section that contains operations that must be implemented.
     
     public void addModule(final ModuleAbstractStudent4Public module) 
-				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
-    	if(getThis().containsprogramHierarchyStudent(module))
-    		throw new AlreadyExistsInParentException(AlreadyExistsInParentMessage);
+				throws model.CycleException, PersistenceException{
     	getThis().getModules().add(module);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
@@ -254,8 +252,6 @@ public class ProgramStudent extends PersistentObject implements PersistentProgra
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    static String AlreadyExistsInParentMessage = "Das ausgewählte Modul ist bereits in dem Programm.";
     
     /* End of protected part that is not overridden by persistence generator */
     

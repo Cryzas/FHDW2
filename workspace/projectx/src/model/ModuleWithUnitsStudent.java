@@ -186,9 +186,7 @@ public class ModuleWithUnitsStudent extends model.ModuleAbstractStudent implemen
     // Start of section that contains operations that must be implemented.
     
     public void addUnit(final UnitStudent4Public unit) 
-				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
-    	if(getThis().getUnits().findAll(argument -> argument.equals(unit)).getLength() > 0)
-    		throw new AlreadyExistsInParentException(AlreadyExistsInParentMessage);
+				throws model.CycleException, PersistenceException{
     	getThis().getUnits().add(unit);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
@@ -206,10 +204,9 @@ public class ModuleWithUnitsStudent extends model.ModuleAbstractStudent implemen
     
     
     // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    static String AlreadyExistsInParentMessage = "Es existiert bereits eine Unit mit eingegebenem Namen in dem Modul.";
     
     /* End of protected part that is not overridden by persistence generator */
     

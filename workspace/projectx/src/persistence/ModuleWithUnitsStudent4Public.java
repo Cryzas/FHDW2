@@ -27,7 +27,7 @@ public interface ModuleWithUnitsStudent4Public extends ModuleAbstractStudent4Pub
     public <T> T strategyprogramHierarchyStudent(final programHierarchyStudentHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException;
     public void addUnit(final UnitStudent4Public unit) 
-				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException;
+				throws model.CycleException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void initializeOnCreation() 

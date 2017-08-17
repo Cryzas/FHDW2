@@ -23,7 +23,7 @@ public interface ProgramStudent4Public extends Anything, programHierarchyStudent
     public <T> T strategyprogramHierarchyStudent(final programHierarchyStudentHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException;
     public void addModule(final ModuleAbstractStudent4Public module) 
-				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException;
+				throws model.CycleException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public common.Fraction getCreditPoints() 

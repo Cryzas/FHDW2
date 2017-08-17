@@ -187,9 +187,7 @@ public class ModuleWithUnitsSGroup extends model.ModuleAbstractSGroup implements
     // Start of section that contains operations that must be implemented.
     
     public void addUnit(final UnitSGroup4Public unit) 
-				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
-    	if(getThis().containsprogramHierarchySGroup(unit))
-    		throw new AlreadyExistsInParentException(AlreadyExistsInParentMessage);
+				throws model.CycleException, PersistenceException{
     	getThis().getUnits().add(unit);
     }
     public ModuleAbstractStudent4Public copyForStudent() 
@@ -223,9 +221,8 @@ public class ModuleWithUnitsSGroup extends model.ModuleAbstractSGroup implements
     
     // Start of section that contains overridden operations only.
     
+
     /* Start of protected part that is not overridden by persistence generator */
-    
-    static String AlreadyExistsInParentMessage = "Es existiert bereits eine Unit mit eingegebenem Namen in dem Modul.";
     
     /* End of protected part that is not overridden by persistence generator */
     

@@ -70,7 +70,7 @@ public class ProgramStudentProxi extends PersistentProxi implements PersistentPr
         return ((PersistentProgramStudent)this.getTheObject()).strategyprogramHierarchyStudent(strategy);
     }
     public void addModule(final ModuleAbstractStudent4Public module) 
-				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
+				throws model.CycleException, PersistenceException{
         ((PersistentProgramStudent)this.getTheObject()).addModule(module);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 

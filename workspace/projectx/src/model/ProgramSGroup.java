@@ -223,9 +223,7 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
     // Start of section that contains operations that must be implemented.
     
     public void addModule(final ModuleAbstractSGroup4Public module) 
-				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
-    	if(getThis().containsprogramHierarchySGroup(module))
-    		throw new AlreadyExistsInParentException(AlreadyExistsInParentMessage);
+				throws model.CycleException, PersistenceException{
     	getThis().getModules().add(module);
         
     }
@@ -261,8 +259,6 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    static String AlreadyExistsInParentMessage = "Das ausgewählte Modul ist bereits in dem Programm.";
     
     /* End of protected part that is not overridden by persistence generator */
     

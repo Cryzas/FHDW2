@@ -80,7 +80,7 @@ public class ModuleWithUnitsSGroupICProxi extends ModuleAbstractSGroupICProxi im
         return ((PersistentModuleWithUnitsSGroup)this.getTheObject()).strategyprogramHierarchySGroup(strategy);
     }
     public void addUnit(final UnitSGroup4Public unit) 
-				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
+				throws model.CycleException, PersistenceException{
         ((PersistentModuleWithUnitsSGroup)this.getTheObject()).addUnit(unit);
     }
     public ModuleAbstractStudent4Public copyForStudent() 

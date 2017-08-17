@@ -80,7 +80,7 @@ public class ModuleGroupStudentICProxi extends ModuleAbstractStudentICProxi impl
         return ((PersistentModuleGroupStudent)this.getTheObject()).strategyprogramHierarchyStudent(strategy);
     }
     public void addModule(final ModuleAbstractStudent4Public module) 
-				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
+				throws model.CycleException, PersistenceException{
         ((PersistentModuleGroupStudent)this.getTheObject()).addModule(module);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 

@@ -23,7 +23,7 @@ public interface ProgramSGroup4Public extends programHierarchySGroupHIERARCHY, A
     public <T> T strategyprogramHierarchySGroup(final programHierarchySGroupHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException;
     public void addModule(final ModuleAbstractSGroup4Public module) 
-				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException;
+				throws model.CycleException, PersistenceException;
     public ProgramStudent4Public copyForStudent() 
 				throws model.UserException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 

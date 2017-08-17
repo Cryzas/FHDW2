@@ -76,7 +76,7 @@ public class ModuleWithUnitsStudentProxi extends ModuleAbstractStudentProxi impl
         return ((PersistentModuleWithUnitsStudent)this.getTheObject()).strategyprogramHierarchyStudent(strategy);
     }
     public void addUnit(final UnitStudent4Public unit) 
-				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
+				throws model.CycleException, PersistenceException{
         ((PersistentModuleWithUnitsStudent)this.getTheObject()).addUnit(unit);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 

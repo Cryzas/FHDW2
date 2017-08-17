@@ -187,9 +187,7 @@ public class ModuleGroupSGroup extends model.ModuleAbstractSGroup implements Per
     // Start of section that contains operations that must be implemented.
     
     public void addModule(final ModuleAbstractSGroup4Public module) 
-				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
-    	if(getThis().containsprogramHierarchySGroup(module))
-    		throw new AlreadyExistsInParentException(AlreadyExistsInParentMessage);
+				throws model.CycleException, PersistenceException{
     	getThis().getModules().add(module);
     }
     public ModuleAbstractStudent4Public copyForStudent() 
@@ -217,10 +215,9 @@ public class ModuleGroupSGroup extends model.ModuleAbstractSGroup implements Per
     
     
     // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    static String AlreadyExistsInParentMessage = "Das ausgewählte Modul ist bereits in der Modulgruppe.";
     
     /* End of protected part that is not overridden by persistence generator */
     

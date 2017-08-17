@@ -100,7 +100,7 @@ class ProgramSGroup {
 	public derived String name;
 	public derived Fraction creditPoints;
 	prior Program programCopy;
-	void addModule(ModuleAbstractSGroup module) throws CycleException, AlreadyExistsInParentException;
+	void addModule(ModuleAbstractSGroup module) throws CycleException;
 	ProgramStudent copyForStudent() throws UserException;
 }
 
@@ -113,7 +113,7 @@ abstract string-factory class ModuleAbstractSGroup ## m_abstr_gr {
 
 class ModuleGroupSGroup extends ModuleAbstractSGroup {
 	public ModuleAbstractSGroup ** modules hierarchy programHierarchySGroup;
-	void addModule(ModuleAbstractSGroup module) throws CycleException, AlreadyExistsInParentException;
+	void addModule(ModuleAbstractSGroup module) throws CycleException;
 }
 
 class ModuleAtomarSGroup extends ModuleAbstractSGroup {
@@ -122,7 +122,7 @@ class ModuleAtomarSGroup extends ModuleAbstractSGroup {
 
 class ModuleWithUnitsSGroup ## m_unit_gr extends ModuleAbstractSGroup {
 	public UnitSGroup ** units hierarchy programHierarchySGroup;
-	void addUnit(UnitSGroup unit) throws CycleException, AlreadyExistsInParentException;
+	void addUnit(UnitSGroup unit) throws CycleException;
 	void swapCPonModuleWithUnits ## sCPonMWU(UnitSGroup fromUnit, UnitSGroup ToUnit, Fraction creditPoints) throws UnitSwapException;
 }
 
@@ -152,7 +152,7 @@ class ProgramStudent {
 	public derived String name;
 	public derived Fraction creditPoints;
 	prior ProgramSGroup programCopy;
-	void addModule(ModuleAbstractStudent module) throws CycleException, AlreadyExistsInParentException;
+	void addModule(ModuleAbstractStudent module) throws CycleException;
 }
 
 abstract string-factory class ModuleAbstractStudent ## m_abstr_st {
@@ -163,7 +163,7 @@ abstract string-factory class ModuleAbstractStudent ## m_abstr_st {
 
 class ModuleGroupStudent extends ModuleAbstractStudent {
 	public ModuleAbstractStudent ** modules hierarchy programHierarchyStudent;
-	void addModule(ModuleAbstractStudent module) throws CycleException, AlreadyExistsInParentException;
+	void addModule(ModuleAbstractStudent module) throws CycleException;
 }
 
 class ModuleAtomarStudent ## m_atom_stud extends ModuleAbstractStudent {
@@ -171,7 +171,7 @@ class ModuleAtomarStudent ## m_atom_stud extends ModuleAbstractStudent {
 
 class ModuleWithUnitsStudent ## m_unit_stud extends ModuleAbstractStudent {
 	public UnitStudent ** units hierarchy programHierarchyStudent;
-	void addUnit(UnitStudent unit) throws CycleException, AlreadyExistsInParentException;
+	void addUnit(UnitStudent unit) throws CycleException;
 }
 
 class UnitStudent {

@@ -182,6 +182,7 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
     
     
     // Start of section that contains overridden operations only.
+    
 
     /* Start of protected part that is not overridden by persistence generator */
     

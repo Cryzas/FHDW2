@@ -76,7 +76,7 @@ public class ModuleGroupSGroupProxi extends ModuleAbstractSGroupProxi implements
         return ((PersistentModuleGroupSGroup)this.getTheObject()).strategyprogramHierarchySGroup(strategy);
     }
     public void addModule(final ModuleAbstractSGroup4Public module) 
-				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
+				throws model.CycleException, PersistenceException{
         ((PersistentModuleGroupSGroup)this.getTheObject()).addModule(module);
     }
     public ModuleAbstractStudent4Public copyForStudent() 
