@@ -2,10 +2,11 @@ package persistence;
 
 import java.util.*;
 
-public class ModuleAbstractStudentList  extends ModuleAbstractStudentSearchList{
+public class ModuleAbstractStudentList {
 
+	protected Vector<ModuleAbstractStudent4Public> data; //List of proxies
 	protected ModuleAbstractStudentList() {
-		super();
+		this.data = new Vector<ModuleAbstractStudent4Public>();
 	}
 	public Iterator<ModuleAbstractStudent4Public> iterator(PersistentListProxi<ModuleAbstractStudent4Public> listProxi) {
 		return new PersistentListIterator<ModuleAbstractStudent4Public>(listProxi, this.data);

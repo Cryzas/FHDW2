@@ -6,6 +6,7 @@ server Server {
 	public StudyGroupManager groupManager;
 	public StudentManager studentManager;
 	void createProgram @@ Programm_erstellen (String name);
+	void removeError @@ Error_entfernen (ErrorDisplay error);
 	void addModuleToProg @@ Modul_hinzufügen (Program program, ModuleAbstract module {moduleManager;modules});
 	void addModuleToGroup @@ Modul_hinzufügen (ModuleGroup group, ModuleAbstract module {moduleManager;modules});
 	void createModule @@ Modul_erstellen (ModuleAbstractSUBTYPEName type, String name);

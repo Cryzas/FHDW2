@@ -498,6 +498,11 @@ public class Server extends PersistentObject implements PersistentServer{
     public void initializeOnInstantiation() 
 				throws PersistenceException{    
     }
+    public void removeError(final ErrorDisplay4Public error) 
+				throws PersistenceException{
+    	getThis().getErrors().filter(arg -> !arg.equals(error));
+    	getThis().signalChanged(true);
+    }
     public void startStudyGroup(final Program4Public program, final String name) 
 				throws PersistenceException{
     	getThis().getGroupManager().startStudyGroup(program, name, getThis());

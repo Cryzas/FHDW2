@@ -70,6 +70,8 @@ public interface Server4Public extends Invoker, Anything, Remote, AbstractPersis
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
+    public void removeError(final ErrorDisplay4Public error) 
+				throws PersistenceException;
     public void startStudyGroup(final Program4Public program, final String name) 
 				throws PersistenceException;
     public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 

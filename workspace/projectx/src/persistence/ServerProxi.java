@@ -211,6 +211,10 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initializeOnInstantiation();
     }
+    public void removeError(final ErrorDisplay4Public error) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).removeError(error);
+    }
     public void startStudyGroup(final Program4Public program, final String name) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).startStudyGroup(program, name);
