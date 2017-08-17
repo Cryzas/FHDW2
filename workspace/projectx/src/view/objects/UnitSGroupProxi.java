@@ -40,9 +40,6 @@ public class UnitSGroupProxi extends ViewProxi implements UnitSGroupView{
     public String getName()throws ModelException{
         return ((UnitSGroup)this.getTheObject()).getName();
     }
-    public void setName(String newValue) throws ModelException {
-        ((UnitSGroup)this.getTheObject()).setName(newValue);
-    }
     public common.Fraction getCreditPoints()throws ModelException{
         return ((UnitSGroup)this.getTheObject()).getCreditPoints();
     }
@@ -64,7 +61,7 @@ public class UnitSGroupProxi extends ViewProxi implements UnitSGroupView{
     }
     
     public boolean hasTransientFields(){
-        return false;
+        return true;
     }
     
     public javafx.scene.image.Image getImage(){

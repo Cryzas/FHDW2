@@ -246,10 +246,10 @@ public class AddModuleToGroupCommand extends PersistentObject implements Persist
         try{
 			this.commandReceiver.addModuleToGroup(this.getGroup(), this.getModule());
 		}
-		catch(model.CycleException e){
+		catch(model.AlreadyExistsInParentException e){
 			this.commandException = e;
 		}
-		catch(model.StudyProgramException e){
+		catch(model.CycleException e){
 			this.commandException = e;
 		}
     }

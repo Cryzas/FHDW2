@@ -35,8 +35,14 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleStudyGroup(StudyGroupView studyGroup) throws ModelException{
         this.standardHandling(studyGroup);
     }
+    public void handleModuleAtomarStudent(ModuleAtomarStudentView moduleAtomarStudent) throws ModelException{
+        this.standardHandling(moduleAtomarStudent);
+    }
     public void handleModuleWithUnits(ModuleWithUnitsView moduleWithUnits) throws ModelException{
         this.standardHandling(moduleWithUnits);
+    }
+    public void handleProgramStudent(ProgramStudentView programStudent) throws ModelException{
+        this.standardHandling(programStudent);
     }
     public void handleProgramManager(ProgramManagerView programManager) throws ModelException{
         this.standardHandling(programManager);
@@ -44,11 +50,26 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleProgram(ProgramView program) throws ModelException{
         this.standardHandling(program);
     }
+    public void handleModuleWithUnitsStudent(ModuleWithUnitsStudentView moduleWithUnitsStudent) throws ModelException{
+        this.standardHandling(moduleWithUnitsStudent);
+    }
     public void handleUnitSGroup(UnitSGroupView unitSGroup) throws ModelException{
         this.standardHandling(unitSGroup);
     }
+    public void handleStudentManager(StudentManagerView studentManager) throws ModelException{
+        this.standardHandling(studentManager);
+    }
+    public void handleModuleGroupStudent(ModuleGroupStudentView moduleGroupStudent) throws ModelException{
+        this.standardHandling(moduleGroupStudent);
+    }
+    public void handleStudent(StudentView student) throws ModelException{
+        this.standardHandling(student);
+    }
     public void handleStudyGroupManager(StudyGroupManagerView studyGroupManager) throws ModelException{
         this.standardHandling(studyGroupManager);
+    }
+    public void handleUnitStudent(UnitStudentView unitStudent) throws ModelException{
+        this.standardHandling(unitStudent);
     }
     public void handleModuleWithUnitsSGroup(ModuleWithUnitsSGroupView moduleWithUnitsSGroup) throws ModelException{
         this.standardHandling(moduleWithUnitsSGroup);

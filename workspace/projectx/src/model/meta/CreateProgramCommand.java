@@ -215,7 +215,7 @@ public class CreateProgramCommand extends PersistentObject implements Persistent
         try{
 			this.commandReceiver.createProgram(this.getName());
 		}
-		catch(model.StudyProgramException e){
+		catch(model.AlreadyExistsInParentException e){
 			this.commandException = e;
 		}
     }

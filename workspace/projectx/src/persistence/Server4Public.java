@@ -8,6 +8,7 @@ public interface Server4Public extends Invoker, Anything, Remote, AbstractPersis
     public ProgramManager4Public getProgramManager() throws PersistenceException ;
     public ModuleManager4Public getModuleManager() throws PersistenceException ;
     public StudyGroupManager4Public getGroupManager() throws PersistenceException ;
+    public StudentManager4Public getStudentManager() throws PersistenceException ;
     public String getUser() throws PersistenceException ;
     
     public void accept(InvokerVisitor visitor) throws PersistenceException;
@@ -37,9 +38,13 @@ public interface Server4Public extends Invoker, Anything, Remote, AbstractPersis
 				throws PersistenceException;
     public void signalChanged(final boolean signal) 
 				throws PersistenceException;
+    public StudentSearchList student_Path_In_AddStudentToGroup() 
+				throws model.UserException, PersistenceException;
     public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstract4Public module) 
 				throws PersistenceException;
     public void addModuleToProg(final Program4Public program, final ModuleAbstract4Public module) 
+				throws PersistenceException;
+    public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student) 
 				throws PersistenceException;
     public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
 				throws PersistenceException;
@@ -52,6 +57,8 @@ public interface Server4Public extends Invoker, Anything, Remote, AbstractPersis
     public void createModule(final String type, final String name) 
 				throws PersistenceException;
     public void createProgram(final String name) 
+				throws PersistenceException;
+    public void createStudent(final String firstName, final String lastName, final java.sql.Date birthDate) 
 				throws PersistenceException;
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException;

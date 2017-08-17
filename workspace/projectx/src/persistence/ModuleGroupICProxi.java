@@ -80,7 +80,7 @@ public class ModuleGroupICProxi extends ModuleAbstractICProxi implements Persist
         return ((PersistentModuleGroup)this.getTheObject()).strategyprogramHierarchy(strategy);
     }
     public void addModule(final ModuleAbstract4Public module) 
-				throws model.CycleException, model.StudyProgramException, PersistenceException{
+				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
         ((PersistentModuleGroup)this.getTheObject()).addModule(module);
     }
     public ModuleAbstractSGroup4Public copyForStudyGroup() 

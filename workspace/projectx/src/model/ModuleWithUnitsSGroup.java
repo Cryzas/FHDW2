@@ -11,39 +11,39 @@ import model.visitor.*;
 public class ModuleWithUnitsSGroup extends model.ModuleAbstractSGroup implements PersistentModuleWithUnitsSGroup{
     
     
-    public static ModuleWithUnitsSGroup4Public createModuleWithUnitsSGroup(String name) throws PersistenceException{
-        return createModuleWithUnitsSGroup(name,false);
+    public static ModuleWithUnitsSGroup4Public createModuleWithUnitsSGroup(ModuleAbstract4Public moduleCopy) throws PersistenceException{
+        return createModuleWithUnitsSGroup(moduleCopy,false);
     }
     
-    public static ModuleWithUnitsSGroup4Public createModuleWithUnitsSGroup(String name,boolean delayed$Persistence) throws PersistenceException {
+    public static ModuleWithUnitsSGroup4Public createModuleWithUnitsSGroup(ModuleAbstract4Public moduleCopy,boolean delayed$Persistence) throws PersistenceException {
         PersistentModuleWithUnitsSGroup result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theModuleWithUnitsSGroupFacade
-                .newDelayedModuleWithUnitsSGroup(name);
+                .newDelayedModuleWithUnitsSGroup();
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theModuleWithUnitsSGroupFacade
-                .newModuleWithUnitsSGroup(name,-1);
+                .newModuleWithUnitsSGroup(-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
-        final$$Fields.put("name", name);
+        final$$Fields.put("moduleCopy", moduleCopy);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static ModuleWithUnitsSGroup4Public createModuleWithUnitsSGroup(String name,boolean delayed$Persistence,ModuleWithUnitsSGroup4Public This) throws PersistenceException {
+    public static ModuleWithUnitsSGroup4Public createModuleWithUnitsSGroup(ModuleAbstract4Public moduleCopy,boolean delayed$Persistence,ModuleWithUnitsSGroup4Public This) throws PersistenceException {
         PersistentModuleWithUnitsSGroup result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theModuleWithUnitsSGroupFacade
-                .newDelayedModuleWithUnitsSGroup(name);
+                .newDelayedModuleWithUnitsSGroup();
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theModuleWithUnitsSGroupFacade
-                .newModuleWithUnitsSGroup(name,-1);
+                .newModuleWithUnitsSGroup(-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
-        final$$Fields.put("name", name);
+        final$$Fields.put("moduleCopy", moduleCopy);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -67,7 +67,7 @@ public class ModuleWithUnitsSGroup extends model.ModuleAbstractSGroup implements
     
     public ModuleWithUnitsSGroup provideCopy() throws PersistenceException{
         ModuleWithUnitsSGroup result = this;
-        result = new ModuleWithUnitsSGroup(this.name, 
+        result = new ModuleWithUnitsSGroup(this.moduleCopy, 
                                            this.This, 
                                            this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -79,9 +79,9 @@ public class ModuleWithUnitsSGroup extends model.ModuleAbstractSGroup implements
     }
     protected ModuleWithUnitsSGroup_UnitsProxi units;
     
-    public ModuleWithUnitsSGroup(String name,PersistentModuleAbstractSGroup This,long id) throws PersistenceException {
+    public ModuleWithUnitsSGroup(PersistentModuleAbstract moduleCopy,PersistentModuleAbstractSGroup This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((String)name,(PersistentModuleAbstractSGroup)This,id);
+        super((PersistentModuleAbstract)moduleCopy,(PersistentModuleAbstractSGroup)This,id);
         this.units = new ModuleWithUnitsSGroup_UnitsProxi(this);        
     }
     
@@ -96,7 +96,7 @@ public class ModuleWithUnitsSGroup extends model.ModuleAbstractSGroup implements
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         if (this.getClassId() == 182) ConnectionHandler.getTheConnectionHandler().theModuleWithUnitsSGroupFacade
-            .newModuleWithUnitsSGroup(name,this.getId());
+            .newModuleWithUnitsSGroup(this.getId());
         super.store();
         this.getUnits().store();
         
@@ -167,7 +167,7 @@ public class ModuleWithUnitsSGroup extends model.ModuleAbstractSGroup implements
 				throws PersistenceException{
         this.setThis((PersistentModuleWithUnitsSGroup)This);
 		if(this.isTheSameAs(This)){
-			this.setName((String)final$$Fields.get("name"));
+			this.setModuleCopy((PersistentModuleAbstract)final$$Fields.get("moduleCopy"));
 		}
     }
     public <T> T strategyprogramHierarchySGroup(final programHierarchySGroupHIERARCHYStrategy<T> strategy) 
@@ -187,10 +187,16 @@ public class ModuleWithUnitsSGroup extends model.ModuleAbstractSGroup implements
     // Start of section that contains operations that must be implemented.
     
     public void addUnit(final UnitSGroup4Public unit) 
-				throws model.CycleException, model.StudyProgramException, PersistenceException{
+				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
     	if(getThis().containsprogramHierarchySGroup(unit))
-    		throw new StudyProgramException(AlreadyExistsInParentMessage);
+    		throw new AlreadyExistsInParentException(AlreadyExistsInParentMessage);
     	getThis().getUnits().add(unit);
+    }
+    public ModuleAbstractStudent4Public copyForStudent() 
+				throws model.UserException, PersistenceException{
+    	ModuleWithUnitsStudent4Public toBeAdded = ModuleWithUnitsStudent.createModuleWithUnitsStudent(getThis());
+    	getThis().getUnits().applyToAllException(unit -> toBeAdded.addUnit(unit.copyForStudent()));
+    	return toBeAdded;
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -199,6 +205,10 @@ public class ModuleWithUnitsSGroup extends model.ModuleAbstractSGroup implements
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
 		return getThis().getUnits().aggregate(Fraction.Null, (result, argument) -> result.add(argument.getCreditPoints()));
+    }
+    public String getName() 
+				throws PersistenceException{
+        return getThis().getModuleCopy().getName();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -209,7 +219,7 @@ public class ModuleWithUnitsSGroup extends model.ModuleAbstractSGroup implements
         super.initializeOnInstantiation();
     }
     public void swapCPonModuleWithUnits(final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
-				throws model.StudyProgramException, PersistenceException{
+				throws model.UnitSwapException, PersistenceException{
     	getThis().getUnits().findFirst(unit -> unit.equals(fromUnit)).subCP(creditPoints);
     	getThis().getUnits().findFirst(unit -> unit.equals(ToUnit)).addCP(creditPoints);
     }

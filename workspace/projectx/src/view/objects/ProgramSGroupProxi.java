@@ -59,9 +59,6 @@ public class ProgramSGroupProxi extends ViewProxi implements ProgramSGroupView{
     public String getName()throws ModelException{
         return ((ProgramSGroup)this.getTheObject()).getName();
     }
-    public void setName(String newValue) throws ModelException {
-        ((ProgramSGroup)this.getTheObject()).setName(newValue);
-    }
     public common.Fraction getCreditPoints()throws ModelException{
         return ((ProgramSGroup)this.getTheObject()).getCreditPoints();
     }

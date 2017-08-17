@@ -19,11 +19,11 @@ public interface ProgramManager4Public extends Anything, AbstractPersistentProxi
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
     public void addModuleToProg(final Program4Public program, final ModuleAbstract4Public module) 
-				throws model.CycleException, model.StudyProgramException, PersistenceException;
+				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void createProgram(final String name) 
-				throws model.StudyProgramException, PersistenceException;
+				throws model.AlreadyExistsInParentException, PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 

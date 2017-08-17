@@ -74,6 +74,17 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.HashMap<?,?> student_Path_In_AddStudentToGroup(){
+        try {
+            StudentSearchList result = ((PersistentServer)this.server).student_Path_In_AddStudentToGroup();
+            return createOKResult(result.getVector(1, 0, false, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0);
+        }
+    }
+    
     public synchronized java.util.HashMap<?,?> addModuleToGroup(String groupProxiString, String moduleProxiString){
         try {
             PersistentModuleGroup group = (PersistentModuleGroup)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(groupProxiString));
@@ -90,6 +101,17 @@ public  class RemoteServer extends RemoteServerMaster {
             PersistentProgram program = (PersistentProgram)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(programProxiString));
             PersistentModuleAbstract module = (PersistentModuleAbstract)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(moduleProxiString));
             ((PersistentServer)this.server).addModuleToProg(program, module);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> addStudentToGroup(String groupProxiString, String studentProxiString){
+        try {
+            PersistentStudyGroup group = (PersistentStudyGroup)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(groupProxiString));
+            PersistentStudent student = (PersistentStudent)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(studentProxiString));
+            ((PersistentServer)this.server).addStudentToGroup(group, student);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -141,6 +163,15 @@ public  class RemoteServer extends RemoteServerMaster {
     public synchronized java.util.HashMap<?,?> createProgram(String name){
         try {
             ((PersistentServer)this.server).createProgram(name);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> createStudent(String firstName, String lastName, java.util.Date birthDate){
+        try {
+            ((PersistentServer)this.server).createStudent(firstName, lastName, new java.sql.Date(birthDate.getTime()));
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

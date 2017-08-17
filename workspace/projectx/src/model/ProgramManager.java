@@ -184,7 +184,7 @@ public class ProgramManager extends PersistentObject implements PersistentProgra
     // Start of section that contains operations that must be implemented.
     
     public void addModuleToProg(final Program4Public program, final ModuleAbstract4Public module) 
-				throws model.CycleException, model.StudyProgramException, PersistenceException{
+				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
     	program.addModule(module);        
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
@@ -192,12 +192,12 @@ public class ProgramManager extends PersistentObject implements PersistentProgra
         
     }
     public void createProgram(final String name) 
-				throws model.StudyProgramException, PersistenceException{
+				throws model.AlreadyExistsInParentException, PersistenceException{
     	if (Program.getProgramByName(name).iterator().hasNext()) {
-			throw new StudyProgramException(ProgramAlreadyExistsInDBMessage);
+			throw new AlreadyExistsInParentException(ProgramAlreadyExistsInDBMessage);
 		}
     	if (ModuleAbstract.getModuleAbstractByName(name).iterator().hasNext()) {
-			throw new StudyProgramException(ModuleAlreadyExistsInDBMessage);
+			throw new AlreadyExistsInParentException(ModuleAlreadyExistsInDBMessage);
 		}
     	getThis().getPrograms().add(Program.createProgram(name));
     }

@@ -77,14 +77,14 @@ create table m_abstr_gr(
     id number primary key,
     Cls number not null,
     constraint Fm_abstr_grCls foreign key (Cls) references Cls (id) on delete cascade,
-    m_abstr_grNm varchar2(2000),
+    m_abstr_grMdlCp number,
+    m_abstr_grMdlCpCls number,
+    constraint Fm_abstr_grMdlCp foreign key (m_abstr_grMdlCpCls) references Cls (id),
     m_abstr_grThis number,
     m_abstr_grThisCls number,
     constraint Fm_abstr_grThis foreign key (m_abstr_grThisCls) references Cls (id),
     MdlAtmrSGrpOwnCrdtPnts varchar2(2000)    
 );
-create index INmm_abstr_gr on m_abstr_gr (m_abstr_grNm);
-
 
 create table ChngCPOnMdlCMD(
     id number primary key,
@@ -118,6 +118,9 @@ create table Srvr(
     SrvrGrpMngr number,
     SrvrGrpMngrCls number,
     constraint FSrvrGrpMngr foreign key (SrvrGrpMngrCls) references Cls (id),
+    SrvrStdntMngr number,
+    SrvrStdntMngrCls number,
+    constraint FSrvrStdntMngr foreign key (SrvrStdntMngrCls) references Cls (id),
     SrvrThis number,
     SrvrThisCls number,
     constraint FSrvrThis foreign key (SrvrThisCls) references Cls (id),
@@ -133,13 +136,13 @@ create table PrgrmSGrp(
     id number primary key,
     Cls number not null,
     constraint FPrgrmSGrpCls foreign key (Cls) references Cls (id) on delete cascade,
-    PrgrmSGrpNm varchar2(2000),
+    PrgrmSGrpPrgrmCp number,
+    PrgrmSGrpPrgrmCpCls number,
+    constraint FPrgrmSGrpPrgrmCp foreign key (PrgrmSGrpPrgrmCpCls) references Cls (id),
     PrgrmSGrpThis number,
     PrgrmSGrpThisCls number,
     constraint FPrgrmSGrpThis foreign key (PrgrmSGrpThisCls) references Cls (id)    
 );
-create index INmPrgrmSGrp on PrgrmSGrp (PrgrmSGrpNm);
-
 
 create table SCPonMWUCMD(
     id number primary key,
@@ -226,6 +229,39 @@ create table StdGrp(
 create index INmStdGrp on StdGrp (StdGrpNm);
 
 
+create table Add_S2GCMD(
+    id number primary key,
+    Cls number not null,
+    constraint FAdd_S2GCMDCls foreign key (Cls) references Cls (id) on delete cascade,
+    Add_S2GCMDGrp number,
+    Add_S2GCMDGrpCls number,
+    constraint FAdd_S2GCMDGrp foreign key (Add_S2GCMDGrpCls) references Cls (id),
+    Add_S2GCMDStdnt number,
+    Add_S2GCMDStdntCls number,
+    constraint FAdd_S2GCMDStdnt foreign key (Add_S2GCMDStdntCls) references Cls (id),
+    Add_S2GCMDInvoker number,
+    Add_S2GCMDInvokerCls number,
+    constraint FAdd_S2GCMDInvoker foreign key (Add_S2GCMDInvokerCls) references Cls (id),
+    Add_S2GCMDCReceiver number,
+    Add_S2GCMDCReceiverCls number,
+    constraint FAdd_S2GCMDCReceiver foreign key (Add_S2GCMDCReceiverCls) references Cls (id),
+    Add_S2GCMDMyCmmnDt number,
+    Add_S2GCMDMyCmmnDtCls number,
+    constraint FAdd_S2GCMDMyCmmnDt foreign key (Add_S2GCMDMyCmmnDtCls) references Cls (id)    
+);
+
+create table PrgrmStdnt(
+    id number primary key,
+    Cls number not null,
+    constraint FPrgrmStdntCls foreign key (Cls) references Cls (id) on delete cascade,
+    PrgrmStdntPrgrmCp number,
+    PrgrmStdntPrgrmCpCls number,
+    constraint FPrgrmStdntPrgrmCp foreign key (PrgrmStdntPrgrmCpCls) references Cls (id),
+    PrgrmStdntThis number,
+    PrgrmStdntThisCls number,
+    constraint FPrgrmStdntThis foreign key (PrgrmStdntThisCls) references Cls (id)    
+);
+
 create table AddMdlTGrpCMD(
     id number primary key,
     Cls number not null,
@@ -293,11 +329,40 @@ create table UntSGrp(
     id number primary key,
     Cls number not null,
     constraint FUntSGrpCls foreign key (Cls) references Cls (id) on delete cascade,
-    UntSGrpNm varchar2(2000),
+    UntSGrpUntCp number,
+    UntSGrpUntCpCls number,
+    constraint FUntSGrpUntCp foreign key (UntSGrpUntCpCls) references Cls (id),
     UntSGrpCrdtPnts varchar2(2000),
     UntSGrpThis number,
     UntSGrpThisCls number,
     constraint FUntSGrpThis foreign key (UntSGrpThisCls) references Cls (id)    
+);
+
+create table CrtStdntCMD(
+    id number primary key,
+    Cls number not null,
+    constraint FCrtStdntCMDCls foreign key (Cls) references Cls (id) on delete cascade,
+    CrtStdntCMDFrstNm varchar2(2000),
+    CrtStdntCMDLstNm varchar2(2000),
+    CrtStdntCMDBrthDt Date,
+    CrtStdntCMDInvoker number,
+    CrtStdntCMDInvokerCls number,
+    constraint FCrtStdntCMDInvoker foreign key (CrtStdntCMDInvokerCls) references Cls (id),
+    CrtStdntCMDCReceiver number,
+    CrtStdntCMDCReceiverCls number,
+    constraint FCrtStdntCMDCReceiver foreign key (CrtStdntCMDCReceiverCls) references Cls (id),
+    CrtStdntCMDMyCmmnDt number,
+    CrtStdntCMDMyCmmnDtCls number,
+    constraint FCrtStdntCMDMyCmmnDt foreign key (CrtStdntCMDMyCmmnDtCls) references Cls (id)    
+);
+
+create table StdntMngr(
+    id number primary key,
+    Cls number not null,
+    constraint FStdntMngrCls foreign key (Cls) references Cls (id) on delete cascade,
+    StdntMngrThis number,
+    StdntMngrThisCls number,
+    constraint FStdntMngrThis foreign key (StdntMngrThisCls) references Cls (id)    
 );
 
 create table ChngCPOnUntCMD(
@@ -317,6 +382,21 @@ create table ChngCPOnUntCMD(
     ChngCPOnUntCMDMyCmmnDt number,
     ChngCPOnUntCMDMyCmmnDtCls number,
     constraint FChngCPOnUntCMDMyCmmnDt foreign key (ChngCPOnUntCMDMyCmmnDtCls) references Cls (id)    
+);
+
+create table Stdnt(
+    id number primary key,
+    Cls number not null,
+    constraint FStdntCls foreign key (Cls) references Cls (id) on delete cascade,
+    StdntFrstNm varchar2(2000),
+    StdntLstNm varchar2(2000),
+    StdntBrthDt Date,
+    StdntPrgrm number,
+    StdntPrgrmCls number,
+    constraint FStdntPrgrm foreign key (StdntPrgrmCls) references Cls (id),
+    StdntThis number,
+    StdntThisCls number,
+    constraint FStdntThis foreign key (StdntThisCls) references Cls (id)    
 );
 
 create table CrtMdlCMD(
@@ -343,6 +423,30 @@ create table StdGrpMngr(
     StdGrpMngrThis number,
     StdGrpMngrThisCls number,
     constraint FStdGrpMngrThis foreign key (StdGrpMngrThisCls) references Cls (id)    
+);
+
+create table m_abstr_st(
+    id number primary key,
+    Cls number not null,
+    constraint Fm_abstr_stCls foreign key (Cls) references Cls (id) on delete cascade,
+    m_abstr_stMdlCp number,
+    m_abstr_stMdlCpCls number,
+    constraint Fm_abstr_stMdlCp foreign key (m_abstr_stMdlCpCls) references Cls (id),
+    m_abstr_stThis number,
+    m_abstr_stThisCls number,
+    constraint Fm_abstr_stThis foreign key (m_abstr_stThisCls) references Cls (id)    
+);
+
+create table UntStdnt(
+    id number primary key,
+    Cls number not null,
+    constraint FUntStdntCls foreign key (Cls) references Cls (id) on delete cascade,
+    UntStdntUntCp number,
+    UntStdntUntCpCls number,
+    constraint FUntStdntUntCp foreign key (UntStdntUntCpCls) references Cls (id),
+    UntStdntThis number,
+    UntStdntThisCls number,
+    constraint FUntStdntThis foreign key (UntStdntThisCls) references Cls (id)    
 );
 
 create table CmmnDt(
@@ -429,6 +533,18 @@ create table CmmndCrdntrExctr(
 );
 create index IFrmCmmndCrdntrExctr on CmmndCrdntrExctr(frm);
 
+create table StdGrpStdnts(
+    id number primary key,
+    frm number not null,
+    stdnts number not null,
+    Cls number not null,
+    constraint FStdGrpStdntsCls foreign key(Cls) references Cls(id) on delete cascade,
+    constraint FStdGrpStdntsfrm foreign key(frm) references StdGrp(id)
+);
+create index IFrmStdGrpStdnts on StdGrpStdnts(frm);
+
+
+create index IStdntsStdGrpStdnts on StdGrpStdnts(stdnts);
 create table MdlWthUntsUnts(
     id number primary key,
     frm number not null,
@@ -438,6 +554,16 @@ create table MdlWthUntsUnts(
     constraint FMdlWthUntsUntsfrm foreign key(frm) references MdlAbstrct(id)
 );
 create index IFrmMdlWthUntsUnts on MdlWthUntsUnts(frm);
+
+create table PrgrmStdntMdls(
+    id number primary key,
+    frm number not null,
+    mdls number not null,
+    Cls number not null,
+    constraint FPrgrmStdntMdlsCls foreign key(Cls) references Cls(id) on delete cascade,
+    constraint FPrgrmStdntMdlsfrm foreign key(frm) references PrgrmStdnt(id)
+);
+create index IFrmPrgrmStdntMdls on PrgrmStdntMdls(frm);
 
 create table PrgrmMngrPrgrms(
     id number primary key,
@@ -458,6 +584,36 @@ create table PrgrmMdls(
     constraint FPrgrmMdlsfrm foreign key(frm) references Prgrm(id)
 );
 create index IFrmPrgrmMdls on PrgrmMdls(frm);
+
+create table m_unit_studUnts(
+    id number primary key,
+    frm number not null,
+    unts number not null,
+    Cls number not null,
+    constraint Fm_unit_studUntsCls foreign key(Cls) references Cls(id) on delete cascade,
+    constraint Fm_unit_studUntsfrm foreign key(frm) references m_abstr_st(id)
+);
+create index IFrmm_unit_studUnts on m_unit_studUnts(frm);
+
+create table StdntMngrStdnts(
+    id number primary key,
+    frm number not null,
+    stdnts number not null,
+    Cls number not null,
+    constraint FStdntMngrStdntsCls foreign key(Cls) references Cls(id) on delete cascade,
+    constraint FStdntMngrStdntsfrm foreign key(frm) references StdntMngr(id)
+);
+create index IFrmStdntMngrStdnts on StdntMngrStdnts(frm);
+
+create table MdlGrpStdntMdls(
+    id number primary key,
+    frm number not null,
+    mdls number not null,
+    Cls number not null,
+    constraint FMdlGrpStdntMdlsCls foreign key(Cls) references Cls(id) on delete cascade,
+    constraint FMdlGrpStdntMdlsfrm foreign key(frm) references m_abstr_st(id)
+);
+create index IFrmMdlGrpStdntMdls on MdlGrpStdntMdls(frm);
 
 create table StdGrpMngrGrps(
     id number primary key,

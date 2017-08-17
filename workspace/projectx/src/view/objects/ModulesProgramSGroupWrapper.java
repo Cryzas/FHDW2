@@ -16,7 +16,6 @@ public class ModulesProgramSGroupWrapper extends AssociationInTreeWrapper {
 	
 	
 	public String toString(){
-    	//TODO: Implement toString in wrapper class for association modules in class ProgramSGroup
     	return this.getWrappedObject().toString();
     }
 

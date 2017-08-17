@@ -1,6 +1,6 @@
 
 package model.visitor;
-public interface CommandVisitor extends ModuleManagerCommandVisitor,ProgramManagerCommandVisitor,StudyGroupManagerCommandVisitor{
+public interface CommandVisitor extends ModuleManagerCommandVisitor,ProgramManagerCommandVisitor,StudentManagerCommandVisitor,StudyGroupManagerCommandVisitor{
     
     
 }

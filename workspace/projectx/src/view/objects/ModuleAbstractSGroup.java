@@ -21,9 +21,6 @@ public abstract class ModuleAbstractSGroup extends ViewObject implements ModuleA
     public String getName()throws ModelException{
         return this.name;
     }
-    public void setName(String newValue) throws ModelException {
-        this.name = newValue;
-    }
     public common.Fraction getCreditPoints()throws ModelException{
         return this.creditPoints;
     }
@@ -83,10 +80,6 @@ public abstract class ModuleAbstractSGroup extends ViewObject implements ModuleA
         return true;
     }
     public void setValueAt(String newValue, int rowIndex) throws Exception {
-        if(rowIndex == 0){
-            this.setName(newValue);
-            return;
-        }
         rowIndex = rowIndex - 1;
         rowIndex = rowIndex - 1;
     }

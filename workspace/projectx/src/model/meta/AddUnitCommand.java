@@ -245,10 +245,10 @@ public class AddUnitCommand extends PersistentObject implements PersistentAddUni
         try{
 			this.commandReceiver.addUnit(this.getModule(), this.getName(), this.getCreditPoints());
 		}
-		catch(model.CycleException e){
+		catch(model.AlreadyExistsInParentException e){
 			this.commandException = e;
 		}
-		catch(model.StudyProgramException e){
+		catch(model.CycleException e){
 			this.commandException = e;
 		}
     }

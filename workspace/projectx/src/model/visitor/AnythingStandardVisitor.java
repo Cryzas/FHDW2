@@ -50,8 +50,17 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleStudyGroup(StudyGroup4Public studyGroup) throws PersistenceException{
         this.standardHandling(studyGroup);
     }
+    public void handleModuleAtomarStudent(ModuleAtomarStudent4Public moduleAtomarStudent) throws PersistenceException{
+        this.standardHandling(moduleAtomarStudent);
+    }
+    public void handleAddStudentToGroupCommand(AddStudentToGroupCommand4Public addStudentToGroupCommand) throws PersistenceException{
+        this.standardHandling(addStudentToGroupCommand);
+    }
     public void handleModuleWithUnits(ModuleWithUnits4Public moduleWithUnits) throws PersistenceException{
         this.standardHandling(moduleWithUnits);
+    }
+    public void handleProgramStudent(ProgramStudent4Public programStudent) throws PersistenceException{
+        this.standardHandling(programStudent);
     }
     public void handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException{
         this.standardHandling(addModuleToGroupCommand);
@@ -65,17 +74,35 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleProgram(Program4Public program) throws PersistenceException{
         this.standardHandling(program);
     }
+    public void handleModuleWithUnitsStudent(ModuleWithUnitsStudent4Public moduleWithUnitsStudent) throws PersistenceException{
+        this.standardHandling(moduleWithUnitsStudent);
+    }
     public void handleUnitSGroup(UnitSGroup4Public unitSGroup) throws PersistenceException{
         this.standardHandling(unitSGroup);
     }
+    public void handleCreateStudentCommand(CreateStudentCommand4Public createStudentCommand) throws PersistenceException{
+        this.standardHandling(createStudentCommand);
+    }
+    public void handleStudentManager(StudentManager4Public studentManager) throws PersistenceException{
+        this.standardHandling(studentManager);
+    }
     public void handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException{
         this.standardHandling(changeCPOnUnitCommand);
+    }
+    public void handleModuleGroupStudent(ModuleGroupStudent4Public moduleGroupStudent) throws PersistenceException{
+        this.standardHandling(moduleGroupStudent);
+    }
+    public void handleStudent(Student4Public student) throws PersistenceException{
+        this.standardHandling(student);
     }
     public void handleCreateModuleCommand(CreateModuleCommand4Public createModuleCommand) throws PersistenceException{
         this.standardHandling(createModuleCommand);
     }
     public void handleStudyGroupManager(StudyGroupManager4Public studyGroupManager) throws PersistenceException{
         this.standardHandling(studyGroupManager);
+    }
+    public void handleUnitStudent(UnitStudent4Public unitStudent) throws PersistenceException{
+        this.standardHandling(unitStudent);
     }
     public void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException{
         this.standardHandling(commonDate);

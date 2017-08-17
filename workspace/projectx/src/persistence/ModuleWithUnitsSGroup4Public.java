@@ -27,7 +27,7 @@ public interface ModuleWithUnitsSGroup4Public extends ModuleAbstractSGroup4Publi
     public <T> T strategyprogramHierarchySGroup(final programHierarchySGroupHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException;
     public void addUnit(final UnitSGroup4Public unit) 
-				throws model.CycleException, model.StudyProgramException, PersistenceException;
+				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void initializeOnCreation() 
@@ -35,7 +35,7 @@ public interface ModuleWithUnitsSGroup4Public extends ModuleAbstractSGroup4Publi
     public void initializeOnInstantiation() 
 				throws PersistenceException;
     public void swapCPonModuleWithUnits(final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
-				throws model.StudyProgramException, PersistenceException;
+				throws model.UnitSwapException, PersistenceException;
 
 }
 

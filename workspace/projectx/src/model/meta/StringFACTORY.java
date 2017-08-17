@@ -13,6 +13,17 @@ public class StringFACTORY{
         throw new persistence.PersistenceException("No such type name!",0);
     }
     
+    public static final String ModuleAbstractStudent$FACTORY$ModuleWithUnitsStudent = "ModuleWithUnitsStudent";
+    public static final String ModuleAbstractStudent$FACTORY$ModuleAtomarStudent = "ModuleAtomarStudent";
+    public static final String ModuleAbstractStudent$FACTORY$ModuleGroupStudent = "ModuleGroupStudent";
+    
+    public static persistence.ModuleAbstractStudent4Public createObjectBySubTypeNameForModuleAbstractStudent(String name, ModuleAbstractStudentSwitchPARAMETER switchAssistant) throws persistence.PersistenceException {
+        if(name.equals(ModuleAbstractStudent$FACTORY$ModuleWithUnitsStudent)) return switchAssistant.handleModuleWithUnitsStudent();
+        if(name.equals(ModuleAbstractStudent$FACTORY$ModuleAtomarStudent)) return switchAssistant.handleModuleAtomarStudent();
+        if(name.equals(ModuleAbstractStudent$FACTORY$ModuleGroupStudent)) return switchAssistant.handleModuleGroupStudent();
+        throw new persistence.PersistenceException("No such type name!",0);
+    }
+    
     public static final String ModuleAbstract$FACTORY$ModuleAtomar = "Atomar";
     public static final String ModuleAbstract$FACTORY$ModuleWithUnits = "Mit Units";
     public static final String ModuleAbstract$FACTORY$ModuleGroup = "Gruppe";

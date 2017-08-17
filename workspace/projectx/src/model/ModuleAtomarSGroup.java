@@ -10,40 +10,40 @@ import model.visitor.*;
 public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements PersistentModuleAtomarSGroup{
     
     
-    public static ModuleAtomarSGroup4Public createModuleAtomarSGroup(String name,common.Fraction ownCreditPoints) throws PersistenceException{
-        return createModuleAtomarSGroup(name,ownCreditPoints,false);
+    public static ModuleAtomarSGroup4Public createModuleAtomarSGroup(ModuleAbstract4Public moduleCopy,common.Fraction ownCreditPoints) throws PersistenceException{
+        return createModuleAtomarSGroup(moduleCopy,ownCreditPoints,false);
     }
     
-    public static ModuleAtomarSGroup4Public createModuleAtomarSGroup(String name,common.Fraction ownCreditPoints,boolean delayed$Persistence) throws PersistenceException {
+    public static ModuleAtomarSGroup4Public createModuleAtomarSGroup(ModuleAbstract4Public moduleCopy,common.Fraction ownCreditPoints,boolean delayed$Persistence) throws PersistenceException {
         PersistentModuleAtomarSGroup result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theModuleAtomarSGroupFacade
-                .newDelayedModuleAtomarSGroup(name,ownCreditPoints);
+                .newDelayedModuleAtomarSGroup(ownCreditPoints);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theModuleAtomarSGroupFacade
-                .newModuleAtomarSGroup(name,ownCreditPoints,-1);
+                .newModuleAtomarSGroup(ownCreditPoints,-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
-        final$$Fields.put("name", name);
+        final$$Fields.put("moduleCopy", moduleCopy);
         final$$Fields.put("ownCreditPoints", ownCreditPoints);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static ModuleAtomarSGroup4Public createModuleAtomarSGroup(String name,common.Fraction ownCreditPoints,boolean delayed$Persistence,ModuleAtomarSGroup4Public This) throws PersistenceException {
+    public static ModuleAtomarSGroup4Public createModuleAtomarSGroup(ModuleAbstract4Public moduleCopy,common.Fraction ownCreditPoints,boolean delayed$Persistence,ModuleAtomarSGroup4Public This) throws PersistenceException {
         PersistentModuleAtomarSGroup result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theModuleAtomarSGroupFacade
-                .newDelayedModuleAtomarSGroup(name,ownCreditPoints);
+                .newDelayedModuleAtomarSGroup(ownCreditPoints);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theModuleAtomarSGroupFacade
-                .newModuleAtomarSGroup(name,ownCreditPoints,-1);
+                .newModuleAtomarSGroup(ownCreditPoints,-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
-        final$$Fields.put("name", name);
+        final$$Fields.put("moduleCopy", moduleCopy);
         final$$Fields.put("ownCreditPoints", ownCreditPoints);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
@@ -67,7 +67,7 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
     
     public ModuleAtomarSGroup provideCopy() throws PersistenceException{
         ModuleAtomarSGroup result = this;
-        result = new ModuleAtomarSGroup(this.name, 
+        result = new ModuleAtomarSGroup(this.moduleCopy, 
                                         this.This, 
                                         this.ownCreditPoints, 
                                         this.getId());
@@ -80,9 +80,9 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
     }
     protected common.Fraction ownCreditPoints;
     
-    public ModuleAtomarSGroup(String name,PersistentModuleAbstractSGroup This,common.Fraction ownCreditPoints,long id) throws PersistenceException {
+    public ModuleAtomarSGroup(PersistentModuleAbstract moduleCopy,PersistentModuleAbstractSGroup This,common.Fraction ownCreditPoints,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((String)name,(PersistentModuleAbstractSGroup)This,id);
+        super((PersistentModuleAbstract)moduleCopy,(PersistentModuleAbstractSGroup)This,id);
         this.ownCreditPoints = ownCreditPoints;        
     }
     
@@ -97,7 +97,7 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         if (this.getClassId() == 179) ConnectionHandler.getTheConnectionHandler().theModuleAtomarSGroupFacade
-            .newModuleAtomarSGroup(name,ownCreditPoints,this.getId());
+            .newModuleAtomarSGroup(ownCreditPoints,this.getId());
         super.store();
         
     }
@@ -167,7 +167,7 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
 				throws PersistenceException{
         this.setThis((PersistentModuleAtomarSGroup)This);
 		if(this.isTheSameAs(This)){
-			this.setName((String)final$$Fields.get("name"));
+			this.setModuleCopy((PersistentModuleAbstract)final$$Fields.get("moduleCopy"));
 			this.setOwnCreditPoints((common.Fraction)final$$Fields.get("ownCreditPoints"));
 		}
     }
@@ -180,6 +180,10 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
     
     // Start of section that contains operations that must be implemented.
     
+    public ModuleAbstractStudent4Public copyForStudent() 
+				throws model.UserException, PersistenceException{
+    	return ModuleAtomarStudent.createModuleAtomarStudent(getThis());
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         
@@ -187,6 +191,10 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
         return getThis().getOwnCreditPoints();
+    }
+    public String getName() 
+				throws PersistenceException{
+        return getThis().getModuleCopy().getName();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

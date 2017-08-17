@@ -29,7 +29,7 @@ public class ServerFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Server result = new Server(null,null,null,null,password,user,hackCount,hackDelay,id);
+            Server result = new Server(null,null,null,null,null,password,user,hackCount,hackDelay,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentServer)PersistentProxi.createProxi(id, -102);
         }catch(SQLException se) {
@@ -45,7 +45,7 @@ public class ServerFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            Server result = new Server(null,null,null,null,password,user,hackCount,hackDelay,id);
+            Server result = new Server(null,null,null,null,null,password,user,hackCount,hackDelay,id);
             Cache.getTheCache().put(result);
             return (PersistentServer)PersistentProxi.createProxi(id, -102);
         }catch(SQLException se) {
@@ -75,17 +75,21 @@ public class ServerFacade{
             PersistentStudyGroupManager groupManager = null;
             if (obj.getLong(6) != 0)
                 groupManager = (PersistentStudyGroupManager)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
-            PersistentServer This = null;
+            PersistentStudentManager studentManager = null;
             if (obj.getLong(8) != 0)
-                This = (PersistentServer)PersistentProxi.createProxi(obj.getLong(8), obj.getLong(9));
+                studentManager = (PersistentStudentManager)PersistentProxi.createProxi(obj.getLong(8), obj.getLong(9));
+            PersistentServer This = null;
+            if (obj.getLong(10) != 0)
+                This = (PersistentServer)PersistentProxi.createProxi(obj.getLong(10), obj.getLong(11));
             Server result = new Server(programManager,
                                        moduleManager,
                                        groupManager,
+                                       studentManager,
                                        This,
-                                       obj.getString(10) == null ? "" : obj.getString(10) /* In Oracle "" = null !!! */,
-                                       obj.getString(11) == null ? "" : obj.getString(11) /* In Oracle "" = null !!! */,
-                                       obj.getLong(12),
-                                       obj.getTimestamp(13),
+                                       obj.getString(12) == null ? "" : obj.getString(12) /* In Oracle "" = null !!! */,
+                                       obj.getString(13) == null ? "" : obj.getString(13) /* In Oracle "" = null !!! */,
+                                       obj.getLong(14),
+                                       obj.getTimestamp(15),
                                        ServerId);
             obj.close();
             callable.close();
@@ -166,6 +170,19 @@ public class ServerFacade{
             callable.setLong(1, ServerId);
             callable.setLong(2, groupManagerVal.getId());
             callable.setLong(3, groupManagerVal.getClassId());
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void studentManagerSet(long ServerId, StudentManager4Public studentManagerVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".SrvrFacade.stdntMngrSet(?, ?, ?); end;");
+            callable.setLong(1, ServerId);
+            callable.setLong(2, studentManagerVal.getId());
+            callable.setLong(3, studentManagerVal.getClassId());
             callable.execute();
             callable.close();
         }catch(SQLException se) {

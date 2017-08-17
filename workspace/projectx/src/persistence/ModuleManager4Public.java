@@ -25,9 +25,9 @@ public interface ModuleManager4Public extends Anything, AbstractPersistentProxi 
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
     public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstract4Public module) 
-				throws model.CycleException, model.StudyProgramException, PersistenceException;
+				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException;
     public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
-				throws model.CycleException, model.StudyProgramException, PersistenceException;
+				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException;
     public void changeCPOnModule(final ModuleAtomar4Public module, final common.Fraction creditPoints) 
 				throws PersistenceException;
     public void changeCPOnUnit(final Unit4Public unit, final common.Fraction creditPoints) 
@@ -35,7 +35,7 @@ public interface ModuleManager4Public extends Anything, AbstractPersistentProxi 
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void createModule(final String type, final String name) 
-				throws model.StudyProgramException, PersistenceException;
+				throws model.AlreadyExistsInParentException, PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 

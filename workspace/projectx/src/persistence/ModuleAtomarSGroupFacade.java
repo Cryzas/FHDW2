@@ -16,18 +16,17 @@ public class ModuleAtomarSGroupFacade{
 	}
 
     /* If idCreateIfLessZero is negative, a new id is generated. */
-    public PersistentModuleAtomarSGroup newModuleAtomarSGroup(String name,common.Fraction ownCreditPoints,long idCreateIfLessZero) throws PersistenceException {
+    public PersistentModuleAtomarSGroup newModuleAtomarSGroup(common.Fraction ownCreditPoints,long idCreateIfLessZero) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
-            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".MdlAtmrSGrpFacade.newMdlAtmrSGrp(?,?,?); end;");
+            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".MdlAtmrSGrpFacade.newMdlAtmrSGrp(?,?); end;");
             callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
-            callable.setString(2, name);
-            callable.setString(3, ownCreditPoints.toString());
-            callable.setLong(4, idCreateIfLessZero);
+            callable.setString(2, ownCreditPoints.toString());
+            callable.setLong(3, idCreateIfLessZero);
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ModuleAtomarSGroup result = new ModuleAtomarSGroup(name,null,ownCreditPoints,id);
+            ModuleAtomarSGroup result = new ModuleAtomarSGroup(null,null,ownCreditPoints,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentModuleAtomarSGroup)PersistentProxi.createProxi(id, 179);
         }catch(SQLException se) {
@@ -35,7 +34,7 @@ public class ModuleAtomarSGroupFacade{
         }
     }
     
-    public PersistentModuleAtomarSGroup newDelayedModuleAtomarSGroup(String name,common.Fraction ownCreditPoints) throws PersistenceException {
+    public PersistentModuleAtomarSGroup newDelayedModuleAtomarSGroup(common.Fraction ownCreditPoints) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
             callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".MdlAtmrSGrpFacade.newDelayedMdlAtmrSGrp(); end;");
@@ -43,7 +42,7 @@ public class ModuleAtomarSGroupFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ModuleAtomarSGroup result = new ModuleAtomarSGroup(name,null,ownCreditPoints,id);
+            ModuleAtomarSGroup result = new ModuleAtomarSGroup(null,null,ownCreditPoints,id);
             Cache.getTheCache().put(result);
             return (PersistentModuleAtomarSGroup)PersistentProxi.createProxi(id, 179);
         }catch(SQLException se) {
@@ -64,12 +63,15 @@ public class ModuleAtomarSGroupFacade{
                 callable.close();
                 return null;
             }
+            PersistentModuleAbstract moduleCopy = null;
+            if (obj.getLong(2) != 0)
+                moduleCopy = (PersistentModuleAbstract)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
             PersistentModuleAbstractSGroup This = null;
-            if (obj.getLong(3) != 0)
-                This = (PersistentModuleAbstractSGroup)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
-            ModuleAtomarSGroup result = new ModuleAtomarSGroup(obj.getString(2) == null ? "" : obj.getString(2) /* In Oracle "" = null !!! */,
+            if (obj.getLong(4) != 0)
+                This = (PersistentModuleAbstractSGroup)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+            ModuleAtomarSGroup result = new ModuleAtomarSGroup(moduleCopy,
                                                                This,
-                                                               (obj.getString(5) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(5))),
+                                                               (obj.getString(6) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(6))),
                                                                ModuleAtomarSGroupId);
             obj.close();
             callable.close();

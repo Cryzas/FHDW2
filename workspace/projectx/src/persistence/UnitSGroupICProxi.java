@@ -22,11 +22,11 @@ public class UnitSGroupICProxi extends PersistentInCacheProxiOptimistic implemen
         return 181;
     }
     
-    public String getName() throws PersistenceException {
-        return ((PersistentUnitSGroup)this.getTheObject()).getName();
+    public Unit4Public getUnitCopy() throws PersistenceException {
+        return ((PersistentUnitSGroup)this.getTheObject()).getUnitCopy();
     }
-    public void setName(String newValue) throws PersistenceException {
-        ((PersistentUnitSGroup)this.getTheObject()).setName(newValue);
+    public void setUnitCopy(Unit4Public newValue) throws PersistenceException {
+        ((PersistentUnitSGroup)this.getTheObject()).setUnitCopy(newValue);
     }
     public common.Fraction getCreditPoints() throws PersistenceException {
         return ((PersistentUnitSGroup)this.getTheObject()).getCreditPoints();
@@ -80,9 +80,17 @@ public class UnitSGroupICProxi extends PersistentInCacheProxiOptimistic implemen
 				throws PersistenceException{
         ((PersistentUnitSGroup)this.getTheObject()).addCP(creditPoints);
     }
+    public UnitStudent4Public copyForStudent() 
+				throws model.UserException, PersistenceException{
+        return ((PersistentUnitSGroup)this.getTheObject()).copyForStudent();
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentUnitSGroup)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public String getName() 
+				throws PersistenceException{
+        return ((PersistentUnitSGroup)this.getTheObject()).getName();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -93,7 +101,7 @@ public class UnitSGroupICProxi extends PersistentInCacheProxiOptimistic implemen
         ((PersistentUnitSGroup)this.getTheObject()).initializeOnInstantiation();
     }
     public void subCP(final common.Fraction creditPoints) 
-				throws model.StudyProgramException, PersistenceException{
+				throws model.UnitSwapException, PersistenceException{
         ((PersistentUnitSGroup)this.getTheObject()).subCP(creditPoints);
     }
 

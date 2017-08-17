@@ -183,7 +183,7 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
     }
     public ModuleAbstractSGroup4Public copyForStudyGroup() 
 				throws model.UserException, PersistenceException{
-    	return ModuleAtomarSGroup.createModuleAtomarSGroup(getThis().getName(), getThis().getCreditPoints());
+    	return ModuleAtomarSGroup.createModuleAtomarSGroup(getThis(), getThis().getCreditPoints());
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{ 

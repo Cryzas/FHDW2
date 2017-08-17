@@ -144,6 +144,52 @@ public class StudyGroupFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
+    public long studentsAdd(long StudyGroupId, Student4Public studentsVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".StdGrpFacade.stdntsAdd(?, ?, ?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
+            callable.setLong(2, StudyGroupId);
+            callable.setLong(3, studentsVal.getId());
+            callable.setLong(4, studentsVal.getClassId());
+            callable.execute();
+            long result = callable.getLong(1);
+            callable.close();
+            return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void studentsRem(long studentsId) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".StdGrpFacade.stdntsRem(?); end;");
+            callable.setLong(1, studentsId);
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public StudentList studentsGet(long StudyGroupId) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".StdGrpFacade.stdntsGet(?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            callable.setLong(2, StudyGroupId);
+            callable.execute();
+            ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
+            StudentList result = new StudentList();
+            while (list.next()) {
+                result.add((PersistentStudent)PersistentProxi.createListEntryProxi(list.getLong(1), list.getLong(2), list.getLong(3)));
+            }
+            list.close();
+            callable.close();
+            return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
     public void ThisSet(long StudyGroupId, StudyGroup4Public ThisVal) throws PersistenceException {
         try{
             CallableStatement callable;
@@ -153,6 +199,27 @@ public class StudyGroupFacade{
             callable.setLong(3, ThisVal.getClassId());
             callable.execute();
             callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public StudyGroupSearchList inverseGetStudents(long objectId, long classId)throws PersistenceException{
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".StdGrpFacade.iGetStdnts(?, ?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            callable.setLong(2, objectId);
+            callable.setLong(3, classId);
+            callable.execute();
+            ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
+            StudyGroupSearchList result = new StudyGroupSearchList();
+            while (list.next()) {
+                if (list.getLong(3) != 0) result.add((PersistentStudyGroup)PersistentProxi.createProxi(list.getLong(3), list.getLong(4)));
+                else result.add((PersistentStudyGroup)PersistentProxi.createProxi(list.getLong(1), list.getLong(2)));
+            }
+            list.close();
+            callable.close();
+            return result;
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }

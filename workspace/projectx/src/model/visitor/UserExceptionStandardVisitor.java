@@ -5,11 +5,14 @@ import persistence.*;
 
 public abstract class UserExceptionStandardVisitor implements UserExceptionVisitor {
     
+    public void handleUnitSwapException(model.UnitSwapException unitSwapException) throws PersistenceException{
+        this.standardHandling(unitSwapException);
+    }
     public void handleCycleException(model.CycleException cycleException) throws PersistenceException{
         this.standardHandling(cycleException);
     }
-    public void handleStudyProgramException(model.StudyProgramException studyProgramException) throws PersistenceException{
-        this.standardHandling(studyProgramException);
+    public void handleAlreadyExistsInParentException(model.AlreadyExistsInParentException alreadyExistsInParentException) throws PersistenceException{
+        this.standardHandling(alreadyExistsInParentException);
     }
     public void handleRestrictionException(model.RestrictionException restrictionException) throws PersistenceException{
         this.standardHandling(restrictionException);

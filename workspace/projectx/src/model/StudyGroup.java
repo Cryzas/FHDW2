@@ -74,6 +74,7 @@ public class StudyGroup extends PersistentObject implements PersistentStudyGroup
                 result.put("program", proxiInformation);
                 
             }
+            result.put("students", this.getStudents().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, false, false));
         }
         return result;
     }
@@ -98,6 +99,7 @@ public class StudyGroup extends PersistentObject implements PersistentStudyGroup
     }
     protected String name;
     protected PersistentProgramSGroup program;
+    protected StudyGroup_StudentsProxi students;
     protected PersistentStudyGroup This;
     
     public StudyGroup(String name,PersistentProgramSGroup program,PersistentStudyGroup This,long id) throws PersistenceException {
@@ -105,6 +107,7 @@ public class StudyGroup extends PersistentObject implements PersistentStudyGroup
         super(id);
         this.name = name;
         this.program = program;
+        this.students = new StudyGroup_StudentsProxi(this);
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -125,6 +128,7 @@ public class StudyGroup extends PersistentObject implements PersistentStudyGroup
             this.getProgram().store();
             ConnectionHandler.getTheConnectionHandler().theStudyGroupFacade.programSet(this.getId(), getProgram());
         }
+        this.getStudents().store();
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theStudyGroupFacade.ThisSet(this.getId(), getThis());
@@ -153,6 +157,9 @@ public class StudyGroup extends PersistentObject implements PersistentStudyGroup
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theStudyGroupFacade.programSet(this.getId(), newValue);
         }
+    }
+    public StudyGroup_StudentsProxi getStudents() throws PersistenceException {
+        return this.students;
     }
     protected void setThis(PersistentStudyGroup newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -191,6 +198,7 @@ public class StudyGroup extends PersistentObject implements PersistentStudyGroup
     }
     public int getLeafInfo() throws PersistenceException{
         if (this.getProgram() != null) return 1;
+        if (this.getStudents().getLength() > 0) return 1;
         return 0;
     }
     

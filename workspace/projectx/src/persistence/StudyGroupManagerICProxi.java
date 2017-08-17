@@ -72,7 +72,7 @@ public class StudyGroupManagerICProxi extends PersistentInCacheProxiOptimistic i
         ((PersistentStudyGroupManager)this.getTheObject()).startStudyGroup(program, name);
     }
     public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
-				throws model.StudyProgramException, PersistenceException{
+				throws model.UnitSwapException, PersistenceException{
         ((PersistentStudyGroupManager)this.getTheObject()).swapCPonModuleWithUnits(module, fromUnit, ToUnit, creditPoints);
     }
 

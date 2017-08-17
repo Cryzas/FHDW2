@@ -64,11 +64,11 @@ public class ModuleManagerProxi extends PersistentProxi implements PersistentMod
         ((PersistentModuleManager)this.getTheObject()).initialize(This, final$$Fields);
     }
     public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstract4Public module) 
-				throws model.CycleException, model.StudyProgramException, PersistenceException{
+				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
         ((PersistentModuleManager)this.getTheObject()).addModuleToGroup(group, module);
     }
     public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
-				throws model.CycleException, model.StudyProgramException, PersistenceException{
+				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
         ((PersistentModuleManager)this.getTheObject()).addUnit(module, name, creditPoints);
     }
     public void changeCPOnModule(final ModuleAtomar4Public module, final common.Fraction creditPoints) 
@@ -84,7 +84,7 @@ public class ModuleManagerProxi extends PersistentProxi implements PersistentMod
         ((PersistentModuleManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
     public void createModule(final String type, final String name) 
-				throws model.StudyProgramException, PersistenceException{
+				throws model.AlreadyExistsInParentException, PersistenceException{
         ((PersistentModuleManager)this.getTheObject()).createModule(type, name);
     }
     public void initializeOnCreation() 

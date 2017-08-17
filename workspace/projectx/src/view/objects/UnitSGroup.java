@@ -30,9 +30,6 @@ public class UnitSGroup extends ViewObject implements UnitSGroupView{
     public String getName()throws ModelException{
         return this.name;
     }
-    public void setName(String newValue) throws ModelException {
-        this.name = newValue;
-    }
     public common.Fraction getCreditPoints()throws ModelException{
         return this.creditPoints;
     }
@@ -107,10 +104,6 @@ public class UnitSGroup extends ViewObject implements UnitSGroupView{
         return true;
     }
     public void setValueAt(String newValue, int rowIndex) throws Exception {
-        if(rowIndex == 0){
-            this.setName(newValue);
-            return;
-        }
         rowIndex = rowIndex - 1;
         if(rowIndex == 0){
             this.setCreditPoints(common.Fraction.parse(newValue));
@@ -119,7 +112,7 @@ public class UnitSGroup extends ViewObject implements UnitSGroupView{
         rowIndex = rowIndex - 1;
     }
     public boolean hasTransientFields(){
-        return false;
+        return true;
     }
     /* Start of protected part that is not overridden by persistence generator */
     

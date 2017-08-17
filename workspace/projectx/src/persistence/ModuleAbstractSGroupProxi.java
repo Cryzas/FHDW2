@@ -12,11 +12,11 @@ public abstract class ModuleAbstractSGroupProxi extends PersistentProxi implemen
     }
     
     
-    public String getName() throws PersistenceException {
-        return ((PersistentModuleAbstractSGroup)this.getTheObject()).getName();
+    public ModuleAbstract4Public getModuleCopy() throws PersistenceException {
+        return ((PersistentModuleAbstractSGroup)this.getTheObject()).getModuleCopy();
     }
-    public void setName(String newValue) throws PersistenceException {
-        ((PersistentModuleAbstractSGroup)this.getTheObject()).setName(newValue);
+    public void setModuleCopy(ModuleAbstract4Public newValue) throws PersistenceException {
+        ((PersistentModuleAbstractSGroup)this.getTheObject()).setModuleCopy(newValue);
     }
     public abstract PersistentModuleAbstractSGroup getThis() throws PersistenceException ;
     
@@ -30,6 +30,10 @@ public abstract class ModuleAbstractSGroupProxi extends PersistentProxi implemen
 				throws PersistenceException{
         return ((PersistentModuleAbstractSGroup)this.getTheObject()).containsprogramHierarchySGroup(part);
     }
+    public ModuleAbstractStudent4Public copyForStudent() 
+				throws model.UserException, PersistenceException{
+        return ((PersistentModuleAbstractSGroup)this.getTheObject()).copyForStudent();
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentModuleAbstractSGroup)this.getTheObject()).copyingPrivateUserAttributes(copy);
@@ -37,6 +41,10 @@ public abstract class ModuleAbstractSGroupProxi extends PersistentProxi implemen
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
         return ((PersistentModuleAbstractSGroup)this.getTheObject()).getCreditPoints();
+    }
+    public String getName() 
+				throws PersistenceException{
+        return ((PersistentModuleAbstractSGroup)this.getTheObject()).getName();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

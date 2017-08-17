@@ -34,10 +34,17 @@ public class ServerProxi extends ViewProxi implements ServerView{
             groupManager = view.objects.ViewProxi.createProxi(groupManager$Info,connectionKey);
             groupManager.setToString(groupManager$Info.getToString());
         }
+        ViewProxi studentManager = null;
+        String studentManager$String = (String)resultTable.get("studentManager");
+        if (studentManager$String != null) {
+            common.ProxiInformation studentManager$Info = common.RPCConstantsAndServices.createProxiInformation(studentManager$String);
+            studentManager = view.objects.ViewProxi.createProxi(studentManager$Info,connectionKey);
+            studentManager.setToString(studentManager$Info.getToString());
+        }
         java.util.Vector<String> errors_string = (java.util.Vector<String>)resultTable.get("errors");
         java.util.Vector<ErrorDisplayView> errors = ViewProxi.getProxiVector(errors_string, connectionKey);
         String user = (String)resultTable.get("user");
-        ServerView result$$ = new Server((ProgramManagerView)programManager,(ModuleManagerView)moduleManager,(StudyGroupManagerView)groupManager,errors,(String)user, this.getId(), this.getClassId());
+        ServerView result$$ = new Server((ProgramManagerView)programManager,(ModuleManagerView)moduleManager,(StudyGroupManagerView)groupManager,(StudentManagerView)studentManager,errors,(String)user, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -53,20 +60,24 @@ public class ServerProxi extends ViewProxi implements ServerView{
         if(this.getModuleManager() != null) index = index - 1;
         if(index == 0 && this.getGroupManager() != null) return new GroupManagerServerWrapper(this, originalIndex, (ViewRoot)this.getGroupManager());
         if(this.getGroupManager() != null) index = index - 1;
+        if(index == 0 && this.getStudentManager() != null) return new StudentManagerServerWrapper(this, originalIndex, (ViewRoot)this.getStudentManager());
+        if(this.getStudentManager() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getProgramManager() == null ? 0 : 1)
             + (this.getModuleManager() == null ? 0 : 1)
-            + (this.getGroupManager() == null ? 0 : 1);
+            + (this.getGroupManager() == null ? 0 : 1)
+            + (this.getStudentManager() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
             && (this.getProgramManager() == null ? true : false)
             && (this.getModuleManager() == null ? true : false)
-            && (this.getGroupManager() == null ? true : false);
+            && (this.getGroupManager() == null ? true : false)
+            && (this.getStudentManager() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -76,6 +87,8 @@ public class ServerProxi extends ViewProxi implements ServerView{
         if(this.getModuleManager() != null) result = result + 1;
         if(this.getGroupManager() != null && this.getGroupManager().equals(child)) return result;
         if(this.getGroupManager() != null) result = result + 1;
+        if(this.getStudentManager() != null && this.getStudentManager().equals(child)) return result;
+        if(this.getStudentManager() != null) result = result + 1;
         return -1;
     }
     
@@ -96,6 +109,12 @@ public class ServerProxi extends ViewProxi implements ServerView{
     }
     public void setGroupManager(StudyGroupManagerView newValue) throws ModelException {
         ((Server)this.getTheObject()).setGroupManager(newValue);
+    }
+    public StudentManagerView getStudentManager()throws ModelException{
+        return ((Server)this.getTheObject()).getStudentManager();
+    }
+    public void setStudentManager(StudentManagerView newValue) throws ModelException {
+        ((Server)this.getTheObject()).setStudentManager(newValue);
     }
     public java.util.Vector<ErrorDisplayView> getErrors()throws ModelException{
         return ((Server)this.getTheObject()).getErrors();

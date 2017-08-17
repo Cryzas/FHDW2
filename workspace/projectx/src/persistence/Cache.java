@@ -276,6 +276,7 @@ public class Cache {
 		this.number2NameMap = new Hashtable<Integer,String>();
 		this.number2NameMap.put(169, "AddModuleToGroupCommand");
 		this.number2NameMap.put(168, "AddModuleToProgCommand");
+		this.number2NameMap.put(203, "AddStudentToGroupCommand");
 		this.number2NameMap.put(161, "AddUnitCommand");
 		this.number2NameMap.put(156, "ChangeCPOnModuleCommand");
 		this.number2NameMap.put(157, "ChangeCPOnUnitCommand");
@@ -284,24 +285,32 @@ public class Cache {
 		this.number2NameMap.put(104, "CommonDate");
 		this.number2NameMap.put(159, "CreateModuleCommand");
 		this.number2NameMap.put(155, "CreateProgramCommand");
+		this.number2NameMap.put(200, "CreateStudentCommand");
 		this.number2NameMap.put(-144, "ErrorDisplay");
 		this.number2NameMap.put(153, "ModuleAtomar");
 		this.number2NameMap.put(179, "ModuleAtomarSGroup");
+		this.number2NameMap.put(191, "ModuleAtomarStudent");
 		this.number2NameMap.put(166, "ModuleGroup");
 		this.number2NameMap.put(178, "ModuleGroupSGroup");
+		this.number2NameMap.put(194, "ModuleGroupStudent");
 		this.number2NameMap.put(145, "ModuleManager");
 		this.number2NameMap.put(154, "ModuleWithUnits");
 		this.number2NameMap.put(182, "ModuleWithUnitsSGroup");
+		this.number2NameMap.put(193, "ModuleWithUnitsStudent");
 		this.number2NameMap.put(143, "Program");
 		this.number2NameMap.put(148, "ProgramManager");
 		this.number2NameMap.put(177, "ProgramSGroup");
+		this.number2NameMap.put(192, "ProgramStudent");
 		this.number2NameMap.put(-102, "Server");
 		this.number2NameMap.put(185, "StartStudyGroupCommand");
+		this.number2NameMap.put(195, "Student");
+		this.number2NameMap.put(201, "StudentManager");
 		this.number2NameMap.put(180, "StudyGroup");
 		this.number2NameMap.put(186, "StudyGroupManager");
 		this.number2NameMap.put(188, "SwapCPonModuleWithUnitsCommand");
 		this.number2NameMap.put(147, "Unit");
-		this.number2NameMap.put(181, "UnitSGroup");	
+		this.number2NameMap.put(181, "UnitSGroup");
+		this.number2NameMap.put(197, "UnitStudent");	
 	}
 	
 }

@@ -10,6 +10,9 @@ public class RegularExpressionManager {
     public static RegularExpressionHandler moduleAbstractSUBTYPEName = new RegularExpressionHandler( "[(Atomar)" + 
 		"(Mit\\ Units)" + 
 		"(Gruppe)]" );
+    public static RegularExpressionHandler moduleAbstractStudentSUBTYPEName = new RegularExpressionHandler( "[(ModuleWithUnitsStudent)" + 
+		"(ModuleAtomarStudent)" + 
+		"(ModuleGroupStudent)]" );
     
 
 }

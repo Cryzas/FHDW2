@@ -76,8 +76,12 @@ public class ModuleGroupSGroupProxi extends ModuleAbstractSGroupProxi implements
         return ((PersistentModuleGroupSGroup)this.getTheObject()).strategyprogramHierarchySGroup(strategy);
     }
     public void addModule(final ModuleAbstractSGroup4Public module) 
-				throws model.CycleException, model.StudyProgramException, PersistenceException{
+				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
         ((PersistentModuleGroupSGroup)this.getTheObject()).addModule(module);
+    }
+    public ModuleAbstractStudent4Public copyForStudent() 
+				throws model.UserException, PersistenceException{
+        return ((PersistentModuleGroupSGroup)this.getTheObject()).copyForStudent();
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -86,6 +90,10 @@ public class ModuleGroupSGroupProxi extends ModuleAbstractSGroupProxi implements
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
         return ((PersistentModuleGroupSGroup)this.getTheObject()).getCreditPoints();
+    }
+    public String getName() 
+				throws PersistenceException{
+        return ((PersistentModuleGroupSGroup)this.getTheObject()).getName();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

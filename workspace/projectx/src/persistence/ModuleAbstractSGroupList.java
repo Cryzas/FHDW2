@@ -2,10 +2,11 @@ package persistence;
 
 import java.util.*;
 
-public class ModuleAbstractSGroupList  extends ModuleAbstractSGroupSearchList{
+public class ModuleAbstractSGroupList {
 
+	protected Vector<ModuleAbstractSGroup4Public> data; //List of proxies
 	protected ModuleAbstractSGroupList() {
-		super();
+		this.data = new Vector<ModuleAbstractSGroup4Public>();
 	}
 	public Iterator<ModuleAbstractSGroup4Public> iterator(PersistentListProxi<ModuleAbstractSGroup4Public> listProxi) {
 		return new PersistentListIterator<ModuleAbstractSGroup4Public>(listProxi, this.data);

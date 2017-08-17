@@ -11,12 +11,14 @@ public class StudyGroup extends ViewObject implements StudyGroupView{
     
     protected String name;
     protected ProgramSGroupView program;
+    protected java.util.Vector<StudentView> students;
     
-    public StudyGroup(String name,ProgramSGroupView program,long id, long classId) {
+    public StudyGroup(String name,ProgramSGroupView program,java.util.Vector<StudentView> students,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.name = name;
-        this.program = program;        
+        this.program = program;
+        this.students = students;        
     }
     
     static public long getTypeId() {
@@ -39,6 +41,12 @@ public class StudyGroup extends ViewObject implements StudyGroupView{
     public void setProgram(ProgramSGroupView newValue) throws ModelException {
         this.program = newValue;
     }
+    public java.util.Vector<StudentView> getStudents()throws ModelException{
+        return this.students;
+    }
+    public void setStudents(java.util.Vector<StudentView> newValue) throws ModelException {
+        this.students = newValue;
+    }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleStudyGroup(this);
@@ -58,6 +66,10 @@ public class StudyGroup extends ViewObject implements StudyGroupView{
         if (program != null) {
             ((ViewProxi)program).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(program.getClassId(), program.getId())));
         }
+        java.util.Vector<?> students = this.getStudents();
+        if (students != null) {
+            ViewObject.resolveVectorProxies(students, resultTable);
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {
@@ -67,20 +79,29 @@ public class StudyGroup extends ViewObject implements StudyGroupView{
         int index = originalIndex;
         if(index == 0 && this.getProgram() != null) return new ProgramStudyGroupWrapper(this, originalIndex, (ViewRoot)this.getProgram());
         if(this.getProgram() != null) index = index - 1;
+        if(index < this.getStudents().size()) return new StudentsStudyGroupWrapper(this, originalIndex, (ViewRoot)this.getStudents().get(index));
+        index = index - this.getStudents().size();
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getProgram() == null ? 0 : 1);
+            + (this.getProgram() == null ? 0 : 1)
+            + (this.getStudents().size());
     }
     public boolean isLeaf() throws ModelException {
         return true 
-            && (this.getProgram() == null ? true : false);
+            && (this.getProgram() == null ? true : false)
+            && (this.getStudents().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
         if(this.getProgram() != null && this.getProgram().equals(child)) return result;
         if(this.getProgram() != null) result = result + 1;
+        java.util.Iterator<?> getStudentsIterator = this.getStudents().iterator();
+        while(getStudentsIterator.hasNext()){
+            if(getStudentsIterator.next().equals(child)) return result;
+            result = result + 1;
+        }
         return -1;
     }
     public int getNameIndex() throws ModelException {

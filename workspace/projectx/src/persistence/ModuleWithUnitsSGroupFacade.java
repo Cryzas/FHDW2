@@ -16,17 +16,16 @@ public class ModuleWithUnitsSGroupFacade{
 	}
 
     /* If idCreateIfLessZero is negative, a new id is generated. */
-    public PersistentModuleWithUnitsSGroup newModuleWithUnitsSGroup(String name,long idCreateIfLessZero) throws PersistenceException {
+    public PersistentModuleWithUnitsSGroup newModuleWithUnitsSGroup(long idCreateIfLessZero) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
-            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".m_unit_grFacade.newm_unit_gr(?,?); end;");
+            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".m_unit_grFacade.newm_unit_gr(?); end;");
             callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
-            callable.setString(2, name);
-            callable.setLong(3, idCreateIfLessZero);
+            callable.setLong(2, idCreateIfLessZero);
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ModuleWithUnitsSGroup result = new ModuleWithUnitsSGroup(name,null,id);
+            ModuleWithUnitsSGroup result = new ModuleWithUnitsSGroup(null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentModuleWithUnitsSGroup)PersistentProxi.createProxi(id, 182);
         }catch(SQLException se) {
@@ -34,7 +33,7 @@ public class ModuleWithUnitsSGroupFacade{
         }
     }
     
-    public PersistentModuleWithUnitsSGroup newDelayedModuleWithUnitsSGroup(String name) throws PersistenceException {
+    public PersistentModuleWithUnitsSGroup newDelayedModuleWithUnitsSGroup() throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
             callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".m_unit_grFacade.newDelayedm_unit_gr(); end;");
@@ -42,7 +41,7 @@ public class ModuleWithUnitsSGroupFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ModuleWithUnitsSGroup result = new ModuleWithUnitsSGroup(name,null,id);
+            ModuleWithUnitsSGroup result = new ModuleWithUnitsSGroup(null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentModuleWithUnitsSGroup)PersistentProxi.createProxi(id, 182);
         }catch(SQLException se) {
@@ -63,10 +62,13 @@ public class ModuleWithUnitsSGroupFacade{
                 callable.close();
                 return null;
             }
+            PersistentModuleAbstract moduleCopy = null;
+            if (obj.getLong(2) != 0)
+                moduleCopy = (PersistentModuleAbstract)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
             PersistentModuleAbstractSGroup This = null;
-            if (obj.getLong(3) != 0)
-                This = (PersistentModuleAbstractSGroup)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
-            ModuleWithUnitsSGroup result = new ModuleWithUnitsSGroup(obj.getString(2) == null ? "" : obj.getString(2) /* In Oracle "" = null !!! */,
+            if (obj.getLong(4) != 0)
+                This = (PersistentModuleAbstractSGroup)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+            ModuleWithUnitsSGroup result = new ModuleWithUnitsSGroup(moduleCopy,
                                                                      This,
                                                                      ModuleWithUnitsSGroupId);
             obj.close();

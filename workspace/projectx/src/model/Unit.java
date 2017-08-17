@@ -214,7 +214,7 @@ public class Unit extends PersistentObject implements PersistentUnit{
     }
     public UnitSGroup4Public copyForStudyGroup() 
 				throws model.UserException, PersistenceException{
-        return UnitSGroup.createUnitSGroup(getThis().getName(), getThis().getCreditPoints());
+        return UnitSGroup.createUnitSGroup(getThis(), getThis().getCreditPoints());
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

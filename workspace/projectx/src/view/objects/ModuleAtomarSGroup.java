@@ -103,10 +103,6 @@ public class ModuleAtomarSGroup extends view.objects.ModuleAbstractSGroup implem
         return true;
     }
     public void setValueAt(String newValue, int rowIndex) throws Exception {
-        if(rowIndex == 0){
-            this.setName(newValue);
-            return;
-        }
         rowIndex = rowIndex - 1;
         rowIndex = rowIndex - 1;
     }

@@ -5,7 +5,6 @@ import model.visitor.*;
 
 public interface UnitSGroup4Public extends programHierarchySGroupHIERARCHY, Anything, AbstractPersistentProxi {
     
-    public String getName() throws PersistenceException ;
     public common.Fraction getCreditPoints() throws PersistenceException ;
     
     public void accept(programHierarchySGroupHIERARCHYVisitor visitor) throws PersistenceException;
@@ -25,14 +24,18 @@ public interface UnitSGroup4Public extends programHierarchySGroupHIERARCHY, Anyt
 				throws PersistenceException;
     public void addCP(final common.Fraction creditPoints) 
 				throws PersistenceException;
+    public UnitStudent4Public copyForStudent() 
+				throws model.UserException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException;
+    public String getName() 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
     public void subCP(final common.Fraction creditPoints) 
-				throws model.StudyProgramException, PersistenceException;
+				throws model.UnitSwapException, PersistenceException;
 
 }
 

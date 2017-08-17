@@ -2,7 +2,6 @@
 package model;
 
 import persistence.*;
-import common.Fraction;
 import model.visitor.*;
 
 
@@ -205,7 +204,7 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
     	getThis().getGroups().add(toBeAdded);
     }
     public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
-				throws model.StudyProgramException, PersistenceException{
+				throws model.UnitSwapException, PersistenceException{
     	module.swapCPonModuleWithUnits(fromUnit, ToUnit, creditPoints);
     }
     

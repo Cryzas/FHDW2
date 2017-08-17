@@ -40,6 +40,12 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void setGroupManager(StudyGroupManager4Public newValue) throws PersistenceException {
         ((PersistentServer)this.getTheObject()).setGroupManager(newValue);
     }
+    public StudentManager4Public getStudentManager() throws PersistenceException {
+        return ((PersistentServer)this.getTheObject()).getStudentManager();
+    }
+    public void setStudentManager(StudentManager4Public newValue) throws PersistenceException {
+        ((PersistentServer)this.getTheObject()).setStudentManager(newValue);
+    }
     public Server_ErrorsProxi getErrors() throws PersistenceException {
         return ((PersistentServer)this.getTheObject()).getErrors();
     }
@@ -137,6 +143,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).signalChanged(signal);
     }
+    public StudentSearchList student_Path_In_AddStudentToGroup() 
+				throws model.UserException, PersistenceException{
+        return ((PersistentServer)this.getTheObject()).student_Path_In_AddStudentToGroup();
+    }
     public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstract4Public module) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).addModuleToGroup(group, module);
@@ -144,6 +154,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void addModuleToProg(final Program4Public program, final ModuleAbstract4Public module) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).addModuleToProg(program, module);
+    }
+    public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).addStudentToGroup(group, student);
     }
     public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
 				throws PersistenceException{
@@ -172,6 +186,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void createProgram(final String name) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createProgram(name);
+    }
+    public void createStudent(final String firstName, final String lastName, final java.sql.Date birthDate) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).createStudent(firstName, lastName, birthDate);
     }
     public void disconnected() 
 				throws PersistenceException{

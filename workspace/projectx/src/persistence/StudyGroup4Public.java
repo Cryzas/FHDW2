@@ -8,6 +8,7 @@ public interface StudyGroup4Public extends Anything, AbstractPersistentProxi {
     public String getName() throws PersistenceException ;
     public ProgramSGroup4Public getProgram() throws PersistenceException ;
     public void setProgram(ProgramSGroup4Public newValue) throws PersistenceException ;
+    public StudyGroup_StudentsProxi getStudents() throws PersistenceException ;
     
     public void accept(AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;

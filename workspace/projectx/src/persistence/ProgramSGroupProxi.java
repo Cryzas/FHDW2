@@ -21,11 +21,11 @@ public class ProgramSGroupProxi extends PersistentProxi implements PersistentPro
     public ProgramSGroup_ModulesProxi getModules() throws PersistenceException {
         return ((PersistentProgramSGroup)this.getTheObject()).getModules();
     }
-    public String getName() throws PersistenceException {
-        return ((PersistentProgramSGroup)this.getTheObject()).getName();
+    public Program4Public getProgramCopy() throws PersistenceException {
+        return ((PersistentProgramSGroup)this.getTheObject()).getProgramCopy();
     }
-    public void setName(String newValue) throws PersistenceException {
-        ((PersistentProgramSGroup)this.getTheObject()).setName(newValue);
+    public void setProgramCopy(Program4Public newValue) throws PersistenceException {
+        ((PersistentProgramSGroup)this.getTheObject()).setProgramCopy(newValue);
     }
     public PersistentProgramSGroup getThis() throws PersistenceException {
         return ((PersistentProgramSGroup)this.getTheObject()).getThis();
@@ -70,8 +70,12 @@ public class ProgramSGroupProxi extends PersistentProxi implements PersistentPro
         return ((PersistentProgramSGroup)this.getTheObject()).strategyprogramHierarchySGroup(strategy);
     }
     public void addModule(final ModuleAbstractSGroup4Public module) 
-				throws model.CycleException, model.StudyProgramException, PersistenceException{
+				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
         ((PersistentProgramSGroup)this.getTheObject()).addModule(module);
+    }
+    public ProgramStudent4Public copyForStudent() 
+				throws model.UserException, PersistenceException{
+        return ((PersistentProgramSGroup)this.getTheObject()).copyForStudent();
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -80,6 +84,10 @@ public class ProgramSGroupProxi extends PersistentProxi implements PersistentPro
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
         return ((PersistentProgramSGroup)this.getTheObject()).getCreditPoints();
+    }
+    public String getName() 
+				throws PersistenceException{
+        return ((PersistentProgramSGroup)this.getTheObject()).getName();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

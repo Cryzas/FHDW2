@@ -82,6 +82,10 @@ public class ModuleAtomarSGroupICProxi extends ModuleAbstractSGroupICProxi imple
 				throws PersistenceException{
         return ((PersistentModuleAtomarSGroup)this.getTheObject()).strategyprogramHierarchySGroup(strategy);
     }
+    public ModuleAbstractStudent4Public copyForStudent() 
+				throws model.UserException, PersistenceException{
+        return ((PersistentModuleAtomarSGroup)this.getTheObject()).copyForStudent();
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentModuleAtomarSGroup)this.getTheObject()).copyingPrivateUserAttributes(copy);
@@ -89,6 +93,10 @@ public class ModuleAtomarSGroupICProxi extends ModuleAbstractSGroupICProxi imple
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
         return ((PersistentModuleAtomarSGroup)this.getTheObject()).getCreditPoints();
+    }
+    public String getName() 
+				throws PersistenceException{
+        return ((PersistentModuleAtomarSGroup)this.getTheObject()).getName();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

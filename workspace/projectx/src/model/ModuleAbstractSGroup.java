@@ -31,23 +31,18 @@ public abstract class ModuleAbstractSGroup extends PersistentObject implements P
         return result;
     }
     
-    public static ModuleAbstractSGroupSearchList getModuleAbstractSGroupByName(String name) throws PersistenceException{
-        return ConnectionHandler.getTheConnectionHandler().theModuleAbstractSGroupFacade
-            .getModuleAbstractSGroupByName(name);
-    }
-    
     public abstract ModuleAbstractSGroup provideCopy() throws PersistenceException;
     
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected String name;
+    protected PersistentModuleAbstract moduleCopy;
     protected PersistentModuleAbstractSGroup This;
     
-    public ModuleAbstractSGroup(String name,PersistentModuleAbstractSGroup This,long id) throws PersistenceException {
+    public ModuleAbstractSGroup(PersistentModuleAbstract moduleCopy,PersistentModuleAbstractSGroup This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.name = name;
+        this.moduleCopy = moduleCopy;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -62,6 +57,10 @@ public abstract class ModuleAbstractSGroup extends PersistentObject implements P
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         super.store();
+        if(this.getModuleCopy() != null){
+            this.getModuleCopy().store();
+            ConnectionHandler.getTheConnectionHandler().theModuleAbstractSGroupFacade.moduleCopySet(this.getId(), getModuleCopy());
+        }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theModuleAbstractSGroupFacade.ThisSet(this.getId(), getThis());
@@ -69,13 +68,19 @@ public abstract class ModuleAbstractSGroup extends PersistentObject implements P
         
     }
     
-    public String getName() throws PersistenceException {
-        return this.name;
+    public ModuleAbstract4Public getModuleCopy() throws PersistenceException {
+        return this.moduleCopy;
     }
-    public void setName(String newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theModuleAbstractSGroupFacade.nameSet(this.getId(), newValue);
-        this.name = newValue;
+    public void setModuleCopy(ModuleAbstract4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.moduleCopy)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.moduleCopy = (PersistentModuleAbstract)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theModuleAbstractSGroupFacade.moduleCopySet(this.getId(), newValue);
+        }
     }
     protected void setThis(PersistentModuleAbstractSGroup newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -100,7 +105,7 @@ public abstract class ModuleAbstractSGroup extends PersistentObject implements P
 				throws PersistenceException{
         this.setThis((PersistentModuleAbstractSGroup)This);
 		if(this.isTheSameAs(This)){
-			this.setName((String)final$$Fields.get("name"));
+			this.setModuleCopy((PersistentModuleAbstract)final$$Fields.get("moduleCopy"));
 		}
     }
     

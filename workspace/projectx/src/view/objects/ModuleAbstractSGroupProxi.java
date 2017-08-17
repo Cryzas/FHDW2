@@ -13,9 +13,6 @@ public abstract class ModuleAbstractSGroupProxi extends ViewProxi implements Mod
     public String getName()throws ModelException{
         return ((ModuleAbstractSGroup)this.getTheObject()).getName();
     }
-    public void setName(String newValue) throws ModelException {
-        ((ModuleAbstractSGroup)this.getTheObject()).setName(newValue);
-    }
     public common.Fraction getCreditPoints()throws ModelException{
         return ((ModuleAbstractSGroup)this.getTheObject()).getCreditPoints();
     }

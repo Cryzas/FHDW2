@@ -80,7 +80,7 @@ public class ModuleWithUnitsICProxi extends ModuleAbstractICProxi implements Per
         return ((PersistentModuleWithUnits)this.getTheObject()).strategyprogramHierarchy(strategy);
     }
     public void addUnit(final String name, final common.Fraction creditPoints) 
-				throws model.CycleException, model.StudyProgramException, PersistenceException{
+				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
         ((PersistentModuleWithUnits)this.getTheObject()).addUnit(name, creditPoints);
     }
     public ModuleAbstractSGroup4Public copyForStudyGroup() 

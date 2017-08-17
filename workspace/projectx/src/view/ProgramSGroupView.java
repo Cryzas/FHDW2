@@ -9,7 +9,6 @@ public interface ProgramSGroupView extends Anything, AbstractViewRoot {
     public java.util.Vector<ModuleAbstractSGroupView> getModules()throws ModelException;
     public void setModules(java.util.Vector<ModuleAbstractSGroupView> newValue) throws ModelException ;
     public String getName()throws ModelException;
-    public void setName(String newValue) throws ModelException ;
     public common.Fraction getCreditPoints()throws ModelException;
     
     public void accept(AnythingVisitor visitor) throws ModelException;

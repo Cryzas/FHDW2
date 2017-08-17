@@ -37,15 +37,34 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleUnitSGroup(UnitSGroup4Public unitSGroup) throws PersistenceException;
     
+    public abstract void handleStudentManager(StudentManager4Public studentManager) throws PersistenceException;
+    
     public abstract void handleModuleManager(ModuleManager4Public moduleManager) throws PersistenceException;
     
     public abstract void handleUnit(Unit4Public unit) throws PersistenceException;
+    
+    public abstract void handleStudent(Student4Public student) throws PersistenceException;
     
     public abstract void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException;
     
     public abstract void handleStudyGroupManager(StudyGroupManager4Public studyGroupManager) throws PersistenceException;
     
     public abstract void handleStudyGroup(StudyGroup4Public studyGroup) throws PersistenceException;
+    
+    public abstract void handleModuleAbstractStudent(ModuleAbstractStudent4Public moduleAbstractStudent) throws PersistenceException;
+    
+    public void handleModuleWithUnitsStudent(ModuleWithUnitsStudent4Public moduleWithUnitsStudent) throws PersistenceException{
+        this.handleModuleAbstractStudent(moduleWithUnitsStudent);
+    }
+    public void handleModuleAtomarStudent(ModuleAtomarStudent4Public moduleAtomarStudent) throws PersistenceException{
+        this.handleModuleAbstractStudent(moduleAtomarStudent);
+    }
+    public void handleModuleGroupStudent(ModuleGroupStudent4Public moduleGroupStudent) throws PersistenceException{
+        this.handleModuleAbstractStudent(moduleGroupStudent);
+    }
+    public abstract void handleUnitStudent(UnitStudent4Public unitStudent) throws PersistenceException;
+    
+    public abstract void handleProgramStudent(ProgramStudent4Public programStudent) throws PersistenceException;
     
     public abstract void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException;
     
@@ -57,6 +76,12 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public void handleSwapCPonModuleWithUnitsCommand(SwapCPonModuleWithUnitsCommand4Public swapCPonModuleWithUnitsCommand) throws PersistenceException{
         this.handleCommonDate(swapCPonModuleWithUnitsCommand);
+    }
+    public void handleCreateStudentCommand(CreateStudentCommand4Public createStudentCommand) throws PersistenceException{
+        this.handleCommonDate(createStudentCommand);
+    }
+    public void handleAddStudentToGroupCommand(AddStudentToGroupCommand4Public addStudentToGroupCommand) throws PersistenceException{
+        this.handleCommonDate(addStudentToGroupCommand);
     }
     public void handleStartStudyGroupCommand(StartStudyGroupCommand4Public startStudyGroupCommand) throws PersistenceException{
         this.handleCommonDate(startStudyGroupCommand);

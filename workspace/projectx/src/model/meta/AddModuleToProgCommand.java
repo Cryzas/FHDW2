@@ -246,10 +246,10 @@ public class AddModuleToProgCommand extends PersistentObject implements Persiste
         try{
 			this.commandReceiver.addModuleToProg(this.getProgram(), this.getModule());
 		}
-		catch(model.CycleException e){
+		catch(model.AlreadyExistsInParentException e){
 			this.commandException = e;
 		}
-		catch(model.StudyProgramException e){
+		catch(model.CycleException e){
 			this.commandException = e;
 		}
     }

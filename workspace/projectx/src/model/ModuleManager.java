@@ -216,11 +216,11 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
     // Start of section that contains operations that must be implemented.
     
     public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstract4Public module) 
-				throws model.CycleException, model.StudyProgramException, PersistenceException{
+				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
     	group.addModule(module);
     }
     public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
-				throws model.CycleException, model.StudyProgramException, PersistenceException{
+				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
     	module.addUnit(name, creditPoints);
     }
     public void changeCPOnModule(final ModuleAtomar4Public module, final common.Fraction creditPoints) 
@@ -236,12 +236,12 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
         
     }
     public void createModule(final String type, final String name) 
-				throws model.StudyProgramException, PersistenceException{
+				throws model.AlreadyExistsInParentException, PersistenceException{
     	if (ModuleAbstract.getModuleAbstractByName(name).iterator().hasNext()) {
-			throw new StudyProgramException(ModuleAlreadyExistsInDBMessage);
+			throw new AlreadyExistsInParentException(ModuleAlreadyExistsInDBMessage);
 		}
     	if (Program.getProgramByName(name).iterator().hasNext()) {
-			throw new StudyProgramException(ProgramAlreadyExistsInDBMessage);
+			throw new AlreadyExistsInParentException(ProgramAlreadyExistsInDBMessage);
 		}
     	getThis().getModules().add(StringFACTORY.createObjectBySubTypeNameForModuleAbstract(type, new ModuleAbstractSwitchPARAMETER() {
 			

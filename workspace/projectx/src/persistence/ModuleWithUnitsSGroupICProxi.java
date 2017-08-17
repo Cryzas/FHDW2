@@ -80,8 +80,12 @@ public class ModuleWithUnitsSGroupICProxi extends ModuleAbstractSGroupICProxi im
         return ((PersistentModuleWithUnitsSGroup)this.getTheObject()).strategyprogramHierarchySGroup(strategy);
     }
     public void addUnit(final UnitSGroup4Public unit) 
-				throws model.CycleException, model.StudyProgramException, PersistenceException{
+				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
         ((PersistentModuleWithUnitsSGroup)this.getTheObject()).addUnit(unit);
+    }
+    public ModuleAbstractStudent4Public copyForStudent() 
+				throws model.UserException, PersistenceException{
+        return ((PersistentModuleWithUnitsSGroup)this.getTheObject()).copyForStudent();
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -90,6 +94,10 @@ public class ModuleWithUnitsSGroupICProxi extends ModuleAbstractSGroupICProxi im
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
         return ((PersistentModuleWithUnitsSGroup)this.getTheObject()).getCreditPoints();
+    }
+    public String getName() 
+				throws PersistenceException{
+        return ((PersistentModuleWithUnitsSGroup)this.getTheObject()).getName();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -100,7 +108,7 @@ public class ModuleWithUnitsSGroupICProxi extends ModuleAbstractSGroupICProxi im
         ((PersistentModuleWithUnitsSGroup)this.getTheObject()).initializeOnInstantiation();
     }
     public void swapCPonModuleWithUnits(final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
-				throws model.StudyProgramException, PersistenceException{
+				throws model.UnitSwapException, PersistenceException{
         ((PersistentModuleWithUnitsSGroup)this.getTheObject()).swapCPonModuleWithUnits(fromUnit, ToUnit, creditPoints);
     }
 

@@ -187,14 +187,14 @@ public class ModuleGroup extends model.ModuleAbstract implements PersistentModul
     // Start of section that contains operations that must be implemented.
     
     public void addModule(final ModuleAbstract4Public module) 
-				throws model.CycleException, model.StudyProgramException, PersistenceException{
+				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
     	if(getThis().containsprogramHierarchy(module))
-    		throw new StudyProgramException(AlreadyExistsInParentMessage);
+    		throw new AlreadyExistsInParentException(AlreadyExistsInParentMessage);
     	getThis().getModules().add(module);
     }
     public ModuleAbstractSGroup4Public copyForStudyGroup() 
 				throws model.UserException, PersistenceException{
-        ModuleGroupSGroup4Public toBeAdded = ModuleGroupSGroup.createModuleGroupSGroup(getThis().getName());
+        ModuleGroupSGroup4Public toBeAdded = ModuleGroupSGroup.createModuleGroupSGroup(getThis());
         getThis().getModules().applyToAllException(module -> toBeAdded.addModule(module.copyForStudyGroup()));
         return toBeAdded;
     }

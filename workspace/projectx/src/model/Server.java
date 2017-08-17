@@ -95,6 +95,13 @@ public class Server extends PersistentObject implements PersistentServer{
                 result.put("groupManager", proxiInformation);
                 
             }
+            AbstractPersistentRoot studentManager = (AbstractPersistentRoot)this.getStudentManager();
+            if (studentManager != null) {
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    studentManager, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
+                result.put("studentManager", proxiInformation);
+                
+            }
             result.put("errors", this.getErrors().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, true, false));
             result.put("user", this.getUser());
         }
@@ -111,6 +118,7 @@ public class Server extends PersistentObject implements PersistentServer{
         result = new Server(this.programManager, 
                             this.moduleManager, 
                             this.groupManager, 
+                            this.studentManager, 
                             this.This, 
                             this.password, 
                             this.user, 
@@ -132,6 +140,7 @@ public class Server extends PersistentObject implements PersistentServer{
     protected PersistentProgramManager programManager;
     protected PersistentModuleManager moduleManager;
     protected PersistentStudyGroupManager groupManager;
+    protected PersistentStudentManager studentManager;
     protected PersistentServer This;
     protected Server_ErrorsProxi errors;
     protected String password;
@@ -139,12 +148,13 @@ public class Server extends PersistentObject implements PersistentServer{
     protected long hackCount;
     protected java.sql.Timestamp hackDelay;
     
-    public Server(PersistentProgramManager programManager,PersistentModuleManager moduleManager,PersistentStudyGroupManager groupManager,PersistentServer This,String password,String user,long hackCount,java.sql.Timestamp hackDelay,long id) throws PersistenceException {
+    public Server(PersistentProgramManager programManager,PersistentModuleManager moduleManager,PersistentStudyGroupManager groupManager,PersistentStudentManager studentManager,PersistentServer This,String password,String user,long hackCount,java.sql.Timestamp hackDelay,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.programManager = programManager;
         this.moduleManager = moduleManager;
         this.groupManager = groupManager;
+        this.studentManager = studentManager;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;
         this.errors = new Server_ErrorsProxi(this);
         this.password = password;
@@ -177,6 +187,10 @@ public class Server extends PersistentObject implements PersistentServer{
         if(this.getGroupManager() != null){
             this.getGroupManager().store();
             ConnectionHandler.getTheConnectionHandler().theServerFacade.groupManagerSet(this.getId(), getGroupManager());
+        }
+        if(this.getStudentManager() != null){
+            this.getStudentManager().store();
+            ConnectionHandler.getTheConnectionHandler().theServerFacade.studentManagerSet(this.getId(), getStudentManager());
         }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
@@ -225,6 +239,20 @@ public class Server extends PersistentObject implements PersistentServer{
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theServerFacade.groupManagerSet(this.getId(), newValue);
+        }
+    }
+    public StudentManager4Public getStudentManager() throws PersistenceException {
+        return this.studentManager;
+    }
+    public void setStudentManager(StudentManager4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.studentManager)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.studentManager = (PersistentStudentManager)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theServerFacade.studentManagerSet(this.getId(), newValue);
         }
     }
     protected void setThis(PersistentServer newValue) throws PersistenceException {
@@ -323,6 +351,7 @@ public class Server extends PersistentObject implements PersistentServer{
         if (this.getProgramManager() != null) return 1;
         if (this.getModuleManager() != null) return 1;
         if (this.getGroupManager() != null) return 1;
+        if (this.getStudentManager() != null) return 1;
         return 0;
     }
     
@@ -366,6 +395,11 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
         this.changed = signal;
     }
+    public StudentSearchList student_Path_In_AddStudentToGroup() 
+				throws model.UserException, PersistenceException{
+        	return new StudentSearchList(getThis().getStudentManager().
+                getStudents().getList());
+    }
     
     
     // Start of section that contains operations that must be implemented.
@@ -377,6 +411,10 @@ public class Server extends PersistentObject implements PersistentServer{
     public void addModuleToProg(final Program4Public program, final ModuleAbstract4Public module) 
 				throws PersistenceException{
         getThis().getProgramManager().addModuleToProg(program, module, getThis());
+    }
+    public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student) 
+				throws PersistenceException{
+    	getThis().getStudentManager().addStudentToGroup(group, student, getThis());
     }
     public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
 				throws PersistenceException{
@@ -405,6 +443,10 @@ public class Server extends PersistentObject implements PersistentServer{
     public void createProgram(final String name) 
 				throws PersistenceException{
     	getThis().getProgramManager().createProgram(name, getThis());
+    }
+    public void createStudent(final String firstName, final String lastName, final java.sql.Date birthDate) 
+				throws PersistenceException{
+    	getThis().getStudentManager().createStudent(firstName, lastName, birthDate, getThis());        
     }
     public void disconnected() 
 				throws PersistenceException{
@@ -447,9 +489,10 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void initializeOnCreation() 
 				throws PersistenceException{ 
-    	getThis().setModuleManager(ModuleManager.createModuleManager(true));
-    	getThis().setProgramManager(ProgramManager.createProgramManager(true));
-    	getThis().setGroupManager(StudyGroupManager.createStudyGroupManager(true));
+    	getThis().setModuleManager(ModuleManager.createModuleManager());
+    	getThis().setProgramManager(ProgramManager.createProgramManager());
+    	getThis().setGroupManager(StudyGroupManager.createStudyGroupManager());
+    	getThis().setStudentManager(StudentManager.createStudentManager());
     	getThis().signalChanged(true); 
     }
     public void initializeOnInstantiation() 

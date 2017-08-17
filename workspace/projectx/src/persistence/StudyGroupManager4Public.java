@@ -27,7 +27,7 @@ public interface StudyGroupManager4Public extends Anything, AbstractPersistentPr
     public void startStudyGroup(final Program4Public program, final String name) 
 				throws model.UserException, PersistenceException;
     public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
-				throws model.StudyProgramException, PersistenceException;
+				throws model.UnitSwapException, PersistenceException;
 
 }
 

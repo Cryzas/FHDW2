@@ -13,15 +13,17 @@ public class Server extends ViewObject implements ServerView{
     protected ProgramManagerView programManager;
     protected ModuleManagerView moduleManager;
     protected StudyGroupManagerView groupManager;
+    protected StudentManagerView studentManager;
     protected java.util.Vector<ErrorDisplayView> errors;
     protected String user;
     
-    public Server(ProgramManagerView programManager,ModuleManagerView moduleManager,StudyGroupManagerView groupManager,java.util.Vector<ErrorDisplayView> errors,String user,long id, long classId) {
+    public Server(ProgramManagerView programManager,ModuleManagerView moduleManager,StudyGroupManagerView groupManager,StudentManagerView studentManager,java.util.Vector<ErrorDisplayView> errors,String user,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.programManager = programManager;
         this.moduleManager = moduleManager;
         this.groupManager = groupManager;
+        this.studentManager = studentManager;
         this.errors = errors;
         this.user = user;        
     }
@@ -51,6 +53,12 @@ public class Server extends ViewObject implements ServerView{
     }
     public void setGroupManager(StudyGroupManagerView newValue) throws ModelException {
         this.groupManager = newValue;
+    }
+    public StudentManagerView getStudentManager()throws ModelException{
+        return this.studentManager;
+    }
+    public void setStudentManager(StudentManagerView newValue) throws ModelException {
+        this.studentManager = newValue;
     }
     public java.util.Vector<ErrorDisplayView> getErrors()throws ModelException{
         return this.errors;
@@ -103,6 +111,10 @@ public class Server extends ViewObject implements ServerView{
         if (groupManager != null) {
             ((ViewProxi)groupManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(groupManager.getClassId(), groupManager.getId())));
         }
+        StudentManagerView studentManager = this.getStudentManager();
+        if (studentManager != null) {
+            ((ViewProxi)studentManager).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(studentManager.getClassId(), studentManager.getId())));
+        }
         java.util.Vector<?> errors = this.getErrors();
         if (errors != null) {
             ViewObject.resolveVectorProxies(errors, resultTable);
@@ -120,19 +132,23 @@ public class Server extends ViewObject implements ServerView{
         if(this.getModuleManager() != null) index = index - 1;
         if(index == 0 && this.getGroupManager() != null) return new GroupManagerServerWrapper(this, originalIndex, (ViewRoot)this.getGroupManager());
         if(this.getGroupManager() != null) index = index - 1;
+        if(index == 0 && this.getStudentManager() != null) return new StudentManagerServerWrapper(this, originalIndex, (ViewRoot)this.getStudentManager());
+        if(this.getStudentManager() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
             + (this.getProgramManager() == null ? 0 : 1)
             + (this.getModuleManager() == null ? 0 : 1)
-            + (this.getGroupManager() == null ? 0 : 1);
+            + (this.getGroupManager() == null ? 0 : 1)
+            + (this.getStudentManager() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         return true 
             && (this.getProgramManager() == null ? true : false)
             && (this.getModuleManager() == null ? true : false)
-            && (this.getGroupManager() == null ? true : false);
+            && (this.getGroupManager() == null ? true : false)
+            && (this.getStudentManager() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -142,10 +158,12 @@ public class Server extends ViewObject implements ServerView{
         if(this.getModuleManager() != null) result = result + 1;
         if(this.getGroupManager() != null && this.getGroupManager().equals(child)) return result;
         if(this.getGroupManager() != null) result = result + 1;
+        if(this.getStudentManager() != null && this.getStudentManager().equals(child)) return result;
+        if(this.getStudentManager() != null) result = result + 1;
         return -1;
     }
     public int getUserIndex() throws ModelException {
-        return 0 + (this.getProgramManager() == null ? 0 : 1) + (this.getModuleManager() == null ? 0 : 1) + (this.getGroupManager() == null ? 0 : 1);
+        return 0 + (this.getProgramManager() == null ? 0 : 1) + (this.getModuleManager() == null ? 0 : 1) + (this.getGroupManager() == null ? 0 : 1) + (this.getStudentManager() == null ? 0 : 1);
     }
     public int getRowCount(){
         return 0 

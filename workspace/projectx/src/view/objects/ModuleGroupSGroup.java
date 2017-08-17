@@ -124,10 +124,6 @@ public class ModuleGroupSGroup extends view.objects.ModuleAbstractSGroup impleme
         return true;
     }
     public void setValueAt(String newValue, int rowIndex) throws Exception {
-        if(rowIndex == 0){
-            this.setName(newValue);
-            return;
-        }
         rowIndex = rowIndex - 1;
         rowIndex = rowIndex - 1;
     }

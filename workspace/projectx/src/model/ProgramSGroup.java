@@ -16,41 +16,39 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
         return (ProgramSGroup4Public)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static ProgramSGroup4Public createProgramSGroup(String name) throws PersistenceException{
-        return createProgramSGroup(name,false);
+    public static ProgramSGroup4Public createProgramSGroup(Program4Public programCopy) throws PersistenceException{
+        return createProgramSGroup(programCopy,false);
     }
     
-    public static ProgramSGroup4Public createProgramSGroup(String name,boolean delayed$Persistence) throws PersistenceException {
-        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+    public static ProgramSGroup4Public createProgramSGroup(Program4Public programCopy,boolean delayed$Persistence) throws PersistenceException {
         PersistentProgramSGroup result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theProgramSGroupFacade
-                .newDelayedProgramSGroup(name);
+                .newDelayedProgramSGroup();
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theProgramSGroupFacade
-                .newProgramSGroup(name,-1);
+                .newProgramSGroup(-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
-        final$$Fields.put("name", name);
+        final$$Fields.put("programCopy", programCopy);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static ProgramSGroup4Public createProgramSGroup(String name,boolean delayed$Persistence,ProgramSGroup4Public This) throws PersistenceException {
-        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+    public static ProgramSGroup4Public createProgramSGroup(Program4Public programCopy,boolean delayed$Persistence,ProgramSGroup4Public This) throws PersistenceException {
         PersistentProgramSGroup result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theProgramSGroupFacade
-                .newDelayedProgramSGroup(name);
+                .newDelayedProgramSGroup();
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theProgramSGroupFacade
-                .newProgramSGroup(name,-1);
+                .newProgramSGroup(-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
-        final$$Fields.put("name", name);
+        final$$Fields.put("programCopy", programCopy);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -74,14 +72,9 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
         return result;
     }
     
-    public static ProgramSGroupSearchList getProgramSGroupByName(String name) throws PersistenceException{
-        return ConnectionHandler.getTheConnectionHandler().theProgramSGroupFacade
-            .getProgramSGroupByName(name);
-    }
-    
     public ProgramSGroup provideCopy() throws PersistenceException{
         ProgramSGroup result = this;
-        result = new ProgramSGroup(this.name, 
+        result = new ProgramSGroup(this.programCopy, 
                                    this.This, 
                                    this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -92,14 +85,14 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
         return false;
     }
     protected ProgramSGroup_ModulesProxi modules;
-    protected String name;
+    protected PersistentProgram programCopy;
     protected PersistentProgramSGroup This;
     
-    public ProgramSGroup(String name,PersistentProgramSGroup This,long id) throws PersistenceException {
+    public ProgramSGroup(PersistentProgram programCopy,PersistentProgramSGroup This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.modules = new ProgramSGroup_ModulesProxi(this);
-        this.name = name;
+        this.programCopy = programCopy;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -114,9 +107,13 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         if (this.getClassId() == 177) ConnectionHandler.getTheConnectionHandler().theProgramSGroupFacade
-            .newProgramSGroup(name,this.getId());
+            .newProgramSGroup(this.getId());
         super.store();
         this.getModules().store();
+        if(this.getProgramCopy() != null){
+            this.getProgramCopy().store();
+            ConnectionHandler.getTheConnectionHandler().theProgramSGroupFacade.programCopySet(this.getId(), getProgramCopy());
+        }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theProgramSGroupFacade.ThisSet(this.getId(), getThis());
@@ -127,13 +124,19 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
     public ProgramSGroup_ModulesProxi getModules() throws PersistenceException {
         return this.modules;
     }
-    public String getName() throws PersistenceException {
-        return this.name;
+    public Program4Public getProgramCopy() throws PersistenceException {
+        return this.programCopy;
     }
-    public void setName(String newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theProgramSGroupFacade.nameSet(this.getId(), newValue);
-        this.name = newValue;
+    public void setProgramCopy(Program4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.programCopy)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.programCopy = (PersistentProgram)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theProgramSGroupFacade.programCopySet(this.getId(), newValue);
+        }
     }
     protected void setThis(PersistentProgramSGroup newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -200,7 +203,7 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
 				throws PersistenceException{
         this.setThis((PersistentProgramSGroup)This);
 		if(this.isTheSameAs(This)){
-			this.setName((String)final$$Fields.get("name"));
+			this.setProgramCopy((PersistentProgram)final$$Fields.get("programCopy"));
 		}
     }
     public <T> T strategyprogramHierarchySGroup(final programHierarchySGroupHIERARCHYStrategy<T> strategy) 
@@ -220,11 +223,17 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
     // Start of section that contains operations that must be implemented.
     
     public void addModule(final ModuleAbstractSGroup4Public module) 
-				throws model.CycleException, model.StudyProgramException, PersistenceException{
+				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
     	if(getThis().containsprogramHierarchySGroup(module))
-    		throw new StudyProgramException(AlreadyExistsInParentMessage);
+    		throw new AlreadyExistsInParentException(AlreadyExistsInParentMessage);
     	getThis().getModules().add(module);
         
+    }
+    public ProgramStudent4Public copyForStudent() 
+				throws model.UserException, PersistenceException{
+    	ProgramStudent4Public newProgram = ProgramStudent.createProgramStudent(getThis());
+    	getThis().getModules().applyToAllException(module -> newProgram.addModule(module.copyForStudent()));
+    	return newProgram;
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -233,6 +242,10 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
     	return getThis().getModules().aggregate(Fraction.Null, (result, argument) -> result.add(argument.getCreditPoints()));
+    }
+    public String getName() 
+				throws PersistenceException{
+        return getThis().getProgramCopy().getName();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

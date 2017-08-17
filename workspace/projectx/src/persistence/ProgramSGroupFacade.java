@@ -16,17 +16,16 @@ public class ProgramSGroupFacade{
 	}
 
     /* If idCreateIfLessZero is negative, a new id is generated. */
-    public PersistentProgramSGroup newProgramSGroup(String name,long idCreateIfLessZero) throws PersistenceException {
+    public PersistentProgramSGroup newProgramSGroup(long idCreateIfLessZero) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
-            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".PrgrmSGrpFacade.newPrgrmSGrp(?,?); end;");
+            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".PrgrmSGrpFacade.newPrgrmSGrp(?); end;");
             callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
-            callable.setString(2, name);
-            callable.setLong(3, idCreateIfLessZero);
+            callable.setLong(2, idCreateIfLessZero);
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ProgramSGroup result = new ProgramSGroup(name,null,id);
+            ProgramSGroup result = new ProgramSGroup(null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentProgramSGroup)PersistentProxi.createProxi(id, 177);
         }catch(SQLException se) {
@@ -34,7 +33,7 @@ public class ProgramSGroupFacade{
         }
     }
     
-    public PersistentProgramSGroup newDelayedProgramSGroup(String name) throws PersistenceException {
+    public PersistentProgramSGroup newDelayedProgramSGroup() throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
             callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".PrgrmSGrpFacade.newDelayedPrgrmSGrp(); end;");
@@ -42,7 +41,7 @@ public class ProgramSGroupFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ProgramSGroup result = new ProgramSGroup(name,null,id);
+            ProgramSGroup result = new ProgramSGroup(null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentProgramSGroup)PersistentProxi.createProxi(id, 177);
         }catch(SQLException se) {
@@ -63,10 +62,13 @@ public class ProgramSGroupFacade{
                 callable.close();
                 return null;
             }
+            PersistentProgram programCopy = null;
+            if (obj.getLong(2) != 0)
+                programCopy = (PersistentProgram)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
             PersistentProgramSGroup This = null;
-            if (obj.getLong(3) != 0)
-                This = (PersistentProgramSGroup)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
-            ProgramSGroup result = new ProgramSGroup(obj.getString(2) == null ? "" : obj.getString(2) /* In Oracle "" = null !!! */,
+            if (obj.getLong(4) != 0)
+                This = (PersistentProgramSGroup)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+            ProgramSGroup result = new ProgramSGroup(programCopy,
                                                      This,
                                                      ProgramSGroupId);
             obj.close();
@@ -87,28 +89,6 @@ public class ProgramSGroupFacade{
             callable.setLong(2, objectId);
             callable.execute();
             long result = callable.getLong(1);
-            callable.close();
-            return result;
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
-    }
-    public ProgramSGroupSearchList getProgramSGroupByName(String name) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".PrgrmSGrpFacade.getPrgrmSGrpByNm(?); end;");
-            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
-            callable.setString(2, name);
-            callable.execute();
-            ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
-            ProgramSGroupSearchList result = new ProgramSGroupSearchList();
-            while (list.next()) {
-                long classId = list.getLong(2);
-                long objectId = list.getLong(1);
-                PersistentProgramSGroup proxi = (PersistentProgramSGroup)PersistentProxi.createProxi(objectId, classId);
-                result.add(proxi);
-            }
-            list.close();
             callable.close();
             return result;
         }catch(SQLException se) {
@@ -161,12 +141,13 @@ public class ProgramSGroupFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void nameSet(long ProgramSGroupId, String nameVal) throws PersistenceException {
+    public void programCopySet(long ProgramSGroupId, Program4Public programCopyVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".PrgrmSGrpFacade.nmSet(?, ?); end;");
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".PrgrmSGrpFacade.prgrmCpSet(?, ?, ?); end;");
             callable.setLong(1, ProgramSGroupId);
-            callable.setString(2, nameVal);
+            callable.setLong(2, programCopyVal.getId());
+            callable.setLong(3, programCopyVal.getClassId());
             callable.execute();
             callable.close();
         }catch(SQLException se) {

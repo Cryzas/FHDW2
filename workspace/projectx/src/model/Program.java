@@ -220,14 +220,14 @@ public class Program extends PersistentObject implements PersistentProgram{
     // Start of section that contains operations that must be implemented.
     
     public void addModule(final ModuleAbstract4Public module) 
-				throws model.CycleException, model.StudyProgramException, PersistenceException{
+				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
     	if(getThis().containsprogramHierarchy(module))
-    		throw new StudyProgramException(AlreadyExistsInParentMessage);
+    		throw new AlreadyExistsInParentException(AlreadyExistsInParentMessage);
     	getThis().getModules().add(module);
     }
     public ProgramSGroup4Public copyForStudyGroup() 
 				throws model.UserException, PersistenceException{
-    	ProgramSGroup4Public newProgram = ProgramSGroup.createProgramSGroup(getThis().getName());
+    	ProgramSGroup4Public newProgram = ProgramSGroup.createProgramSGroup(getThis());
     	getThis().getModules().applyToAllException(module -> newProgram.addModule(module.copyForStudyGroup()));
     	return newProgram;
     }

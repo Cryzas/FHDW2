@@ -226,7 +226,7 @@ public class CreateModuleCommand extends PersistentObject implements PersistentC
         try{
 			this.commandReceiver.createModule(this.getType(), this.getName());
 		}
-		catch(model.StudyProgramException e){
+		catch(model.AlreadyExistsInParentException e){
 			this.commandException = e;
 		}
     }

@@ -1228,8 +1228,14 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleStudyGroup(view.StudyGroupView object){
         result = new StudyGroupDefaultDetailPanel(handler, object);
     }
+    public void handleModuleAtomarStudent(view.ModuleAtomarStudentView object){
+        result = new ModuleAtomarStudentDefaultDetailPanel(handler, object);
+    }
     public void handleModuleWithUnits(view.ModuleWithUnitsView object){
         result = new ModuleWithUnitsDefaultDetailPanel(handler, object);
+    }
+    public void handleProgramStudent(view.ProgramStudentView object){
+        result = new ProgramStudentDefaultDetailPanel(handler, object);
     }
     public void handleProgramManager(view.ProgramManagerView object){
         result = new ProgramManagerDefaultDetailPanel(handler, object);
@@ -1237,11 +1243,26 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleProgram(view.ProgramView object){
         result = new ProgramDefaultDetailPanel(handler, object);
     }
+    public void handleModuleWithUnitsStudent(view.ModuleWithUnitsStudentView object){
+        result = new ModuleWithUnitsStudentDefaultDetailPanel(handler, object);
+    }
     public void handleUnitSGroup(view.UnitSGroupView object){
         result = new UnitSGroupDefaultDetailPanel(handler, object);
     }
+    public void handleStudentManager(view.StudentManagerView object){
+        result = new StudentManagerDefaultDetailPanel(handler, object);
+    }
+    public void handleModuleGroupStudent(view.ModuleGroupStudentView object){
+        result = new ModuleGroupStudentDefaultDetailPanel(handler, object);
+    }
+    public void handleStudent(view.StudentView object){
+        result = new StudentDefaultDetailPanel(handler, object);
+    }
     public void handleStudyGroupManager(view.StudyGroupManagerView object){
         result = new StudyGroupManagerDefaultDetailPanel(handler, object);
+    }
+    public void handleUnitStudent(view.UnitStudentView object){
+        result = new UnitStudentDefaultDetailPanel(handler, object);
     }
     public void handleModuleWithUnitsSGroup(view.ModuleWithUnitsSGroupView object){
         result = new ModuleWithUnitsSGroupDefaultDetailPanel(handler, object);
@@ -1256,6 +1277,7 @@ class ServerDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String Server$$programManager = "Server$$programManager";
     protected static final String Server$$moduleManager = "Server$$moduleManager";
     protected static final String Server$$groupManager = "Server$$groupManager";
+    protected static final String Server$$studentManager = "Server$$studentManager";
     protected static final String Server$$user = "Server$$user";
     
     protected ServerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1491,6 +1513,7 @@ class StudyGroupDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String StudyGroup$$name = "StudyGroup$$name";
     protected static final String StudyGroup$$program = "StudyGroup$$program";
+    protected static final String StudyGroup$$students = "StudyGroup$$students";
     
     protected StudyGroupDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1507,6 +1530,36 @@ class StudyGroupDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.StudyGroupView getAnything(){
         return (view.StudyGroupView)this.anything;
+    }
+}
+
+class ModuleAtomarStudentDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String ModuleAbstractStudent$$name = "ModuleAbstractStudent$$name";
+    protected static final String ModuleAbstractStudent$$creditPoints = "ModuleAbstractStudent$$creditPoints";
+    
+    protected ModuleAtomarStudentDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(ModuleAbstractStudent$$name, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new FractionPanel(this, "creditPoints", this.getAnything().getCreditPoints());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(ModuleAbstractStudent$$creditPoints, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.ModuleAtomarStudentView getAnything(){
+        return (view.ModuleAtomarStudentView)this.anything;
     }
 }
 
@@ -1538,6 +1591,37 @@ class ModuleWithUnitsDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ModuleWithUnitsView getAnything(){
         return (view.ModuleWithUnitsView)this.anything;
+    }
+}
+
+class ProgramStudentDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String ProgramStudent$$modules = "ProgramStudent$$modules";
+    protected static final String ProgramStudent$$name = "ProgramStudent$$name";
+    protected static final String ProgramStudent$$creditPoints = "ProgramStudent$$creditPoints";
+    
+    protected ProgramStudentDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(ProgramStudent$$name, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new FractionPanel(this, "creditPoints", this.getAnything().getCreditPoints());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(ProgramStudent$$creditPoints, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.ProgramStudentView getAnything(){
+        return (view.ProgramStudentView)this.anything;
     }
 }
 
@@ -1587,6 +1671,37 @@ class ProgramDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class ModuleWithUnitsStudentDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String ModuleAbstractStudent$$name = "ModuleAbstractStudent$$name";
+    protected static final String ModuleAbstractStudent$$creditPoints = "ModuleAbstractStudent$$creditPoints";
+    protected static final String ModuleWithUnitsStudent$$units = "ModuleWithUnitsStudent$$units";
+    
+    protected ModuleWithUnitsStudentDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(ModuleAbstractStudent$$name, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new FractionPanel(this, "creditPoints", this.getAnything().getCreditPoints());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(ModuleAbstractStudent$$creditPoints, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.ModuleWithUnitsStudentView getAnything(){
+        return (view.ModuleWithUnitsStudentView)this.anything;
+    }
+}
+
 class UnitSGroupDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String UnitSGroup$$name = "UnitSGroup$$name";
@@ -1617,6 +1732,98 @@ class UnitSGroupDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class StudentManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String StudentManager$$students = "StudentManager$$students";
+    
+    protected StudentManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.StudentManagerView getAnything(){
+        return (view.StudentManagerView)this.anything;
+    }
+}
+
+class ModuleGroupStudentDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String ModuleAbstractStudent$$name = "ModuleAbstractStudent$$name";
+    protected static final String ModuleAbstractStudent$$creditPoints = "ModuleAbstractStudent$$creditPoints";
+    protected static final String ModuleGroupStudent$$modules = "ModuleGroupStudent$$modules";
+    
+    protected ModuleGroupStudentDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(ModuleAbstractStudent$$name, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new FractionPanel(this, "creditPoints", this.getAnything().getCreditPoints());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(ModuleAbstractStudent$$creditPoints, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.ModuleGroupStudentView getAnything(){
+        return (view.ModuleGroupStudentView)this.anything;
+    }
+}
+
+class StudentDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String Student$$firstName = "Student$$firstName";
+    protected static final String Student$$lastName = "Student$$lastName";
+    protected static final String Student$$birthDate = "Student$$birthDate";
+    protected static final String Student$$matrNr = "Student$$matrNr";
+    
+    protected StudentDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "firstName", this.getAnything().getFirstName());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(Student$$firstName, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new StringPanel(this, "lastName", this.getAnything().getLastName());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(Student$$lastName, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new DatePanel(this, "birthDate", this.getAnything().getBirthDate());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(Student$$birthDate, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new IntegerPanel(this, "matrNr", this.getAnything().getMatrNr());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(Student$$matrNr, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.StudentView getAnything(){
+        return (view.StudentView)this.anything;
+    }
+}
+
 class StudyGroupManagerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String StudyGroupManager$$groups = "StudyGroupManager$$groups";
@@ -1629,6 +1836,36 @@ class StudyGroupManagerDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.StudyGroupManagerView getAnything(){
         return (view.StudyGroupManagerView)this.anything;
+    }
+}
+
+class UnitStudentDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String UnitStudent$$name = "UnitStudent$$name";
+    protected static final String UnitStudent$$creditPoints = "UnitStudent$$creditPoints";
+    
+    protected UnitStudentDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(UnitStudent$$name, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new FractionPanel(this, "creditPoints", this.getAnything().getCreditPoints());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(UnitStudent$$creditPoints, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.UnitStudentView getAnything(){
+        return (view.UnitStudentView)this.anything;
     }
 }
 

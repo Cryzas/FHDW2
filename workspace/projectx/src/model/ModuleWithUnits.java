@@ -187,14 +187,14 @@ public class ModuleWithUnits extends model.ModuleAbstract implements PersistentM
     // Start of section that contains operations that must be implemented.
     
     public void addUnit(final String name, final common.Fraction creditPoints) 
-				throws model.CycleException, model.StudyProgramException, PersistenceException{
+				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
     	if(getThis().getUnits().findAll(unit -> unit.getName().equals(name)).getLength() > 0)
-    		throw new StudyProgramException(AlreadyExistsInParentMessage);
+    		throw new AlreadyExistsInParentException(AlreadyExistsInParentMessage);
     	getThis().getUnits().add(Unit.createUnit(name, creditPoints));        
     }
     public ModuleAbstractSGroup4Public copyForStudyGroup() 
 				throws model.UserException, PersistenceException{
-    	ModuleWithUnitsSGroup4Public toBeAdded = ModuleWithUnitsSGroup.createModuleWithUnitsSGroup(getThis().getName());
+    	ModuleWithUnitsSGroup4Public toBeAdded = ModuleWithUnitsSGroup.createModuleWithUnitsSGroup(getThis());
     	getThis().getUnits().applyToAllException(unit -> toBeAdded.addUnit(unit.copyForStudyGroup()));
     	return toBeAdded;
     }

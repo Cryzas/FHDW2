@@ -16,42 +16,40 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
         return (UnitSGroup4Public)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static UnitSGroup4Public createUnitSGroup(String name,common.Fraction creditPoints) throws PersistenceException{
-        return createUnitSGroup(name,creditPoints,false);
+    public static UnitSGroup4Public createUnitSGroup(Unit4Public unitCopy,common.Fraction creditPoints) throws PersistenceException{
+        return createUnitSGroup(unitCopy,creditPoints,false);
     }
     
-    public static UnitSGroup4Public createUnitSGroup(String name,common.Fraction creditPoints,boolean delayed$Persistence) throws PersistenceException {
-        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+    public static UnitSGroup4Public createUnitSGroup(Unit4Public unitCopy,common.Fraction creditPoints,boolean delayed$Persistence) throws PersistenceException {
         PersistentUnitSGroup result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theUnitSGroupFacade
-                .newDelayedUnitSGroup(name,creditPoints);
+                .newDelayedUnitSGroup(creditPoints);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theUnitSGroupFacade
-                .newUnitSGroup(name,creditPoints,-1);
+                .newUnitSGroup(creditPoints,-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
-        final$$Fields.put("name", name);
+        final$$Fields.put("unitCopy", unitCopy);
         final$$Fields.put("creditPoints", creditPoints);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static UnitSGroup4Public createUnitSGroup(String name,common.Fraction creditPoints,boolean delayed$Persistence,UnitSGroup4Public This) throws PersistenceException {
-        if (name == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+    public static UnitSGroup4Public createUnitSGroup(Unit4Public unitCopy,common.Fraction creditPoints,boolean delayed$Persistence,UnitSGroup4Public This) throws PersistenceException {
         PersistentUnitSGroup result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theUnitSGroupFacade
-                .newDelayedUnitSGroup(name,creditPoints);
+                .newDelayedUnitSGroup(creditPoints);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theUnitSGroupFacade
-                .newUnitSGroup(name,creditPoints,-1);
+                .newUnitSGroup(creditPoints,-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
-        final$$Fields.put("name", name);
+        final$$Fields.put("unitCopy", unitCopy);
         final$$Fields.put("creditPoints", creditPoints);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
@@ -77,7 +75,7 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
     
     public UnitSGroup provideCopy() throws PersistenceException{
         UnitSGroup result = this;
-        result = new UnitSGroup(this.name, 
+        result = new UnitSGroup(this.unitCopy, 
                                 this.creditPoints, 
                                 this.This, 
                                 this.getId());
@@ -88,14 +86,14 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected String name;
+    protected PersistentUnit unitCopy;
     protected common.Fraction creditPoints;
     protected PersistentUnitSGroup This;
     
-    public UnitSGroup(String name,common.Fraction creditPoints,PersistentUnitSGroup This,long id) throws PersistenceException {
+    public UnitSGroup(PersistentUnit unitCopy,common.Fraction creditPoints,PersistentUnitSGroup This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.name = name;
+        this.unitCopy = unitCopy;
         this.creditPoints = creditPoints;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
@@ -111,8 +109,12 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         if (this.getClassId() == 181) ConnectionHandler.getTheConnectionHandler().theUnitSGroupFacade
-            .newUnitSGroup(name,creditPoints,this.getId());
+            .newUnitSGroup(creditPoints,this.getId());
         super.store();
+        if(this.getUnitCopy() != null){
+            this.getUnitCopy().store();
+            ConnectionHandler.getTheConnectionHandler().theUnitSGroupFacade.unitCopySet(this.getId(), getUnitCopy());
+        }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theUnitSGroupFacade.ThisSet(this.getId(), getThis());
@@ -120,13 +122,19 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
         
     }
     
-    public String getName() throws PersistenceException {
-        return this.name;
+    public Unit4Public getUnitCopy() throws PersistenceException {
+        return this.unitCopy;
     }
-    public void setName(String newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theUnitSGroupFacade.nameSet(this.getId(), newValue);
-        this.name = newValue;
+    public void setUnitCopy(Unit4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.unitCopy)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.unitCopy = (PersistentUnit)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theUnitSGroupFacade.unitCopySet(this.getId(), newValue);
+        }
     }
     public common.Fraction getCreditPoints() throws PersistenceException {
         return this.creditPoints;
@@ -196,7 +204,7 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
 				throws PersistenceException{
         this.setThis((PersistentUnitSGroup)This);
 		if(this.isTheSameAs(This)){
-			this.setName((String)final$$Fields.get("name"));
+			this.setUnitCopy((PersistentUnit)final$$Fields.get("unitCopy"));
 			this.setCreditPoints((common.Fraction)final$$Fields.get("creditPoints"));
 		}
     }
@@ -213,9 +221,17 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
 				throws PersistenceException{
     	getThis().setCreditPoints(getThis().getCreditPoints().add(creditPoints));
     }
+    public UnitStudent4Public copyForStudent() 
+				throws model.UserException, PersistenceException{
+        return UnitStudent.createUnitStudent(getThis());
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         
+    }
+    public String getName() 
+				throws PersistenceException{
+        return getThis().getUnitCopy().getName();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -226,9 +242,9 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
         
     }
     public void subCP(final common.Fraction creditPoints) 
-				throws model.StudyProgramException, PersistenceException{
+				throws model.UnitSwapException, PersistenceException{
     	if(getThis().getCreditPoints().add(creditPoints.mul(Fraction.parse("-1"))).lessOrEquals(Fraction.Null))
-    		throw new StudyProgramException(CreditPointsUnderNullMessage);
+    		throw new UnitSwapException(CreditPointsUnderNullMessage);
     	getThis().setCreditPoints(getThis().getCreditPoints().add(creditPoints.mul(Fraction.parse("-1"))));
     }
     

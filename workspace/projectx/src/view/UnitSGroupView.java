@@ -7,7 +7,6 @@ import view.visitor.*;
 public interface UnitSGroupView extends Anything, AbstractViewRoot {
     
     public String getName()throws ModelException;
-    public void setName(String newValue) throws ModelException ;
     public common.Fraction getCreditPoints()throws ModelException;
     public void setCreditPoints(common.Fraction newValue) throws ModelException ;
     

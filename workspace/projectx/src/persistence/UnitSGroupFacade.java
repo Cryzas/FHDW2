@@ -16,18 +16,17 @@ public class UnitSGroupFacade{
 	}
 
     /* If idCreateIfLessZero is negative, a new id is generated. */
-    public PersistentUnitSGroup newUnitSGroup(String name,common.Fraction creditPoints,long idCreateIfLessZero) throws PersistenceException {
+    public PersistentUnitSGroup newUnitSGroup(common.Fraction creditPoints,long idCreateIfLessZero) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
-            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".UntSGrpFacade.newUntSGrp(?,?,?); end;");
+            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".UntSGrpFacade.newUntSGrp(?,?); end;");
             callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
-            callable.setString(2, name);
-            callable.setString(3, creditPoints.toString());
-            callable.setLong(4, idCreateIfLessZero);
+            callable.setString(2, creditPoints.toString());
+            callable.setLong(3, idCreateIfLessZero);
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            UnitSGroup result = new UnitSGroup(name,creditPoints,null,id);
+            UnitSGroup result = new UnitSGroup(null,creditPoints,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentUnitSGroup)PersistentProxi.createProxi(id, 181);
         }catch(SQLException se) {
@@ -35,7 +34,7 @@ public class UnitSGroupFacade{
         }
     }
     
-    public PersistentUnitSGroup newDelayedUnitSGroup(String name,common.Fraction creditPoints) throws PersistenceException {
+    public PersistentUnitSGroup newDelayedUnitSGroup(common.Fraction creditPoints) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
             callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".UntSGrpFacade.newDelayedUntSGrp(); end;");
@@ -43,7 +42,7 @@ public class UnitSGroupFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            UnitSGroup result = new UnitSGroup(name,creditPoints,null,id);
+            UnitSGroup result = new UnitSGroup(null,creditPoints,null,id);
             Cache.getTheCache().put(result);
             return (PersistentUnitSGroup)PersistentProxi.createProxi(id, 181);
         }catch(SQLException se) {
@@ -64,11 +63,14 @@ public class UnitSGroupFacade{
                 callable.close();
                 return null;
             }
+            PersistentUnit unitCopy = null;
+            if (obj.getLong(2) != 0)
+                unitCopy = (PersistentUnit)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
             PersistentUnitSGroup This = null;
-            if (obj.getLong(4) != 0)
-                This = (PersistentUnitSGroup)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
-            UnitSGroup result = new UnitSGroup(obj.getString(2) == null ? "" : obj.getString(2) /* In Oracle "" = null !!! */,
-                                               (obj.getString(3) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(3))),
+            if (obj.getLong(5) != 0)
+                This = (PersistentUnitSGroup)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
+            UnitSGroup result = new UnitSGroup(unitCopy,
+                                               (obj.getString(4) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(4))),
                                                This,
                                                UnitSGroupId);
             obj.close();
@@ -95,12 +97,13 @@ public class UnitSGroupFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void nameSet(long UnitSGroupId, String nameVal) throws PersistenceException {
+    public void unitCopySet(long UnitSGroupId, Unit4Public unitCopyVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".UntSGrpFacade.nmSet(?, ?); end;");
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".UntSGrpFacade.untCpSet(?, ?, ?); end;");
             callable.setLong(1, UnitSGroupId);
-            callable.setString(2, nameVal);
+            callable.setLong(2, unitCopyVal.getId());
+            callable.setLong(3, unitCopyVal.getClassId());
             callable.execute();
             callable.close();
         }catch(SQLException se) {

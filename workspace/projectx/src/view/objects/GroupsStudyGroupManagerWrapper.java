@@ -16,7 +16,6 @@ public class GroupsStudyGroupManagerWrapper extends AssociationInTreeWrapper {
 	
 	
 	public String toString(){
-    	//TODO: Implement toString in wrapper class for association groups in class StudyGroupManager
     	return this.getWrappedObject().toString();
     }
 

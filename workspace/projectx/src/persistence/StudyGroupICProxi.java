@@ -34,6 +34,9 @@ public class StudyGroupICProxi extends PersistentInCacheProxiOptimistic implemen
     public void setProgram(ProgramSGroup4Public newValue) throws PersistenceException {
         ((PersistentStudyGroup)this.getTheObject()).setProgram(newValue);
     }
+    public StudyGroup_StudentsProxi getStudents() throws PersistenceException {
+        return ((PersistentStudyGroup)this.getTheObject()).getStudents();
+    }
     public PersistentStudyGroup getThis() throws PersistenceException {
         return ((PersistentStudyGroup)this.getTheObject()).getThis();
     }

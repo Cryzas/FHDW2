@@ -56,7 +56,7 @@ public class ProgramManagerICProxi extends PersistentInCacheProxiOptimistic impl
         ((PersistentProgramManager)this.getTheObject()).initialize(This, final$$Fields);
     }
     public void addModuleToProg(final Program4Public program, final ModuleAbstract4Public module) 
-				throws model.CycleException, model.StudyProgramException, PersistenceException{
+				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
         ((PersistentProgramManager)this.getTheObject()).addModuleToProg(program, module);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
@@ -64,7 +64,7 @@ public class ProgramManagerICProxi extends PersistentInCacheProxiOptimistic impl
         ((PersistentProgramManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
     public void createProgram(final String name) 
-				throws model.StudyProgramException, PersistenceException{
+				throws model.AlreadyExistsInParentException, PersistenceException{
         ((PersistentProgramManager)this.getTheObject()).createProgram(name);
     }
     public void initializeOnCreation() 
