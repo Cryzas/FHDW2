@@ -6,8 +6,6 @@ public interface PersistentModuleAtomarStudent extends PersistentModuleAbstractS
     public PersistentModuleAtomarStudent getThis() throws PersistenceException ;
     
     
-    public common.Fraction getOwnCreditPoints() 
-				throws PersistenceException;
 
 }
 

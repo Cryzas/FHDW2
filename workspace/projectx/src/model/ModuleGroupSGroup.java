@@ -206,10 +206,6 @@ public class ModuleGroupSGroup extends model.ModuleAbstractSGroup implements Per
 				throws PersistenceException{
     	return getThis().getModules().aggregate(Fraction.Null, (result, argument) -> result.add(argument.getCreditPoints()));
     }
-    public String getName() 
-				throws PersistenceException{
-        return getThis().getModuleCopy().getName();
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         super.initializeOnCreation();
@@ -221,7 +217,6 @@ public class ModuleGroupSGroup extends model.ModuleAbstractSGroup implements Per
     
     
     // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
     

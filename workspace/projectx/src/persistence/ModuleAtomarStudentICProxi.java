@@ -88,10 +88,6 @@ public class ModuleAtomarStudentICProxi extends ModuleAbstractStudentICProxi imp
 				throws PersistenceException{
         return ((PersistentModuleAtomarStudent)this.getTheObject()).getName();
     }
-    public common.Fraction getOwnCreditPoints() 
-				throws PersistenceException{
-        return ((PersistentModuleAtomarStudent)this.getTheObject()).getOwnCreditPoints();
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentModuleAtomarStudent)this.getTheObject()).initializeOnCreation();

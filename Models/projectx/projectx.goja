@@ -105,7 +105,7 @@ class ProgramSGroup {
 }
 
 abstract string-factory class ModuleAbstractSGroup ## m_abstr_gr {
-	public abstract derived String name;
+	public derived String name;
 	public abstract derived Fraction creditPoints;
 	prior ModuleAbstract moduleCopy;
 	abstract ModuleAbstractStudent copyForStudent() throws UserException;
@@ -157,8 +157,8 @@ class ProgramStudent {
 
 abstract string-factory class ModuleAbstractStudent ## m_abstr_st {
 	prior ModuleAbstractSGroup moduleCopy;
-	public abstract derived String name;
-	public abstract derived Fraction creditPoints;
+	public derived String name;
+	public derived Fraction creditPoints;
 }
 
 class ModuleGroupStudent extends ModuleAbstractStudent {
@@ -167,7 +167,6 @@ class ModuleGroupStudent extends ModuleAbstractStudent {
 }
 
 class ModuleAtomarStudent ## m_atom_stud extends ModuleAbstractStudent {
-	derived Fraction ownCreditPoints;
 }
 
 class ModuleWithUnitsStudent ## m_unit_stud extends ModuleAbstractStudent {

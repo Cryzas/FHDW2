@@ -192,10 +192,6 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
 				throws PersistenceException{
         return getThis().getOwnCreditPoints();
     }
-    public String getName() 
-				throws PersistenceException{
-        return getThis().getModuleCopy().getName();
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         super.initializeOnCreation();

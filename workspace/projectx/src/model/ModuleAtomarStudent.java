@@ -171,18 +171,6 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
 				throws PersistenceException{
         
     }
-    public common.Fraction getCreditPoints() 
-				throws PersistenceException{
-    	return getThis().getOwnCreditPoints();
-    }
-    public String getName() 
-				throws PersistenceException{
-        return getThis().getModuleCopy().getName();
-    }
-    public common.Fraction getOwnCreditPoints() 
-				throws PersistenceException{
-        return getThis().getModuleCopy().getCreditPoints();
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         super.initializeOnCreation();
@@ -194,7 +182,6 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
     
     
     // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
     

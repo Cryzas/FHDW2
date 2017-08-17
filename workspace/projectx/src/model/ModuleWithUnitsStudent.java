@@ -2,7 +2,6 @@
 package model;
 
 import persistence.*;
-import common.Fraction;
 import model.visitor.*;
 
 
@@ -196,14 +195,6 @@ public class ModuleWithUnitsStudent extends model.ModuleAbstractStudent implemen
 				throws PersistenceException{
         
     }
-    public common.Fraction getCreditPoints() 
-				throws PersistenceException{
-		return getThis().getUnits().aggregate(Fraction.Null, (result, argument) -> result.add(argument.getCreditPoints()));
-    }
-    public String getName() 
-				throws PersistenceException{
-        return getThis().getModuleCopy().getName();
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         super.initializeOnCreation();
@@ -215,7 +206,6 @@ public class ModuleWithUnitsStudent extends model.ModuleAbstractStudent implemen
     
     
     // Start of section that contains overridden operations only.
-    
 
     /* Start of protected part that is not overridden by persistence generator */
     

@@ -128,8 +128,17 @@ public abstract class ModuleAbstractStudent extends PersistentObject implements 
     
     // Start of section that contains overridden operations only.
     
-
     /* Start of protected part that is not overridden by persistence generator */
+    
+    public String getName() 
+				throws PersistenceException{
+        return getThis().getModuleCopy().getName();
+    }
+    
+    public common.Fraction getCreditPoints() 
+			throws PersistenceException{
+    return getThis().getModuleCopy().getCreditPoints();
+}
     
     /* End of protected part that is not overridden by persistence generator */
     

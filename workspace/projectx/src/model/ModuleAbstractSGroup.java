@@ -128,6 +128,10 @@ public abstract class ModuleAbstractSGroup extends PersistentObject implements P
     
     // Start of section that contains overridden operations only.
     
+    public String getName() 
+				throws PersistenceException{
+        return getThis().getModuleCopy().getName();
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
     

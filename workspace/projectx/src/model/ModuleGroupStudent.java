@@ -2,7 +2,6 @@
 package model;
 
 import persistence.*;
-import common.Fraction;
 import model.visitor.*;
 
 
@@ -196,14 +195,6 @@ public class ModuleGroupStudent extends model.ModuleAbstractStudent implements P
 				throws PersistenceException{
         
     }
-    public common.Fraction getCreditPoints() 
-				throws PersistenceException{
-    	return getThis().getModules().aggregate(Fraction.Null, (result, argument) -> result.add(argument.getCreditPoints()));
-    }
-    public String getName() 
-				throws PersistenceException{
-        return getThis().getModuleCopy().getName();
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         super.initializeOnCreation();
@@ -216,7 +207,6 @@ public class ModuleGroupStudent extends model.ModuleAbstractStudent implements P
     
     // Start of section that contains overridden operations only.
     
-
     /* Start of protected part that is not overridden by persistence generator */
     
     static String AlreadyExistsInParentMessage = "Das ausgewählte Modul ist bereits in der Modulgruppe.";
