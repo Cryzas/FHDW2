@@ -130,14 +130,16 @@ public abstract class ModuleAbstractStudent extends PersistentObject implements 
     
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
-    return getThis().getModuleCopy().getCreditPoints();
-}
-    /* Start of protected part that is not overridden by persistence generator */
-    
+    	return getThis().getModuleCopy().getCreditPoints();
+    }
     public String getName() 
 				throws PersistenceException{
-        return getThis().getModuleCopy().getName();
+    	return getThis().getModuleCopy().getName();
     }
+
+    /* Start of protected part that is not overridden by persistence generator */
+    
+    
     
     /* End of protected part that is not overridden by persistence generator */
     
