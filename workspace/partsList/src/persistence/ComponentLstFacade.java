@@ -131,6 +131,17 @@ public class ComponentLstFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
+    public void partsRemEntr(long partsId) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".CmpnntLstFacade.prtsRemEntr(?); end;");
+            callable.setLong(1, partsId);
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
     public PersistentQuantifiedComponent partsGet(long ComponentLstId, Component4Public indxxVal) throws PersistenceException {
         try{
             CallableStatement callable;
@@ -150,7 +161,7 @@ public class ComponentLstFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public QuantifiedComponentSearchList partsGetValues(long ComponentLstId) throws PersistenceException {
+    public java.util.Hashtable<Component4Public,QuantifiedComponent4Public> partsGetValues(long ComponentLstId) throws PersistenceException {
         try{
             CallableStatement callable;
             callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".CmpnntLstFacade.prtsGetValues(?); end;");
@@ -158,9 +169,11 @@ public class ComponentLstFacade{
             callable.setLong(2, ComponentLstId);
             callable.execute();
             ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
-            QuantifiedComponentSearchList result = new QuantifiedComponentSearchList();
+            java.util.Hashtable<Component4Public,QuantifiedComponent4Public> result = new java.util.Hashtable<Component4Public,QuantifiedComponent4Public>();
             while (list.next()) {
-                result.add((PersistentQuantifiedComponent)PersistentProxi.createListEntryProxi(list.getLong(1), list.getLong(2), list.getLong(3)));
+                QuantifiedComponent4Public value = (QuantifiedComponent4Public)PersistentProxi.createListEntryProxi(list.getLong(1), list.getLong(2), list.getLong(3));
+                Component4Public key = (Component4Public) PersistentProxi.createProxi(list.getLong(4),list.getLong(5));;
+                result.put(key,value);
             }
             list.close();
             callable.close();

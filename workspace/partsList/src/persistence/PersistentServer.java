@@ -7,7 +7,6 @@ public interface PersistentServer extends Invoker, Anything, Remote, AbstractPer
     public Server_ErrorsProxi getErrors() throws PersistenceException ;
     public String getPassword() throws PersistenceException ;
     public void setPassword(String newValue) throws PersistenceException ;
-    public String getUser() throws PersistenceException ;
     public void setUser(String newValue) throws PersistenceException ;
     public long getHackCount() throws PersistenceException ;
     public void setHackCount(long newValue) throws PersistenceException ;

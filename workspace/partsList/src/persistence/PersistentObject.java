@@ -30,12 +30,12 @@ public abstract class PersistentObject extends PersistentRoot {
 		return this;
 	}
 
-	public java.util.HashMap<String, Object> toHashtable(int depth, int essentialLevel, boolean forGUI, TDObserver tdObserver) throws PersistenceException {
+	public java.util.HashMap<String, Object> toHashtable(int depth, int essentialLevel, boolean forGUI) throws PersistenceException {
 		java.util.HashMap<String, Object> result = new java.util.HashMap<String, Object>();
-		this.toHashtable(result, depth, essentialLevel, forGUI, true, tdObserver);
+		this.toHashtable(result, depth, essentialLevel, forGUI, true, false);
 		return result;
 	}
-	public HashMap<String, Object> toHashtable(HashMap<String, Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
+	public HashMap<String, Object> toHashtable(HashMap<String, Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, boolean inDerived) throws PersistenceException {
 		HashMap<String, Object> result = new HashMap<String, Object>();
 		result.put(RPCConstantsAndServices.RPCClassIdFieldName, new Long(this.getClassId()).toString());
 		result.put(RPCConstantsAndServices.RPCObjectIdFieldName, new Long(this.getId()).toString());

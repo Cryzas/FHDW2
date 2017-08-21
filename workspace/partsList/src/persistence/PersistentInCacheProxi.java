@@ -124,15 +124,15 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 			throw new PersistenceError(e);
 		}
 	}
-	public HashMap<String,Object> toHashtable(int depth, int essentialLevel, boolean forGUI, TDObserver tdObserver) throws PersistenceException {
+	public HashMap<String,Object> toHashtable(int depth, int essentialLevel, boolean forGUI) throws PersistenceException {
 		PersistentRoot object = this.getTheObject();
 		if (object == null) return null;
-		return object.toHashtable(depth, essentialLevel, forGUI, tdObserver);
+		return object.toHashtable(depth, essentialLevel, forGUI);
 	}
-	public HashMap<String, Object> toHashtable(HashMap<String, Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
+	public HashMap<String, Object> toHashtable(HashMap<String, Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, boolean inDerived) throws PersistenceException {
 		PersistentRoot object = this.getTheObject();
 		if (object == null) return null;
-		return object.toHashtable(allResults, depth, essentialLevel, forGUI, leaf, tdObserver);
+		return object.toHashtable(allResults, depth, essentialLevel, forGUI, leaf, inDerived);
 	}
 
 	protected abstract PersistentObject getRemote() throws PersistenceException;

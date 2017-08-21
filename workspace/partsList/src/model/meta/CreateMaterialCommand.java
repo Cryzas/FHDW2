@@ -30,7 +30,7 @@ public class CreateMaterialCommand extends PersistentObject implements Persisten
             result = ConnectionHandler.getTheConnectionHandler().theCreateMaterialCommandFacade
                 .newCreateMaterialCommand(name,price,-1);
         }
-        ((PersistentCreateMaterialCommand)result).setMyCommonDate(CommonDate.createCommonDate(createDate, createDate));
+        ((PersistentCreateMaterialCommand)result).setMyCommonDate((PersistentCommonDate)CommonDate.createCommonDate(createDate, createDate));
         return result;
     }
     
@@ -126,10 +126,10 @@ public class CreateMaterialCommand extends PersistentObject implements Persisten
             ConnectionHandler.getTheConnectionHandler().theCreateMaterialCommandFacade.commandReceiverSet(this.getId(), newValue);
         }
     }
-    public CommonDate4Public getMyCommonDate() throws PersistenceException {
+    public PersistentCommonDate getMyCommonDate() throws PersistenceException {
         return this.myCommonDate;
     }
-    public void setMyCommonDate(CommonDate4Public newValue) throws PersistenceException {
+    public void setMyCommonDate(PersistentCommonDate newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.myCommonDate)) return;
         long objectId = newValue.getId();

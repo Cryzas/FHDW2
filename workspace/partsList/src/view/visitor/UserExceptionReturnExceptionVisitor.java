@@ -1,6 +1,5 @@
 
 package view.visitor;
-
 import view.*;
 
 public interface UserExceptionReturnExceptionVisitor<R, E extends view.UserException> {

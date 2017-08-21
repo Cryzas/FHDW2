@@ -39,8 +39,8 @@ public abstract class PersistentRoot implements AbstractPersistentRoot {
 
   public abstract long getClassId();
   public abstract PersistentRoot getTheObject()  throws PersistenceException;
-  public abstract HashMap<String, Object> toHashtable(int depth, int essentialLevel, boolean forGUI, TDObserver tdObserver) throws PersistenceException;
-  public abstract HashMap<String, Object> toHashtable(HashMap<String, Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException;
+  public abstract HashMap<String, Object> toHashtable(int depth, int essentialLevel, boolean forGUI) throws PersistenceException;
+  public abstract HashMap<String, Object> toHashtable(HashMap<String, Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, boolean inDerived) throws PersistenceException;
 
   public abstract boolean hasEssentialFields() throws PersistenceException;
 

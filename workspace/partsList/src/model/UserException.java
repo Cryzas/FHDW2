@@ -11,12 +11,11 @@ import model.visitor.*;
 public abstract class UserException extends Exception{
     
     
-    public java.util.HashMap<String,Object> toHashtable(java.util.HashMap<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
-    java.util.HashMap<String,Object> result = null;
+    public java.util.HashMap<String,Object> toHashtable(java.util.HashMap<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, boolean inDerived) throws PersistenceException {
+        java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
             result = new java.util.HashMap<String,Object>();
             result.put("?Message?", this.getMessage());
-            
         }
         return result;
     }

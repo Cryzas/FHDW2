@@ -1,7 +1,6 @@
 package modelServer;
 
 import persistence.AbstractPersistentRoot;
-import persistence.TDObserver;
 import persistence.PersistentProxiInterface;
 import persistence.PersistenceException;
 import persistence.PersistentProxi;
@@ -24,9 +23,9 @@ import common.ProxiInformation;
 import common.Fraction;
 import common.CryptoConstants;
 
-public abstract class RemoteServerMaster implements TDObserver {
+public abstract class RemoteServerMaster {
 
-	protected static HashMap<String,Object> createOKResult(AbstractPersistentRoot object, int depth, TDObserver tdObserver){
+	protected static HashMap<String,Object> createOKResult(AbstractPersistentRoot object, int depth){
 		HashMap<String,Object> result = new HashMap<String,Object>();
 		result.put(RPCConstantsAndServices.OKOrNotOKResultFieldName, new Boolean(true));
 		if(object == null)result.put(RPCConstantsAndServices.ResultFieldName, 
@@ -37,7 +36,7 @@ public abstract class RemoteServerMaster implements TDObserver {
 																							  RPCConstantsAndServices.NullObjectToString));
 		else
 			try {
-				result.put(RPCConstantsAndServices.ResultFieldName, object.toHashtable(depth, 0, false, tdObserver));
+				result.put(RPCConstantsAndServices.ResultFieldName, object.toHashtable(depth, 0, false));
 				result.put(RPCConstantsAndServices.RootFieldName, ((PersistentProxiInterface)object).createProxiInformation(false, true));
 			} catch (PersistenceException e) {
 				return createExceptionResult(e);
@@ -101,12 +100,12 @@ public abstract class RemoteServerMaster implements TDObserver {
 		result.put(RPCConstantsAndServices.ExceptionNumberFieldName, new Integer(exception.getErrorNumber()));
 		return result;
 	}
-	protected static HashMap<String,Object> createExceptionResult(UserException exception, TDObserver tdObserver){
+	protected static HashMap<String,Object> createExceptionResult(UserException exception){
 		HashMap<String,Object> result = new HashMap<String,Object>();
 		result.put(RPCConstantsAndServices.OKOrNotOKResultFieldName, new Boolean(false));
 		result.put(RPCConstantsAndServices.ErrorNumberFieldName, new Integer((int)exception.getClassId()));
 		try {
-			result.put(RPCConstantsAndServices.ResultFieldName, exception.toHashtable(null, 1, 0, false, true, tdObserver));
+			result.put(RPCConstantsAndServices.ResultFieldName, exception.toHashtable(null, 1, 0, false, true, false));
 		}catch(PersistenceException pe){
 			return createExceptionResult(pe);
 		}
@@ -124,8 +123,6 @@ public abstract class RemoteServerMaster implements TDObserver {
 		this.connectionName = connectionName;
 		this.userName = userName;
 		this.lastUsedDate = new Date();
-		this.tdObserver = new java.util.HashMap<AbstractPersistentRoot, java.util.HashMap<String, Object>>();
-		this.tdObserver4Operation = new java.util.HashMap<Vector<Object>, Object>();
 	}
 
 	public boolean isDown(){
@@ -133,26 +130,6 @@ public abstract class RemoteServerMaster implements TDObserver {
 	}
 	public void setDown(String until){
 		this.downTimeUntil = until;
-	}
-
-	private java.util.HashMap<AbstractPersistentRoot, java.util.HashMap<String, Object>> tdObserver;
-	private java.util.HashMap<java.util.Vector<Object>, Object> tdObserver4Operation;
-
-	@Override
-	public void updateTransientDerived(java.util.Vector<Object> operationIndex, Object object) throws PersistenceException {
-		if (object == null || operationIndex == null) return;
-		this.tdObserver4Operation.put(operationIndex, object);    	
-    }
-
-	@Override
-	public void updateTransientDerived(AbstractPersistentRoot objectIndex, String fieldIndex, Object object) throws PersistenceException {
-		if (object == null || objectIndex == null || fieldIndex == null) return;
-		java.util.HashMap<String, Object> objectTable = this.tdObserver.get(objectIndex);
-		if (objectTable == null) {
-			objectTable = new java.util.HashMap<String, Object>();
-			this.tdObserver.put(objectIndex, objectTable);
-		}
-		objectTable.put(fieldIndex, object);
 	}
 
 	abstract protected Remote getServer();
@@ -198,19 +175,32 @@ public abstract class RemoteServerMaster implements TDObserver {
 			ProxiInformation proxiInformation = RPCConstantsAndServices.createProxiInformation(proxiInfo);
 			PersistentProxiInterface proxi = PersistentProxi.createProxi(proxiInformation);
 			this.authorise(proxi);
-			HashMap<String, Object> result = proxi.toHashtable(depth, 0, forGUI, this);
+			HashMap<String, Object> result = proxi.toHashtable(depth, 0, forGUI);
 			for (String currentContextInfo : context) {
 				ProxiInformation currentProxiInformation = RPCConstantsAndServices.createProxiInformation(currentContextInfo);
 				PersistentProxiInterface currentProxi = PersistentProxi.createProxi(currentProxiInformation);
 				this.authorise(currentProxi);
-				currentProxi.toHashtable(result, new Integer(currentProxiInformation.getToString()), 0, forGUI, true, this);
+				try {
+					currentProxi.toHashtable(result, new Integer(currentProxiInformation.getToString()), 0, forGUI, true, false);
+				} catch (PersistenceException pe) {
+					if (!forGUI) throw pe;
+				}
 			}
-			if (RPCConstantsAndServices.test) System.out.println("Show: " + ((HashMap<String,Object>)result.get(RPCConstantsAndServices.createHashtableKey(proxiInformation.getClassId(), proxiInformation.getObjectId()))).get(RPCConstantsAndServices.RPCToStringFieldName));
+			if (RPCConstantsAndServices.test) {
+				if (result != null) 
+					System.out.println("Show: " 
+									   + ((HashMap<String,Object>)result.get(RPCConstantsAndServices.createHashtableKey(proxiInformation.getClassId(), proxiInformation.getObjectId()))).get(RPCConstantsAndServices.RPCToStringFieldName)
+									   + " --- Number of retrieved objects: "
+									   + result.size());
+				else System.out.println("Show: " + proxiInfo + " (not available on server!)");
+			}
 			if (result == null) return createExceptionResult(new PersistenceException(RPCConstantsAndServices.ObjectNotAvailableErrorMessage, RPCConstantsAndServices.ObjectNotAvailableErrorNo));
 			this.removeNullEntries(result);
 			return createOKResult(result);
 		}catch(PersistenceException pe){
-			return createExceptionResult(pe);
+			if (RPCConstantsAndServices.test) System.out.println("Show: " + proxiInfo + " (not available on server!)");
+			if (!forGUI) return createExceptionResult(pe);
+			else return createExceptionResult(new PersistenceException(RPCConstantsAndServices.ObjectNotAvailableErrorMessage, RPCConstantsAndServices.ObjectNotAvailableErrorNo));
 		}
 	}
 

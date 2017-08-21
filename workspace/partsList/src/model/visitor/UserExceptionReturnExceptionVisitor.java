@@ -1,6 +1,5 @@
 
 package model.visitor;
-
 import persistence.*;
 
 public interface UserExceptionReturnExceptionVisitor<R, E extends model.UserException> {

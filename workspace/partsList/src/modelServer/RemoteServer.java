@@ -78,7 +78,7 @@ public  class RemoteServer extends RemoteServerMaster {
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
         }catch(model.PartsListException e0){
-            return createExceptionResult(e0, this);
+            return createExceptionResult(e0);
         }
     }
     
@@ -90,7 +90,7 @@ public  class RemoteServer extends RemoteServerMaster {
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
         }catch(model.PartsListException e0){
-            return createExceptionResult(e0, this);
+            return createExceptionResult(e0);
         }
     }
     

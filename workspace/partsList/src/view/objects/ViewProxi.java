@@ -128,12 +128,16 @@ public abstract class ViewProxi extends ViewRoot {
 		if (!expanded){
 			try {
 				this.getRemote(new java.util.Vector<ViewRoot>(), true);
+				this.expanded = true;
 			} catch (ModelException e) {
-				this.setToString(e.getMessage());
-				return !(e.getMessage().equals(RPCConstantsAndServices.ObjectNotAvailableErrorMessage) &&
-						 e.getErrorNumber() == RPCConstantsAndServices.ObjectNotAvailableErrorNo);
+				if (e.getErrorNumber() == RPCConstantsAndServices.ObjectNotAvailableErrorNo && this.object != null){
+					this.expanded = true;
+					return true;
+				} else {
+					this.setToString(e.getMessage());
+					return false;
+				}
 			}
-			this.expanded = true;
 		}
 		return true;
 	}

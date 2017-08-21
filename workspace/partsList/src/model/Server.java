@@ -62,23 +62,26 @@ public class Server extends PersistentObject implements PersistentServer{
         return result;
     }
     
-    public java.util.HashMap<String,Object> toHashtable(java.util.HashMap<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
-    java.util.HashMap<String,Object> result = null;
+    @SuppressWarnings("unchecked")
+    public java.util.HashMap<String,Object> toHashtable(java.util.HashMap<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, boolean inDerived) throws PersistenceException {
+        java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
-            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
+            if (leaf){
+                result = (java.util.HashMap<String,Object>)allResults.get(uniqueKey);
+                if (result != null) return result;
+            }
+            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, inDerived);
+            if (leaf) allResults.put(uniqueKey, result);
             AbstractPersistentRoot manager = (AbstractPersistentRoot)this.getManager();
             if (manager != null) {
-                result.put("manager", manager.createProxiInformation(false, essentialLevel <= 1));
-                if(depth > 1) {
-                    manager.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && manager.hasEssentialFields())manager.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    manager, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
+                result.put("manager", proxiInformation);
+                
             }
-            result.put("errors", this.getErrors().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
+            result.put("errors", this.getErrors().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, true, false));
             result.put("user", this.getUser());
-            String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
-            if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
         }
         return result;
     }

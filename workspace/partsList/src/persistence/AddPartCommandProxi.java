@@ -42,10 +42,10 @@ public class AddPartCommandProxi extends PersistentProxi implements PersistentAd
     public void setCommandReceiver(Product4Public newValue) throws PersistenceException {
         ((PersistentAddPartCommand)this.getTheObject()).setCommandReceiver(newValue);
     }
-    public CommonDate4Public getMyCommonDate() throws PersistenceException {
+    public PersistentCommonDate getMyCommonDate() throws PersistenceException {
         return ((PersistentAddPartCommand)this.getTheObject()).getMyCommonDate();
     }
-    public void setMyCommonDate(CommonDate4Public newValue) throws PersistenceException {
+    public void setMyCommonDate(PersistentCommonDate newValue) throws PersistenceException {
         ((PersistentAddPartCommand)this.getTheObject()).setMyCommonDate(newValue);
     }
     public java.sql.Date getCreateDate() throws PersistenceException {

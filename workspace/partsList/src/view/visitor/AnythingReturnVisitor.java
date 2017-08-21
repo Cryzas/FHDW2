@@ -1,6 +1,5 @@
 
 package view.visitor;
-
 import view.*;
 
 public interface AnythingReturnVisitor<R> extends ComponentReturnVisitor<R> {

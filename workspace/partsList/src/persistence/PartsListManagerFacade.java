@@ -129,6 +129,17 @@ public class PartsListManagerFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
+    public void currentComponentsRemEntr(long currentComponentsId) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".PrtsLstMngrFacade.currCompsRemEntr(?); end;");
+            callable.setLong(1, currentComponentsId);
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
     public PersistentComponent currentComponentsGet(long PartsListManagerId, String indxxVal) throws PersistenceException {
         try{
             CallableStatement callable;
@@ -147,7 +158,7 @@ public class PartsListManagerFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public ComponentSearchList currentComponentsGetValues(long PartsListManagerId) throws PersistenceException {
+    public java.util.Hashtable<String,Component4Public> currentComponentsGetValues(long PartsListManagerId) throws PersistenceException {
         try{
             CallableStatement callable;
             callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".PrtsLstMngrFacade.currCompsGetValues(?); end;");
@@ -155,9 +166,11 @@ public class PartsListManagerFacade{
             callable.setLong(2, PartsListManagerId);
             callable.execute();
             ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
-            ComponentSearchList result = new ComponentSearchList();
+            java.util.Hashtable<String,Component4Public> result = new java.util.Hashtable<String,Component4Public>();
             while (list.next()) {
-                result.add((PersistentComponent)PersistentProxi.createListEntryProxi(list.getLong(1), list.getLong(2), list.getLong(3)));
+                Component4Public value = (Component4Public)PersistentProxi.createListEntryProxi(list.getLong(1), list.getLong(2), list.getLong(3));
+                String key = list.getString(4);
+                result.put(key,value);
             }
             list.close();
             callable.close();

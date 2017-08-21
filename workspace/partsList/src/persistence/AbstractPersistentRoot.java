@@ -14,8 +14,8 @@ public interface AbstractPersistentRoot {
   public boolean isDelayed$Persistence() throws PersistenceException; 
   public void store() throws PersistenceException;
   
-  public HashMap<String, Object> toHashtable(int depth, int essentialLevel, boolean forGUI, TDObserver tdObserver)throws PersistenceException;
-  public HashMap<String, Object> toHashtable(HashMap<String, Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver)throws PersistenceException;
+  public HashMap<String, Object> toHashtable(int depth, int essentialLevel, boolean forGUI)throws PersistenceException;
+  public HashMap<String, Object> toHashtable(HashMap<String, Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, boolean inDerived)throws PersistenceException;
  
   abstract boolean hasEssentialFields() throws PersistenceException;
   abstract public String toString(boolean inner) throws PersistenceException;

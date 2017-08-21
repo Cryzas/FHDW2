@@ -1,6 +1,5 @@
 
 package model.visitor;
-
 import persistence.*;
 
 public interface AnythingReturnVisitor<R> extends CommonDateReturnVisitor<R> ,ComponentReturnVisitor<R> {

@@ -23,29 +23,41 @@ server Server {
 																									/* Manager Klassen */
 class ProgramManager {
 	public Program ** programs;
+/* Programm erstellen -> Attribute: name */
 	active void createProgram(String name) throws AlreadyExistsInParentException;
+/* Modul zum Programm hinzufügen -> Attribute: program, module */
 	active void addModuleToProg(Program program, ModuleAbstract module) throws CycleException, AlreadyExistsInParentException;
 }
 
 class ModuleManager {
 	public ModuleAbstract ** modules;
+/* Modul erstellen -> Attribute: type, name */
 	active void createModule(ModuleAbstractSUBTYPEName type, String name) throws AlreadyExistsInParentException;
+/* Modul zu einer Gruppe hinzufügen -> Attribute: group, module */
 	active void addModuleToGroup(ModuleGroup group, ModuleAbstract module) throws CycleException, AlreadyExistsInParentException;
+/* Unit hinzufügen -> Attribute: module, name, creditPoints */
 	active void addUnit(ModuleWithUnits module, String name, Fraction creditPoints) throws CycleException, AlreadyExistsInParentException;
+/* Credit Points einer Unit verändern -> Attribute: unit, creditPoints */
 	active void changeCPOnUnit(Unit unit, Fraction creditPoints);
+/* Credit Points eines Modul verändern -> Attribute: module, creditPoints */
 	active void changeCPOnModule(ModuleAtomar module, Fraction creditPoints);
+/* Notensystem verändern -> Attribute: module, gradeSystem */
 	active void changeGradeSystem (ModuleAtomar module, GradeSystemSUBTYPEName gradeSystem) throws invalidGradeSysteException;
 }
 
 class StudyGroupManager {
 	public StudyGroup ** groups;
+/* Eine neue Studiengruppe eröffnen -> Attribute: program, name */
 	active void startStudyGroup(Program program, String name) throws UserException;	
+/* Credit Points zwischen zwei Unit verschieben -> Attribute: module, fromUnit, toUnit, creditPoints */
 	active void swapCPonModuleWithUnits ## sCPonMWU(ModuleWithUnitsSGroup module, UnitSGroup fromUnit, UnitSGroup ToUnit, Fraction creditPoints) throws UnitSwapException;
 }
 
 class StudentManager {
 	public Student ** students;
+/* Student erstellen -> Attribute: firstName, lastName, birthDate */
 	active void createStudent (String firstName, String lastName, Date birthDate);
+/* Student zu einer Studiengruppe zuordnen -> Attribute: group, student */
 	active void addStudentToGroup ## add_S2G (StudyGroup group, Student student) throws UserException;
 }
 

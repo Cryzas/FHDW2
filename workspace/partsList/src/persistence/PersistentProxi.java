@@ -232,15 +232,15 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
 			this.object = (PersistentInCacheProxi)object;
 	}
 
-	public HashMap<String,Object> toHashtable(int depth, int essentialLevel, boolean forGUI, TDObserver tdObserver) throws PersistenceException {
+	public HashMap<String,Object> toHashtable(int depth, int essentialLevel, boolean forGUI) throws PersistenceException {
 		PersistentRoot iCRroxi = this.getTheObject();
 		if (iCRroxi == null) return null;
-		return iCRroxi.toHashtable(depth, essentialLevel, forGUI, tdObserver);
+		return iCRroxi.toHashtable(depth, essentialLevel, forGUI);
 	}
-	public HashMap<String, Object> toHashtable(HashMap<String, Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
+	public HashMap<String, Object> toHashtable(HashMap<String, Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, boolean inDerived) throws PersistenceException {
 		PersistentRoot iCRroxi = this.getTheObject();
 		if (iCRroxi == null) return null;
-		return iCRroxi.toHashtable(allResults, depth, essentialLevel, forGUI, leaf, tdObserver);
+		return iCRroxi.toHashtable(allResults, depth, essentialLevel, forGUI, leaf, inDerived);
 	}
 
 	public PersistentRoot getTheObject() throws PersistenceException {

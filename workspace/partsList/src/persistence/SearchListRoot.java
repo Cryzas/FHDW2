@@ -40,8 +40,7 @@ public abstract class SearchListRoot<T extends AbstractPersistentRoot> {
 		}
 	}
 	public void addUnique (T entry) throws PersistenceException, UserException {
-		if (this.getData().contains(entry)) return;
-		this.getData().add(entry);
+		if (!this.getData().contains(entry)) this.getData().add(entry);
 	}
 	public void addUnique(SearchListRoot<? extends T> list) throws PersistenceException, UserException {
 		java.util.Iterator<? extends T> entries = list.iterator();
@@ -233,24 +232,49 @@ public abstract class SearchListRoot<T extends AbstractPersistentRoot> {
 		}
 		return result;
 	}
-	public Vector<String> getVector(int depth, int essentialLevel, boolean forGUI, TDObserver tdObserver, boolean asLeaf, boolean withLeafInfo) throws PersistenceException{
-		return this.getVector(new HashMap<String, Object>(), depth, essentialLevel, forGUI, tdObserver, asLeaf, withLeafInfo);
+	public Vector<String> getVector(int depth, int essentialLevel, boolean forGUI, boolean asLeaf, boolean withLeafInfo) throws PersistenceException{
+		return this.getVector(new HashMap<String, Object>(), depth, essentialLevel, forGUI, asLeaf, withLeafInfo, false, false, false);
 	}
-	public Vector<String> getVector(java.util.HashMap<String, Object> allResults, int depth, int essentialLevel, boolean forGUI, TDObserver tdObserver, boolean asLeaf, boolean withLeafInfo) throws PersistenceException {
+	public Vector<String> getVector(java.util.HashMap<String, Object> allResults, int depth, 
+																				  int essentialLevel, 
+																				  boolean forGUI, 
+																				  boolean asLeaf, 
+																				  boolean withLeafInfo,
+																				  boolean forDerived,
+																				  boolean forTransient,
+																				  boolean forEssential) throws PersistenceException {
 		Vector<String> result = new Vector<String>();
 		Iterator<T> entries = this.iterator();
 		while (entries.hasNext()){
 			T current = entries.next();
-			if (!asLeaf && depth > 1){
-				current.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true, tdObserver);
-			}else{
-				if (forGUI && current.hasEssentialFields())
-					current.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-			}
-			result.add(current.createProxiInformation(asLeaf, withLeafInfo));
+			String proxiInformation = calculateProxiInfoAndRecursiveGet(
+					current, allResults, depth, essentialLevel, forGUI, asLeaf, withLeafInfo, 
+					forDerived, forTransient, forEssential);
+			result.add(proxiInformation);
 		}
 		return result;
 	}
+
+	static public <T extends AbstractPersistentRoot> String calculateProxiInfoAndRecursiveGet(T objct, java.util.HashMap<String, Object> allResults, 
+													 int depth, int essentialLevel, boolean forGUI, boolean asLeaf, boolean withLeafInfo, 
+													 boolean forDerived, boolean forTransient, boolean forEssential) throws PersistenceException {
+		int nextDepth = depth;
+		int nextEssentialLevel = essentialLevel;
+		boolean nextInDerived = false;
+		if (forDerived && (forTransient || objct.isDelayed$Persistence())){
+			nextInDerived = true;
+		} else {
+			if (forEssential || (forGUI && objct.hasEssentialFields())){
+				nextEssentialLevel = nextEssentialLevel + 1;
+			} else {
+				nextDepth = nextDepth - 1;
+			}
+		}
+		objct.toHashtable(allResults, nextDepth, nextEssentialLevel, forGUI, true, nextInDerived);
+		String proxiInformation = objct.createProxiInformation(asLeaf, withLeafInfo);
+		return proxiInformation;
+	}
+
 
 	/*@SuppressWarnings("unchecked")
 	public Vector<HashMap> getVector(int depth) throws PersistenceException {

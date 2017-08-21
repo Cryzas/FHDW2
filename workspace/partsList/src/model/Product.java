@@ -50,30 +50,31 @@ public class Product extends model.Component implements PersistentProduct{
         return result;
     }
     
-    public java.util.HashMap<String,Object> toHashtable(java.util.HashMap<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
-    java.util.HashMap<String,Object> result = null;
+    @SuppressWarnings("unchecked")
+    public java.util.HashMap<String,Object> toHashtable(java.util.HashMap<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, boolean inDerived) throws PersistenceException {
+        java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
-            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
+            if (leaf){
+                result = (java.util.HashMap<String,Object>)allResults.get(uniqueKey);
+                if (result != null) return result;
+            }
+            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, inDerived);
+            if (leaf) allResults.put(uniqueKey, result);
             AbstractPersistentRoot components = (AbstractPersistentRoot)this.getComponents();
             if (components != null) {
-                result.put("components", components.createProxiInformation(false, essentialLevel <= 1));
-                if(depth > 1) {
-                    components.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && components.hasEssentialFields())components.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    components, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
+                result.put("components", proxiInformation);
+                
             }
             AbstractPersistentRoot materials = (AbstractPersistentRoot)this.getMaterials();
             if (materials != null) {
-                result.put("materials", materials.createProxiInformation(false, essentialLevel <= 1));
-                if(depth > 1) {
-                    materials.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && materials.hasEssentialFields())materials.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    materials, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, true, false, false);
+                result.put("materials", proxiInformation);
+                
             }
-            String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
-            if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
         }
         return result;
     }

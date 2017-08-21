@@ -30,7 +30,7 @@ public class CreateProductCommand extends PersistentObject implements Persistent
             result = ConnectionHandler.getTheConnectionHandler().theCreateProductCommandFacade
                 .newCreateProductCommand(name,price,-1);
         }
-        ((PersistentCreateProductCommand)result).setMyCommonDate(CommonDate.createCommonDate(createDate, createDate));
+        ((PersistentCreateProductCommand)result).setMyCommonDate((PersistentCommonDate)CommonDate.createCommonDate(createDate, createDate));
         return result;
     }
     
@@ -126,10 +126,10 @@ public class CreateProductCommand extends PersistentObject implements Persistent
             ConnectionHandler.getTheConnectionHandler().theCreateProductCommandFacade.commandReceiverSet(this.getId(), newValue);
         }
     }
-    public CommonDate4Public getMyCommonDate() throws PersistenceException {
+    public PersistentCommonDate getMyCommonDate() throws PersistenceException {
         return this.myCommonDate;
     }
-    public void setMyCommonDate(CommonDate4Public newValue) throws PersistenceException {
+    public void setMyCommonDate(PersistentCommonDate newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.myCommonDate)) return;
         long objectId = newValue.getId();

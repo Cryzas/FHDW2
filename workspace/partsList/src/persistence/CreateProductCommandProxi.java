@@ -42,10 +42,10 @@ public class CreateProductCommandProxi extends PersistentProxi implements Persis
     public void setCommandReceiver(PartsListManager4Public newValue) throws PersistenceException {
         ((PersistentCreateProductCommand)this.getTheObject()).setCommandReceiver(newValue);
     }
-    public CommonDate4Public getMyCommonDate() throws PersistenceException {
+    public PersistentCommonDate getMyCommonDate() throws PersistenceException {
         return ((PersistentCreateProductCommand)this.getTheObject()).getMyCommonDate();
     }
-    public void setMyCommonDate(CommonDate4Public newValue) throws PersistenceException {
+    public void setMyCommonDate(PersistentCommonDate newValue) throws PersistenceException {
         ((PersistentCreateProductCommand)this.getTheObject()).setMyCommonDate(newValue);
     }
     public java.sql.Date getCreateDate() throws PersistenceException {

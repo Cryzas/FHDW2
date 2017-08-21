@@ -46,10 +46,10 @@ public class CreateMaterialCommandICProxi extends PersistentInCacheProxi impleme
     public void setCommandReceiver(PartsListManager4Public newValue) throws PersistenceException {
         ((PersistentCreateMaterialCommand)this.getTheObject()).setCommandReceiver(newValue);
     }
-    public CommonDate4Public getMyCommonDate() throws PersistenceException {
+    public PersistentCommonDate getMyCommonDate() throws PersistenceException {
         return ((PersistentCreateMaterialCommand)this.getTheObject()).getMyCommonDate();
     }
-    public void setMyCommonDate(CommonDate4Public newValue) throws PersistenceException {
+    public void setMyCommonDate(PersistentCommonDate newValue) throws PersistenceException {
         ((PersistentCreateMaterialCommand)this.getTheObject()).setMyCommonDate(newValue);
     }
     public java.sql.Date getCreateDate() throws PersistenceException {
