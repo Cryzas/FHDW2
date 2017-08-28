@@ -64,11 +64,17 @@ class StudentManager {
 																			/* Aufbau eines Studienprogramms */
 hierarchy programHierarchy;
 
+/** Program stellt das Studienprogramm dar, für das sich ein Student anmelden kann */
 class Program {
+	/* Initialisiert das abstrakte Modul mit Unterklassen */
 	public ModuleAbstract ** modules hierarchy programHierarchy;
+	/* Initialisiert den Namen als Attribut des Studienprogramms */
 	public prior indexed String name;
+	/* Initialisiert die Gesamtmenge der creditPoints als Attribut des Studienprogramms und wird als derived attribute aus den Attributen der Module errechnet. */
 	public derived Fraction creditPoints;
+	/* Initialisiert das Notensystem als Attribut des Studienprogramms */
 	public no-view GradeSystem gradeSystem;
+	/* Ermöglicht das Hinzufügen von Modulen und Modulgruppen zu einem Studienprogramm. Wirft eine Exception, falls Modul/Modulgruppe bereits in Studienprogramm vorhanden ist. */
 	void addModule(ModuleAbstract module) throws CycleException, AlreadyExistsInParentException;
 	ProgramSGroup copyForStudyGroup() throws UserException;
 }
@@ -87,12 +93,13 @@ abstract string-factory class ModuleAbstract {
 /** Definiert die Modul-Gruppe als Erweiterung des abstrakten Moduls */
 class ModuleGroup @@ Gruppe extends ModuleAbstract {
 	public ModuleAbstract ** modules hierarchy programHierarchy;
-	/* Ermöglicht das Hinzufügen von Modulen zur jeweiligen Modul-Gruppe. Wirft Exception, falls Modul bereits in Modulgruppe vorhanden ist. */
+	/* Ermöglicht das Hinzufügen von Modulen zur jeweiligen Modul-Gruppe. Wirft Exception, falls Modul mit identischem Namen bereits in Modulgruppe vorhanden ist. */
 	void addModule(ModuleAbstract module) throws CycleException, AlreadyExistsInParentException;
 }
 
 /** Definiert das atomare Modul als Erweiterung des abstrakten Moduls. Das atomare Modul hat selbst keine Units. */
 class ModuleAtomar @@ Atomar extends ModuleAbstract {
+	/* Initialisiert die Anzahl an Creditpoints als Attribut des atomaren Moduls */
 	Fraction ownCreditPoints;
 	/* Ermöglicht das Ändern der Creditpoints, welche durch das erfolgreiche Absolvieren des Moduls erreicht werden können */
 	void changeCPOnModule(Fraction creditPoints);
@@ -100,15 +107,22 @@ class ModuleAtomar @@ Atomar extends ModuleAbstract {
 	void changeGradeSystem (GradeSystem gradeSystem);
 }
 
+/** Definiert das Modul, welches sich aus Units zusammensetzt, als Erweiterung des abstrakten Moduls */
 class ModuleWithUnits @@ Mit_Units extends ModuleAbstract {
 	public Unit ** units hierarchy programHierarchy;
+	/* Ermöglicht das Hinzufügen von Unit zu ModuleWithUnits und erwartet Name & creditPoints. Wirft eine Exception, falls Unit mit identischem Name bereits in Modul vorhanden ist. */
 	void addUnit(String name, Fraction creditPoints) throws CycleException, AlreadyExistsInParentException;
 }
 
+/** Definiert die Unit, welche als Teilleistungen in ModuleWithUnits eingebunden werden */
 class Unit {
+	/* Initialisiert den Namen als Attribut der Unit */
 	public prior String name;
+	/* Initialisiert die creditPoints als Attribut der Unit */
 	public prior Fraction creditPoints;
+	/* Initialisiert das Notensystem als Attribut der Unit */
 	public no-view GradeSystem gradeSystem;
+	/* Ermöglicht das Ändern der CreditPoints, welche durch das absolvieren der Unit erreicht werden können */
 	void changeCPOnUnit(Fraction creditPoints);
 	UnitSGroup copyForStudyGroup() throws UserException;
 }
@@ -175,7 +189,7 @@ class Student {
 	public prior Date birthDate;
 	/* Initialisiert die Matrikelnummer als Attribut des Studenten */
 	public derived Integer matrNr;
-	/* Authorisiert ProgramStudent das Objekt Student mit Schreibzugriff */
+	/* Authorisiert ProgramStudent das Objekt Student mit Schreibzugriff */																																																// <- Ist das korrekt?
 	public-write ProgramStudent program;
 }
 
