@@ -73,21 +73,30 @@ class Program {
 	ProgramSGroup copyForStudyGroup() throws UserException;
 }
 
+/** Definiert das abstrakte Modul mit den Kernattributen, welche an die Children weitervererbt werden. Attribute: name, creditPoints, gradeSystem */
 abstract string-factory class ModuleAbstract {
+	/* Initialisiert den Namen als Attribut des abstrakten Moduls */
 	public prior indexed String name;
+	/* Initialisiert die Anzahl an CreditPoints als Attribut des abstrakten Moduls */
 	public abstract derived Fraction creditPoints;
+	/* Initialisiert die Wahl des Notensystems als Attribut des abstrakten Moduls */
 	public no-view GradeSystem gradeSystem;
 	abstract ModuleAbstractSGroup copyForStudyGroup() throws UserException;
 }
 
+/** Definiert die Modul-Gruppe als Erweiterung des abstrakten Moduls */
 class ModuleGroup @@ Gruppe extends ModuleAbstract {
 	public ModuleAbstract ** modules hierarchy programHierarchy;
+	/* Ermöglicht das Hinzufügen von Modulen zur jeweiligen Modul-Gruppe. Wirft Exception, falls Modul bereits in Modulgruppe vorhanden ist. */
 	void addModule(ModuleAbstract module) throws CycleException, AlreadyExistsInParentException;
 }
 
+/** Definiert das atomare Modul als Erweiterung des abstrakten Moduls. Das atomare Modul hat selbst keine Units. */
 class ModuleAtomar @@ Atomar extends ModuleAbstract {
 	Fraction ownCreditPoints;
+	/* Ermöglicht das Ändern der Creditpoints, welche durch das erfolgreiche Absolvieren des Moduls erreicht werden können */
 	void changeCPOnModule(Fraction creditPoints);
+	/* Ermöglicht das Ändern des Notensystems, nach welchem das Modul bewertet wird */
 	void changeGradeSystem (GradeSystem gradeSystem);
 }
 
@@ -154,12 +163,19 @@ class UnitSGroup {
 }
 
 
-																			/* Aufbau der Studenten */
+		
+																	/* Aufbau der Studenten */
+/** Initialisiert das Objekt Student und die dazugehörigen Attribute des Studenten */
 class Student {
+	/* Initialisiert den Vornamen als Attribut des Studenten */
 	public prior String firstName;
+	/* Initialisiert den Nachnamen als Attribut des Studenten */	
 	public prior String lastName;
+	/* Initialisiert das Geburtsdatum als Attribut des Studenten */
 	public prior Date birthDate;
+	/* Initialisiert die Matrikelnummer als Attribut des Studenten */
 	public derived Integer matrNr;
+	/* Authorisiert ProgramStudent das Objekt Student mit Schreibzugriff */
 	public-write ProgramStudent program;
 }
 
@@ -200,11 +216,13 @@ class UnitStudent {
 
 																																			/* Noten */
 
+/** Definiert das Notensystem mit den vordefinierten Notensystemarten */
 abstract string-factory class GradeSystem (TenthGrade @@ Zehntelnoten, ThirdGrade @@ Drittelnoten, SimpleGrade @@ Einfach) { }
 
 																												/* Exceptions */
 exception UnitSwapException{}
 exception AlreadyExistsInParentException{}
+/** Exception wird geworfen, wenn bei Erstellung oder Modifizierung des Moduls/der Unit ein nicht vorgesehenes Notensystem gewählt wird */
 exception invalidGradeSysteException{}
 
 }
