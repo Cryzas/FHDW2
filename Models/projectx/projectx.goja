@@ -5,18 +5,31 @@ server Server {
 	public ModuleManager moduleManager;
 	public StudyGroupManager groupManager;
 	public StudentManager studentManager;
+/* Programm erstellen -> Attribute: name */
 	void createProgram @@ Programm_erstellen (String name);
+/* Fehler aus dem Error-Screen entfernen -> Attribute: error */
 	void removeError @@ Error_entfernen (ErrorDisplay error);
+/* Modul zum jeweiligen Programm hinzufügen -> Attribute: program, module */
 	void addModuleToProg @@ Modul_hinzufügen (Program program, ModuleAbstract module {moduleManager;modules});
+/* Modul zur jeweiligen Gruppe hinzufügen -> Attribute: Modulgruppe group, module */
 	void addModuleToGroup @@ Modul_hinzufügen (ModuleGroup group, ModuleAbstract module {moduleManager;modules});
+/* Modul erstellen -> Attibute: Modulart type, name */
 	void createModule @@ Modul_erstellen (ModuleAbstractSUBTYPEName type, String name);
+/* Unit zu ModulMitUnits hinzufügen -> Attribute: Modulbezeichnung module, name, creditPoints */
 	void addUnit @@ Unit_hinzufügen (ModuleWithUnits module, String name, Fraction creditPoints);
+/* Menge der erreichbaren creditPoints der Unit ändern -> Attribute: Unitbezeichnung unit, creditPoints */
 	void changeCPOnUnit @@ CP_ändern (Unit unit, Fraction creditPoints);
+/* Menge der erreichbaren creditpoints des Moduls ändern -> Attribute: Modulbezeichnung module, creditPoints */
 	void changeCPOnModule @@ CP_ändern (ModuleAtomar module, Fraction creditPoints);
+/* Neue Studiengruppe eröffnen -> Attribute: program, name */
 	void startStudyGroup @@ Studiengruppe_eröffnen (Program program, String name);
+/* CreditPoints der einzelnen Units ändern, ohne die Gesamtmenge der CPs für das Modul zu verändern -> Attribute: module, fromUnit, ToUnit, creditPoints */
 	void swapCPonModuleWithUnits @@ CP_der_Units_ändern (ModuleWithUnitsSGroup module, UnitSGroup fromUnit @@ Von_Unit{;module;units}, UnitSGroup ToUnit @@ Zu_Unit{;module;units}, Fraction creditPoints);
+/* Anlegen eines neuen Studenten -> Attribute: firstName, lastName, birthDate */
 	void createStudent @@ Student_erstellen (String firstName, String lastName, Date birthDate);
+/* Studenten zu Studiengruppe hinzufügen -> Attribute: group, student */
 	void addStudentToGroup @@ Student_hinzufügen (StudyGroup group, Student student {studentManager;students});
+/* Gewähltes Notensystem ändern [Z.B. 1,0/1,3/...] -> Attribute: module, gradeSystem */
 	void changeGradeSystem @@ Notensystem_ändern (ModuleAtomar module, GradeSystemSUBTYPEName gradeSystem);
 }
 
