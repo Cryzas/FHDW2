@@ -28,12 +28,6 @@ public class ChangeGradeSystemCommandICProxi extends PersistentInCacheProxi impl
     public void setModule(ModuleAtomar4Public newValue) throws PersistenceException {
         ((PersistentChangeGradeSystemCommand)this.getTheObject()).setModule(newValue);
     }
-    public String getGradeSystem() throws PersistenceException {
-        return ((PersistentChangeGradeSystemCommand)this.getTheObject()).getGradeSystem();
-    }
-    public void setGradeSystem(String newValue) throws PersistenceException {
-        ((PersistentChangeGradeSystemCommand)this.getTheObject()).setGradeSystem(newValue);
-    }
     public Invoker getInvoker() throws PersistenceException {
         return ((PersistentChangeGradeSystemCommand)this.getTheObject()).getInvoker();
     }

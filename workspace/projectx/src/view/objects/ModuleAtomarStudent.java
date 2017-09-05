@@ -10,9 +10,9 @@ import view.visitor.*;
 public class ModuleAtomarStudent extends view.objects.ModuleAbstractStudent implements ModuleAtomarStudentView{
     
     
-    public ModuleAtomarStudent(String name,common.Fraction creditPoints,long id, long classId) {
+    public ModuleAtomarStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((String)name,(common.Fraction)creditPoints,id, classId);        
+        super((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,id, classId);        
     }
     
     static public long getTypeId() {
@@ -50,6 +50,10 @@ public class ModuleAtomarStudent extends view.objects.ModuleAbstractStudent impl
     }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
+        ModuleAbstractSGroupView moduleCopy = this.getModuleCopy();
+        if (moduleCopy != null) {
+            ((ViewProxi)moduleCopy).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(moduleCopy.getClassId(), moduleCopy.getId())));
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {

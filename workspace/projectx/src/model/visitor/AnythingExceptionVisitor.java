@@ -2,7 +2,7 @@
 package model.visitor;
 import persistence.*;
 
-public interface AnythingExceptionVisitor<E extends model.UserException> extends CommonDateExceptionVisitor<E>,GradeSystemExceptionVisitor<E>,ModuleAbstractExceptionVisitor<E>,ModuleAbstractSGroupExceptionVisitor<E>,ModuleAbstractStudentExceptionVisitor<E>{
+public interface AnythingExceptionVisitor<E extends model.UserException> extends CommonDateExceptionVisitor<E>,GradeSystemExceptionVisitor<E>,GradesInSimpleExceptionVisitor<E>,GradesInThirdExceptionVisitor<E>,ModuleAbstractExceptionVisitor<E>,ModuleAbstractSGroupExceptionVisitor<E>,ModuleAbstractStudentExceptionVisitor<E>{
     
     public void handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException, E;
     public void handleAddModuleToProgCommand(AddModuleToProgCommand4Public addModuleToProgCommand) throws PersistenceException, E;

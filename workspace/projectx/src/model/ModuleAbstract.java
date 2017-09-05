@@ -27,13 +27,6 @@ public abstract class ModuleAbstract extends PersistentObject implements Persist
             if (leaf) allResults.put(uniqueKey, result);
             result.put("name", this.getName());
             result.put("creditPoints", this.getCreditPoints().toString());
-            AbstractPersistentRoot gradeSystem = (AbstractPersistentRoot)this.getGradeSystem();
-            if (gradeSystem != null) {
-                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
-                    gradeSystem, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
-                result.put("gradeSystem", proxiInformation);
-                
-            }
         }
         return result;
     }
@@ -49,14 +42,12 @@ public abstract class ModuleAbstract extends PersistentObject implements Persist
         return false;
     }
     protected String name;
-    protected PersistentGradeSystem gradeSystem;
     protected PersistentModuleAbstract This;
     
-    public ModuleAbstract(String name,PersistentGradeSystem gradeSystem,PersistentModuleAbstract This,long id) throws PersistenceException {
+    public ModuleAbstract(String name,PersistentModuleAbstract This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
-        this.gradeSystem = gradeSystem;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -71,10 +62,6 @@ public abstract class ModuleAbstract extends PersistentObject implements Persist
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         super.store();
-        if(this.getGradeSystem() != null){
-            this.getGradeSystem().store();
-            ConnectionHandler.getTheConnectionHandler().theModuleAbstractFacade.gradeSystemSet(this.getId(), getGradeSystem());
-        }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theModuleAbstractFacade.ThisSet(this.getId(), getThis());
@@ -89,20 +76,6 @@ public abstract class ModuleAbstract extends PersistentObject implements Persist
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theModuleAbstractFacade.nameSet(this.getId(), newValue);
         this.name = newValue;
-    }
-    public GradeSystem4Public getGradeSystem() throws PersistenceException {
-        return this.gradeSystem;
-    }
-    public void setGradeSystem(GradeSystem4Public newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.gradeSystem)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.gradeSystem = (PersistentGradeSystem)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theModuleAbstractFacade.gradeSystemSet(this.getId(), newValue);
-        }
     }
     protected void setThis(PersistentModuleAbstract newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);

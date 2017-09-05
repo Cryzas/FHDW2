@@ -15,20 +15,19 @@ public class ChangeGradeSystemCommand extends PersistentObject implements Persis
         return (ChangeGradeSystemCommand4Public)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static ChangeGradeSystemCommand4Public createChangeGradeSystemCommand(String gradeSystem,java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
-        return createChangeGradeSystemCommand(gradeSystem,createDate,commitDate,false);
+    public static ChangeGradeSystemCommand4Public createChangeGradeSystemCommand(java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
+        return createChangeGradeSystemCommand(createDate,commitDate,false);
     }
     
-    public static ChangeGradeSystemCommand4Public createChangeGradeSystemCommand(String gradeSystem,java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
-        if (gradeSystem == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+    public static ChangeGradeSystemCommand4Public createChangeGradeSystemCommand(java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
         PersistentChangeGradeSystemCommand result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theChangeGradeSystemCommandFacade
-                .newDelayedChangeGradeSystemCommand(gradeSystem);
+                .newDelayedChangeGradeSystemCommand();
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theChangeGradeSystemCommandFacade
-                .newChangeGradeSystemCommand(gradeSystem,-1);
+                .newChangeGradeSystemCommand(-1);
         }
         ((PersistentChangeGradeSystemCommand)result).setMyCommonDate((PersistentCommonDate)CommonDate.createCommonDate(createDate, createDate));
         return result;
@@ -38,18 +37,16 @@ public class ChangeGradeSystemCommand extends PersistentObject implements Persis
         return true;
     }
     protected PersistentModuleAtomar module;
-    protected String gradeSystem;
     protected Invoker invoker;
     protected PersistentModuleManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public ChangeGradeSystemCommand(PersistentModuleAtomar module,String gradeSystem,Invoker invoker,PersistentModuleManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
+    public ChangeGradeSystemCommand(PersistentModuleAtomar module,Invoker invoker,PersistentModuleManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.module = module;
-        this.gradeSystem = gradeSystem;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
         this.myCommonDate = myCommonDate;        
@@ -66,7 +63,7 @@ public class ChangeGradeSystemCommand extends PersistentObject implements Persis
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         if (this.getClassId() == 211) ConnectionHandler.getTheConnectionHandler().theChangeGradeSystemCommandFacade
-            .newChangeGradeSystemCommand(gradeSystem,this.getId());
+            .newChangeGradeSystemCommand(this.getId());
         super.store();
         if(this.getModule() != null){
             this.getModule().store();
@@ -100,14 +97,6 @@ public class ChangeGradeSystemCommand extends PersistentObject implements Persis
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theChangeGradeSystemCommandFacade.moduleSet(this.getId(), newValue);
         }
-    }
-    public String getGradeSystem() throws PersistenceException {
-        return this.gradeSystem;
-    }
-    public void setGradeSystem(String newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theChangeGradeSystemCommandFacade.gradeSystemSet(this.getId(), newValue);
-        this.gradeSystem = newValue;
     }
     public Invoker getInvoker() throws PersistenceException {
         return this.invoker;
@@ -233,12 +222,8 @@ public class ChangeGradeSystemCommand extends PersistentObject implements Persis
     }
     public void execute() 
 				throws PersistenceException{
-        try{
-			this.commandReceiver.changeGradeSystem(this.getModule(), this.getGradeSystem());
-		}
-		catch(model.invalidGradeSysteException e){
-			this.commandException = e;
-		}
+        this.commandReceiver.changeGradeSystem(this.getModule());
+		
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{

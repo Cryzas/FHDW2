@@ -5,14 +5,11 @@ import view.*;
 
 public abstract class GradeSystemStandardVisitor implements GradeSystemVisitor {
     
-    public void handleSimpleGrade(SimpleGradeView simpleGrade) throws ModelException{
-        this.standardHandling(simpleGrade);
+    public void handleSimpleGradeSystem(SimpleGradeSystemView simpleGradeSystem) throws ModelException{
+        this.standardHandling(simpleGradeSystem);
     }
-    public void handleTenthGrade(TenthGradeView tenthGrade) throws ModelException{
-        this.standardHandling(tenthGrade);
-    }
-    public void handleThirdGrade(ThirdGradeView thirdGrade) throws ModelException{
-        this.standardHandling(thirdGrade);
+    public void handleThirdGradeSystem(ThirdGradeSystemView thirdGradeSystem) throws ModelException{
+        this.standardHandling(thirdGradeSystem);
     }
     protected abstract void standardHandling(GradeSystemView gradeSystem) throws ModelException;
 }

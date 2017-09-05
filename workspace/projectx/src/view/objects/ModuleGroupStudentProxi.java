@@ -13,11 +13,18 @@ public class ModuleGroupStudentProxi extends ModuleAbstractStudentProxi implemen
     
     @SuppressWarnings("unchecked")
     public ModuleGroupStudentView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
+        ViewProxi moduleCopy = null;
+        String moduleCopy$String = (String)resultTable.get("moduleCopy");
+        if (moduleCopy$String != null) {
+            common.ProxiInformation moduleCopy$Info = common.RPCConstantsAndServices.createProxiInformation(moduleCopy$String);
+            moduleCopy = view.objects.ViewProxi.createProxi(moduleCopy$Info,connectionKey);
+            moduleCopy.setToString(moduleCopy$Info.getToString());
+        }
         String name = (String)resultTable.get("name");
         common.Fraction creditPoints = common.Fraction.parse((String)resultTable.get("creditPoints"));
         java.util.Vector<String> modules_string = (java.util.Vector<String>)resultTable.get("modules");
         java.util.Vector<ModuleAbstractStudentView> modules = ViewProxi.getProxiVector(modules_string, connectionKey);
-        ModuleGroupStudentView result$$ = new ModuleGroupStudent((String)name,(common.Fraction)creditPoints,modules, this.getId(), this.getClassId());
+        ModuleGroupStudentView result$$ = new ModuleGroupStudent((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,modules, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }

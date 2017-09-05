@@ -5,6 +5,7 @@ public interface PersistentModuleAtomar extends PersistentModuleAbstract, Module
     
     public common.Fraction getOwnCreditPoints() throws PersistenceException ;
     public void setOwnCreditPoints(common.Fraction newValue) throws PersistenceException ;
+    public void setGradeSystem(GradeSystem4Public newValue) throws PersistenceException ;
     public PersistentModuleAtomar getThis() throws PersistenceException ;
     
     

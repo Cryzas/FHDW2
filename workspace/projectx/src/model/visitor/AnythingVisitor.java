@@ -2,7 +2,7 @@
 package model.visitor;
 import persistence.*;
 
-public interface AnythingVisitor extends CommonDateVisitor,GradeSystemVisitor,ModuleAbstractVisitor,ModuleAbstractSGroupVisitor,ModuleAbstractStudentVisitor{
+public interface AnythingVisitor extends CommonDateVisitor,GradeSystemVisitor,GradesInSimpleVisitor,GradesInThirdVisitor,ModuleAbstractVisitor,ModuleAbstractSGroupVisitor,ModuleAbstractStudentVisitor{
     
     public void handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException;
     public void handleAddModuleToProgCommand(AddModuleToProgCommand4Public addModuleToProgCommand) throws PersistenceException;

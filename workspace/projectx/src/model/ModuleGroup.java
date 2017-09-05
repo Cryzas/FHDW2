@@ -68,7 +68,6 @@ public class ModuleGroup extends model.ModuleAbstract implements PersistentModul
     public ModuleGroup provideCopy() throws PersistenceException{
         ModuleGroup result = this;
         result = new ModuleGroup(this.name, 
-                                 this.gradeSystem, 
                                  this.This, 
                                  this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -80,9 +79,9 @@ public class ModuleGroup extends model.ModuleAbstract implements PersistentModul
     }
     protected ModuleGroup_ModulesProxi modules;
     
-    public ModuleGroup(String name,PersistentGradeSystem gradeSystem,PersistentModuleAbstract This,long id) throws PersistenceException {
+    public ModuleGroup(String name,PersistentModuleAbstract This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((String)name,(PersistentGradeSystem)gradeSystem,(PersistentModuleAbstract)This,id);
+        super((String)name,(PersistentModuleAbstract)This,id);
         this.modules = new ModuleGroup_ModulesProxi(this);        
     }
     
@@ -213,7 +212,6 @@ public class ModuleGroup extends model.ModuleAbstract implements PersistentModul
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        getThis().setGradeSystem(TenthGrade.getTheTenthGrade());
     }
     
     

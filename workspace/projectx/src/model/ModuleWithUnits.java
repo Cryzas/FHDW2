@@ -68,7 +68,6 @@ public class ModuleWithUnits extends model.ModuleAbstract implements PersistentM
     public ModuleWithUnits provideCopy() throws PersistenceException{
         ModuleWithUnits result = this;
         result = new ModuleWithUnits(this.name, 
-                                     this.gradeSystem, 
                                      this.This, 
                                      this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -80,9 +79,9 @@ public class ModuleWithUnits extends model.ModuleAbstract implements PersistentM
     }
     protected ModuleWithUnits_UnitsProxi units;
     
-    public ModuleWithUnits(String name,PersistentGradeSystem gradeSystem,PersistentModuleAbstract This,long id) throws PersistenceException {
+    public ModuleWithUnits(String name,PersistentModuleAbstract This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((String)name,(PersistentGradeSystem)gradeSystem,(PersistentModuleAbstract)This,id);
+        super((String)name,(PersistentModuleAbstract)This,id);
         this.units = new ModuleWithUnits_UnitsProxi(this);        
     }
     
@@ -201,7 +200,6 @@ public class ModuleWithUnits extends model.ModuleAbstract implements PersistentM
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        
     }
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
@@ -214,7 +212,6 @@ public class ModuleWithUnits extends model.ModuleAbstract implements PersistentM
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         super.initializeOnInstantiation();
-        getThis().setGradeSystem(ThirdGrade.getTheThirdGrade());
     }
     
     

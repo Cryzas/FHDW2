@@ -4,8 +4,7 @@ import persistence.*;
 
 public interface GradeSystemReturnVisitor<R> {
     
-    public R handleSimpleGrade(SimpleGrade4Public simpleGrade) throws PersistenceException;
-    public R handleTenthGrade(TenthGrade4Public tenthGrade) throws PersistenceException;
-    public R handleThirdGrade(ThirdGrade4Public thirdGrade) throws PersistenceException;
+    public R handleSimpleGradeSystem(SimpleGradeSystem4Public simpleGradeSystem) throws PersistenceException;
+    public R handleThirdGradeSystem(ThirdGradeSystem4Public thirdGradeSystem) throws PersistenceException;
     
 }

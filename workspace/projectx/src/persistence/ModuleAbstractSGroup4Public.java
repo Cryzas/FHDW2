@@ -5,6 +5,7 @@ import model.visitor.*;
 
 public interface ModuleAbstractSGroup4Public extends programHierarchySGroupHIERARCHY, Anything, AbstractPersistentProxi {
     
+    public ModuleAbstract4Public getModuleCopy() throws PersistenceException ;
     
     public void accept(ModuleAbstractSGroupVisitor visitor) throws PersistenceException;
     public <R> R accept(ModuleAbstractSGroupReturnVisitor<R>  visitor) throws PersistenceException;

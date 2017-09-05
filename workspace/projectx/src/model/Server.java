@@ -428,9 +428,9 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
     	getThis().getModuleManager().changeCPOnUnit(unit, creditPoints, getThis());
     }
-    public void changeGradeSystem(final ModuleAtomar4Public module, final String gradeSystem) 
+    public void changeGradeSystem(final ModuleAtomar4Public module) 
 				throws PersistenceException{
-    	getThis().getModuleManager().changeGradeSystem(module, gradeSystem, getThis());
+    	getThis().getModuleManager().changeGradeSystem(module, getThis());
     }
     public void connected(final String user) 
 				throws PersistenceException{

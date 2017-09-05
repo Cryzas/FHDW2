@@ -10,11 +10,11 @@ import model.visitor.*;
 public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements PersistentModuleAtomarSGroup{
     
     
-    public static ModuleAtomarSGroup4Public createModuleAtomarSGroup(ModuleAbstract4Public moduleCopy,common.Fraction ownCreditPoints) throws PersistenceException{
-        return createModuleAtomarSGroup(moduleCopy,ownCreditPoints,false);
+    public static ModuleAtomarSGroup4Public createModuleAtomarSGroup(ModuleAbstract4Public moduleCopy,common.Fraction ownCreditPoints,GradeSystem4Public gradeSystem) throws PersistenceException{
+        return createModuleAtomarSGroup(moduleCopy,ownCreditPoints,gradeSystem,false);
     }
     
-    public static ModuleAtomarSGroup4Public createModuleAtomarSGroup(ModuleAbstract4Public moduleCopy,common.Fraction ownCreditPoints,boolean delayed$Persistence) throws PersistenceException {
+    public static ModuleAtomarSGroup4Public createModuleAtomarSGroup(ModuleAbstract4Public moduleCopy,common.Fraction ownCreditPoints,GradeSystem4Public gradeSystem,boolean delayed$Persistence) throws PersistenceException {
         PersistentModuleAtomarSGroup result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theModuleAtomarSGroupFacade
@@ -27,12 +27,13 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
         final$$Fields.put("moduleCopy", moduleCopy);
         final$$Fields.put("ownCreditPoints", ownCreditPoints);
+        final$$Fields.put("gradeSystem", gradeSystem);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static ModuleAtomarSGroup4Public createModuleAtomarSGroup(ModuleAbstract4Public moduleCopy,common.Fraction ownCreditPoints,boolean delayed$Persistence,ModuleAtomarSGroup4Public This) throws PersistenceException {
+    public static ModuleAtomarSGroup4Public createModuleAtomarSGroup(ModuleAbstract4Public moduleCopy,common.Fraction ownCreditPoints,GradeSystem4Public gradeSystem,boolean delayed$Persistence,ModuleAtomarSGroup4Public This) throws PersistenceException {
         PersistentModuleAtomarSGroup result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theModuleAtomarSGroupFacade
@@ -45,6 +46,7 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
         final$$Fields.put("moduleCopy", moduleCopy);
         final$$Fields.put("ownCreditPoints", ownCreditPoints);
+        final$$Fields.put("gradeSystem", gradeSystem);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -61,6 +63,13 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
             }
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, inDerived);
             if (leaf) allResults.put(uniqueKey, result);
+            AbstractPersistentRoot gradeSystem = (AbstractPersistentRoot)this.getGradeSystem();
+            if (gradeSystem != null) {
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    gradeSystem, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
+                result.put("gradeSystem", proxiInformation);
+                
+            }
         }
         return result;
     }
@@ -70,6 +79,7 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
         result = new ModuleAtomarSGroup(this.moduleCopy, 
                                         this.This, 
                                         this.ownCreditPoints, 
+                                        this.gradeSystem, 
                                         this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -79,11 +89,13 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
         return false;
     }
     protected common.Fraction ownCreditPoints;
+    protected PersistentGradeSystem gradeSystem;
     
-    public ModuleAtomarSGroup(PersistentModuleAbstract moduleCopy,PersistentModuleAbstractSGroup This,common.Fraction ownCreditPoints,long id) throws PersistenceException {
+    public ModuleAtomarSGroup(PersistentModuleAbstract moduleCopy,PersistentModuleAbstractSGroup This,common.Fraction ownCreditPoints,PersistentGradeSystem gradeSystem,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super((PersistentModuleAbstract)moduleCopy,(PersistentModuleAbstractSGroup)This,id);
-        this.ownCreditPoints = ownCreditPoints;        
+        this.ownCreditPoints = ownCreditPoints;
+        this.gradeSystem = gradeSystem;        
     }
     
     static public long getTypeId() {
@@ -99,6 +111,10 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
         if (this.getClassId() == 179) ConnectionHandler.getTheConnectionHandler().theModuleAtomarSGroupFacade
             .newModuleAtomarSGroup(ownCreditPoints,this.getId());
         super.store();
+        if(this.getGradeSystem() != null){
+            this.getGradeSystem().store();
+            ConnectionHandler.getTheConnectionHandler().theModuleAtomarSGroupFacade.gradeSystemSet(this.getId(), getGradeSystem());
+        }
         
     }
     
@@ -108,6 +124,20 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
     public void setOwnCreditPoints(common.Fraction newValue) throws PersistenceException {
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theModuleAtomarSGroupFacade.ownCreditPointsSet(this.getId(), newValue);
         this.ownCreditPoints = newValue;
+    }
+    public GradeSystem4Public getGradeSystem() throws PersistenceException {
+        return this.gradeSystem;
+    }
+    public void setGradeSystem(GradeSystem4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.gradeSystem)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.gradeSystem = (PersistentGradeSystem)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theModuleAtomarSGroupFacade.gradeSystemSet(this.getId(), newValue);
+        }
     }
     public PersistentModuleAtomarSGroup getThis() throws PersistenceException {
         if(this.This == null){
@@ -169,6 +199,7 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
 		if(this.isTheSameAs(This)){
 			this.setModuleCopy((PersistentModuleAbstract)final$$Fields.get("moduleCopy"));
 			this.setOwnCreditPoints((common.Fraction)final$$Fields.get("ownCreditPoints"));
+			this.setGradeSystem((PersistentGradeSystem)final$$Fields.get("gradeSystem"));
 		}
     }
     public <T> T strategyprogramHierarchySGroup(final programHierarchySGroupHIERARCHYStrategy<T> strategy) 

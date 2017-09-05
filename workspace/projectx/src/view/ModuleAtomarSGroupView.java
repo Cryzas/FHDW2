@@ -4,6 +4,8 @@ import view.visitor.*;
 
 public interface ModuleAtomarSGroupView extends ModuleAbstractSGroupView {
     
+    public GradeSystemView getGradeSystem()throws ModelException;
+    public void setGradeSystem(GradeSystemView newValue) throws ModelException ;
     
     public void accept(ModuleAbstractSGroupVisitor visitor) throws ModelException;
     public <R> R accept(ModuleAbstractSGroupReturnVisitor<R>  visitor) throws ModelException;

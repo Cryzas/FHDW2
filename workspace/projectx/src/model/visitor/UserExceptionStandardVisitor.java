@@ -8,9 +8,6 @@ public abstract class UserExceptionStandardVisitor implements UserExceptionVisit
     public void handleUnitSwapException(model.UnitSwapException unitSwapException) throws PersistenceException{
         this.standardHandling(unitSwapException);
     }
-    public void handleinvalidGradeSysteException(model.invalidGradeSysteException invalidGradeSysteException) throws PersistenceException{
-        this.standardHandling(invalidGradeSysteException);
-    }
     public void handleCycleException(model.CycleException cycleException) throws PersistenceException{
         this.standardHandling(cycleException);
     }

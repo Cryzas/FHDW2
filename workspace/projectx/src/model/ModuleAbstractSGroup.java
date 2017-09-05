@@ -27,6 +27,13 @@ public abstract class ModuleAbstractSGroup extends PersistentObject implements P
             if (leaf) allResults.put(uniqueKey, result);
             result.put("name", this.getName());
             result.put("creditPoints", this.getCreditPoints().toString());
+            AbstractPersistentRoot moduleCopy = (AbstractPersistentRoot)this.getModuleCopy();
+            if (moduleCopy != null) {
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    moduleCopy, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
+                result.put("moduleCopy", proxiInformation);
+                
+            }
         }
         return result;
     }

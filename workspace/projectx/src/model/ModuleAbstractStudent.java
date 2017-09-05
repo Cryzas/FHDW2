@@ -25,6 +25,13 @@ public abstract class ModuleAbstractStudent extends PersistentObject implements 
             }
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, inDerived);
             if (leaf) allResults.put(uniqueKey, result);
+            AbstractPersistentRoot moduleCopy = (AbstractPersistentRoot)this.getModuleCopy();
+            if (moduleCopy != null) {
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    moduleCopy, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
+                result.put("moduleCopy", proxiInformation);
+                
+            }
             result.put("name", this.getName());
             result.put("creditPoints", this.getCreditPoints().toString());
         }

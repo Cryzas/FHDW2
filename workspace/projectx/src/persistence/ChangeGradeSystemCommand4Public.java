@@ -7,8 +7,6 @@ public interface ChangeGradeSystemCommand4Public extends ModuleManagerCommand, A
     
     public ModuleAtomar4Public getModule() throws PersistenceException ;
     public void setModule(ModuleAtomar4Public newValue) throws PersistenceException ;
-    public String getGradeSystem() throws PersistenceException ;
-    public void setGradeSystem(String newValue) throws PersistenceException ;
     public Invoker getInvoker() throws PersistenceException ;
     public void setInvoker(Invoker newValue) throws PersistenceException ;
     public ModuleManager4Public getCommandReceiver() throws PersistenceException ;

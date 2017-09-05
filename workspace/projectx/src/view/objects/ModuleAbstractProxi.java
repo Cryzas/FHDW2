@@ -19,12 +19,6 @@ public abstract class ModuleAbstractProxi extends ViewProxi implements ModuleAbs
     public common.Fraction getCreditPoints()throws ModelException{
         return ((ModuleAbstract)this.getTheObject()).getCreditPoints();
     }
-    public GradeSystemView getGradeSystem()throws ModelException{
-        return ((ModuleAbstract)this.getTheObject()).getGradeSystem();
-    }
-    public void setGradeSystem(GradeSystemView newValue) throws ModelException {
-        ((ModuleAbstract)this.getTheObject()).setGradeSystem(newValue);
-    }
     
     
     

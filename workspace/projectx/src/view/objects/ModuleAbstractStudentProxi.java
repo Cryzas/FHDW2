@@ -10,6 +10,12 @@ public abstract class ModuleAbstractStudentProxi extends ViewProxi implements Mo
     }
     
     
+    public ModuleAbstractSGroupView getModuleCopy()throws ModelException{
+        return ((ModuleAbstractStudent)this.getTheObject()).getModuleCopy();
+    }
+    public void setModuleCopy(ModuleAbstractSGroupView newValue) throws ModelException {
+        ((ModuleAbstractStudent)this.getTheObject()).setModuleCopy(newValue);
+    }
     public String getName()throws ModelException{
         return ((ModuleAbstractStudent)this.getTheObject()).getName();
     }

@@ -11,9 +11,9 @@ public class ModuleWithUnitsStudent extends view.objects.ModuleAbstractStudent i
     
     protected java.util.Vector<UnitStudentView> units;
     
-    public ModuleWithUnitsStudent(String name,common.Fraction creditPoints,java.util.Vector<UnitStudentView> units,long id, long classId) {
+    public ModuleWithUnitsStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,java.util.Vector<UnitStudentView> units,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((String)name,(common.Fraction)creditPoints,id, classId);
+        super((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,id, classId);
         this.units = units;        
     }
     
@@ -58,6 +58,10 @@ public class ModuleWithUnitsStudent extends view.objects.ModuleAbstractStudent i
     }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
+        ModuleAbstractSGroupView moduleCopy = this.getModuleCopy();
+        if (moduleCopy != null) {
+            ((ViewProxi)moduleCopy).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(moduleCopy.getClassId(), moduleCopy.getId())));
+        }
         java.util.Vector<?> units = this.getUnits();
         if (units != null) {
             ViewObject.resolveVectorProxies(units, resultTable);

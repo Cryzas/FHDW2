@@ -28,6 +28,12 @@ public class ModuleAtomarSGroupICProxi extends ModuleAbstractSGroupICProxi imple
     public void setOwnCreditPoints(common.Fraction newValue) throws PersistenceException {
         ((PersistentModuleAtomarSGroup)this.getTheObject()).setOwnCreditPoints(newValue);
     }
+    public GradeSystem4Public getGradeSystem() throws PersistenceException {
+        return ((PersistentModuleAtomarSGroup)this.getTheObject()).getGradeSystem();
+    }
+    public void setGradeSystem(GradeSystem4Public newValue) throws PersistenceException {
+        ((PersistentModuleAtomarSGroup)this.getTheObject()).setGradeSystem(newValue);
+    }
     public PersistentModuleAtomarSGroup getThis() throws PersistenceException {
         return ((PersistentModuleAtomarSGroup)this.getTheObject()).getThis();
     }

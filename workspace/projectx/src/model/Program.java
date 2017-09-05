@@ -273,7 +273,6 @@ public class Program extends PersistentObject implements PersistentProgram{
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-    	getThis().setGradeSystem(TenthGrade.getTheTenthGrade());
     }
     
     

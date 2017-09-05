@@ -32,8 +32,6 @@ public class ServerConnection extends ConnectionMaster {
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -189)
                     throw UnitSwapException.fromHashtableToUnitSwapException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -212)
-                    throw invalidGradeSysteException.fromHashtableToinvalidGradeSysteException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -149)
                     throw CycleException.fromHashtableToCycleException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -190)
@@ -67,8 +65,6 @@ public class ServerConnection extends ConnectionMaster {
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -189)
                     throw UnitSwapException.fromHashtableToUnitSwapException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -212)
-                    throw invalidGradeSysteException.fromHashtableToinvalidGradeSysteException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -149)
                     throw CycleException.fromHashtableToCycleException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -190)
@@ -97,8 +93,6 @@ public class ServerConnection extends ConnectionMaster {
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -189)
                     throw UnitSwapException.fromHashtableToUnitSwapException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -212)
-                    throw invalidGradeSysteException.fromHashtableToinvalidGradeSysteException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -149)
                     throw CycleException.fromHashtableToCycleException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -190)
@@ -127,8 +121,6 @@ public class ServerConnection extends ConnectionMaster {
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -189)
                     throw UnitSwapException.fromHashtableToUnitSwapException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -212)
-                    throw invalidGradeSysteException.fromHashtableToinvalidGradeSysteException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -149)
                     throw CycleException.fromHashtableToCycleException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -190)
@@ -181,8 +173,6 @@ public class ServerConnection extends ConnectionMaster {
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -189)
                     throw UnitSwapException.fromHashtableToUnitSwapException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
-                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -212)
-                    throw invalidGradeSysteException.fromHashtableToinvalidGradeSysteException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -149)
                     throw CycleException.fromHashtableToCycleException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -190)
@@ -352,7 +342,7 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void changeGradeSystem(ModuleAtomarView module, String gradeSystem) throws ModelException{
+    public synchronized void changeGradeSystem(ModuleAtomarView module) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             if (module == null){
@@ -360,7 +350,6 @@ public class ServerConnection extends ConnectionMaster {
             } else {
                 parameters.add(((view.objects.ViewProxi)module).createProxiInformation());
             }
-            parameters.add(gradeSystem);
             java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "changeGradeSystem", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)

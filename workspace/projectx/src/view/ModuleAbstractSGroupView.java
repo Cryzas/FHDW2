@@ -8,6 +8,8 @@ public interface ModuleAbstractSGroupView extends Anything, AbstractViewRoot {
     
     public String getName()throws ModelException;
     public common.Fraction getCreditPoints()throws ModelException;
+    public ModuleAbstractView getModuleCopy()throws ModelException;
+    public void setModuleCopy(ModuleAbstractView newValue) throws ModelException ;
     
     public void accept(ModuleAbstractSGroupVisitor visitor) throws ModelException;
     public <R> R accept(ModuleAbstractSGroupReturnVisitor<R>  visitor) throws ModelException;

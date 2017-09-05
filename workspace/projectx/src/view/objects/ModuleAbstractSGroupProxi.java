@@ -16,6 +16,12 @@ public abstract class ModuleAbstractSGroupProxi extends ViewProxi implements Mod
     public common.Fraction getCreditPoints()throws ModelException{
         return ((ModuleAbstractSGroup)this.getTheObject()).getCreditPoints();
     }
+    public ModuleAbstractView getModuleCopy()throws ModelException{
+        return ((ModuleAbstractSGroup)this.getTheObject()).getModuleCopy();
+    }
+    public void setModuleCopy(ModuleAbstractView newValue) throws ModelException {
+        ((ModuleAbstractSGroup)this.getTheObject()).setModuleCopy(newValue);
+    }
     
     
     

@@ -12,13 +12,15 @@ public class ProgramStudent extends ViewObject implements ProgramStudentView{
     protected java.util.Vector<ModuleAbstractStudentView> modules;
     protected String name;
     protected common.Fraction creditPoints;
+    protected ProgramSGroupView programCopy;
     
-    public ProgramStudent(java.util.Vector<ModuleAbstractStudentView> modules,String name,common.Fraction creditPoints,long id, long classId) {
+    public ProgramStudent(java.util.Vector<ModuleAbstractStudentView> modules,String name,common.Fraction creditPoints,ProgramSGroupView programCopy,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.modules = modules;
         this.name = name;
-        this.creditPoints = creditPoints;        
+        this.creditPoints = creditPoints;
+        this.programCopy = programCopy;        
     }
     
     static public long getTypeId() {
@@ -41,6 +43,12 @@ public class ProgramStudent extends ViewObject implements ProgramStudentView{
     public common.Fraction getCreditPoints()throws ModelException{
         return this.creditPoints;
     }
+    public ProgramSGroupView getProgramCopy()throws ModelException{
+        return this.programCopy;
+    }
+    public void setProgramCopy(ProgramSGroupView newValue) throws ModelException {
+        this.programCopy = newValue;
+    }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleProgramStudent(this);
@@ -59,6 +67,10 @@ public class ProgramStudent extends ViewObject implements ProgramStudentView{
         java.util.Vector<?> modules = this.getModules();
         if (modules != null) {
             ViewObject.resolveVectorProxies(modules, resultTable);
+        }
+        ProgramSGroupView programCopy = this.getProgramCopy();
+        if (programCopy != null) {
+            ((ViewProxi)programCopy).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(programCopy.getClassId(), programCopy.getId())));
         }
         
     }

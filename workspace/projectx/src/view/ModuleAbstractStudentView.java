@@ -6,6 +6,8 @@ import view.visitor.*;
 
 public interface ModuleAbstractStudentView extends Anything, AbstractViewRoot {
     
+    public ModuleAbstractSGroupView getModuleCopy()throws ModelException;
+    public void setModuleCopy(ModuleAbstractSGroupView newValue) throws ModelException ;
     public String getName()throws ModelException;
     public common.Fraction getCreditPoints()throws ModelException;
     

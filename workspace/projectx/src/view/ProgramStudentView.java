@@ -10,6 +10,8 @@ public interface ProgramStudentView extends Anything, AbstractViewRoot {
     public void setModules(java.util.Vector<ModuleAbstractStudentView> newValue) throws ModelException ;
     public String getName()throws ModelException;
     public common.Fraction getCreditPoints()throws ModelException;
+    public ProgramSGroupView getProgramCopy()throws ModelException;
+    public void setProgramCopy(ProgramSGroupView newValue) throws ModelException ;
     
     public void accept(AnythingVisitor visitor) throws ModelException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException;

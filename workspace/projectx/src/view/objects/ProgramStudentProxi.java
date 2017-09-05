@@ -17,7 +17,14 @@ public class ProgramStudentProxi extends ViewProxi implements ProgramStudentView
         java.util.Vector<ModuleAbstractStudentView> modules = ViewProxi.getProxiVector(modules_string, connectionKey);
         String name = (String)resultTable.get("name");
         common.Fraction creditPoints = common.Fraction.parse((String)resultTable.get("creditPoints"));
-        ProgramStudentView result$$ = new ProgramStudent(modules,(String)name,(common.Fraction)creditPoints, this.getId(), this.getClassId());
+        ViewProxi programCopy = null;
+        String programCopy$String = (String)resultTable.get("programCopy");
+        if (programCopy$String != null) {
+            common.ProxiInformation programCopy$Info = common.RPCConstantsAndServices.createProxiInformation(programCopy$String);
+            programCopy = view.objects.ViewProxi.createProxi(programCopy$Info,connectionKey);
+            programCopy.setToString(programCopy$Info.getToString());
+        }
+        ProgramStudentView result$$ = new ProgramStudent(modules,(String)name,(common.Fraction)creditPoints,(ProgramSGroupView)programCopy, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -61,6 +68,12 @@ public class ProgramStudentProxi extends ViewProxi implements ProgramStudentView
     }
     public common.Fraction getCreditPoints()throws ModelException{
         return ((ProgramStudent)this.getTheObject()).getCreditPoints();
+    }
+    public ProgramSGroupView getProgramCopy()throws ModelException{
+        return ((ProgramStudent)this.getTheObject()).getProgramCopy();
+    }
+    public void setProgramCopy(ProgramSGroupView newValue) throws ModelException {
+        ((ProgramStudent)this.getTheObject()).setProgramCopy(newValue);
     }
     
     public void accept(AnythingVisitor visitor) throws ModelException {

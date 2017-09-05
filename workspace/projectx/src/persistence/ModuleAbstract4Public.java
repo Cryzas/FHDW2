@@ -6,7 +6,6 @@ import model.visitor.*;
 public interface ModuleAbstract4Public extends Anything, programHierarchyHIERARCHY, AbstractPersistentProxi {
     
     public String getName() throws PersistenceException ;
-    public GradeSystem4Public getGradeSystem() throws PersistenceException ;
     
     public void accept(ModuleAbstractVisitor visitor) throws PersistenceException;
     public <R> R accept(ModuleAbstractReturnVisitor<R>  visitor) throws PersistenceException;

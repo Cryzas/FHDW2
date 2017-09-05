@@ -9,10 +9,12 @@ import view.visitor.*;
 
 public class ModuleAtomarSGroup extends view.objects.ModuleAbstractSGroup implements ModuleAtomarSGroupView{
     
+    protected GradeSystemView gradeSystem;
     
-    public ModuleAtomarSGroup(String name,common.Fraction creditPoints,long id, long classId) {
+    public ModuleAtomarSGroup(String name,common.Fraction creditPoints,ModuleAbstractView moduleCopy,GradeSystemView gradeSystem,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((String)name,(common.Fraction)creditPoints,id, classId);        
+        super((String)name,(common.Fraction)creditPoints,(ModuleAbstractView)moduleCopy,id, classId);
+        this.gradeSystem = gradeSystem;        
     }
     
     static public long getTypeId() {
@@ -23,6 +25,12 @@ public class ModuleAtomarSGroup extends view.objects.ModuleAbstractSGroup implem
         return getTypeId();
     }
     
+    public GradeSystemView getGradeSystem()throws ModelException{
+        return this.gradeSystem;
+    }
+    public void setGradeSystem(GradeSystemView newValue) throws ModelException {
+        this.gradeSystem = newValue;
+    }
     
     public void accept(ModuleAbstractSGroupVisitor visitor) throws ModelException {
         visitor.handleModuleAtomarSGroup(this);
@@ -50,6 +58,14 @@ public class ModuleAtomarSGroup extends view.objects.ModuleAbstractSGroup implem
     }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
+        ModuleAbstractView moduleCopy = this.getModuleCopy();
+        if (moduleCopy != null) {
+            ((ViewProxi)moduleCopy).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(moduleCopy.getClassId(), moduleCopy.getId())));
+        }
+        GradeSystemView gradeSystem = this.getGradeSystem();
+        if (gradeSystem != null) {
+            ((ViewProxi)gradeSystem).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(gradeSystem.getClassId(), gradeSystem.getId())));
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {

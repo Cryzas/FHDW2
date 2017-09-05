@@ -11,9 +11,9 @@ public class ModuleGroupSGroup extends view.objects.ModuleAbstractSGroup impleme
     
     protected java.util.Vector<ModuleAbstractSGroupView> modules;
     
-    public ModuleGroupSGroup(String name,common.Fraction creditPoints,java.util.Vector<ModuleAbstractSGroupView> modules,long id, long classId) {
+    public ModuleGroupSGroup(String name,common.Fraction creditPoints,ModuleAbstractView moduleCopy,java.util.Vector<ModuleAbstractSGroupView> modules,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((String)name,(common.Fraction)creditPoints,id, classId);
+        super((String)name,(common.Fraction)creditPoints,(ModuleAbstractView)moduleCopy,id, classId);
         this.modules = modules;        
     }
     
@@ -58,6 +58,10 @@ public class ModuleGroupSGroup extends view.objects.ModuleAbstractSGroup impleme
     }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
+        ModuleAbstractView moduleCopy = this.getModuleCopy();
+        if (moduleCopy != null) {
+            ((ViewProxi)moduleCopy).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(moduleCopy.getClassId(), moduleCopy.getId())));
+        }
         java.util.Vector<?> modules = this.getModules();
         if (modules != null) {
             ViewObject.resolveVectorProxies(modules, resultTable);

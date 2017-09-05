@@ -6,6 +6,7 @@ import model.visitor.*;
 public interface ProgramStudent4Public extends Anything, programHierarchyStudentHIERARCHY, AbstractPersistentProxi {
     
     public ProgramStudent_ModulesProxi getModules() throws PersistenceException ;
+    public ProgramSGroup4Public getProgramCopy() throws PersistenceException ;
     
     public void accept(AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;

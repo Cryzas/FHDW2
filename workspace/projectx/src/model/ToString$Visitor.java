@@ -42,17 +42,12 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		result = "Atomares Modul: " + moduleAtomar.getName() + " (" + moduleAtomar.getCreditPoints() + " CP) " + "NotenSchema: " + moduleAtomar.getGradeSystem().accept(new GradeSystemReturnVisitor<String>() {
 
 			@Override
-			public String handleSimpleGrade(SimpleGrade4Public simpleGrade) throws PersistenceException {
+			public String handleSimpleGradeSystem(SimpleGradeSystem4Public SimpleGradeSystem) throws PersistenceException {
 				return "Zweiwertig";
 			}
 
 			@Override
-			public String handleTenthGrade(TenthGrade4Public tenthGrade) throws PersistenceException {
-				return "Zehntelnoten";
-			}
-
-			@Override
-			public String handleThirdGrade(ThirdGrade4Public thirdGrade) throws PersistenceException {
+			public String handleThirdGradeSystem(ThirdGradeSystem4Public ThirdGradeSystem) throws PersistenceException {
 				return "Drittelnoten";
 			}
 		});		
@@ -87,7 +82,18 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleModuleAtomarSGroup(ModuleAtomarSGroup4Public moduleAtomarSGroup) throws PersistenceException {
-		result = "Atomares Modul: " + moduleAtomarSGroup.getName() + " (" + moduleAtomarSGroup.getCreditPoints() + " CP)";
+		result = "Atomares Modul: " + moduleAtomarSGroup.getName() + " (" + moduleAtomarSGroup.getCreditPoints() + " CP) " + "NotenSchema: " + moduleAtomarSGroup.getGradeSystem().accept(new GradeSystemReturnVisitor<String>() {
+
+			@Override
+			public String handleSimpleGradeSystem(SimpleGradeSystem4Public SimpleGradeSystem) throws PersistenceException {
+				return "Zweiwertig";
+			}
+
+			@Override
+			public String handleThirdGradeSystem(ThirdGradeSystem4Public ThirdGradeSystem) throws PersistenceException {
+				return "Drittelnoten";
+			}
+		});	
 	}
 	@Override
 	public void handleStudyGroup(StudyGroup4Public studyGroup) throws PersistenceException {
@@ -108,7 +114,18 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleModuleAtomarStudent(ModuleAtomarStudent4Public moduleAtomarStudent) throws PersistenceException {
-		result = "Atomares Modul: " + moduleAtomarStudent.getName() + " (" + moduleAtomarStudent.getCreditPoints() + " CP)";
+		result = "Atomares Modul: " + moduleAtomarStudent.getName() + " (" + moduleAtomarStudent.getCreditPoints() + " CP) " + "NotenSchema: " + ((ModuleAtomarSGroup4Public)moduleAtomarStudent.getModuleCopy()).getGradeSystem().accept(new GradeSystemReturnVisitor<String>() {
+
+			@Override
+			public String handleSimpleGradeSystem(SimpleGradeSystem4Public SimpleGradeSystem) throws PersistenceException {
+				return "Zweiwertig";
+			}
+
+			@Override
+			public String handleThirdGradeSystem(ThirdGradeSystem4Public ThirdGradeSystem) throws PersistenceException {
+				return "Drittelnoten";
+			}
+		});
 	}
 	@Override
 	public void handleProgramStudent(ProgramStudent4Public programStudent) throws PersistenceException {
@@ -136,19 +153,10 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		result = "Unit: " + unitStudent.getName() + " (" + unitStudent.getCreditPoints() + " CP)";
 	}
 	@Override
-	public void handleThirdGrade(ThirdGrade4Public thirdGrade) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+	public void handleThirdGradeSystem(ThirdGradeSystem4Public ThirdGradeSystem) throws PersistenceException {		
 	}
 	@Override
-	public void handleSimpleGrade(SimpleGrade4Public simpleGrade) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void handleTenthGrade(TenthGrade4Public tenthGrade) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+	public void handleSimpleGradeSystem(SimpleGradeSystem4Public SimpleGradeSystem) throws PersistenceException {		
 	}
 
 }

@@ -9,10 +9,12 @@ import view.visitor.*;
 
 public class ModuleAtomar extends view.objects.ModuleAbstract implements ModuleAtomarView{
     
+    protected GradeSystemView gradeSystem;
     
     public ModuleAtomar(String name,common.Fraction creditPoints,GradeSystemView gradeSystem,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((String)name,(common.Fraction)creditPoints,(GradeSystemView)gradeSystem,id, classId);        
+        super((String)name,(common.Fraction)creditPoints,id, classId);
+        this.gradeSystem = gradeSystem;        
     }
     
     static public long getTypeId() {
@@ -23,6 +25,12 @@ public class ModuleAtomar extends view.objects.ModuleAbstract implements ModuleA
         return getTypeId();
     }
     
+    public GradeSystemView getGradeSystem()throws ModelException{
+        return this.gradeSystem;
+    }
+    public void setGradeSystem(GradeSystemView newValue) throws ModelException {
+        this.gradeSystem = newValue;
+    }
     
     public void accept(ModuleAbstractVisitor visitor) throws ModelException {
         visitor.handleModuleAtomar(this);

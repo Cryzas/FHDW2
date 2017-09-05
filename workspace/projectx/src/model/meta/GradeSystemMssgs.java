@@ -5,4 +5,4 @@ public interface GradeSystemMssgs {
 }
 
 interface GradeSystemDOWNMssgs extends Mssgs, GradeSystemMssgs{}
-interface GradeSystemUPMssgs extends ThirdGradeUPMssgs, SimpleGradeUPMssgs, TenthGradeUPMssgs, GradeSystemMssgs{}
+interface GradeSystemUPMssgs extends ThirdGradeSystemUPMssgs, SimpleGradeSystemUPMssgs, GradeSystemMssgs{}

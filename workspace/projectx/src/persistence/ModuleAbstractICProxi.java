@@ -18,12 +18,6 @@ public abstract class ModuleAbstractICProxi extends PersistentInCacheProxiOptimi
     public void setName(String newValue) throws PersistenceException {
         ((PersistentModuleAbstract)this.getTheObject()).setName(newValue);
     }
-    public GradeSystem4Public getGradeSystem() throws PersistenceException {
-        return ((PersistentModuleAbstract)this.getTheObject()).getGradeSystem();
-    }
-    public void setGradeSystem(GradeSystem4Public newValue) throws PersistenceException {
-        ((PersistentModuleAbstract)this.getTheObject()).setGradeSystem(newValue);
-    }
     public abstract PersistentModuleAbstract getThis() throws PersistenceException ;
     
     

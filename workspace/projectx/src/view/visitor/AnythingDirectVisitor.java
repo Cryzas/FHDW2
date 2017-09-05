@@ -37,6 +37,17 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleUnitSGroup(UnitSGroupView unitSGroup) throws ModelException;
     
+    public abstract void handleGradesInSimple(GradesInSimpleView gradesInSimple) throws ModelException;
+    
+    public void handlePassed(PassedView passed) throws ModelException{
+        this.handleGradesInSimple(passed);
+    }
+    public void handleNoGradeSimple(NoGradeSimpleView noGradeSimple) throws ModelException{
+        this.handleGradesInSimple(noGradeSimple);
+    }
+    public void handleNotPassed(NotPassedView notPassed) throws ModelException{
+        this.handleGradesInSimple(notPassed);
+    }
     public abstract void handleStudentManager(StudentManagerView studentManager) throws ModelException;
     
     public abstract void handleModuleManager(ModuleManagerView moduleManager) throws ModelException;
@@ -64,14 +75,31 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleGradeSystem(GradeSystemView gradeSystem) throws ModelException;
     
-    public void handleSimpleGrade(SimpleGradeView simpleGrade) throws ModelException{
-        this.handleGradeSystem(simpleGrade);
+    public void handleSimpleGradeSystem(SimpleGradeSystemView simpleGradeSystem) throws ModelException{
+        this.handleGradeSystem(simpleGradeSystem);
     }
-    public void handleTenthGrade(TenthGradeView tenthGrade) throws ModelException{
-        this.handleGradeSystem(tenthGrade);
+    public void handleThirdGradeSystem(ThirdGradeSystemView thirdGradeSystem) throws ModelException{
+        this.handleGradeSystem(thirdGradeSystem);
     }
-    public void handleThirdGrade(ThirdGradeView thirdGrade) throws ModelException{
-        this.handleGradeSystem(thirdGrade);
+    public abstract void handleGradesInThird(GradesInThirdView gradesInThird) throws ModelException;
+    
+    public void handleT_2_3(T_2_3View t_2_3) throws ModelException{
+        this.handleGradesInThird(t_2_3);
+    }
+    public void handleT_1_3(T_1_3View t_1_3) throws ModelException{
+        this.handleGradesInThird(t_1_3);
+    }
+    public void handleT_2_0(T_2_0View t_2_0) throws ModelException{
+        this.handleGradesInThird(t_2_0);
+    }
+    public void handleT_1_7(T_1_7View t_1_7) throws ModelException{
+        this.handleGradesInThird(t_1_7);
+    }
+    public void handleT_1_0(T_1_0View t_1_0) throws ModelException{
+        this.handleGradesInThird(t_1_0);
+    }
+    public void handleNoGradeThird(NoGradeThirdView noGradeThird) throws ModelException{
+        this.handleGradesInThird(noGradeThird);
     }
     public abstract void handleProgramStudent(ProgramStudentView programStudent) throws ModelException;
     

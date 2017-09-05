@@ -4,8 +4,7 @@ import view.*;
 
 public interface GradeSystemVisitor {
     
-    public void handleSimpleGrade(SimpleGradeView simpleGrade) throws ModelException;
-    public void handleTenthGrade(TenthGradeView tenthGrade) throws ModelException;
-    public void handleThirdGrade(ThirdGradeView thirdGrade) throws ModelException;
+    public void handleSimpleGradeSystem(SimpleGradeSystemView simpleGradeSystem) throws ModelException;
+    public void handleThirdGradeSystem(ThirdGradeSystemView thirdGradeSystem) throws ModelException;
     
 }

@@ -59,6 +59,13 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
             }
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, inDerived);
             if (leaf) allResults.put(uniqueKey, result);
+            AbstractPersistentRoot gradeSystem = (AbstractPersistentRoot)this.getGradeSystem();
+            if (gradeSystem != null) {
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    gradeSystem, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
+                result.put("gradeSystem", proxiInformation);
+                
+            }
         }
         return result;
     }
@@ -66,9 +73,9 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
     public ModuleAtomar provideCopy() throws PersistenceException{
         ModuleAtomar result = this;
         result = new ModuleAtomar(this.name, 
-                                  this.gradeSystem, 
                                   this.This, 
                                   this.ownCreditPoints, 
+                                  this.gradeSystem, 
                                   this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -78,11 +85,13 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
         return false;
     }
     protected common.Fraction ownCreditPoints;
+    protected PersistentGradeSystem gradeSystem;
     
-    public ModuleAtomar(String name,PersistentGradeSystem gradeSystem,PersistentModuleAbstract This,common.Fraction ownCreditPoints,long id) throws PersistenceException {
+    public ModuleAtomar(String name,PersistentModuleAbstract This,common.Fraction ownCreditPoints,PersistentGradeSystem gradeSystem,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((String)name,(PersistentGradeSystem)gradeSystem,(PersistentModuleAbstract)This,id);
-        this.ownCreditPoints = ownCreditPoints;        
+        super((String)name,(PersistentModuleAbstract)This,id);
+        this.ownCreditPoints = ownCreditPoints;
+        this.gradeSystem = gradeSystem;        
     }
     
     static public long getTypeId() {
@@ -98,6 +107,10 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
         if (this.getClassId() == 153) ConnectionHandler.getTheConnectionHandler().theModuleAtomarFacade
             .newModuleAtomar(name,ownCreditPoints,this.getId());
         super.store();
+        if(this.getGradeSystem() != null){
+            this.getGradeSystem().store();
+            ConnectionHandler.getTheConnectionHandler().theModuleAtomarFacade.gradeSystemSet(this.getId(), getGradeSystem());
+        }
         
     }
     
@@ -107,6 +120,20 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
     public void setOwnCreditPoints(common.Fraction newValue) throws PersistenceException {
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theModuleAtomarFacade.ownCreditPointsSet(this.getId(), newValue);
         this.ownCreditPoints = newValue;
+    }
+    public GradeSystem4Public getGradeSystem() throws PersistenceException {
+        return this.gradeSystem;
+    }
+    public void setGradeSystem(GradeSystem4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.gradeSystem)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.gradeSystem = (PersistentGradeSystem)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theModuleAtomarFacade.gradeSystemSet(this.getId(), newValue);
+        }
     }
     public PersistentModuleAtomar getThis() throws PersistenceException {
         if(this.This == null){
@@ -188,7 +215,7 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
     }
     public ModuleAbstractSGroup4Public copyForStudyGroup() 
 				throws model.UserException, PersistenceException{
-    	return ModuleAtomarSGroup.createModuleAtomarSGroup(getThis(), getThis().getCreditPoints());
+    	return ModuleAtomarSGroup.createModuleAtomarSGroup(getThis(), getThis().getCreditPoints(), getThis().getGradeSystem());
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{ 
@@ -200,11 +227,11 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
     public void initializeOnCreation() 
 				throws PersistenceException{
         super.initializeOnCreation();
+        getThis().setGradeSystem(ThirdGradeSystem.getTheThirdGradeSystem());
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         super.initializeOnInstantiation();
-        getThis().setGradeSystem(ThirdGrade.getTheThirdGrade());
     }
     
     

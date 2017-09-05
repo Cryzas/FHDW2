@@ -8,16 +8,24 @@ import view.*;
 
 public abstract class ModuleAbstractStudent extends ViewObject implements ModuleAbstractStudentView{
     
+    protected ModuleAbstractSGroupView moduleCopy;
     protected String name;
     protected common.Fraction creditPoints;
     
-    public ModuleAbstractStudent(String name,common.Fraction creditPoints,long id, long classId) {
+    public ModuleAbstractStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
+        this.moduleCopy = moduleCopy;
         this.name = name;
         this.creditPoints = creditPoints;        
     }
     
+    public ModuleAbstractSGroupView getModuleCopy()throws ModelException{
+        return this.moduleCopy;
+    }
+    public void setModuleCopy(ModuleAbstractSGroupView newValue) throws ModelException {
+        this.moduleCopy = newValue;
+    }
     public String getName()throws ModelException{
         return this.name;
     }
@@ -27,6 +35,10 @@ public abstract class ModuleAbstractStudent extends ViewObject implements Module
     
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
+        ModuleAbstractSGroupView moduleCopy = this.getModuleCopy();
+        if (moduleCopy != null) {
+            ((ViewProxi)moduleCopy).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(moduleCopy.getClassId(), moduleCopy.getId())));
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {

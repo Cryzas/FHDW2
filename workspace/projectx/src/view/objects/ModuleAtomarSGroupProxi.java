@@ -14,7 +14,21 @@ public class ModuleAtomarSGroupProxi extends ModuleAbstractSGroupProxi implement
     public ModuleAtomarSGroupView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         String name = (String)resultTable.get("name");
         common.Fraction creditPoints = common.Fraction.parse((String)resultTable.get("creditPoints"));
-        ModuleAtomarSGroupView result$$ = new ModuleAtomarSGroup((String)name,(common.Fraction)creditPoints, this.getId(), this.getClassId());
+        ViewProxi moduleCopy = null;
+        String moduleCopy$String = (String)resultTable.get("moduleCopy");
+        if (moduleCopy$String != null) {
+            common.ProxiInformation moduleCopy$Info = common.RPCConstantsAndServices.createProxiInformation(moduleCopy$String);
+            moduleCopy = view.objects.ViewProxi.createProxi(moduleCopy$Info,connectionKey);
+            moduleCopy.setToString(moduleCopy$Info.getToString());
+        }
+        ViewProxi gradeSystem = null;
+        String gradeSystem$String = (String)resultTable.get("gradeSystem");
+        if (gradeSystem$String != null) {
+            common.ProxiInformation gradeSystem$Info = common.RPCConstantsAndServices.createProxiInformation(gradeSystem$String);
+            gradeSystem = view.objects.ViewProxi.createProxi(gradeSystem$Info,connectionKey);
+            gradeSystem.setToString(gradeSystem$Info.getToString());
+        }
+        ModuleAtomarSGroupView result$$ = new ModuleAtomarSGroup((String)name,(common.Fraction)creditPoints,(ModuleAbstractView)moduleCopy,(GradeSystemView)gradeSystem, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -37,6 +51,12 @@ public class ModuleAtomarSGroupProxi extends ModuleAbstractSGroupProxi implement
         return -1;
     }
     
+    public GradeSystemView getGradeSystem()throws ModelException{
+        return ((ModuleAtomarSGroup)this.getTheObject()).getGradeSystem();
+    }
+    public void setGradeSystem(GradeSystemView newValue) throws ModelException {
+        ((ModuleAtomarSGroup)this.getTheObject()).setGradeSystem(newValue);
+    }
     
     public void accept(ModuleAbstractSGroupVisitor visitor) throws ModelException {
         visitor.handleModuleAtomarSGroup(this);

@@ -4,8 +4,7 @@ import persistence.*;
 
 public interface GradeSystemVisitor {
     
-    public void handleSimpleGrade(SimpleGrade4Public simpleGrade) throws PersistenceException;
-    public void handleTenthGrade(TenthGrade4Public tenthGrade) throws PersistenceException;
-    public void handleThirdGrade(ThirdGrade4Public thirdGrade) throws PersistenceException;
+    public void handleSimpleGradeSystem(SimpleGradeSystem4Public simpleGradeSystem) throws PersistenceException;
+    public void handleThirdGradeSystem(ThirdGradeSystem4Public thirdGradeSystem) throws PersistenceException;
     
 }

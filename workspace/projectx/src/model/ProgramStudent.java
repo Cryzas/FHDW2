@@ -68,6 +68,13 @@ public class ProgramStudent extends PersistentObject implements PersistentProgra
             result.put("modules", this.getModules().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, false, false));
             result.put("name", this.getName());
             result.put("creditPoints", this.getCreditPoints().toString());
+            AbstractPersistentRoot programCopy = (AbstractPersistentRoot)this.getProgramCopy();
+            if (programCopy != null) {
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    programCopy, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
+                result.put("programCopy", proxiInformation);
+                
+            }
         }
         return result;
     }

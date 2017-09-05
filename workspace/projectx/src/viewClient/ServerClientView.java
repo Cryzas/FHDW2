@@ -324,7 +324,7 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         ImageView handle(CreateModulePRMTRModuleAbstractSUBTYPENamePRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(AddModuleToGroupPRMTRModuleGroupPRMTRModuleAbstractPRMTRMenuItem menuItem);
         ImageView handle(AddModuleToProgPRMTRProgramPRMTRModuleAbstractPRMTRMenuItem menuItem);
-        ImageView handle(ChangeGradeSystemPRMTRModuleAtomarPRMTRGradeSystemSUBTYPENamePRMTRMenuItem menuItem);
+        ImageView handle(ChangeGradeSystemPRMTRModuleAtomarPRMTRMenuItem menuItem);
         ImageView handle(CreateProgramPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(CreateStudentPRMTRStringPRMTRStringPRMTRDatePRMTRMenuItem menuItem);
         ImageView handle(AddStudentToGroupPRMTRStudyGroupPRMTRStudentPRMTRMenuItem menuItem);
@@ -372,7 +372,7 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
             return visitor.handle(this);
         }
     }
-    private class ChangeGradeSystemPRMTRModuleAtomarPRMTRGradeSystemSUBTYPENamePRMTRMenuItem extends ServerMenuItem{
+    private class ChangeGradeSystemPRMTRModuleAtomarPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -571,16 +571,26 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                     }
                 });
                 result.getItems().add(item);
-                item = new ChangeGradeSystemPRMTRModuleAtomarPRMTRGradeSystemSUBTYPENamePRMTRMenuItem();
-                item.setText("Notensystem ändern ... ");
+                item = new ChangeGradeSystemPRMTRModuleAtomarPRMTRMenuItem();
+                item.setText("Notensystem ändern");
                 item.setOnAction(new EventHandler<ActionEvent>(){
                     public void handle(javafx.event.ActionEvent e) {
-                        final ServerChangeGradeSystemModuleAtomarGradeSystemSUBTYPENameMssgWizard wizard = new ServerChangeGradeSystemModuleAtomarGradeSystemSUBTYPENameMssgWizard("Notensystem ändern");
-                        wizard.setFirstArgument((ModuleAtomarView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.setX( getPointForView().getX());
-                        wizard.setY( getPointForView().getY());
-                        wizard.showAndWait();
+                        Alert confirm = new Alert(AlertType.CONFIRMATION);
+                        confirm.setTitle(GUIConstants.ConfirmButtonText);
+                        confirm.setHeaderText(null);
+                        confirm.setContentText("Notensystem ändern" + GUIConstants.ConfirmQuestionMark);
+                        confirm.setX( getPointForView().getX() );
+                        confirm.setY( getPointForView().getY() );
+                        Optional<ButtonType> buttonResult = confirm.showAndWait();
+                        if (buttonResult.get() == ButtonType.OK) {
+                            try {
+                                getConnection().changeGradeSystem((ModuleAtomarView)selected);
+                                getConnection().setEagerRefresh();
+                                
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
                     }
                 });
                 result.getItems().add(item);
@@ -1000,53 +1010,6 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 			}catch(ModelException me){
 				 handleException(me);
 			}
-			this.check();
-		}
-		
-		
-	}
-
-	class ServerChangeGradeSystemModuleAtomarGradeSystemSUBTYPENameMssgWizard extends Wizard {
-
-		protected ServerChangeGradeSystemModuleAtomarGradeSystemSUBTYPENameMssgWizard(String operationName){
-			super(ServerClientView.this);
-			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new ChangeGradeSystemPRMTRModuleAtomarPRMTRGradeSystemSUBTYPENamePRMTRMenuItem ().getGraphic());
-		}
-		protected void initialize(){
-			this.helpFileName = "ServerChangeGradeSystemModuleAtomarGradeSystemSUBTYPENameMssgWizard.help";
-			super.initialize();		
-		}
-				
-		protected void perform() {
-			try {
-				getConnection().changeGradeSystem(firstArgument, ((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
-				getConnection().setEagerRefresh();
-				this.close();	
-			} catch(ModelException me){
-				handleException(me);
-				this.close();
-			}
-			
-		}
-		protected String checkCompleteParameterSet(){
-			return null;
-		}
-		protected boolean isModifying () {
-			return false;
-		}
-		protected void addParameters(){
-			getParametersPanel().getChildren().add(new RegExprSelectionPanel("gradeSystem", this, common.RegularExpressionManager.gradeSystemSUBTYPEName.getRegExpr()));		
-		}	
-		protected void handleDependencies(int i) {
-		}
-		
-		
-		private ModuleAtomarView firstArgument; 
-	
-		public void setFirstArgument(ModuleAtomarView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
 			this.check();
 		}
 		

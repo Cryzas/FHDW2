@@ -12,9 +12,16 @@ public class ModuleAtomarStudentProxi extends ModuleAbstractStudentProxi impleme
     }
     
     public ModuleAtomarStudentView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
+        ViewProxi moduleCopy = null;
+        String moduleCopy$String = (String)resultTable.get("moduleCopy");
+        if (moduleCopy$String != null) {
+            common.ProxiInformation moduleCopy$Info = common.RPCConstantsAndServices.createProxiInformation(moduleCopy$String);
+            moduleCopy = view.objects.ViewProxi.createProxi(moduleCopy$Info,connectionKey);
+            moduleCopy.setToString(moduleCopy$Info.getToString());
+        }
         String name = (String)resultTable.get("name");
         common.Fraction creditPoints = common.Fraction.parse((String)resultTable.get("creditPoints"));
-        ModuleAtomarStudentView result$$ = new ModuleAtomarStudent((String)name,(common.Fraction)creditPoints, this.getId(), this.getClassId());
+        ModuleAtomarStudentView result$$ = new ModuleAtomarStudent((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }

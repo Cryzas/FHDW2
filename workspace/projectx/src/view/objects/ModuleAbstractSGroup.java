@@ -10,12 +10,14 @@ public abstract class ModuleAbstractSGroup extends ViewObject implements ModuleA
     
     protected String name;
     protected common.Fraction creditPoints;
+    protected ModuleAbstractView moduleCopy;
     
-    public ModuleAbstractSGroup(String name,common.Fraction creditPoints,long id, long classId) {
+    public ModuleAbstractSGroup(String name,common.Fraction creditPoints,ModuleAbstractView moduleCopy,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.name = name;
-        this.creditPoints = creditPoints;        
+        this.creditPoints = creditPoints;
+        this.moduleCopy = moduleCopy;        
     }
     
     public String getName()throws ModelException{
@@ -24,9 +26,19 @@ public abstract class ModuleAbstractSGroup extends ViewObject implements ModuleA
     public common.Fraction getCreditPoints()throws ModelException{
         return this.creditPoints;
     }
+    public ModuleAbstractView getModuleCopy()throws ModelException{
+        return this.moduleCopy;
+    }
+    public void setModuleCopy(ModuleAbstractView newValue) throws ModelException {
+        this.moduleCopy = newValue;
+    }
     
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
+        ModuleAbstractView moduleCopy = this.getModuleCopy();
+        if (moduleCopy != null) {
+            ((ViewProxi)moduleCopy).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(moduleCopy.getClassId(), moduleCopy.getId())));
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {

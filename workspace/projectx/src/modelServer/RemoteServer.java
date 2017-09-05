@@ -151,10 +151,10 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.HashMap<?,?> changeGradeSystem(String moduleProxiString, String gradeSystem){
+    public synchronized java.util.HashMap<?,?> changeGradeSystem(String moduleProxiString){
         try {
             PersistentModuleAtomar module = (PersistentModuleAtomar)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(moduleProxiString));
-            ((PersistentServer)this.server).changeGradeSystem(module, gradeSystem);
+            ((PersistentServer)this.server).changeGradeSystem(module);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

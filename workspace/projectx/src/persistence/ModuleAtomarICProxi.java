@@ -28,6 +28,12 @@ public class ModuleAtomarICProxi extends ModuleAbstractICProxi implements Persis
     public void setOwnCreditPoints(common.Fraction newValue) throws PersistenceException {
         ((PersistentModuleAtomar)this.getTheObject()).setOwnCreditPoints(newValue);
     }
+    public GradeSystem4Public getGradeSystem() throws PersistenceException {
+        return ((PersistentModuleAtomar)this.getTheObject()).getGradeSystem();
+    }
+    public void setGradeSystem(GradeSystem4Public newValue) throws PersistenceException {
+        ((PersistentModuleAtomar)this.getTheObject()).setGradeSystem(newValue);
+    }
     public PersistentModuleAtomar getThis() throws PersistenceException {
         return ((PersistentModuleAtomar)this.getTheObject()).getThis();
     }

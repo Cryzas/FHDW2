@@ -44,6 +44,12 @@ public class ModuleAtomarProxi extends ModuleAbstractProxi implements ModuleAtom
         return -1;
     }
     
+    public GradeSystemView getGradeSystem()throws ModelException{
+        return ((ModuleAtomar)this.getTheObject()).getGradeSystem();
+    }
+    public void setGradeSystem(GradeSystemView newValue) throws ModelException {
+        ((ModuleAtomar)this.getTheObject()).setGradeSystem(newValue);
+    }
     
     public void accept(ModuleAbstractVisitor visitor) throws ModelException {
         visitor.handleModuleAtomar(this);

@@ -37,6 +37,17 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleUnitSGroup(UnitSGroup4Public unitSGroup) throws PersistenceException;
     
+    public abstract void handleGradesInSimple(GradesInSimple4Public gradesInSimple) throws PersistenceException;
+    
+    public void handlePassed(Passed4Public passed) throws PersistenceException{
+        this.handleGradesInSimple(passed);
+    }
+    public void handleNoGradeSimple(NoGradeSimple4Public noGradeSimple) throws PersistenceException{
+        this.handleGradesInSimple(noGradeSimple);
+    }
+    public void handleNotPassed(NotPassed4Public notPassed) throws PersistenceException{
+        this.handleGradesInSimple(notPassed);
+    }
     public abstract void handleStudentManager(StudentManager4Public studentManager) throws PersistenceException;
     
     public abstract void handleModuleManager(ModuleManager4Public moduleManager) throws PersistenceException;
@@ -66,14 +77,31 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleGradeSystem(GradeSystem4Public gradeSystem) throws PersistenceException;
     
-    public void handleSimpleGrade(SimpleGrade4Public simpleGrade) throws PersistenceException{
-        this.handleGradeSystem(simpleGrade);
+    public void handleSimpleGradeSystem(SimpleGradeSystem4Public simpleGradeSystem) throws PersistenceException{
+        this.handleGradeSystem(simpleGradeSystem);
     }
-    public void handleTenthGrade(TenthGrade4Public tenthGrade) throws PersistenceException{
-        this.handleGradeSystem(tenthGrade);
+    public void handleThirdGradeSystem(ThirdGradeSystem4Public thirdGradeSystem) throws PersistenceException{
+        this.handleGradeSystem(thirdGradeSystem);
     }
-    public void handleThirdGrade(ThirdGrade4Public thirdGrade) throws PersistenceException{
-        this.handleGradeSystem(thirdGrade);
+    public abstract void handleGradesInThird(GradesInThird4Public gradesInThird) throws PersistenceException;
+    
+    public void handleT_2_3(T_2_34Public t_2_3) throws PersistenceException{
+        this.handleGradesInThird(t_2_3);
+    }
+    public void handleT_1_3(T_1_34Public t_1_3) throws PersistenceException{
+        this.handleGradesInThird(t_1_3);
+    }
+    public void handleT_2_0(T_2_04Public t_2_0) throws PersistenceException{
+        this.handleGradesInThird(t_2_0);
+    }
+    public void handleT_1_7(T_1_74Public t_1_7) throws PersistenceException{
+        this.handleGradesInThird(t_1_7);
+    }
+    public void handleT_1_0(T_1_04Public t_1_0) throws PersistenceException{
+        this.handleGradesInThird(t_1_0);
+    }
+    public void handleNoGradeThird(NoGradeThird4Public noGradeThird) throws PersistenceException{
+        this.handleGradesInThird(noGradeThird);
     }
     public abstract void handleProgramStudent(ProgramStudent4Public programStudent) throws PersistenceException;
     
@@ -88,11 +116,11 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleChangeGradeSystemCommand(ChangeGradeSystemCommand4Public changeGradeSystemCommand) throws PersistenceException{
         this.handleCommonDate(changeGradeSystemCommand);
     }
-    public void handleSwapCPonModuleWithUnitsCommand(SwapCPonModuleWithUnitsCommand4Public swapCPonModuleWithUnitsCommand) throws PersistenceException{
-        this.handleCommonDate(swapCPonModuleWithUnitsCommand);
-    }
     public void handleCreateStudentCommand(CreateStudentCommand4Public createStudentCommand) throws PersistenceException{
         this.handleCommonDate(createStudentCommand);
+    }
+    public void handleSwapCPonModuleWithUnitsCommand(SwapCPonModuleWithUnitsCommand4Public swapCPonModuleWithUnitsCommand) throws PersistenceException{
+        this.handleCommonDate(swapCPonModuleWithUnitsCommand);
     }
     public void handleAddStudentToGroupCommand(AddStudentToGroupCommand4Public addStudentToGroupCommand) throws PersistenceException{
         this.handleCommonDate(addStudentToGroupCommand);

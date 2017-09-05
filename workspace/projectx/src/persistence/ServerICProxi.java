@@ -171,9 +171,9 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).changeCPOnUnit(unit, creditPoints);
     }
-    public void changeGradeSystem(final ModuleAtomar4Public module, final String gradeSystem) 
+    public void changeGradeSystem(final ModuleAtomar4Public module) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).changeGradeSystem(module, gradeSystem);
+        ((PersistentServer)this.getTheObject()).changeGradeSystem(module);
     }
     public void connected(final String user) 
 				throws PersistenceException{
