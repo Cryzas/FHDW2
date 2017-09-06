@@ -64,19 +64,13 @@ public abstract class GradesInThird extends model.GradesInSimpleOrThird implemen
     // Start of section that contains operations that must be implemented.
     
     public void copyingPrivateUserAttributes(final Anything copy) 
-				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
+				throws PersistenceException{        
     }
     public void initializeOnCreation() 
-				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
+				throws PersistenceException{        
     }
     public void initializeOnInstantiation() 
-				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
+				throws PersistenceException{        
     }
     
     
