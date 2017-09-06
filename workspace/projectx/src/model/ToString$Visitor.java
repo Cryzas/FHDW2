@@ -165,233 +165,188 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleNoGradeThird(NoGradeThird4Public noGradeThird) throws PersistenceException {
-		// TODO Auto-generated method stub
+		result = "Noch keine Note vorhanden";
 		
 	}
 	@Override
 	public void handleNoGradeSimple(NoGradeSimple4Public noGradeSimple) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "Noch keine Note vorhanden";		
 	}
 	@Override
 	public void handleT_2_3(T_2_34Public t_2_3) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "2,3";
 	}
 	@Override
 	public void handleT_2_0(T_2_04Public t_2_0) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "2,0";		
 	}
 	@Override
 	public void handleNotPassed(NotPassed4Public notPassed) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "Nicht bestanden";
 	}
 	@Override
 	public void handleT_1_3(T_1_34Public t_1_3) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "1,3";
 	}
 	@Override
 	public void handleT_1_7(T_1_74Public t_1_7) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "1,7";
 	}
 	@Override
 	public void handleT_1_0(T_1_04Public t_1_0) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "1,0";		
 	}
 	@Override
 	public void handleT_3_7(T_3_74Public t_3_7) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "3,7";			
 	}
 	@Override
 	public void handleZ_1_0(Z_1_04Public z_1_0) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "1,0";	
 	}
 	@Override
 	public void handleZ_1_1(Z_1_14Public z_1_1) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "1,1";			
 	}
 	@Override
 	public void handleZ_3_0(Z_3_04Public z_3_0) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "3,0";			
 	}
 	@Override
 	public void handleZ_1_2(Z_1_24Public z_1_2) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "1,2";			
 	}
 	@Override
 	public void handleZ_4_0(Z_4_04Public z_4_0) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "4,0";			
 	}
 	@Override
 	public void handleZ_2_2(Z_2_24Public z_2_2) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "2,2";			
 	}
 	@Override
 	public void handleZ_2_3(Z_2_34Public z_2_3) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "2,3";			
 	}
 	@Override
 	public void handleZ_2_4(Z_2_44Public z_2_4) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "2,4";			
 	}
 	@Override
 	public void handleZ_2_5(Z_2_54Public z_2_5) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "2,5";			
 	}
 	@Override
 	public void handleZ_2_6(Z_2_64Public z_2_6) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "2,6";			
 	}
 	@Override
 	public void handleZ_2_7(Z_2_74Public z_2_7) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "2,7";			
 	}
 	@Override
 	public void handleZ_2_8(Z_2_84Public z_2_8) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "2,8";			
 	}
 	@Override
 	public void handleZ_2_9(Z_2_94Public z_2_9) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "2,9";			
 	}
 	@Override
 	public void handleT_4_0(T_4_04Public t_4_0) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "4,0";			
 	}
 	@Override
 	public void handleT_2_7(T_2_74Public t_2_7) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "2,7";			
 	}
 	@Override
 	public void handleZ_2_0(Z_2_04Public z_2_0) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "2,0";			
 	}
 	@Override
 	public void handleZ_2_1(Z_2_14Public z_2_1) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "2,1";			
 	}
 	@Override
 	public void handleZ_3_1(Z_3_14Public z_3_1) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "3,1";			
 	}
 	@Override
 	public void handleZ_1_3(Z_1_34Public z_1_3) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "1,3";			
 	}
 	@Override
 	public void handleZ_5_0(Z_5_04Public z_5_0) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "5,0";			
 	}
 	@Override
 	public void handleZ_3_2(Z_3_24Public z_3_2) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "3,2";			
 	}
 	@Override
 	public void handleZ_1_4(Z_1_44Public z_1_4) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "1,4";			
 	}
 	@Override
 	public void handleZ_3_3(Z_3_34Public z_3_3) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "3,3";			
 	}
 	@Override
 	public void handleZ_1_5(Z_1_54Public z_1_5) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "1,5";			
 	}
 	@Override
 	public void handleZ_3_4(Z_3_44Public z_3_4) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "3,4";			
 	}
 	@Override
 	public void handleZ_1_6(Z_1_64Public z_1_6) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "1,6";			
 	}
 	@Override
 	public void handleZ_3_5(Z_3_54Public z_3_5) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "3,5";			
 	}
 	@Override
 	public void handleZ_1_7(Z_1_74Public z_1_7) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "1,7";			
 	}
 	@Override
 	public void handleZ_3_6(Z_3_64Public z_3_6) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "3,6";			
 	}
 	@Override
 	public void handleZ_1_8(Z_1_84Public z_1_8) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "1,8";			
 	}
 	@Override
 	public void handleZ_3_7(Z_3_74Public z_3_7) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "3,7";			
 	}
 	@Override
 	public void handleZ_1_9(Z_1_94Public z_1_9) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "1,9";			
 	}
 	@Override
 	public void handleZ_3_8(Z_3_84Public z_3_8) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "3,8";			
 	}
 	@Override
 	public void handleZ_3_9(Z_3_94Public z_3_9) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "3,9";			
 	}
 	@Override
 	public void handleT_5_0(T_5_04Public t_5_0) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "5,0";			
 	}
 	@Override
 	public void handleT_3_0(T_3_04Public t_3_0) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "3,0";			
 	}
 	@Override
 	public void handleT_3_3(T_3_34Public t_3_3) throws PersistenceException {
-		// TODO Auto-generated method stub
-		
+		result = "3,3";			
 	}
 	@Override
 	public void handleNoGradeTenth(NoGradeTenth4Public noGradeTenth) throws PersistenceException {

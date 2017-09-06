@@ -91,18 +91,12 @@ public abstract class GradesInSimpleOrThird extends PersistentObject implements 
     
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        //TODO: implement method: copyingPrivateUserAttributes
-        
     }
     public void initializeOnCreation() 
-				throws PersistenceException{
-        //TODO: implement method: initializeOnCreation
-        
+				throws PersistenceException{        
     }
     public void initializeOnInstantiation() 
-				throws PersistenceException{
-        //TODO: implement method: initializeOnInstantiation
-        
+				throws PersistenceException{        
     }
     
     
