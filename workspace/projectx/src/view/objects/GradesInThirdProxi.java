@@ -3,7 +3,7 @@ package view.objects;
 import view.*;
 import viewClient.*;
 
-public abstract class GradesInThirdProxi extends ViewProxi implements GradesInThirdView{
+public abstract class GradesInThirdProxi extends GradesInSimpleOrThirdProxi implements GradesInThirdView{
     
     public GradesInThirdProxi(long objectId, long classId, ExceptionAndEventHandler connectionKey) {
         super(objectId, classId, connectionKey);

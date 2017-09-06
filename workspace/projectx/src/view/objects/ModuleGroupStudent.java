@@ -10,11 +10,13 @@ import view.visitor.*;
 public class ModuleGroupStudent extends view.objects.ModuleAbstractStudent implements ModuleGroupStudentView{
     
     protected java.util.Vector<ModuleAbstractStudentView> modules;
+    protected GradesInTenthView grade;
     
-    public ModuleGroupStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,java.util.Vector<ModuleAbstractStudentView> modules,long id, long classId) {
+    public ModuleGroupStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,java.util.Vector<ModuleAbstractStudentView> modules,GradesInTenthView grade,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,id, classId);
-        this.modules = modules;        
+        this.modules = modules;
+        this.grade = grade;        
     }
     
     static public long getTypeId() {
@@ -30,6 +32,9 @@ public class ModuleGroupStudent extends view.objects.ModuleAbstractStudent imple
     }
     public void setModules(java.util.Vector<ModuleAbstractStudentView> newValue) throws ModelException {
         this.modules = newValue;
+    }
+    public GradesInTenthView getGrade()throws ModelException{
+        return this.grade;
     }
     
     public void accept(ModuleAbstractStudentVisitor visitor) throws ModelException {
@@ -66,6 +71,10 @@ public class ModuleGroupStudent extends view.objects.ModuleAbstractStudent imple
         if (modules != null) {
             ViewObject.resolveVectorProxies(modules, resultTable);
         }
+        GradesInTenthView grade = this.getGrade();
+        if (grade != null) {
+            ((ViewProxi)grade).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(grade.getClassId(), grade.getId())));
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {
@@ -75,15 +84,19 @@ public class ModuleGroupStudent extends view.objects.ModuleAbstractStudent imple
         int index = originalIndex;
         if(index < this.getModules().size()) return new ModulesModuleGroupStudentWrapper(this, originalIndex, (ViewRoot)this.getModules().get(index));
         index = index - this.getModules().size();
+        if(index == 0 && this.getGrade() != null) return new GradeModuleGroupStudentWrapper(this, originalIndex, (ViewRoot)this.getGrade());
+        if(this.getGrade() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getModules().size());
+            + (this.getModules().size())
+            + (this.getGrade() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         return true 
-            && (this.getModules().size() == 0);
+            && (this.getModules().size() == 0)
+            && (this.getGrade() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -92,6 +105,8 @@ public class ModuleGroupStudent extends view.objects.ModuleAbstractStudent imple
             if(getModulesIterator.next().equals(child)) return result;
             result = result + 1;
         }
+        if(this.getGrade() != null && this.getGrade().equals(child)) return result;
+        if(this.getGrade() != null) result = result + 1;
         return -1;
     }
     public int getNameIndex() throws ModelException {

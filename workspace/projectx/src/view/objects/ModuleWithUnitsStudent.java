@@ -10,11 +10,13 @@ import view.visitor.*;
 public class ModuleWithUnitsStudent extends view.objects.ModuleAbstractStudent implements ModuleWithUnitsStudentView{
     
     protected java.util.Vector<UnitStudentView> units;
+    protected GradesInThirdView grade;
     
-    public ModuleWithUnitsStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,java.util.Vector<UnitStudentView> units,long id, long classId) {
+    public ModuleWithUnitsStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,java.util.Vector<UnitStudentView> units,GradesInThirdView grade,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,id, classId);
-        this.units = units;        
+        this.units = units;
+        this.grade = grade;        
     }
     
     static public long getTypeId() {
@@ -30,6 +32,9 @@ public class ModuleWithUnitsStudent extends view.objects.ModuleAbstractStudent i
     }
     public void setUnits(java.util.Vector<UnitStudentView> newValue) throws ModelException {
         this.units = newValue;
+    }
+    public GradesInThirdView getGrade()throws ModelException{
+        return this.grade;
     }
     
     public void accept(ModuleAbstractStudentVisitor visitor) throws ModelException {
@@ -66,6 +71,10 @@ public class ModuleWithUnitsStudent extends view.objects.ModuleAbstractStudent i
         if (units != null) {
             ViewObject.resolveVectorProxies(units, resultTable);
         }
+        GradesInThirdView grade = this.getGrade();
+        if (grade != null) {
+            ((ViewProxi)grade).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(grade.getClassId(), grade.getId())));
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {
@@ -75,15 +84,19 @@ public class ModuleWithUnitsStudent extends view.objects.ModuleAbstractStudent i
         int index = originalIndex;
         if(index < this.getUnits().size()) return new UnitsModuleWithUnitsStudentWrapper(this, originalIndex, (ViewRoot)this.getUnits().get(index));
         index = index - this.getUnits().size();
+        if(index == 0 && this.getGrade() != null) return new GradeModuleWithUnitsStudentWrapper(this, originalIndex, (ViewRoot)this.getGrade());
+        if(this.getGrade() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getUnits().size());
+            + (this.getUnits().size())
+            + (this.getGrade() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         return true 
-            && (this.getUnits().size() == 0);
+            && (this.getUnits().size() == 0)
+            && (this.getGrade() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -92,6 +105,8 @@ public class ModuleWithUnitsStudent extends view.objects.ModuleAbstractStudent i
             if(getUnitsIterator.next().equals(child)) return result;
             result = result + 1;
         }
+        if(this.getGrade() != null && this.getGrade().equals(child)) return result;
+        if(this.getGrade() != null) result = result + 1;
         return -1;
     }
     public int getNameIndex() throws ModelException {

@@ -25,7 +25,7 @@ public class UnitStudentFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            UnitStudent result = new UnitStudent(null,null,id);
+            UnitStudent result = new UnitStudent(null,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentUnitStudent)PersistentProxi.createProxi(id, 197);
         }catch(SQLException se) {
@@ -41,7 +41,7 @@ public class UnitStudentFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            UnitStudent result = new UnitStudent(null,null,id);
+            UnitStudent result = new UnitStudent(null,null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentUnitStudent)PersistentProxi.createProxi(id, 197);
         }catch(SQLException se) {
@@ -65,10 +65,14 @@ public class UnitStudentFacade{
             PersistentUnitSGroup unitCopy = null;
             if (obj.getLong(2) != 0)
                 unitCopy = (PersistentUnitSGroup)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
-            PersistentUnitStudent This = null;
+            PersistentGradesInThird grade = null;
             if (obj.getLong(4) != 0)
-                This = (PersistentUnitStudent)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+                grade = (PersistentGradesInThird)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+            PersistentUnitStudent This = null;
+            if (obj.getLong(6) != 0)
+                This = (PersistentUnitStudent)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
             UnitStudent result = new UnitStudent(unitCopy,
+                                                 grade,
                                                  This,
                                                  UnitStudentId);
             obj.close();
@@ -102,6 +106,19 @@ public class UnitStudentFacade{
             callable.setLong(1, UnitStudentId);
             callable.setLong(2, unitCopyVal.getId());
             callable.setLong(3, unitCopyVal.getClassId());
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void gradeSet(long UnitStudentId, GradesInThird4Public gradeVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".UntStdntFacade.grdSet(?, ?, ?); end;");
+            callable.setLong(1, UnitStudentId);
+            callable.setLong(2, gradeVal.getId());
+            callable.setLong(3, gradeVal.getClassId());
             callable.execute();
             callable.close();
         }catch(SQLException se) {

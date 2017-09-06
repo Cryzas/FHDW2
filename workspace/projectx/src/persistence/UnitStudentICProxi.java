@@ -28,6 +28,12 @@ public class UnitStudentICProxi extends PersistentInCacheProxiOptimistic impleme
     public void setUnitCopy(UnitSGroup4Public newValue) throws PersistenceException {
         ((PersistentUnitStudent)this.getTheObject()).setUnitCopy(newValue);
     }
+    public GradesInThird4Public getGrade() throws PersistenceException {
+        return ((PersistentUnitStudent)this.getTheObject()).getGrade();
+    }
+    public void setGrade(GradesInThird4Public newValue) throws PersistenceException {
+        ((PersistentUnitStudent)this.getTheObject()).setGrade(newValue);
+    }
     public PersistentUnitStudent getThis() throws PersistenceException {
         return ((PersistentUnitStudent)this.getTheObject()).getThis();
     }

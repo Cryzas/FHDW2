@@ -6,6 +6,7 @@ public interface ModuleWithUnitsStudentView extends ModuleAbstractStudentView {
     
     public java.util.Vector<UnitStudentView> getUnits()throws ModelException;
     public void setUnits(java.util.Vector<UnitStudentView> newValue) throws ModelException ;
+    public GradesInThirdView getGrade()throws ModelException;
     
     public void accept(ModuleAbstractStudentVisitor visitor) throws ModelException;
     public <R> R accept(ModuleAbstractStudentReturnVisitor<R>  visitor) throws ModelException;

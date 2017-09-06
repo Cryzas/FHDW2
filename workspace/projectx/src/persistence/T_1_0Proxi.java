@@ -34,6 +34,18 @@ public class T_1_0Proxi extends GradesInThirdProxi implements PersistentT_1_0{
     public <R, E extends model.UserException> R accept(GradesInThirdReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleT_1_0(this);
     }
+    public void accept(GradesInSimpleOrThirdVisitor visitor) throws PersistenceException {
+        visitor.handleT_1_0(this);
+    }
+    public <R> R accept(GradesInSimpleOrThirdReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleT_1_0(this);
+    }
+    public <E extends model.UserException>  void accept(GradesInSimpleOrThirdExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleT_1_0(this);
+    }
+    public <R, E extends model.UserException> R accept(GradesInSimpleOrThirdReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleT_1_0(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleT_1_0(this);
     }

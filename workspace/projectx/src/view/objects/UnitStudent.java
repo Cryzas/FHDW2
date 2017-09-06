@@ -11,12 +11,14 @@ public class UnitStudent extends ViewObject implements UnitStudentView{
     
     protected String name;
     protected common.Fraction creditPoints;
+    protected GradesInThirdView grade;
     
-    public UnitStudent(String name,common.Fraction creditPoints,long id, long classId) {
+    public UnitStudent(String name,common.Fraction creditPoints,GradesInThirdView grade,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.name = name;
-        this.creditPoints = creditPoints;        
+        this.creditPoints = creditPoints;
+        this.grade = grade;        
     }
     
     static public long getTypeId() {
@@ -33,6 +35,12 @@ public class UnitStudent extends ViewObject implements UnitStudentView{
     public common.Fraction getCreditPoints()throws ModelException{
         return this.creditPoints;
     }
+    public GradesInThirdView getGrade()throws ModelException{
+        return this.grade;
+    }
+    public void setGrade(GradesInThirdView newValue) throws ModelException {
+        this.grade = newValue;
+    }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleUnitStudent(this);
@@ -48,23 +56,33 @@ public class UnitStudent extends ViewObject implements UnitStudentView{
     }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
+        GradesInThirdView grade = this.getGrade();
+        if (grade != null) {
+            ((ViewProxi)grade).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(grade.getClassId(), grade.getId())));
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {
         
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        
+        int index = originalIndex;
+        if(index == 0 && this.getGrade() != null) return new GradeUnitStudentWrapper(this, originalIndex, (ViewRoot)this.getGrade());
+        if(this.getGrade() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 ;
+        return 0 
+            + (this.getGrade() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
-        return true;
+        return true 
+            && (this.getGrade() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        
+        int result = 0;
+        if(this.getGrade() != null && this.getGrade().equals(child)) return result;
+        if(this.getGrade() != null) result = result + 1;
         return -1;
     }
     public int getNameIndex() throws ModelException {

@@ -8,6 +8,8 @@ public interface UnitStudentView extends Anything, AbstractViewRoot {
     
     public String getName()throws ModelException;
     public common.Fraction getCreditPoints()throws ModelException;
+    public GradesInThirdView getGrade()throws ModelException;
+    public void setGrade(GradesInThirdView newValue) throws ModelException ;
     
     public void accept(AnythingVisitor visitor) throws ModelException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException;

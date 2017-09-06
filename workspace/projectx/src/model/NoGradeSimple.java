@@ -10,7 +10,7 @@ import model.visitor.*;
 public class NoGradeSimple extends model.GradesInSimple implements PersistentNoGradeSimple{
     
     private static NoGradeSimple4Public theNoGradeSimple = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static NoGradeSimple4Public getTheNoGradeSimple() throws PersistenceException{
         if (theNoGradeSimple == null || reset$For$Test){
@@ -82,9 +82,9 @@ public class NoGradeSimple extends model.GradesInSimple implements PersistentNoG
         return false;
     }
     
-    public NoGradeSimple(PersistentGradesInSimple This,long id) throws PersistenceException {
+    public NoGradeSimple(PersistentGradesInSimpleOrThird This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentGradesInSimple)This,id);        
+        super((PersistentGradesInSimpleOrThird)This,id);        
     }
     
     static public long getTypeId() {
@@ -117,6 +117,18 @@ public class NoGradeSimple extends model.GradesInSimple implements PersistentNoG
          visitor.handleNoGradeSimple(this);
     }
     public <R, E extends model.UserException> R accept(GradesInSimpleReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleNoGradeSimple(this);
+    }
+    public void accept(GradesInSimpleOrThirdVisitor visitor) throws PersistenceException {
+        visitor.handleNoGradeSimple(this);
+    }
+    public <R> R accept(GradesInSimpleOrThirdReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleNoGradeSimple(this);
+    }
+    public <E extends model.UserException>  void accept(GradesInSimpleOrThirdExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleNoGradeSimple(this);
+    }
+    public <R, E extends model.UserException> R accept(GradesInSimpleOrThirdReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleNoGradeSimple(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {

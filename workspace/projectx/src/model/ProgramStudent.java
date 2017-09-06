@@ -75,6 +75,13 @@ public class ProgramStudent extends PersistentObject implements PersistentProgra
                 result.put("programCopy", proxiInformation);
                 
             }
+            AbstractPersistentRoot grade = (AbstractPersistentRoot)this.getGrade();
+            if (grade != null) {
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    grade, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, true, false, false);
+                result.put("grade", proxiInformation);
+                
+            }
         }
         return result;
     }
@@ -193,6 +200,7 @@ public class ProgramStudent extends PersistentObject implements PersistentProgra
          return visitor.handleProgramStudent(this);
     }
     public int getLeafInfo() throws PersistenceException{
+        if (this.getGrade() != null) return 1;
         if (this.getModules().getLength() > 0) return 1;
         return 0;
     }
@@ -240,6 +248,16 @@ public class ProgramStudent extends PersistentObject implements PersistentProgra
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
         return getThis().getModules().aggregate(Fraction.Null, (result, argument) -> result.add(argument.getCreditPoints()));
+    }
+    public GradesInTenth4Public getGrade() 
+				throws PersistenceException{
+        //TODO: implement method: getGrade
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"getGrade\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
     }
     public String getName() 
 				throws PersistenceException{

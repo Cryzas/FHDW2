@@ -42,9 +42,9 @@ public class NoGradeThirdFacade{
                 callable.close();
                 return null;
             }
-            PersistentGradesInThird This = null;
+            PersistentGradesInSimpleOrThird This = null;
             if (obj.getLong(2) != 0)
-                This = (PersistentGradesInThird)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+                This = (PersistentGradesInSimpleOrThird)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
             NoGradeThird result = new NoGradeThird(This,
                                                    NoGradeThirdId);
             obj.close();

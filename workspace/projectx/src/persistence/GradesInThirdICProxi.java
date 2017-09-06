@@ -2,7 +2,7 @@ package persistence;
 
 
 
-public abstract class GradesInThirdICProxi extends PersistentInCacheProxiOptimistic implements PersistentGradesInThird{
+public abstract class GradesInThirdICProxi extends GradesInSimpleOrThirdICProxi implements PersistentGradesInThird{
     
     public GradesInThirdICProxi(long objectId) {
         super(objectId);

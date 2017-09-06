@@ -38,6 +38,18 @@ public class NoGradeSimpleICProxi extends GradesInSimpleICProxi implements Persi
     public <R, E extends model.UserException> R accept(GradesInSimpleReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleNoGradeSimple(this);
     }
+    public void accept(GradesInSimpleOrThirdVisitor visitor) throws PersistenceException {
+        visitor.handleNoGradeSimple(this);
+    }
+    public <R> R accept(GradesInSimpleOrThirdReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleNoGradeSimple(this);
+    }
+    public <E extends model.UserException>  void accept(GradesInSimpleOrThirdExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleNoGradeSimple(this);
+    }
+    public <R, E extends model.UserException> R accept(GradesInSimpleOrThirdReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleNoGradeSimple(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleNoGradeSimple(this);
     }

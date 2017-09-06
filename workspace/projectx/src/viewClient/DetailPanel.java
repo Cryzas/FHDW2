@@ -1219,6 +1219,9 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleModuleAtomar(view.ModuleAtomarView object){
         result = new ModuleAtomarDefaultDetailPanel(handler, object);
     }
+    public void handleT_3_7(view.T_3_7View object){
+        result = new T_3_7DefaultDetailPanel(handler, object);
+    }
     public void handleModuleManager(view.ModuleManagerView object){
         result = new ModuleManagerDefaultDetailPanel(handler, object);
     }
@@ -1237,17 +1240,56 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleNoGradeThird(view.NoGradeThirdView object){
         result = new NoGradeThirdDefaultDetailPanel(handler, object);
     }
+    public void handleZ_1_0(view.Z_1_0View object){
+        result = new Z_1_0DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_1_1(view.Z_1_1View object){
+        result = new Z_1_1DefaultDetailPanel(handler, object);
+    }
     public void handleProgramManager(view.ProgramManagerView object){
         result = new ProgramManagerDefaultDetailPanel(handler, object);
+    }
+    public void handleZ_3_0(view.Z_3_0View object){
+        result = new Z_3_0DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_1_2(view.Z_1_2View object){
+        result = new Z_1_2DefaultDetailPanel(handler, object);
     }
     public void handleSimpleGradeSystem(view.SimpleGradeSystemView object){
         result = new SimpleGradeSystemDefaultDetailPanel(handler, object);
     }
+    public void handleZ_4_0(view.Z_4_0View object){
+        result = new Z_4_0DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_2_2(view.Z_2_2View object){
+        result = new Z_2_2DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_2_3(view.Z_2_3View object){
+        result = new Z_2_3DefaultDetailPanel(handler, object);
+    }
     public void handleNoGradeSimple(view.NoGradeSimpleView object){
         result = new NoGradeSimpleDefaultDetailPanel(handler, object);
     }
+    public void handleZ_2_4(view.Z_2_4View object){
+        result = new Z_2_4DefaultDetailPanel(handler, object);
+    }
     public void handleProgram(view.ProgramView object){
         result = new ProgramDefaultDetailPanel(handler, object);
+    }
+    public void handleZ_2_5(view.Z_2_5View object){
+        result = new Z_2_5DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_2_6(view.Z_2_6View object){
+        result = new Z_2_6DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_2_7(view.Z_2_7View object){
+        result = new Z_2_7DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_2_8(view.Z_2_8View object){
+        result = new Z_2_8DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_2_9(view.Z_2_9View object){
+        result = new Z_2_9DefaultDetailPanel(handler, object);
     }
     public void handleUnitSGroup(view.UnitSGroupView object){
         result = new UnitSGroupDefaultDetailPanel(handler, object);
@@ -1261,11 +1303,17 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleT_2_3(view.T_2_3View object){
         result = new T_2_3DefaultDetailPanel(handler, object);
     }
+    public void handleT_4_0(view.T_4_0View object){
+        result = new T_4_0DefaultDetailPanel(handler, object);
+    }
     public void handleStudyGroupManager(view.StudyGroupManagerView object){
         result = new StudyGroupManagerDefaultDetailPanel(handler, object);
     }
     public void handleT_2_0(view.T_2_0View object){
         result = new T_2_0DefaultDetailPanel(handler, object);
+    }
+    public void handleT_2_7(view.T_2_7View object){
+        result = new T_2_7DefaultDetailPanel(handler, object);
     }
     public void handleUnitStudent(view.UnitStudentView object){
         result = new UnitStudentDefaultDetailPanel(handler, object);
@@ -1285,17 +1333,83 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleNotPassed(view.NotPassedView object){
         result = new NotPassedDefaultDetailPanel(handler, object);
     }
+    public void handleZ_2_0(view.Z_2_0View object){
+        result = new Z_2_0DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_2_1(view.Z_2_1View object){
+        result = new Z_2_1DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_3_1(view.Z_3_1View object){
+        result = new Z_3_1DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_1_3(view.Z_1_3View object){
+        result = new Z_1_3DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_5_0(view.Z_5_0View object){
+        result = new Z_5_0DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_3_2(view.Z_3_2View object){
+        result = new Z_3_2DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_1_4(view.Z_1_4View object){
+        result = new Z_1_4DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_3_3(view.Z_3_3View object){
+        result = new Z_3_3DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_1_5(view.Z_1_5View object){
+        result = new Z_1_5DefaultDetailPanel(handler, object);
+    }
     public void handleModuleWithUnitsStudent(view.ModuleWithUnitsStudentView object){
         result = new ModuleWithUnitsStudentDefaultDetailPanel(handler, object);
+    }
+    public void handleZ_3_4(view.Z_3_4View object){
+        result = new Z_3_4DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_1_6(view.Z_1_6View object){
+        result = new Z_1_6DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_3_5(view.Z_3_5View object){
+        result = new Z_3_5DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_1_7(view.Z_1_7View object){
+        result = new Z_1_7DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_3_6(view.Z_3_6View object){
+        result = new Z_3_6DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_1_8(view.Z_1_8View object){
+        result = new Z_1_8DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_3_7(view.Z_3_7View object){
+        result = new Z_3_7DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_1_9(view.Z_1_9View object){
+        result = new Z_1_9DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_3_8(view.Z_3_8View object){
+        result = new Z_3_8DefaultDetailPanel(handler, object);
+    }
+    public void handleZ_3_9(view.Z_3_9View object){
+        result = new Z_3_9DefaultDetailPanel(handler, object);
     }
     public void handleModuleGroupStudent(view.ModuleGroupStudentView object){
         result = new ModuleGroupStudentDefaultDetailPanel(handler, object);
     }
+    public void handleT_5_0(view.T_5_0View object){
+        result = new T_5_0DefaultDetailPanel(handler, object);
+    }
     public void handleT_1_3(view.T_1_3View object){
         result = new T_1_3DefaultDetailPanel(handler, object);
     }
+    public void handleT_3_0(view.T_3_0View object){
+        result = new T_3_0DefaultDetailPanel(handler, object);
+    }
     public void handleT_1_7(view.T_1_7View object){
         result = new T_1_7DefaultDetailPanel(handler, object);
+    }
+    public void handleT_3_3(view.T_3_3View object){
+        result = new T_3_3DefaultDetailPanel(handler, object);
     }
     public void handleT_1_0(view.T_1_0View object){
         result = new T_1_0DefaultDetailPanel(handler, object);
@@ -1479,6 +1593,19 @@ class ModuleAtomarDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class T_3_7DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected T_3_7DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.T_3_7View getAnything(){
+        return (view.T_3_7View)this.anything;
+    }
+}
+
 class ModuleManagerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String ModuleManager$$modules = "ModuleManager$$modules";
@@ -1605,6 +1732,32 @@ class NoGradeThirdDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class Z_1_0DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_1_0DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_1_0View getAnything(){
+        return (view.Z_1_0View)this.anything;
+    }
+}
+
+class Z_1_1DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_1_1DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_1_1View getAnything(){
+        return (view.Z_1_1View)this.anything;
+    }
+}
+
 class ProgramManagerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String ProgramManager$$programs = "ProgramManager$$programs";
@@ -1617,6 +1770,32 @@ class ProgramManagerDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ProgramManagerView getAnything(){
         return (view.ProgramManagerView)this.anything;
+    }
+}
+
+class Z_3_0DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_3_0DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_3_0View getAnything(){
+        return (view.Z_3_0View)this.anything;
+    }
+}
+
+class Z_1_2DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_1_2DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_1_2View getAnything(){
+        return (view.Z_1_2View)this.anything;
     }
 }
 
@@ -1633,6 +1812,45 @@ class SimpleGradeSystemDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class Z_4_0DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_4_0DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_4_0View getAnything(){
+        return (view.Z_4_0View)this.anything;
+    }
+}
+
+class Z_2_2DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_2_2DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_2_2View getAnything(){
+        return (view.Z_2_2View)this.anything;
+    }
+}
+
+class Z_2_3DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_2_3DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_2_3View getAnything(){
+        return (view.Z_2_3View)this.anything;
+    }
+}
+
 class NoGradeSimpleDefaultDetailPanel extends DefaultDetailPanel{
     
     protected NoGradeSimpleDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1643,6 +1861,19 @@ class NoGradeSimpleDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.NoGradeSimpleView getAnything(){
         return (view.NoGradeSimpleView)this.anything;
+    }
+}
+
+class Z_2_4DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_2_4DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_2_4View getAnything(){
+        return (view.Z_2_4View)this.anything;
     }
 }
 
@@ -1674,6 +1905,71 @@ class ProgramDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ProgramView getAnything(){
         return (view.ProgramView)this.anything;
+    }
+}
+
+class Z_2_5DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_2_5DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_2_5View getAnything(){
+        return (view.Z_2_5View)this.anything;
+    }
+}
+
+class Z_2_6DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_2_6DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_2_6View getAnything(){
+        return (view.Z_2_6View)this.anything;
+    }
+}
+
+class Z_2_7DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_2_7DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_2_7View getAnything(){
+        return (view.Z_2_7View)this.anything;
+    }
+}
+
+class Z_2_8DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_2_8DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_2_8View getAnything(){
+        return (view.Z_2_8View)this.anything;
+    }
+}
+
+class Z_2_9DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_2_9DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_2_9View getAnything(){
+        return (view.Z_2_9View)this.anything;
     }
 }
 
@@ -1782,6 +2078,19 @@ class T_2_3DefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class T_4_0DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected T_4_0DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.T_4_0View getAnything(){
+        return (view.T_4_0View)this.anything;
+    }
+}
+
 class StudyGroupManagerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String StudyGroupManager$$groups = "StudyGroupManager$$groups";
@@ -1810,10 +2119,24 @@ class T_2_0DefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class T_2_7DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected T_2_7DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.T_2_7View getAnything(){
+        return (view.T_2_7View)this.anything;
+    }
+}
+
 class UnitStudentDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String UnitStudent$$name = "UnitStudent$$name";
     protected static final String UnitStudent$$creditPoints = "UnitStudent$$creditPoints";
+    protected static final String UnitStudent$$grade = "UnitStudent$$grade";
     
     protected UnitStudentDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1875,6 +2198,7 @@ class ModuleAtomarStudentDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String ModuleAbstractStudent$$name = "ModuleAbstractStudent$$name";
     protected static final String ModuleAbstractStudent$$creditPoints = "ModuleAbstractStudent$$creditPoints";
+    protected static final String ModuleAtomarStudent$$grade = "ModuleAtomarStudent$$grade";
     
     protected ModuleAtomarStudentDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1937,6 +2261,7 @@ class ProgramStudentDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String ProgramStudent$$modules = "ProgramStudent$$modules";
     protected static final String ProgramStudent$$name = "ProgramStudent$$name";
     protected static final String ProgramStudent$$creditPoints = "ProgramStudent$$creditPoints";
+    protected static final String ProgramStudent$$grade = "ProgramStudent$$grade";
     
     protected ProgramStudentDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1976,11 +2301,129 @@ class NotPassedDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class Z_2_0DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_2_0DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_2_0View getAnything(){
+        return (view.Z_2_0View)this.anything;
+    }
+}
+
+class Z_2_1DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_2_1DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_2_1View getAnything(){
+        return (view.Z_2_1View)this.anything;
+    }
+}
+
+class Z_3_1DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_3_1DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_3_1View getAnything(){
+        return (view.Z_3_1View)this.anything;
+    }
+}
+
+class Z_1_3DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_1_3DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_1_3View getAnything(){
+        return (view.Z_1_3View)this.anything;
+    }
+}
+
+class Z_5_0DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_5_0DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_5_0View getAnything(){
+        return (view.Z_5_0View)this.anything;
+    }
+}
+
+class Z_3_2DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_3_2DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_3_2View getAnything(){
+        return (view.Z_3_2View)this.anything;
+    }
+}
+
+class Z_1_4DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_1_4DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_1_4View getAnything(){
+        return (view.Z_1_4View)this.anything;
+    }
+}
+
+class Z_3_3DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_3_3DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_3_3View getAnything(){
+        return (view.Z_3_3View)this.anything;
+    }
+}
+
+class Z_1_5DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_1_5DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_1_5View getAnything(){
+        return (view.Z_1_5View)this.anything;
+    }
+}
+
 class ModuleWithUnitsStudentDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String ModuleAbstractStudent$$name = "ModuleAbstractStudent$$name";
     protected static final String ModuleAbstractStudent$$creditPoints = "ModuleAbstractStudent$$creditPoints";
     protected static final String ModuleWithUnitsStudent$$units = "ModuleWithUnitsStudent$$units";
+    protected static final String ModuleWithUnitsStudent$$grade = "ModuleWithUnitsStudent$$grade";
     
     protected ModuleWithUnitsStudentDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -2007,11 +2450,142 @@ class ModuleWithUnitsStudentDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class Z_3_4DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_3_4DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_3_4View getAnything(){
+        return (view.Z_3_4View)this.anything;
+    }
+}
+
+class Z_1_6DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_1_6DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_1_6View getAnything(){
+        return (view.Z_1_6View)this.anything;
+    }
+}
+
+class Z_3_5DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_3_5DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_3_5View getAnything(){
+        return (view.Z_3_5View)this.anything;
+    }
+}
+
+class Z_1_7DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_1_7DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_1_7View getAnything(){
+        return (view.Z_1_7View)this.anything;
+    }
+}
+
+class Z_3_6DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_3_6DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_3_6View getAnything(){
+        return (view.Z_3_6View)this.anything;
+    }
+}
+
+class Z_1_8DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_1_8DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_1_8View getAnything(){
+        return (view.Z_1_8View)this.anything;
+    }
+}
+
+class Z_3_7DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_3_7DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_3_7View getAnything(){
+        return (view.Z_3_7View)this.anything;
+    }
+}
+
+class Z_1_9DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_1_9DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_1_9View getAnything(){
+        return (view.Z_1_9View)this.anything;
+    }
+}
+
+class Z_3_8DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_3_8DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_3_8View getAnything(){
+        return (view.Z_3_8View)this.anything;
+    }
+}
+
+class Z_3_9DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected Z_3_9DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.Z_3_9View getAnything(){
+        return (view.Z_3_9View)this.anything;
+    }
+}
+
 class ModuleGroupStudentDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String ModuleAbstractStudent$$name = "ModuleAbstractStudent$$name";
     protected static final String ModuleAbstractStudent$$creditPoints = "ModuleAbstractStudent$$creditPoints";
     protected static final String ModuleGroupStudent$$modules = "ModuleGroupStudent$$modules";
+    protected static final String ModuleGroupStudent$$grade = "ModuleGroupStudent$$grade";
     
     protected ModuleGroupStudentDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -2038,6 +2612,19 @@ class ModuleGroupStudentDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class T_5_0DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected T_5_0DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.T_5_0View getAnything(){
+        return (view.T_5_0View)this.anything;
+    }
+}
+
 class T_1_3DefaultDetailPanel extends DefaultDetailPanel{
     
     protected T_1_3DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -2051,6 +2638,19 @@ class T_1_3DefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class T_3_0DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected T_3_0DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.T_3_0View getAnything(){
+        return (view.T_3_0View)this.anything;
+    }
+}
+
 class T_1_7DefaultDetailPanel extends DefaultDetailPanel{
     
     protected T_1_7DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -2061,6 +2661,19 @@ class T_1_7DefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.T_1_7View getAnything(){
         return (view.T_1_7View)this.anything;
+    }
+}
+
+class T_3_3DefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected T_3_3DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.T_3_3View getAnything(){
+        return (view.T_3_3View)this.anything;
     }
 }
 

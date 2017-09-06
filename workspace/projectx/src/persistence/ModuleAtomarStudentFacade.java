@@ -25,7 +25,7 @@ public class ModuleAtomarStudentFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ModuleAtomarStudent result = new ModuleAtomarStudent(null,null,id);
+            ModuleAtomarStudent result = new ModuleAtomarStudent(null,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentModuleAtomarStudent)PersistentProxi.createProxi(id, 191);
         }catch(SQLException se) {
@@ -41,7 +41,7 @@ public class ModuleAtomarStudentFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ModuleAtomarStudent result = new ModuleAtomarStudent(null,null,id);
+            ModuleAtomarStudent result = new ModuleAtomarStudent(null,null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentModuleAtomarStudent)PersistentProxi.createProxi(id, 191);
         }catch(SQLException se) {
@@ -68,8 +68,12 @@ public class ModuleAtomarStudentFacade{
             PersistentModuleAbstractStudent This = null;
             if (obj.getLong(4) != 0)
                 This = (PersistentModuleAbstractStudent)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+            PersistentGradesInSimpleOrThird grade = null;
+            if (obj.getLong(6) != 0)
+                grade = (PersistentGradesInSimpleOrThird)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
             ModuleAtomarStudent result = new ModuleAtomarStudent(moduleCopy,
                                                                  This,
+                                                                 grade,
                                                                  ModuleAtomarStudentId);
             obj.close();
             callable.close();
@@ -77,6 +81,19 @@ public class ModuleAtomarStudentFacade{
             ModuleAtomarStudent objectInCache = (ModuleAtomarStudent)inCache.getTheObject();
             if (objectInCache == result)result.initializeOnInstantiation();
             return objectInCache;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void gradeSet(long ModuleAtomarStudentId, GradesInSimpleOrThird4Public gradeVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".m_atom_studFacade.grdSet(?, ?, ?); end;");
+            callable.setLong(1, ModuleAtomarStudentId);
+            callable.setLong(2, gradeVal.getId());
+            callable.setLong(3, gradeVal.getClassId());
+            callable.execute();
+            callable.close();
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }

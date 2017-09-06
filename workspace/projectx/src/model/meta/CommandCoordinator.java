@@ -10,7 +10,7 @@ import model.visitor.*;
 public class CommandCoordinator extends PersistentObject implements PersistentCommandCoordinator{
     
     private static CommandCoordinator4Public theCommandCoordinator = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static CommandCoordinator4Public getTheCommandCoordinator() throws PersistenceException{
         if (theCommandCoordinator == null || reset$For$Test){

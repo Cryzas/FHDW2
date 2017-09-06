@@ -24,7 +24,14 @@ public class ModuleWithUnitsStudentProxi extends ModuleAbstractStudentProxi impl
         common.Fraction creditPoints = common.Fraction.parse((String)resultTable.get("creditPoints"));
         java.util.Vector<String> units_string = (java.util.Vector<String>)resultTable.get("units");
         java.util.Vector<UnitStudentView> units = ViewProxi.getProxiVector(units_string, connectionKey);
-        ModuleWithUnitsStudentView result$$ = new ModuleWithUnitsStudent((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,units, this.getId(), this.getClassId());
+        ViewProxi grade = null;
+        String grade$String = (String)resultTable.get("grade");
+        if (grade$String != null) {
+            common.ProxiInformation grade$Info = common.RPCConstantsAndServices.createProxiInformation(grade$String);
+            grade = view.objects.ViewProxi.createProxi(grade$Info,connectionKey);
+            grade.setToString(grade$Info.getToString());
+        }
+        ModuleWithUnitsStudentView result$$ = new ModuleWithUnitsStudent((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,units,(GradesInThirdView)grade, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -36,16 +43,20 @@ public class ModuleWithUnitsStudentProxi extends ModuleAbstractStudentProxi impl
         int index = originalIndex;
         if(index < this.getUnits().size()) return new UnitsModuleWithUnitsStudentWrapper(this, originalIndex, (ViewRoot)this.getUnits().get(index));
         index = index - this.getUnits().size();
+        if(index == 0 && this.getGrade() != null) return new GradeModuleWithUnitsStudentWrapper(this, originalIndex, (ViewRoot)this.getGrade());
+        if(this.getGrade() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getUnits().size());
+            + (this.getUnits().size())
+            + (this.getGrade() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
-            && (this.getUnits().size() == 0);
+            && (this.getUnits().size() == 0)
+            && (this.getGrade() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -54,6 +65,8 @@ public class ModuleWithUnitsStudentProxi extends ModuleAbstractStudentProxi impl
             if(getUnitsIterator.next().equals(child)) return result;
             result = result + 1;
         }
+        if(this.getGrade() != null && this.getGrade().equals(child)) return result;
+        if(this.getGrade() != null) result = result + 1;
         return -1;
     }
     
@@ -62,6 +75,9 @@ public class ModuleWithUnitsStudentProxi extends ModuleAbstractStudentProxi impl
     }
     public void setUnits(java.util.Vector<UnitStudentView> newValue) throws ModelException {
         ((ModuleWithUnitsStudent)this.getTheObject()).setUnits(newValue);
+    }
+    public GradesInThirdView getGrade()throws ModelException{
+        return ((ModuleWithUnitsStudent)this.getTheObject()).getGrade();
     }
     
     public void accept(ModuleAbstractStudentVisitor visitor) throws ModelException {

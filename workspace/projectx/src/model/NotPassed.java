@@ -10,7 +10,7 @@ import model.visitor.*;
 public class NotPassed extends model.GradesInSimple implements PersistentNotPassed{
     
     private static NotPassed4Public theNotPassed = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static NotPassed4Public getTheNotPassed() throws PersistenceException{
         if (theNotPassed == null || reset$For$Test){
@@ -82,9 +82,9 @@ public class NotPassed extends model.GradesInSimple implements PersistentNotPass
         return false;
     }
     
-    public NotPassed(PersistentGradesInSimple This,long id) throws PersistenceException {
+    public NotPassed(PersistentGradesInSimpleOrThird This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentGradesInSimple)This,id);        
+        super((PersistentGradesInSimpleOrThird)This,id);        
     }
     
     static public long getTypeId() {
@@ -117,6 +117,18 @@ public class NotPassed extends model.GradesInSimple implements PersistentNotPass
          visitor.handleNotPassed(this);
     }
     public <R, E extends model.UserException> R accept(GradesInSimpleReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleNotPassed(this);
+    }
+    public void accept(GradesInSimpleOrThirdVisitor visitor) throws PersistenceException {
+        visitor.handleNotPassed(this);
+    }
+    public <R> R accept(GradesInSimpleOrThirdReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleNotPassed(this);
+    }
+    public <E extends model.UserException>  void accept(GradesInSimpleOrThirdExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleNotPassed(this);
+    }
+    public <R, E extends model.UserException> R accept(GradesInSimpleOrThirdReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleNotPassed(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {

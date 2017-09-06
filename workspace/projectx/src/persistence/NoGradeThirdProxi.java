@@ -34,6 +34,18 @@ public class NoGradeThirdProxi extends GradesInThirdProxi implements PersistentN
     public <R, E extends model.UserException> R accept(GradesInThirdReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleNoGradeThird(this);
     }
+    public void accept(GradesInSimpleOrThirdVisitor visitor) throws PersistenceException {
+        visitor.handleNoGradeThird(this);
+    }
+    public <R> R accept(GradesInSimpleOrThirdReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleNoGradeThird(this);
+    }
+    public <E extends model.UserException>  void accept(GradesInSimpleOrThirdExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleNoGradeThird(this);
+    }
+    public <R, E extends model.UserException> R accept(GradesInSimpleOrThirdReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleNoGradeThird(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleNoGradeThird(this);
     }

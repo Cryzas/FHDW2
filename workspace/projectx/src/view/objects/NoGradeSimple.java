@@ -36,6 +36,18 @@ public class NoGradeSimple extends view.objects.GradesInSimple implements NoGrad
     public <R, E extends view.UserException> R accept(GradesInSimpleReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleNoGradeSimple(this);
     }
+    public void accept(GradesInSimpleOrThirdVisitor visitor) throws ModelException {
+        visitor.handleNoGradeSimple(this);
+    }
+    public <R> R accept(GradesInSimpleOrThirdReturnVisitor<R>  visitor) throws ModelException {
+         return visitor.handleNoGradeSimple(this);
+    }
+    public <E extends view.UserException>  void accept(GradesInSimpleOrThirdExceptionVisitor<E> visitor) throws ModelException, E {
+         visitor.handleNoGradeSimple(this);
+    }
+    public <R, E extends view.UserException> R accept(GradesInSimpleOrThirdReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+         return visitor.handleNoGradeSimple(this);
+    }
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleNoGradeSimple(this);
     }

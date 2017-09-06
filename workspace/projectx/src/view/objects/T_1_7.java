@@ -36,6 +36,18 @@ public class T_1_7 extends view.objects.GradesInThird implements T_1_7View{
     public <R, E extends view.UserException> R accept(GradesInThirdReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleT_1_7(this);
     }
+    public void accept(GradesInSimpleOrThirdVisitor visitor) throws ModelException {
+        visitor.handleT_1_7(this);
+    }
+    public <R> R accept(GradesInSimpleOrThirdReturnVisitor<R>  visitor) throws ModelException {
+         return visitor.handleT_1_7(this);
+    }
+    public <E extends view.UserException>  void accept(GradesInSimpleOrThirdExceptionVisitor<E> visitor) throws ModelException, E {
+         visitor.handleT_1_7(this);
+    }
+    public <R, E extends view.UserException> R accept(GradesInSimpleOrThirdReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+         return visitor.handleT_1_7(this);
+    }
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleT_1_7(this);
     }

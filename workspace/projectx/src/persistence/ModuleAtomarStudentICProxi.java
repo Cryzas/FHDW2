@@ -22,6 +22,12 @@ public class ModuleAtomarStudentICProxi extends ModuleAbstractStudentICProxi imp
         return 191;
     }
     
+    public GradesInSimpleOrThird4Public getGrade() throws PersistenceException {
+        return ((PersistentModuleAtomarStudent)this.getTheObject()).getGrade();
+    }
+    public void setGrade(GradesInSimpleOrThird4Public newValue) throws PersistenceException {
+        ((PersistentModuleAtomarStudent)this.getTheObject()).setGrade(newValue);
+    }
     public PersistentModuleAtomarStudent getThis() throws PersistenceException {
         return ((PersistentModuleAtomarStudent)this.getTheObject()).getThis();
     }

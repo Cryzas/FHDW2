@@ -34,6 +34,18 @@ public class PassedProxi extends GradesInSimpleProxi implements PersistentPassed
     public <R, E extends model.UserException> R accept(GradesInSimpleReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handlePassed(this);
     }
+    public void accept(GradesInSimpleOrThirdVisitor visitor) throws PersistenceException {
+        visitor.handlePassed(this);
+    }
+    public <R> R accept(GradesInSimpleOrThirdReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handlePassed(this);
+    }
+    public <E extends model.UserException>  void accept(GradesInSimpleOrThirdExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handlePassed(this);
+    }
+    public <R, E extends model.UserException> R accept(GradesInSimpleOrThirdReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handlePassed(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handlePassed(this);
     }

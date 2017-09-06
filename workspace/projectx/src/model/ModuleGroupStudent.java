@@ -60,6 +60,13 @@ public class ModuleGroupStudent extends model.ModuleAbstractStudent implements P
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, inDerived);
             if (leaf) allResults.put(uniqueKey, result);
             result.put("modules", this.getModules().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, false, false));
+            AbstractPersistentRoot grade = (AbstractPersistentRoot)this.getGrade();
+            if (grade != null) {
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    grade, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, true, false, false);
+                result.put("grade", proxiInformation);
+                
+            }
         }
         return result;
     }
@@ -149,6 +156,7 @@ public class ModuleGroupStudent extends model.ModuleAbstractStudent implements P
          return visitor.handleModuleGroupStudent(this);
     }
     public int getLeafInfo() throws PersistenceException{
+        if (this.getGrade() != null) return 1;
         if (this.getModules().getLength() > 0) return 1;
         return 0;
     }
@@ -192,6 +200,16 @@ public class ModuleGroupStudent extends model.ModuleAbstractStudent implements P
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         
+    }
+    public GradesInTenth4Public getGrade() 
+				throws PersistenceException{
+        //TODO: implement method: getGrade
+        try{
+            throw new java.lang.UnsupportedOperationException("Method \"getGrade\" not implemented yet.");
+        } catch (java.lang.UnsupportedOperationException uoe){
+            uoe.printStackTrace();
+            throw uoe;
+        }
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

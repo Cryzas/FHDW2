@@ -2,7 +2,7 @@ package persistence;
 
 
 
-public abstract class GradesInSimpleProxi extends PersistentProxi implements PersistentGradesInSimple{
+public abstract class GradesInSimpleProxi extends GradesInSimpleOrThirdProxi implements PersistentGradesInSimple{
     
     public GradesInSimpleProxi(long objectId) {
         super(objectId);

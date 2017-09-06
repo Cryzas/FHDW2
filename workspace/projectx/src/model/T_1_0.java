@@ -10,7 +10,7 @@ import model.visitor.*;
 public class T_1_0 extends model.GradesInThird implements PersistentT_1_0{
     
     private static T_1_04Public theT_1_0 = null;
-    public static boolean reset$For$Test = false;
+    private static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static T_1_04Public getTheT_1_0() throws PersistenceException{
         if (theT_1_0 == null || reset$For$Test){
@@ -82,9 +82,9 @@ public class T_1_0 extends model.GradesInThird implements PersistentT_1_0{
         return false;
     }
     
-    public T_1_0(PersistentGradesInThird This,long id) throws PersistenceException {
+    public T_1_0(PersistentGradesInSimpleOrThird This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentGradesInThird)This,id);        
+        super((PersistentGradesInSimpleOrThird)This,id);        
     }
     
     static public long getTypeId() {
@@ -117,6 +117,18 @@ public class T_1_0 extends model.GradesInThird implements PersistentT_1_0{
          visitor.handleT_1_0(this);
     }
     public <R, E extends model.UserException> R accept(GradesInThirdReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleT_1_0(this);
+    }
+    public void accept(GradesInSimpleOrThirdVisitor visitor) throws PersistenceException {
+        visitor.handleT_1_0(this);
+    }
+    public <R> R accept(GradesInSimpleOrThirdReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleT_1_0(this);
+    }
+    public <E extends model.UserException>  void accept(GradesInSimpleOrThirdExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleT_1_0(this);
+    }
+    public <R, E extends model.UserException> R accept(GradesInSimpleOrThirdReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleT_1_0(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {

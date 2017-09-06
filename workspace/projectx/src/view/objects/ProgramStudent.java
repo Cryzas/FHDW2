@@ -13,14 +13,16 @@ public class ProgramStudent extends ViewObject implements ProgramStudentView{
     protected String name;
     protected common.Fraction creditPoints;
     protected ProgramSGroupView programCopy;
+    protected GradesInTenthView grade;
     
-    public ProgramStudent(java.util.Vector<ModuleAbstractStudentView> modules,String name,common.Fraction creditPoints,ProgramSGroupView programCopy,long id, long classId) {
+    public ProgramStudent(java.util.Vector<ModuleAbstractStudentView> modules,String name,common.Fraction creditPoints,ProgramSGroupView programCopy,GradesInTenthView grade,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.modules = modules;
         this.name = name;
         this.creditPoints = creditPoints;
-        this.programCopy = programCopy;        
+        this.programCopy = programCopy;
+        this.grade = grade;        
     }
     
     static public long getTypeId() {
@@ -49,6 +51,9 @@ public class ProgramStudent extends ViewObject implements ProgramStudentView{
     public void setProgramCopy(ProgramSGroupView newValue) throws ModelException {
         this.programCopy = newValue;
     }
+    public GradesInTenthView getGrade()throws ModelException{
+        return this.grade;
+    }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleProgramStudent(this);
@@ -72,6 +77,10 @@ public class ProgramStudent extends ViewObject implements ProgramStudentView{
         if (programCopy != null) {
             ((ViewProxi)programCopy).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(programCopy.getClassId(), programCopy.getId())));
         }
+        GradesInTenthView grade = this.getGrade();
+        if (grade != null) {
+            ((ViewProxi)grade).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(grade.getClassId(), grade.getId())));
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {
@@ -81,15 +90,19 @@ public class ProgramStudent extends ViewObject implements ProgramStudentView{
         int index = originalIndex;
         if(index < this.getModules().size()) return new ModulesProgramStudentWrapper(this, originalIndex, (ViewRoot)this.getModules().get(index));
         index = index - this.getModules().size();
+        if(index == 0 && this.getGrade() != null) return new GradeProgramStudentWrapper(this, originalIndex, (ViewRoot)this.getGrade());
+        if(this.getGrade() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getModules().size());
+            + (this.getModules().size())
+            + (this.getGrade() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
         return true 
-            && (this.getModules().size() == 0);
+            && (this.getModules().size() == 0)
+            && (this.getGrade() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -98,6 +111,8 @@ public class ProgramStudent extends ViewObject implements ProgramStudentView{
             if(getModulesIterator.next().equals(child)) return result;
             result = result + 1;
         }
+        if(this.getGrade() != null && this.getGrade().equals(child)) return result;
+        if(this.getGrade() != null) result = result + 1;
         return -1;
     }
     public int getNameIndex() throws ModelException {

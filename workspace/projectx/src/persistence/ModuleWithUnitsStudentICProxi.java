@@ -91,6 +91,10 @@ public class ModuleWithUnitsStudentICProxi extends ModuleAbstractStudentICProxi 
 				throws PersistenceException{
         return ((PersistentModuleWithUnitsStudent)this.getTheObject()).getCreditPoints();
     }
+    public GradesInThird4Public getGrade() 
+				throws PersistenceException{
+        return ((PersistentModuleWithUnitsStudent)this.getTheObject()).getGrade();
+    }
     public String getName() 
 				throws PersistenceException{
         return ((PersistentModuleWithUnitsStudent)this.getTheObject()).getName();

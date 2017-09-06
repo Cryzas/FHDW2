@@ -36,6 +36,18 @@ public class NotPassed extends view.objects.GradesInSimple implements NotPassedV
     public <R, E extends view.UserException> R accept(GradesInSimpleReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleNotPassed(this);
     }
+    public void accept(GradesInSimpleOrThirdVisitor visitor) throws ModelException {
+        visitor.handleNotPassed(this);
+    }
+    public <R> R accept(GradesInSimpleOrThirdReturnVisitor<R>  visitor) throws ModelException {
+         return visitor.handleNotPassed(this);
+    }
+    public <E extends view.UserException>  void accept(GradesInSimpleOrThirdExceptionVisitor<E> visitor) throws ModelException, E {
+         visitor.handleNotPassed(this);
+    }
+    public <R, E extends view.UserException> R accept(GradesInSimpleOrThirdReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+         return visitor.handleNotPassed(this);
+    }
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleNotPassed(this);
     }

@@ -21,7 +21,14 @@ public class ModuleAtomarStudentProxi extends ModuleAbstractStudentProxi impleme
         }
         String name = (String)resultTable.get("name");
         common.Fraction creditPoints = common.Fraction.parse((String)resultTable.get("creditPoints"));
-        ModuleAtomarStudentView result$$ = new ModuleAtomarStudent((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints, this.getId(), this.getClassId());
+        ViewProxi grade = null;
+        String grade$String = (String)resultTable.get("grade");
+        if (grade$String != null) {
+            common.ProxiInformation grade$Info = common.RPCConstantsAndServices.createProxiInformation(grade$String);
+            grade = view.objects.ViewProxi.createProxi(grade$Info,connectionKey);
+            grade.setToString(grade$Info.getToString());
+        }
+        ModuleAtomarStudentView result$$ = new ModuleAtomarStudent((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradesInSimpleOrThirdView)grade, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -30,20 +37,33 @@ public class ModuleAtomarStudentProxi extends ModuleAbstractStudentProxi impleme
         return RemoteDepth;
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        
+        int index = originalIndex;
+        if(index == 0 && this.getGrade() != null) return new GradeModuleAtomarStudentWrapper(this, originalIndex, (ViewRoot)this.getGrade());
+        if(this.getGrade() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 ;
+        return 0 
+            + (this.getGrade() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
-        return true;
+        if (this.object == null) return this.getLeafInfo() == 0;
+        return true 
+            && (this.getGrade() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        
+        int result = 0;
+        if(this.getGrade() != null && this.getGrade().equals(child)) return result;
+        if(this.getGrade() != null) result = result + 1;
         return -1;
     }
     
+    public GradesInSimpleOrThirdView getGrade()throws ModelException{
+        return ((ModuleAtomarStudent)this.getTheObject()).getGrade();
+    }
+    public void setGrade(GradesInSimpleOrThirdView newValue) throws ModelException {
+        ((ModuleAtomarStudent)this.getTheObject()).setGrade(newValue);
+    }
     
     public void accept(ModuleAbstractStudentVisitor visitor) throws ModelException {
         visitor.handleModuleAtomarStudent(this);

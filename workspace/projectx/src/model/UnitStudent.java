@@ -66,6 +66,13 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
             if (leaf) allResults.put(uniqueKey, result);
             result.put("name", this.getName());
             result.put("creditPoints", this.getCreditPoints().toString());
+            AbstractPersistentRoot grade = (AbstractPersistentRoot)this.getGrade();
+            if (grade != null) {
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    grade, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
+                result.put("grade", proxiInformation);
+                
+            }
         }
         return result;
     }
@@ -73,6 +80,7 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
     public UnitStudent provideCopy() throws PersistenceException{
         UnitStudent result = this;
         result = new UnitStudent(this.unitCopy, 
+                                 this.grade, 
                                  this.This, 
                                  this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -83,12 +91,14 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
         return false;
     }
     protected PersistentUnitSGroup unitCopy;
+    protected PersistentGradesInThird grade;
     protected PersistentUnitStudent This;
     
-    public UnitStudent(PersistentUnitSGroup unitCopy,PersistentUnitStudent This,long id) throws PersistenceException {
+    public UnitStudent(PersistentUnitSGroup unitCopy,PersistentGradesInThird grade,PersistentUnitStudent This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.unitCopy = unitCopy;
+        this.grade = grade;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -109,6 +119,10 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
             this.getUnitCopy().store();
             ConnectionHandler.getTheConnectionHandler().theUnitStudentFacade.unitCopySet(this.getId(), getUnitCopy());
         }
+        if(this.getGrade() != null){
+            this.getGrade().store();
+            ConnectionHandler.getTheConnectionHandler().theUnitStudentFacade.gradeSet(this.getId(), getGrade());
+        }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theUnitStudentFacade.ThisSet(this.getId(), getThis());
@@ -128,6 +142,20 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theUnitStudentFacade.unitCopySet(this.getId(), newValue);
+        }
+    }
+    public GradesInThird4Public getGrade() throws PersistenceException {
+        return this.grade;
+    }
+    public void setGrade(GradesInThird4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.grade)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.grade = (PersistentGradesInThird)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theUnitStudentFacade.gradeSet(this.getId(), newValue);
         }
     }
     protected void setThis(PersistentUnitStudent newValue) throws PersistenceException {
@@ -178,6 +206,7 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
          return visitor.handleUnitStudent(this);
     }
     public int getLeafInfo() throws PersistenceException{
+        if (this.getGrade() != null) return 1;
         return 0;
     }
     

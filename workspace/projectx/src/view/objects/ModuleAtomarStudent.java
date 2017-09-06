@@ -9,10 +9,12 @@ import view.visitor.*;
 
 public class ModuleAtomarStudent extends view.objects.ModuleAbstractStudent implements ModuleAtomarStudentView{
     
+    protected GradesInSimpleOrThirdView grade;
     
-    public ModuleAtomarStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,long id, long classId) {
+    public ModuleAtomarStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,GradesInSimpleOrThirdView grade,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,id, classId);        
+        super((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,id, classId);
+        this.grade = grade;        
     }
     
     static public long getTypeId() {
@@ -23,6 +25,12 @@ public class ModuleAtomarStudent extends view.objects.ModuleAbstractStudent impl
         return getTypeId();
     }
     
+    public GradesInSimpleOrThirdView getGrade()throws ModelException{
+        return this.grade;
+    }
+    public void setGrade(GradesInSimpleOrThirdView newValue) throws ModelException {
+        this.grade = newValue;
+    }
     
     public void accept(ModuleAbstractStudentVisitor visitor) throws ModelException {
         visitor.handleModuleAtomarStudent(this);
@@ -54,23 +62,33 @@ public class ModuleAtomarStudent extends view.objects.ModuleAbstractStudent impl
         if (moduleCopy != null) {
             ((ViewProxi)moduleCopy).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(moduleCopy.getClassId(), moduleCopy.getId())));
         }
+        GradesInSimpleOrThirdView grade = this.getGrade();
+        if (grade != null) {
+            ((ViewProxi)grade).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(grade.getClassId(), grade.getId())));
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {
         
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        
+        int index = originalIndex;
+        if(index == 0 && this.getGrade() != null) return new GradeModuleAtomarStudentWrapper(this, originalIndex, (ViewRoot)this.getGrade());
+        if(this.getGrade() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 ;
+        return 0 
+            + (this.getGrade() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
-        return true;
+        return true 
+            && (this.getGrade() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        
+        int result = 0;
+        if(this.getGrade() != null && this.getGrade().equals(child)) return result;
+        if(this.getGrade() != null) result = result + 1;
         return -1;
     }
     public int getNameIndex() throws ModelException {

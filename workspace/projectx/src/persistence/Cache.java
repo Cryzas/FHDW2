@@ -81,10 +81,10 @@ public class Cache {
 		this.garbageCollector.start();
 	}
 
-	public void reset$For$Test(){
-		this.garbageCollector.interrupt();
-		Cache.theCache = null;
-	}
+//	public void reset$For$Test(){
+//		this.garbageCollector.interrupt();
+//		Cache.theCache = null;
+//	}
 
 	public void finalize(){
 		this.garbageCollector.interrupt();
@@ -319,10 +319,48 @@ public class Cache {
 		this.number2NameMap.put(224, "T_1_7");
 		this.number2NameMap.put(223, "T_2_0");
 		this.number2NameMap.put(222, "T_2_3");
+		this.number2NameMap.put(240, "T_2_7");
+		this.number2NameMap.put(262, "T_3_0");
+		this.number2NameMap.put(263, "T_3_3");
+		this.number2NameMap.put(225, "T_3_7");
+		this.number2NameMap.put(239, "T_4_0");
+		this.number2NameMap.put(261, "T_5_0");
 		this.number2NameMap.put(212, "ThirdGradeSystem");
 		this.number2NameMap.put(147, "Unit");
 		this.number2NameMap.put(181, "UnitSGroup");
-		this.number2NameMap.put(197, "UnitStudent");	
+		this.number2NameMap.put(197, "UnitStudent");
+		this.number2NameMap.put(226, "Z_1_0");
+		this.number2NameMap.put(227, "Z_1_1");
+		this.number2NameMap.put(229, "Z_1_2");
+		this.number2NameMap.put(244, "Z_1_3");
+		this.number2NameMap.put(247, "Z_1_4");
+		this.number2NameMap.put(249, "Z_1_5");
+		this.number2NameMap.put(251, "Z_1_6");
+		this.number2NameMap.put(253, "Z_1_7");
+		this.number2NameMap.put(255, "Z_1_8");
+		this.number2NameMap.put(257, "Z_1_9");
+		this.number2NameMap.put(241, "Z_2_0");
+		this.number2NameMap.put(242, "Z_2_1");
+		this.number2NameMap.put(231, "Z_2_2");
+		this.number2NameMap.put(232, "Z_2_3");
+		this.number2NameMap.put(233, "Z_2_4");
+		this.number2NameMap.put(234, "Z_2_5");
+		this.number2NameMap.put(235, "Z_2_6");
+		this.number2NameMap.put(236, "Z_2_7");
+		this.number2NameMap.put(237, "Z_2_8");
+		this.number2NameMap.put(238, "Z_2_9");
+		this.number2NameMap.put(228, "Z_3_0");
+		this.number2NameMap.put(243, "Z_3_1");
+		this.number2NameMap.put(246, "Z_3_2");
+		this.number2NameMap.put(248, "Z_3_3");
+		this.number2NameMap.put(250, "Z_3_4");
+		this.number2NameMap.put(252, "Z_3_5");
+		this.number2NameMap.put(254, "Z_3_6");
+		this.number2NameMap.put(256, "Z_3_7");
+		this.number2NameMap.put(258, "Z_3_8");
+		this.number2NameMap.put(259, "Z_3_9");
+		this.number2NameMap.put(230, "Z_4_0");
+		this.number2NameMap.put(245, "Z_5_0");	
 	}
 	
 }
