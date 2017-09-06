@@ -236,7 +236,7 @@ abstract class GradeSystem (ThirdGradeSystem @@ Drittelnoten, SimpleGradeSystem 
 
 abstract class GradesInSimple (Passed @@ Bestanden, NotPassed @@ Nicht_Bestanden, NoGradeSimple @@ Keine_Note) { }
 
-abstract class GradesInThird (T_1_0 @@ 1.0, T_1_3 @@ 1.3, T_1_7 @@ 1.7, T_2_0 @@ 2.0, T_2_3 @@ 2.3, NoGradeThird @@ Keine_Note) { }
+abstract class GradesInThird (T_1_0 @@ 1.0, T_1_3 @@ 1.3, T_1_7 @@ 1.7, T_2_0 @@ 2.0, T_2_3 @@ 2.3, T_2_7 @@ 2.7, T_3_0 @@ 3.0, T_3_3 @@ 3.3, T_3_7 @@ 3.7, T_4_0 @@ 4.0, T_5_0 @@ 5.0,  NoGradeThird @@ Keine_Note) { }
 
 																												/* Exceptions */
 exception UnitSwapException{}
