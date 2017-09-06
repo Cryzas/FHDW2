@@ -10,7 +10,7 @@ import model.visitor.*;
 public class SimpleGradeSystem extends model.GradeSystem implements PersistentSimpleGradeSystem{
     
     private static SimpleGradeSystem4Public theSimpleGradeSystem = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static SimpleGradeSystem4Public getTheSimpleGradeSystem() throws PersistenceException{
         if (theSimpleGradeSystem == null || reset$For$Test){

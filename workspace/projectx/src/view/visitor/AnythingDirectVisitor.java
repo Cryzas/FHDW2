@@ -39,11 +39,11 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleStudentManager(StudentManagerView studentManager) throws ModelException;
     
+    public abstract void handleStudent(StudentView student) throws ModelException;
+    
     public abstract void handleModuleManager(ModuleManagerView moduleManager) throws ModelException;
     
     public abstract void handleUnit(UnitView unit) throws ModelException;
-    
-    public abstract void handleStudent(StudentView student) throws ModelException;
     
     public abstract void handleGradesInTenth(GradesInTenthView gradesInTenth) throws ModelException;
     
@@ -142,6 +142,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public void handleZ_3_9(Z_3_9View z_3_9) throws ModelException{
         this.handleGradesInTenth(z_3_9);
+    }
+    public void handleNoGradeTenth(NoGradeTenthView noGradeTenth) throws ModelException{
+        this.handleGradesInTenth(noGradeTenth);
     }
     public abstract void handleStudyGroupManager(StudyGroupManagerView studyGroupManager) throws ModelException;
     

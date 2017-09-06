@@ -76,6 +76,10 @@ public class UnitStudentICProxi extends PersistentInCacheProxiOptimistic impleme
 				throws PersistenceException{
         return ((PersistentUnitStudent)this.getTheObject()).strategyprogramHierarchyStudent(strategy);
     }
+    public void changeGrade(final GradesInThird4Public grade) 
+				throws PersistenceException{
+        ((PersistentUnitStudent)this.getTheObject()).changeGrade(grade);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentUnitStudent)this.getTheObject()).copyingPrivateUserAttributes(copy);

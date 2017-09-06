@@ -10,7 +10,7 @@ import model.visitor.*;
 public class ThirdGradeSystem extends model.GradeSystem implements PersistentThirdGradeSystem{
     
     private static ThirdGradeSystem4Public theThirdGradeSystem = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static ThirdGradeSystem4Public getTheThirdGradeSystem() throws PersistenceException{
         if (theThirdGradeSystem == null || reset$For$Test){

@@ -10,7 +10,7 @@ import model.visitor.*;
 public class T_2_0 extends model.GradesInThird implements PersistentT_2_0{
     
     private static T_2_04Public theT_2_0 = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static T_2_04Public getTheT_2_0() throws PersistenceException{
         if (theT_2_0 == null || reset$For$Test){

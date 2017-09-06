@@ -22,6 +22,8 @@ public interface UnitStudent4Public extends Anything, programHierarchyStudentHIE
 				throws PersistenceException;
     public <T> T strategyprogramHierarchyStudent(final programHierarchyStudentHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException;
+    public void changeGrade(final GradesInThird4Public grade) 
+				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public common.Fraction getCreditPoints() 

@@ -393,5 +393,10 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public void handleNoGradeTenth(NoGradeTenth4Public noGradeTenth) throws PersistenceException {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

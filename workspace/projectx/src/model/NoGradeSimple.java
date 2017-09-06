@@ -10,7 +10,7 @@ import model.visitor.*;
 public class NoGradeSimple extends model.GradesInSimple implements PersistentNoGradeSimple{
     
     private static NoGradeSimple4Public theNoGradeSimple = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static NoGradeSimple4Public getTheNoGradeSimple() throws PersistenceException{
         if (theNoGradeSimple == null || reset$For$Test){

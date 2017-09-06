@@ -26,6 +26,8 @@ public interface ModuleAtomarStudent4Public extends ModuleAbstractStudent4Public
 				throws PersistenceException;
     public <T> T strategyprogramHierarchyStudent(final programHierarchyStudentHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException;
+    public void changeGrade(final GradesInSimpleOrThird4Public grade) 
+				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void initializeOnCreation() 

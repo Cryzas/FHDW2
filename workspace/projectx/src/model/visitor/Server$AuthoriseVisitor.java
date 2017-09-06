@@ -72,6 +72,7 @@ public abstract class Server$AuthoriseVisitor extends AnythingStandardVisitor{
     public abstract void handleZ_3_9(PersistentZ_3_9 z_3_9) throws PersistenceException;
     public abstract void handleModuleGroupStudent(PersistentModuleGroupStudent moduleGroupStudent) throws PersistenceException;
     public abstract void handleT_5_0(PersistentT_5_0 t_5_0) throws PersistenceException;
+    public abstract void handleNoGradeTenth(PersistentNoGradeTenth noGradeTenth) throws PersistenceException;
     public abstract void handleT_1_3(PersistentT_1_3 t_1_3) throws PersistenceException;
     public abstract void handleT_3_0(PersistentT_3_0 t_3_0) throws PersistenceException;
     public abstract void handleT_1_7(PersistentT_1_7 t_1_7) throws PersistenceException;

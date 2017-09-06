@@ -232,9 +232,12 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
     
     // Start of section that contains operations that must be implemented.
     
+    public void changeGrade(final GradesInThird4Public grade) 
+				throws PersistenceException{
+        getThis().setGrade(grade);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        
     }
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
@@ -246,11 +249,10 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        
+    	getThis().setGrade(NoGradeThird.getTheNoGradeThird());
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        
     }
     
     

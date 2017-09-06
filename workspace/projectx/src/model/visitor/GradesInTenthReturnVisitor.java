@@ -4,6 +4,7 @@ import persistence.*;
 
 public interface GradesInTenthReturnVisitor<R> {
     
+    public R handleNoGradeTenth(NoGradeTenth4Public noGradeTenth) throws PersistenceException;
     public R handleZ_1_0(Z_1_04Public z_1_0) throws PersistenceException;
     public R handleZ_1_1(Z_1_14Public z_1_1) throws PersistenceException;
     public R handleZ_1_2(Z_1_24Public z_1_2) throws PersistenceException;

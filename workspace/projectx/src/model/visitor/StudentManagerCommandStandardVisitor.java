@@ -5,6 +5,15 @@ import persistence.*;
 
 public abstract class StudentManagerCommandStandardVisitor implements StudentManagerCommandVisitor {
     
+    public void handleChangeGradeOfModuleSimpleCommand(ChangeGradeOfModuleSimpleCommand4Public changeGradeOfModuleSimpleCommand) throws PersistenceException{
+        this.standardHandling(changeGradeOfModuleSimpleCommand);
+    }
+    public void handleChangeGradeOfModuleThirdCommand(ChangeGradeOfModuleThirdCommand4Public changeGradeOfModuleThirdCommand) throws PersistenceException{
+        this.standardHandling(changeGradeOfModuleThirdCommand);
+    }
+    public void handleChangeGradeOfUnitCommand(ChangeGradeOfUnitCommand4Public changeGradeOfUnitCommand) throws PersistenceException{
+        this.standardHandling(changeGradeOfUnitCommand);
+    }
     public void handleCreateStudentCommand(CreateStudentCommand4Public createStudentCommand) throws PersistenceException{
         this.standardHandling(createStudentCommand);
     }

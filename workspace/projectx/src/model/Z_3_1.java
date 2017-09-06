@@ -10,7 +10,7 @@ import model.visitor.*;
 public class Z_3_1 extends model.GradesInTenth implements PersistentZ_3_1{
     
     private static Z_3_14Public theZ_3_1 = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static Z_3_14Public getTheZ_3_1() throws PersistenceException{
         if (theZ_3_1 == null || reset$For$Test){

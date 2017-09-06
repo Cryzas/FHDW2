@@ -203,13 +203,7 @@ public class ModuleWithUnitsStudent extends model.ModuleAbstractStudent implemen
     }
     public GradesInThird4Public getGrade() 
 				throws PersistenceException{
-        //TODO: implement method: getGrade
-        try{
-            throw new java.lang.UnsupportedOperationException("Method \"getGrade\" not implemented yet.");
-        } catch (java.lang.UnsupportedOperationException uoe){
-            uoe.printStackTrace();
-            throw uoe;
-        }
+        return NoGradeThird.getTheNoGradeThird();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

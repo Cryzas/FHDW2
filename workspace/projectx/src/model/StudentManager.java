@@ -2,6 +2,7 @@
 package model;
 
 import persistence.*;
+import model.meta.StringFACTORY;
 import model.visitor.*;
 
 
@@ -164,6 +165,36 @@ public class StudentManager extends PersistentObject implements PersistentStuden
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    public void changeGradeOfModuleSimple(final ModuleAtomarStudent4Public module, final String grade, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
+		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
+		ChangeGradeOfModuleSimpleCommand4Public command = model.meta.ChangeGradeOfModuleSimpleCommand.createChangeGradeOfModuleSimpleCommand(grade, nw, d1170);
+		command.setModule(module);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void changeGradeOfModuleThird(final ModuleAtomarStudent4Public module, final String grade, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
+		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
+		ChangeGradeOfModuleThirdCommand4Public command = model.meta.ChangeGradeOfModuleThirdCommand.createChangeGradeOfModuleThirdCommand(grade, nw, d1170);
+		command.setModule(module);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void changeGradeOfUnit(final UnitStudent4Public unit, final String grade, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
+		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
+		ChangeGradeOfUnitCommand4Public command = model.meta.ChangeGradeOfUnitCommand.createChangeGradeOfUnitCommand(grade, nw, d1170);
+		command.setUnit(unit);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void createStudent(final String firstName, final String lastName, final java.sql.Date birthDate, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
@@ -187,6 +218,21 @@ public class StudentManager extends PersistentObject implements PersistentStuden
 				throws model.UserException, PersistenceException{
     	student.setProgram(group.getProgram().copyForStudent());
     	group.getStudents().add(student);
+    }
+    public void changeGradeOfModuleSimple(final ModuleAtomarStudent4Public module, final String grade) 
+				throws PersistenceException{
+    	GradesInSimple4Public newGrade = StringFACTORY.createObjectBySubTypeNameForGradesInSimple(grade);
+    	module.changeGrade(newGrade);
+    }
+    public void changeGradeOfModuleThird(final ModuleAtomarStudent4Public module, final String grade) 
+				throws PersistenceException{
+    	GradesInThird4Public newGrade = StringFACTORY.createObjectBySubTypeNameForGradesInThird(grade);
+    	module.changeGrade(newGrade);
+    }
+    public void changeGradeOfUnit(final UnitStudent4Public unit, final String grade) 
+				throws PersistenceException{
+    	GradesInThird4Public newGrade = StringFACTORY.createObjectBySubTypeNameForGradesInThird(grade);
+    	unit.changeGrade(newGrade);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

@@ -14,12 +14,24 @@ public interface StudentManager4Public extends Anything, AbstractPersistentProxi
     
     public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student, final Invoker invoker) 
 				throws PersistenceException;
+    public void changeGradeOfModuleSimple(final ModuleAtomarStudent4Public module, final String grade, final Invoker invoker) 
+				throws PersistenceException;
+    public void changeGradeOfModuleThird(final ModuleAtomarStudent4Public module, final String grade, final Invoker invoker) 
+				throws PersistenceException;
+    public void changeGradeOfUnit(final UnitStudent4Public unit, final String grade, final Invoker invoker) 
+				throws PersistenceException;
     public void createStudent(final String firstName, final String lastName, final java.sql.Date birthDate, final Invoker invoker) 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
     public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student) 
 				throws model.UserException, PersistenceException;
+    public void changeGradeOfModuleSimple(final ModuleAtomarStudent4Public module, final String grade) 
+				throws PersistenceException;
+    public void changeGradeOfModuleThird(final ModuleAtomarStudent4Public module, final String grade) 
+				throws PersistenceException;
+    public void changeGradeOfUnit(final UnitStudent4Public unit, final String grade) 
+				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void createStudent(final String firstName, final String lastName, final java.sql.Date birthDate) 

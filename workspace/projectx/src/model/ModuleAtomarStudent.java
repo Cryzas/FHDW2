@@ -196,13 +196,17 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
     
     // Start of section that contains operations that must be implemented.
     
+    public void changeGrade(final GradesInSimpleOrThird4Public grade) 
+				throws PersistenceException{
+        getThis().setGrade(grade);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
         super.initializeOnCreation();
+        getThis().setGrade(NoGradeThird.getTheNoGradeThird());
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{

@@ -121,15 +121,12 @@ public abstract class ModuleAbstractStudent extends PersistentObject implements 
     
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        
     }
     
     

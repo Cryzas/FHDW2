@@ -10,6 +10,9 @@ public interface AnythingReturnExceptionVisitor<R, E extends model.UserException
     public R handleAddUnitCommand(AddUnitCommand4Public addUnitCommand) throws PersistenceException, E;
     public R handleChangeCPOnModuleCommand(ChangeCPOnModuleCommand4Public changeCPOnModuleCommand) throws PersistenceException, E;
     public R handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException, E;
+    public R handleChangeGradeOfModuleSimpleCommand(ChangeGradeOfModuleSimpleCommand4Public changeGradeOfModuleSimpleCommand) throws PersistenceException, E;
+    public R handleChangeGradeOfModuleThirdCommand(ChangeGradeOfModuleThirdCommand4Public changeGradeOfModuleThirdCommand) throws PersistenceException, E;
+    public R handleChangeGradeOfUnitCommand(ChangeGradeOfUnitCommand4Public changeGradeOfUnitCommand) throws PersistenceException, E;
     public R handleChangeGradeSystemCommand(ChangeGradeSystemCommand4Public changeGradeSystemCommand) throws PersistenceException, E;
     public R handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException, E;
     public R handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException, E;

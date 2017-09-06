@@ -10,7 +10,7 @@ import model.visitor.*;
 public class NoGradeThird extends model.GradesInThird implements PersistentNoGradeThird{
     
     private static NoGradeThird4Public theNoGradeThird = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static NoGradeThird4Public getTheNoGradeThird() throws PersistenceException{
         if (theNoGradeThird == null || reset$For$Test){

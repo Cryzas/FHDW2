@@ -101,5 +101,8 @@ public abstract class GradesInTenthStandardVisitor implements GradesInTenthVisit
     public void handleZ_3_9(Z_3_94Public z_3_9) throws PersistenceException{
         this.standardHandling(z_3_9);
     }
+    public void handleNoGradeTenth(NoGradeTenth4Public noGradeTenth) throws PersistenceException{
+        this.standardHandling(noGradeTenth);
+    }
     protected abstract void standardHandling(GradesInTenth4Public gradesInTenth) throws PersistenceException;
 }

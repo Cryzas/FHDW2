@@ -11,6 +11,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleChangeCPOnModuleCommand(ChangeCPOnModuleCommand4Public changeCPOnModuleCommand) throws PersistenceException{
         this.standardHandling(changeCPOnModuleCommand);
     }
+    public void handleChangeGradeOfUnitCommand(ChangeGradeOfUnitCommand4Public changeGradeOfUnitCommand) throws PersistenceException{
+        this.standardHandling(changeGradeOfUnitCommand);
+    }
     public void handleChangeGradeSystemCommand(ChangeGradeSystemCommand4Public changeGradeSystemCommand) throws PersistenceException{
         this.standardHandling(changeGradeSystemCommand);
     }
@@ -20,12 +23,6 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleCreateStudentCommand(CreateStudentCommand4Public createStudentCommand) throws PersistenceException{
         this.standardHandling(createStudentCommand);
     }
-    public void handleAddStudentToGroupCommand(AddStudentToGroupCommand4Public addStudentToGroupCommand) throws PersistenceException{
-        this.standardHandling(addStudentToGroupCommand);
-    }
-    public void handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException{
-        this.standardHandling(addModuleToGroupCommand);
-    }
     public void handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException{
         this.standardHandling(changeCPOnUnitCommand);
     }
@@ -34,6 +31,18 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     }
     public void handleCreateModuleCommand(CreateModuleCommand4Public createModuleCommand) throws PersistenceException{
         this.standardHandling(createModuleCommand);
+    }
+    public void handleChangeGradeOfModuleSimpleCommand(ChangeGradeOfModuleSimpleCommand4Public changeGradeOfModuleSimpleCommand) throws PersistenceException{
+        this.standardHandling(changeGradeOfModuleSimpleCommand);
+    }
+    public void handleChangeGradeOfModuleThirdCommand(ChangeGradeOfModuleThirdCommand4Public changeGradeOfModuleThirdCommand) throws PersistenceException{
+        this.standardHandling(changeGradeOfModuleThirdCommand);
+    }
+    public void handleAddStudentToGroupCommand(AddStudentToGroupCommand4Public addStudentToGroupCommand) throws PersistenceException{
+        this.standardHandling(addStudentToGroupCommand);
+    }
+    public void handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException{
+        this.standardHandling(addModuleToGroupCommand);
     }
     public void handleAddModuleToProgCommand(AddModuleToProgCommand4Public addModuleToProgCommand) throws PersistenceException{
         this.standardHandling(addModuleToProgCommand);

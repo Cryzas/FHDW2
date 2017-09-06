@@ -10,7 +10,7 @@ import model.visitor.*;
 public class Passed extends model.GradesInSimple implements PersistentPassed{
     
     private static Passed4Public thePassed = null;
-    private static boolean reset$For$Test = false;
+    public static boolean reset$For$Test = false;
     private static final Object $$lock = new Object();
     public static Passed4Public getThePassed() throws PersistenceException{
         if (thePassed == null || reset$For$Test){

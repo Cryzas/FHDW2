@@ -82,6 +82,10 @@ public class ModuleAtomarStudentICProxi extends ModuleAbstractStudentICProxi imp
 				throws PersistenceException{
         return ((PersistentModuleAtomarStudent)this.getTheObject()).strategyprogramHierarchyStudent(strategy);
     }
+    public void changeGrade(final GradesInSimpleOrThird4Public grade) 
+				throws PersistenceException{
+        ((PersistentModuleAtomarStudent)this.getTheObject()).changeGrade(grade);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentModuleAtomarStudent)this.getTheObject()).copyingPrivateUserAttributes(copy);

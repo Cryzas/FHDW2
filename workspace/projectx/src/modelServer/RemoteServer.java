@@ -151,6 +151,36 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.HashMap<?,?> changeGradeOfModuleSimple(String moduleProxiString, String grade){
+        try {
+            PersistentModuleAtomarStudent module = (PersistentModuleAtomarStudent)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(moduleProxiString));
+            ((PersistentServer)this.server).changeGradeOfModuleSimple(module, grade);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> changeGradeOfModuleThird(String moduleProxiString, String grade){
+        try {
+            PersistentModuleAtomarStudent module = (PersistentModuleAtomarStudent)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(moduleProxiString));
+            ((PersistentServer)this.server).changeGradeOfModuleThird(module, grade);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> changeGradeOfUnit(String unitProxiString, String grade){
+        try {
+            PersistentUnitStudent unit = (PersistentUnitStudent)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(unitProxiString));
+            ((PersistentServer)this.server).changeGradeOfUnit(unit, grade);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.HashMap<?,?> changeGradeSystem(String moduleProxiString){
         try {
             PersistentModuleAtomar module = (PersistentModuleAtomar)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(moduleProxiString));
