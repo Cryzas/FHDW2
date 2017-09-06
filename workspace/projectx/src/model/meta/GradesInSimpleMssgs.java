@@ -5,4 +5,4 @@ public interface GradesInSimpleMssgs {
 }
 
 interface GradesInSimpleDOWNMssgs extends GradesInSimpleOrThirdDOWNMssgs, GradesInSimpleMssgs{}
-interface GradesInSimpleUPMssgs extends PassedUPMssgs, NoGradeSimpleUPMssgs, NotPassedUPMssgs, GradesInSimpleMssgs{}
+interface GradesInSimpleUPMssgs extends PassedUPMssgs, NotPassedUPMssgs, GradesInSimpleMssgs{}

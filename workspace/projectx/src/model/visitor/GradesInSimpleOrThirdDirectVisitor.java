@@ -10,9 +10,6 @@ public abstract class GradesInSimpleOrThirdDirectVisitor implements GradesInSimp
     public void handlePassed(Passed4Public passed) throws PersistenceException{
         this.handleGradesInSimple(passed);
     }
-    public void handleNoGradeSimple(NoGradeSimple4Public noGradeSimple) throws PersistenceException{
-        this.handleGradesInSimple(noGradeSimple);
-    }
     public void handleNotPassed(NotPassed4Public notPassed) throws PersistenceException{
         this.handleGradesInSimple(notPassed);
     }

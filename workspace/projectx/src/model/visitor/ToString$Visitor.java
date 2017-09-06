@@ -27,7 +27,6 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleZ_4_0(Z_4_04Public z_4_0) throws PersistenceException;
     public abstract void handleZ_2_2(Z_2_24Public z_2_2) throws PersistenceException;
     public abstract void handleZ_2_3(Z_2_34Public z_2_3) throws PersistenceException;
-    public abstract void handleNoGradeSimple(NoGradeSimple4Public noGradeSimple) throws PersistenceException;
     public abstract void handleZ_2_4(Z_2_44Public z_2_4) throws PersistenceException;
     public abstract void handleProgram(Program4Public program) throws PersistenceException;
     public abstract void handleZ_2_5(Z_2_54Public z_2_5) throws PersistenceException;

@@ -33,10 +33,8 @@ server Server {
 	void changeGradeSystem @@ Notensystem_ändern (ModuleAtomar module);
 /* Note einer Unit ändern */
 	void changeGradeOfUnit @@ Note_ändern (UnitStudent unit, GradesInThirdSUBTYPEName grade);
-/* Note eines atomaren Moduls mit Drittelnoten ändern */
-	void changeGradeOfModuleThird @@ Drittelnote_ändern (ModuleAtomarStudent module, GradesInThirdSUBTYPEName grade);
-/* Note eines atomaren Moduls mit zweiwertigen Noten ändern */
-	void changeGradeOfModuleSimple @@ Zweiwertige_Note_ändern (ModuleAtomarStudent module, GradesInSimpleSUBTYPEName grade);
+/* Note eines atomaren Moduls ändern */
+	void changeGradeOfModule @@ Note_ändern (ModuleAtomarStudent module, GradesInSimpleOrThirdSUBTYPEName grade);
 }
 
 																									/* Manager Klassen */
@@ -80,10 +78,8 @@ class StudentManager {
 	active void addStudentToGroup ## add_S2G (StudyGroup group, Student student) throws UserException;
 /* Note einer Unit ändern */
 	active void changeGradeOfUnit ## chGrUnit (UnitStudent unit, GradesInThirdSUBTYPEName grade);
-/* Note eines atomaren Moduls mit Drittelnoten ändern */
-	active void changeGradeOfModuleThird ## chGrModule3 (ModuleAtomarStudent module, GradesInThirdSUBTYPEName grade);
-/* Note eines atomaren Moduls mit zweiwertigen Noten ändern */
-	active void changeGradeOfModuleSimple ## chGrModule2 (ModuleAtomarStudent module, GradesInSimpleSUBTYPEName grade);
+/* Note eines atomaren Moduls ändern */
+	active void changeGradeOfModule ## chGrModule (ModuleAtomarStudent module, GradesInSimpleOrThirdSUBTYPEName grade) throws InvalidGradeForSystemException;
 }
 
 																			/* Aufbau eines Studienprogramms */
@@ -253,9 +249,9 @@ class UnitStudent {
 /** Definiert das Notensystem mit den vordefinierten Notensystemarten */
 abstract class GradeSystem (ThirdGradeSystem @@ Drittelnoten, SimpleGradeSystem @@ Einfach) { }
 
-abstract class GradesInSimpleOrThird ## GrIn2or3 {}
+abstract string-factory class GradesInSimpleOrThird ## GrIn2or3 {}
 
-abstract string-factory class GradesInSimple (Passed @@ Bestanden, NotPassed @@ Nicht_Bestanden, NoGradeSimple @@ Keine_Note) extends GradesInSimpleOrThird { }
+abstract string-factory class GradesInSimple (Passed @@ Bestanden, NotPassed @@ Nicht_Bestanden) extends GradesInSimpleOrThird { }
 
 abstract string-factory class GradesInThird (T_1_0 @@ 1.0, T_1_3 @@ 1.3, T_1_7 @@ 1.7, T_2_0 @@ 2.0, T_2_3 @@ 2.3, T_2_7 @@ 2.7, T_3_0 @@ 3.0, T_3_3 @@ 3.3, T_3_7 @@ 3.7, T_4_0 @@ 4.0, T_5_0 @@ 5.0,  NoGradeThird @@ Keine_Note) extends GradesInSimpleOrThird { }
 
@@ -264,7 +260,7 @@ abstract class GradesInTenth ( Z_1_0 @@ 1.0, Z_1_1 @@ 1.1, Z_1_2 @@ 1.2, Z_1_3 @
 																												/* Exceptions */
 exception UnitSwapException{}
 exception AlreadyExistsInParentException{}
-/** Exception wird geworfen, wenn bei Erstellung oder Modifizierung des Moduls/der Unit ein nicht vorgesehenes Notensystem gewählt wird */
+exception InvalidGradeForSystemException{}
 
 }
 

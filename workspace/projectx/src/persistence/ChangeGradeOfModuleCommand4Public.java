@@ -3,7 +3,7 @@ package persistence;
 
 import model.visitor.*;
 
-public interface ChangeGradeOfModuleThirdCommand4Public extends Anything, StudentManagerCommand, CommonDate4Public, AbstractPersistentProxi {
+public interface ChangeGradeOfModuleCommand4Public extends Anything, StudentManagerCommand, CommonDate4Public, AbstractPersistentProxi {
     
     public ModuleAtomarStudent4Public getModule() throws PersistenceException ;
     public void setModule(ModuleAtomarStudent4Public newValue) throws PersistenceException ;

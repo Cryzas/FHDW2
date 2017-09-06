@@ -166,9 +166,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handlePassed(PassedView passed) throws ModelException{
         this.handleGradesInSimpleOrThird(passed);
     }
-    public void handleNoGradeSimple(NoGradeSimpleView noGradeSimple) throws ModelException{
-        this.handleGradesInSimpleOrThird(noGradeSimple);
-    }
     public void handleT_3_7(T_3_7View t_3_7) throws ModelException{
         this.handleGradesInSimpleOrThird(t_3_7);
     }

@@ -47,13 +47,9 @@ public class StudentManagerICProxi extends PersistentInCacheProxiOptimistic impl
 				throws PersistenceException{
         ((PersistentStudentManager)this.getTheObject()).addStudentToGroup(group, student, invoker);
     }
-    public void changeGradeOfModuleSimple(final ModuleAtomarStudent4Public module, final String grade, final Invoker invoker) 
+    public void changeGradeOfModule(final ModuleAtomarStudent4Public module, final String grade, final Invoker invoker) 
 				throws PersistenceException{
-        ((PersistentStudentManager)this.getTheObject()).changeGradeOfModuleSimple(module, grade, invoker);
-    }
-    public void changeGradeOfModuleThird(final ModuleAtomarStudent4Public module, final String grade, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentStudentManager)this.getTheObject()).changeGradeOfModuleThird(module, grade, invoker);
+        ((PersistentStudentManager)this.getTheObject()).changeGradeOfModule(module, grade, invoker);
     }
     public void changeGradeOfUnit(final UnitStudent4Public unit, final String grade, final Invoker invoker) 
 				throws PersistenceException{
@@ -71,13 +67,9 @@ public class StudentManagerICProxi extends PersistentInCacheProxiOptimistic impl
 				throws model.UserException, PersistenceException{
         ((PersistentStudentManager)this.getTheObject()).addStudentToGroup(group, student);
     }
-    public void changeGradeOfModuleSimple(final ModuleAtomarStudent4Public module, final String grade) 
-				throws PersistenceException{
-        ((PersistentStudentManager)this.getTheObject()).changeGradeOfModuleSimple(module, grade);
-    }
-    public void changeGradeOfModuleThird(final ModuleAtomarStudent4Public module, final String grade) 
-				throws PersistenceException{
-        ((PersistentStudentManager)this.getTheObject()).changeGradeOfModuleThird(module, grade);
+    public void changeGradeOfModule(final ModuleAtomarStudent4Public module, final String grade) 
+				throws model.InvalidGradeForSystemException, PersistenceException{
+        ((PersistentStudentManager)this.getTheObject()).changeGradeOfModule(module, grade);
     }
     public void changeGradeOfUnit(final UnitStudent4Public unit, final String grade) 
 				throws PersistenceException{

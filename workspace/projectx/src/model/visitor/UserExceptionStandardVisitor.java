@@ -5,6 +5,9 @@ import persistence.*;
 
 public abstract class UserExceptionStandardVisitor implements UserExceptionVisitor {
     
+    public void handleInvalidGradeForSystemException(model.InvalidGradeForSystemException invalidGradeForSystemException) throws PersistenceException{
+        this.standardHandling(invalidGradeForSystemException);
+    }
     public void handleUnitSwapException(model.UnitSwapException unitSwapException) throws PersistenceException{
         this.standardHandling(unitSwapException);
     }

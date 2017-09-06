@@ -129,16 +129,10 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handlePassed(Passed4Public passed) throws PersistenceException {
 		result = "Bestanden";
-		
 	}
 	@Override
 	public void handleNoGradeThird(NoGradeThird4Public noGradeThird) throws PersistenceException {
-		result = "Noch keine Note vorhanden";
-		
-	}
-	@Override
-	public void handleNoGradeSimple(NoGradeSimple4Public noGradeSimple) throws PersistenceException {
-		result = "Noch keine Note vorhanden";		
+		result = "Keine Note";
 	}
 	@Override
 	public void handleT_2_3(T_2_34Public t_2_3) throws PersistenceException {
@@ -318,7 +312,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleNoGradeTenth(NoGradeTenth4Public noGradeTenth) throws PersistenceException {
-		result = "Noch keine Note vorhanden";
+		result = "Keine Note";
 	}
 
 }

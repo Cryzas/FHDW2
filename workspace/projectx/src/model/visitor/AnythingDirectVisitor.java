@@ -168,9 +168,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handlePassed(Passed4Public passed) throws PersistenceException{
         this.handleGradesInSimpleOrThird(passed);
     }
-    public void handleNoGradeSimple(NoGradeSimple4Public noGradeSimple) throws PersistenceException{
-        this.handleGradesInSimpleOrThird(noGradeSimple);
-    }
     public void handleT_3_7(T_3_74Public t_3_7) throws PersistenceException{
         this.handleGradesInSimpleOrThird(t_3_7);
     }
@@ -251,17 +248,14 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleCreateModuleCommand(CreateModuleCommand4Public createModuleCommand) throws PersistenceException{
         this.handleCommonDate(createModuleCommand);
     }
-    public void handleChangeGradeOfModuleSimpleCommand(ChangeGradeOfModuleSimpleCommand4Public changeGradeOfModuleSimpleCommand) throws PersistenceException{
-        this.handleCommonDate(changeGradeOfModuleSimpleCommand);
-    }
-    public void handleChangeGradeOfModuleThirdCommand(ChangeGradeOfModuleThirdCommand4Public changeGradeOfModuleThirdCommand) throws PersistenceException{
-        this.handleCommonDate(changeGradeOfModuleThirdCommand);
-    }
     public void handleAddStudentToGroupCommand(AddStudentToGroupCommand4Public addStudentToGroupCommand) throws PersistenceException{
         this.handleCommonDate(addStudentToGroupCommand);
     }
     public void handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException{
         this.handleCommonDate(addModuleToGroupCommand);
+    }
+    public void handleChangeGradeOfModuleCommand(ChangeGradeOfModuleCommand4Public changeGradeOfModuleCommand) throws PersistenceException{
+        this.handleCommonDate(changeGradeOfModuleCommand);
     }
     public void handleAddModuleToProgCommand(AddModuleToProgCommand4Public addModuleToProgCommand) throws PersistenceException{
         this.handleCommonDate(addModuleToProgCommand);

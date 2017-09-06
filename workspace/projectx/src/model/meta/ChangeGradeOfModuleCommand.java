@@ -7,30 +7,30 @@ import model.visitor.*;
 
 /* Additional import section end */
 
-public class ChangeGradeOfModuleThirdCommand extends PersistentObject implements PersistentChangeGradeOfModuleThirdCommand{
+public class ChangeGradeOfModuleCommand extends PersistentObject implements PersistentChangeGradeOfModuleCommand{
     
     /** Throws persistence exception if the object with the given id does not exist. */
-    public static ChangeGradeOfModuleThirdCommand4Public getById(long objectId) throws PersistenceException{
-        long classId = ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleThirdCommandFacade.getClass(objectId);
-        return (ChangeGradeOfModuleThirdCommand4Public)PersistentProxi.createProxi(objectId, classId);
+    public static ChangeGradeOfModuleCommand4Public getById(long objectId) throws PersistenceException{
+        long classId = ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleCommandFacade.getClass(objectId);
+        return (ChangeGradeOfModuleCommand4Public)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static ChangeGradeOfModuleThirdCommand4Public createChangeGradeOfModuleThirdCommand(String grade,java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
-        return createChangeGradeOfModuleThirdCommand(grade,createDate,commitDate,false);
+    public static ChangeGradeOfModuleCommand4Public createChangeGradeOfModuleCommand(String grade,java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
+        return createChangeGradeOfModuleCommand(grade,createDate,commitDate,false);
     }
     
-    public static ChangeGradeOfModuleThirdCommand4Public createChangeGradeOfModuleThirdCommand(String grade,java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
+    public static ChangeGradeOfModuleCommand4Public createChangeGradeOfModuleCommand(String grade,java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
         if (grade == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        PersistentChangeGradeOfModuleThirdCommand result = null;
+        PersistentChangeGradeOfModuleCommand result = null;
         if(delayed$Persistence){
-            result = ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleThirdCommandFacade
-                .newDelayedChangeGradeOfModuleThirdCommand(grade);
+            result = ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleCommandFacade
+                .newDelayedChangeGradeOfModuleCommand(grade);
             result.setDelayed$Persistence(true);
         }else{
-            result = ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleThirdCommandFacade
-                .newChangeGradeOfModuleThirdCommand(grade,-1);
+            result = ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleCommandFacade
+                .newChangeGradeOfModuleCommand(grade,-1);
         }
-        ((PersistentChangeGradeOfModuleThirdCommand)result).setMyCommonDate((PersistentCommonDate)CommonDate.createCommonDate(createDate, createDate));
+        ((PersistentChangeGradeOfModuleCommand)result).setMyCommonDate((PersistentCommonDate)CommonDate.createCommonDate(createDate, createDate));
         return result;
     }
     
@@ -45,7 +45,7 @@ public class ChangeGradeOfModuleThirdCommand extends PersistentObject implements
     
     private model.UserException commandException = null;
     
-    public ChangeGradeOfModuleThirdCommand(PersistentModuleAtomarStudent module,String grade,Invoker invoker,PersistentStudentManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
+    public ChangeGradeOfModuleCommand(PersistentModuleAtomarStudent module,String grade,Invoker invoker,PersistentStudentManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.module = module;
@@ -56,7 +56,7 @@ public class ChangeGradeOfModuleThirdCommand extends PersistentObject implements
     }
     
     static public long getTypeId() {
-        return 266;
+        return 270;
     }
     
     public long getClassId() {
@@ -65,24 +65,24 @@ public class ChangeGradeOfModuleThirdCommand extends PersistentObject implements
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 266) ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleThirdCommandFacade
-            .newChangeGradeOfModuleThirdCommand(grade,this.getId());
+        if (this.getClassId() == 270) ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleCommandFacade
+            .newChangeGradeOfModuleCommand(grade,this.getId());
         super.store();
         if(this.getModule() != null){
             this.getModule().store();
-            ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleThirdCommandFacade.moduleSet(this.getId(), getModule());
+            ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleCommandFacade.moduleSet(this.getId(), getModule());
         }
         if(this.getInvoker() != null){
             this.getInvoker().store();
-            ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleThirdCommandFacade.invokerSet(this.getId(), getInvoker());
+            ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleCommandFacade.invokerSet(this.getId(), getInvoker());
         }
         if(this.getCommandReceiver() != null){
             this.getCommandReceiver().store();
-            ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleThirdCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
+            ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleCommandFacade.commandReceiverSet(this.getId(), getCommandReceiver());
         }
         if(this.getMyCommonDate() != null){
             this.getMyCommonDate().store();
-            ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleThirdCommandFacade.myCommonDateSet(this.getId(), getMyCommonDate());
+            ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleCommandFacade.myCommonDateSet(this.getId(), getMyCommonDate());
         }
         
     }
@@ -98,7 +98,7 @@ public class ChangeGradeOfModuleThirdCommand extends PersistentObject implements
         this.module = (PersistentModuleAtomarStudent)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleThirdCommandFacade.moduleSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleCommandFacade.moduleSet(this.getId(), newValue);
         }
     }
     public String getGrade() throws PersistenceException {
@@ -106,7 +106,7 @@ public class ChangeGradeOfModuleThirdCommand extends PersistentObject implements
     }
     public void setGrade(String newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
-        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleThirdCommandFacade.gradeSet(this.getId(), newValue);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleCommandFacade.gradeSet(this.getId(), newValue);
         this.grade = newValue;
     }
     public Invoker getInvoker() throws PersistenceException {
@@ -120,7 +120,7 @@ public class ChangeGradeOfModuleThirdCommand extends PersistentObject implements
         this.invoker = (Invoker)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleThirdCommandFacade.invokerSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
     public StudentManager4Public getCommandReceiver() throws PersistenceException {
@@ -134,7 +134,7 @@ public class ChangeGradeOfModuleThirdCommand extends PersistentObject implements
         this.commandReceiver = (PersistentStudentManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleThirdCommandFacade.commandReceiverSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleCommandFacade.commandReceiverSet(this.getId(), newValue);
         }
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
@@ -148,7 +148,7 @@ public class ChangeGradeOfModuleThirdCommand extends PersistentObject implements
         this.myCommonDate = (PersistentCommonDate)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleThirdCommandFacade.myCommonDateSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theChangeGradeOfModuleCommandFacade.myCommonDateSet(this.getId(), newValue);
         }
     }
     public java.sql.Date getCreateDate() throws PersistenceException {
@@ -169,52 +169,52 @@ public class ChangeGradeOfModuleThirdCommand extends PersistentObject implements
     }
     
     public void accept(CommonDateVisitor visitor) throws PersistenceException {
-        visitor.handleChangeGradeOfModuleThirdCommand(this);
+        visitor.handleChangeGradeOfModuleCommand(this);
     }
     public <R> R accept(CommonDateReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleChangeGradeOfModuleThirdCommand(this);
+         return visitor.handleChangeGradeOfModuleCommand(this);
     }
     public <E extends model.UserException>  void accept(CommonDateExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleChangeGradeOfModuleThirdCommand(this);
+         visitor.handleChangeGradeOfModuleCommand(this);
     }
     public <R, E extends model.UserException> R accept(CommonDateReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleChangeGradeOfModuleThirdCommand(this);
+         return visitor.handleChangeGradeOfModuleCommand(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
-        visitor.handleChangeGradeOfModuleThirdCommand(this);
+        visitor.handleChangeGradeOfModuleCommand(this);
     }
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleChangeGradeOfModuleThirdCommand(this);
+         return visitor.handleChangeGradeOfModuleCommand(this);
     }
     public <E extends model.UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleChangeGradeOfModuleThirdCommand(this);
+         visitor.handleChangeGradeOfModuleCommand(this);
     }
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleChangeGradeOfModuleThirdCommand(this);
+         return visitor.handleChangeGradeOfModuleCommand(this);
     }
     public void accept(CommandVisitor visitor) throws PersistenceException {
-        visitor.handleChangeGradeOfModuleThirdCommand(this);
+        visitor.handleChangeGradeOfModuleCommand(this);
     }
     public <R> R accept(CommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleChangeGradeOfModuleThirdCommand(this);
+         return visitor.handleChangeGradeOfModuleCommand(this);
     }
     public <E extends model.UserException>  void accept(CommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleChangeGradeOfModuleThirdCommand(this);
+         visitor.handleChangeGradeOfModuleCommand(this);
     }
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleChangeGradeOfModuleThirdCommand(this);
+         return visitor.handleChangeGradeOfModuleCommand(this);
     }
     public void accept(StudentManagerCommandVisitor visitor) throws PersistenceException {
-        visitor.handleChangeGradeOfModuleThirdCommand(this);
+        visitor.handleChangeGradeOfModuleCommand(this);
     }
     public <R> R accept(StudentManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleChangeGradeOfModuleThirdCommand(this);
+         return visitor.handleChangeGradeOfModuleCommand(this);
     }
     public <E extends model.UserException>  void accept(StudentManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleChangeGradeOfModuleThirdCommand(this);
+         visitor.handleChangeGradeOfModuleCommand(this);
     }
     public <R, E extends model.UserException> R accept(StudentManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleChangeGradeOfModuleThirdCommand(this);
+         return visitor.handleChangeGradeOfModuleCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{
         if (this.getModule() != null) return 1;
@@ -233,8 +233,12 @@ public class ChangeGradeOfModuleThirdCommand extends PersistentObject implements
     }
     public void execute() 
 				throws PersistenceException{
-        this.commandReceiver.changeGradeOfModuleThird(this.getModule(), this.getGrade());
-		
+        try{
+			this.commandReceiver.changeGradeOfModule(this.getModule(), this.getGrade());
+		}
+		catch(model.InvalidGradeForSystemException e){
+			this.commandException = e;
+		}
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{

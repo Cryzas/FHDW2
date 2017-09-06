@@ -10,9 +10,6 @@ public abstract class GradesInSimpleOrThirdDirectVisitor implements GradesInSimp
     public void handlePassed(PassedView passed) throws ModelException{
         this.handleGradesInSimple(passed);
     }
-    public void handleNoGradeSimple(NoGradeSimpleView noGradeSimple) throws ModelException{
-        this.handleGradesInSimple(noGradeSimple);
-    }
     public void handleNotPassed(NotPassedView notPassed) throws ModelException{
         this.handleGradesInSimple(notPassed);
     }

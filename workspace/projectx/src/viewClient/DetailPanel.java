@@ -1351,9 +1351,6 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleZ_4_0(view.Z_4_0View object){
         result = new Z_4_0DefaultDetailPanel(handler, object);
     }
-    public void handleNoGradeSimple(view.NoGradeSimpleView object){
-        result = new NoGradeSimpleDefaultDetailPanel(handler, object);
-    }
     public void handleProgram(view.ProgramView object){
         result = new ProgramDefaultDetailPanel(handler, object);
     }
@@ -2375,19 +2372,6 @@ class Z_4_0DefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.Z_4_0View getAnything(){
         return (view.Z_4_0View)this.anything;
-    }
-}
-
-class NoGradeSimpleDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected NoGradeSimpleDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.NoGradeSimpleView getAnything(){
-        return (view.NoGradeSimpleView)this.anything;
     }
 }
 

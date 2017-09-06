@@ -8,9 +8,6 @@ public abstract class GradesInSimpleOrThirdStandardVisitor implements GradesInSi
     public void handlePassed(PassedView passed) throws ModelException{
         this.standardHandling(passed);
     }
-    public void handleNoGradeSimple(NoGradeSimpleView noGradeSimple) throws ModelException{
-        this.standardHandling(noGradeSimple);
-    }
     public void handleT_3_7(T_3_7View t_3_7) throws ModelException{
         this.standardHandling(t_3_7);
     }

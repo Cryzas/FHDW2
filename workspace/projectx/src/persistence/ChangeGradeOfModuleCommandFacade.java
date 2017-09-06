@@ -5,57 +5,57 @@ import model.meta.*;
 import java.sql.*;
 //import oracle.jdbc.*;
 
-public class ChangeGradeOfModuleSimpleCommandFacade{
+public class ChangeGradeOfModuleCommandFacade{
 
 	private String schemaName;
 	private Connection con;
 
-	public ChangeGradeOfModuleSimpleCommandFacade(String schemaName, Connection con) {
+	public ChangeGradeOfModuleCommandFacade(String schemaName, Connection con) {
 		this.schemaName = schemaName;
 		this.con = con;
 	}
 
     /* If idCreateIfLessZero is negative, a new id is generated. */
-    public PersistentChangeGradeOfModuleSimpleCommand newChangeGradeOfModuleSimpleCommand(String grade,long idCreateIfLessZero) throws PersistenceException {
+    public PersistentChangeGradeOfModuleCommand newChangeGradeOfModuleCommand(String grade,long idCreateIfLessZero) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
-            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".ChGrModule2CMDFacade.newChGrModule2CMD(?,?); end;");
+            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".ChGrModuleCMDFacade.newChGrModuleCMD(?,?); end;");
             callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
             callable.setString(2, grade);
             callable.setLong(3, idCreateIfLessZero);
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ChangeGradeOfModuleSimpleCommand result = new ChangeGradeOfModuleSimpleCommand(null,grade,null,null,null,id);
+            ChangeGradeOfModuleCommand result = new ChangeGradeOfModuleCommand(null,grade,null,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
-            return (PersistentChangeGradeOfModuleSimpleCommand)PersistentProxi.createProxi(id, 265);
+            return (PersistentChangeGradeOfModuleCommand)PersistentProxi.createProxi(id, 270);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
     
-    public PersistentChangeGradeOfModuleSimpleCommand newDelayedChangeGradeOfModuleSimpleCommand(String grade) throws PersistenceException {
+    public PersistentChangeGradeOfModuleCommand newDelayedChangeGradeOfModuleCommand(String grade) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
-            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".ChGrModule2CMDFacade.newDelayedChGrModule2CMD(); end;");
+            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".ChGrModuleCMDFacade.newDelayedChGrModuleCMD(); end;");
             callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ChangeGradeOfModuleSimpleCommand result = new ChangeGradeOfModuleSimpleCommand(null,grade,null,null,null,id);
+            ChangeGradeOfModuleCommand result = new ChangeGradeOfModuleCommand(null,grade,null,null,null,id);
             Cache.getTheCache().put(result);
-            return (PersistentChangeGradeOfModuleSimpleCommand)PersistentProxi.createProxi(id, 265);
+            return (PersistentChangeGradeOfModuleCommand)PersistentProxi.createProxi(id, 270);
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
     
-    public ChangeGradeOfModuleSimpleCommand getChangeGradeOfModuleSimpleCommand(long ChangeGradeOfModuleSimpleCommandId) throws PersistenceException{
+    public ChangeGradeOfModuleCommand getChangeGradeOfModuleCommand(long ChangeGradeOfModuleCommandId) throws PersistenceException{
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".ChGrModule2CMDFacade.getChGrModule2CMD(?); end;");
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".ChGrModuleCMDFacade.getChGrModuleCMD(?); end;");
             callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
-            callable.setLong(2, ChangeGradeOfModuleSimpleCommandId);
+            callable.setLong(2, ChangeGradeOfModuleCommandId);
             callable.execute();
             ResultSet obj = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
             if (!obj.next()) {
@@ -75,16 +75,16 @@ public class ChangeGradeOfModuleSimpleCommandFacade{
             PersistentCommonDate myCommonDate = null;
             if (obj.getLong(9) != 0)
                 myCommonDate = (PersistentCommonDate)PersistentProxi.createProxi(obj.getLong(9), obj.getLong(10));
-            ChangeGradeOfModuleSimpleCommand result = new ChangeGradeOfModuleSimpleCommand(module,
-                                                                                           obj.getString(4) == null ? "" : obj.getString(4) /* In Oracle "" = null !!! */,
-                                                                                           invoker,
-                                                                                           commandReceiver,
-                                                                                           myCommonDate,
-                                                                                           ChangeGradeOfModuleSimpleCommandId);
+            ChangeGradeOfModuleCommand result = new ChangeGradeOfModuleCommand(module,
+                                                                               obj.getString(4) == null ? "" : obj.getString(4) /* In Oracle "" = null !!! */,
+                                                                               invoker,
+                                                                               commandReceiver,
+                                                                               myCommonDate,
+                                                                               ChangeGradeOfModuleCommandId);
             obj.close();
             callable.close();
-            ChangeGradeOfModuleSimpleCommandICProxi inCache = (ChangeGradeOfModuleSimpleCommandICProxi)Cache.getTheCache().put(result);
-            ChangeGradeOfModuleSimpleCommand objectInCache = (ChangeGradeOfModuleSimpleCommand)inCache.getTheObject();
+            ChangeGradeOfModuleCommandICProxi inCache = (ChangeGradeOfModuleCommandICProxi)Cache.getTheCache().put(result);
+            ChangeGradeOfModuleCommand objectInCache = (ChangeGradeOfModuleCommand)inCache.getTheObject();
             return objectInCache;
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
@@ -93,7 +93,7 @@ public class ChangeGradeOfModuleSimpleCommandFacade{
     public long getClass(long objectId) throws PersistenceException{
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".ChGrModule2CMDFacade.getClass(?); end;");
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".ChGrModuleCMDFacade.getClass(?); end;");
             callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
             callable.setLong(2, objectId);
             callable.execute();
@@ -104,11 +104,11 @@ public class ChangeGradeOfModuleSimpleCommandFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void moduleSet(long ChangeGradeOfModuleSimpleCommandId, ModuleAtomarStudent4Public moduleVal) throws PersistenceException {
+    public void moduleSet(long ChangeGradeOfModuleCommandId, ModuleAtomarStudent4Public moduleVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".ChGrModule2CMDFacade.mdlSet(?, ?, ?); end;");
-            callable.setLong(1, ChangeGradeOfModuleSimpleCommandId);
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".ChGrModuleCMDFacade.mdlSet(?, ?, ?); end;");
+            callable.setLong(1, ChangeGradeOfModuleCommandId);
             callable.setLong(2, moduleVal.getId());
             callable.setLong(3, moduleVal.getClassId());
             callable.execute();
@@ -117,11 +117,11 @@ public class ChangeGradeOfModuleSimpleCommandFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void gradeSet(long ChangeGradeOfModuleSimpleCommandId, String gradeVal) throws PersistenceException {
+    public void gradeSet(long ChangeGradeOfModuleCommandId, String gradeVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".ChGrModule2CMDFacade.grdSet(?, ?); end;");
-            callable.setLong(1, ChangeGradeOfModuleSimpleCommandId);
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".ChGrModuleCMDFacade.grdSet(?, ?); end;");
+            callable.setLong(1, ChangeGradeOfModuleCommandId);
             callable.setString(2, gradeVal);
             callable.execute();
             callable.close();
@@ -129,11 +129,11 @@ public class ChangeGradeOfModuleSimpleCommandFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void invokerSet(long ChangeGradeOfModuleSimpleCommandId, Invoker invokerVal) throws PersistenceException {
+    public void invokerSet(long ChangeGradeOfModuleCommandId, Invoker invokerVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".ChGrModule2CMDFacade.invokerSet(?, ?, ?); end;");
-            callable.setLong(1, ChangeGradeOfModuleSimpleCommandId);
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".ChGrModuleCMDFacade.invokerSet(?, ?, ?); end;");
+            callable.setLong(1, ChangeGradeOfModuleCommandId);
             callable.setLong(2, invokerVal.getId());
             callable.setLong(3, invokerVal.getClassId());
             callable.execute();
@@ -142,11 +142,11 @@ public class ChangeGradeOfModuleSimpleCommandFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void commandReceiverSet(long ChangeGradeOfModuleSimpleCommandId, StudentManager4Public commandReceiverVal) throws PersistenceException {
+    public void commandReceiverSet(long ChangeGradeOfModuleCommandId, StudentManager4Public commandReceiverVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".ChGrModule2CMDFacade.cReceiverSet(?, ?, ?); end;");
-            callable.setLong(1, ChangeGradeOfModuleSimpleCommandId);
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".ChGrModuleCMDFacade.cReceiverSet(?, ?, ?); end;");
+            callable.setLong(1, ChangeGradeOfModuleCommandId);
             callable.setLong(2, commandReceiverVal.getId());
             callable.setLong(3, commandReceiverVal.getClassId());
             callable.execute();
@@ -155,11 +155,11 @@ public class ChangeGradeOfModuleSimpleCommandFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void myCommonDateSet(long ChangeGradeOfModuleSimpleCommandId, CommonDate4Public myCommonDateVal) throws PersistenceException {
+    public void myCommonDateSet(long ChangeGradeOfModuleCommandId, CommonDate4Public myCommonDateVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".ChGrModule2CMDFacade.myCmmnDtSet(?, ?, ?); end;");
-            callable.setLong(1, ChangeGradeOfModuleSimpleCommandId);
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".ChGrModuleCMDFacade.myCmmnDtSet(?, ?, ?); end;");
+            callable.setLong(1, ChangeGradeOfModuleCommandId);
             callable.setLong(2, myCommonDateVal.getId());
             callable.setLong(3, myCommonDateVal.getClassId());
             callable.execute();

@@ -50,9 +50,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException{
         this.standardHandling(commandCoordinator);
     }
-    public void handleChangeGradeOfModuleSimpleCommand(ChangeGradeOfModuleSimpleCommand4Public changeGradeOfModuleSimpleCommand) throws PersistenceException{
-        this.standardHandling(changeGradeOfModuleSimpleCommand);
-    }
     public void handleStudyGroup(StudyGroup4Public studyGroup) throws PersistenceException{
         this.standardHandling(studyGroup);
     }
@@ -94,9 +91,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleZ_2_3(Z_2_34Public z_2_3) throws PersistenceException{
         this.standardHandling(z_2_3);
-    }
-    public void handleNoGradeSimple(NoGradeSimple4Public noGradeSimple) throws PersistenceException{
-        this.standardHandling(noGradeSimple);
     }
     public void handleZ_2_4(Z_2_44Public z_2_4) throws PersistenceException{
         this.standardHandling(z_2_4);
@@ -158,6 +152,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException{
         this.standardHandling(commonDate);
     }
+    public void handleChangeGradeOfModuleCommand(ChangeGradeOfModuleCommand4Public changeGradeOfModuleCommand) throws PersistenceException{
+        this.standardHandling(changeGradeOfModuleCommand);
+    }
     public void handleAddUnitCommand(AddUnitCommand4Public addUnitCommand) throws PersistenceException{
         this.standardHandling(addUnitCommand);
     }
@@ -169,9 +166,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleSwapCPonModuleWithUnitsCommand(SwapCPonModuleWithUnitsCommand4Public swapCPonModuleWithUnitsCommand) throws PersistenceException{
         this.standardHandling(swapCPonModuleWithUnitsCommand);
-    }
-    public void handleChangeGradeOfModuleThirdCommand(ChangeGradeOfModuleThirdCommand4Public changeGradeOfModuleThirdCommand) throws PersistenceException{
-        this.standardHandling(changeGradeOfModuleThirdCommand);
     }
     public void handleModuleAtomarStudent(ModuleAtomarStudent4Public moduleAtomarStudent) throws PersistenceException{
         this.standardHandling(moduleAtomarStudent);

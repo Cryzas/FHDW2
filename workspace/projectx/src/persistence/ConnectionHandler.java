@@ -116,7 +116,6 @@ public class ConnectionHandler {
     public ModuleAtomarFacade theModuleAtomarFacade;
     public T_3_7Facade theT_3_7Facade;
     public ThirdGradeSystemFacade theThirdGradeSystemFacade;
-    public ChangeGradeOfModuleSimpleCommandFacade theChangeGradeOfModuleSimpleCommandFacade;
     public CommandCoordinatorFacade theCommandCoordinatorFacade;
     public StudyGroupFacade theStudyGroupFacade;
     public AddStudentToGroupCommandFacade theAddStudentToGroupCommandFacade;
@@ -146,7 +145,6 @@ public class ConnectionHandler {
     public ModuleWithUnitsSGroupFacade theModuleWithUnitsSGroupFacade;
     public ModuleAbstractFacade theModuleAbstractFacade;
     public ChangeCPOnModuleCommandFacade theChangeCPOnModuleCommandFacade;
-    public ChangeGradeOfModuleThirdCommandFacade theChangeGradeOfModuleThirdCommandFacade;
     public ModuleAtomarStudentFacade theModuleAtomarStudentFacade;
     public ModuleWithUnitsFacade theModuleWithUnitsFacade;
     public ProgramStudentFacade theProgramStudentFacade;
@@ -179,13 +177,13 @@ public class ConnectionHandler {
     public Z_3_0Facade theZ_3_0Facade;
     public SimpleGradeSystemFacade theSimpleGradeSystemFacade;
     public Z_4_0Facade theZ_4_0Facade;
-    public NoGradeSimpleFacade theNoGradeSimpleFacade;
     public ProgramFacade theProgramFacade;
     public ChangeGradeOfUnitCommandFacade theChangeGradeOfUnitCommandFacade;
     public UnitSGroupFacade theUnitSGroupFacade;
     public T_4_0Facade theT_4_0Facade;
     public StudyGroupManagerFacade theStudyGroupManagerFacade;
     public GradesInSimpleOrThirdFacade theGradesInSimpleOrThirdFacade;
+    public ChangeGradeOfModuleCommandFacade theChangeGradeOfModuleCommandFacade;
     public AddUnitCommandFacade theAddUnitCommandFacade;
     public ModuleAbstractSGroupFacade theModuleAbstractSGroupFacade;
     public SwapCPonModuleWithUnitsCommandFacade theSwapCPonModuleWithUnitsCommandFacade;
@@ -239,7 +237,6 @@ public class ConnectionHandler {
             this.theModuleAtomarFacade= new ModuleAtomarFacade(this.schemaName, this.con);
             this.theT_3_7Facade= new T_3_7Facade(this.schemaName, this.con);
             this.theThirdGradeSystemFacade= new ThirdGradeSystemFacade(this.schemaName, this.con);
-            this.theChangeGradeOfModuleSimpleCommandFacade= new ChangeGradeOfModuleSimpleCommandFacade(this.schemaName, this.con);
             this.theCommandCoordinatorFacade= new CommandCoordinatorFacade(this.schemaName, this.con);
             this.theStudyGroupFacade= new StudyGroupFacade(this.schemaName, this.con);
             this.theAddStudentToGroupCommandFacade= new AddStudentToGroupCommandFacade(this.schemaName, this.con);
@@ -269,7 +266,6 @@ public class ConnectionHandler {
             this.theModuleWithUnitsSGroupFacade= new ModuleWithUnitsSGroupFacade(this.schemaName, this.con);
             this.theModuleAbstractFacade= new ModuleAbstractFacade(this.schemaName, this.con);
             this.theChangeCPOnModuleCommandFacade= new ChangeCPOnModuleCommandFacade(this.schemaName, this.con);
-            this.theChangeGradeOfModuleThirdCommandFacade= new ChangeGradeOfModuleThirdCommandFacade(this.schemaName, this.con);
             this.theModuleAtomarStudentFacade= new ModuleAtomarStudentFacade(this.schemaName, this.con);
             this.theModuleWithUnitsFacade= new ModuleWithUnitsFacade(this.schemaName, this.con);
             this.theProgramStudentFacade= new ProgramStudentFacade(this.schemaName, this.con);
@@ -302,13 +298,13 @@ public class ConnectionHandler {
             this.theZ_3_0Facade= new Z_3_0Facade(this.schemaName, this.con);
             this.theSimpleGradeSystemFacade= new SimpleGradeSystemFacade(this.schemaName, this.con);
             this.theZ_4_0Facade= new Z_4_0Facade(this.schemaName, this.con);
-            this.theNoGradeSimpleFacade= new NoGradeSimpleFacade(this.schemaName, this.con);
             this.theProgramFacade= new ProgramFacade(this.schemaName, this.con);
             this.theChangeGradeOfUnitCommandFacade= new ChangeGradeOfUnitCommandFacade(this.schemaName, this.con);
             this.theUnitSGroupFacade= new UnitSGroupFacade(this.schemaName, this.con);
             this.theT_4_0Facade= new T_4_0Facade(this.schemaName, this.con);
             this.theStudyGroupManagerFacade= new StudyGroupManagerFacade(this.schemaName, this.con);
             this.theGradesInSimpleOrThirdFacade= new GradesInSimpleOrThirdFacade(this.schemaName, this.con);
+            this.theChangeGradeOfModuleCommandFacade= new ChangeGradeOfModuleCommandFacade(this.schemaName, this.con);
             this.theAddUnitCommandFacade= new AddUnitCommandFacade(this.schemaName, this.con);
             this.theModuleAbstractSGroupFacade= new ModuleAbstractSGroupFacade(this.schemaName, this.con);
             this.theSwapCPonModuleWithUnitsCommandFacade= new SwapCPonModuleWithUnitsCommandFacade(this.schemaName, this.con);

@@ -280,8 +280,7 @@ public class Cache {
 		this.number2NameMap.put(161, "AddUnitCommand");
 		this.number2NameMap.put(156, "ChangeCPOnModuleCommand");
 		this.number2NameMap.put(157, "ChangeCPOnUnitCommand");
-		this.number2NameMap.put(265, "ChangeGradeOfModuleSimpleCommand");
-		this.number2NameMap.put(266, "ChangeGradeOfModuleThirdCommand");
+		this.number2NameMap.put(270, "ChangeGradeOfModuleCommand");
 		this.number2NameMap.put(267, "ChangeGradeOfUnitCommand");
 		this.number2NameMap.put(211, "ChangeGradeSystemCommand");
 		this.number2NameMap.put(-101, "CommandCoordinator");
@@ -301,7 +300,6 @@ public class Cache {
 		this.number2NameMap.put(154, "ModuleWithUnits");
 		this.number2NameMap.put(182, "ModuleWithUnitsSGroup");
 		this.number2NameMap.put(193, "ModuleWithUnitsStudent");
-		this.number2NameMap.put(218, "NoGradeSimple");
 		this.number2NameMap.put(268, "NoGradeTenth");
 		this.number2NameMap.put(217, "NoGradeThird");
 		this.number2NameMap.put(219, "NotPassed");

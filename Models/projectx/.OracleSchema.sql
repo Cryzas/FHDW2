@@ -83,25 +83,6 @@ create table PrgrmSGrp(
     constraint FPrgrmSGrpThis foreign key (PrgrmSGrpThisCls) references Cls (id)    
 );
 
-create table ChGrModule2CMD(
-    id number primary key,
-    Cls number not null,
-    constraint FChGrModule2CMDCls foreign key (Cls) references Cls (id) on delete cascade,
-    ChGrModule2CMDMdl number,
-    ChGrModule2CMDMdlCls number,
-    constraint FChGrModule2CMDMdl foreign key (ChGrModule2CMDMdlCls) references Cls (id),
-    ChGrModule2CMDGrd varchar2(2000),
-    ChGrModule2CMDInvoker number,
-    ChGrModule2CMDInvokerCls number,
-    constraint FChGrModule2CMDInvoker foreign key (ChGrModule2CMDInvokerCls) references Cls (id),
-    ChGrModule2CMDCReceiver number,
-    ChGrModule2CMDCReceiverCls number,
-    constraint FChGrModule2CMDCReceiver foreign key (ChGrModule2CMDCReceiverCls) references Cls (id),
-    ChGrModule2CMDMyCmmnDt number,
-    ChGrModule2CMDMyCmmnDtCls number,
-    constraint FChGrModule2CMDMyCmmnDt foreign key (ChGrModule2CMDMyCmmnDtCls) references Cls (id)    
-);
-
 create table CmmndCrdntr(
     id number primary key,
     Cls number not null,
@@ -280,25 +261,6 @@ create table ChngCPOnMdlCMD(
     ChngCPOnMdlCMDMyCmmnDt number,
     ChngCPOnMdlCMDMyCmmnDtCls number,
     constraint FChngCPOnMdlCMDMyCmmnDt foreign key (ChngCPOnMdlCMDMyCmmnDtCls) references Cls (id)    
-);
-
-create table ChGrModule3CMD(
-    id number primary key,
-    Cls number not null,
-    constraint FChGrModule3CMDCls foreign key (Cls) references Cls (id) on delete cascade,
-    ChGrModule3CMDMdl number,
-    ChGrModule3CMDMdlCls number,
-    constraint FChGrModule3CMDMdl foreign key (ChGrModule3CMDMdlCls) references Cls (id),
-    ChGrModule3CMDGrd varchar2(2000),
-    ChGrModule3CMDInvoker number,
-    ChGrModule3CMDInvokerCls number,
-    constraint FChGrModule3CMDInvoker foreign key (ChGrModule3CMDInvokerCls) references Cls (id),
-    ChGrModule3CMDCReceiver number,
-    ChGrModule3CMDCReceiverCls number,
-    constraint FChGrModule3CMDCReceiver foreign key (ChGrModule3CMDCReceiverCls) references Cls (id),
-    ChGrModule3CMDMyCmmnDt number,
-    ChGrModule3CMDMyCmmnDtCls number,
-    constraint FChGrModule3CMDMyCmmnDt foreign key (ChGrModule3CMDMyCmmnDtCls) references Cls (id)    
 );
 
 create table PrgrmStdnt(
@@ -531,6 +493,25 @@ create table GrIn2or3(
     GrIn2or3This number,
     GrIn2or3ThisCls number,
     constraint FGrIn2or3This foreign key (GrIn2or3ThisCls) references Cls (id)    
+);
+
+create table ChGrModuleCMD(
+    id number primary key,
+    Cls number not null,
+    constraint FChGrModuleCMDCls foreign key (Cls) references Cls (id) on delete cascade,
+    ChGrModuleCMDMdl number,
+    ChGrModuleCMDMdlCls number,
+    constraint FChGrModuleCMDMdl foreign key (ChGrModuleCMDMdlCls) references Cls (id),
+    ChGrModuleCMDGrd varchar2(2000),
+    ChGrModuleCMDInvoker number,
+    ChGrModuleCMDInvokerCls number,
+    constraint FChGrModuleCMDInvoker foreign key (ChGrModuleCMDInvokerCls) references Cls (id),
+    ChGrModuleCMDCReceiver number,
+    ChGrModuleCMDCReceiverCls number,
+    constraint FChGrModuleCMDCReceiver foreign key (ChGrModuleCMDCReceiverCls) references Cls (id),
+    ChGrModuleCMDMyCmmnDt number,
+    ChGrModuleCMDMyCmmnDtCls number,
+    constraint FChGrModuleCMDMyCmmnDt foreign key (ChGrModuleCMDMyCmmnDtCls) references Cls (id)    
 );
 
 create table AddUntCMD(

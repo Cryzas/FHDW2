@@ -8,9 +8,6 @@ public abstract class GradesInSimpleOrThirdStandardVisitor implements GradesInSi
     public void handlePassed(Passed4Public passed) throws PersistenceException{
         this.standardHandling(passed);
     }
-    public void handleNoGradeSimple(NoGradeSimple4Public noGradeSimple) throws PersistenceException{
-        this.standardHandling(noGradeSimple);
-    }
     public void handleT_3_7(T_3_74Public t_3_7) throws PersistenceException{
         this.standardHandling(t_3_7);
     }
