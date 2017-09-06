@@ -84,19 +84,15 @@ public class ModuleGroupStudent extends view.objects.ModuleAbstractStudent imple
         int index = originalIndex;
         if(index < this.getModules().size()) return new ModulesModuleGroupStudentWrapper(this, originalIndex, (ViewRoot)this.getModules().get(index));
         index = index - this.getModules().size();
-        if(index == 0 && this.getGrade() != null) return new GradeModuleGroupStudentWrapper(this, originalIndex, (ViewRoot)this.getGrade());
-        if(this.getGrade() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getModules().size())
-            + (this.getGrade() == null ? 0 : 1);
+            + (this.getModules().size());
     }
     public boolean isLeaf() throws ModelException {
         return true 
-            && (this.getModules().size() == 0)
-            && (this.getGrade() == null ? true : false);
+            && (this.getModules().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -105,8 +101,6 @@ public class ModuleGroupStudent extends view.objects.ModuleAbstractStudent imple
             if(getModulesIterator.next().equals(child)) return result;
             result = result + 1;
         }
-        if(this.getGrade() != null && this.getGrade().equals(child)) return result;
-        if(this.getGrade() != null) result = result + 1;
         return -1;
     }
     public int getNameIndex() throws ModelException {

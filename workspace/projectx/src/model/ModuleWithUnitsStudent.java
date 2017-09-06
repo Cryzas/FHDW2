@@ -156,7 +156,6 @@ public class ModuleWithUnitsStudent extends model.ModuleAbstractStudent implemen
          return visitor.handleModuleWithUnitsStudent(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getGrade() != null) return 1;
         if (this.getUnits().getLength() > 0) return 1;
         return 0;
     }

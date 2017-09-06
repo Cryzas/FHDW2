@@ -214,7 +214,7 @@ class ProgramStudent {
 	public derived Fraction creditPoints;
 	public no-view prior ProgramSGroup programCopy;
 	void addModule(ModuleAbstractStudent module) throws CycleException;
-	public derived GradesInTenth grade;
+	public no-view derived GradesInTenth grade;
 }
 
 abstract string-factory class ModuleAbstractStudent ## m_abstr_st {
@@ -226,25 +226,25 @@ abstract string-factory class ModuleAbstractStudent ## m_abstr_st {
 class ModuleGroupStudent extends ModuleAbstractStudent {
 	public ModuleAbstractStudent ** modules hierarchy programHierarchyStudent;
 	void addModule(ModuleAbstractStudent module) throws CycleException;
-	public derived GradesInTenth grade;
+	public no-view derived GradesInTenth grade;
 }
 
 class ModuleAtomarStudent ## m_atom_stud extends ModuleAbstractStudent {
-	public GradesInSimpleOrThird grade;
+	public no-view GradesInSimpleOrThird grade;
 	void changeGrade(GradesInSimpleOrThird grade);
 }
 
 class ModuleWithUnitsStudent ## m_unit_stud extends ModuleAbstractStudent {
 	public UnitStudent ** units hierarchy programHierarchyStudent;
 	void addUnit(UnitStudent unit) throws CycleException;
-	public derived GradesInThird grade;
+	public no-view derived GradesInThird grade;
 }
 
 class UnitStudent {
 	prior UnitSGroup unitCopy;
 	public derived String name;
 	public derived Fraction creditPoints;
-	public GradesInThird grade;
+	public no-view GradesInThird grade;
 	void changeGrade(GradesInThird grade);
 }
 

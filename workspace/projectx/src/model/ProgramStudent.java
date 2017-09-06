@@ -200,7 +200,6 @@ public class ProgramStudent extends PersistentObject implements PersistentProgra
          return visitor.handleProgramStudent(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getGrade() != null) return 1;
         if (this.getModules().getLength() > 0) return 1;
         return 0;
     }

@@ -170,7 +170,6 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
          return visitor.handleModuleAtomarStudent(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getGrade() != null) return 1;
         return 0;
     }
     

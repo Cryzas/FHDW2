@@ -206,7 +206,6 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
          return visitor.handleUnitStudent(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getGrade() != null) return 1;
         return 0;
     }
     

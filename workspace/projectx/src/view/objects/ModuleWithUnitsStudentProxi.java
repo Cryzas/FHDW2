@@ -43,20 +43,16 @@ public class ModuleWithUnitsStudentProxi extends ModuleAbstractStudentProxi impl
         int index = originalIndex;
         if(index < this.getUnits().size()) return new UnitsModuleWithUnitsStudentWrapper(this, originalIndex, (ViewRoot)this.getUnits().get(index));
         index = index - this.getUnits().size();
-        if(index == 0 && this.getGrade() != null) return new GradeModuleWithUnitsStudentWrapper(this, originalIndex, (ViewRoot)this.getGrade());
-        if(this.getGrade() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getUnits().size())
-            + (this.getGrade() == null ? 0 : 1);
+            + (this.getUnits().size());
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
-            && (this.getUnits().size() == 0)
-            && (this.getGrade() == null ? true : false);
+            && (this.getUnits().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
@@ -65,8 +61,6 @@ public class ModuleWithUnitsStudentProxi extends ModuleAbstractStudentProxi impl
             if(getUnitsIterator.next().equals(child)) return result;
             result = result + 1;
         }
-        if(this.getGrade() != null && this.getGrade().equals(child)) return result;
-        if(this.getGrade() != null) result = result + 1;
         return -1;
     }
     

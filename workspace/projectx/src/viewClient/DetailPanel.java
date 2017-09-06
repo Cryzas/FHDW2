@@ -1881,7 +1881,6 @@ class UnitStudentDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String UnitStudent$$name = "UnitStudent$$name";
     protected static final String UnitStudent$$creditPoints = "UnitStudent$$creditPoints";
-    protected static final String UnitStudent$$grade = "UnitStudent$$grade";
     
     protected UnitStudentDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1943,7 +1942,6 @@ class ModuleAtomarStudentDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String ModuleAbstractStudent$$name = "ModuleAbstractStudent$$name";
     protected static final String ModuleAbstractStudent$$creditPoints = "ModuleAbstractStudent$$creditPoints";
-    protected static final String ModuleAtomarStudent$$grade = "ModuleAtomarStudent$$grade";
     
     protected ModuleAtomarStudentDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -2006,7 +2004,6 @@ class ProgramStudentDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String ProgramStudent$$modules = "ProgramStudent$$modules";
     protected static final String ProgramStudent$$name = "ProgramStudent$$name";
     protected static final String ProgramStudent$$creditPoints = "ProgramStudent$$creditPoints";
-    protected static final String ProgramStudent$$grade = "ProgramStudent$$grade";
     
     protected ProgramStudentDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -2090,7 +2087,6 @@ class ModuleWithUnitsStudentDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String ModuleAbstractStudent$$name = "ModuleAbstractStudent$$name";
     protected static final String ModuleAbstractStudent$$creditPoints = "ModuleAbstractStudent$$creditPoints";
     protected static final String ModuleWithUnitsStudent$$units = "ModuleWithUnitsStudent$$units";
-    protected static final String ModuleWithUnitsStudent$$grade = "ModuleWithUnitsStudent$$grade";
     
     protected ModuleWithUnitsStudentDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -2174,7 +2170,6 @@ class ModuleGroupStudentDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String ModuleAbstractStudent$$name = "ModuleAbstractStudent$$name";
     protected static final String ModuleAbstractStudent$$creditPoints = "ModuleAbstractStudent$$creditPoints";
     protected static final String ModuleGroupStudent$$modules = "ModuleGroupStudent$$modules";
-    protected static final String ModuleGroupStudent$$grade = "ModuleGroupStudent$$grade";
     
     protected ModuleGroupStudentDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);

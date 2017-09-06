@@ -156,7 +156,6 @@ public class ModuleGroupStudent extends model.ModuleAbstractStudent implements P
          return visitor.handleModuleGroupStudent(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getGrade() != null) return 1;
         if (this.getModules().getLength() > 0) return 1;
         return 0;
     }
