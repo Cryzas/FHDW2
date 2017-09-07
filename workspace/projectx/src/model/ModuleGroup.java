@@ -189,7 +189,7 @@ public class ModuleGroup extends model.ModuleAbstract implements PersistentModul
     public void addModule(final ModuleAbstract4Public module) 
 				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
     	if(getThis().containsprogramHierarchy(module))
-    		throw new AlreadyExistsInParentException(AlreadyExistsInParentMessage);
+    		throw new AlreadyExistsInParentException(String.format(AlreadyExistsInParentMessage, module.getName(), getThis().getName()));
     	getThis().getModules().add(module);
     }
     public ModuleAbstractSGroup4Public copyForStudyGroup() 
@@ -220,7 +220,7 @@ public class ModuleGroup extends model.ModuleAbstract implements PersistentModul
 
     /* Start of protected part that is not overridden by persistence generator */
     
-    static String AlreadyExistsInParentMessage = "Das ausgewählte Modul ist bereits in der Modulgruppe.";
+    static String AlreadyExistsInParentMessage = "Das Modul %s ist bereits in der Modulgruppe %s.";
     
     /* End of protected part that is not overridden by persistence generator */
     

@@ -68,12 +68,12 @@ public class ModuleAtomarStudentFacade{
             PersistentModuleAbstractStudent This = null;
             if (obj.getLong(4) != 0)
                 This = (PersistentModuleAbstractStudent)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
-            PersistentGradesInSimpleOrThird grade = null;
+            PersistentGradesInSimpleOrThird ownGrade = null;
             if (obj.getLong(6) != 0)
-                grade = (PersistentGradesInSimpleOrThird)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
+                ownGrade = (PersistentGradesInSimpleOrThird)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
             ModuleAtomarStudent result = new ModuleAtomarStudent(moduleCopy,
                                                                  This,
-                                                                 grade,
+                                                                 ownGrade,
                                                                  ModuleAtomarStudentId);
             obj.close();
             callable.close();
@@ -85,13 +85,13 @@ public class ModuleAtomarStudentFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
-    public void gradeSet(long ModuleAtomarStudentId, GradesInSimpleOrThird4Public gradeVal) throws PersistenceException {
+    public void ownGradeSet(long ModuleAtomarStudentId, GradesInSimpleOrThird4Public ownGradeVal) throws PersistenceException {
         try{
             CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".m_atom_studFacade.grdSet(?, ?, ?); end;");
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".m_atom_studFacade.ownGrdSet(?, ?, ?); end;");
             callable.setLong(1, ModuleAtomarStudentId);
-            callable.setLong(2, gradeVal.getId());
-            callable.setLong(3, gradeVal.getClassId());
+            callable.setLong(2, ownGradeVal.getId());
+            callable.setLong(3, ownGradeVal.getClassId());
             callable.execute();
             callable.close();
         }catch(SQLException se) {

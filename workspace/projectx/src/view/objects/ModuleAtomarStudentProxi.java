@@ -28,7 +28,16 @@ public class ModuleAtomarStudentProxi extends ModuleAbstractStudentProxi impleme
             grade = view.objects.ViewProxi.createProxi(grade$Info,connectionKey);
             grade.setToString(grade$Info.getToString());
         }
-        ModuleAtomarStudentView result$$ = new ModuleAtomarStudent((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradesInSimpleOrThirdView)grade, this.getId(), this.getClassId());
+        common.Fraction CPmulGrade = common.Fraction.parse((String)resultTable.get("CPmulGrade"));
+        common.Fraction CPwithGrade = common.Fraction.parse((String)resultTable.get("CPwithGrade"));
+        ViewProxi ownGrade = null;
+        String ownGrade$String = (String)resultTable.get("ownGrade");
+        if (ownGrade$String != null) {
+            common.ProxiInformation ownGrade$Info = common.RPCConstantsAndServices.createProxiInformation(ownGrade$String);
+            ownGrade = view.objects.ViewProxi.createProxi(ownGrade$Info,connectionKey);
+            ownGrade.setToString(ownGrade$Info.getToString());
+        }
+        ModuleAtomarStudentView result$$ = new ModuleAtomarStudent((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradeView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,(GradesInSimpleOrThirdView)ownGrade, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -51,11 +60,11 @@ public class ModuleAtomarStudentProxi extends ModuleAbstractStudentProxi impleme
         return -1;
     }
     
-    public GradesInSimpleOrThirdView getGrade()throws ModelException{
-        return ((ModuleAtomarStudent)this.getTheObject()).getGrade();
+    public GradesInSimpleOrThirdView getOwnGrade()throws ModelException{
+        return ((ModuleAtomarStudent)this.getTheObject()).getOwnGrade();
     }
-    public void setGrade(GradesInSimpleOrThirdView newValue) throws ModelException {
-        ((ModuleAtomarStudent)this.getTheObject()).setGrade(newValue);
+    public void setOwnGrade(GradesInSimpleOrThirdView newValue) throws ModelException {
+        ((ModuleAtomarStudent)this.getTheObject()).setOwnGrade(newValue);
     }
     
     public void accept(ModuleAbstractStudentVisitor visitor) throws ModelException {

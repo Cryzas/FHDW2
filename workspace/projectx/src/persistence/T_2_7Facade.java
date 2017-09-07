@@ -42,9 +42,9 @@ public class T_2_7Facade{
                 callable.close();
                 return null;
             }
-            PersistentGradesInSimpleOrThird This = null;
+            PersistentGrade This = null;
             if (obj.getLong(2) != 0)
-                This = (PersistentGradesInSimpleOrThird)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+                This = (PersistentGrade)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
             T_2_7 result = new T_2_7(This,
                                      T_2_7Id);
             obj.close();

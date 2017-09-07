@@ -85,7 +85,7 @@ public class ProgramStudentICProxi extends PersistentInCacheProxiOptimistic impl
 				throws PersistenceException{
         return ((PersistentProgramStudent)this.getTheObject()).getCreditPoints();
     }
-    public GradesInTenth4Public getGrade() 
+    public Grade4Public getGrade() 
 				throws PersistenceException{
         return ((PersistentProgramStudent)this.getTheObject()).getGrade();
     }

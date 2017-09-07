@@ -30,8 +30,6 @@ public interface ModuleGroupStudent4Public extends ModuleAbstractStudent4Public 
 				throws model.CycleException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
-    public GradesInTenth4Public getGrade() 
-				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 

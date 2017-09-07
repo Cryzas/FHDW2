@@ -17,6 +17,8 @@ public interface StudyGroup4Public extends Anything, AbstractPersistentProxi {
     
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
+    public void addStudent(final Student4Public student) 
+				throws model.AlreadyExistsInParentException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void initializeOnCreation() 

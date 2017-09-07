@@ -22,6 +22,15 @@ public abstract class ModuleAbstractStudentProxi extends ViewProxi implements Mo
     public common.Fraction getCreditPoints()throws ModelException{
         return ((ModuleAbstractStudent)this.getTheObject()).getCreditPoints();
     }
+    public GradeView getGrade()throws ModelException{
+        return ((ModuleAbstractStudent)this.getTheObject()).getGrade();
+    }
+    public common.Fraction getCPmulGrade()throws ModelException{
+        return ((ModuleAbstractStudent)this.getTheObject()).getCPmulGrade();
+    }
+    public common.Fraction getCPwithGrade()throws ModelException{
+        return ((ModuleAbstractStudent)this.getTheObject()).getCPwithGrade();
+    }
     
     
     

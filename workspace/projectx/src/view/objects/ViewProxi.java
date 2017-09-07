@@ -55,7 +55,7 @@ public abstract class ViewProxi extends ViewRoot {
 	
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [170];
+		proxiFactories = new ProxiFactory [173];
         proxiFactories[1] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ServerProxi(objectId, classId, connectionKey);
@@ -94,11 +94,6 @@ public abstract class ViewProxi extends ViewRoot {
         proxiFactories[79] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new StudyGroupProxi(objectId, classId, connectionKey);
-            }
-        };
-        proxiFactories[116] = new ProxiFactory(){
-            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
-                return new NoGradeThirdProxi(objectId, classId, connectionKey);
             }
         };
         proxiFactories[125] = new ProxiFactory(){
@@ -331,6 +326,11 @@ public abstract class ViewProxi extends ViewRoot {
                 return new StudyGroupManagerProxi(objectId, classId, connectionKey);
             }
         };
+        proxiFactories[172] = new ProxiFactory(){
+            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
+                return new NoGradeProxi(objectId, classId, connectionKey);
+            }
+        };
         proxiFactories[118] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new NotPassedProxi(objectId, classId, connectionKey);
@@ -394,11 +394,6 @@ public abstract class ViewProxi extends ViewRoot {
         proxiFactories[160] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new T_5_0Proxi(objectId, classId, connectionKey);
-            }
-        };
-        proxiFactories[167] = new ProxiFactory(){
-            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
-                return new NoGradeTenthProxi(objectId, classId, connectionKey);
             }
         };
         proxiFactories[119] = new ProxiFactory(){

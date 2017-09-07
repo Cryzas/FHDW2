@@ -12,13 +12,17 @@ public class UnitStudent extends ViewObject implements UnitStudentView{
     protected String name;
     protected common.Fraction creditPoints;
     protected GradesInThirdView grade;
+    protected common.Fraction CPmulGrade;
+    protected common.Fraction CPwithGrade;
     
-    public UnitStudent(String name,common.Fraction creditPoints,GradesInThirdView grade,long id, long classId) {
+    public UnitStudent(String name,common.Fraction creditPoints,GradesInThirdView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.name = name;
         this.creditPoints = creditPoints;
-        this.grade = grade;        
+        this.grade = grade;
+        this.CPmulGrade = CPmulGrade;
+        this.CPwithGrade = CPwithGrade;        
     }
     
     static public long getTypeId() {
@@ -40,6 +44,12 @@ public class UnitStudent extends ViewObject implements UnitStudentView{
     }
     public void setGrade(GradesInThirdView newValue) throws ModelException {
         this.grade = newValue;
+    }
+    public common.Fraction getCPmulGrade()throws ModelException{
+        return this.CPmulGrade;
+    }
+    public common.Fraction getCPwithGrade()throws ModelException{
+        return this.CPwithGrade;
     }
     
     public void accept(AnythingVisitor visitor) throws ModelException {

@@ -34,6 +34,8 @@ public class ServerConnection extends ConnectionMaster {
                     throw InvalidGradeForSystemException.fromHashtableToInvalidGradeForSystemException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -189)
                     throw UnitSwapException.fromHashtableToUnitSwapException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -271)
+                    throw NoFractionValueException.fromHashtableToNoFractionValueException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -149)
                     throw CycleException.fromHashtableToCycleException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -190)
@@ -69,6 +71,8 @@ public class ServerConnection extends ConnectionMaster {
                     throw InvalidGradeForSystemException.fromHashtableToInvalidGradeForSystemException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -189)
                     throw UnitSwapException.fromHashtableToUnitSwapException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -271)
+                    throw NoFractionValueException.fromHashtableToNoFractionValueException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -149)
                     throw CycleException.fromHashtableToCycleException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -190)
@@ -88,10 +92,10 @@ public class ServerConnection extends ConnectionMaster {
     }
     
     @SuppressWarnings("unchecked")
-    public synchronized java.util.Vector<?> module_Path_In_AddModuleToGroup() throws ModelException, UserException{
+    public synchronized java.util.Vector<?> modules_Path_In_AddModuleToGroup() throws ModelException, UserException{
         try {
             Vector<Object> parameters = new Vector<Object>();
-            java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "module_Path_In_AddModuleToGroup", parameters);
+            java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "modules_Path_In_AddModuleToGroup", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
@@ -99,6 +103,8 @@ public class ServerConnection extends ConnectionMaster {
                     throw InvalidGradeForSystemException.fromHashtableToInvalidGradeForSystemException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -189)
                     throw UnitSwapException.fromHashtableToUnitSwapException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -271)
+                    throw NoFractionValueException.fromHashtableToNoFractionValueException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -149)
                     throw CycleException.fromHashtableToCycleException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -190)
@@ -118,10 +124,10 @@ public class ServerConnection extends ConnectionMaster {
     }
     
     @SuppressWarnings("unchecked")
-    public synchronized java.util.Vector<?> module_Path_In_AddModuleToProg() throws ModelException, UserException{
+    public synchronized java.util.Vector<?> modules_Path_In_AddModuleToProg() throws ModelException, UserException{
         try {
             Vector<Object> parameters = new Vector<Object>();
-            java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "module_Path_In_AddModuleToProg", parameters);
+            java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "modules_Path_In_AddModuleToProg", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
@@ -129,6 +135,8 @@ public class ServerConnection extends ConnectionMaster {
                     throw InvalidGradeForSystemException.fromHashtableToInvalidGradeForSystemException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -189)
                     throw UnitSwapException.fromHashtableToUnitSwapException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -271)
+                    throw NoFractionValueException.fromHashtableToNoFractionValueException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -149)
                     throw CycleException.fromHashtableToCycleException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -190)
@@ -172,10 +180,10 @@ public class ServerConnection extends ConnectionMaster {
     }
     
     @SuppressWarnings("unchecked")
-    public synchronized java.util.Vector<?> student_Path_In_AddStudentToGroup() throws ModelException, UserException{
+    public synchronized java.util.Vector<?> students_Path_In_AddStudentToGroup() throws ModelException, UserException{
         try {
             Vector<Object> parameters = new Vector<Object>();
-            java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "student_Path_In_AddStudentToGroup", parameters);
+            java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "students_Path_In_AddStudentToGroup", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
                     throw new ModelException((String)success.get(common.RPCConstantsAndServices.ExceptionMessageFieldName), ((Integer)success.get(common.RPCConstantsAndServices.ExceptionNumberFieldName)).intValue());
@@ -183,6 +191,8 @@ public class ServerConnection extends ConnectionMaster {
                     throw InvalidGradeForSystemException.fromHashtableToInvalidGradeForSystemException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -189)
                     throw UnitSwapException.fromHashtableToUnitSwapException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
+                if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -271)
+                    throw NoFractionValueException.fromHashtableToNoFractionValueException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -149)
                     throw CycleException.fromHashtableToCycleException((java.util.HashMap<String,Object>)success.get(common.RPCConstantsAndServices.ResultFieldName), this.getHandler());
                 if(((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == -190)
@@ -201,7 +211,7 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void addModuleToGroup(ModuleGroupView group, ModuleAbstractView module) throws ModelException{
+    public synchronized void addModuleToGroup(ModuleGroupView group, java.util.Vector<ModuleAbstractView> modules) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             if (group == null){
@@ -209,11 +219,13 @@ public class ServerConnection extends ConnectionMaster {
             } else {
                 parameters.add(((view.objects.ViewProxi)group).createProxiInformation());
             }
-            if (module == null){
-                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
-            } else {
-                parameters.add(((view.objects.ViewProxi)module).createProxiInformation());
+            java.util.Vector<String> modulesTrnsprt = new java.util.Vector<String>();
+            java.util.Iterator<ModuleAbstractView> modulesItrtr = modules.iterator();
+            while (modulesItrtr.hasNext()){ 
+                ModuleAbstractView current = modulesItrtr.next();
+                modulesTrnsprt.add(((view.objects.ViewProxi)current).createProxiInformation());
             }
+            parameters.add(modulesTrnsprt);
             java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "addModuleToGroup", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
@@ -228,7 +240,7 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void addModuleToProg(ProgramView program, ModuleAbstractView module) throws ModelException{
+    public synchronized void addModuleToProg(ProgramView program, java.util.Vector<ModuleAbstractView> modules) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             if (program == null){
@@ -236,11 +248,13 @@ public class ServerConnection extends ConnectionMaster {
             } else {
                 parameters.add(((view.objects.ViewProxi)program).createProxiInformation());
             }
-            if (module == null){
-                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
-            } else {
-                parameters.add(((view.objects.ViewProxi)module).createProxiInformation());
+            java.util.Vector<String> modulesTrnsprt = new java.util.Vector<String>();
+            java.util.Iterator<ModuleAbstractView> modulesItrtr = modules.iterator();
+            while (modulesItrtr.hasNext()){ 
+                ModuleAbstractView current = modulesItrtr.next();
+                modulesTrnsprt.add(((view.objects.ViewProxi)current).createProxiInformation());
             }
+            parameters.add(modulesTrnsprt);
             java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "addModuleToProg", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
@@ -255,7 +269,7 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void addStudentToGroup(StudyGroupView group, StudentView student) throws ModelException{
+    public synchronized void addStudentToGroup(StudyGroupView group, java.util.Vector<StudentView> students) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             if (group == null){
@@ -263,11 +277,13 @@ public class ServerConnection extends ConnectionMaster {
             } else {
                 parameters.add(((view.objects.ViewProxi)group).createProxiInformation());
             }
-            if (student == null){
-                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
-            } else {
-                parameters.add(((view.objects.ViewProxi)student).createProxiInformation());
+            java.util.Vector<String> studentsTrnsprt = new java.util.Vector<String>();
+            java.util.Iterator<StudentView> studentsItrtr = students.iterator();
+            while (studentsItrtr.hasNext()){ 
+                StudentView current = studentsItrtr.next();
+                studentsTrnsprt.add(((view.objects.ViewProxi)current).createProxiInformation());
             }
+            parameters.add(studentsTrnsprt);
             java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "addStudentToGroup", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
@@ -457,9 +473,14 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void createStudent(String firstName, String lastName, java.util.Date birthDate) throws ModelException{
+    public synchronized void createStudent(StudyGroupView group, String firstName, String lastName, java.util.Date birthDate) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
+            if (group == null){
+                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
+            } else {
+                parameters.add(((view.objects.ViewProxi)group).createProxiInformation());
+            }
             parameters.add(firstName);
             parameters.add(lastName);
             parameters.add(birthDate);

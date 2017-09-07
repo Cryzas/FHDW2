@@ -32,6 +32,10 @@ public abstract class GradesInSimpleProxi extends GradesInSimpleOrThirdProxi imp
 				throws PersistenceException{
         ((PersistentGradesInSimple)this.getTheObject()).initializeOnInstantiation();
     }
+    public common.Fraction toFraction() 
+				throws model.NoFractionValueException, PersistenceException{
+        return ((PersistentGradesInSimple)this.getTheObject()).toFraction();
+    }
 
     
 }

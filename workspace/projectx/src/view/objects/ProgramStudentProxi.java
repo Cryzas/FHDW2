@@ -31,7 +31,7 @@ public class ProgramStudentProxi extends ViewProxi implements ProgramStudentView
             grade = view.objects.ViewProxi.createProxi(grade$Info,connectionKey);
             grade.setToString(grade$Info.getToString());
         }
-        ProgramStudentView result$$ = new ProgramStudent(modules,(String)name,(common.Fraction)creditPoints,(ProgramSGroupView)programCopy,(GradesInTenthView)grade, this.getId(), this.getClassId());
+        ProgramStudentView result$$ = new ProgramStudent(modules,(String)name,(common.Fraction)creditPoints,(ProgramSGroupView)programCopy,(GradeView)grade, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -82,7 +82,7 @@ public class ProgramStudentProxi extends ViewProxi implements ProgramStudentView
     public void setProgramCopy(ProgramSGroupView newValue) throws ModelException {
         ((ProgramStudent)this.getTheObject()).setProgramCopy(newValue);
     }
-    public GradesInTenthView getGrade()throws ModelException{
+    public GradeView getGrade()throws ModelException{
         return ((ProgramStudent)this.getTheObject()).getGrade();
     }
     

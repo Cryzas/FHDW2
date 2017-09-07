@@ -2,6 +2,10 @@
 package model;
 
 import persistence.*;
+
+import java.math.BigInteger;
+
+import common.Fraction;
 import model.visitor.*;
 
 
@@ -82,9 +86,9 @@ public class Z_1_8 extends model.GradesInTenth implements PersistentZ_1_8{
         return false;
     }
     
-    public Z_1_8(PersistentGradesInTenth This,long id) throws PersistenceException {
+    public Z_1_8(PersistentGrade This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentGradesInTenth)This,id);        
+        super((PersistentGrade)This,id);        
     }
     
     static public long getTypeId() {
@@ -117,6 +121,18 @@ public class Z_1_8 extends model.GradesInTenth implements PersistentZ_1_8{
          visitor.handleZ_1_8(this);
     }
     public <R, E extends model.UserException> R accept(GradesInTenthReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleZ_1_8(this);
+    }
+    public void accept(GradeVisitor visitor) throws PersistenceException {
+        visitor.handleZ_1_8(this);
+    }
+    public <R> R accept(GradeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleZ_1_8(this);
+    }
+    public <E extends model.UserException>  void accept(GradeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleZ_1_8(this);
+    }
+    public <R, E extends model.UserException> R accept(GradeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleZ_1_8(this);
     }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
@@ -156,6 +172,10 @@ public class Z_1_8 extends model.GradesInTenth implements PersistentZ_1_8{
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         super.initializeOnInstantiation();
+    }
+    public common.Fraction toFraction() 
+				throws model.NoFractionValueException, PersistenceException{
+    	return new Fraction(BigInteger.valueOf(18), BigInteger.valueOf(10));
     }
     
     

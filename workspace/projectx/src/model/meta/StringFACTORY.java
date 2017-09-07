@@ -24,9 +24,9 @@ public class StringFACTORY{
     public static final String GradesInSimpleOrThird$FACTORY$T_2_7 = "2.7";
     public static final String GradesInSimpleOrThird$FACTORY$T_1_7 = "1.7";
     public static final String GradesInSimpleOrThird$FACTORY$T_3_3 = "3.3";
+    public static final String GradesInSimpleOrThird$FACTORY$NoGrade = "Keine Note";
     public static final String GradesInSimpleOrThird$FACTORY$NotPassed = "Nicht Bestanden";
     public static final String GradesInSimpleOrThird$FACTORY$T_1_0 = "1.0";
-    public static final String GradesInSimpleOrThird$FACTORY$NoGradeThird = "Keine Note";
     
     public static persistence.GradesInSimpleOrThird4Public createObjectBySubTypeNameForGradesInSimpleOrThird(String name) throws persistence.PersistenceException {
         if(name.equals(GradesInSimpleOrThird$FACTORY$Passed)) return model.Passed.getThePassed();
@@ -40,9 +40,9 @@ public class StringFACTORY{
         if(name.equals(GradesInSimpleOrThird$FACTORY$T_2_7)) return model.T_2_7.getTheT_2_7();
         if(name.equals(GradesInSimpleOrThird$FACTORY$T_1_7)) return model.T_1_7.getTheT_1_7();
         if(name.equals(GradesInSimpleOrThird$FACTORY$T_3_3)) return model.T_3_3.getTheT_3_3();
+        if(name.equals(GradesInSimpleOrThird$FACTORY$NoGrade)) return model.NoGrade.getTheNoGrade();
         if(name.equals(GradesInSimpleOrThird$FACTORY$NotPassed)) return model.NotPassed.getTheNotPassed();
         if(name.equals(GradesInSimpleOrThird$FACTORY$T_1_0)) return model.T_1_0.getTheT_1_0();
-        if(name.equals(GradesInSimpleOrThird$FACTORY$NoGradeThird)) return model.NoGradeThird.getTheNoGradeThird();
         throw new persistence.PersistenceException("No such type name!",0);
     }
     
@@ -76,8 +76,8 @@ public class StringFACTORY{
     public static final String GradesInThird$FACTORY$T_1_7 = "1.7";
     public static final String GradesInThird$FACTORY$T_3_3 = "3.3";
     public static final String GradesInThird$FACTORY$T_3_7 = "3.7";
+    public static final String GradesInThird$FACTORY$NoGrade = "Keine Note";
     public static final String GradesInThird$FACTORY$T_1_0 = "1.0";
-    public static final String GradesInThird$FACTORY$NoGradeThird = "Keine Note";
     
     public static persistence.GradesInThird4Public createObjectBySubTypeNameForGradesInThird(String name) throws persistence.PersistenceException {
         if(name.equals(GradesInThird$FACTORY$T_2_3)) return model.T_2_3.getTheT_2_3();
@@ -90,8 +90,8 @@ public class StringFACTORY{
         if(name.equals(GradesInThird$FACTORY$T_1_7)) return model.T_1_7.getTheT_1_7();
         if(name.equals(GradesInThird$FACTORY$T_3_3)) return model.T_3_3.getTheT_3_3();
         if(name.equals(GradesInThird$FACTORY$T_3_7)) return model.T_3_7.getTheT_3_7();
+        if(name.equals(GradesInThird$FACTORY$NoGrade)) return model.NoGrade.getTheNoGrade();
         if(name.equals(GradesInThird$FACTORY$T_1_0)) return model.T_1_0.getTheT_1_0();
-        if(name.equals(GradesInThird$FACTORY$NoGradeThird)) return model.NoGradeThird.getTheNoGradeThird();
         throw new persistence.PersistenceException("No such type name!",0);
     }
     

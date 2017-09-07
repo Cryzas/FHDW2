@@ -46,6 +46,18 @@ public class NotPassedProxi extends GradesInSimpleProxi implements PersistentNot
     public <R, E extends model.UserException> R accept(GradesInSimpleOrThirdReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleNotPassed(this);
     }
+    public void accept(GradeVisitor visitor) throws PersistenceException {
+        visitor.handleNotPassed(this);
+    }
+    public <R> R accept(GradeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleNotPassed(this);
+    }
+    public <E extends model.UserException>  void accept(GradeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleNotPassed(this);
+    }
+    public <R, E extends model.UserException> R accept(GradeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleNotPassed(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleNotPassed(this);
     }
@@ -75,6 +87,10 @@ public class NotPassedProxi extends GradesInSimpleProxi implements PersistentNot
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentNotPassed)this.getTheObject()).initializeOnInstantiation();
+    }
+    public common.Fraction toFraction() 
+				throws model.NoFractionValueException, PersistenceException{
+        return ((PersistentNotPassed)this.getTheObject()).toFraction();
     }
 
     

@@ -13,6 +13,10 @@ public interface T_3_3View extends GradesInThirdView {
     public <R> R accept(GradesInSimpleOrThirdReturnVisitor<R>  visitor) throws ModelException;
     public <E extends view.UserException>  void accept(GradesInSimpleOrThirdExceptionVisitor<E> visitor) throws ModelException, E;
     public <R, E extends view.UserException> R accept(GradesInSimpleOrThirdReturnExceptionVisitor<R, E>  visitor) throws ModelException, E;
+    public void accept(GradeVisitor visitor) throws ModelException;
+    public <R> R accept(GradeReturnVisitor<R>  visitor) throws ModelException;
+    public <E extends view.UserException>  void accept(GradeExceptionVisitor<E> visitor) throws ModelException, E;
+    public <R, E extends view.UserException> R accept(GradeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E;
     public void accept(AnythingVisitor visitor) throws ModelException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException;
     public <E extends view.UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws ModelException, E;

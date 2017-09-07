@@ -2,6 +2,7 @@
 package model;
 
 import persistence.*;
+import common.Fraction;
 import model.visitor.*;
 
 
@@ -59,11 +60,11 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
             }
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, inDerived);
             if (leaf) allResults.put(uniqueKey, result);
-            AbstractPersistentRoot grade = (AbstractPersistentRoot)this.getGrade();
-            if (grade != null) {
+            AbstractPersistentRoot ownGrade = (AbstractPersistentRoot)this.getOwnGrade();
+            if (ownGrade != null) {
                 String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
-                    grade, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
-                result.put("grade", proxiInformation);
+                    ownGrade, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
+                result.put("ownGrade", proxiInformation);
                 
             }
         }
@@ -74,7 +75,7 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
         ModuleAtomarStudent result = this;
         result = new ModuleAtomarStudent(this.moduleCopy, 
                                          this.This, 
-                                         this.grade, 
+                                         this.ownGrade, 
                                          this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -83,12 +84,12 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected PersistentGradesInSimpleOrThird grade;
+    protected PersistentGradesInSimpleOrThird ownGrade;
     
-    public ModuleAtomarStudent(PersistentModuleAbstractSGroup moduleCopy,PersistentModuleAbstractStudent This,PersistentGradesInSimpleOrThird grade,long id) throws PersistenceException {
+    public ModuleAtomarStudent(PersistentModuleAbstractSGroup moduleCopy,PersistentModuleAbstractStudent This,PersistentGradesInSimpleOrThird ownGrade,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super((PersistentModuleAbstractSGroup)moduleCopy,(PersistentModuleAbstractStudent)This,id);
-        this.grade = grade;        
+        this.ownGrade = ownGrade;        
     }
     
     static public long getTypeId() {
@@ -104,25 +105,25 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
         if (this.getClassId() == 191) ConnectionHandler.getTheConnectionHandler().theModuleAtomarStudentFacade
             .newModuleAtomarStudent(this.getId());
         super.store();
-        if(this.getGrade() != null){
-            this.getGrade().store();
-            ConnectionHandler.getTheConnectionHandler().theModuleAtomarStudentFacade.gradeSet(this.getId(), getGrade());
+        if(this.getOwnGrade() != null){
+            this.getOwnGrade().store();
+            ConnectionHandler.getTheConnectionHandler().theModuleAtomarStudentFacade.ownGradeSet(this.getId(), getOwnGrade());
         }
         
     }
     
-    public GradesInSimpleOrThird4Public getGrade() throws PersistenceException {
-        return this.grade;
+    public GradesInSimpleOrThird4Public getOwnGrade() throws PersistenceException {
+        return this.ownGrade;
     }
-    public void setGrade(GradesInSimpleOrThird4Public newValue) throws PersistenceException {
+    public void setOwnGrade(GradesInSimpleOrThird4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.grade)) return;
+        if(newValue.isTheSameAs(this.ownGrade)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.grade = (PersistentGradesInSimpleOrThird)PersistentProxi.createProxi(objectId, classId);
+        this.ownGrade = (PersistentGradesInSimpleOrThird)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theModuleAtomarStudentFacade.gradeSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theModuleAtomarStudentFacade.ownGradeSet(this.getId(), newValue);
         }
     }
     public PersistentModuleAtomarStudent getThis() throws PersistenceException {
@@ -197,15 +198,36 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
     
     public void changeGrade(final GradesInSimpleOrThird4Public grade) 
 				throws PersistenceException{
-        getThis().setGrade(grade);
+        getThis().setOwnGrade(grade);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
     }
+    public common.Fraction getCPmulGrade() 
+				throws PersistenceException{
+    	try {
+			return getThis().getCreditPoints().mul(getThis().getGrade().toFraction());
+		} catch (NoFractionValueException e) {
+			return Fraction.Null;
+		}
+    }
+    public common.Fraction getCPwithGrade() 
+				throws PersistenceException{
+    	try {
+			getThis().getGrade().toFraction();
+			return getThis().getCreditPoints();
+		} catch (NoFractionValueException e) {
+			return Fraction.Null;
+		}
+    }
+    public Grade4Public getGrade() 
+				throws PersistenceException{
+        return getThis().getOwnGrade();
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         super.initializeOnCreation();
-        getThis().setGrade(NoGradeThird.getTheNoGradeThird());
+        getThis().setOwnGrade(NoGrade.getTheNoGrade());
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{

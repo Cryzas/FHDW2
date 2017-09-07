@@ -18,6 +18,12 @@ public class CreateStudentCommandProxi extends PersistentProxi implements Persis
         return 200;
     }
     
+    public StudyGroup4Public getGroup() throws PersistenceException {
+        return ((PersistentCreateStudentCommand)this.getTheObject()).getGroup();
+    }
+    public void setGroup(StudyGroup4Public newValue) throws PersistenceException {
+        ((PersistentCreateStudentCommand)this.getTheObject()).setGroup(newValue);
+    }
     public String getFirstName() throws PersistenceException {
         return ((PersistentCreateStudentCommand)this.getTheObject()).getFirstName();
     }

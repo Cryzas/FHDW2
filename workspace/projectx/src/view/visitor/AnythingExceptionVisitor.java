@@ -2,7 +2,7 @@
 package view.visitor;
 import view.*;
 
-public interface AnythingExceptionVisitor<E extends view.UserException> extends GradeSystemExceptionVisitor<E>,GradesInSimpleOrThirdExceptionVisitor<E>,GradesInTenthExceptionVisitor<E>,ModuleAbstractExceptionVisitor<E>,ModuleAbstractSGroupExceptionVisitor<E>,ModuleAbstractStudentExceptionVisitor<E>{
+public interface AnythingExceptionVisitor<E extends view.UserException> extends GradeExceptionVisitor<E>,GradeSystemExceptionVisitor<E>,ModuleAbstractExceptionVisitor<E>,ModuleAbstractSGroupExceptionVisitor<E>,ModuleAbstractStudentExceptionVisitor<E>{
     
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException, E;
     public void handleModuleManager(ModuleManagerView moduleManager) throws ModelException, E;

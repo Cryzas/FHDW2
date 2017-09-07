@@ -194,10 +194,10 @@ public class ProgramManager extends PersistentObject implements PersistentProgra
     public void createProgram(final String name) 
 				throws model.AlreadyExistsInParentException, PersistenceException{
     	if (Program.getProgramByName(name).iterator().hasNext()) {
-			throw new AlreadyExistsInParentException(ProgramAlreadyExistsInDBMessage);
+			throw new AlreadyExistsInParentException(String.format(ProgramAlreadyExistsInDBMessage, name));
 		}
     	if (ModuleAbstract.getModuleAbstractByName(name).iterator().hasNext()) {
-			throw new AlreadyExistsInParentException(ModuleAlreadyExistsInDBMessage);
+			throw new AlreadyExistsInParentException(String.format(ModuleAlreadyExistsInDBMessage, name));
 		}
     	getThis().getPrograms().add(Program.createProgram(name));
     }
@@ -216,8 +216,8 @@ public class ProgramManager extends PersistentObject implements PersistentProgra
 
     /* Start of protected part that is not overridden by persistence generator */
     
-    static String ProgramAlreadyExistsInDBMessage = "Es existiert bereits ein Programm mit eingegebenem Namen.";
-    static String ModuleAlreadyExistsInDBMessage = "Es existiert bereits ein Modul mit eingegebenem Namen.";
+    static String ProgramAlreadyExistsInDBMessage = "Es existiert bereits ein Programm mit dem Namen %s.";
+    static String ModuleAlreadyExistsInDBMessage = "Es existiert bereits ein Modul mit dem Namen %s.";
     
     /* End of protected part that is not overridden by persistence generator */
     

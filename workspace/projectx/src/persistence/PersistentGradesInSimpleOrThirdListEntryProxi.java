@@ -1,5 +1,5 @@
 package persistence;
 
-public interface PersistentGradesInSimpleOrThirdListEntryProxi extends PersistentListEntryProxi {
+public interface PersistentGradesInSimpleOrThirdListEntryProxi extends PersistentGradeListEntryProxi {
 
 }

@@ -38,14 +38,14 @@ public abstract class GradesInSimpleOrThirdStandardVisitor implements GradesInSi
     public void handleT_3_3(T_3_3View t_3_3) throws ModelException{
         this.standardHandling(t_3_3);
     }
+    public void handleNoGrade(NoGradeView noGrade) throws ModelException{
+        this.standardHandling(noGrade);
+    }
     public void handleNotPassed(NotPassedView notPassed) throws ModelException{
         this.standardHandling(notPassed);
     }
     public void handleT_1_0(T_1_0View t_1_0) throws ModelException{
         this.standardHandling(t_1_0);
-    }
-    public void handleNoGradeThird(NoGradeThirdView noGradeThird) throws ModelException{
-        this.standardHandling(noGradeThird);
     }
     protected abstract void standardHandling(GradesInSimpleOrThirdView gradesInSimpleOrThird) throws ModelException;
 }

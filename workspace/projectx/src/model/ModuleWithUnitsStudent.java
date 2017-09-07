@@ -2,6 +2,7 @@
 package model;
 
 import persistence.*;
+import common.Fraction;
 import model.visitor.*;
 
 
@@ -60,13 +61,6 @@ public class ModuleWithUnitsStudent extends model.ModuleAbstractStudent implemen
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, inDerived);
             if (leaf) allResults.put(uniqueKey, result);
             result.put("units", this.getUnits().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, false, false));
-            AbstractPersistentRoot grade = (AbstractPersistentRoot)this.getGrade();
-            if (grade != null) {
-                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
-                    grade, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, true, false, false);
-                result.put("grade", proxiInformation);
-                
-            }
         }
         return result;
     }
@@ -200,9 +194,24 @@ public class ModuleWithUnitsStudent extends model.ModuleAbstractStudent implemen
 				throws PersistenceException{
         
     }
-    public GradesInThird4Public getGrade() 
+    public common.Fraction getCPmulGrade() 
 				throws PersistenceException{
-        return NoGradeThird.getTheNoGradeThird();
+        return getThis().getUnits().aggregate(Fraction.Null, (result,argument) -> {
+        	return result.add(argument.getCPmulGrade());
+		} );
+    }
+    public common.Fraction getCPwithGrade() 
+				throws PersistenceException{
+        return getThis().getUnits().aggregate(Fraction.Null, (result,argument) -> {
+			return result.add(argument.getCPwithGrade());
+        });
+    }
+    public Grade4Public getGrade() 
+				throws PersistenceException{
+		if(getThis().getCPwithGrade().equals(Fraction.Null)) {
+			return NoGrade.getTheNoGrade();
+		}
+		return getThis().getCPmulGrade().div(getThis().getCPwithGrade()).toGradeinThird();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

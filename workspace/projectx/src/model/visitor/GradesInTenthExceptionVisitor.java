@@ -4,7 +4,6 @@ import persistence.*;
 
 public interface GradesInTenthExceptionVisitor<E extends model.UserException> {
     
-    public void handleNoGradeTenth(NoGradeTenth4Public noGradeTenth) throws PersistenceException, E;
     public void handleZ_1_0(Z_1_04Public z_1_0) throws PersistenceException, E;
     public void handleZ_1_1(Z_1_14Public z_1_1) throws PersistenceException, E;
     public void handleZ_1_2(Z_1_24Public z_1_2) throws PersistenceException, E;

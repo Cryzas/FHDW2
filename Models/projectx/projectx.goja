@@ -10,9 +10,9 @@ server Server {
 /* Fehler aus dem Error-Screen entfernen -> Attribute: error */
 	void removeError @@ Error_entfernen (ErrorDisplay error);
 /* Modul zum jeweiligen Programm hinzufügen -> Attribute: program, module */
-	void addModuleToProg @@ Modul_hinzufügen (Program program, ModuleAbstract module {moduleManager;modules});
+	void addModuleToProg @@ Module_hinzufügen (Program program, ModuleAbstract ** modules {moduleManager;modules});
 /* Modul zur jeweiligen Gruppe hinzufügen -> Attribute: Modulgruppe group, module */
-	void addModuleToGroup @@ Modul_hinzufügen (ModuleGroup group, ModuleAbstract module {moduleManager;modules});
+	void addModuleToGroup @@ Module_hinzufügen (ModuleGroup group, ModuleAbstract ** modules {moduleManager;modules});
 /* Modul erstellen -> Attibute: Modulart type, name */
 	void createModule @@ Modul_erstellen (ModuleAbstractSUBTYPEName type, String name);
 /* Unit zu ModulMitUnits hinzufügen -> Attribute: Modulbezeichnung module, name, creditPoints */
@@ -26,9 +26,9 @@ server Server {
 /* CreditPoints der einzelnen Units ändern, ohne die Gesamtmenge der CPs für das Modul zu verändern -> Attribute: module, fromUnit, ToUnit, creditPoints */
 	void swapCPonModuleWithUnits @@ CP_der_Units_ändern (ModuleWithUnitsSGroup module, UnitSGroup fromUnit @@ Von_Unit{;module;units}, UnitSGroup ToUnit @@ Zu_Unit{;module;units}, Fraction creditPoints);
 /* Anlegen eines neuen Studenten -> Attribute: firstName, lastName, birthDate */
-	void createStudent @@ Student_erstellen (String firstName, String lastName, Date birthDate);
+	void createStudent @@ Student_erstellen (StudyGroup group, String firstName, String lastName, Date birthDate);
 /* Studenten zu Studiengruppe hinzufügen -> Attribute: group, student */
-	void addStudentToGroup @@ Student_hinzufügen (StudyGroup group, Student student {studentManager;students});
+	void addStudentToGroup @@ Studenten_hinzufügen (StudyGroup group, Student ** students {studentManager;students});
 /* Gewähltes Notensystem ändern [Z.B. 1,0/1,3/...] -> Attribute: module, gradeSystem */
 	void changeGradeSystem @@ Notensystem_ändern (ModuleAtomar module);
 /* Note einer Unit ändern */
@@ -73,7 +73,7 @@ class StudyGroupManager {
 class StudentManager {
 	public Student ** students;
 /* Student erstellen -> Attribute: firstName, lastName, birthDate */
-	active void createStudent (String firstName, String lastName, Date birthDate);
+	active void createStudent (StudyGroup group, String firstName, String lastName, Date birthDate) throws UserException;
 /* Student zu einer Studiengruppe zuordnen -> Attribute: group, student */
 	active void addStudentToGroup ## add_S2G (StudyGroup group, Student student) throws UserException;
 /* Note einer Unit ändern */
@@ -144,6 +144,8 @@ class StudyGroup {
 	public prior indexed String name;
 	public-write ProgramSGroup program;
 	public symmetric (no-view parentGroup) Student ** students;
+	/* Fügt den Student zu der Gruppe hinzu, schmeißt Exception, wenn Student schon drin ist. */
+	void addStudent(Student student) throws AlreadyExistsInParentException;
 }
 
 hierarchy programHierarchySGroup ## pro_hier_s;
@@ -210,30 +212,31 @@ class ProgramStudent {
 	public derived Fraction creditPoints;
 	public no-view prior ProgramSGroup programCopy;
 	void addModule(ModuleAbstractStudent module) throws CycleException;
-	public no-view derived GradesInTenth grade;
+	public no-view derived Grade grade;
 }
 
 abstract string-factory class ModuleAbstractStudent ## m_abstr_st {
 	public no-view prior ModuleAbstractSGroup moduleCopy;
 	public derived String name;
 	public derived Fraction creditPoints;
+	public abstract no-view derived Grade grade;
+	public abstract no-view derived Fraction CPmulGrade;
+	public abstract no-view derived Fraction CPwithGrade;
 }
 
 class ModuleGroupStudent extends ModuleAbstractStudent {
 	public ModuleAbstractStudent ** modules hierarchy programHierarchyStudent;
 	void addModule(ModuleAbstractStudent module) throws CycleException;
-	public no-view derived GradesInTenth grade;
 }
 
 class ModuleAtomarStudent ## m_atom_stud extends ModuleAbstractStudent {
-	public no-view GradesInSimpleOrThird grade;
+	public no-view GradesInSimpleOrThird ownGrade;
 	void changeGrade(GradesInSimpleOrThird grade);
 }
 
 class ModuleWithUnitsStudent ## m_unit_stud extends ModuleAbstractStudent {
 	public UnitStudent ** units hierarchy programHierarchyStudent;
 	void addUnit(UnitStudent unit) throws CycleException;
-	public no-view derived GradesInThird grade;
 }
 
 class UnitStudent {
@@ -242,6 +245,8 @@ class UnitStudent {
 	public derived Fraction creditPoints;
 	public no-view GradesInThird grade;
 	void changeGrade(GradesInThird grade);
+	public no-view derived Fraction CPmulGrade;
+	public no-view derived Fraction CPwithGrade;
 }
 
 																																			/* Noten */
@@ -249,18 +254,24 @@ class UnitStudent {
 /** Definiert das Notensystem mit den vordefinierten Notensystemarten */
 abstract class GradeSystem (ThirdGradeSystem @@ Drittelnoten, SimpleGradeSystem @@ Einfach) { }
 
-abstract string-factory class GradesInSimpleOrThird ## GrIn2or3 {}
+abstract class Grade {
+	abstract Fraction toFraction() throws NoFractionValueException;
+}
+
+abstract string-factory class GradesInSimpleOrThird ## GrIn2or3 extends Grade {}
 
 abstract string-factory class GradesInSimple (Passed @@ Bestanden, NotPassed @@ Nicht_Bestanden) extends GradesInSimpleOrThird { }
 
-abstract string-factory class GradesInThird (T_1_0 @@ 1.0, T_1_3 @@ 1.3, T_1_7 @@ 1.7, T_2_0 @@ 2.0, T_2_3 @@ 2.3, T_2_7 @@ 2.7, T_3_0 @@ 3.0, T_3_3 @@ 3.3, T_3_7 @@ 3.7, T_4_0 @@ 4.0, T_5_0 @@ 5.0,  NoGradeThird @@ Keine_Note) extends GradesInSimpleOrThird { }
+abstract string-factory class GradesInThird (T_1_0 @@ 1.0, T_1_3 @@ 1.3, T_1_7 @@ 1.7, T_2_0 @@ 2.0, T_2_3 @@ 2.3, T_2_7 @@ 2.7, T_3_0 @@ 3.0, T_3_3 @@ 3.3, T_3_7 @@ 3.7, T_4_0 @@ 4.0, T_5_0 @@ 5.0, NoGrade @@ Keine_Note) extends GradesInSimpleOrThird { }
 
-abstract class GradesInTenth ( Z_1_0 @@ 1.0, Z_1_1 @@ 1.1, Z_1_2 @@ 1.2, Z_1_3 @@ 1.3, Z_1_4 @@ 1.4, Z_1_5 @@ 1.5, Z_1_6 @@ 1.6, Z_1_7 @@ 1.7, Z_1_8 @@ 1.8, Z_1_9 @@ 1.9, Z_2_0 @@ 2.0, Z_2_1 @@ 2.1, Z_2_2 @@ 2.2, Z_2_3 @@ 2.3, Z_2_4 @@ 2.4, Z_2_5 @@ 2.5, Z_2_6 @@ 2.6, Z_2_7 @@ 2.7, Z_2_8 @@ 2.8, Z_2_9 @@ 2.9, Z_3_0 @@ 3.0, Z_3_1 @@ 3.1, Z_3_2 @@ 3.2, Z_3_3 @@ 3.3, Z_3_4 @@ 3.4, Z_3_5 @@ 3.5, Z_3_6 @@ 3.6, Z_3_7 @@ 3.7, Z_3_8 @@ 3.8, Z_3_9 @@ 3.9, Z_4_0 @@ 4.0, Z_5_0 @@ 5.0, NoGradeTenth @@ Keine_Note) { }
+abstract class GradesInTenth ( Z_1_0 @@ 1.0, Z_1_1 @@ 1.1, Z_1_2 @@ 1.2, Z_1_3 @@ 1.3, Z_1_4 @@ 1.4, Z_1_5 @@ 1.5, Z_1_6 @@ 1.6, Z_1_7 @@ 1.7, Z_1_8 @@ 1.8, Z_1_9 @@ 1.9, Z_2_0 @@ 2.0, Z_2_1 @@ 2.1, Z_2_2 @@ 2.2, Z_2_3 @@ 2.3, Z_2_4 @@ 2.4, Z_2_5 @@ 2.5, Z_2_6 @@ 2.6, Z_2_7 @@ 2.7, Z_2_8 @@ 2.8, Z_2_9 @@ 2.9, Z_3_0 @@ 3.0, Z_3_1 @@ 3.1, Z_3_2 @@ 3.2, Z_3_3 @@ 3.3, Z_3_4 @@ 3.4, Z_3_5 @@ 3.5, Z_3_6 @@ 3.6, Z_3_7 @@ 3.7, Z_3_8 @@ 3.8, Z_3_9 @@ 3.9, Z_4_0 @@ 4.0, Z_5_0 @@ 5.0) extends Grade {
+}
 
 																												/* Exceptions */
 exception UnitSwapException{}
 exception AlreadyExistsInParentException{}
 exception InvalidGradeForSystemException{}
+exception NoFractionValueException{}
 
 }
 

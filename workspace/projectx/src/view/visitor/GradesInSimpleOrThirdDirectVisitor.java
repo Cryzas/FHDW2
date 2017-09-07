@@ -45,11 +45,11 @@ public abstract class GradesInSimpleOrThirdDirectVisitor implements GradesInSimp
     public void handleT_3_7(T_3_7View t_3_7) throws ModelException{
         this.handleGradesInThird(t_3_7);
     }
+    public void handleNoGrade(NoGradeView noGrade) throws ModelException{
+        this.handleGradesInThird(noGrade);
+    }
     public void handleT_1_0(T_1_0View t_1_0) throws ModelException{
         this.handleGradesInThird(t_1_0);
-    }
-    public void handleNoGradeThird(NoGradeThirdView noGradeThird) throws ModelException{
-        this.handleGradesInThird(noGradeThird);
     }
     
 }

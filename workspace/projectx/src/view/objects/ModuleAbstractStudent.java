@@ -11,13 +11,19 @@ public abstract class ModuleAbstractStudent extends ViewObject implements Module
     protected ModuleAbstractSGroupView moduleCopy;
     protected String name;
     protected common.Fraction creditPoints;
+    protected GradeView grade;
+    protected common.Fraction CPmulGrade;
+    protected common.Fraction CPwithGrade;
     
-    public ModuleAbstractStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,long id, long classId) {
+    public ModuleAbstractStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,GradeView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.moduleCopy = moduleCopy;
         this.name = name;
-        this.creditPoints = creditPoints;        
+        this.creditPoints = creditPoints;
+        this.grade = grade;
+        this.CPmulGrade = CPmulGrade;
+        this.CPwithGrade = CPwithGrade;        
     }
     
     public ModuleAbstractSGroupView getModuleCopy()throws ModelException{
@@ -32,12 +38,25 @@ public abstract class ModuleAbstractStudent extends ViewObject implements Module
     public common.Fraction getCreditPoints()throws ModelException{
         return this.creditPoints;
     }
+    public GradeView getGrade()throws ModelException{
+        return this.grade;
+    }
+    public common.Fraction getCPmulGrade()throws ModelException{
+        return this.CPmulGrade;
+    }
+    public common.Fraction getCPwithGrade()throws ModelException{
+        return this.CPwithGrade;
+    }
     
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
         ModuleAbstractSGroupView moduleCopy = this.getModuleCopy();
         if (moduleCopy != null) {
             ((ViewProxi)moduleCopy).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(moduleCopy.getClassId(), moduleCopy.getId())));
+        }
+        GradeView grade = this.getGrade();
+        if (grade != null) {
+            ((ViewProxi)grade).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(grade.getClassId(), grade.getId())));
         }
         
     }

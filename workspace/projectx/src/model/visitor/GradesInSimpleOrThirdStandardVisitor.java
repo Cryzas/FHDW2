@@ -38,14 +38,14 @@ public abstract class GradesInSimpleOrThirdStandardVisitor implements GradesInSi
     public void handleT_3_3(T_3_34Public t_3_3) throws PersistenceException{
         this.standardHandling(t_3_3);
     }
+    public void handleNoGrade(NoGrade4Public noGrade) throws PersistenceException{
+        this.standardHandling(noGrade);
+    }
     public void handleNotPassed(NotPassed4Public notPassed) throws PersistenceException{
         this.standardHandling(notPassed);
     }
     public void handleT_1_0(T_1_04Public t_1_0) throws PersistenceException{
         this.standardHandling(t_1_0);
-    }
-    public void handleNoGradeThird(NoGradeThird4Public noGradeThird) throws PersistenceException{
-        this.standardHandling(noGradeThird);
     }
     protected abstract void standardHandling(GradesInSimpleOrThird4Public gradesInSimpleOrThird) throws PersistenceException;
 }

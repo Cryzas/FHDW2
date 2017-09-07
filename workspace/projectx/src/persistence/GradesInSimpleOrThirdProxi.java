@@ -2,7 +2,7 @@ package persistence;
 
 
 
-public abstract class GradesInSimpleOrThirdProxi extends PersistentProxi implements PersistentGradesInSimpleOrThird{
+public abstract class GradesInSimpleOrThirdProxi extends GradeProxi implements PersistentGradesInSimpleOrThird{
     
     public GradesInSimpleOrThirdProxi(long objectId) {
         super(objectId);
@@ -31,6 +31,10 @@ public abstract class GradesInSimpleOrThirdProxi extends PersistentProxi impleme
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentGradesInSimpleOrThird)this.getTheObject()).initializeOnInstantiation();
+    }
+    public common.Fraction toFraction() 
+				throws model.NoFractionValueException, PersistenceException{
+        return ((PersistentGradesInSimpleOrThird)this.getTheObject()).toFraction();
     }
 
     

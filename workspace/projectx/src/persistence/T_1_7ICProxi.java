@@ -50,6 +50,18 @@ public class T_1_7ICProxi extends GradesInThirdICProxi implements PersistentT_1_
     public <R, E extends model.UserException> R accept(GradesInSimpleOrThirdReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleT_1_7(this);
     }
+    public void accept(GradeVisitor visitor) throws PersistenceException {
+        visitor.handleT_1_7(this);
+    }
+    public <R> R accept(GradeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleT_1_7(this);
+    }
+    public <E extends model.UserException>  void accept(GradeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleT_1_7(this);
+    }
+    public <R, E extends model.UserException> R accept(GradeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleT_1_7(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleT_1_7(this);
     }
@@ -79,6 +91,10 @@ public class T_1_7ICProxi extends GradesInThirdICProxi implements PersistentT_1_
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentT_1_7)this.getTheObject()).initializeOnInstantiation();
+    }
+    public common.Fraction toFraction() 
+				throws model.NoFractionValueException, PersistenceException{
+        return ((PersistentT_1_7)this.getTheObject()).toFraction();
     }
 
     

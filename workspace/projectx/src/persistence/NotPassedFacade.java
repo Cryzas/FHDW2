@@ -42,9 +42,9 @@ public class NotPassedFacade{
                 callable.close();
                 return null;
             }
-            PersistentGradesInSimpleOrThird This = null;
+            PersistentGrade This = null;
             if (obj.getLong(2) != 0)
-                This = (PersistentGradesInSimpleOrThird)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+                This = (PersistentGrade)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
             NotPassed result = new NotPassed(This,
                                              NotPassedId);
             obj.close();

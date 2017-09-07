@@ -300,8 +300,7 @@ public class Cache {
 		this.number2NameMap.put(154, "ModuleWithUnits");
 		this.number2NameMap.put(182, "ModuleWithUnitsSGroup");
 		this.number2NameMap.put(193, "ModuleWithUnitsStudent");
-		this.number2NameMap.put(268, "NoGradeTenth");
-		this.number2NameMap.put(217, "NoGradeThird");
+		this.number2NameMap.put(273, "NoGrade");
 		this.number2NameMap.put(219, "NotPassed");
 		this.number2NameMap.put(214, "Passed");
 		this.number2NameMap.put(143, "Program");

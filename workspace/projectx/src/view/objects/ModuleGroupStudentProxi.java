@@ -22,8 +22,6 @@ public class ModuleGroupStudentProxi extends ModuleAbstractStudentProxi implemen
         }
         String name = (String)resultTable.get("name");
         common.Fraction creditPoints = common.Fraction.parse((String)resultTable.get("creditPoints"));
-        java.util.Vector<String> modules_string = (java.util.Vector<String>)resultTable.get("modules");
-        java.util.Vector<ModuleAbstractStudentView> modules = ViewProxi.getProxiVector(modules_string, connectionKey);
         ViewProxi grade = null;
         String grade$String = (String)resultTable.get("grade");
         if (grade$String != null) {
@@ -31,7 +29,11 @@ public class ModuleGroupStudentProxi extends ModuleAbstractStudentProxi implemen
             grade = view.objects.ViewProxi.createProxi(grade$Info,connectionKey);
             grade.setToString(grade$Info.getToString());
         }
-        ModuleGroupStudentView result$$ = new ModuleGroupStudent((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,modules,(GradesInTenthView)grade, this.getId(), this.getClassId());
+        common.Fraction CPmulGrade = common.Fraction.parse((String)resultTable.get("CPmulGrade"));
+        common.Fraction CPwithGrade = common.Fraction.parse((String)resultTable.get("CPwithGrade"));
+        java.util.Vector<String> modules_string = (java.util.Vector<String>)resultTable.get("modules");
+        java.util.Vector<ModuleAbstractStudentView> modules = ViewProxi.getProxiVector(modules_string, connectionKey);
+        ModuleGroupStudentView result$$ = new ModuleGroupStudent((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradeView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,modules, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -69,9 +71,6 @@ public class ModuleGroupStudentProxi extends ModuleAbstractStudentProxi implemen
     }
     public void setModules(java.util.Vector<ModuleAbstractStudentView> newValue) throws ModelException {
         ((ModuleGroupStudent)this.getTheObject()).setModules(newValue);
-    }
-    public GradesInTenthView getGrade()throws ModelException{
-        return ((ModuleGroupStudent)this.getTheObject()).getGrade();
     }
     
     public void accept(ModuleAbstractStudentVisitor visitor) throws ModelException {

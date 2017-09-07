@@ -6,7 +6,6 @@ public interface ModuleGroupStudentView extends ModuleAbstractStudentView {
     
     public java.util.Vector<ModuleAbstractStudentView> getModules()throws ModelException;
     public void setModules(java.util.Vector<ModuleAbstractStudentView> newValue) throws ModelException ;
-    public GradesInTenthView getGrade()throws ModelException;
     
     public void accept(ModuleAbstractStudentVisitor visitor) throws ModelException;
     public <R> R accept(ModuleAbstractStudentReturnVisitor<R>  visitor) throws ModelException;

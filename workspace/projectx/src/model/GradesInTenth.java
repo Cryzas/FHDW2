@@ -6,13 +6,8 @@ import persistence.*;
 
 /* Additional import section end */
 
-public abstract class GradesInTenth extends PersistentObject implements PersistentGradesInTenth{
+public abstract class GradesInTenth extends model.Grade implements PersistentGradesInTenth{
     
-    /** Throws persistence exception if the object with the given id does not exist. */
-    public static GradesInTenth4Public getById(long objectId) throws PersistenceException{
-        long classId = ConnectionHandler.getTheConnectionHandler().theGradesInTenthFacade.getClass(objectId);
-        return (GradesInTenth4Public)PersistentProxi.createProxi(objectId, classId);
-    }
     
     @SuppressWarnings("unchecked")
     public java.util.HashMap<String,Object> toHashtable(java.util.HashMap<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, boolean inDerived) throws PersistenceException {
@@ -34,12 +29,10 @@ public abstract class GradesInTenth extends PersistentObject implements Persiste
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected PersistentGradesInTenth This;
     
-    public GradesInTenth(PersistentGradesInTenth This,long id) throws PersistenceException {
+    public GradesInTenth(PersistentGrade This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super(id);
-        if (This != null && !(this.isTheSameAs(This))) this.This = This;        
+        super((PersistentGrade)This,id);        
     }
     
     static public long getTypeId() {
@@ -53,28 +46,9 @@ public abstract class GradesInTenth extends PersistentObject implements Persiste
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         super.store();
-        if(!this.isTheSameAs(this.getThis())){
-            this.getThis().store();
-            ConnectionHandler.getTheConnectionHandler().theGradesInTenthFacade.ThisSet(this.getId(), getThis());
-        }
         
     }
     
-    protected void setThis(PersistentGradesInTenth newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if (newValue.isTheSameAs(this)){
-            this.This = null;
-            return;
-        }
-        if(newValue.isTheSameAs(this.This)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.This = (PersistentGradesInTenth)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theGradesInTenthFacade.ThisSet(this.getId(), newValue);
-        }
-    }
     public abstract PersistentGradesInTenth getThis() throws PersistenceException ;
     
     

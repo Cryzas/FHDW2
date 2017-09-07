@@ -189,7 +189,7 @@ public class ModuleWithUnits extends model.ModuleAbstract implements PersistentM
     public void addUnit(final String name, final common.Fraction creditPoints) 
 				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
     	if(getThis().getUnits().findAll(unit -> unit.getName().equals(name)).getLength() > 0)
-    		throw new AlreadyExistsInParentException(AlreadyExistsInParentMessage);
+    		throw new AlreadyExistsInParentException(String.format(AlreadyExistsInParentMessage, name, getThis().getName()));
     	getThis().getUnits().add(Unit.createUnit(name, creditPoints));        
     }
     public ModuleAbstractSGroup4Public copyForStudyGroup() 
@@ -220,7 +220,7 @@ public class ModuleWithUnits extends model.ModuleAbstract implements PersistentM
 
     /* Start of protected part that is not overridden by persistence generator */
     
-    static String AlreadyExistsInParentMessage = "Es existiert bereits eine Unit mit eingegebenem Namen in dem Modul.";
+    static String AlreadyExistsInParentMessage = "Es existiert bereits eine Unit mit dem Namen %s in dem Modul %s.";
     
     /* End of protected part that is not overridden by persistence generator */
     

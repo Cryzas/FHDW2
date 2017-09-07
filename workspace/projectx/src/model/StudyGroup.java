@@ -214,6 +214,13 @@ public class StudyGroup extends PersistentObject implements PersistentStudyGroup
     
     // Start of section that contains operations that must be implemented.
     
+    public void addStudent(final Student4Public student) 
+				throws model.AlreadyExistsInParentException, PersistenceException{
+    	if(getThis().getStudents().findFirst(argument -> student.equals(argument)) != null) {
+    		throw new AlreadyExistsInParentException(String.format(StudentAlreadyInGroupMessage,student.getFirstName(), student.getLastName(), getThis().getName()));
+    	}
+        getThis().getStudents().add(student);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         
@@ -232,6 +239,8 @@ public class StudyGroup extends PersistentObject implements PersistentStudyGroup
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    static String StudentAlreadyInGroupMessage = "Der Student %s %s ist bereits in der Studiengruppe %s.";
     
     /* End of protected part that is not overridden by persistence generator */
     

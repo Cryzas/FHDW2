@@ -50,6 +50,18 @@ public class PassedICProxi extends GradesInSimpleICProxi implements PersistentPa
     public <R, E extends model.UserException> R accept(GradesInSimpleOrThirdReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handlePassed(this);
     }
+    public void accept(GradeVisitor visitor) throws PersistenceException {
+        visitor.handlePassed(this);
+    }
+    public <R> R accept(GradeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handlePassed(this);
+    }
+    public <E extends model.UserException>  void accept(GradeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handlePassed(this);
+    }
+    public <R, E extends model.UserException> R accept(GradeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handlePassed(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handlePassed(this);
     }
@@ -79,6 +91,10 @@ public class PassedICProxi extends GradesInSimpleICProxi implements PersistentPa
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentPassed)this.getTheObject()).initializeOnInstantiation();
+    }
+    public common.Fraction toFraction() 
+				throws model.NoFractionValueException, PersistenceException{
+        return ((PersistentPassed)this.getTheObject()).toFraction();
     }
 
     

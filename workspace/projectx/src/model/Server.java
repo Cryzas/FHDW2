@@ -376,12 +376,12 @@ public class Server extends PersistentObject implements PersistentServer{
 			this.setHackDelay((java.sql.Timestamp)final$$Fields.get("hackDelay"));
 		}
     }
-    public ModuleAbstractSearchList module_Path_In_AddModuleToGroup() 
+    public ModuleAbstractSearchList modules_Path_In_AddModuleToGroup() 
 				throws model.UserException, PersistenceException{
         	return new ModuleAbstractSearchList(getThis().getModuleManager().
                 getModules().getList());
     }
-    public ModuleAbstractSearchList module_Path_In_AddModuleToProg() 
+    public ModuleAbstractSearchList modules_Path_In_AddModuleToProg() 
 				throws model.UserException, PersistenceException{
         	return new ModuleAbstractSearchList(getThis().getModuleManager().
                 getModules().getList());
@@ -395,7 +395,7 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
         this.changed = signal;
     }
-    public StudentSearchList student_Path_In_AddStudentToGroup() 
+    public StudentSearchList students_Path_In_AddStudentToGroup() 
 				throws model.UserException, PersistenceException{
         	return new StudentSearchList(getThis().getStudentManager().
                 getStudents().getList());
@@ -404,17 +404,17 @@ public class Server extends PersistentObject implements PersistentServer{
     
     // Start of section that contains operations that must be implemented.
     
-    public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstract4Public module) 
+    public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstractSearchList modules) 
 				throws PersistenceException{
-        getThis().getModuleManager().addModuleToGroup(group, module, getThis());
+        modules.applyToAll(module -> getThis().getModuleManager().addModuleToGroup(group, module, getThis()));
     }
-    public void addModuleToProg(final Program4Public program, final ModuleAbstract4Public module) 
+    public void addModuleToProg(final Program4Public program, final ModuleAbstractSearchList modules) 
 				throws PersistenceException{
-        getThis().getProgramManager().addModuleToProg(program, module, getThis());
+        modules.applyToAll(module -> getThis().getProgramManager().addModuleToProg(program, module, getThis()));
     }
-    public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student) 
+    public void addStudentToGroup(final StudyGroup4Public group, final StudentSearchList students) 
 				throws PersistenceException{
-    	getThis().getStudentManager().addStudentToGroup(group, student, getThis());
+    	students.applyToAll(student -> getThis().getStudentManager().addStudentToGroup(group, student, getThis()));
     }
     public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
 				throws PersistenceException{
@@ -456,9 +456,9 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
     	getThis().getProgramManager().createProgram(name, getThis());
     }
-    public void createStudent(final String firstName, final String lastName, final java.sql.Date birthDate) 
+    public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
 				throws PersistenceException{
-    	getThis().getStudentManager().createStudent(firstName, lastName, birthDate, getThis());        
+    	getThis().getStudentManager().createStudent(group, firstName, lastName, birthDate, getThis());        
     }
     public void disconnected() 
 				throws PersistenceException{

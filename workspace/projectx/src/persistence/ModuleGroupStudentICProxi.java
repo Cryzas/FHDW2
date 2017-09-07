@@ -87,11 +87,19 @@ public class ModuleGroupStudentICProxi extends ModuleAbstractStudentICProxi impl
 				throws PersistenceException{
         ((PersistentModuleGroupStudent)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public common.Fraction getCPmulGrade() 
+				throws PersistenceException{
+        return ((PersistentModuleGroupStudent)this.getTheObject()).getCPmulGrade();
+    }
+    public common.Fraction getCPwithGrade() 
+				throws PersistenceException{
+        return ((PersistentModuleGroupStudent)this.getTheObject()).getCPwithGrade();
+    }
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
         return ((PersistentModuleGroupStudent)this.getTheObject()).getCreditPoints();
     }
-    public GradesInTenth4Public getGrade() 
+    public Grade4Public getGrade() 
 				throws PersistenceException{
         return ((PersistentModuleGroupStudent)this.getTheObject()).getGrade();
     }

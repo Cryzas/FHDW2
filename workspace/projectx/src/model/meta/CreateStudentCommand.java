@@ -38,6 +38,7 @@ public class CreateStudentCommand extends PersistentObject implements Persistent
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
+    protected PersistentStudyGroup group;
     protected String firstName;
     protected String lastName;
     protected java.sql.Date birthDate;
@@ -47,9 +48,10 @@ public class CreateStudentCommand extends PersistentObject implements Persistent
     
     private model.UserException commandException = null;
     
-    public CreateStudentCommand(String firstName,String lastName,java.sql.Date birthDate,Invoker invoker,PersistentStudentManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
+    public CreateStudentCommand(PersistentStudyGroup group,String firstName,String lastName,java.sql.Date birthDate,Invoker invoker,PersistentStudentManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
+        this.group = group;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
@@ -71,6 +73,10 @@ public class CreateStudentCommand extends PersistentObject implements Persistent
         if (this.getClassId() == 200) ConnectionHandler.getTheConnectionHandler().theCreateStudentCommandFacade
             .newCreateStudentCommand(firstName,lastName,birthDate,this.getId());
         super.store();
+        if(this.getGroup() != null){
+            this.getGroup().store();
+            ConnectionHandler.getTheConnectionHandler().theCreateStudentCommandFacade.groupSet(this.getId(), getGroup());
+        }
         if(this.getInvoker() != null){
             this.getInvoker().store();
             ConnectionHandler.getTheConnectionHandler().theCreateStudentCommandFacade.invokerSet(this.getId(), getInvoker());
@@ -86,6 +92,20 @@ public class CreateStudentCommand extends PersistentObject implements Persistent
         
     }
     
+    public StudyGroup4Public getGroup() throws PersistenceException {
+        return this.group;
+    }
+    public void setGroup(StudyGroup4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.group)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.group = (PersistentStudyGroup)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theCreateStudentCommandFacade.groupSet(this.getId(), newValue);
+        }
+    }
     public String getFirstName() throws PersistenceException {
         return this.firstName;
     }
@@ -217,6 +237,7 @@ public class CreateStudentCommand extends PersistentObject implements Persistent
          return visitor.handleCreateStudentCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{
+        if (this.getGroup() != null) return 1;
         if (this.getCommandReceiver() != null) return 1;
         return 0;
     }
@@ -232,8 +253,12 @@ public class CreateStudentCommand extends PersistentObject implements Persistent
     }
     public void execute() 
 				throws PersistenceException{
-        this.commandReceiver.createStudent(this.getFirstName(), this.getLastName(), this.getBirthDate());
-		
+        try{
+			this.commandReceiver.createStudent(this.getGroup(), this.getFirstName(), this.getLastName(), this.getBirthDate());
+		}
+		catch(model.UserException e){
+			this.commandException = e;
+		}
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{

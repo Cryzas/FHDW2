@@ -18,7 +18,7 @@ public interface StudentManager4Public extends Anything, AbstractPersistentProxi
 				throws PersistenceException;
     public void changeGradeOfUnit(final UnitStudent4Public unit, final String grade, final Invoker invoker) 
 				throws PersistenceException;
-    public void createStudent(final String firstName, final String lastName, final java.sql.Date birthDate, final Invoker invoker) 
+    public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate, final Invoker invoker) 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
@@ -30,8 +30,8 @@ public interface StudentManager4Public extends Anything, AbstractPersistentProxi
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
-    public void createStudent(final String firstName, final String lastName, final java.sql.Date birthDate) 
-				throws PersistenceException;
+    public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
+				throws model.UserException, PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 

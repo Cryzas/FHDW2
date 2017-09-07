@@ -101,8 +101,5 @@ public abstract class GradesInTenthStandardVisitor implements GradesInTenthVisit
     public void handleZ_3_9(Z_3_9View z_3_9) throws ModelException{
         this.standardHandling(z_3_9);
     }
-    public void handleNoGradeTenth(NoGradeTenthView noGradeTenth) throws ModelException{
-        this.standardHandling(noGradeTenth);
-    }
     protected abstract void standardHandling(GradesInTenthView gradesInTenth) throws ModelException;
 }

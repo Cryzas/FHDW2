@@ -26,6 +26,10 @@ public interface UnitStudent4Public extends Anything, programHierarchyStudentHIE
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
+    public common.Fraction getCPmulGrade() 
+				throws PersistenceException;
+    public common.Fraction getCPwithGrade() 
+				throws PersistenceException;
     public common.Fraction getCreditPoints() 
 				throws PersistenceException;
     public String getName() 

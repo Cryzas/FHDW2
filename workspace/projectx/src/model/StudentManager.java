@@ -185,11 +185,12 @@ public class StudentManager extends PersistentObject implements PersistentStuden
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void createStudent(final String firstName, final String lastName, final java.sql.Date birthDate, final Invoker invoker) 
+    public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
 		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
 		CreateStudentCommand4Public command = model.meta.CreateStudentCommand.createCreateStudentCommand(firstName, lastName, birthDate, nw, d1170);
+		command.setGroup(group);
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
@@ -207,7 +208,7 @@ public class StudentManager extends PersistentObject implements PersistentStuden
     public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student) 
 				throws model.UserException, PersistenceException{
     	student.setProgram(group.getProgram().copyForStudent());
-    	group.getStudents().add(student);
+    	group.addStudent(student);
     }
     public void changeGradeOfModule(final ModuleAtomarStudent4Public module, final String grade) 
 				throws model.InvalidGradeForSystemException, PersistenceException{
@@ -217,7 +218,7 @@ public class StudentManager extends PersistentObject implements PersistentStuden
 			@Override
 			public Boolean handleSimpleGradeSystem(SimpleGradeSystem4Public simpleGradeSystem)
 					throws PersistenceException {
-				return (newGrade instanceof GradesInThird4Public && !(newGrade instanceof NoGradeThird4Public));
+				return (newGrade instanceof GradesInThird4Public && !(newGrade instanceof NoGrade4Public));
 			}
 
 			@Override
@@ -226,7 +227,7 @@ public class StudentManager extends PersistentObject implements PersistentStuden
 				return (newGrade instanceof GradesInSimple4Public);
 			}
 		})) {
-    		throw new InvalidGradeForSystemException(invalidGradeMessage);
+    		throw new InvalidGradeForSystemException(String.format(invalidGradeMessage, newGrade.toString()));
     	}
     	module.changeGrade(newGrade);
     }
@@ -239,9 +240,11 @@ public class StudentManager extends PersistentObject implements PersistentStuden
 				throws PersistenceException{
         
     }
-    public void createStudent(final String firstName, final String lastName, final java.sql.Date birthDate) 
-				throws PersistenceException{
-        getThis().getStudents().add(Student.createStudent(firstName, lastName, birthDate));        
+    public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
+				throws model.UserException, PersistenceException{
+    	Student4Public newStudent = Student.createStudent(firstName, lastName, birthDate);
+    	getThis().addStudentToGroup(group, newStudent);
+        getThis().getStudents().add(newStudent);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -258,7 +261,7 @@ public class StudentManager extends PersistentObject implements PersistentStuden
 
     /* Start of protected part that is not overridden by persistence generator */
     
-    static String invalidGradeMessage = "Die gewählte Note entspricht nicht dem Notensystem des Moduls.";
+    static String invalidGradeMessage = "Die Note %s entspricht nicht dem Notensystem des Moduls.";
     
     /* End of protected part that is not overridden by persistence generator */
     

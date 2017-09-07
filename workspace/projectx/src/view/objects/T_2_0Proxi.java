@@ -60,6 +60,18 @@ public class T_2_0Proxi extends GradesInThirdProxi implements T_2_0View{
     public <R, E extends view.UserException> R accept(GradesInSimpleOrThirdReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleT_2_0(this);
     }
+    public void accept(GradeVisitor visitor) throws ModelException {
+        visitor.handleT_2_0(this);
+    }
+    public <R> R accept(GradeReturnVisitor<R>  visitor) throws ModelException {
+         return visitor.handleT_2_0(this);
+    }
+    public <E extends view.UserException>  void accept(GradeExceptionVisitor<E> visitor) throws ModelException, E {
+         visitor.handleT_2_0(this);
+    }
+    public <R, E extends view.UserException> R accept(GradeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+         return visitor.handleT_2_0(this);
+    }
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleT_2_0(this);
     }

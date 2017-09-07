@@ -44,9 +44,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleStudyGroup(StudyGroupView studyGroup) throws ModelException{
         this.standardHandling(studyGroup);
     }
-    public void handleNoGradeThird(NoGradeThirdView noGradeThird) throws ModelException{
-        this.standardHandling(noGradeThird);
-    }
     public void handleZ_1_0(Z_1_0View z_1_0) throws ModelException{
         this.standardHandling(z_1_0);
     }
@@ -110,11 +107,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleT_4_0(T_4_0View t_4_0) throws ModelException{
         this.standardHandling(t_4_0);
     }
-    public void handleStudyGroupManager(StudyGroupManagerView studyGroupManager) throws ModelException{
-        this.standardHandling(studyGroupManager);
-    }
     public void handleT_2_0(T_2_0View t_2_0) throws ModelException{
         this.standardHandling(t_2_0);
+    }
+    public void handleStudyGroupManager(StudyGroupManagerView studyGroupManager) throws ModelException{
+        this.standardHandling(studyGroupManager);
     }
     public void handleT_2_7(T_2_7View t_2_7) throws ModelException{
         this.standardHandling(t_2_7);
@@ -133,6 +130,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleProgramStudent(ProgramStudentView programStudent) throws ModelException{
         this.standardHandling(programStudent);
+    }
+    public void handleNoGrade(NoGradeView noGrade) throws ModelException{
+        this.standardHandling(noGrade);
     }
     public void handleNotPassed(NotPassedView notPassed) throws ModelException{
         this.standardHandling(notPassed);
@@ -202,9 +202,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleT_5_0(T_5_0View t_5_0) throws ModelException{
         this.standardHandling(t_5_0);
-    }
-    public void handleNoGradeTenth(NoGradeTenthView noGradeTenth) throws ModelException{
-        this.standardHandling(noGradeTenth);
     }
     public void handleT_1_3(T_1_3View t_1_3) throws ModelException{
         this.standardHandling(t_1_3);

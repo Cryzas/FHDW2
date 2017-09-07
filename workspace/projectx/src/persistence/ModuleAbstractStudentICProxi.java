@@ -34,9 +34,21 @@ public abstract class ModuleAbstractStudentICProxi extends PersistentInCacheProx
 				throws PersistenceException{
         ((PersistentModuleAbstractStudent)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public common.Fraction getCPmulGrade() 
+				throws PersistenceException{
+        return ((PersistentModuleAbstractStudent)this.getTheObject()).getCPmulGrade();
+    }
+    public common.Fraction getCPwithGrade() 
+				throws PersistenceException{
+        return ((PersistentModuleAbstractStudent)this.getTheObject()).getCPwithGrade();
+    }
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
         return ((PersistentModuleAbstractStudent)this.getTheObject()).getCreditPoints();
+    }
+    public Grade4Public getGrade() 
+				throws PersistenceException{
+        return ((PersistentModuleAbstractStudent)this.getTheObject()).getGrade();
     }
     public String getName() 
 				throws PersistenceException{

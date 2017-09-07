@@ -9,12 +9,12 @@ import view.visitor.*;
 
 public class ModuleAtomarStudent extends view.objects.ModuleAbstractStudent implements ModuleAtomarStudentView{
     
-    protected GradesInSimpleOrThirdView grade;
+    protected GradesInSimpleOrThirdView ownGrade;
     
-    public ModuleAtomarStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,GradesInSimpleOrThirdView grade,long id, long classId) {
+    public ModuleAtomarStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,GradeView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,GradesInSimpleOrThirdView ownGrade,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,id, classId);
-        this.grade = grade;        
+        super((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradeView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,id, classId);
+        this.ownGrade = ownGrade;        
     }
     
     static public long getTypeId() {
@@ -25,11 +25,11 @@ public class ModuleAtomarStudent extends view.objects.ModuleAbstractStudent impl
         return getTypeId();
     }
     
-    public GradesInSimpleOrThirdView getGrade()throws ModelException{
-        return this.grade;
+    public GradesInSimpleOrThirdView getOwnGrade()throws ModelException{
+        return this.ownGrade;
     }
-    public void setGrade(GradesInSimpleOrThirdView newValue) throws ModelException {
-        this.grade = newValue;
+    public void setOwnGrade(GradesInSimpleOrThirdView newValue) throws ModelException {
+        this.ownGrade = newValue;
     }
     
     public void accept(ModuleAbstractStudentVisitor visitor) throws ModelException {
@@ -62,9 +62,13 @@ public class ModuleAtomarStudent extends view.objects.ModuleAbstractStudent impl
         if (moduleCopy != null) {
             ((ViewProxi)moduleCopy).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(moduleCopy.getClassId(), moduleCopy.getId())));
         }
-        GradesInSimpleOrThirdView grade = this.getGrade();
+        GradeView grade = this.getGrade();
         if (grade != null) {
             ((ViewProxi)grade).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(grade.getClassId(), grade.getId())));
+        }
+        GradesInSimpleOrThirdView ownGrade = this.getOwnGrade();
+        if (ownGrade != null) {
+            ((ViewProxi)ownGrade).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(ownGrade.getClassId(), ownGrade.getId())));
         }
         
     }

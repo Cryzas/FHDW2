@@ -30,21 +30,21 @@ public interface Server4Public extends Invoker, Anything, Remote, AbstractPersis
 				throws model.UserException, PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
-    public ModuleAbstractSearchList module_Path_In_AddModuleToGroup() 
+    public ModuleAbstractSearchList modules_Path_In_AddModuleToGroup() 
 				throws model.UserException, PersistenceException;
-    public ModuleAbstractSearchList module_Path_In_AddModuleToProg() 
+    public ModuleAbstractSearchList modules_Path_In_AddModuleToProg() 
 				throws model.UserException, PersistenceException;
     public String server_Menu_Filter(final Anything anything) 
 				throws PersistenceException;
     public void signalChanged(final boolean signal) 
 				throws PersistenceException;
-    public StudentSearchList student_Path_In_AddStudentToGroup() 
+    public StudentSearchList students_Path_In_AddStudentToGroup() 
 				throws model.UserException, PersistenceException;
-    public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstract4Public module) 
+    public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstractSearchList modules) 
 				throws PersistenceException;
-    public void addModuleToProg(final Program4Public program, final ModuleAbstract4Public module) 
+    public void addModuleToProg(final Program4Public program, final ModuleAbstractSearchList modules) 
 				throws PersistenceException;
-    public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student) 
+    public void addStudentToGroup(final StudyGroup4Public group, final StudentSearchList students) 
 				throws PersistenceException;
     public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
 				throws PersistenceException;
@@ -64,7 +64,7 @@ public interface Server4Public extends Invoker, Anything, Remote, AbstractPersis
 				throws PersistenceException;
     public void createProgram(final String name) 
 				throws PersistenceException;
-    public void createStudent(final String firstName, final String lastName, final java.sql.Date birthDate) 
+    public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
 				throws PersistenceException;
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException;

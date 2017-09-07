@@ -1222,9 +1222,6 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleStudyGroup(view.StudyGroupView object){
         result = new StudyGroupDefaultDetailPanel(handler, object);
     }
-    public void handleNoGradeThird(view.NoGradeThirdView object){
-        result = new NoGradeThirdDefaultDetailPanel(handler, object);
-    }
     public void handleZ_1_0(view.Z_1_0View object){
         result = new Z_1_0DefaultDetailPanel(handler, object);
     }
@@ -1363,6 +1360,9 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleStudyGroupManager(view.StudyGroupManagerView object){
         result = new StudyGroupManagerDefaultDetailPanel(handler, object);
     }
+    public void handleNoGrade(view.NoGradeView object){
+        result = new NoGradeDefaultDetailPanel(handler, object);
+    }
     public void handleNotPassed(view.NotPassedView object){
         result = new NotPassedDefaultDetailPanel(handler, object);
     }
@@ -1401,9 +1401,6 @@ class DetailPanelFactory implements AnythingVisitor {
     }
     public void handleT_5_0(view.T_5_0View object){
         result = new T_5_0DefaultDetailPanel(handler, object);
-    }
-    public void handleNoGradeTenth(view.NoGradeTenthView object){
-        result = new NoGradeTenthDefaultDetailPanel(handler, object);
     }
     public void handleT_1_3(view.T_1_3View object){
         result = new T_1_3DefaultDetailPanel(handler, object);
@@ -1614,19 +1611,6 @@ class StudyGroupDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.StudyGroupView getAnything(){
         return (view.StudyGroupView)this.anything;
-    }
-}
-
-class NoGradeThirdDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected NoGradeThirdDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.NoGradeThirdView getAnything(){
-        return (view.NoGradeThirdView)this.anything;
     }
 }
 
@@ -2464,6 +2448,19 @@ class StudyGroupManagerDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class NoGradeDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected NoGradeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.NoGradeView getAnything(){
+        return (view.NoGradeView)this.anything;
+    }
+}
+
 class NotPassedDefaultDetailPanel extends DefaultDetailPanel{
     
     protected NotPassedDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -2630,19 +2627,6 @@ class T_5_0DefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.T_5_0View getAnything(){
         return (view.T_5_0View)this.anything;
-    }
-}
-
-class NoGradeTenthDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected NoGradeTenthDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.NoGradeTenthView getAnything(){
-        return (view.NoGradeTenthView)this.anything;
     }
 }
 

@@ -42,9 +42,9 @@ public class Z_2_5Facade{
                 callable.close();
                 return null;
             }
-            PersistentGradesInTenth This = null;
+            PersistentGrade This = null;
             if (obj.getLong(2) != 0)
-                This = (PersistentGradesInTenth)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+                This = (PersistentGrade)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
             Z_2_5 result = new Z_2_5(This,
                                      Z_2_5Id);
             obj.close();

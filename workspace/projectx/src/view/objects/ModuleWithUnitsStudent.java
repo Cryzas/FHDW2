@@ -10,13 +10,11 @@ import view.visitor.*;
 public class ModuleWithUnitsStudent extends view.objects.ModuleAbstractStudent implements ModuleWithUnitsStudentView{
     
     protected java.util.Vector<UnitStudentView> units;
-    protected GradesInThirdView grade;
     
-    public ModuleWithUnitsStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,java.util.Vector<UnitStudentView> units,GradesInThirdView grade,long id, long classId) {
+    public ModuleWithUnitsStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,GradeView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,java.util.Vector<UnitStudentView> units,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,id, classId);
-        this.units = units;
-        this.grade = grade;        
+        super((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradeView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,id, classId);
+        this.units = units;        
     }
     
     static public long getTypeId() {
@@ -32,9 +30,6 @@ public class ModuleWithUnitsStudent extends view.objects.ModuleAbstractStudent i
     }
     public void setUnits(java.util.Vector<UnitStudentView> newValue) throws ModelException {
         this.units = newValue;
-    }
-    public GradesInThirdView getGrade()throws ModelException{
-        return this.grade;
     }
     
     public void accept(ModuleAbstractStudentVisitor visitor) throws ModelException {
@@ -67,13 +62,13 @@ public class ModuleWithUnitsStudent extends view.objects.ModuleAbstractStudent i
         if (moduleCopy != null) {
             ((ViewProxi)moduleCopy).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(moduleCopy.getClassId(), moduleCopy.getId())));
         }
+        GradeView grade = this.getGrade();
+        if (grade != null) {
+            ((ViewProxi)grade).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(grade.getClassId(), grade.getId())));
+        }
         java.util.Vector<?> units = this.getUnits();
         if (units != null) {
             ViewObject.resolveVectorProxies(units, resultTable);
-        }
-        GradesInThirdView grade = this.getGrade();
-        if (grade != null) {
-            ((ViewProxi)grade).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(grade.getClassId(), grade.getId())));
         }
         
     }

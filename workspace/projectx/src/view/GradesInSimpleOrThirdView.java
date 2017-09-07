@@ -1,10 +1,8 @@
 package view;
 
-import view.objects.*;
-
 import view.visitor.*;
 
-public interface GradesInSimpleOrThirdView extends Anything, AbstractViewRoot {
+public interface GradesInSimpleOrThirdView extends GradeView {
     
     
     public void accept(GradesInSimpleOrThirdVisitor visitor) throws ModelException;

@@ -9,7 +9,7 @@ interface GradesInSimpleOrThirdDOWNMssgsVisitor extends GradesInSimpleDOWNMssgsV
 }
 
 
-interface GradesInSimpleOrThirdUPMssgsVisitor  {
+interface GradesInSimpleOrThirdUPMssgsVisitor extends GradeUPMssgsVisitor {
 
     
 }

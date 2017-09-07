@@ -21,7 +21,9 @@ public class UnitStudentProxi extends ViewProxi implements UnitStudentView{
             grade = view.objects.ViewProxi.createProxi(grade$Info,connectionKey);
             grade.setToString(grade$Info.getToString());
         }
-        UnitStudentView result$$ = new UnitStudent((String)name,(common.Fraction)creditPoints,(GradesInThirdView)grade, this.getId(), this.getClassId());
+        common.Fraction CPmulGrade = common.Fraction.parse((String)resultTable.get("CPmulGrade"));
+        common.Fraction CPwithGrade = common.Fraction.parse((String)resultTable.get("CPwithGrade"));
+        UnitStudentView result$$ = new UnitStudent((String)name,(common.Fraction)creditPoints,(GradesInThirdView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -55,6 +57,12 @@ public class UnitStudentProxi extends ViewProxi implements UnitStudentView{
     }
     public void setGrade(GradesInThirdView newValue) throws ModelException {
         ((UnitStudent)this.getTheObject()).setGrade(newValue);
+    }
+    public common.Fraction getCPmulGrade()throws ModelException{
+        return ((UnitStudent)this.getTheObject()).getCPmulGrade();
+    }
+    public common.Fraction getCPwithGrade()throws ModelException{
+        return ((UnitStudent)this.getTheObject()).getCPwithGrade();
     }
     
     public void accept(AnythingVisitor visitor) throws ModelException {

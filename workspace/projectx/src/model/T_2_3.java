@@ -2,6 +2,10 @@
 package model;
 
 import persistence.*;
+
+import java.math.BigInteger;
+
+import common.Fraction;
 import model.visitor.*;
 
 
@@ -82,9 +86,9 @@ public class T_2_3 extends model.GradesInThird implements PersistentT_2_3{
         return false;
     }
     
-    public T_2_3(PersistentGradesInSimpleOrThird This,long id) throws PersistenceException {
+    public T_2_3(PersistentGrade This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentGradesInSimpleOrThird)This,id);        
+        super((PersistentGrade)This,id);        
     }
     
     static public long getTypeId() {
@@ -131,6 +135,18 @@ public class T_2_3 extends model.GradesInThird implements PersistentT_2_3{
     public <R, E extends model.UserException> R accept(GradesInSimpleOrThirdReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleT_2_3(this);
     }
+    public void accept(GradeVisitor visitor) throws PersistenceException {
+        visitor.handleT_2_3(this);
+    }
+    public <R> R accept(GradeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleT_2_3(this);
+    }
+    public <E extends model.UserException>  void accept(GradeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleT_2_3(this);
+    }
+    public <R, E extends model.UserException> R accept(GradeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleT_2_3(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleT_2_3(this);
     }
@@ -168,6 +184,10 @@ public class T_2_3 extends model.GradesInThird implements PersistentT_2_3{
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         super.initializeOnInstantiation();
+    }
+    public common.Fraction toFraction() 
+				throws model.NoFractionValueException, PersistenceException{
+    	return new Fraction(BigInteger.valueOf(7), BigInteger.valueOf(3));
     }
     
     

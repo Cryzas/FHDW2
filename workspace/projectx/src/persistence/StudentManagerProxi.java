@@ -51,9 +51,9 @@ public class StudentManagerProxi extends PersistentProxi implements PersistentSt
 				throws PersistenceException{
         ((PersistentStudentManager)this.getTheObject()).changeGradeOfUnit(unit, grade, invoker);
     }
-    public void createStudent(final String firstName, final String lastName, final java.sql.Date birthDate, final Invoker invoker) 
+    public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate, final Invoker invoker) 
 				throws PersistenceException{
-        ((PersistentStudentManager)this.getTheObject()).createStudent(firstName, lastName, birthDate, invoker);
+        ((PersistentStudentManager)this.getTheObject()).createStudent(group, firstName, lastName, birthDate, invoker);
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -75,9 +75,9 @@ public class StudentManagerProxi extends PersistentProxi implements PersistentSt
 				throws PersistenceException{
         ((PersistentStudentManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public void createStudent(final String firstName, final String lastName, final java.sql.Date birthDate) 
-				throws PersistenceException{
-        ((PersistentStudentManager)this.getTheObject()).createStudent(firstName, lastName, birthDate);
+    public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
+				throws model.UserException, PersistenceException{
+        ((PersistentStudentManager)this.getTheObject()).createStudent(group, firstName, lastName, birthDate);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

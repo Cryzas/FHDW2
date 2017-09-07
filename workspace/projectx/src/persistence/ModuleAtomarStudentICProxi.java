@@ -22,11 +22,11 @@ public class ModuleAtomarStudentICProxi extends ModuleAbstractStudentICProxi imp
         return 191;
     }
     
-    public GradesInSimpleOrThird4Public getGrade() throws PersistenceException {
-        return ((PersistentModuleAtomarStudent)this.getTheObject()).getGrade();
+    public GradesInSimpleOrThird4Public getOwnGrade() throws PersistenceException {
+        return ((PersistentModuleAtomarStudent)this.getTheObject()).getOwnGrade();
     }
-    public void setGrade(GradesInSimpleOrThird4Public newValue) throws PersistenceException {
-        ((PersistentModuleAtomarStudent)this.getTheObject()).setGrade(newValue);
+    public void setOwnGrade(GradesInSimpleOrThird4Public newValue) throws PersistenceException {
+        ((PersistentModuleAtomarStudent)this.getTheObject()).setOwnGrade(newValue);
     }
     public PersistentModuleAtomarStudent getThis() throws PersistenceException {
         return ((PersistentModuleAtomarStudent)this.getTheObject()).getThis();
@@ -90,9 +90,21 @@ public class ModuleAtomarStudentICProxi extends ModuleAbstractStudentICProxi imp
 				throws PersistenceException{
         ((PersistentModuleAtomarStudent)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public common.Fraction getCPmulGrade() 
+				throws PersistenceException{
+        return ((PersistentModuleAtomarStudent)this.getTheObject()).getCPmulGrade();
+    }
+    public common.Fraction getCPwithGrade() 
+				throws PersistenceException{
+        return ((PersistentModuleAtomarStudent)this.getTheObject()).getCPwithGrade();
+    }
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
         return ((PersistentModuleAtomarStudent)this.getTheObject()).getCreditPoints();
+    }
+    public Grade4Public getGrade() 
+				throws PersistenceException{
+        return ((PersistentModuleAtomarStudent)this.getTheObject()).getGrade();
     }
     public String getName() 
 				throws PersistenceException{

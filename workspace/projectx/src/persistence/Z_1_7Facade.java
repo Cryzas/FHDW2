@@ -42,9 +42,9 @@ public class Z_1_7Facade{
                 callable.close();
                 return null;
             }
-            PersistentGradesInTenth This = null;
+            PersistentGrade This = null;
             if (obj.getLong(2) != 0)
-                This = (PersistentGradesInTenth)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
+                This = (PersistentGrade)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
             Z_1_7 result = new Z_1_7(This,
                                      Z_1_7Id);
             obj.close();

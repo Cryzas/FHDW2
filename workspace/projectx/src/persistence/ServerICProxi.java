@@ -127,13 +127,13 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initialize(This, final$$Fields);
     }
-    public ModuleAbstractSearchList module_Path_In_AddModuleToGroup() 
+    public ModuleAbstractSearchList modules_Path_In_AddModuleToGroup() 
 				throws model.UserException, PersistenceException{
-        return ((PersistentServer)this.getTheObject()).module_Path_In_AddModuleToGroup();
+        return ((PersistentServer)this.getTheObject()).modules_Path_In_AddModuleToGroup();
     }
-    public ModuleAbstractSearchList module_Path_In_AddModuleToProg() 
+    public ModuleAbstractSearchList modules_Path_In_AddModuleToProg() 
 				throws model.UserException, PersistenceException{
-        return ((PersistentServer)this.getTheObject()).module_Path_In_AddModuleToProg();
+        return ((PersistentServer)this.getTheObject()).modules_Path_In_AddModuleToProg();
     }
     public String server_Menu_Filter(final Anything anything) 
 				throws PersistenceException{
@@ -143,21 +143,21 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).signalChanged(signal);
     }
-    public StudentSearchList student_Path_In_AddStudentToGroup() 
+    public StudentSearchList students_Path_In_AddStudentToGroup() 
 				throws model.UserException, PersistenceException{
-        return ((PersistentServer)this.getTheObject()).student_Path_In_AddStudentToGroup();
+        return ((PersistentServer)this.getTheObject()).students_Path_In_AddStudentToGroup();
     }
-    public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstract4Public module) 
+    public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstractSearchList modules) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).addModuleToGroup(group, module);
+        ((PersistentServer)this.getTheObject()).addModuleToGroup(group, modules);
     }
-    public void addModuleToProg(final Program4Public program, final ModuleAbstract4Public module) 
+    public void addModuleToProg(final Program4Public program, final ModuleAbstractSearchList modules) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).addModuleToProg(program, module);
+        ((PersistentServer)this.getTheObject()).addModuleToProg(program, modules);
     }
-    public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student) 
+    public void addStudentToGroup(final StudyGroup4Public group, final StudentSearchList students) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).addStudentToGroup(group, student);
+        ((PersistentServer)this.getTheObject()).addStudentToGroup(group, students);
     }
     public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
 				throws PersistenceException{
@@ -199,9 +199,9 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createProgram(name);
     }
-    public void createStudent(final String firstName, final String lastName, final java.sql.Date birthDate) 
+    public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).createStudent(firstName, lastName, birthDate);
+        ((PersistentServer)this.getTheObject()).createStudent(group, firstName, lastName, birthDate);
     }
     public void disconnected() 
 				throws PersistenceException{

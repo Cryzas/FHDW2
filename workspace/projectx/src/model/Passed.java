@@ -82,9 +82,9 @@ public class Passed extends model.GradesInSimple implements PersistentPassed{
         return false;
     }
     
-    public Passed(PersistentGradesInSimpleOrThird This,long id) throws PersistenceException {
+    public Passed(PersistentGrade This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentGradesInSimpleOrThird)This,id);        
+        super((PersistentGrade)This,id);        
     }
     
     static public long getTypeId() {
@@ -131,6 +131,18 @@ public class Passed extends model.GradesInSimple implements PersistentPassed{
     public <R, E extends model.UserException> R accept(GradesInSimpleOrThirdReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handlePassed(this);
     }
+    public void accept(GradeVisitor visitor) throws PersistenceException {
+        visitor.handlePassed(this);
+    }
+    public <R> R accept(GradeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handlePassed(this);
+    }
+    public <E extends model.UserException>  void accept(GradeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handlePassed(this);
+    }
+    public <R, E extends model.UserException> R accept(GradeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handlePassed(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handlePassed(this);
     }
@@ -168,6 +180,10 @@ public class Passed extends model.GradesInSimple implements PersistentPassed{
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         super.initializeOnInstantiation();
+    }
+    public common.Fraction toFraction() 
+				throws model.NoFractionValueException, PersistenceException{
+        throw new NoFractionValueException("Kein Wert");
     }
     
     

@@ -10,6 +10,10 @@ public interface Z_2_84Public extends GradesInTenth4Public {
     public <R> R accept(GradesInTenthReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends model.UserException>  void accept(GradesInTenthExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(GradesInTenthReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
+    public void accept(GradeVisitor visitor) throws PersistenceException;
+    public <R> R accept(GradeReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends model.UserException>  void accept(GradeExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends model.UserException> R accept(GradeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     public void accept(AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends model.UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;

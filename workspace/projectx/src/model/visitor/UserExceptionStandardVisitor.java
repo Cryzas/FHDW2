@@ -11,6 +11,9 @@ public abstract class UserExceptionStandardVisitor implements UserExceptionVisit
     public void handleUnitSwapException(model.UnitSwapException unitSwapException) throws PersistenceException{
         this.standardHandling(unitSwapException);
     }
+    public void handleNoFractionValueException(model.NoFractionValueException noFractionValueException) throws PersistenceException{
+        this.standardHandling(noFractionValueException);
+    }
     public void handleCycleException(model.CycleException cycleException) throws PersistenceException{
         this.standardHandling(cycleException);
     }

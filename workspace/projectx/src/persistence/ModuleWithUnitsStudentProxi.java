@@ -83,11 +83,19 @@ public class ModuleWithUnitsStudentProxi extends ModuleAbstractStudentProxi impl
 				throws PersistenceException{
         ((PersistentModuleWithUnitsStudent)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public common.Fraction getCPmulGrade() 
+				throws PersistenceException{
+        return ((PersistentModuleWithUnitsStudent)this.getTheObject()).getCPmulGrade();
+    }
+    public common.Fraction getCPwithGrade() 
+				throws PersistenceException{
+        return ((PersistentModuleWithUnitsStudent)this.getTheObject()).getCPwithGrade();
+    }
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
         return ((PersistentModuleWithUnitsStudent)this.getTheObject()).getCreditPoints();
     }
-    public GradesInThird4Public getGrade() 
+    public Grade4Public getGrade() 
 				throws PersistenceException{
         return ((PersistentModuleWithUnitsStudent)this.getTheObject()).getGrade();
     }

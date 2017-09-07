@@ -6,7 +6,7 @@ import view.*;
 
 /* Additional import section end */
 
-public abstract class GradesInSimpleOrThird extends ViewObject implements GradesInSimpleOrThirdView{
+public abstract class GradesInSimpleOrThird extends view.objects.Grade implements GradesInSimpleOrThirdView{
     
     
     public GradesInSimpleOrThird(long id, long classId) {

@@ -15,9 +15,9 @@ public class RegularExpressionManager {
 		"(2.7)" + 
 		"(1.7)" + 
 		"(3.3)" + 
+		"(Keine\\ Note)" + 
 		"(Nicht\\ Bestanden)" + 
-		"(1.0)" + 
-		"(Keine\\ Note)]" );
+		"(1.0)]" );
     public static RegularExpressionHandler gradesInSimpleSUBTYPEName = new RegularExpressionHandler( "[(Bestanden)" + 
 		"(Nicht\\ Bestanden)]" );
     public static RegularExpressionHandler gradesInThirdSUBTYPEName = new RegularExpressionHandler( "[(2.3)" + 
@@ -30,8 +30,8 @@ public class RegularExpressionManager {
 		"(1.7)" + 
 		"(3.3)" + 
 		"(3.7)" + 
-		"(1.0)" + 
-		"(Keine\\ Note)]" );
+		"(Keine\\ Note)" + 
+		"(1.0)]" );
     public static RegularExpressionHandler moduleAbstractSGroupSUBTYPEName = new RegularExpressionHandler( "[(ModuleGroupSGroup)" + 
 		"(ModuleAtomarSGroup)" + 
 		"(ModuleWithUnitsSGroup)]" );

@@ -59,6 +59,10 @@ public class StudyGroupICProxi extends PersistentInCacheProxiOptimistic implemen
 				throws PersistenceException{
         ((PersistentStudyGroup)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public void addStudent(final Student4Public student) 
+				throws model.AlreadyExistsInParentException, PersistenceException{
+        ((PersistentStudyGroup)this.getTheObject()).addStudent(student);
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentStudyGroup)this.getTheObject()).copyingPrivateUserAttributes(copy);

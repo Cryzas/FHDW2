@@ -82,9 +82,9 @@ public class NotPassed extends model.GradesInSimple implements PersistentNotPass
         return false;
     }
     
-    public NotPassed(PersistentGradesInSimpleOrThird This,long id) throws PersistenceException {
+    public NotPassed(PersistentGrade This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentGradesInSimpleOrThird)This,id);        
+        super((PersistentGrade)This,id);        
     }
     
     static public long getTypeId() {
@@ -131,6 +131,18 @@ public class NotPassed extends model.GradesInSimple implements PersistentNotPass
     public <R, E extends model.UserException> R accept(GradesInSimpleOrThirdReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleNotPassed(this);
     }
+    public void accept(GradeVisitor visitor) throws PersistenceException {
+        visitor.handleNotPassed(this);
+    }
+    public <R> R accept(GradeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleNotPassed(this);
+    }
+    public <E extends model.UserException>  void accept(GradeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleNotPassed(this);
+    }
+    public <R, E extends model.UserException> R accept(GradeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleNotPassed(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleNotPassed(this);
     }
@@ -168,6 +180,10 @@ public class NotPassed extends model.GradesInSimple implements PersistentNotPass
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         super.initializeOnInstantiation();
+    }
+    public common.Fraction toFraction() 
+				throws model.NoFractionValueException, PersistenceException{
+        throw new NoFractionValueException("Kein Wert");
     }
     
     

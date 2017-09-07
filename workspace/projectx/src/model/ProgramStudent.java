@@ -248,9 +248,19 @@ public class ProgramStudent extends PersistentObject implements PersistentProgra
 				throws PersistenceException{
         return getThis().getModules().aggregate(Fraction.Null, (result, argument) -> result.add(argument.getCreditPoints()));
     }
-    public GradesInTenth4Public getGrade() 
+    public Grade4Public getGrade() 
 				throws PersistenceException{
-        return NoGradeTenth.getTheNoGradeTenth();
+
+    	Fraction CPWithGrade = getThis().getModules().aggregate(Fraction.Null, (result,argument) -> {
+			return result.add(argument.getCPwithGrade());
+		} );
+		Fraction GradeCumulated = getThis().getModules().aggregate(Fraction.Null, (result,argument) -> {
+			return result.add(argument.getCPmulGrade());
+		} );
+		if(CPWithGrade.equals(Fraction.Null)) {
+			return NoGrade.getTheNoGrade();
+		}
+		return GradeCumulated.div(CPWithGrade).toGradeinTenth();
     }
     public String getName() 
 				throws PersistenceException{

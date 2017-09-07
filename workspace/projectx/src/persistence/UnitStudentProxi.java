@@ -80,6 +80,14 @@ public class UnitStudentProxi extends PersistentProxi implements PersistentUnitS
 				throws PersistenceException{
         ((PersistentUnitStudent)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public common.Fraction getCPmulGrade() 
+				throws PersistenceException{
+        return ((PersistentUnitStudent)this.getTheObject()).getCPmulGrade();
+    }
+    public common.Fraction getCPwithGrade() 
+				throws PersistenceException{
+        return ((PersistentUnitStudent)this.getTheObject()).getCPwithGrade();
+    }
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
         return ((PersistentUnitStudent)this.getTheObject()).getCreditPoints();

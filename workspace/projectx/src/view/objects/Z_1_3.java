@@ -36,6 +36,18 @@ public class Z_1_3 extends view.objects.GradesInTenth implements Z_1_3View{
     public <R, E extends view.UserException> R accept(GradesInTenthReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleZ_1_3(this);
     }
+    public void accept(GradeVisitor visitor) throws ModelException {
+        visitor.handleZ_1_3(this);
+    }
+    public <R> R accept(GradeReturnVisitor<R>  visitor) throws ModelException {
+         return visitor.handleZ_1_3(this);
+    }
+    public <E extends view.UserException>  void accept(GradeExceptionVisitor<E> visitor) throws ModelException, E {
+         visitor.handleZ_1_3(this);
+    }
+    public <R, E extends view.UserException> R accept(GradeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+         return visitor.handleZ_1_3(this);
+    }
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleZ_1_3(this);
     }

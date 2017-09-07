@@ -3,7 +3,7 @@ package persistence;
 
 import model.visitor.*;
 
-public interface GradesInTenth4Public extends Anything, AbstractPersistentProxi {
+public interface GradesInTenth4Public extends Grade4Public {
     
     
     public void accept(GradesInTenthVisitor visitor) throws PersistenceException;

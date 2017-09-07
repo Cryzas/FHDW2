@@ -28,7 +28,7 @@ public class CreateStudentCommandFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            CreateStudentCommand result = new CreateStudentCommand(firstName,lastName,birthDate,null,null,null,id);
+            CreateStudentCommand result = new CreateStudentCommand(null,firstName,lastName,birthDate,null,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentCreateStudentCommand)PersistentProxi.createProxi(id, 200);
         }catch(SQLException se) {
@@ -44,7 +44,7 @@ public class CreateStudentCommandFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            CreateStudentCommand result = new CreateStudentCommand(firstName,lastName,birthDate,null,null,null,id);
+            CreateStudentCommand result = new CreateStudentCommand(null,firstName,lastName,birthDate,null,null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentCreateStudentCommand)PersistentProxi.createProxi(id, 200);
         }catch(SQLException se) {
@@ -65,18 +65,22 @@ public class CreateStudentCommandFacade{
                 callable.close();
                 return null;
             }
+            PersistentStudyGroup group = null;
+            if (obj.getLong(2) != 0)
+                group = (PersistentStudyGroup)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
             Invoker invoker = null;
-            if (obj.getLong(5) != 0)
-                invoker = (Invoker)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
-            PersistentStudentManager commandReceiver = null;
             if (obj.getLong(7) != 0)
-                commandReceiver = (PersistentStudentManager)PersistentProxi.createProxi(obj.getLong(7), obj.getLong(8));
-            PersistentCommonDate myCommonDate = null;
+                invoker = (Invoker)PersistentProxi.createProxi(obj.getLong(7), obj.getLong(8));
+            PersistentStudentManager commandReceiver = null;
             if (obj.getLong(9) != 0)
-                myCommonDate = (PersistentCommonDate)PersistentProxi.createProxi(obj.getLong(9), obj.getLong(10));
-            CreateStudentCommand result = new CreateStudentCommand(obj.getString(2) == null ? "" : obj.getString(2) /* In Oracle "" = null !!! */,
-                                                                   obj.getString(3) == null ? "" : obj.getString(3) /* In Oracle "" = null !!! */,
-                                                                   obj.getDate(4),
+                commandReceiver = (PersistentStudentManager)PersistentProxi.createProxi(obj.getLong(9), obj.getLong(10));
+            PersistentCommonDate myCommonDate = null;
+            if (obj.getLong(11) != 0)
+                myCommonDate = (PersistentCommonDate)PersistentProxi.createProxi(obj.getLong(11), obj.getLong(12));
+            CreateStudentCommand result = new CreateStudentCommand(group,
+                                                                   obj.getString(4) == null ? "" : obj.getString(4) /* In Oracle "" = null !!! */,
+                                                                   obj.getString(5) == null ? "" : obj.getString(5) /* In Oracle "" = null !!! */,
+                                                                   obj.getDate(6),
                                                                    invoker,
                                                                    commandReceiver,
                                                                    myCommonDate,
@@ -100,6 +104,19 @@ public class CreateStudentCommandFacade{
             long result = callable.getLong(1);
             callable.close();
             return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void groupSet(long CreateStudentCommandId, StudyGroup4Public groupVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".CrtStdntCMDFacade.grpSet(?, ?, ?); end;");
+            callable.setLong(1, CreateStudentCommandId);
+            callable.setLong(2, groupVal.getId());
+            callable.setLong(3, groupVal.getClassId());
+            callable.execute();
+            callable.close();
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }

@@ -17,7 +17,6 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleUnit(Unit4Public unit) throws PersistenceException;
     public abstract void handleThirdGradeSystem(ThirdGradeSystem4Public thirdGradeSystem) throws PersistenceException;
     public abstract void handleStudyGroup(StudyGroup4Public studyGroup) throws PersistenceException;
-    public abstract void handleNoGradeThird(NoGradeThird4Public noGradeThird) throws PersistenceException;
     public abstract void handleZ_1_0(Z_1_04Public z_1_0) throws PersistenceException;
     public abstract void handleZ_1_1(Z_1_14Public z_1_1) throws PersistenceException;
     public abstract void handleProgramManager(ProgramManager4Public programManager) throws PersistenceException;
@@ -39,14 +38,15 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleStudent(Student4Public student) throws PersistenceException;
     public abstract void handleT_2_3(T_2_34Public t_2_3) throws PersistenceException;
     public abstract void handleT_4_0(T_4_04Public t_4_0) throws PersistenceException;
-    public abstract void handleStudyGroupManager(StudyGroupManager4Public studyGroupManager) throws PersistenceException;
     public abstract void handleT_2_0(T_2_04Public t_2_0) throws PersistenceException;
+    public abstract void handleStudyGroupManager(StudyGroupManager4Public studyGroupManager) throws PersistenceException;
     public abstract void handleT_2_7(T_2_74Public t_2_7) throws PersistenceException;
     public abstract void handleUnitStudent(UnitStudent4Public unitStudent) throws PersistenceException;
     public abstract void handleModuleWithUnitsSGroup(ModuleWithUnitsSGroup4Public moduleWithUnitsSGroup) throws PersistenceException;
     public abstract void handleModuleAtomarStudent(ModuleAtomarStudent4Public moduleAtomarStudent) throws PersistenceException;
     public abstract void handleModuleWithUnits(ModuleWithUnits4Public moduleWithUnits) throws PersistenceException;
     public abstract void handleProgramStudent(ProgramStudent4Public programStudent) throws PersistenceException;
+    public abstract void handleNoGrade(NoGrade4Public noGrade) throws PersistenceException;
     public abstract void handleNotPassed(NotPassed4Public notPassed) throws PersistenceException;
     public abstract void handleZ_2_0(Z_2_04Public z_2_0) throws PersistenceException;
     public abstract void handleZ_2_1(Z_2_14Public z_2_1) throws PersistenceException;
@@ -70,7 +70,6 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleZ_3_9(Z_3_94Public z_3_9) throws PersistenceException;
     public abstract void handleModuleGroupStudent(ModuleGroupStudent4Public moduleGroupStudent) throws PersistenceException;
     public abstract void handleT_5_0(T_5_04Public t_5_0) throws PersistenceException;
-    public abstract void handleNoGradeTenth(NoGradeTenth4Public noGradeTenth) throws PersistenceException;
     public abstract void handleT_1_3(T_1_34Public t_1_3) throws PersistenceException;
     public abstract void handleT_3_0(T_3_04Public t_3_0) throws PersistenceException;
     public abstract void handleT_1_7(T_1_74Public t_1_7) throws PersistenceException;

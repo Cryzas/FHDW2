@@ -81,7 +81,7 @@ public class ProgramStudentProxi extends PersistentProxi implements PersistentPr
 				throws PersistenceException{
         return ((PersistentProgramStudent)this.getTheObject()).getCreditPoints();
     }
-    public GradesInTenth4Public getGrade() 
+    public Grade4Public getGrade() 
 				throws PersistenceException{
         return ((PersistentProgramStudent)this.getTheObject()).getGrade();
     }

@@ -2,6 +2,7 @@
 package model;
 
 import persistence.*;
+import common.Fraction;
 import model.visitor.*;
 
 
@@ -73,6 +74,8 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
                 result.put("grade", proxiInformation);
                 
             }
+            result.put("CPmulGrade", this.getCPmulGrade().toString());
+            result.put("CPwithGrade", this.getCPwithGrade().toString());
         }
         return result;
     }
@@ -238,6 +241,23 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
     }
+    public common.Fraction getCPmulGrade() 
+				throws PersistenceException{
+    	try {
+			return getThis().getCreditPoints().mul(getThis().getGrade().toFraction());
+		} catch (NoFractionValueException e) {
+			return Fraction.Null;
+		}
+    }
+    public common.Fraction getCPwithGrade() 
+				throws PersistenceException{
+        try {
+			getThis().getGrade().toFraction();
+			return getThis().getCreditPoints();
+		} catch (NoFractionValueException e) {
+			return Fraction.Null;
+		}
+    }
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
         return getThis().getUnitCopy().getCreditPoints();
@@ -248,7 +268,7 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-    	getThis().setGrade(NoGradeThird.getTheNoGradeThird());
+    	getThis().setGrade(NoGrade.getTheNoGrade());
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{

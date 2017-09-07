@@ -48,6 +48,18 @@ public class Z_3_5Proxi extends GradesInTenthProxi implements Z_3_5View{
     public <R, E extends view.UserException> R accept(GradesInTenthReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleZ_3_5(this);
     }
+    public void accept(GradeVisitor visitor) throws ModelException {
+        visitor.handleZ_3_5(this);
+    }
+    public <R> R accept(GradeReturnVisitor<R>  visitor) throws ModelException {
+         return visitor.handleZ_3_5(this);
+    }
+    public <E extends view.UserException>  void accept(GradeExceptionVisitor<E> visitor) throws ModelException, E {
+         visitor.handleZ_3_5(this);
+    }
+    public <R, E extends view.UserException> R accept(GradeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+         return visitor.handleZ_3_5(this);
+    }
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleZ_3_5(this);
     }

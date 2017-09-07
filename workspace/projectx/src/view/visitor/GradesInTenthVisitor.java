@@ -4,7 +4,6 @@ import view.*;
 
 public interface GradesInTenthVisitor {
     
-    public void handleNoGradeTenth(NoGradeTenthView noGradeTenth) throws ModelException;
     public void handleZ_1_0(Z_1_0View z_1_0) throws ModelException;
     public void handleZ_1_1(Z_1_1View z_1_1) throws ModelException;
     public void handleZ_1_2(Z_1_2View z_1_2) throws ModelException;

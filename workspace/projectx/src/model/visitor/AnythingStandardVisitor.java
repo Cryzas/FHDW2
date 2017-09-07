@@ -59,9 +59,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException{
         this.standardHandling(addModuleToGroupCommand);
     }
-    public void handleNoGradeThird(NoGradeThird4Public noGradeThird) throws PersistenceException{
-        this.standardHandling(noGradeThird);
-    }
     public void handleZ_1_0(Z_1_04Public z_1_0) throws PersistenceException{
         this.standardHandling(z_1_0);
     }
@@ -137,11 +134,11 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleT_4_0(T_4_04Public t_4_0) throws PersistenceException{
         this.standardHandling(t_4_0);
     }
-    public void handleStudyGroupManager(StudyGroupManager4Public studyGroupManager) throws PersistenceException{
-        this.standardHandling(studyGroupManager);
-    }
     public void handleT_2_0(T_2_04Public t_2_0) throws PersistenceException{
         this.standardHandling(t_2_0);
+    }
+    public void handleStudyGroupManager(StudyGroupManager4Public studyGroupManager) throws PersistenceException{
+        this.standardHandling(studyGroupManager);
     }
     public void handleT_2_7(T_2_74Public t_2_7) throws PersistenceException{
         this.standardHandling(t_2_7);
@@ -175,6 +172,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleProgramStudent(ProgramStudent4Public programStudent) throws PersistenceException{
         this.standardHandling(programStudent);
+    }
+    public void handleNoGrade(NoGrade4Public noGrade) throws PersistenceException{
+        this.standardHandling(noGrade);
     }
     public void handleNotPassed(NotPassed4Public notPassed) throws PersistenceException{
         this.standardHandling(notPassed);
@@ -250,9 +250,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleT_5_0(T_5_04Public t_5_0) throws PersistenceException{
         this.standardHandling(t_5_0);
-    }
-    public void handleNoGradeTenth(NoGradeTenth4Public noGradeTenth) throws PersistenceException{
-        this.standardHandling(noGradeTenth);
     }
     public void handleT_1_3(T_1_34Public t_1_3) throws PersistenceException{
         this.standardHandling(t_1_3);

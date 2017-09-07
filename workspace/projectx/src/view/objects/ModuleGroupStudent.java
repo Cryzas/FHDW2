@@ -10,13 +10,11 @@ import view.visitor.*;
 public class ModuleGroupStudent extends view.objects.ModuleAbstractStudent implements ModuleGroupStudentView{
     
     protected java.util.Vector<ModuleAbstractStudentView> modules;
-    protected GradesInTenthView grade;
     
-    public ModuleGroupStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,java.util.Vector<ModuleAbstractStudentView> modules,GradesInTenthView grade,long id, long classId) {
+    public ModuleGroupStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,GradeView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,java.util.Vector<ModuleAbstractStudentView> modules,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,id, classId);
-        this.modules = modules;
-        this.grade = grade;        
+        super((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradeView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,id, classId);
+        this.modules = modules;        
     }
     
     static public long getTypeId() {
@@ -32,9 +30,6 @@ public class ModuleGroupStudent extends view.objects.ModuleAbstractStudent imple
     }
     public void setModules(java.util.Vector<ModuleAbstractStudentView> newValue) throws ModelException {
         this.modules = newValue;
-    }
-    public GradesInTenthView getGrade()throws ModelException{
-        return this.grade;
     }
     
     public void accept(ModuleAbstractStudentVisitor visitor) throws ModelException {
@@ -67,13 +62,13 @@ public class ModuleGroupStudent extends view.objects.ModuleAbstractStudent imple
         if (moduleCopy != null) {
             ((ViewProxi)moduleCopy).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(moduleCopy.getClassId(), moduleCopy.getId())));
         }
+        GradeView grade = this.getGrade();
+        if (grade != null) {
+            ((ViewProxi)grade).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(grade.getClassId(), grade.getId())));
+        }
         java.util.Vector<?> modules = this.getModules();
         if (modules != null) {
             ViewObject.resolveVectorProxies(modules, resultTable);
-        }
-        GradesInTenthView grade = this.getGrade();
-        if (grade != null) {
-            ((ViewProxi)grade).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(grade.getClassId(), grade.getId())));
         }
         
     }

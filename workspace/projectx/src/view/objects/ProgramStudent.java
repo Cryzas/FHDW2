@@ -13,9 +13,9 @@ public class ProgramStudent extends ViewObject implements ProgramStudentView{
     protected String name;
     protected common.Fraction creditPoints;
     protected ProgramSGroupView programCopy;
-    protected GradesInTenthView grade;
+    protected GradeView grade;
     
-    public ProgramStudent(java.util.Vector<ModuleAbstractStudentView> modules,String name,common.Fraction creditPoints,ProgramSGroupView programCopy,GradesInTenthView grade,long id, long classId) {
+    public ProgramStudent(java.util.Vector<ModuleAbstractStudentView> modules,String name,common.Fraction creditPoints,ProgramSGroupView programCopy,GradeView grade,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.modules = modules;
@@ -51,7 +51,7 @@ public class ProgramStudent extends ViewObject implements ProgramStudentView{
     public void setProgramCopy(ProgramSGroupView newValue) throws ModelException {
         this.programCopy = newValue;
     }
-    public GradesInTenthView getGrade()throws ModelException{
+    public GradeView getGrade()throws ModelException{
         return this.grade;
     }
     
@@ -77,7 +77,7 @@ public class ProgramStudent extends ViewObject implements ProgramStudentView{
         if (programCopy != null) {
             ((ViewProxi)programCopy).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(programCopy.getClassId(), programCopy.getId())));
         }
-        GradesInTenthView grade = this.getGrade();
+        GradeView grade = this.getGrade();
         if (grade != null) {
             ((ViewProxi)grade).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(grade.getClassId(), grade.getId())));
         }

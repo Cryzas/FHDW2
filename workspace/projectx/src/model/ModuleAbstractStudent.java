@@ -34,6 +34,15 @@ public abstract class ModuleAbstractStudent extends PersistentObject implements 
             }
             result.put("name", this.getName());
             result.put("creditPoints", this.getCreditPoints().toString());
+            AbstractPersistentRoot grade = (AbstractPersistentRoot)this.getGrade();
+            if (grade != null) {
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    grade, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, true, false, false);
+                result.put("grade", proxiInformation);
+                
+            }
+            result.put("CPmulGrade", this.getCPmulGrade().toString());
+            result.put("CPwithGrade", this.getCPwithGrade().toString());
         }
         return result;
     }

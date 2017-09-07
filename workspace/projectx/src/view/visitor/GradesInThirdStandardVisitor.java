@@ -35,11 +35,11 @@ public abstract class GradesInThirdStandardVisitor implements GradesInThirdVisit
     public void handleT_3_7(T_3_7View t_3_7) throws ModelException{
         this.standardHandling(t_3_7);
     }
+    public void handleNoGrade(NoGradeView noGrade) throws ModelException{
+        this.standardHandling(noGrade);
+    }
     public void handleT_1_0(T_1_0View t_1_0) throws ModelException{
         this.standardHandling(t_1_0);
-    }
-    public void handleNoGradeThird(NoGradeThirdView noGradeThird) throws ModelException{
-        this.standardHandling(noGradeThird);
     }
     protected abstract void standardHandling(GradesInThirdView gradesInThird) throws ModelException;
 }

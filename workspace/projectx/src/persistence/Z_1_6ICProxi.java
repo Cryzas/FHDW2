@@ -38,6 +38,18 @@ public class Z_1_6ICProxi extends GradesInTenthICProxi implements PersistentZ_1_
     public <R, E extends model.UserException> R accept(GradesInTenthReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleZ_1_6(this);
     }
+    public void accept(GradeVisitor visitor) throws PersistenceException {
+        visitor.handleZ_1_6(this);
+    }
+    public <R> R accept(GradeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleZ_1_6(this);
+    }
+    public <E extends model.UserException>  void accept(GradeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleZ_1_6(this);
+    }
+    public <R, E extends model.UserException> R accept(GradeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleZ_1_6(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleZ_1_6(this);
     }
@@ -67,6 +79,10 @@ public class Z_1_6ICProxi extends GradesInTenthICProxi implements PersistentZ_1_
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentZ_1_6)this.getTheObject()).initializeOnInstantiation();
+    }
+    public common.Fraction toFraction() 
+				throws model.NoFractionValueException, PersistenceException{
+        return ((PersistentZ_1_6)this.getTheObject()).toFraction();
     }
 
     

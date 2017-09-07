@@ -1,0 +1,97 @@
+package persistence;
+
+
+
+import model.visitor.*;
+
+public class NoGradeProxi extends GradesInThirdProxi implements PersistentNoGrade{
+    
+    public NoGradeProxi(long objectId) {
+        super(objectId);
+    }
+    public NoGradeProxi(PersistentInCacheProxi object) {
+        super(object);
+    }
+    
+    
+    public long getClassId() {
+        return 273;
+    }
+    
+    public PersistentNoGrade getThis() throws PersistenceException {
+        return ((PersistentNoGrade)this.getTheObject()).getThis();
+    }
+    
+    public void accept(GradesInThirdVisitor visitor) throws PersistenceException {
+        visitor.handleNoGrade(this);
+    }
+    public <R> R accept(GradesInThirdReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleNoGrade(this);
+    }
+    public <E extends model.UserException>  void accept(GradesInThirdExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleNoGrade(this);
+    }
+    public <R, E extends model.UserException> R accept(GradesInThirdReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleNoGrade(this);
+    }
+    public void accept(GradesInSimpleOrThirdVisitor visitor) throws PersistenceException {
+        visitor.handleNoGrade(this);
+    }
+    public <R> R accept(GradesInSimpleOrThirdReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleNoGrade(this);
+    }
+    public <E extends model.UserException>  void accept(GradesInSimpleOrThirdExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleNoGrade(this);
+    }
+    public <R, E extends model.UserException> R accept(GradesInSimpleOrThirdReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleNoGrade(this);
+    }
+    public void accept(GradeVisitor visitor) throws PersistenceException {
+        visitor.handleNoGrade(this);
+    }
+    public <R> R accept(GradeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleNoGrade(this);
+    }
+    public <E extends model.UserException>  void accept(GradeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleNoGrade(this);
+    }
+    public <R, E extends model.UserException> R accept(GradeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleNoGrade(this);
+    }
+    public void accept(AnythingVisitor visitor) throws PersistenceException {
+        visitor.handleNoGrade(this);
+    }
+    public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleNoGrade(this);
+    }
+    public <E extends model.UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleNoGrade(this);
+    }
+    public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleNoGrade(this);
+    }
+    
+    
+    public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
+				throws PersistenceException{
+        ((PersistentNoGrade)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException{
+        ((PersistentNoGrade)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public void initializeOnCreation() 
+				throws PersistenceException{
+        ((PersistentNoGrade)this.getTheObject()).initializeOnCreation();
+    }
+    public void initializeOnInstantiation() 
+				throws PersistenceException{
+        ((PersistentNoGrade)this.getTheObject()).initializeOnInstantiation();
+    }
+    public common.Fraction toFraction() 
+				throws model.NoFractionValueException, PersistenceException{
+        return ((PersistentNoGrade)this.getTheObject()).toFraction();
+    }
+
+    
+}

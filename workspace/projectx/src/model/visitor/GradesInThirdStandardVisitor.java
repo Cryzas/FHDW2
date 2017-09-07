@@ -35,11 +35,11 @@ public abstract class GradesInThirdStandardVisitor implements GradesInThirdVisit
     public void handleT_3_7(T_3_74Public t_3_7) throws PersistenceException{
         this.standardHandling(t_3_7);
     }
+    public void handleNoGrade(NoGrade4Public noGrade) throws PersistenceException{
+        this.standardHandling(noGrade);
+    }
     public void handleT_1_0(T_1_04Public t_1_0) throws PersistenceException{
         this.standardHandling(t_1_0);
-    }
-    public void handleNoGradeThird(NoGradeThird4Public noGradeThird) throws PersistenceException{
-        this.standardHandling(noGradeThird);
     }
     protected abstract void standardHandling(GradesInThird4Public gradesInThird) throws PersistenceException;
 }

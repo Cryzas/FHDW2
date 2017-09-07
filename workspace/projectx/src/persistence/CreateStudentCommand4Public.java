@@ -5,6 +5,8 @@ import model.visitor.*;
 
 public interface CreateStudentCommand4Public extends Anything, StudentManagerCommand, CommonDate4Public, AbstractPersistentProxi {
     
+    public StudyGroup4Public getGroup() throws PersistenceException ;
+    public void setGroup(StudyGroup4Public newValue) throws PersistenceException ;
     public String getFirstName() throws PersistenceException ;
     public void setFirstName(String newValue) throws PersistenceException ;
     public String getLastName() throws PersistenceException ;

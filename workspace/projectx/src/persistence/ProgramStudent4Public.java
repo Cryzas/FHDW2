@@ -29,7 +29,7 @@ public interface ProgramStudent4Public extends Anything, programHierarchyStudent
 				throws PersistenceException;
     public common.Fraction getCreditPoints() 
 				throws PersistenceException;
-    public GradesInTenth4Public getGrade() 
+    public Grade4Public getGrade() 
 				throws PersistenceException;
     public String getName() 
 				throws PersistenceException;
