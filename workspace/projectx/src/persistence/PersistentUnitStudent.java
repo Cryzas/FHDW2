@@ -1,7 +1,7 @@
 package persistence;
 
 
-public interface PersistentUnitStudent extends Anything, programHierarchyStudentHIERARCHY, AbstractPersistentProxi, UnitStudent4Public {
+public interface PersistentUnitStudent extends Anything, programHierarchyStudentHIERARCHY, LectureWithGrade, AbstractPersistentProxi, UnitStudent4Public {
     
     public UnitSGroup4Public getUnitCopy() throws PersistenceException ;
     public void setUnitCopy(UnitSGroup4Public newValue) throws PersistenceException ;

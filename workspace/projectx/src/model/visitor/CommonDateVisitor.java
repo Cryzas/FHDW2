@@ -10,8 +10,7 @@ public interface CommonDateVisitor {
     public void handleAddUnitCommand(AddUnitCommand4Public addUnitCommand) throws PersistenceException;
     public void handleChangeCPOnModuleCommand(ChangeCPOnModuleCommand4Public changeCPOnModuleCommand) throws PersistenceException;
     public void handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException;
-    public void handleChangeGradeOfModuleCommand(ChangeGradeOfModuleCommand4Public changeGradeOfModuleCommand) throws PersistenceException;
-    public void handleChangeGradeOfUnitCommand(ChangeGradeOfUnitCommand4Public changeGradeOfUnitCommand) throws PersistenceException;
+    public void handleChangeGradeCommand(ChangeGradeCommand4Public changeGradeCommand) throws PersistenceException;
     public void handleChangeGradeSystemCommand(ChangeGradeSystemCommand4Public changeGradeSystemCommand) throws PersistenceException;
     public void handleCreateModuleCommand(CreateModuleCommand4Public createModuleCommand) throws PersistenceException;
     public void handleCreateProgramCommand(CreateProgramCommand4Public createProgramCommand) throws PersistenceException;

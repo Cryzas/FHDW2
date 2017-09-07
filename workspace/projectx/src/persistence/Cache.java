@@ -280,8 +280,7 @@ public class Cache {
 		this.number2NameMap.put(161, "AddUnitCommand");
 		this.number2NameMap.put(156, "ChangeCPOnModuleCommand");
 		this.number2NameMap.put(157, "ChangeCPOnUnitCommand");
-		this.number2NameMap.put(270, "ChangeGradeOfModuleCommand");
-		this.number2NameMap.put(267, "ChangeGradeOfUnitCommand");
+		this.number2NameMap.put(275, "ChangeGradeCommand");
 		this.number2NameMap.put(211, "ChangeGradeSystemCommand");
 		this.number2NameMap.put(-101, "CommandCoordinator");
 		this.number2NameMap.put(-105, "CommandExecuter");

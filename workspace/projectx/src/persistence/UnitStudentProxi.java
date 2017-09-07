@@ -58,6 +58,18 @@ public class UnitStudentProxi extends PersistentProxi implements PersistentUnitS
     public <R, E extends model.UserException> R accept(programHierarchyStudentHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleUnitStudent(this);
     }
+    public void accept(LectureWithGradeVisitor visitor) throws PersistenceException {
+        visitor.handleUnitStudent(this);
+    }
+    public <R> R accept(LectureWithGradeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleUnitStudent(this);
+    }
+    public <E extends model.UserException>  void accept(LectureWithGradeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleUnitStudent(this);
+    }
+    public <R, E extends model.UserException> R accept(LectureWithGradeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleUnitStudent(this);
+    }
     
     
     public boolean containsprogramHierarchyStudent(final programHierarchyStudentHIERARCHY part) 
@@ -72,8 +84,8 @@ public class UnitStudentProxi extends PersistentProxi implements PersistentUnitS
 				throws PersistenceException{
         return ((PersistentUnitStudent)this.getTheObject()).strategyprogramHierarchyStudent(strategy);
     }
-    public void changeGrade(final GradesInThird4Public grade) 
-				throws PersistenceException{
+    public void changeGrade(final Grade4Public grade) 
+				throws model.InvalidGradeForSystemException, PersistenceException{
         ((PersistentUnitStudent)this.getTheObject()).changeGrade(grade);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 

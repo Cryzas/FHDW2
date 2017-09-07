@@ -376,6 +376,12 @@ public class Server extends PersistentObject implements PersistentServer{
 			this.setHackDelay((java.sql.Timestamp)final$$Fields.get("hackDelay"));
 		}
     }
+    public ModuleAbstractStudentSearchList lecture_Path_In_ChangeGradeforStudent(final Student4Public student) 
+				throws model.UserException, PersistenceException{
+        	return new ModuleAbstractStudentSearchList(student.
+                getProgram().
+                getModules().getList());
+    }
     public ModuleAbstractSearchList modules_Path_In_AddModuleToGroup() 
 				throws model.UserException, PersistenceException{
         	return new ModuleAbstractSearchList(getThis().getModuleManager().
@@ -430,23 +436,25 @@ public class Server extends PersistentObject implements PersistentServer{
     }
     public void changeGradeOfModule(final ModuleAtomarStudent4Public module, final String grade) 
 				throws PersistenceException{
-    	getThis().getStudentManager().changeGradeOfModule(module, grade, getThis());
+    	getThis().getStudentManager().changeGrade(module, grade, getThis());
     }
     public void changeGradeOfUnit(final UnitStudent4Public unit, final String grade) 
 				throws PersistenceException{
-    	getThis().getStudentManager().changeGradeOfUnit(unit, grade, getThis());
+    	getThis().getStudentManager().changeGrade(unit, grade, getThis());
     }
     public void changeGradeSystem(final ModuleAtomar4Public module) 
 				throws PersistenceException{
     	getThis().getModuleManager().changeGradeSystem(module, getThis());
     }
+    public void changeGradeforStudent(final Student4Public student, final LectureWithGrade lecture, final String grade) 
+				throws PersistenceException{
+    	getThis().getStudentManager().changeGrade(lecture, grade, getThis());
+    }
     public void connected(final String user) 
 				throws PersistenceException{
-        
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        
     }
     public void createModule(final String type, final String name) 
 				throws PersistenceException{

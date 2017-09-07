@@ -165,22 +165,12 @@ public class StudentManager extends PersistentObject implements PersistentStuden
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void changeGradeOfModule(final ModuleAtomarStudent4Public module, final String grade, final Invoker invoker) 
+    public void changeGrade(final LectureWithGrade lecture, final String grade, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
 		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
-		ChangeGradeOfModuleCommand4Public command = model.meta.ChangeGradeOfModuleCommand.createChangeGradeOfModuleCommand(grade, nw, d1170);
-		command.setModule(module);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void changeGradeOfUnit(final UnitStudent4Public unit, final String grade, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
-		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
-		ChangeGradeOfUnitCommand4Public command = model.meta.ChangeGradeOfUnitCommand.createChangeGradeOfUnitCommand(grade, nw, d1170);
-		command.setUnit(unit);
+		ChangeGradeCommand4Public command = model.meta.ChangeGradeCommand.createChangeGradeCommand(grade, nw, d1170);
+		command.setLecture(lecture);
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
@@ -210,31 +200,10 @@ public class StudentManager extends PersistentObject implements PersistentStuden
     	student.setProgram(group.getProgram().copyForStudent());
     	group.addStudent(student);
     }
-    public void changeGradeOfModule(final ModuleAtomarStudent4Public module, final String grade) 
+    public void changeGrade(final LectureWithGrade lecture, final String grade) 
 				throws model.InvalidGradeForSystemException, PersistenceException{
     	GradesInSimpleOrThird4Public newGrade = StringFACTORY.createObjectBySubTypeNameForGradesInSimpleOrThird(grade);
-    	if(((ModuleAtomarSGroup4Public)module.getModuleCopy()).getGradeSystem().accept(new GradeSystemReturnVisitor<Boolean>() {
-
-			@Override
-			public Boolean handleSimpleGradeSystem(SimpleGradeSystem4Public simpleGradeSystem)
-					throws PersistenceException {
-				return (newGrade instanceof GradesInThird4Public && !(newGrade instanceof NoGrade4Public));
-			}
-
-			@Override
-			public Boolean handleThirdGradeSystem(ThirdGradeSystem4Public thirdGradeSystem)
-					throws PersistenceException{
-				return (newGrade instanceof GradesInSimple4Public);
-			}
-		})) {
-    		throw new InvalidGradeForSystemException(String.format(invalidGradeMessage, newGrade.toString()));
-    	}
-    	module.changeGrade(newGrade);
-    }
-    public void changeGradeOfUnit(final UnitStudent4Public unit, final String grade) 
-				throws PersistenceException{
-    	GradesInThird4Public newGrade = StringFACTORY.createObjectBySubTypeNameForGradesInThird(grade);
-    	unit.changeGrade(newGrade);
+    	lecture.changeGrade(newGrade);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -260,8 +229,6 @@ public class StudentManager extends PersistentObject implements PersistentStuden
     
 
     /* Start of protected part that is not overridden by persistence generator */
-    
-    static String invalidGradeMessage = "Die Note %s entspricht nicht dem Notensystem des Moduls.";
     
     /* End of protected part that is not overridden by persistence generator */
     

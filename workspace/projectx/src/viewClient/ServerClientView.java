@@ -324,6 +324,7 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         ImageView handle(CreateModulePRMTRModuleAbstractSUBTYPENamePRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(AddModuleToGroupPRMTRModuleGroupPRMTRModuleAbstractLSTPRMTRMenuItem menuItem);
         ImageView handle(AddModuleToProgPRMTRProgramPRMTRModuleAbstractLSTPRMTRMenuItem menuItem);
+        ImageView handle(ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRMenuItem menuItem);
         ImageView handle(ChangeGradeOfModulePRMTRModuleAtomarStudentPRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRMenuItem menuItem);
         ImageView handle(ChangeGradeOfUnitPRMTRUnitStudentPRMTRGradesInThirdSUBTYPENamePRMTRMenuItem menuItem);
         ImageView handle(ChangeGradeSystemPRMTRModuleAtomarPRMTRMenuItem menuItem);
@@ -370,6 +371,11 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         }
     }
     private class AddModuleToProgPRMTRProgramPRMTRModuleAbstractLSTPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -671,12 +677,27 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                 });
                 result.getItems().add(item);
             }
-            if (selected instanceof ModuleWithUnitsSGroupView){
-                item = new SwapCPonModuleWithUnitsPRMTRModuleWithUnitsSGroupPRMTRUnitSGroupPRMTRUnitSGroupPRMTRFractionPRMTRMenuItem();
-                item.setText("CP der Units ändern ... ");
+            if (selected instanceof StudentView){
+                item = new ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRMenuItem();
+                item.setText("Note eintragen ... ");
                 item.setOnAction(new EventHandler<ActionEvent>(){
                     public void handle(javafx.event.ActionEvent e) {
-                        final ServerSwapCPonModuleWithUnitsModuleWithUnitsSGroupUnitSGroupUnitSGroupFractionMssgWizard wizard = new ServerSwapCPonModuleWithUnitsModuleWithUnitsSGroupUnitSGroupUnitSGroupFractionMssgWizard("CP der Units ändern");
+                        final ServerChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameMssgWizard wizard = new ServerChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameMssgWizard("Note eintragen");
+                        wizard.setFirstArgument((StudentView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.setX( getPointForView().getX());
+                        wizard.setY( getPointForView().getY());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+            }
+            if (selected instanceof ModuleWithUnitsSGroupView){
+                item = new SwapCPonModuleWithUnitsPRMTRModuleWithUnitsSGroupPRMTRUnitSGroupPRMTRUnitSGroupPRMTRFractionPRMTRMenuItem();
+                item.setText("CP Gewichtung ändern ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final ServerSwapCPonModuleWithUnitsModuleWithUnitsSGroupUnitSGroupUnitSGroupFractionMssgWizard wizard = new ServerSwapCPonModuleWithUnitsModuleWithUnitsSGroupUnitSGroupUnitSGroupFractionMssgWizard("CP Gewichtung ändern");
                         wizard.setFirstArgument((ModuleWithUnitsSGroupView)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.setX( getPointForView().getX());
@@ -1162,6 +1183,67 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 		
 	}
 
+	class ServerChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameMssgWizard extends Wizard {
+
+		protected ServerChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameMssgWizard(String operationName){
+			super(ServerClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "ServerChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().changeGradeforStudent(firstArgument, (LectureWithGrade)((ObjectSelectionPanel)getParametersPanel().getChildren().get(0)).getResult(),
+									((StringSelectionPanel)getParametersPanel().getChildren().get(1)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			final ObjectSelectionPanel panel4 = new ObjectSelectionPanel("lecture", "view.LectureWithGrade", null, this)
+											{protected ViewRoot getBrowserRoot(){
+												{try{
+													return new ListRoot(getConnection().lecture_Path_In_ChangeGradeforStudent((StudentView)this.navigationRoot));
+												}catch(ModelException me){
+													return (ViewRoot) this.navigationRoot;
+												}catch(UserException ue){
+													return (ViewRoot) this.navigationRoot;
+											}}}};
+			getParametersPanel().getChildren().add(panel4);
+			getParametersPanel().getChildren().add(new RegExprSelectionPanel("grade", this, common.RegularExpressionManager.gradesInSimpleOrThirdSUBTYPEName.getRegExpr()));		
+		}	
+		protected void handleDependencies(int i) {
+			if(i == 0){
+				((ObjectSelectionPanel)getParametersPanel().getChildren().get(i)).setBrowserRoot((ViewRoot)firstArgument);
+			}
+		}
+		
+		
+		private StudentView firstArgument; 
+	
+		public void setFirstArgument(StudentView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
 	class ServerCreateModuleModuleAbstractSUBTYPENameStringMssgWizard extends Wizard {
 
 		protected ServerCreateModuleModuleAbstractSUBTYPENameStringMssgWizard(String operationName){
@@ -1377,7 +1459,7 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 			return false;
 		}
 		protected void addParameters(){
-			final ObjectSelectionPanel panel4 = new ObjectSelectionPanel("Von Unit", "view.UnitSGroupView", null, this)
+			final ObjectSelectionPanel panel5 = new ObjectSelectionPanel("Von Unit", "view.UnitSGroupView", null, this)
 											{protected ViewRoot getBrowserRoot(){
 												{try{
 													return new ListRoot(getConnection().fromUnit_Path_In_SwapCPonModuleWithUnits((ModuleWithUnitsSGroupView)this.navigationRoot));
@@ -1386,8 +1468,8 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 												}catch(UserException ue){
 													return (ViewRoot) this.navigationRoot;
 											}}}};
-			getParametersPanel().getChildren().add(panel4);
-			final ObjectSelectionPanel panel5 = new ObjectSelectionPanel("Zu Unit", "view.UnitSGroupView", null, this)
+			getParametersPanel().getChildren().add(panel5);
+			final ObjectSelectionPanel panel6 = new ObjectSelectionPanel("Zu Unit", "view.UnitSGroupView", null, this)
 											{protected ViewRoot getBrowserRoot(){
 												{try{
 													return new ListRoot(getConnection().ToUnit_Path_In_SwapCPonModuleWithUnits((ModuleWithUnitsSGroupView)this.navigationRoot));
@@ -1396,7 +1478,7 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 												}catch(UserException ue){
 													return (ViewRoot) this.navigationRoot;
 											}}}};
-			getParametersPanel().getChildren().add(panel5);
+			getParametersPanel().getChildren().add(panel6);
 			getParametersPanel().getChildren().add(new FractionSelectionPanel("creditPoints", this));		
 		}	
 		protected void handleDependencies(int i) {

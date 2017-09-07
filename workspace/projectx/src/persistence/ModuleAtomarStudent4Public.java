@@ -3,7 +3,7 @@ package persistence;
 
 import model.visitor.*;
 
-public interface ModuleAtomarStudent4Public extends ModuleAbstractStudent4Public {
+public interface ModuleAtomarStudent4Public extends LectureWithGrade, ModuleAbstractStudent4Public {
     
     public GradesInSimpleOrThird4Public getOwnGrade() throws PersistenceException ;
     
@@ -19,14 +19,16 @@ public interface ModuleAtomarStudent4Public extends ModuleAbstractStudent4Public
     public <R> R accept(programHierarchyStudentHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends model.UserException>  void accept(programHierarchyStudentHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(programHierarchyStudentHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
+    public void accept(LectureWithGradeVisitor visitor) throws PersistenceException;
+    public <R> R accept(LectureWithGradeReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends model.UserException>  void accept(LectureWithGradeExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends model.UserException> R accept(LectureWithGradeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
     public boolean containsprogramHierarchyStudent(final programHierarchyStudentHIERARCHY part) 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
     public <T> T strategyprogramHierarchyStudent(final programHierarchyStudentHIERARCHYStrategy<T> strategy) 
-				throws PersistenceException;
-    public void changeGrade(final GradesInSimpleOrThird4Public grade) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;

@@ -10,8 +10,7 @@ public interface AnythingVisitor extends CommonDateVisitor,GradeVisitor,GradeSys
     public void handleAddUnitCommand(AddUnitCommand4Public addUnitCommand) throws PersistenceException;
     public void handleChangeCPOnModuleCommand(ChangeCPOnModuleCommand4Public changeCPOnModuleCommand) throws PersistenceException;
     public void handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException;
-    public void handleChangeGradeOfModuleCommand(ChangeGradeOfModuleCommand4Public changeGradeOfModuleCommand) throws PersistenceException;
-    public void handleChangeGradeOfUnitCommand(ChangeGradeOfUnitCommand4Public changeGradeOfUnitCommand) throws PersistenceException;
+    public void handleChangeGradeCommand(ChangeGradeCommand4Public changeGradeCommand) throws PersistenceException;
     public void handleChangeGradeSystemCommand(ChangeGradeSystemCommand4Public changeGradeSystemCommand) throws PersistenceException;
     public void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException;
     public void handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException;

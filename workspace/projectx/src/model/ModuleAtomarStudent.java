@@ -170,6 +170,18 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
     public <R, E extends model.UserException> R accept(programHierarchyStudentHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleModuleAtomarStudent(this);
     }
+    public void accept(LectureWithGradeVisitor visitor) throws PersistenceException {
+        visitor.handleModuleAtomarStudent(this);
+    }
+    public <R> R accept(LectureWithGradeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleModuleAtomarStudent(this);
+    }
+    public <E extends model.UserException>  void accept(LectureWithGradeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleModuleAtomarStudent(this);
+    }
+    public <R, E extends model.UserException> R accept(LectureWithGradeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleModuleAtomarStudent(this);
+    }
     public int getLeafInfo() throws PersistenceException{
         return 0;
     }
@@ -196,9 +208,27 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
     
     // Start of section that contains operations that must be implemented.
     
-    public void changeGrade(final GradesInSimpleOrThird4Public grade) 
-				throws PersistenceException{
-        getThis().setOwnGrade(grade);
+    public void changeGrade(final Grade4Public grade) 
+				throws model.InvalidGradeForSystemException, PersistenceException{
+    	((ModuleAtomarSGroupProxi)getThis().getModuleCopy()).getGradeSystem().accept(new GradeSystemExceptionVisitor<InvalidGradeForSystemException>() {
+
+			@Override
+			public void handleSimpleGradeSystem(SimpleGradeSystem4Public simpleGradeSystem)
+					throws PersistenceException, InvalidGradeForSystemException {
+				if(grade instanceof GradesInThird4Public && !(grade instanceof NoGrade4Public)){
+					throw new InvalidGradeForSystemException(String.format(InvalidGradeForSystemMessage2, grade.toString()));
+				}
+			}
+
+			@Override
+			public void handleThirdGradeSystem(ThirdGradeSystem4Public thirdGradeSystem)
+					throws PersistenceException, InvalidGradeForSystemException {
+				if(grade instanceof GradesInSimple4Public){
+					throw new InvalidGradeForSystemException(String.format(InvalidGradeForSystemMessage3, grade.toString()));
+				}
+			}
+		});
+    	getThis().setOwnGrade((GradesInSimpleOrThird4Public)grade);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -239,6 +269,9 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    static String InvalidGradeForSystemMessage2 = "Die Note \"%s\" ist nicht mit dem zweiwertigen Notensystem des Moduls kompatibel.";    
+    static String InvalidGradeForSystemMessage3 = "Die Note \"%s\" ist nicht mit dem Drittel-Notensystem des Moduls kompatibel.";
     
     /* End of protected part that is not overridden by persistence generator */
     

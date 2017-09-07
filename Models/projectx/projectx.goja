@@ -24,7 +24,7 @@ server Server {
 /* Neue Studiengruppe eröffnen -> Attribute: program, name */
 	void startStudyGroup @@ Studiengruppe_eröffnen (Program program, String name);
 /* CreditPoints der einzelnen Units ändern, ohne die Gesamtmenge der CPs für das Modul zu verändern -> Attribute: module, fromUnit, ToUnit, creditPoints */
-	void swapCPonModuleWithUnits @@ CP_der_Units_ändern (ModuleWithUnitsSGroup module, UnitSGroup fromUnit @@ Von_Unit{;module;units}, UnitSGroup ToUnit @@ Zu_Unit{;module;units}, Fraction creditPoints);
+	void swapCPonModuleWithUnits @@ CP_Gewichtung_ändern (ModuleWithUnitsSGroup module, UnitSGroup fromUnit @@ Von_Unit{;module;units}, UnitSGroup ToUnit @@ Zu_Unit{;module;units}, Fraction creditPoints);
 /* Anlegen eines neuen Studenten -> Attribute: firstName, lastName, birthDate */
 	void createStudent @@ Student_erstellen (StudyGroup group, String firstName, String lastName, Date birthDate);
 /* Studenten zu Studiengruppe hinzufügen -> Attribute: group, student */
@@ -35,6 +35,8 @@ server Server {
 	void changeGradeOfUnit @@ Note_ändern (UnitStudent unit, GradesInThirdSUBTYPEName grade);
 /* Note eines atomaren Moduls ändern */
 	void changeGradeOfModule @@ Note_ändern (ModuleAtomarStudent module, GradesInSimpleOrThirdSUBTYPEName grade);
+/* Note für einen Studenten ändern */
+	void changeGradeforStudent @@ Note_eintragen (Student student, LectureWithGrade lecture {;student;program;modules}, GradesInSimpleOrThirdSUBTYPEName grade);
 }
 
 																									/* Manager Klassen */
@@ -77,9 +79,7 @@ class StudentManager {
 /* Student zu einer Studiengruppe zuordnen -> Attribute: group, student */
 	active void addStudentToGroup ## add_S2G (StudyGroup group, Student student) throws UserException;
 /* Note einer Unit ändern */
-	active void changeGradeOfUnit ## chGrUnit (UnitStudent unit, GradesInThirdSUBTYPEName grade);
-/* Note eines atomaren Moduls ändern */
-	active void changeGradeOfModule ## chGrModule (ModuleAtomarStudent module, GradesInSimpleOrThirdSUBTYPEName grade) throws InvalidGradeForSystemException;
+	active void changeGrade(LectureWithGrade lecture, GradesInSimpleOrThirdSUBTYPEName grade) throws InvalidGradeForSystemException;
 }
 
 																			/* Aufbau eines Studienprogramms */
@@ -143,7 +143,7 @@ class Unit {
 class StudyGroup {
 	public prior indexed String name;
 	public-write ProgramSGroup program;
-	public symmetric (no-view parentGroup) Student ** students;
+	public leaf-view symmetric (no-view parentGroup) Student ** students;
 	/* Fügt den Student zu der Gruppe hinzu, schmeißt Exception, wenn Student schon drin ist. */
 	void addStudent(Student student) throws AlreadyExistsInParentException;
 }
@@ -229,9 +229,8 @@ class ModuleGroupStudent extends ModuleAbstractStudent {
 	void addModule(ModuleAbstractStudent module) throws CycleException;
 }
 
-class ModuleAtomarStudent ## m_atom_stud extends ModuleAbstractStudent {
+class ModuleAtomarStudent ## m_atom_stud extends ModuleAbstractStudent implements LectureWithGrade {
 	public no-view GradesInSimpleOrThird ownGrade;
-	void changeGrade(GradesInSimpleOrThird grade);
 }
 
 class ModuleWithUnitsStudent ## m_unit_stud extends ModuleAbstractStudent {
@@ -239,16 +238,18 @@ class ModuleWithUnitsStudent ## m_unit_stud extends ModuleAbstractStudent {
 	void addUnit(UnitStudent unit) throws CycleException;
 }
 
-class UnitStudent {
+class UnitStudent implements LectureWithGrade {
 	prior UnitSGroup unitCopy;
 	public derived String name;
 	public derived Fraction creditPoints;
 	public no-view GradesInThird grade;
-	void changeGrade(GradesInThird grade);
 	public no-view derived Fraction CPmulGrade;
 	public no-view derived Fraction CPwithGrade;
 }
 
+interface LectureWithGrade {
+	abstract void changeGrade(Grade grade) throws InvalidGradeForSystemException;
+}
 																																			/* Noten */
 
 /** Definiert das Notensystem mit den vordefinierten Notensystemarten */

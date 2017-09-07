@@ -179,11 +179,11 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleStudentManager(StudentManager4Public studentManager) throws PersistenceException;
     
-    public abstract void handleStudent(Student4Public student) throws PersistenceException;
-    
     public abstract void handleModuleManager(ModuleManager4Public moduleManager) throws PersistenceException;
     
     public abstract void handleUnit(Unit4Public unit) throws PersistenceException;
+    
+    public abstract void handleStudent(Student4Public student) throws PersistenceException;
     
     public abstract void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException;
     
@@ -222,9 +222,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleChangeCPOnModuleCommand(ChangeCPOnModuleCommand4Public changeCPOnModuleCommand) throws PersistenceException{
         this.handleCommonDate(changeCPOnModuleCommand);
     }
-    public void handleChangeGradeOfUnitCommand(ChangeGradeOfUnitCommand4Public changeGradeOfUnitCommand) throws PersistenceException{
-        this.handleCommonDate(changeGradeOfUnitCommand);
-    }
     public void handleChangeGradeSystemCommand(ChangeGradeSystemCommand4Public changeGradeSystemCommand) throws PersistenceException{
         this.handleCommonDate(changeGradeSystemCommand);
     }
@@ -234,23 +231,23 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleSwapCPonModuleWithUnitsCommand(SwapCPonModuleWithUnitsCommand4Public swapCPonModuleWithUnitsCommand) throws PersistenceException{
         this.handleCommonDate(swapCPonModuleWithUnitsCommand);
     }
-    public void handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException{
-        this.handleCommonDate(changeCPOnUnitCommand);
-    }
     public void handleStartStudyGroupCommand(StartStudyGroupCommand4Public startStudyGroupCommand) throws PersistenceException{
         this.handleCommonDate(startStudyGroupCommand);
     }
+    public void handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException{
+        this.handleCommonDate(changeCPOnUnitCommand);
+    }
     public void handleCreateModuleCommand(CreateModuleCommand4Public createModuleCommand) throws PersistenceException{
         this.handleCommonDate(createModuleCommand);
+    }
+    public void handleChangeGradeCommand(ChangeGradeCommand4Public changeGradeCommand) throws PersistenceException{
+        this.handleCommonDate(changeGradeCommand);
     }
     public void handleAddStudentToGroupCommand(AddStudentToGroupCommand4Public addStudentToGroupCommand) throws PersistenceException{
         this.handleCommonDate(addStudentToGroupCommand);
     }
     public void handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException{
         this.handleCommonDate(addModuleToGroupCommand);
-    }
-    public void handleChangeGradeOfModuleCommand(ChangeGradeOfModuleCommand4Public changeGradeOfModuleCommand) throws PersistenceException{
-        this.handleCommonDate(changeGradeOfModuleCommand);
     }
     public void handleAddModuleToProgCommand(AddModuleToProgCommand4Public addModuleToProgCommand) throws PersistenceException{
         this.handleCommonDate(addModuleToProgCommand);

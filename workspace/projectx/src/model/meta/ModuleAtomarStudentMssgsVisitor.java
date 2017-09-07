@@ -9,7 +9,7 @@ interface ModuleAtomarStudentDOWNMssgsVisitor  {
 }
 
 
-interface ModuleAtomarStudentUPMssgsVisitor extends ModuleAbstractStudentUPMssgsVisitor {
+interface ModuleAtomarStudentUPMssgsVisitor extends ModuleAbstractStudentUPMssgsVisitor, LectureWithGradeUPMssgsVisitor {
 
     
 }

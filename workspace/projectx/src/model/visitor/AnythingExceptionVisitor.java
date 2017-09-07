@@ -10,8 +10,7 @@ public interface AnythingExceptionVisitor<E extends model.UserException> extends
     public void handleAddUnitCommand(AddUnitCommand4Public addUnitCommand) throws PersistenceException, E;
     public void handleChangeCPOnModuleCommand(ChangeCPOnModuleCommand4Public changeCPOnModuleCommand) throws PersistenceException, E;
     public void handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException, E;
-    public void handleChangeGradeOfModuleCommand(ChangeGradeOfModuleCommand4Public changeGradeOfModuleCommand) throws PersistenceException, E;
-    public void handleChangeGradeOfUnitCommand(ChangeGradeOfUnitCommand4Public changeGradeOfUnitCommand) throws PersistenceException, E;
+    public void handleChangeGradeCommand(ChangeGradeCommand4Public changeGradeCommand) throws PersistenceException, E;
     public void handleChangeGradeSystemCommand(ChangeGradeSystemCommand4Public changeGradeSystemCommand) throws PersistenceException, E;
     public void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException, E;
     public void handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException, E;

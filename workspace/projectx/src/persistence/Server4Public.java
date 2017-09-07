@@ -30,6 +30,8 @@ public interface Server4Public extends Invoker, Anything, Remote, AbstractPersis
 				throws model.UserException, PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
+    public ModuleAbstractStudentSearchList lecture_Path_In_ChangeGradeforStudent(final Student4Public student) 
+				throws model.UserException, PersistenceException;
     public ModuleAbstractSearchList modules_Path_In_AddModuleToGroup() 
 				throws model.UserException, PersistenceException;
     public ModuleAbstractSearchList modules_Path_In_AddModuleToProg() 
@@ -57,6 +59,8 @@ public interface Server4Public extends Invoker, Anything, Remote, AbstractPersis
     public void changeGradeOfUnit(final UnitStudent4Public unit, final String grade) 
 				throws PersistenceException;
     public void changeGradeSystem(final ModuleAtomar4Public module) 
+				throws PersistenceException;
+    public void changeGradeforStudent(final Student4Public student, final LectureWithGrade lecture, final String grade) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;

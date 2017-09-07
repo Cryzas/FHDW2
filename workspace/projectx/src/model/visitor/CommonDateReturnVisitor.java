@@ -10,8 +10,7 @@ public interface CommonDateReturnVisitor<R> {
     public R handleAddUnitCommand(AddUnitCommand4Public addUnitCommand) throws PersistenceException;
     public R handleChangeCPOnModuleCommand(ChangeCPOnModuleCommand4Public changeCPOnModuleCommand) throws PersistenceException;
     public R handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException;
-    public R handleChangeGradeOfModuleCommand(ChangeGradeOfModuleCommand4Public changeGradeOfModuleCommand) throws PersistenceException;
-    public R handleChangeGradeOfUnitCommand(ChangeGradeOfUnitCommand4Public changeGradeOfUnitCommand) throws PersistenceException;
+    public R handleChangeGradeCommand(ChangeGradeCommand4Public changeGradeCommand) throws PersistenceException;
     public R handleChangeGradeSystemCommand(ChangeGradeSystemCommand4Public changeGradeSystemCommand) throws PersistenceException;
     public R handleCreateModuleCommand(CreateModuleCommand4Public createModuleCommand) throws PersistenceException;
     public R handleCreateProgramCommand(CreateProgramCommand4Public createProgramCommand) throws PersistenceException;

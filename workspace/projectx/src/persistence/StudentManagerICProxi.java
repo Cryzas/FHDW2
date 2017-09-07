@@ -47,13 +47,9 @@ public class StudentManagerICProxi extends PersistentInCacheProxiOptimistic impl
 				throws PersistenceException{
         ((PersistentStudentManager)this.getTheObject()).addStudentToGroup(group, student, invoker);
     }
-    public void changeGradeOfModule(final ModuleAtomarStudent4Public module, final String grade, final Invoker invoker) 
+    public void changeGrade(final LectureWithGrade lecture, final String grade, final Invoker invoker) 
 				throws PersistenceException{
-        ((PersistentStudentManager)this.getTheObject()).changeGradeOfModule(module, grade, invoker);
-    }
-    public void changeGradeOfUnit(final UnitStudent4Public unit, final String grade, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentStudentManager)this.getTheObject()).changeGradeOfUnit(unit, grade, invoker);
+        ((PersistentStudentManager)this.getTheObject()).changeGrade(lecture, grade, invoker);
     }
     public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate, final Invoker invoker) 
 				throws PersistenceException{
@@ -67,13 +63,9 @@ public class StudentManagerICProxi extends PersistentInCacheProxiOptimistic impl
 				throws model.UserException, PersistenceException{
         ((PersistentStudentManager)this.getTheObject()).addStudentToGroup(group, student);
     }
-    public void changeGradeOfModule(final ModuleAtomarStudent4Public module, final String grade) 
+    public void changeGrade(final LectureWithGrade lecture, final String grade) 
 				throws model.InvalidGradeForSystemException, PersistenceException{
-        ((PersistentStudentManager)this.getTheObject()).changeGradeOfModule(module, grade);
-    }
-    public void changeGradeOfUnit(final UnitStudent4Public unit, final String grade) 
-				throws PersistenceException{
-        ((PersistentStudentManager)this.getTheObject()).changeGradeOfUnit(unit, grade);
+        ((PersistentStudentManager)this.getTheObject()).changeGrade(lecture, grade);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

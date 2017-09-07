@@ -74,7 +74,7 @@ public class StudyGroup extends PersistentObject implements PersistentStudyGroup
                 result.put("program", proxiInformation);
                 
             }
-            result.put("students", this.getStudents().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, false, false));
+            result.put("students", this.getStudents().getVector(allResults, depth, essentialLevel, forGUI, true, true, inDerived, false, false));
         }
         return result;
     }

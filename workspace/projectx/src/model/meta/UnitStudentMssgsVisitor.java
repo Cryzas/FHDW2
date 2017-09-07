@@ -9,7 +9,7 @@ interface UnitStudentDOWNMssgsVisitor  {
 }
 
 
-interface UnitStudentUPMssgsVisitor  {
+interface UnitStudentUPMssgsVisitor extends LectureWithGradeUPMssgsVisitor {
 
     
 }

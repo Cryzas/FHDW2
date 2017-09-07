@@ -64,6 +64,18 @@ public class UnitStudent extends ViewObject implements UnitStudentView{
     public <R, E extends view.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleUnitStudent(this);
     }
+    public void accept(LectureWithGradeVisitor visitor) throws ModelException {
+        visitor.handleUnitStudent(this);
+    }
+    public <R> R accept(LectureWithGradeReturnVisitor<R>  visitor) throws ModelException {
+         return visitor.handleUnitStudent(this);
+    }
+    public <E extends view.UserException>  void accept(LectureWithGradeExceptionVisitor<E> visitor) throws ModelException, E {
+         visitor.handleUnitStudent(this);
+    }
+    public <R, E extends view.UserException> R accept(LectureWithGradeReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+         return visitor.handleUnitStudent(this);
+    }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
         GradesInThirdView grade = this.getGrade();

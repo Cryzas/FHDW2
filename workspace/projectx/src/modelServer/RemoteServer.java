@@ -42,6 +42,18 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.HashMap<?,?> lecture_Path_In_ChangeGradeforStudent(String studentProxiString){
+        try {
+            PersistentStudent student = (PersistentStudent)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(studentProxiString));
+            ModuleAbstractStudentSearchList result = ((PersistentServer)this.server).lecture_Path_In_ChangeGradeforStudent(student);
+            return createOKResult(result.getVector(1, 0, false, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0);
+        }
+    }
+    
     public synchronized java.util.HashMap<?,?> modules_Path_In_AddModuleToGroup(){
         try {
             ModuleAbstractSearchList result = ((PersistentServer)this.server).modules_Path_In_AddModuleToGroup();
@@ -190,6 +202,17 @@ public  class RemoteServer extends RemoteServerMaster {
         try {
             PersistentModuleAtomar module = (PersistentModuleAtomar)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(moduleProxiString));
             ((PersistentServer)this.server).changeGradeSystem(module);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> changeGradeforStudent(String studentProxiString, String lectureProxiString, String grade){
+        try {
+            PersistentStudent student = (PersistentStudent)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(studentProxiString));
+            LectureWithGrade lecture = (LectureWithGrade)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(lectureProxiString));
+            ((PersistentServer)this.server).changeGradeforStudent(student, lecture, grade);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

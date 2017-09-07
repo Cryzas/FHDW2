@@ -208,6 +208,18 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
     public <R, E extends model.UserException> R accept(programHierarchyStudentHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleUnitStudent(this);
     }
+    public void accept(LectureWithGradeVisitor visitor) throws PersistenceException {
+        visitor.handleUnitStudent(this);
+    }
+    public <R> R accept(LectureWithGradeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleUnitStudent(this);
+    }
+    public <E extends model.UserException>  void accept(LectureWithGradeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleUnitStudent(this);
+    }
+    public <R, E extends model.UserException> R accept(LectureWithGradeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleUnitStudent(this);
+    }
     public int getLeafInfo() throws PersistenceException{
         return 0;
     }
@@ -234,9 +246,12 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
     
     // Start of section that contains operations that must be implemented.
     
-    public void changeGrade(final GradesInThird4Public grade) 
-				throws PersistenceException{
-        getThis().setGrade(grade);
+    public void changeGrade(final Grade4Public grade) 
+				throws model.InvalidGradeForSystemException, PersistenceException{
+    	if(!(grade instanceof GradesInThird4Public)){
+    		throw new InvalidGradeForSystemException(InvalidGradeForSystemMessage);
+    	}
+    	getThis().setGrade((GradesInThird4Public)grade);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -279,6 +294,8 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    static String InvalidGradeForSystemMessage = "Die Note ist nicht mit dem Notensystem des Moduls kompatibel.";
     
     /* End of protected part that is not overridden by persistence generator */
     

@@ -123,6 +123,10 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public ModuleAbstractStudentSearchList lecture_Path_In_ChangeGradeforStudent(final Student4Public student) 
+				throws model.UserException, PersistenceException{
+        return ((PersistentServer)this.getTheObject()).lecture_Path_In_ChangeGradeforStudent(student);
+    }
     public ModuleAbstractSearchList modules_Path_In_AddModuleToGroup() 
 				throws model.UserException, PersistenceException{
         return ((PersistentServer)this.getTheObject()).modules_Path_In_AddModuleToGroup();
@@ -178,6 +182,10 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
     public void changeGradeSystem(final ModuleAtomar4Public module) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).changeGradeSystem(module);
+    }
+    public void changeGradeforStudent(final Student4Public student, final LectureWithGrade lecture, final String grade) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).changeGradeforStudent(student, lecture, grade);
     }
     public void connected(final String user) 
 				throws PersistenceException{

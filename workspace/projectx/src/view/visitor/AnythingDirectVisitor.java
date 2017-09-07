@@ -179,11 +179,11 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleStudentManager(StudentManagerView studentManager) throws ModelException;
     
-    public abstract void handleStudent(StudentView student) throws ModelException;
-    
     public abstract void handleModuleManager(ModuleManagerView moduleManager) throws ModelException;
     
     public abstract void handleUnit(UnitView unit) throws ModelException;
+    
+    public abstract void handleStudent(StudentView student) throws ModelException;
     
     public abstract void handleStudyGroupManager(StudyGroupManagerView studyGroupManager) throws ModelException;
     

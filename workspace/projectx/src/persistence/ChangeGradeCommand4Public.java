@@ -3,10 +3,10 @@ package persistence;
 
 import model.visitor.*;
 
-public interface ChangeGradeOfModuleCommand4Public extends Anything, StudentManagerCommand, CommonDate4Public, AbstractPersistentProxi {
+public interface ChangeGradeCommand4Public extends Anything, StudentManagerCommand, CommonDate4Public, AbstractPersistentProxi {
     
-    public ModuleAtomarStudent4Public getModule() throws PersistenceException ;
-    public void setModule(ModuleAtomarStudent4Public newValue) throws PersistenceException ;
+    public LectureWithGrade getLecture() throws PersistenceException ;
+    public void setLecture(LectureWithGrade newValue) throws PersistenceException ;
     public String getGrade() throws PersistenceException ;
     public void setGrade(String newValue) throws PersistenceException ;
     public Invoker getInvoker() throws PersistenceException ;

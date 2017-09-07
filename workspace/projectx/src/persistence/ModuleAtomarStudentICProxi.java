@@ -68,6 +68,18 @@ public class ModuleAtomarStudentICProxi extends ModuleAbstractStudentICProxi imp
     public <R, E extends model.UserException> R accept(programHierarchyStudentHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleModuleAtomarStudent(this);
     }
+    public void accept(LectureWithGradeVisitor visitor) throws PersistenceException {
+        visitor.handleModuleAtomarStudent(this);
+    }
+    public <R> R accept(LectureWithGradeReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleModuleAtomarStudent(this);
+    }
+    public <E extends model.UserException>  void accept(LectureWithGradeExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleModuleAtomarStudent(this);
+    }
+    public <R, E extends model.UserException> R accept(LectureWithGradeReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleModuleAtomarStudent(this);
+    }
     
     
     public boolean containsprogramHierarchyStudent(final programHierarchyStudentHIERARCHY part) 
@@ -82,8 +94,8 @@ public class ModuleAtomarStudentICProxi extends ModuleAbstractStudentICProxi imp
 				throws PersistenceException{
         return ((PersistentModuleAtomarStudent)this.getTheObject()).strategyprogramHierarchyStudent(strategy);
     }
-    public void changeGrade(final GradesInSimpleOrThird4Public grade) 
-				throws PersistenceException{
+    public void changeGrade(final Grade4Public grade) 
+				throws model.InvalidGradeForSystemException, PersistenceException{
         ((PersistentModuleAtomarStudent)this.getTheObject()).changeGrade(grade);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
