@@ -253,7 +253,7 @@ interface LectureWithGrade {
 																																			/* Noten */
 
 /** Definiert das Notensystem mit den vordefinierten Notensystemarten */
-abstract class GradeSystem (ThirdGradeSystem @@ Drittelnoten, SimpleGradeSystem @@ Einfach) { }
+abstract class GradeSystem (ThirdGradeSystem, SimpleGradeSystem) { }
 
 abstract class Grade {
 	abstract Fraction toFraction() throws NoFractionValueException;

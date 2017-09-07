@@ -1595,7 +1595,7 @@ selectedLoop: for (int i = 0; i < getTree().getSelectionModel().getSelectedItems
 		if (this.cancelButton == null) {
 			this.cancelButton = new Button();
 		}
-		return this.cancelButton; //TODO Think about cancel button in collection selection browser
+		return this.cancelButton;
 	}
 }
 
