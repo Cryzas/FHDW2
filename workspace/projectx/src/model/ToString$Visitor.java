@@ -310,5 +310,9 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	public void handleNoGrade(NoGrade4Public noGrade) throws PersistenceException {
 		result = "Keine Note";
 	}
+	@Override
+	public void handleGradeChange(GradeChange4Public gradeChange) throws PersistenceException {
+		result = "Von \"" + gradeChange.getFromGrade().toString() + "\" zu \"" + gradeChange.getToGrade().toString() + "\" / Kommentar: " + gradeChange.getComment() + " / " + gradeChange.getDateOfChange().toLocalDate().toString();
+	}
 
 }

@@ -34,6 +34,12 @@ public class ChangeGradeCommandICProxi extends PersistentInCacheProxi implements
     public void setGrade(String newValue) throws PersistenceException {
         ((PersistentChangeGradeCommand)this.getTheObject()).setGrade(newValue);
     }
+    public String getComment() throws PersistenceException {
+        return ((PersistentChangeGradeCommand)this.getTheObject()).getComment();
+    }
+    public void setComment(String newValue) throws PersistenceException {
+        ((PersistentChangeGradeCommand)this.getTheObject()).setComment(newValue);
+    }
     public Invoker getInvoker() throws PersistenceException {
         return ((PersistentChangeGradeCommand)this.getTheObject()).getInvoker();
     }

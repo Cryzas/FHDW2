@@ -165,11 +165,11 @@ public class StudentManager extends PersistentObject implements PersistentStuden
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void changeGrade(final LectureWithGrade lecture, final String grade, final Invoker invoker) 
+    public void changeGrade(final LectureWithGrade lecture, final String grade, final String comment, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
 		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
-		ChangeGradeCommand4Public command = model.meta.ChangeGradeCommand.createChangeGradeCommand(grade, nw, d1170);
+		ChangeGradeCommand4Public command = model.meta.ChangeGradeCommand.createChangeGradeCommand(grade, comment, nw, d1170);
 		command.setLecture(lecture);
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
@@ -200,10 +200,10 @@ public class StudentManager extends PersistentObject implements PersistentStuden
     	student.setProgram(group.getProgram().copyForStudent());
     	group.addStudent(student);
     }
-    public void changeGrade(final LectureWithGrade lecture, final String grade) 
+    public void changeGrade(final LectureWithGrade lecture, final String grade, final String comment) 
 				throws model.InvalidGradeForSystemException, PersistenceException{
     	GradesInSimpleOrThird4Public newGrade = StringFACTORY.createObjectBySubTypeNameForGradesInSimpleOrThird(grade);
-    	lecture.changeGrade(newGrade);
+    	lecture.changeGrade(newGrade, comment);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

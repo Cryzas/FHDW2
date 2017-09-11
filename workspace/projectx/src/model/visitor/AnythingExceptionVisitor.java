@@ -19,6 +19,7 @@ public interface AnythingExceptionVisitor<E extends model.UserException> extends
     public void handleCreateProgramCommand(CreateProgramCommand4Public createProgramCommand) throws PersistenceException, E;
     public void handleCreateStudentCommand(CreateStudentCommand4Public createStudentCommand) throws PersistenceException, E;
     public void handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException, E;
+    public void handleGradeChange(GradeChange4Public gradeChange) throws PersistenceException, E;
     public void handleModuleManager(ModuleManager4Public moduleManager) throws PersistenceException, E;
     public void handleProgram(Program4Public program) throws PersistenceException, E;
     public void handleProgramManager(ProgramManager4Public programManager) throws PersistenceException, E;

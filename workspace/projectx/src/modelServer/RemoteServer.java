@@ -178,20 +178,20 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.HashMap<?,?> changeGradeOfModule(String moduleProxiString, String grade){
+    public synchronized java.util.HashMap<?,?> changeGradeOfModule(String moduleProxiString, String grade, String comment){
         try {
             PersistentModuleAtomarStudent module = (PersistentModuleAtomarStudent)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(moduleProxiString));
-            ((PersistentServer)this.server).changeGradeOfModule(module, grade);
+            ((PersistentServer)this.server).changeGradeOfModule(module, grade, comment);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
         }
     }
     
-    public synchronized java.util.HashMap<?,?> changeGradeOfUnit(String unitProxiString, String grade){
+    public synchronized java.util.HashMap<?,?> changeGradeOfUnit(String unitProxiString, String grade, String comment){
         try {
             PersistentUnitStudent unit = (PersistentUnitStudent)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(unitProxiString));
-            ((PersistentServer)this.server).changeGradeOfUnit(unit, grade);
+            ((PersistentServer)this.server).changeGradeOfUnit(unit, grade, comment);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -208,11 +208,11 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
-    public synchronized java.util.HashMap<?,?> changeGradeforStudent(String studentProxiString, String lectureProxiString, String grade){
+    public synchronized java.util.HashMap<?,?> changeGradeforStudent(String studentProxiString, String lectureProxiString, String grade, String comment){
         try {
             PersistentStudent student = (PersistentStudent)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(studentProxiString));
             LectureWithGrade lecture = (LectureWithGrade)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(lectureProxiString));
-            ((PersistentServer)this.server).changeGradeforStudent(student, lecture, grade);
+            ((PersistentServer)this.server).changeGradeforStudent(student, lecture, grade, comment);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

@@ -54,13 +54,13 @@ public interface Server4Public extends Invoker, Anything, Remote, AbstractPersis
 				throws PersistenceException;
     public void changeCPOnUnit(final Unit4Public unit, final common.Fraction creditPoints) 
 				throws PersistenceException;
-    public void changeGradeOfModule(final ModuleAtomarStudent4Public module, final String grade) 
+    public void changeGradeOfModule(final ModuleAtomarStudent4Public module, final String grade, final String comment) 
 				throws PersistenceException;
-    public void changeGradeOfUnit(final UnitStudent4Public unit, final String grade) 
+    public void changeGradeOfUnit(final UnitStudent4Public unit, final String grade, final String comment) 
 				throws PersistenceException;
     public void changeGradeSystem(final ModuleAtomar4Public module) 
 				throws PersistenceException;
-    public void changeGradeforStudent(final Student4Public student, final LectureWithGrade lecture, final String grade) 
+    public void changeGradeforStudent(final Student4Public student, final LectureWithGrade lecture, final String grade, final String comment) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;

@@ -44,6 +44,7 @@ public abstract class Server$AuthoriseVisitor extends AnythingStandardVisitor{
     public abstract void handleT_2_7(PersistentT_2_7 t_2_7) throws PersistenceException;
     public abstract void handleUnitStudent(PersistentUnitStudent unitStudent) throws PersistenceException;
     public abstract void handleModuleWithUnitsSGroup(PersistentModuleWithUnitsSGroup moduleWithUnitsSGroup) throws PersistenceException;
+    public abstract void handleGradeChange(PersistentGradeChange gradeChange) throws PersistenceException;
     public abstract void handleModuleAtomarStudent(PersistentModuleAtomarStudent moduleAtomarStudent) throws PersistenceException;
     public abstract void handleModuleWithUnits(PersistentModuleWithUnits moduleWithUnits) throws PersistenceException;
     public abstract void handleProgramStudent(PersistentProgramStudent programStudent) throws PersistenceException;

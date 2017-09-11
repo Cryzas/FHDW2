@@ -32,11 +32,11 @@ server Server {
 /* Gewähltes Notensystem ändern [Z.B. 1,0/1,3/...] -> Attribute: module, gradeSystem */
 	void changeGradeSystem @@ Notensystem_ändern (ModuleAtomar module);
 /* Note einer Unit ändern */
-	void changeGradeOfUnit @@ Note_ändern (UnitStudent unit, GradesInThirdSUBTYPEName grade);
+	void changeGradeOfUnit @@ Note_ändern (UnitStudent unit, GradesInThirdSUBTYPEName grade, String comment);
 /* Note eines atomaren Moduls ändern */
-	void changeGradeOfModule @@ Note_ändern (ModuleAtomarStudent module, GradesInSimpleOrThirdSUBTYPEName grade);
+	void changeGradeOfModule @@ Note_ändern (ModuleAtomarStudent module, GradesInSimpleOrThirdSUBTYPEName grade, String comment);
 /* Note für einen Studenten ändern */
-	void changeGradeforStudent @@ Note_eintragen (Student student, LectureWithGrade lecture {;student;program;modules}, GradesInSimpleOrThirdSUBTYPEName grade);
+	void changeGradeforStudent @@ Note_eintragen (Student student, LectureWithGrade lecture {;student;program;modules}, GradesInSimpleOrThirdSUBTYPEName grade, String comment);
 }
 
 																									/* Manager Klassen */
@@ -79,7 +79,7 @@ class StudentManager {
 /* Student zu einer Studiengruppe zuordnen -> Attribute: group, student */
 	active void addStudentToGroup ## add_S2G (StudyGroup group, Student student) throws UserException;
 /* Note einer Unit ändern */
-	active void changeGrade(LectureWithGrade lecture, GradesInSimpleOrThirdSUBTYPEName grade) throws InvalidGradeForSystemException;
+	active void changeGrade(LectureWithGrade lecture, GradesInSimpleOrThirdSUBTYPEName grade, String comment) throws InvalidGradeForSystemException;
 }
 
 																			/* Aufbau eines Studienprogramms */
@@ -231,6 +231,7 @@ class ModuleGroupStudent extends ModuleAbstractStudent {
 
 class ModuleAtomarStudent ## m_atom_stud extends ModuleAbstractStudent implements LectureWithGrade {
 	public no-view GradesInSimpleOrThird ownGrade;
+	public GradeChange ** changes;
 }
 
 class ModuleWithUnitsStudent ## m_unit_stud extends ModuleAbstractStudent {
@@ -245,10 +246,11 @@ class UnitStudent implements LectureWithGrade {
 	public no-view GradesInThird grade;
 	public no-view derived Fraction CPmulGrade;
 	public no-view derived Fraction CPwithGrade;
+	public GradeChange ** changes;
 }
 
 interface LectureWithGrade {
-	abstract void changeGrade(Grade grade) throws InvalidGradeForSystemException;
+	void changeGrade(Grade grade, String comment) throws InvalidGradeForSystemException;
 }
 																																			/* Noten */
 
@@ -266,6 +268,13 @@ abstract string-factory class GradesInSimple (Passed @@ Bestanden, NotPassed @@ 
 abstract string-factory class GradesInThird (T_1_0 @@ 1.0, T_1_3 @@ 1.3, T_1_7 @@ 1.7, T_2_0 @@ 2.0, T_2_3 @@ 2.3, T_2_7 @@ 2.7, T_3_0 @@ 3.0, T_3_3 @@ 3.3, T_3_7 @@ 3.7, T_4_0 @@ 4.0, T_5_0 @@ 5.0, NoGrade @@ Keine_Note) extends GradesInSimpleOrThird { }
 
 abstract class GradesInTenth ( Z_1_0 @@ 1.0, Z_1_1 @@ 1.1, Z_1_2 @@ 1.2, Z_1_3 @@ 1.3, Z_1_4 @@ 1.4, Z_1_5 @@ 1.5, Z_1_6 @@ 1.6, Z_1_7 @@ 1.7, Z_1_8 @@ 1.8, Z_1_9 @@ 1.9, Z_2_0 @@ 2.0, Z_2_1 @@ 2.1, Z_2_2 @@ 2.2, Z_2_3 @@ 2.3, Z_2_4 @@ 2.4, Z_2_5 @@ 2.5, Z_2_6 @@ 2.6, Z_2_7 @@ 2.7, Z_2_8 @@ 2.8, Z_2_9 @@ 2.9, Z_3_0 @@ 3.0, Z_3_1 @@ 3.1, Z_3_2 @@ 3.2, Z_3_3 @@ 3.3, Z_3_4 @@ 3.4, Z_3_5 @@ 3.5, Z_3_6 @@ 3.6, Z_3_7 @@ 3.7, Z_3_8 @@ 3.8, Z_3_9 @@ 3.9, Z_4_0 @@ 4.0, Z_5_0 @@ 5.0) extends Grade {
+}
+
+class GradeChange { 
+	public prior no-view Grade fromGrade;
+	public prior no-view Grade toGrade;
+	public no-view Date dateOfChange;
+	public prior no-view String comment;
 }
 
 																												/* Exceptions */

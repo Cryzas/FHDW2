@@ -11,6 +11,7 @@ public class ModuleAtomarStudentProxi extends ModuleAbstractStudentProxi impleme
         super(objectId, classId, connectionKey);
     }
     
+    @SuppressWarnings("unchecked")
     public ModuleAtomarStudentView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         ViewProxi moduleCopy = null;
         String moduleCopy$String = (String)resultTable.get("moduleCopy");
@@ -37,7 +38,9 @@ public class ModuleAtomarStudentProxi extends ModuleAbstractStudentProxi impleme
             ownGrade = view.objects.ViewProxi.createProxi(ownGrade$Info,connectionKey);
             ownGrade.setToString(ownGrade$Info.getToString());
         }
-        ModuleAtomarStudentView result$$ = new ModuleAtomarStudent((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradeView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,(GradesInSimpleOrThirdView)ownGrade, this.getId(), this.getClassId());
+        java.util.Vector<String> changes_string = (java.util.Vector<String>)resultTable.get("changes");
+        java.util.Vector<GradeChangeView> changes = ViewProxi.getProxiVector(changes_string, connectionKey);
+        ModuleAtomarStudentView result$$ = new ModuleAtomarStudent((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradeView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,(GradesInSimpleOrThirdView)ownGrade,changes, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -46,17 +49,27 @@ public class ModuleAtomarStudentProxi extends ModuleAbstractStudentProxi impleme
         return RemoteDepth;
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        
+        int index = originalIndex;
+        if(index < this.getChanges().size()) return new ChangesModuleAtomarStudentWrapper(this, originalIndex, (ViewRoot)this.getChanges().get(index));
+        index = index - this.getChanges().size();
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 ;
+        return 0 
+            + (this.getChanges().size());
     }
     public boolean isLeaf() throws ModelException {
-        return true;
+        if (this.object == null) return this.getLeafInfo() == 0;
+        return true 
+            && (this.getChanges().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        
+        int result = 0;
+        java.util.Iterator<?> getChangesIterator = this.getChanges().iterator();
+        while(getChangesIterator.hasNext()){
+            if(getChangesIterator.next().equals(child)) return result;
+            result = result + 1;
+        }
         return -1;
     }
     
@@ -65,6 +78,12 @@ public class ModuleAtomarStudentProxi extends ModuleAbstractStudentProxi impleme
     }
     public void setOwnGrade(GradesInSimpleOrThirdView newValue) throws ModelException {
         ((ModuleAtomarStudent)this.getTheObject()).setOwnGrade(newValue);
+    }
+    public java.util.Vector<GradeChangeView> getChanges()throws ModelException{
+        return ((ModuleAtomarStudent)this.getTheObject()).getChanges();
+    }
+    public void setChanges(java.util.Vector<GradeChangeView> newValue) throws ModelException {
+        ((ModuleAtomarStudent)this.getTheObject()).setChanges(newValue);
     }
     
     public void accept(ModuleAbstractStudentVisitor visitor) throws ModelException {

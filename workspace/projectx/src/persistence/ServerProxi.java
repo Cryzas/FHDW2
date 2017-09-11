@@ -171,21 +171,21 @@ public class ServerProxi extends PersistentProxi implements PersistentServer{
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).changeCPOnUnit(unit, creditPoints);
     }
-    public void changeGradeOfModule(final ModuleAtomarStudent4Public module, final String grade) 
+    public void changeGradeOfModule(final ModuleAtomarStudent4Public module, final String grade, final String comment) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).changeGradeOfModule(module, grade);
+        ((PersistentServer)this.getTheObject()).changeGradeOfModule(module, grade, comment);
     }
-    public void changeGradeOfUnit(final UnitStudent4Public unit, final String grade) 
+    public void changeGradeOfUnit(final UnitStudent4Public unit, final String grade, final String comment) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).changeGradeOfUnit(unit, grade);
+        ((PersistentServer)this.getTheObject()).changeGradeOfUnit(unit, grade, comment);
     }
     public void changeGradeSystem(final ModuleAtomar4Public module) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).changeGradeSystem(module);
     }
-    public void changeGradeforStudent(final Student4Public student, final LectureWithGrade lecture, final String grade) 
+    public void changeGradeforStudent(final Student4Public student, final LectureWithGrade lecture, final String grade, final String comment) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).changeGradeforStudent(student, lecture, grade);
+        ((PersistentServer)this.getTheObject()).changeGradeforStudent(student, lecture, grade, comment);
     }
     public void connected(final String user) 
 				throws PersistenceException{

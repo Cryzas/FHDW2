@@ -7,7 +7,7 @@ import model.visitor.*;
 public interface LectureWithGrade extends AbstractPersistentProxi {
     
     
-    public void changeGrade(final Grade4Public grade) 
+    public void changeGrade(final Grade4Public grade, final String comment) 
 				throws model.InvalidGradeForSystemException, PersistenceException;
 
     public void accept(LectureWithGradeVisitor visitor) throws PersistenceException;

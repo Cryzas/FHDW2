@@ -19,6 +19,7 @@ public interface AnythingReturnVisitor<R> extends CommonDateReturnVisitor<R> ,Gr
     public R handleCreateProgramCommand(CreateProgramCommand4Public createProgramCommand) throws PersistenceException;
     public R handleCreateStudentCommand(CreateStudentCommand4Public createStudentCommand) throws PersistenceException;
     public R handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException;
+    public R handleGradeChange(GradeChange4Public gradeChange) throws PersistenceException;
     public R handleModuleManager(ModuleManager4Public moduleManager) throws PersistenceException;
     public R handleProgram(Program4Public program) throws PersistenceException;
     public R handleProgramManager(ProgramManager4Public programManager) throws PersistenceException;

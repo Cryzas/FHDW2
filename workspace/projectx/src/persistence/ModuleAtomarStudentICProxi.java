@@ -28,6 +28,9 @@ public class ModuleAtomarStudentICProxi extends ModuleAbstractStudentICProxi imp
     public void setOwnGrade(GradesInSimpleOrThird4Public newValue) throws PersistenceException {
         ((PersistentModuleAtomarStudent)this.getTheObject()).setOwnGrade(newValue);
     }
+    public ModuleAtomarStudent_ChangesProxi getChanges() throws PersistenceException {
+        return ((PersistentModuleAtomarStudent)this.getTheObject()).getChanges();
+    }
     public PersistentModuleAtomarStudent getThis() throws PersistenceException {
         return ((PersistentModuleAtomarStudent)this.getTheObject()).getThis();
     }
@@ -94,9 +97,9 @@ public class ModuleAtomarStudentICProxi extends ModuleAbstractStudentICProxi imp
 				throws PersistenceException{
         return ((PersistentModuleAtomarStudent)this.getTheObject()).strategyprogramHierarchyStudent(strategy);
     }
-    public void changeGrade(final Grade4Public grade) 
+    public void changeGrade(final Grade4Public grade, final String comment) 
 				throws model.InvalidGradeForSystemException, PersistenceException{
-        ((PersistentModuleAtomarStudent)this.getTheObject()).changeGrade(grade);
+        ((PersistentModuleAtomarStudent)this.getTheObject()).changeGrade(grade, comment);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

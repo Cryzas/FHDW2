@@ -289,6 +289,7 @@ public class Cache {
 		this.number2NameMap.put(155, "CreateProgramCommand");
 		this.number2NameMap.put(200, "CreateStudentCommand");
 		this.number2NameMap.put(-144, "ErrorDisplay");
+		this.number2NameMap.put(276, "GradeChange");
 		this.number2NameMap.put(153, "ModuleAtomar");
 		this.number2NameMap.put(179, "ModuleAtomarSGroup");
 		this.number2NameMap.put(191, "ModuleAtomarStudent");

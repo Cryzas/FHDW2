@@ -125,6 +125,52 @@ public class UnitStudentFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
+    public long changesAdd(long UnitStudentId, GradeChange4Public changesVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".UntStdntFacade.chngsAdd(?, ?, ?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
+            callable.setLong(2, UnitStudentId);
+            callable.setLong(3, changesVal.getId());
+            callable.setLong(4, changesVal.getClassId());
+            callable.execute();
+            long result = callable.getLong(1);
+            callable.close();
+            return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void changesRem(long changesId) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".UntStdntFacade.chngsRem(?); end;");
+            callable.setLong(1, changesId);
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public GradeChangeList changesGet(long UnitStudentId) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".UntStdntFacade.chngsGet(?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            callable.setLong(2, UnitStudentId);
+            callable.execute();
+            ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
+            GradeChangeList result = new GradeChangeList();
+            while (list.next()) {
+                result.add((PersistentGradeChange)PersistentProxi.createListEntryProxi(list.getLong(1), list.getLong(2), list.getLong(3)));
+            }
+            list.close();
+            callable.close();
+            return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
     public void ThisSet(long UnitStudentId, UnitStudent4Public ThisVal) throws PersistenceException {
         try{
             CallableStatement callable;

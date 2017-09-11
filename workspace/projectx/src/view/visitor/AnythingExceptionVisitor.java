@@ -5,6 +5,7 @@ import view.*;
 public interface AnythingExceptionVisitor<E extends view.UserException> extends GradeExceptionVisitor<E>,GradeSystemExceptionVisitor<E>,ModuleAbstractExceptionVisitor<E>,ModuleAbstractSGroupExceptionVisitor<E>,ModuleAbstractStudentExceptionVisitor<E>{
     
     public void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException, E;
+    public void handleGradeChange(GradeChangeView gradeChange) throws ModelException, E;
     public void handleModuleManager(ModuleManagerView moduleManager) throws ModelException, E;
     public void handleProgram(ProgramView program) throws ModelException, E;
     public void handleProgramManager(ProgramManagerView programManager) throws ModelException, E;

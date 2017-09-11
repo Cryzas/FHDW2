@@ -9,6 +9,8 @@ public interface ChangeGradeCommand4Public extends Anything, StudentManagerComma
     public void setLecture(LectureWithGrade newValue) throws PersistenceException ;
     public String getGrade() throws PersistenceException ;
     public void setGrade(String newValue) throws PersistenceException ;
+    public String getComment() throws PersistenceException ;
+    public void setComment(String newValue) throws PersistenceException ;
     public Invoker getInvoker() throws PersistenceException ;
     public void setInvoker(Invoker newValue) throws PersistenceException ;
     public StudentManager4Public getCommandReceiver() throws PersistenceException ;

@@ -179,13 +179,15 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleStudentManager(StudentManager4Public studentManager) throws PersistenceException;
     
+    public abstract void handleStudent(Student4Public student) throws PersistenceException;
+    
     public abstract void handleModuleManager(ModuleManager4Public moduleManager) throws PersistenceException;
     
     public abstract void handleUnit(Unit4Public unit) throws PersistenceException;
     
-    public abstract void handleStudent(Student4Public student) throws PersistenceException;
-    
     public abstract void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException;
+    
+    public abstract void handleGradeChange(GradeChange4Public gradeChange) throws PersistenceException;
     
     public abstract void handleStudyGroupManager(StudyGroupManager4Public studyGroupManager) throws PersistenceException;
     
@@ -231,11 +233,11 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleSwapCPonModuleWithUnitsCommand(SwapCPonModuleWithUnitsCommand4Public swapCPonModuleWithUnitsCommand) throws PersistenceException{
         this.handleCommonDate(swapCPonModuleWithUnitsCommand);
     }
-    public void handleStartStudyGroupCommand(StartStudyGroupCommand4Public startStudyGroupCommand) throws PersistenceException{
-        this.handleCommonDate(startStudyGroupCommand);
-    }
     public void handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException{
         this.handleCommonDate(changeCPOnUnitCommand);
+    }
+    public void handleStartStudyGroupCommand(StartStudyGroupCommand4Public startStudyGroupCommand) throws PersistenceException{
+        this.handleCommonDate(startStudyGroupCommand);
     }
     public void handleCreateModuleCommand(CreateModuleCommand4Public createModuleCommand) throws PersistenceException{
         this.handleCommonDate(createModuleCommand);

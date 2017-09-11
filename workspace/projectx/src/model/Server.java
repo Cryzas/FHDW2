@@ -434,21 +434,21 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
     	getThis().getModuleManager().changeCPOnUnit(unit, creditPoints, getThis());
     }
-    public void changeGradeOfModule(final ModuleAtomarStudent4Public module, final String grade) 
+    public void changeGradeOfModule(final ModuleAtomarStudent4Public module, final String grade, final String comment) 
 				throws PersistenceException{
-    	getThis().getStudentManager().changeGrade(module, grade, getThis());
+    	getThis().getStudentManager().changeGrade(module, grade, comment, getThis());
     }
-    public void changeGradeOfUnit(final UnitStudent4Public unit, final String grade) 
+    public void changeGradeOfUnit(final UnitStudent4Public unit, final String grade, final String comment) 
 				throws PersistenceException{
-    	getThis().getStudentManager().changeGrade(unit, grade, getThis());
+    	getThis().getStudentManager().changeGrade(unit, grade, comment, getThis());
     }
     public void changeGradeSystem(final ModuleAtomar4Public module) 
 				throws PersistenceException{
     	getThis().getModuleManager().changeGradeSystem(module, getThis());
     }
-    public void changeGradeforStudent(final Student4Public student, final LectureWithGrade lecture, final String grade) 
+    public void changeGradeforStudent(final Student4Public student, final LectureWithGrade lecture, final String grade, final String comment) 
 				throws PersistenceException{
-    	getThis().getStudentManager().changeGrade(lecture, grade, getThis());
+    	getThis().getStudentManager().changeGrade(lecture, grade, comment, getThis());
     }
     public void connected(final String user) 
 				throws PersistenceException{

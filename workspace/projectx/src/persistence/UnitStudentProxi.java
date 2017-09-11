@@ -30,6 +30,9 @@ public class UnitStudentProxi extends PersistentProxi implements PersistentUnitS
     public void setGrade(GradesInThird4Public newValue) throws PersistenceException {
         ((PersistentUnitStudent)this.getTheObject()).setGrade(newValue);
     }
+    public UnitStudent_ChangesProxi getChanges() throws PersistenceException {
+        return ((PersistentUnitStudent)this.getTheObject()).getChanges();
+    }
     public PersistentUnitStudent getThis() throws PersistenceException {
         return ((PersistentUnitStudent)this.getTheObject()).getThis();
     }
@@ -84,9 +87,9 @@ public class UnitStudentProxi extends PersistentProxi implements PersistentUnitS
 				throws PersistenceException{
         return ((PersistentUnitStudent)this.getTheObject()).strategyprogramHierarchyStudent(strategy);
     }
-    public void changeGrade(final Grade4Public grade) 
+    public void changeGrade(final Grade4Public grade, final String comment) 
 				throws model.InvalidGradeForSystemException, PersistenceException{
-        ((PersistentUnitStudent)this.getTheObject()).changeGrade(grade);
+        ((PersistentUnitStudent)this.getTheObject()).changeGrade(grade, comment);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

@@ -16,17 +16,18 @@ public class ChangeGradeCommandFacade{
 	}
 
     /* If idCreateIfLessZero is negative, a new id is generated. */
-    public PersistentChangeGradeCommand newChangeGradeCommand(String grade,long idCreateIfLessZero) throws PersistenceException {
+    public PersistentChangeGradeCommand newChangeGradeCommand(String grade,String comment,long idCreateIfLessZero) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
-            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".ChngGrdCMDFacade.newChngGrdCMD(?,?); end;");
+            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".ChngGrdCMDFacade.newChngGrdCMD(?,?,?); end;");
             callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
             callable.setString(2, grade);
-            callable.setLong(3, idCreateIfLessZero);
+            callable.setString(3, comment);
+            callable.setLong(4, idCreateIfLessZero);
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ChangeGradeCommand result = new ChangeGradeCommand(null,grade,null,null,null,id);
+            ChangeGradeCommand result = new ChangeGradeCommand(null,grade,comment,null,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentChangeGradeCommand)PersistentProxi.createProxi(id, 275);
         }catch(SQLException se) {
@@ -34,7 +35,7 @@ public class ChangeGradeCommandFacade{
         }
     }
     
-    public PersistentChangeGradeCommand newDelayedChangeGradeCommand(String grade) throws PersistenceException {
+    public PersistentChangeGradeCommand newDelayedChangeGradeCommand(String grade,String comment) throws PersistenceException {
         oracle.jdbc.OracleCallableStatement callable;
         try{
             callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".ChngGrdCMDFacade.newDelayedChngGrdCMD(); end;");
@@ -42,7 +43,7 @@ public class ChangeGradeCommandFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ChangeGradeCommand result = new ChangeGradeCommand(null,grade,null,null,null,id);
+            ChangeGradeCommand result = new ChangeGradeCommand(null,grade,comment,null,null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentChangeGradeCommand)PersistentProxi.createProxi(id, 275);
         }catch(SQLException se) {
@@ -67,16 +68,17 @@ public class ChangeGradeCommandFacade{
             if (obj.getLong(2) != 0)
                 lecture = (LectureWithGrade)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
             Invoker invoker = null;
-            if (obj.getLong(5) != 0)
-                invoker = (Invoker)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
+            if (obj.getLong(6) != 0)
+                invoker = (Invoker)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
             PersistentStudentManager commandReceiver = null;
-            if (obj.getLong(7) != 0)
-                commandReceiver = (PersistentStudentManager)PersistentProxi.createProxi(obj.getLong(7), obj.getLong(8));
+            if (obj.getLong(8) != 0)
+                commandReceiver = (PersistentStudentManager)PersistentProxi.createProxi(obj.getLong(8), obj.getLong(9));
             PersistentCommonDate myCommonDate = null;
-            if (obj.getLong(9) != 0)
-                myCommonDate = (PersistentCommonDate)PersistentProxi.createProxi(obj.getLong(9), obj.getLong(10));
+            if (obj.getLong(10) != 0)
+                myCommonDate = (PersistentCommonDate)PersistentProxi.createProxi(obj.getLong(10), obj.getLong(11));
             ChangeGradeCommand result = new ChangeGradeCommand(lecture,
                                                                obj.getString(4) == null ? "" : obj.getString(4) /* In Oracle "" = null !!! */,
+                                                               obj.getString(5) == null ? "" : obj.getString(5) /* In Oracle "" = null !!! */,
                                                                invoker,
                                                                commandReceiver,
                                                                myCommonDate,
@@ -123,6 +125,18 @@ public class ChangeGradeCommandFacade{
             callable = this.con.prepareCall("Begin " + this.schemaName + ".ChngGrdCMDFacade.grdSet(?, ?); end;");
             callable.setLong(1, ChangeGradeCommandId);
             callable.setString(2, gradeVal);
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void commentSet(long ChangeGradeCommandId, String commentVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".ChngGrdCMDFacade.cmmntSet(?, ?); end;");
+            callable.setLong(1, ChangeGradeCommandId);
+            callable.setString(2, commentVal);
             callable.execute();
             callable.close();
         }catch(SQLException se) {

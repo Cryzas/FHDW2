@@ -19,6 +19,7 @@ public interface AnythingReturnExceptionVisitor<R, E extends model.UserException
     public R handleCreateProgramCommand(CreateProgramCommand4Public createProgramCommand) throws PersistenceException, E;
     public R handleCreateStudentCommand(CreateStudentCommand4Public createStudentCommand) throws PersistenceException, E;
     public R handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException, E;
+    public R handleGradeChange(GradeChange4Public gradeChange) throws PersistenceException, E;
     public R handleModuleManager(ModuleManager4Public moduleManager) throws PersistenceException, E;
     public R handleProgram(Program4Public program) throws PersistenceException, E;
     public R handleProgramManager(ProgramManager4Public programManager) throws PersistenceException, E;

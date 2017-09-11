@@ -19,6 +19,7 @@ public interface AnythingVisitor extends CommonDateVisitor,GradeVisitor,GradeSys
     public void handleCreateProgramCommand(CreateProgramCommand4Public createProgramCommand) throws PersistenceException;
     public void handleCreateStudentCommand(CreateStudentCommand4Public createStudentCommand) throws PersistenceException;
     public void handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException;
+    public void handleGradeChange(GradeChange4Public gradeChange) throws PersistenceException;
     public void handleModuleManager(ModuleManager4Public moduleManager) throws PersistenceException;
     public void handleProgram(Program4Public program) throws PersistenceException;
     public void handleProgramManager(ProgramManager4Public programManager) throws PersistenceException;

@@ -15,20 +15,21 @@ public class ChangeGradeCommand extends PersistentObject implements PersistentCh
         return (ChangeGradeCommand4Public)PersistentProxi.createProxi(objectId, classId);
     }
     
-    public static ChangeGradeCommand4Public createChangeGradeCommand(String grade,java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
-        return createChangeGradeCommand(grade,createDate,commitDate,false);
+    public static ChangeGradeCommand4Public createChangeGradeCommand(String grade,String comment,java.sql.Date createDate,java.sql.Date commitDate) throws PersistenceException{
+        return createChangeGradeCommand(grade,comment,createDate,commitDate,false);
     }
     
-    public static ChangeGradeCommand4Public createChangeGradeCommand(String grade,java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
+    public static ChangeGradeCommand4Public createChangeGradeCommand(String grade,String comment,java.sql.Date createDate,java.sql.Date commitDate,boolean delayed$Persistence) throws PersistenceException {
         if (grade == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+        if (comment == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         PersistentChangeGradeCommand result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theChangeGradeCommandFacade
-                .newDelayedChangeGradeCommand(grade);
+                .newDelayedChangeGradeCommand(grade,comment);
             result.setDelayed$Persistence(true);
         }else{
             result = ConnectionHandler.getTheConnectionHandler().theChangeGradeCommandFacade
-                .newChangeGradeCommand(grade,-1);
+                .newChangeGradeCommand(grade,comment,-1);
         }
         ((PersistentChangeGradeCommand)result).setMyCommonDate((PersistentCommonDate)CommonDate.createCommonDate(createDate, createDate));
         return result;
@@ -39,17 +40,19 @@ public class ChangeGradeCommand extends PersistentObject implements PersistentCh
     }
     protected LectureWithGrade lecture;
     protected String grade;
+    protected String comment;
     protected Invoker invoker;
     protected PersistentStudentManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public ChangeGradeCommand(LectureWithGrade lecture,String grade,Invoker invoker,PersistentStudentManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
+    public ChangeGradeCommand(LectureWithGrade lecture,String grade,String comment,Invoker invoker,PersistentStudentManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.lecture = lecture;
         this.grade = grade;
+        this.comment = comment;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
         this.myCommonDate = myCommonDate;        
@@ -66,7 +69,7 @@ public class ChangeGradeCommand extends PersistentObject implements PersistentCh
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         if (this.getClassId() == 275) ConnectionHandler.getTheConnectionHandler().theChangeGradeCommandFacade
-            .newChangeGradeCommand(grade,this.getId());
+            .newChangeGradeCommand(grade,comment,this.getId());
         super.store();
         if(this.getLecture() != null){
             this.getLecture().store();
@@ -108,6 +111,14 @@ public class ChangeGradeCommand extends PersistentObject implements PersistentCh
         if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theChangeGradeCommandFacade.gradeSet(this.getId(), newValue);
         this.grade = newValue;
+    }
+    public String getComment() throws PersistenceException {
+        return this.comment;
+    }
+    public void setComment(String newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null not allowed for persistent strings, since null = \"\" in Oracle!", 0);
+        if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theChangeGradeCommandFacade.commentSet(this.getId(), newValue);
+        this.comment = newValue;
     }
     public Invoker getInvoker() throws PersistenceException {
         return this.invoker;
@@ -234,7 +245,7 @@ public class ChangeGradeCommand extends PersistentObject implements PersistentCh
     public void execute() 
 				throws PersistenceException{
         try{
-			this.commandReceiver.changeGrade(this.getLecture(), this.getGrade());
+			this.commandReceiver.changeGrade(this.getLecture(), this.getGrade(), this.getComment());
 		}
 		catch(model.InvalidGradeForSystemException e){
 			this.commandException = e;

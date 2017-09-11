@@ -23,20 +23,20 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleModuleAtomarSGroup(ModuleAtomarSGroupView moduleAtomarSGroup) throws ModelException{
         this.standardHandling(moduleAtomarSGroup);
     }
+    public void handleModuleAtomar(ModuleAtomarView moduleAtomar) throws ModelException{
+        this.standardHandling(moduleAtomar);
+    }
     public void handleT_3_7(T_3_7View t_3_7) throws ModelException{
         this.standardHandling(t_3_7);
     }
-    public void handleModuleAtomar(ModuleAtomarView moduleAtomar) throws ModelException{
-        this.standardHandling(moduleAtomar);
+    public void handleModuleGroup(ModuleGroupView moduleGroup) throws ModelException{
+        this.standardHandling(moduleGroup);
     }
     public void handleModuleManager(ModuleManagerView moduleManager) throws ModelException{
         this.standardHandling(moduleManager);
     }
     public void handleUnit(UnitView unit) throws ModelException{
         this.standardHandling(unit);
-    }
-    public void handleModuleGroup(ModuleGroupView moduleGroup) throws ModelException{
-        this.standardHandling(moduleGroup);
     }
     public void handleThirdGradeSystem(ThirdGradeSystemView thirdGradeSystem) throws ModelException{
         this.standardHandling(thirdGradeSystem);
@@ -122,17 +122,20 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleModuleWithUnitsSGroup(ModuleWithUnitsSGroupView moduleWithUnitsSGroup) throws ModelException{
         this.standardHandling(moduleWithUnitsSGroup);
     }
+    public void handleGradeChange(GradeChangeView gradeChange) throws ModelException{
+        this.standardHandling(gradeChange);
+    }
     public void handleModuleAtomarStudent(ModuleAtomarStudentView moduleAtomarStudent) throws ModelException{
         this.standardHandling(moduleAtomarStudent);
-    }
-    public void handleNoGrade(NoGradeView noGrade) throws ModelException{
-        this.standardHandling(noGrade);
     }
     public void handleModuleWithUnits(ModuleWithUnitsView moduleWithUnits) throws ModelException{
         this.standardHandling(moduleWithUnits);
     }
     public void handleProgramStudent(ProgramStudentView programStudent) throws ModelException{
         this.standardHandling(programStudent);
+    }
+    public void handleNoGrade(NoGradeView noGrade) throws ModelException{
+        this.standardHandling(noGrade);
     }
     public void handleNotPassed(NotPassedView notPassed) throws ModelException{
         this.standardHandling(notPassed);
@@ -164,14 +167,14 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleZ_1_5(Z_1_5View z_1_5) throws ModelException{
         this.standardHandling(z_1_5);
     }
+    public void handleModuleWithUnitsStudent(ModuleWithUnitsStudentView moduleWithUnitsStudent) throws ModelException{
+        this.standardHandling(moduleWithUnitsStudent);
+    }
     public void handleZ_3_4(Z_3_4View z_3_4) throws ModelException{
         this.standardHandling(z_3_4);
     }
     public void handleZ_1_6(Z_1_6View z_1_6) throws ModelException{
         this.standardHandling(z_1_6);
-    }
-    public void handleModuleWithUnitsStudent(ModuleWithUnitsStudentView moduleWithUnitsStudent) throws ModelException{
-        this.standardHandling(moduleWithUnitsStudent);
     }
     public void handleZ_3_5(Z_3_5View z_3_5) throws ModelException{
         this.standardHandling(z_3_5);

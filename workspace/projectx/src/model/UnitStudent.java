@@ -76,6 +76,7 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
             }
             result.put("CPmulGrade", this.getCPmulGrade().toString());
             result.put("CPwithGrade", this.getCPwithGrade().toString());
+            result.put("changes", this.getChanges().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, false, false));
         }
         return result;
     }
@@ -95,6 +96,7 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
     }
     protected PersistentUnitSGroup unitCopy;
     protected PersistentGradesInThird grade;
+    protected UnitStudent_ChangesProxi changes;
     protected PersistentUnitStudent This;
     
     public UnitStudent(PersistentUnitSGroup unitCopy,PersistentGradesInThird grade,PersistentUnitStudent This,long id) throws PersistenceException {
@@ -102,6 +104,7 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
         super(id);
         this.unitCopy = unitCopy;
         this.grade = grade;
+        this.changes = new UnitStudent_ChangesProxi(this);
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -126,6 +129,7 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
             this.getGrade().store();
             ConnectionHandler.getTheConnectionHandler().theUnitStudentFacade.gradeSet(this.getId(), getGrade());
         }
+        this.getChanges().store();
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theUnitStudentFacade.ThisSet(this.getId(), getThis());
@@ -160,6 +164,9 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theUnitStudentFacade.gradeSet(this.getId(), newValue);
         }
+    }
+    public UnitStudent_ChangesProxi getChanges() throws PersistenceException {
+        return this.changes;
     }
     protected void setThis(PersistentUnitStudent newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -221,6 +228,7 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
          return visitor.handleUnitStudent(this);
     }
     public int getLeafInfo() throws PersistenceException{
+        if (this.getChanges().getLength() > 0) return 1;
         return 0;
     }
     
@@ -246,11 +254,12 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
     
     // Start of section that contains operations that must be implemented.
     
-    public void changeGrade(final Grade4Public grade) 
+    public void changeGrade(final Grade4Public grade, final String comment) 
 				throws model.InvalidGradeForSystemException, PersistenceException{
     	if(!(grade instanceof GradesInThird4Public)){
     		throw new InvalidGradeForSystemException(InvalidGradeForSystemMessage);
     	}
+    	getThis().getChanges().add(GradeChange.createGradeChange(getThis().getGrade(), grade, comment));
     	getThis().setGrade((GradesInThird4Public)grade);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 

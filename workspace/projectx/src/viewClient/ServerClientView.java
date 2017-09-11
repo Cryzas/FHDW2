@@ -324,9 +324,9 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         ImageView handle(CreateModulePRMTRModuleAbstractSUBTYPENamePRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(AddModuleToGroupPRMTRModuleGroupPRMTRModuleAbstractLSTPRMTRMenuItem menuItem);
         ImageView handle(AddModuleToProgPRMTRProgramPRMTRModuleAbstractLSTPRMTRMenuItem menuItem);
-        ImageView handle(ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRMenuItem menuItem);
-        ImageView handle(ChangeGradeOfModulePRMTRModuleAtomarStudentPRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRMenuItem menuItem);
-        ImageView handle(ChangeGradeOfUnitPRMTRUnitStudentPRMTRGradesInThirdSUBTYPENamePRMTRMenuItem menuItem);
+        ImageView handle(ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(ChangeGradeOfModulePRMTRModuleAtomarStudentPRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(ChangeGradeOfUnitPRMTRUnitStudentPRMTRGradesInThirdSUBTYPENamePRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(ChangeGradeSystemPRMTRModuleAtomarPRMTRMenuItem menuItem);
         ImageView handle(CreateProgramPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(CreateStudentPRMTRStudyGroupPRMTRStringPRMTRStringPRMTRDatePRMTRMenuItem menuItem);
@@ -375,17 +375,17 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
             return visitor.handle(this);
         }
     }
-    private class ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRMenuItem extends ServerMenuItem{
+    private class ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
     }
-    private class ChangeGradeOfModulePRMTRModuleAtomarStudentPRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRMenuItem extends ServerMenuItem{
+    private class ChangeGradeOfModulePRMTRModuleAtomarStudentPRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
     }
-    private class ChangeGradeOfUnitPRMTRUnitStudentPRMTRGradesInThirdSUBTYPENamePRMTRMenuItem extends ServerMenuItem{
+    private class ChangeGradeOfUnitPRMTRUnitStudentPRMTRGradesInThirdSUBTYPENamePRMTRStringPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -565,11 +565,11 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                 result.getItems().add(item);
             }
             if (selected instanceof ModuleAtomarStudentView){
-                item = new ChangeGradeOfModulePRMTRModuleAtomarStudentPRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRMenuItem();
+                item = new ChangeGradeOfModulePRMTRModuleAtomarStudentPRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem();
                 item.setText("Note ändern ... ");
                 item.setOnAction(new EventHandler<ActionEvent>(){
                     public void handle(javafx.event.ActionEvent e) {
-                        final ServerChangeGradeOfModuleModuleAtomarStudentGradesInSimpleOrThirdSUBTYPENameMssgWizard wizard = new ServerChangeGradeOfModuleModuleAtomarStudentGradesInSimpleOrThirdSUBTYPENameMssgWizard("Note ändern");
+                        final ServerChangeGradeOfModuleModuleAtomarStudentGradesInSimpleOrThirdSUBTYPENameStringMssgWizard wizard = new ServerChangeGradeOfModuleModuleAtomarStudentGradesInSimpleOrThirdSUBTYPENameStringMssgWizard("Note ändern");
                         wizard.setFirstArgument((ModuleAtomarStudentView)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.setX( getPointForView().getX());
@@ -580,11 +580,11 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                 result.getItems().add(item);
             }
             if (selected instanceof UnitStudentView){
-                item = new ChangeGradeOfUnitPRMTRUnitStudentPRMTRGradesInThirdSUBTYPENamePRMTRMenuItem();
+                item = new ChangeGradeOfUnitPRMTRUnitStudentPRMTRGradesInThirdSUBTYPENamePRMTRStringPRMTRMenuItem();
                 item.setText("Note ändern ... ");
                 item.setOnAction(new EventHandler<ActionEvent>(){
                     public void handle(javafx.event.ActionEvent e) {
-                        final ServerChangeGradeOfUnitUnitStudentGradesInThirdSUBTYPENameMssgWizard wizard = new ServerChangeGradeOfUnitUnitStudentGradesInThirdSUBTYPENameMssgWizard("Note ändern");
+                        final ServerChangeGradeOfUnitUnitStudentGradesInThirdSUBTYPENameStringMssgWizard wizard = new ServerChangeGradeOfUnitUnitStudentGradesInThirdSUBTYPENameStringMssgWizard("Note ändern");
                         wizard.setFirstArgument((UnitStudentView)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.setX( getPointForView().getX());
@@ -678,11 +678,11 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                 result.getItems().add(item);
             }
             if (selected instanceof StudentView){
-                item = new ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRMenuItem();
+                item = new ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem();
                 item.setText("Note eintragen ... ");
                 item.setOnAction(new EventHandler<ActionEvent>(){
                     public void handle(javafx.event.ActionEvent e) {
-                        final ServerChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameMssgWizard wizard = new ServerChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameMssgWizard("Note eintragen");
+                        final ServerChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameStringMssgWizard wizard = new ServerChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameStringMssgWizard("Note eintragen");
                         wizard.setFirstArgument((StudentView)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.setX( getPointForView().getX());
@@ -1089,21 +1089,22 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 		
 	}
 
-	class ServerChangeGradeOfModuleModuleAtomarStudentGradesInSimpleOrThirdSUBTYPENameMssgWizard extends Wizard {
+	class ServerChangeGradeOfModuleModuleAtomarStudentGradesInSimpleOrThirdSUBTYPENameStringMssgWizard extends Wizard {
 
-		protected ServerChangeGradeOfModuleModuleAtomarStudentGradesInSimpleOrThirdSUBTYPENameMssgWizard(String operationName){
+		protected ServerChangeGradeOfModuleModuleAtomarStudentGradesInSimpleOrThirdSUBTYPENameStringMssgWizard(String operationName){
 			super(ServerClientView.this);
 			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new ChangeGradeOfModulePRMTRModuleAtomarStudentPRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRMenuItem ().getGraphic());
+			getOkButton().setGraphic(new ChangeGradeOfModulePRMTRModuleAtomarStudentPRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem ().getGraphic());
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerChangeGradeOfModuleModuleAtomarStudentGradesInSimpleOrThirdSUBTYPENameMssgWizard.help";
+			this.helpFileName = "ServerChangeGradeOfModuleModuleAtomarStudentGradesInSimpleOrThirdSUBTYPENameStringMssgWizard.help";
 			super.initialize();		
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().changeGradeOfModule(firstArgument, ((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().changeGradeOfModule(firstArgument, ((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult(),
+									((StringSelectionPanel)getParametersPanel().getChildren().get(1)).getResult());
 				getConnection().setEagerRefresh();
 				this.close();	
 			} catch(ModelException me){
@@ -1119,7 +1120,8 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 			return false;
 		}
 		protected void addParameters(){
-			getParametersPanel().getChildren().add(new RegExprSelectionPanel("grade", this, common.RegularExpressionManager.gradesInSimpleOrThirdSUBTYPEName.getRegExpr()));		
+			getParametersPanel().getChildren().add(new RegExprSelectionPanel("grade", this, common.RegularExpressionManager.gradesInSimpleOrThirdSUBTYPEName.getRegExpr()));
+			getParametersPanel().getChildren().add(new StringSelectionPanel("comment", this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -1136,21 +1138,22 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 		
 	}
 
-	class ServerChangeGradeOfUnitUnitStudentGradesInThirdSUBTYPENameMssgWizard extends Wizard {
+	class ServerChangeGradeOfUnitUnitStudentGradesInThirdSUBTYPENameStringMssgWizard extends Wizard {
 
-		protected ServerChangeGradeOfUnitUnitStudentGradesInThirdSUBTYPENameMssgWizard(String operationName){
+		protected ServerChangeGradeOfUnitUnitStudentGradesInThirdSUBTYPENameStringMssgWizard(String operationName){
 			super(ServerClientView.this);
 			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new ChangeGradeOfUnitPRMTRUnitStudentPRMTRGradesInThirdSUBTYPENamePRMTRMenuItem ().getGraphic());
+			getOkButton().setGraphic(new ChangeGradeOfUnitPRMTRUnitStudentPRMTRGradesInThirdSUBTYPENamePRMTRStringPRMTRMenuItem ().getGraphic());
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerChangeGradeOfUnitUnitStudentGradesInThirdSUBTYPENameMssgWizard.help";
+			this.helpFileName = "ServerChangeGradeOfUnitUnitStudentGradesInThirdSUBTYPENameStringMssgWizard.help";
 			super.initialize();		
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().changeGradeOfUnit(firstArgument, ((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().changeGradeOfUnit(firstArgument, ((StringSelectionPanel)getParametersPanel().getChildren().get(0)).getResult(),
+									((StringSelectionPanel)getParametersPanel().getChildren().get(1)).getResult());
 				getConnection().setEagerRefresh();
 				this.close();	
 			} catch(ModelException me){
@@ -1166,7 +1169,8 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 			return false;
 		}
 		protected void addParameters(){
-			getParametersPanel().getChildren().add(new RegExprSelectionPanel("grade", this, common.RegularExpressionManager.gradesInThirdSUBTYPEName.getRegExpr()));		
+			getParametersPanel().getChildren().add(new RegExprSelectionPanel("grade", this, common.RegularExpressionManager.gradesInThirdSUBTYPEName.getRegExpr()));
+			getParametersPanel().getChildren().add(new StringSelectionPanel("comment", this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -1183,22 +1187,23 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 		
 	}
 
-	class ServerChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameMssgWizard extends Wizard {
+	class ServerChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameStringMssgWizard extends Wizard {
 
-		protected ServerChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameMssgWizard(String operationName){
+		protected ServerChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameStringMssgWizard(String operationName){
 			super(ServerClientView.this);
 			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRMenuItem ().getGraphic());
+			getOkButton().setGraphic(new ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem ().getGraphic());
 		}
 		protected void initialize(){
-			this.helpFileName = "ServerChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameMssgWizard.help";
+			this.helpFileName = "ServerChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameStringMssgWizard.help";
 			super.initialize();		
 		}
 				
 		protected void perform() {
 			try {
 				getConnection().changeGradeforStudent(firstArgument, (LectureWithGrade)((ObjectSelectionPanel)getParametersPanel().getChildren().get(0)).getResult(),
-									((StringSelectionPanel)getParametersPanel().getChildren().get(1)).getResult());
+									((StringSelectionPanel)getParametersPanel().getChildren().get(1)).getResult(),
+									((StringSelectionPanel)getParametersPanel().getChildren().get(2)).getResult());
 				getConnection().setEagerRefresh();
 				this.close();	
 			} catch(ModelException me){
@@ -1224,7 +1229,8 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 													return (ViewRoot) this.navigationRoot;
 											}}}};
 			getParametersPanel().getChildren().add(panel4);
-			getParametersPanel().getChildren().add(new RegExprSelectionPanel("grade", this, common.RegularExpressionManager.gradesInSimpleOrThirdSUBTYPEName.getRegExpr()));		
+			getParametersPanel().getChildren().add(new RegExprSelectionPanel("grade", this, common.RegularExpressionManager.gradesInSimpleOrThirdSUBTYPEName.getRegExpr()));
+			getParametersPanel().getChildren().add(new StringSelectionPanel("comment", this));		
 		}	
 		protected void handleDependencies(int i) {
 			if(i == 0){

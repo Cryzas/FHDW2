@@ -11,6 +11,7 @@ public class UnitStudentProxi extends ViewProxi implements UnitStudentView{
         super(objectId, classId, connectionKey);
     }
     
+    @SuppressWarnings("unchecked")
     public UnitStudentView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         String name = (String)resultTable.get("name");
         common.Fraction creditPoints = common.Fraction.parse((String)resultTable.get("creditPoints"));
@@ -23,7 +24,9 @@ public class UnitStudentProxi extends ViewProxi implements UnitStudentView{
         }
         common.Fraction CPmulGrade = common.Fraction.parse((String)resultTable.get("CPmulGrade"));
         common.Fraction CPwithGrade = common.Fraction.parse((String)resultTable.get("CPwithGrade"));
-        UnitStudentView result$$ = new UnitStudent((String)name,(common.Fraction)creditPoints,(GradesInThirdView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade, this.getId(), this.getClassId());
+        java.util.Vector<String> changes_string = (java.util.Vector<String>)resultTable.get("changes");
+        java.util.Vector<GradeChangeView> changes = ViewProxi.getProxiVector(changes_string, connectionKey);
+        UnitStudentView result$$ = new UnitStudent((String)name,(common.Fraction)creditPoints,(GradesInThirdView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,changes, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -32,17 +35,27 @@ public class UnitStudentProxi extends ViewProxi implements UnitStudentView{
         return RemoteDepth;
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        
+        int index = originalIndex;
+        if(index < this.getChanges().size()) return new ChangesUnitStudentWrapper(this, originalIndex, (ViewRoot)this.getChanges().get(index));
+        index = index - this.getChanges().size();
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 ;
+        return 0 
+            + (this.getChanges().size());
     }
     public boolean isLeaf() throws ModelException {
-        return true;
+        if (this.object == null) return this.getLeafInfo() == 0;
+        return true 
+            && (this.getChanges().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        
+        int result = 0;
+        java.util.Iterator<?> getChangesIterator = this.getChanges().iterator();
+        while(getChangesIterator.hasNext()){
+            if(getChangesIterator.next().equals(child)) return result;
+            result = result + 1;
+        }
         return -1;
     }
     
@@ -63,6 +76,12 @@ public class UnitStudentProxi extends ViewProxi implements UnitStudentView{
     }
     public common.Fraction getCPwithGrade()throws ModelException{
         return ((UnitStudent)this.getTheObject()).getCPwithGrade();
+    }
+    public java.util.Vector<GradeChangeView> getChanges()throws ModelException{
+        return ((UnitStudent)this.getTheObject()).getChanges();
+    }
+    public void setChanges(java.util.Vector<GradeChangeView> newValue) throws ModelException {
+        ((UnitStudent)this.getTheObject()).setChanges(newValue);
     }
     
     public void accept(AnythingVisitor visitor) throws ModelException {

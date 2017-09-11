@@ -6,6 +6,8 @@ public interface ModuleAtomarStudentView extends LectureWithGrade, ModuleAbstrac
     
     public GradesInSimpleOrThirdView getOwnGrade()throws ModelException;
     public void setOwnGrade(GradesInSimpleOrThirdView newValue) throws ModelException ;
+    public java.util.Vector<GradeChangeView> getChanges()throws ModelException;
+    public void setChanges(java.util.Vector<GradeChangeView> newValue) throws ModelException ;
     
     public void accept(ModuleAbstractStudentVisitor visitor) throws ModelException;
     public <R> R accept(ModuleAbstractStudentReturnVisitor<R>  visitor) throws ModelException;

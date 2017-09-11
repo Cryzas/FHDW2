@@ -405,7 +405,7 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void changeGradeOfModule(ModuleAtomarStudentView module, String grade) throws ModelException{
+    public synchronized void changeGradeOfModule(ModuleAtomarStudentView module, String grade, String comment) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             if (module == null){
@@ -414,6 +414,7 @@ public class ServerConnection extends ConnectionMaster {
                 parameters.add(((view.objects.ViewProxi)module).createProxiInformation());
             }
             parameters.add(grade);
+            parameters.add(comment);
             java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "changeGradeOfModule", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
@@ -428,7 +429,7 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void changeGradeOfUnit(UnitStudentView unit, String grade) throws ModelException{
+    public synchronized void changeGradeOfUnit(UnitStudentView unit, String grade, String comment) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             if (unit == null){
@@ -437,6 +438,7 @@ public class ServerConnection extends ConnectionMaster {
                 parameters.add(((view.objects.ViewProxi)unit).createProxiInformation());
             }
             parameters.add(grade);
+            parameters.add(comment);
             java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "changeGradeOfUnit", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
@@ -473,7 +475,7 @@ public class ServerConnection extends ConnectionMaster {
         
     }
     
-    public synchronized void changeGradeforStudent(StudentView student, LectureWithGrade lecture, String grade) throws ModelException{
+    public synchronized void changeGradeforStudent(StudentView student, LectureWithGrade lecture, String grade, String comment) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
             if (student == null){
@@ -487,6 +489,7 @@ public class ServerConnection extends ConnectionMaster {
                 parameters.add(((view.objects.ViewProxi)lecture).createProxiInformation());
             }
             parameters.add(grade);
+            parameters.add(comment);
             java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "changeGradeforStudent", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)

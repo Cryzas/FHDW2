@@ -6,6 +6,7 @@ import model.visitor.*;
 public interface ModuleAtomarStudent4Public extends LectureWithGrade, ModuleAbstractStudent4Public {
     
     public GradesInSimpleOrThird4Public getOwnGrade() throws PersistenceException ;
+    public ModuleAtomarStudent_ChangesProxi getChanges() throws PersistenceException ;
     
     public void accept(ModuleAbstractStudentVisitor visitor) throws PersistenceException;
     public <R> R accept(ModuleAbstractStudentReturnVisitor<R>  visitor) throws PersistenceException;

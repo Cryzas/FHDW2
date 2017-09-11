@@ -14,15 +14,17 @@ public class UnitStudent extends ViewObject implements UnitStudentView{
     protected GradesInThirdView grade;
     protected common.Fraction CPmulGrade;
     protected common.Fraction CPwithGrade;
+    protected java.util.Vector<GradeChangeView> changes;
     
-    public UnitStudent(String name,common.Fraction creditPoints,GradesInThirdView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,long id, long classId) {
+    public UnitStudent(String name,common.Fraction creditPoints,GradesInThirdView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,java.util.Vector<GradeChangeView> changes,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.name = name;
         this.creditPoints = creditPoints;
         this.grade = grade;
         this.CPmulGrade = CPmulGrade;
-        this.CPwithGrade = CPwithGrade;        
+        this.CPwithGrade = CPwithGrade;
+        this.changes = changes;        
     }
     
     static public long getTypeId() {
@@ -50,6 +52,12 @@ public class UnitStudent extends ViewObject implements UnitStudentView{
     }
     public common.Fraction getCPwithGrade()throws ModelException{
         return this.CPwithGrade;
+    }
+    public java.util.Vector<GradeChangeView> getChanges()throws ModelException{
+        return this.changes;
+    }
+    public void setChanges(java.util.Vector<GradeChangeView> newValue) throws ModelException {
+        this.changes = newValue;
     }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
@@ -82,23 +90,36 @@ public class UnitStudent extends ViewObject implements UnitStudentView{
         if (grade != null) {
             ((ViewProxi)grade).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(grade.getClassId(), grade.getId())));
         }
+        java.util.Vector<?> changes = this.getChanges();
+        if (changes != null) {
+            ViewObject.resolveVectorProxies(changes, resultTable);
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {
         
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        
+        int index = originalIndex;
+        if(index < this.getChanges().size()) return new ChangesUnitStudentWrapper(this, originalIndex, (ViewRoot)this.getChanges().get(index));
+        index = index - this.getChanges().size();
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 ;
+        return 0 
+            + (this.getChanges().size());
     }
     public boolean isLeaf() throws ModelException {
-        return true;
+        return true 
+            && (this.getChanges().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        
+        int result = 0;
+        java.util.Iterator<?> getChangesIterator = this.getChanges().iterator();
+        while(getChangesIterator.hasNext()){
+            if(getChangesIterator.next().equals(child)) return result;
+            result = result + 1;
+        }
         return -1;
     }
     public int getNameIndex() throws ModelException {

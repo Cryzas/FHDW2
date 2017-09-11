@@ -67,6 +67,7 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
                 result.put("ownGrade", proxiInformation);
                 
             }
+            result.put("changes", this.getChanges().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, false, false));
         }
         return result;
     }
@@ -85,11 +86,13 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
         return false;
     }
     protected PersistentGradesInSimpleOrThird ownGrade;
+    protected ModuleAtomarStudent_ChangesProxi changes;
     
     public ModuleAtomarStudent(PersistentModuleAbstractSGroup moduleCopy,PersistentModuleAbstractStudent This,PersistentGradesInSimpleOrThird ownGrade,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super((PersistentModuleAbstractSGroup)moduleCopy,(PersistentModuleAbstractStudent)This,id);
-        this.ownGrade = ownGrade;        
+        this.ownGrade = ownGrade;
+        this.changes = new ModuleAtomarStudent_ChangesProxi(this);        
     }
     
     static public long getTypeId() {
@@ -109,6 +112,7 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
             this.getOwnGrade().store();
             ConnectionHandler.getTheConnectionHandler().theModuleAtomarStudentFacade.ownGradeSet(this.getId(), getOwnGrade());
         }
+        this.getChanges().store();
         
     }
     
@@ -125,6 +129,9 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theModuleAtomarStudentFacade.ownGradeSet(this.getId(), newValue);
         }
+    }
+    public ModuleAtomarStudent_ChangesProxi getChanges() throws PersistenceException {
+        return this.changes;
     }
     public PersistentModuleAtomarStudent getThis() throws PersistenceException {
         if(this.This == null){
@@ -183,6 +190,7 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
          return visitor.handleModuleAtomarStudent(this);
     }
     public int getLeafInfo() throws PersistenceException{
+        if (this.getChanges().getLength() > 0) return 1;
         return 0;
     }
     
@@ -208,7 +216,7 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
     
     // Start of section that contains operations that must be implemented.
     
-    public void changeGrade(final Grade4Public grade) 
+    public void changeGrade(final Grade4Public grade, final String comment) 
 				throws model.InvalidGradeForSystemException, PersistenceException{
     	((ModuleAtomarSGroupProxi)getThis().getModuleCopy()).getGradeSystem().accept(new GradeSystemExceptionVisitor<InvalidGradeForSystemException>() {
 
@@ -228,6 +236,7 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
 				}
 			}
 		});
+    	getThis().getChanges().add(GradeChange.createGradeChange(getThis().getGrade(), grade, comment));
     	getThis().setOwnGrade((GradesInSimpleOrThird4Public)grade);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 

@@ -43,9 +43,9 @@ public class StudentManagerProxi extends PersistentProxi implements PersistentSt
 				throws PersistenceException{
         ((PersistentStudentManager)this.getTheObject()).addStudentToGroup(group, student, invoker);
     }
-    public void changeGrade(final LectureWithGrade lecture, final String grade, final Invoker invoker) 
+    public void changeGrade(final LectureWithGrade lecture, final String grade, final String comment, final Invoker invoker) 
 				throws PersistenceException{
-        ((PersistentStudentManager)this.getTheObject()).changeGrade(lecture, grade, invoker);
+        ((PersistentStudentManager)this.getTheObject()).changeGrade(lecture, grade, comment, invoker);
     }
     public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate, final Invoker invoker) 
 				throws PersistenceException{
@@ -59,9 +59,9 @@ public class StudentManagerProxi extends PersistentProxi implements PersistentSt
 				throws model.UserException, PersistenceException{
         ((PersistentStudentManager)this.getTheObject()).addStudentToGroup(group, student);
     }
-    public void changeGrade(final LectureWithGrade lecture, final String grade) 
+    public void changeGrade(final LectureWithGrade lecture, final String grade, final String comment) 
 				throws model.InvalidGradeForSystemException, PersistenceException{
-        ((PersistentStudentManager)this.getTheObject()).changeGrade(lecture, grade);
+        ((PersistentStudentManager)this.getTheObject()).changeGrade(lecture, grade, comment);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

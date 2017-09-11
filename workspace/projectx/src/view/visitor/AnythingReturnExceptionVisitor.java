@@ -5,6 +5,7 @@ import view.*;
 public interface AnythingReturnExceptionVisitor<R, E extends view.UserException> extends GradeReturnExceptionVisitor<R, E> ,GradeSystemReturnExceptionVisitor<R, E> ,ModuleAbstractReturnExceptionVisitor<R, E> ,ModuleAbstractSGroupReturnExceptionVisitor<R, E> ,ModuleAbstractStudentReturnExceptionVisitor<R, E> {
     
     public R handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException, E;
+    public R handleGradeChange(GradeChangeView gradeChange) throws ModelException, E;
     public R handleModuleManager(ModuleManagerView moduleManager) throws ModelException, E;
     public R handleProgram(ProgramView program) throws ModelException, E;
     public R handleProgramManager(ProgramManagerView programManager) throws ModelException, E;
