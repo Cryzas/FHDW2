@@ -34,7 +34,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleServer(Server4Public server) throws PersistenceException {		
-		
+		result = server.getUser();
 	}
 	@Override
 	public void handleModuleAtomar(ModuleAtomar4Public moduleAtomar) throws PersistenceException {
@@ -325,6 +325,14 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	@Override
 	public void handleNoProgram(NoProgram4Public noProgram) throws PersistenceException {
 		result = "Kein aktuelles Studienprogramm";
+	}
+	@Override
+	public void handleStudentService(StudentService4Public studentService) throws PersistenceException {
+		result = studentService.getUsername();
+	}
+	@Override
+	public void handleDozentenService(DozentenService4Public dozentenService) throws PersistenceException {
+		result = dozentenService.getUsername();
 	}
 
 }

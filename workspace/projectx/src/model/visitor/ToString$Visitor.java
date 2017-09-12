@@ -36,12 +36,14 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleZ_2_9(Z_2_94Public z_2_9) throws PersistenceException;
     public abstract void handleUnitSGroup(UnitSGroup4Public unitSGroup) throws PersistenceException;
     public abstract void handleBFalse(BFalse4Public bFalse) throws PersistenceException;
+    public abstract void handleStudentService(StudentService4Public studentService) throws PersistenceException;
     public abstract void handleStudentManager(StudentManager4Public studentManager) throws PersistenceException;
     public abstract void handleStudent(Student4Public student) throws PersistenceException;
     public abstract void handleT_2_3(T_2_34Public t_2_3) throws PersistenceException;
     public abstract void handleT_4_0(T_4_04Public t_4_0) throws PersistenceException;
     public abstract void handleT_2_0(T_2_04Public t_2_0) throws PersistenceException;
     public abstract void handleStudyGroupManager(StudyGroupManager4Public studyGroupManager) throws PersistenceException;
+    public abstract void handleDozentenService(DozentenService4Public dozentenService) throws PersistenceException;
     public abstract void handleT_2_7(T_2_74Public t_2_7) throws PersistenceException;
     public abstract void handleUnitStudent(UnitStudent4Public unitStudent) throws PersistenceException;
     public abstract void handleBTrue(BTrue4Public bTrue) throws PersistenceException;

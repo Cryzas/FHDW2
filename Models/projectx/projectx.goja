@@ -1,6 +1,14 @@
 model projectx {
 
 server Server {
+	public skip-view symmetric ( no-view parentServer) Service service;
+}
+
+abstract server Service {
+	public abstract derived no-view String username;
+}
+
+server DozentenService extends Service {
 	public ProgramManager programManager;
 	public ModuleManager moduleManager;
 	public StudyGroupManager groupManager;
@@ -208,7 +216,7 @@ class UnitSGroup {
 		
 																	/* Aufbau der Studenten */
 /** Initialisiert das Objekt Student und die dazugehörigen Attribute des Studenten */
-class Student {
+class Student{
 	public prior String firstName;
 	public prior String lastName;
 	public prior Date birthDate;
@@ -216,6 +224,10 @@ class Student {
 	/* Authorisiert ProgramStudent das Objekt Student mit Schreibzugriff */	
 	public-write ProgramStudent program;
 	public ProgramStudent ** oldPrograms;
+}
+
+server StudentService extends Service {
+	public derived Student student;
 }
 
 hierarchy programHierarchyStudent ## pr_hier_std;

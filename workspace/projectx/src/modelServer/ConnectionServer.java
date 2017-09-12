@@ -12,10 +12,10 @@ import persistence.PersistenceException;
 import persistence.AbstractPersistentRoot;
 import persistence.Remote;
 
+import persistence.PersistentDozentenService;
 import persistence.PersistentServer;
 import persistence.Server4Public;
-
-
+import persistence.PersistentStudentService;
 import common.RPCConstantsAndServices;
 
 
@@ -53,7 +53,9 @@ public class ConnectionServer extends RemoteServerMaster {
 
 	public RemoteServerMaster createRemoteServer(String connectionName, String userName, long objectId, long classId){
 		try {
+			if(classId == -287)return new RemoteDozentenService(connectionName, userName, (PersistentDozentenService)PersistentProxi.createProxi(objectId, classId));
 			if(classId == -102)return new RemoteServer(connectionName, userName, (PersistentServer)PersistentProxi.createProxi(objectId, classId));
+			if(classId == -286)return new RemoteStudentService(connectionName, userName, (PersistentStudentService)PersistentProxi.createProxi(objectId, classId));
 			
 		}catch(PersistenceException pe){
 			return null;

@@ -27,16 +27,49 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleModuleWithUnitsSGroup(ModuleWithUnitsSGroup4Public moduleWithUnitsSGroup) throws PersistenceException{
         this.handleModuleAbstractSGroup(moduleWithUnitsSGroup);
     }
-    public abstract void handleProgram(Program4Public program) throws PersistenceException;
-    
     public abstract void handleServer(Server4Public server) throws PersistenceException;
     
     public abstract void handleProgramSGroup(ProgramSGroup4Public programSGroup) throws PersistenceException;
     
     public abstract void handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException;
     
+    public abstract void handleModuleManager(ModuleManager4Public moduleManager) throws PersistenceException;
+    
+    public abstract void handleUnit(Unit4Public unit) throws PersistenceException;
+    
+    public abstract void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException;
+    
+    public abstract void handleGradeChange(GradeChange4Public gradeChange) throws PersistenceException;
+    
+    public abstract void handleStudyGroup(StudyGroup4Public studyGroup) throws PersistenceException;
+    
+    public abstract void handleGradeSystem(GradeSystem4Public gradeSystem) throws PersistenceException;
+    
+    public void handleSimpleGradeSystem(SimpleGradeSystem4Public simpleGradeSystem) throws PersistenceException{
+        this.handleGradeSystem(simpleGradeSystem);
+    }
+    public void handleThirdGradeSystem(ThirdGradeSystem4Public thirdGradeSystem) throws PersistenceException{
+        this.handleGradeSystem(thirdGradeSystem);
+    }
+    public abstract void handleProgramStudent(ProgramStudent4Public programStudent) throws PersistenceException;
+    
+    public void handleNoProgram(NoProgram4Public noProgram) throws PersistenceException{
+        this.handleProgramStudent(noProgram);
+    }
+    public abstract void handleProgramManager(ProgramManager4Public programManager) throws PersistenceException;
+    
+    public abstract void handleProgram(Program4Public program) throws PersistenceException;
+    
     public abstract void handleUnitSGroup(UnitSGroup4Public unitSGroup) throws PersistenceException;
     
+    public abstract void handleService(Service4Public service) throws PersistenceException;
+    
+    public void handleDozentenService(DozentenService4Public dozentenService) throws PersistenceException{
+        this.handleService(dozentenService);
+    }
+    public void handleStudentService(StudentService4Public studentService) throws PersistenceException{
+        this.handleService(studentService);
+    }
     public abstract void handleGrade(Grade4Public grade) throws PersistenceException;
     
     public void handlePassed(Passed4Public passed) throws PersistenceException{
@@ -189,17 +222,7 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleStudent(Student4Public student) throws PersistenceException;
     
-    public abstract void handleModuleManager(ModuleManager4Public moduleManager) throws PersistenceException;
-    
-    public abstract void handleUnit(Unit4Public unit) throws PersistenceException;
-    
-    public abstract void handleCommandCoordinator(CommandCoordinator4Public commandCoordinator) throws PersistenceException;
-    
-    public abstract void handleGradeChange(GradeChange4Public gradeChange) throws PersistenceException;
-    
     public abstract void handleStudyGroupManager(StudyGroupManager4Public studyGroupManager) throws PersistenceException;
-    
-    public abstract void handleStudyGroup(StudyGroup4Public studyGroup) throws PersistenceException;
     
     public abstract void handleModuleAbstractStudent(ModuleAbstractStudent4Public moduleAbstractStudent) throws PersistenceException;
     
@@ -214,19 +237,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleUnitStudent(UnitStudent4Public unitStudent) throws PersistenceException;
     
-    public abstract void handleGradeSystem(GradeSystem4Public gradeSystem) throws PersistenceException;
-    
-    public void handleSimpleGradeSystem(SimpleGradeSystem4Public simpleGradeSystem) throws PersistenceException{
-        this.handleGradeSystem(simpleGradeSystem);
-    }
-    public void handleThirdGradeSystem(ThirdGradeSystem4Public thirdGradeSystem) throws PersistenceException{
-        this.handleGradeSystem(thirdGradeSystem);
-    }
-    public abstract void handleProgramStudent(ProgramStudent4Public programStudent) throws PersistenceException;
-    
-    public void handleNoProgram(NoProgram4Public noProgram) throws PersistenceException{
-        this.handleProgramStudent(noProgram);
-    }
     public abstract void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException;
     
     public void handleCreateProgramCommand(CreateProgramCommand4Public createProgramCommand) throws PersistenceException{
@@ -272,8 +282,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
         this.handleCommonDate(addUnitCommand);
     }
     public abstract void handleCommandExecuter(CommandExecuter4Public commandExecuter) throws PersistenceException;
-    
-    public abstract void handleProgramManager(ProgramManager4Public programManager) throws PersistenceException;
     
     
 }

@@ -2,6 +2,10 @@
 package model;
 
 import persistence.*;
+
+import java.sql.Timestamp;
+import java.time.Instant;
+
 import model.visitor.*;
 
 
@@ -259,10 +263,19 @@ public class Student extends PersistentObject implements PersistentStudent{
     public void initializeOnCreation() 
 				throws PersistenceException{
     	getThis().setProgram(NoProgram.getTheNoProgram());
+    	int year = getThis().getBirthDate().toLocalDate().getYear();
+    	int month = getThis().getBirthDate().toLocalDate().getMonthValue();
+    	int day = getThis().getBirthDate().toLocalDate().getDayOfMonth();
+    	String yearS = String.valueOf(year);
+    	String monthS = String.valueOf(month);
+    	String dayS = String.valueOf(day);
+    	if (month < 10) monthS = "0" + monthS;
+    	if (day < 10) dayS = "0" + dayS;
+    	String pw = yearS + monthS + dayS;
+    	Server.createServer(pw, String.valueOf(getThis().getMatrNr()), 0, Timestamp.from(Instant.now()));
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        
     }
     
     

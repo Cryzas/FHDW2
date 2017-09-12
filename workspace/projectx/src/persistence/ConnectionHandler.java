@@ -138,6 +138,7 @@ public class ConnectionHandler {
     public StudentFacade theStudentFacade;
     public CreateModuleCommandFacade theCreateModuleCommandFacade;
     public T_2_3Facade theT_2_3Facade;
+    public DozentenServiceFacade theDozentenServiceFacade;
     public T_2_0Facade theT_2_0Facade;
     public T_2_7Facade theT_2_7Facade;
     public UnitStudentFacade theUnitStudentFacade;
@@ -182,6 +183,7 @@ public class ConnectionHandler {
     public Z_4_0Facade theZ_4_0Facade;
     public ProgramFacade theProgramFacade;
     public UnitSGroupFacade theUnitSGroupFacade;
+    public StudentServiceFacade theStudentServiceFacade;
     public BFalseFacade theBFalseFacade;
     public GradeFacade theGradeFacade;
     public MyBooleanFacade theMyBooleanFacade;
@@ -205,6 +207,7 @@ public class ConnectionHandler {
     public Z_3_7Facade theZ_3_7Facade;
     public Z_3_8Facade theZ_3_8Facade;
     public Z_3_9Facade theZ_3_9Facade;
+    public ServiceFacade theServiceFacade;
     public GradesInTenthFacade theGradesInTenthFacade;
     public T_5_0Facade theT_5_0Facade;
     public T_1_3Facade theT_1_3Facade;
@@ -264,6 +267,7 @@ public class ConnectionHandler {
             this.theStudentFacade= new StudentFacade(this.schemaName, this.con);
             this.theCreateModuleCommandFacade= new CreateModuleCommandFacade(this.schemaName, this.con);
             this.theT_2_3Facade= new T_2_3Facade(this.schemaName, this.con);
+            this.theDozentenServiceFacade= new DozentenServiceFacade(this.schemaName, this.con);
             this.theT_2_0Facade= new T_2_0Facade(this.schemaName, this.con);
             this.theT_2_7Facade= new T_2_7Facade(this.schemaName, this.con);
             this.theUnitStudentFacade= new UnitStudentFacade(this.schemaName, this.con);
@@ -308,6 +312,7 @@ public class ConnectionHandler {
             this.theZ_4_0Facade= new Z_4_0Facade(this.schemaName, this.con);
             this.theProgramFacade= new ProgramFacade(this.schemaName, this.con);
             this.theUnitSGroupFacade= new UnitSGroupFacade(this.schemaName, this.con);
+            this.theStudentServiceFacade= new StudentServiceFacade(this.schemaName, this.con);
             this.theBFalseFacade= new BFalseFacade(this.schemaName, this.con);
             this.theGradeFacade= new GradeFacade(this.schemaName, this.con);
             this.theMyBooleanFacade= new MyBooleanFacade(this.schemaName, this.con);
@@ -331,6 +336,7 @@ public class ConnectionHandler {
             this.theZ_3_7Facade= new Z_3_7Facade(this.schemaName, this.con);
             this.theZ_3_8Facade= new Z_3_8Facade(this.schemaName, this.con);
             this.theZ_3_9Facade= new Z_3_9Facade(this.schemaName, this.con);
+            this.theServiceFacade= new ServiceFacade(this.schemaName, this.con);
             this.theGradesInTenthFacade= new GradesInTenthFacade(this.schemaName, this.con);
             this.theT_5_0Facade= new T_5_0Facade(this.schemaName, this.con);
             this.theT_1_3Facade= new T_1_3Facade(this.schemaName, this.con);

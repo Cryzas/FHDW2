@@ -2,7 +2,7 @@
 package view.visitor;
 import view.*;
 
-public interface AnythingReturnExceptionVisitor<R, E extends view.UserException> extends GradeReturnExceptionVisitor<R, E> ,GradeSystemReturnExceptionVisitor<R, E> ,ModuleAbstractReturnExceptionVisitor<R, E> ,ModuleAbstractSGroupReturnExceptionVisitor<R, E> ,ModuleAbstractStudentReturnExceptionVisitor<R, E> ,MyBooleanReturnExceptionVisitor<R, E> ,ProgramStudentReturnExceptionVisitor<R, E> {
+public interface AnythingReturnExceptionVisitor<R, E extends view.UserException> extends GradeReturnExceptionVisitor<R, E> ,GradeSystemReturnExceptionVisitor<R, E> ,ModuleAbstractReturnExceptionVisitor<R, E> ,ModuleAbstractSGroupReturnExceptionVisitor<R, E> ,ModuleAbstractStudentReturnExceptionVisitor<R, E> ,MyBooleanReturnExceptionVisitor<R, E> ,ProgramStudentReturnExceptionVisitor<R, E> ,ServiceReturnExceptionVisitor<R, E> {
     
     public R handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException, E;
     public R handleGradeChange(GradeChangeView gradeChange) throws ModelException, E;

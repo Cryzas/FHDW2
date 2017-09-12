@@ -48,18 +48,9 @@ create table Srvr(
     id number primary key,
     Cls number not null,
     constraint FSrvrCls foreign key (Cls) references Cls (id) on delete cascade,
-    SrvrPrgrmMngr number,
-    SrvrPrgrmMngrCls number,
-    constraint FSrvrPrgrmMngr foreign key (SrvrPrgrmMngrCls) references Cls (id),
-    SrvrMdlMngr number,
-    SrvrMdlMngrCls number,
-    constraint FSrvrMdlMngr foreign key (SrvrMdlMngrCls) references Cls (id),
-    SrvrGrpMngr number,
-    SrvrGrpMngrCls number,
-    constraint FSrvrGrpMngr foreign key (SrvrGrpMngrCls) references Cls (id),
-    SrvrStdntMngr number,
-    SrvrStdntMngrCls number,
-    constraint FSrvrStdntMngr foreign key (SrvrStdntMngrCls) references Cls (id),
+    SrvrSrvc number,
+    SrvrSrvcCls number,
+    constraint FSrvrSrvc foreign key (SrvrSrvcCls) references Cls (id),
     SrvrThis number,
     SrvrThisCls number,
     constraint FSrvrThis foreign key (SrvrThisCls) references Cls (id),
@@ -68,6 +59,7 @@ create table Srvr(
     SrvrHackCount number,
     SrvrHackDelay Timestamp    
 );
+create index ISrvcSrvr on Srvr (SrvrSrvc, SrvrSrvcCls);
 create index IUserSrvr on Srvr (SrvrUser);
 
 
@@ -614,6 +606,27 @@ create table SCPonMWUCMD(
     SCPonMWUCMDMyCmmnDt number,
     SCPonMWUCMDMyCmmnDtCls number,
     constraint FSCPonMWUCMDMyCmmnDt foreign key (SCPonMWUCMDMyCmmnDtCls) references Cls (id)    
+);
+
+create table Srvc(
+    id number primary key,
+    Cls number not null,
+    constraint FSrvcCls foreign key (Cls) references Cls (id) on delete cascade,
+    SrvcThis number,
+    SrvcThisCls number,
+    constraint FSrvcThis foreign key (SrvcThisCls) references Cls (id),
+    DzntnSrvcPrgrmMngr number,
+    DzntnSrvcPrgrmMngrCls number,
+    constraint FDzntnSrvcPrgrmMngr foreign key (DzntnSrvcPrgrmMngrCls) references Cls (id),
+    DzntnSrvcMdlMngr number,
+    DzntnSrvcMdlMngrCls number,
+    constraint FDzntnSrvcMdlMngr foreign key (DzntnSrvcMdlMngrCls) references Cls (id),
+    DzntnSrvcGrpMngr number,
+    DzntnSrvcGrpMngrCls number,
+    constraint FDzntnSrvcGrpMngr foreign key (DzntnSrvcGrpMngrCls) references Cls (id),
+    DzntnSrvcStdntMngr number,
+    DzntnSrvcStdntMngrCls number,
+    constraint FDzntnSrvcStdntMngr foreign key (DzntnSrvcStdntMngrCls) references Cls (id)    
 );
 
 create table PrgrmSGrpMdls(

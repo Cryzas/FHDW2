@@ -2,7 +2,7 @@
 package view.visitor;
 import view.*;
 
-public interface AnythingReturnVisitor<R> extends GradeReturnVisitor<R> ,GradeSystemReturnVisitor<R> ,ModuleAbstractReturnVisitor<R> ,ModuleAbstractSGroupReturnVisitor<R> ,ModuleAbstractStudentReturnVisitor<R> ,MyBooleanReturnVisitor<R> ,ProgramStudentReturnVisitor<R> {
+public interface AnythingReturnVisitor<R> extends GradeReturnVisitor<R> ,GradeSystemReturnVisitor<R> ,ModuleAbstractReturnVisitor<R> ,ModuleAbstractSGroupReturnVisitor<R> ,ModuleAbstractStudentReturnVisitor<R> ,MyBooleanReturnVisitor<R> ,ProgramStudentReturnVisitor<R> ,ServiceReturnVisitor<R> {
     
     public R handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;
     public R handleGradeChange(GradeChangeView gradeChange) throws ModelException;

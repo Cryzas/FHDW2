@@ -16,7 +16,8 @@ public class OldProgramsStudentWrapper extends AssociationInTreeWrapper {
 	
 	
 	public String toString(){
-    	return "Abgeschlossen: " + this.getWrappedObject().toString();
+    	//TODO: Implement toString in wrapper class for association oldPrograms in class Student
+    	return this.getWrappedObject().toString();
     }
 
     /*End of protected part that is not overridden by persistence generator*/

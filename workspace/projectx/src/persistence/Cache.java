@@ -290,6 +290,7 @@ public class Cache {
 		this.number2NameMap.put(159, "CreateModuleCommand");
 		this.number2NameMap.put(155, "CreateProgramCommand");
 		this.number2NameMap.put(200, "CreateStudentCommand");
+		this.number2NameMap.put(-287, "DozentenService");
 		this.number2NameMap.put(284, "EndStudyGroupCommand");
 		this.number2NameMap.put(-144, "ErrorDisplay");
 		this.number2NameMap.put(276, "GradeChange");
@@ -316,6 +317,7 @@ public class Cache {
 		this.number2NameMap.put(185, "StartStudyGroupCommand");
 		this.number2NameMap.put(195, "Student");
 		this.number2NameMap.put(201, "StudentManager");
+		this.number2NameMap.put(-286, "StudentService");
 		this.number2NameMap.put(180, "StudyGroup");
 		this.number2NameMap.put(186, "StudyGroupManager");
 		this.number2NameMap.put(188, "SwapCPonModuleWithUnitsCommand");

@@ -19,9 +19,6 @@ public abstract class GradeSystemProxi extends ViewProxi implements GradeSystemV
 
 	/* Start of protected part that is not overridden by persistence generator */
     
-    @SuppressWarnings("unused")
-	private final int RemoteDepth = 1;
-    
     /* End of protected part that is not overridden by persistence generator */
     
 }

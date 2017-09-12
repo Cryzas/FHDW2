@@ -74,32 +74,11 @@ public class Server extends PersistentObject implements PersistentServer{
             }
             result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, inDerived);
             if (leaf) allResults.put(uniqueKey, result);
-            AbstractPersistentRoot programManager = (AbstractPersistentRoot)this.getProgramManager();
-            if (programManager != null) {
+            AbstractPersistentRoot service = (AbstractPersistentRoot)this.getService();
+            if (service != null) {
                 String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
-                    programManager, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
-                result.put("programManager", proxiInformation);
-                
-            }
-            AbstractPersistentRoot moduleManager = (AbstractPersistentRoot)this.getModuleManager();
-            if (moduleManager != null) {
-                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
-                    moduleManager, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
-                result.put("moduleManager", proxiInformation);
-                
-            }
-            AbstractPersistentRoot groupManager = (AbstractPersistentRoot)this.getGroupManager();
-            if (groupManager != null) {
-                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
-                    groupManager, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
-                result.put("groupManager", proxiInformation);
-                
-            }
-            AbstractPersistentRoot studentManager = (AbstractPersistentRoot)this.getStudentManager();
-            if (studentManager != null) {
-                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
-                    studentManager, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
-                result.put("studentManager", proxiInformation);
+                    service, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
+                result.put("service", proxiInformation);
                 
             }
             result.put("errors", this.getErrors().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, true, false));
@@ -115,10 +94,7 @@ public class Server extends PersistentObject implements PersistentServer{
     
     public Server provideCopy() throws PersistenceException{
         Server result = this;
-        result = new Server(this.programManager, 
-                            this.moduleManager, 
-                            this.groupManager, 
-                            this.studentManager, 
+        result = new Server(this.service, 
                             this.This, 
                             this.password, 
                             this.user, 
@@ -137,10 +113,7 @@ public class Server extends PersistentObject implements PersistentServer{
     protected model.UserException userException = null;
     protected boolean changed = false;
     
-    protected PersistentProgramManager programManager;
-    protected PersistentModuleManager moduleManager;
-    protected PersistentStudyGroupManager groupManager;
-    protected PersistentStudentManager studentManager;
+    protected PersistentService service;
     protected PersistentServer This;
     protected Server_ErrorsProxi errors;
     protected String password;
@@ -148,13 +121,10 @@ public class Server extends PersistentObject implements PersistentServer{
     protected long hackCount;
     protected java.sql.Timestamp hackDelay;
     
-    public Server(PersistentProgramManager programManager,PersistentModuleManager moduleManager,PersistentStudyGroupManager groupManager,PersistentStudentManager studentManager,PersistentServer This,String password,String user,long hackCount,java.sql.Timestamp hackDelay,long id) throws PersistenceException {
+    public Server(PersistentService service,PersistentServer This,String password,String user,long hackCount,java.sql.Timestamp hackDelay,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.programManager = programManager;
-        this.moduleManager = moduleManager;
-        this.groupManager = groupManager;
-        this.studentManager = studentManager;
+        this.service = service;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;
         this.errors = new Server_ErrorsProxi(this);
         this.password = password;
@@ -176,21 +146,9 @@ public class Server extends PersistentObject implements PersistentServer{
         if (this.getClassId() == -102) ConnectionHandler.getTheConnectionHandler().theServerFacade
             .newServer(password,user,hackCount,hackDelay,this.getId());
         super.store();
-        if(this.getProgramManager() != null){
-            this.getProgramManager().store();
-            ConnectionHandler.getTheConnectionHandler().theServerFacade.programManagerSet(this.getId(), getProgramManager());
-        }
-        if(this.getModuleManager() != null){
-            this.getModuleManager().store();
-            ConnectionHandler.getTheConnectionHandler().theServerFacade.moduleManagerSet(this.getId(), getModuleManager());
-        }
-        if(this.getGroupManager() != null){
-            this.getGroupManager().store();
-            ConnectionHandler.getTheConnectionHandler().theServerFacade.groupManagerSet(this.getId(), getGroupManager());
-        }
-        if(this.getStudentManager() != null){
-            this.getStudentManager().store();
-            ConnectionHandler.getTheConnectionHandler().theServerFacade.studentManagerSet(this.getId(), getStudentManager());
+        if(this.getService() != null){
+            this.getService().store();
+            ConnectionHandler.getTheConnectionHandler().theServerFacade.serviceSet(this.getId(), getService());
         }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
@@ -199,60 +157,18 @@ public class Server extends PersistentObject implements PersistentServer{
         
     }
     
-    public ProgramManager4Public getProgramManager() throws PersistenceException {
-        return this.programManager;
+    public Service4Public getService() throws PersistenceException {
+        return this.service;
     }
-    public void setProgramManager(ProgramManager4Public newValue) throws PersistenceException {
+    public void setService(Service4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.programManager)) return;
+        if(newValue.isTheSameAs(this.service)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.programManager = (PersistentProgramManager)PersistentProxi.createProxi(objectId, classId);
+        this.service = (PersistentService)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theServerFacade.programManagerSet(this.getId(), newValue);
-        }
-    }
-    public ModuleManager4Public getModuleManager() throws PersistenceException {
-        return this.moduleManager;
-    }
-    public void setModuleManager(ModuleManager4Public newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.moduleManager)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.moduleManager = (PersistentModuleManager)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theServerFacade.moduleManagerSet(this.getId(), newValue);
-        }
-    }
-    public StudyGroupManager4Public getGroupManager() throws PersistenceException {
-        return this.groupManager;
-    }
-    public void setGroupManager(StudyGroupManager4Public newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.groupManager)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.groupManager = (PersistentStudyGroupManager)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theServerFacade.groupManagerSet(this.getId(), newValue);
-        }
-    }
-    public StudentManager4Public getStudentManager() throws PersistenceException {
-        return this.studentManager;
-    }
-    public void setStudentManager(StudentManager4Public newValue) throws PersistenceException {
-        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.studentManager)) return;
-        long objectId = newValue.getId();
-        long classId = newValue.getClassId();
-        this.studentManager = (PersistentStudentManager)PersistentProxi.createProxi(objectId, classId);
-        if(!this.isDelayed$Persistence()){
-            newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theServerFacade.studentManagerSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theServerFacade.serviceSet(this.getId(), newValue);
         }
     }
     protected void setThis(PersistentServer newValue) throws PersistenceException {
@@ -348,24 +264,11 @@ public class Server extends PersistentObject implements PersistentServer{
          return visitor.handleServer(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getProgramManager() != null) return 1;
-        if (this.getModuleManager() != null) return 1;
-        if (this.getGroupManager() != null) return 1;
-        if (this.getStudentManager() != null) return 1;
+        if (this.getService() != null && this.getService().getTheObject().getLeafInfo() != 0) return 1;
         return 0;
     }
     
     
-    public UnitSGroupSearchList ToUnit_Path_In_SwapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module) 
-				throws model.UserException, PersistenceException{
-        	return new UnitSGroupSearchList(module.
-                getUnits().getList());
-    }
-    public UnitSGroupSearchList fromUnit_Path_In_SwapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module) 
-				throws model.UserException, PersistenceException{
-        	return new UnitSGroupSearchList(module.
-                getUnits().getList());
-    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentServer)This);
@@ -376,22 +279,6 @@ public class Server extends PersistentObject implements PersistentServer{
 			this.setHackDelay((java.sql.Timestamp)final$$Fields.get("hackDelay"));
 		}
     }
-    public ModuleAbstractStudentSearchList lecture_Path_In_ChangeGradeforStudent(final Student4Public student) 
-				throws model.UserException, PersistenceException{
-        	return new ModuleAbstractStudentSearchList(student.
-                getProgram().
-                getModules().getList());
-    }
-    public ModuleAbstractSearchList modules_Path_In_AddModuleToGroup() 
-				throws model.UserException, PersistenceException{
-        	return new ModuleAbstractSearchList(getThis().getModuleManager().
-                getModules().getList());
-    }
-    public ModuleAbstractSearchList modules_Path_In_AddModuleToProg() 
-				throws model.UserException, PersistenceException{
-        	return new ModuleAbstractSearchList(getThis().getModuleManager().
-                getModules().getList());
-    }
     public String server_Menu_Filter(final Anything anything) 
 				throws PersistenceException{
         String result = "+++";
@@ -401,80 +288,19 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
         this.changed = signal;
     }
-    public StudentSearchList students_Path_In_AddStudentToGroup() 
-				throws model.UserException, PersistenceException{
-        	return new StudentSearchList(getThis().getStudentManager().
-                getStudents().getList());
-    }
     
     
     // Start of section that contains operations that must be implemented.
     
-    public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstractSearchList modules) 
-				throws PersistenceException{
-        modules.applyToAll(module -> getThis().getModuleManager().addModuleToGroup(group, module, getThis()));
-    }
-    public void addModuleToProg(final Program4Public program, final ModuleAbstractSearchList modules) 
-				throws PersistenceException{
-        modules.applyToAll(module -> getThis().getProgramManager().addModuleToProg(program, module, getThis()));
-    }
-    public void addStudentToGroup(final StudyGroup4Public group, final StudentSearchList students) 
-				throws PersistenceException{
-    	students.applyToAll(student -> getThis().getStudentManager().addStudentToGroup(group, student, getThis()));
-    }
-    public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
-				throws PersistenceException{
-    	getThis().getModuleManager().addUnit(module, name, creditPoints, getThis());
-    }
-    public void changeCPOnModule(final ModuleAtomar4Public module, final common.Fraction creditPoints) 
-				throws PersistenceException{
-    	getThis().getModuleManager().changeCPOnModule(module, creditPoints, getThis());
-    }
-    public void changeCPOnUnit(final Unit4Public unit, final common.Fraction creditPoints) 
-				throws PersistenceException{
-    	getThis().getModuleManager().changeCPOnUnit(unit, creditPoints, getThis());
-    }
-    public void changeGradeOfModule(final ModuleAtomarStudent4Public module, final String grade, final String comment) 
-				throws PersistenceException{
-    	getThis().getStudentManager().changeGrade(module, grade, comment, getThis());
-    }
-    public void changeGradeOfUnit(final UnitStudent4Public unit, final String grade, final String comment) 
-				throws PersistenceException{
-    	getThis().getStudentManager().changeGrade(unit, grade, comment, getThis());
-    }
-    public void changeGradeSystem(final ModuleAtomar4Public module) 
-				throws PersistenceException{
-    	getThis().getModuleManager().changeGradeSystem(module, getThis());
-    }
-    public void changeGradeforStudent(final Student4Public student, final LectureWithGrade lecture, final String grade, final String comment) 
-				throws PersistenceException{
-    	getThis().getStudentManager().changeGrade(lecture, grade, comment, getThis());
-    }
     public void connected(final String user) 
 				throws PersistenceException{
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
     }
-    public void createModule(final String type, final String name) 
-				throws PersistenceException{
-    	getThis().getModuleManager().createModule(type, name, getThis());
-    }
-    public void createProgram(final String name) 
-				throws PersistenceException{
-    	getThis().getProgramManager().createProgram(name, getThis());
-    }
-    public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
-				throws PersistenceException{
-    	getThis().getStudentManager().createStudent(group, firstName, lastName, birthDate, getThis());        
-    }
     public void disconnected() 
 				throws PersistenceException{
         
-    }
-    public void endStudyGroup(final StudyGroup4Public studyGroup) 
-				throws PersistenceException{
-        getThis().getGroupManager().endStudyGroup(studyGroup, getThis());
     }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{
@@ -512,28 +338,15 @@ public class Server extends PersistentObject implements PersistentServer{
 		return result;
     }
     public void initializeOnCreation() 
-				throws PersistenceException{ 
-    	getThis().setModuleManager(ModuleManager.createModuleManager());
-    	getThis().setProgramManager(ProgramManager.createProgramManager());
-    	getThis().setGroupManager(StudyGroupManager.createStudyGroupManager());
-    	getThis().setStudentManager(StudentManager.createStudentManager());
-    	getThis().signalChanged(true); 
+				throws PersistenceException{
+    	if (getThis().getUser().equals(common.RPCConstantsAndServices.AdministratorName)){
+        	getThis().setService(DozentenService.createDozentenService());
+        } else {
+        	getThis().setService(StudentService.createStudentService());
+        }
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{    
-    }
-    public void removeError(final ErrorDisplay4Public error) 
-				throws PersistenceException{
-    	getThis().getErrors().filter(arg -> !arg.equals(error));
-    	getThis().signalChanged(true);
-    }
-    public void startStudyGroup(final Program4Public program, final String name) 
-				throws PersistenceException{
-    	getThis().getGroupManager().startStudyGroup(program, name, getThis());
-    }
-    public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
-				throws PersistenceException{
-    	getThis().getGroupManager().swapCPonModuleWithUnits(module, fromUnit, ToUnit, creditPoints, getThis());
     }
     
     

@@ -27,16 +27,47 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleModuleWithUnitsSGroup(ModuleWithUnitsSGroupView moduleWithUnitsSGroup) throws ModelException{
         this.handleModuleAbstractSGroup(moduleWithUnitsSGroup);
     }
-    public abstract void handleProgram(ProgramView program) throws ModelException;
-    
     public abstract void handleServer(ServerView server) throws ModelException;
     
     public abstract void handleProgramSGroup(ProgramSGroupView programSGroup) throws ModelException;
     
     public abstract void handleErrorDisplay(ErrorDisplayView errorDisplay) throws ModelException;
     
+    public abstract void handleModuleManager(ModuleManagerView moduleManager) throws ModelException;
+    
+    public abstract void handleUnit(UnitView unit) throws ModelException;
+    
+    public abstract void handleGradeChange(GradeChangeView gradeChange) throws ModelException;
+    
+    public abstract void handleStudyGroup(StudyGroupView studyGroup) throws ModelException;
+    
+    public abstract void handleGradeSystem(GradeSystemView gradeSystem) throws ModelException;
+    
+    public void handleSimpleGradeSystem(SimpleGradeSystemView simpleGradeSystem) throws ModelException{
+        this.handleGradeSystem(simpleGradeSystem);
+    }
+    public void handleThirdGradeSystem(ThirdGradeSystemView thirdGradeSystem) throws ModelException{
+        this.handleGradeSystem(thirdGradeSystem);
+    }
+    public abstract void handleProgramStudent(ProgramStudentView programStudent) throws ModelException;
+    
+    public void handleNoProgram(NoProgramView noProgram) throws ModelException{
+        this.handleProgramStudent(noProgram);
+    }
+    public abstract void handleProgramManager(ProgramManagerView programManager) throws ModelException;
+    
+    public abstract void handleProgram(ProgramView program) throws ModelException;
+    
     public abstract void handleUnitSGroup(UnitSGroupView unitSGroup) throws ModelException;
     
+    public abstract void handleService(ServiceView service) throws ModelException;
+    
+    public void handleDozentenService(DozentenServiceView dozentenService) throws ModelException{
+        this.handleService(dozentenService);
+    }
+    public void handleStudentService(StudentServiceView studentService) throws ModelException{
+        this.handleService(studentService);
+    }
     public abstract void handleGrade(GradeView grade) throws ModelException;
     
     public void handlePassed(PassedView passed) throws ModelException{
@@ -189,15 +220,7 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleStudent(StudentView student) throws ModelException;
     
-    public abstract void handleModuleManager(ModuleManagerView moduleManager) throws ModelException;
-    
-    public abstract void handleUnit(UnitView unit) throws ModelException;
-    
-    public abstract void handleGradeChange(GradeChangeView gradeChange) throws ModelException;
-    
     public abstract void handleStudyGroupManager(StudyGroupManagerView studyGroupManager) throws ModelException;
-    
-    public abstract void handleStudyGroup(StudyGroupView studyGroup) throws ModelException;
     
     public abstract void handleModuleAbstractStudent(ModuleAbstractStudentView moduleAbstractStudent) throws ModelException;
     
@@ -211,21 +234,6 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
         this.handleModuleAbstractStudent(moduleGroupStudent);
     }
     public abstract void handleUnitStudent(UnitStudentView unitStudent) throws ModelException;
-    
-    public abstract void handleGradeSystem(GradeSystemView gradeSystem) throws ModelException;
-    
-    public void handleSimpleGradeSystem(SimpleGradeSystemView simpleGradeSystem) throws ModelException{
-        this.handleGradeSystem(simpleGradeSystem);
-    }
-    public void handleThirdGradeSystem(ThirdGradeSystemView thirdGradeSystem) throws ModelException{
-        this.handleGradeSystem(thirdGradeSystem);
-    }
-    public abstract void handleProgramStudent(ProgramStudentView programStudent) throws ModelException;
-    
-    public void handleNoProgram(NoProgramView noProgram) throws ModelException{
-        this.handleProgramStudent(noProgram);
-    }
-    public abstract void handleProgramManager(ProgramManagerView programManager) throws ModelException;
     
     
 }

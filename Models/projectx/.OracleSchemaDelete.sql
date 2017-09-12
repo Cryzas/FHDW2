@@ -42,6 +42,7 @@ drop table AddUntCMD cascade constraints;
 drop table m_abstr_gr cascade constraints;
 drop table EndStdGrpCMD cascade constraints;
 drop table SCPonMWUCMD cascade constraints;
+drop table Srvc cascade constraints;
 drop table PrgrmSGrpMdls cascade constraints;
 drop table MdlGrpSGrpMdls cascade constraints;
 drop table CmmndCrdntrExctr cascade constraints;

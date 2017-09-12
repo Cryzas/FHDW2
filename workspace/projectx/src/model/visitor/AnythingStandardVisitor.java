@@ -122,6 +122,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleBFalse(BFalse4Public bFalse) throws PersistenceException{
         this.standardHandling(bFalse);
     }
+    public void handleStudentService(StudentService4Public studentService) throws PersistenceException{
+        this.standardHandling(studentService);
+    }
     public void handleStudentManager(StudentManager4Public studentManager) throws PersistenceException{
         this.standardHandling(studentManager);
     }
@@ -142,6 +145,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleStudyGroupManager(StudyGroupManager4Public studyGroupManager) throws PersistenceException{
         this.standardHandling(studyGroupManager);
+    }
+    public void handleDozentenService(DozentenService4Public dozentenService) throws PersistenceException{
+        this.standardHandling(dozentenService);
     }
     public void handleT_2_7(T_2_74Public t_2_7) throws PersistenceException{
         this.standardHandling(t_2_7);

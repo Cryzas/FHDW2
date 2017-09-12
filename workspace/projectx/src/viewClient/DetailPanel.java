@@ -1267,6 +1267,9 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleT_2_3(view.T_2_3View object){
         result = new T_2_3DefaultDetailPanel(handler, object);
     }
+    public void handleDozentenService(view.DozentenServiceView object){
+        result = new DozentenServiceDefaultDetailPanel(handler, object);
+    }
     public void handleT_2_0(view.T_2_0View object){
         result = new T_2_0DefaultDetailPanel(handler, object);
     }
@@ -1363,6 +1366,9 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleUnitSGroup(view.UnitSGroupView object){
         result = new UnitSGroupDefaultDetailPanel(handler, object);
     }
+    public void handleStudentService(view.StudentServiceView object){
+        result = new StudentServiceDefaultDetailPanel(handler, object);
+    }
     public void handleBFalse(view.BFalseView object){
         result = new BFalseDefaultDetailPanel(handler, object);
     }
@@ -1430,10 +1436,7 @@ class DetailPanelFactory implements AnythingVisitor {
 
 class ServerDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String Server$$programManager = "Server$$programManager";
-    protected static final String Server$$moduleManager = "Server$$moduleManager";
-    protected static final String Server$$groupManager = "Server$$groupManager";
-    protected static final String Server$$studentManager = "Server$$studentManager";
+    protected static final String Server$$service = "Server$$service";
     protected static final String Server$$user = "Server$$user";
     
     protected ServerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1873,6 +1876,24 @@ class T_2_3DefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.T_2_3View getAnything(){
         return (view.T_2_3View)this.anything;
+    }
+}
+
+class DozentenServiceDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String DozentenService$$programManager = "DozentenService$$programManager";
+    protected static final String DozentenService$$moduleManager = "DozentenService$$moduleManager";
+    protected static final String DozentenService$$groupManager = "DozentenService$$groupManager";
+    protected static final String DozentenService$$studentManager = "DozentenService$$studentManager";
+    
+    protected DozentenServiceDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.DozentenServiceView getAnything(){
+        return (view.DozentenServiceView)this.anything;
     }
 }
 
@@ -2489,6 +2510,21 @@ class UnitSGroupDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.UnitSGroupView getAnything(){
         return (view.UnitSGroupView)this.anything;
+    }
+}
+
+class StudentServiceDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String StudentService$$student = "StudentService$$student";
+    
+    protected StudentServiceDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.StudentServiceView getAnything(){
+        return (view.StudentServiceView)this.anything;
     }
 }
 

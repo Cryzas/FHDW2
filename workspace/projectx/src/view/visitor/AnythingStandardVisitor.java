@@ -101,6 +101,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleBFalse(BFalseView bFalse) throws ModelException{
         this.standardHandling(bFalse);
     }
+    public void handleStudentService(StudentServiceView studentService) throws ModelException{
+        this.standardHandling(studentService);
+    }
     public void handleStudentManager(StudentManagerView studentManager) throws ModelException{
         this.standardHandling(studentManager);
     }
@@ -118,6 +121,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleStudyGroupManager(StudyGroupManagerView studyGroupManager) throws ModelException{
         this.standardHandling(studyGroupManager);
+    }
+    public void handleDozentenService(DozentenServiceView dozentenService) throws ModelException{
+        this.standardHandling(dozentenService);
     }
     public void handleT_2_7(T_2_7View t_2_7) throws ModelException{
         this.standardHandling(t_2_7);

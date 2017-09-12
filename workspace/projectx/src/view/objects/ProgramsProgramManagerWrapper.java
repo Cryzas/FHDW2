@@ -16,6 +16,7 @@ public class ProgramsProgramManagerWrapper extends AssociationInTreeWrapper {
 	
 	
 	public String toString(){
+    	//TODO: Implement toString in wrapper class for association programs in class ProgramManager
     	return this.getWrappedObject().toString();
     }
 
