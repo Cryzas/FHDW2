@@ -213,6 +213,9 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
     }
     public void startStudyGroup(final Program4Public program, final String name) 
 				throws model.UserException, PersistenceException{
+    	if(getThis().getGroups().findFirst(argument -> argument.getName().equals(name)) != null) {
+    		throw new AlreadyExistsInParentException(String.format(GroupAlreadyExistsMessage, name));
+    	}
     	StudyGroup4Public toBeAdded = StudyGroup.createStudyGroup(name);
     	toBeAdded.setProgram(program.copyForStudyGroup());
     	getThis().getGroups().add(toBeAdded);
@@ -227,6 +230,8 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    static String GroupAlreadyExistsMessage = "Es existiert bereits eine Studiengruppe mit dem Namen %s.";
     
     /* End of protected part that is not overridden by persistence generator */
     
