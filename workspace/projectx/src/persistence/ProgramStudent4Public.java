@@ -8,6 +8,10 @@ public interface ProgramStudent4Public extends Anything, programHierarchyStudent
     public ProgramStudent_ModulesProxi getModules() throws PersistenceException ;
     public ProgramSGroup4Public getProgramCopy() throws PersistenceException ;
     
+    public void accept(ProgramStudentVisitor visitor) throws PersistenceException;
+    public <R> R accept(ProgramStudentReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends model.UserException>  void accept(ProgramStudentExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends model.UserException> R accept(ProgramStudentReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     public void accept(AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends model.UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;
@@ -28,6 +32,8 @@ public interface ProgramStudent4Public extends Anything, programHierarchyStudent
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public common.Fraction getCreditPoints() 
+				throws PersistenceException;
+    public MyBoolean4Public getFinished() 
 				throws PersistenceException;
     public Grade4Public getGrade() 
 				throws PersistenceException;

@@ -11,9 +11,9 @@ public class ModuleGroupStudent extends view.objects.ModuleAbstractStudent imple
     
     protected java.util.Vector<ModuleAbstractStudentView> modules;
     
-    public ModuleGroupStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,GradeView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,java.util.Vector<ModuleAbstractStudentView> modules,long id, long classId) {
+    public ModuleGroupStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,GradeView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,MyBooleanView finished,java.util.Vector<ModuleAbstractStudentView> modules,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradeView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,id, classId);
+        super((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradeView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,(MyBooleanView)finished,id, classId);
         this.modules = modules;        
     }
     
@@ -65,6 +65,10 @@ public class ModuleGroupStudent extends view.objects.ModuleAbstractStudent imple
         GradeView grade = this.getGrade();
         if (grade != null) {
             ((ViewProxi)grade).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(grade.getClassId(), grade.getId())));
+        }
+        MyBooleanView finished = this.getFinished();
+        if (finished != null) {
+            ((ViewProxi)finished).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(finished.getClassId(), finished.getId())));
         }
         java.util.Vector<?> modules = this.getModules();
         if (modules != null) {

@@ -153,6 +153,16 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
     }
     
     
+    public void endStudyGroup(final StudyGroup4Public studyGroup, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
+		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
+		EndStudyGroupCommand4Public command = model.meta.EndStudyGroupCommand.createEndStudyGroupCommand(nw, d1170);
+		command.setStudyGroup(studyGroup);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentStudyGroupManager)This);
@@ -188,6 +198,10 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         
+    }
+    public void endStudyGroup(final StudyGroup4Public studyGroup) 
+				throws model.AlreadyFinishedException, PersistenceException{
+        studyGroup.endStudyGroup();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

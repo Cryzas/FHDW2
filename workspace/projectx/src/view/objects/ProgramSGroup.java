@@ -12,13 +12,15 @@ public class ProgramSGroup extends ViewObject implements ProgramSGroupView{
     protected java.util.Vector<ModuleAbstractSGroupView> modules;
     protected String name;
     protected common.Fraction creditPoints;
+    protected MyBooleanView finished;
     
-    public ProgramSGroup(java.util.Vector<ModuleAbstractSGroupView> modules,String name,common.Fraction creditPoints,long id, long classId) {
+    public ProgramSGroup(java.util.Vector<ModuleAbstractSGroupView> modules,String name,common.Fraction creditPoints,MyBooleanView finished,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.modules = modules;
         this.name = name;
-        this.creditPoints = creditPoints;        
+        this.creditPoints = creditPoints;
+        this.finished = finished;        
     }
     
     static public long getTypeId() {
@@ -41,6 +43,12 @@ public class ProgramSGroup extends ViewObject implements ProgramSGroupView{
     public common.Fraction getCreditPoints()throws ModelException{
         return this.creditPoints;
     }
+    public MyBooleanView getFinished()throws ModelException{
+        return this.finished;
+    }
+    public void setFinished(MyBooleanView newValue) throws ModelException {
+        this.finished = newValue;
+    }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleProgramSGroup(this);
@@ -59,6 +67,10 @@ public class ProgramSGroup extends ViewObject implements ProgramSGroupView{
         java.util.Vector<?> modules = this.getModules();
         if (modules != null) {
             ViewObject.resolveVectorProxies(modules, resultTable);
+        }
+        MyBooleanView finished = this.getFinished();
+        if (finished != null) {
+            ((ViewProxi)finished).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(finished.getClassId(), finished.getId())));
         }
         
     }

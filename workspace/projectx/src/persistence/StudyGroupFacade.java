@@ -26,7 +26,7 @@ public class StudyGroupFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            StudyGroup result = new StudyGroup(name,null,null,id);
+            StudyGroup result = new StudyGroup(name,null,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentStudyGroup)PersistentProxi.createProxi(id, 180);
         }catch(SQLException se) {
@@ -42,7 +42,7 @@ public class StudyGroupFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            StudyGroup result = new StudyGroup(name,null,null,id);
+            StudyGroup result = new StudyGroup(name,null,null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentStudyGroup)PersistentProxi.createProxi(id, 180);
         }catch(SQLException se) {
@@ -66,11 +66,15 @@ public class StudyGroupFacade{
             PersistentProgramSGroup program = null;
             if (obj.getLong(3) != 0)
                 program = (PersistentProgramSGroup)PersistentProxi.createProxi(obj.getLong(3), obj.getLong(4));
-            PersistentStudyGroup This = null;
+            PersistentMyBoolean finished = null;
             if (obj.getLong(5) != 0)
-                This = (PersistentStudyGroup)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
+                finished = (PersistentMyBoolean)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
+            PersistentStudyGroup This = null;
+            if (obj.getLong(7) != 0)
+                This = (PersistentStudyGroup)PersistentProxi.createProxi(obj.getLong(7), obj.getLong(8));
             StudyGroup result = new StudyGroup(obj.getString(2) == null ? "" : obj.getString(2) /* In Oracle "" = null !!! */,
                                                program,
+                                               finished,
                                                This,
                                                StudyGroupId);
             obj.close();
@@ -186,6 +190,19 @@ public class StudyGroupFacade{
             list.close();
             callable.close();
             return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void finishedSet(long StudyGroupId, MyBoolean4Public finishedVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".StdGrpFacade.fnshdSet(?, ?, ?); end;");
+            callable.setLong(1, StudyGroupId);
+            callable.setLong(2, finishedVal.getId());
+            callable.setLong(3, finishedVal.getClassId());
+            callable.execute();
+            callable.close();
         }catch(SQLException se) {
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }

@@ -247,6 +247,16 @@ public  class RemoteServer extends RemoteServerMaster {
         }
     }
     
+    public synchronized java.util.HashMap<?,?> endStudyGroup(String studyGroupProxiString){
+        try {
+            PersistentStudyGroup studyGroup = (PersistentStudyGroup)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(studyGroupProxiString));
+            ((PersistentServer)this.server).endStudyGroup(studyGroup);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
     public synchronized java.util.HashMap<?,?> removeError(String errorProxiString){
         try {
             PersistentErrorDisplay error = (PersistentErrorDisplay)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(errorProxiString));

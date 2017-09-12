@@ -264,10 +264,10 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
     public void createModule(final String type, final String name) 
 				throws model.AlreadyExistsInParentException, PersistenceException{
     	if (ModuleAbstract.getModuleAbstractByName(name).iterator().hasNext()) {
-			throw new AlreadyExistsInParentException(ModuleAlreadyExistsInDBMessage);
+			throw new AlreadyExistsInParentException(String.format(ModuleAlreadyExistsInDBMessage, name));
 		}
     	if (Program.getProgramByName(name).iterator().hasNext()) {
-			throw new AlreadyExistsInParentException(ProgramAlreadyExistsInDBMessage);
+			throw new AlreadyExistsInParentException(String.format(ProgramAlreadyExistsInDBMessage, name));
 		}
     	getThis().getModules().add(StringFACTORY.createObjectBySubTypeNameForModuleAbstract(type, new ModuleAbstractSwitchPARAMETER() {
 			
@@ -302,9 +302,8 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
 
     /* Start of protected part that is not overridden by persistence generator */
 
-    static String ProgramAlreadyExistsInDBMessage = "Es existiert bereits ein Programm mit eingegebenem Namen.";
-    static String ModuleAlreadyExistsInDBMessage = "Es existiert bereits ein Modul mit eingegebenem Namen.";
-    static String InvalidGradeSystemMessage = "Typ des Notensystems nicht zulässig.";
+    static String ProgramAlreadyExistsInDBMessage = "Es existiert bereits ein Programm mit dem Namen %s.";
+    static String ModuleAlreadyExistsInDBMessage = "Es existiert bereits ein Modul mit dem Namen %s.";
     
     /* End of protected part that is not overridden by persistence generator */
     

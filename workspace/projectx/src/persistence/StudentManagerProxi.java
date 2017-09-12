@@ -60,7 +60,7 @@ public class StudentManagerProxi extends PersistentProxi implements PersistentSt
         ((PersistentStudentManager)this.getTheObject()).addStudentToGroup(group, student);
     }
     public void changeGrade(final LectureWithGrade lecture, final String grade, final String comment) 
-				throws model.InvalidGradeForSystemException, PersistenceException{
+				throws model.AlreadyFinishedException, model.InvalidGradeForSystemException, PersistenceException{
         ((PersistentStudentManager)this.getTheObject()).changeGrade(lecture, grade, comment);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 

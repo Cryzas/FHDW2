@@ -20,5 +20,8 @@ public abstract class programHierarchyStudentHIERARCHYDirectVisitor implements p
     
     public abstract void handleProgramStudent(ProgramStudent4Public programStudent) throws PersistenceException;
     
+    public void handleNoProgram(NoProgram4Public noProgram) throws PersistenceException{
+        this.handleProgramStudent(noProgram);
+    }
     
 }

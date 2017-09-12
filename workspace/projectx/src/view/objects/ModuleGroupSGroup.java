@@ -11,9 +11,9 @@ public class ModuleGroupSGroup extends view.objects.ModuleAbstractSGroup impleme
     
     protected java.util.Vector<ModuleAbstractSGroupView> modules;
     
-    public ModuleGroupSGroup(String name,common.Fraction creditPoints,ModuleAbstractView moduleCopy,java.util.Vector<ModuleAbstractSGroupView> modules,long id, long classId) {
+    public ModuleGroupSGroup(String name,common.Fraction creditPoints,ModuleAbstractView moduleCopy,MyBooleanView finished,java.util.Vector<ModuleAbstractSGroupView> modules,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((String)name,(common.Fraction)creditPoints,(ModuleAbstractView)moduleCopy,id, classId);
+        super((String)name,(common.Fraction)creditPoints,(ModuleAbstractView)moduleCopy,(MyBooleanView)finished,id, classId);
         this.modules = modules;        
     }
     
@@ -61,6 +61,10 @@ public class ModuleGroupSGroup extends view.objects.ModuleAbstractSGroup impleme
         ModuleAbstractView moduleCopy = this.getModuleCopy();
         if (moduleCopy != null) {
             ((ViewProxi)moduleCopy).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(moduleCopy.getClassId(), moduleCopy.getId())));
+        }
+        MyBooleanView finished = this.getFinished();
+        if (finished != null) {
+            ((ViewProxi)finished).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(finished.getClassId(), finished.getId())));
         }
         java.util.Vector<?> modules = this.getModules();
         if (modules != null) {

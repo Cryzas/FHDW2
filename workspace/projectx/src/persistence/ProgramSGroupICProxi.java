@@ -31,6 +31,12 @@ public class ProgramSGroupICProxi extends PersistentInCacheProxiOptimistic imple
     public void setProgramCopy(Program4Public newValue) throws PersistenceException {
         ((PersistentProgramSGroup)this.getTheObject()).setProgramCopy(newValue);
     }
+    public MyBoolean4Public getFinished() throws PersistenceException {
+        return ((PersistentProgramSGroup)this.getTheObject()).getFinished();
+    }
+    public void setFinished(MyBoolean4Public newValue) throws PersistenceException {
+        ((PersistentProgramSGroup)this.getTheObject()).setFinished(newValue);
+    }
     public PersistentProgramSGroup getThis() throws PersistenceException {
         return ((PersistentProgramSGroup)this.getTheObject()).getThis();
     }
@@ -84,6 +90,10 @@ public class ProgramSGroupICProxi extends PersistentInCacheProxiOptimistic imple
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentProgramSGroup)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public void endProgram() 
+				throws PersistenceException{
+        ((PersistentProgramSGroup)this.getTheObject()).endProgram();
     }
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{

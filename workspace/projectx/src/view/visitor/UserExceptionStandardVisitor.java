@@ -5,6 +5,9 @@ import view.*;
 
 public abstract class UserExceptionStandardVisitor implements UserExceptionVisitor {
     
+    public void handleAlreadyFinishedException(AlreadyFinishedException alreadyFinishedException) throws ModelException{
+        this.standardHandling(alreadyFinishedException);
+    }
     public void handleInvalidGradeForSystemException(InvalidGradeForSystemException invalidGradeForSystemException) throws ModelException{
         this.standardHandling(invalidGradeForSystemException);
     }

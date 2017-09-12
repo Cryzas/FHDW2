@@ -5,6 +5,9 @@ import persistence.*;
 
 public abstract class StudyGroupManagerCommandStandardVisitor implements StudyGroupManagerCommandVisitor {
     
+    public void handleEndStudyGroupCommand(EndStudyGroupCommand4Public endStudyGroupCommand) throws PersistenceException{
+        this.standardHandling(endStudyGroupCommand);
+    }
     public void handleSwapCPonModuleWithUnitsCommand(SwapCPonModuleWithUnitsCommand4Public swapCPonModuleWithUnitsCommand) throws PersistenceException{
         this.standardHandling(swapCPonModuleWithUnitsCommand);
     }

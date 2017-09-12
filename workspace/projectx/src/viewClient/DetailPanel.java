@@ -1231,6 +1231,9 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleZ_1_2(view.Z_1_2View object){
         result = new Z_1_2DefaultDetailPanel(handler, object);
     }
+    public void handleNoProgram(view.NoProgramView object){
+        result = new NoProgramDefaultDetailPanel(handler, object);
+    }
     public void handleZ_2_2(view.Z_2_2View object){
         result = new Z_2_2DefaultDetailPanel(handler, object);
     }
@@ -1272,6 +1275,9 @@ class DetailPanelFactory implements AnythingVisitor {
     }
     public void handleUnitStudent(view.UnitStudentView object){
         result = new UnitStudentDefaultDetailPanel(handler, object);
+    }
+    public void handleBTrue(view.BTrueView object){
+        result = new BTrueDefaultDetailPanel(handler, object);
     }
     public void handleModuleWithUnitsSGroup(view.ModuleWithUnitsSGroupView object){
         result = new ModuleWithUnitsSGroupDefaultDetailPanel(handler, object);
@@ -1356,6 +1362,9 @@ class DetailPanelFactory implements AnythingVisitor {
     }
     public void handleUnitSGroup(view.UnitSGroupView object){
         result = new UnitSGroupDefaultDetailPanel(handler, object);
+    }
+    public void handleBFalse(view.BFalseView object){
+        result = new BFalseDefaultDetailPanel(handler, object);
     }
     public void handleT_4_0(view.T_4_0View object){
         result = new T_4_0DefaultDetailPanel(handler, object);
@@ -1656,6 +1665,37 @@ class Z_1_2DefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class NoProgramDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String ProgramStudent$$modules = "ProgramStudent$$modules";
+    protected static final String ProgramStudent$$name = "ProgramStudent$$name";
+    protected static final String ProgramStudent$$creditPoints = "ProgramStudent$$creditPoints";
+    
+    protected NoProgramDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(ProgramStudent$$name, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new FractionPanel(this, "creditPoints", this.getAnything().getCreditPoints());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(ProgramStudent$$creditPoints, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.NoProgramView getAnything(){
+        return (view.NoProgramView)this.anything;
+    }
+}
+
 class Z_2_2DefaultDetailPanel extends DefaultDetailPanel{
     
     protected Z_2_2DefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1782,6 +1822,7 @@ class StudentDefaultDetailPanel extends DefaultDetailPanel{
     protected static final String Student$$birthDate = "Student$$birthDate";
     protected static final String Student$$matrNr = "Student$$matrNr";
     protected static final String Student$$program = "Student$$program";
+    protected static final String Student$$oldPrograms = "Student$$oldPrograms";
     
     protected StudentDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
@@ -1889,6 +1930,19 @@ class UnitStudentDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.UnitStudentView getAnything(){
         return (view.UnitStudentView)this.anything;
+    }
+}
+
+class BTrueDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected BTrueDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.BTrueView getAnything(){
+        return (view.BTrueView)this.anything;
     }
 }
 
@@ -2435,6 +2489,19 @@ class UnitSGroupDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.UnitSGroupView getAnything(){
         return (view.UnitSGroupView)this.anything;
+    }
+}
+
+class BFalseDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected BFalseDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.BFalseView getAnything(){
+        return (view.BFalseView)this.anything;
     }
 }
 

@@ -88,7 +88,7 @@ public class UnitStudentProxi extends PersistentProxi implements PersistentUnitS
         return ((PersistentUnitStudent)this.getTheObject()).strategyprogramHierarchyStudent(strategy);
     }
     public void changeGrade(final Grade4Public grade, final String comment) 
-				throws model.InvalidGradeForSystemException, PersistenceException{
+				throws model.AlreadyFinishedException, model.InvalidGradeForSystemException, PersistenceException{
         ((PersistentUnitStudent)this.getTheObject()).changeGrade(grade, comment);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
@@ -106,6 +106,10 @@ public class UnitStudentProxi extends PersistentProxi implements PersistentUnitS
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
         return ((PersistentUnitStudent)this.getTheObject()).getCreditPoints();
+    }
+    public MyBoolean4Public getFinished() 
+				throws PersistenceException{
+        return ((PersistentUnitStudent)this.getTheObject()).getFinished();
     }
     public String getName() 
 				throws PersistenceException{

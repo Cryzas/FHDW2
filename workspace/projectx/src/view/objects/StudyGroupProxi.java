@@ -23,7 +23,14 @@ public class StudyGroupProxi extends ViewProxi implements StudyGroupView{
         }
         java.util.Vector<String> students_string = (java.util.Vector<String>)resultTable.get("students");
         java.util.Vector<StudentView> students = ViewProxi.getProxiVector(students_string, connectionKey);
-        StudyGroupView result$$ = new StudyGroup((String)name,(ProgramSGroupView)program,students, this.getId(), this.getClassId());
+        ViewProxi finished = null;
+        String finished$String = (String)resultTable.get("finished");
+        if (finished$String != null) {
+            common.ProxiInformation finished$Info = common.RPCConstantsAndServices.createProxiInformation(finished$String);
+            finished = view.objects.ViewProxi.createProxi(finished$Info,connectionKey);
+            finished.setToString(finished$Info.getToString());
+        }
+        StudyGroupView result$$ = new StudyGroup((String)name,(ProgramSGroupView)program,students,(MyBooleanView)finished, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -79,6 +86,12 @@ public class StudyGroupProxi extends ViewProxi implements StudyGroupView{
     }
     public void setStudents(java.util.Vector<StudentView> newValue) throws ModelException {
         ((StudyGroup)this.getTheObject()).setStudents(newValue);
+    }
+    public MyBooleanView getFinished()throws ModelException{
+        return ((StudyGroup)this.getTheObject()).getFinished();
+    }
+    public void setFinished(MyBooleanView newValue) throws ModelException {
+        ((StudyGroup)this.getTheObject()).setFinished(newValue);
     }
     
     public void accept(AnythingVisitor visitor) throws ModelException {

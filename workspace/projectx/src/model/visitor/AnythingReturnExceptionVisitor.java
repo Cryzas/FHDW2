@@ -2,7 +2,7 @@
 package model.visitor;
 import persistence.*;
 
-public interface AnythingReturnExceptionVisitor<R, E extends model.UserException> extends CommonDateReturnExceptionVisitor<R, E> ,GradeReturnExceptionVisitor<R, E> ,GradeSystemReturnExceptionVisitor<R, E> ,ModuleAbstractReturnExceptionVisitor<R, E> ,ModuleAbstractSGroupReturnExceptionVisitor<R, E> ,ModuleAbstractStudentReturnExceptionVisitor<R, E> {
+public interface AnythingReturnExceptionVisitor<R, E extends model.UserException> extends CommonDateReturnExceptionVisitor<R, E> ,GradeReturnExceptionVisitor<R, E> ,GradeSystemReturnExceptionVisitor<R, E> ,ModuleAbstractReturnExceptionVisitor<R, E> ,ModuleAbstractSGroupReturnExceptionVisitor<R, E> ,ModuleAbstractStudentReturnExceptionVisitor<R, E> ,MyBooleanReturnExceptionVisitor<R, E> ,ProgramStudentReturnExceptionVisitor<R, E> {
     
     public R handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException, E;
     public R handleAddModuleToProgCommand(AddModuleToProgCommand4Public addModuleToProgCommand) throws PersistenceException, E;
@@ -18,6 +18,7 @@ public interface AnythingReturnExceptionVisitor<R, E extends model.UserException
     public R handleCreateModuleCommand(CreateModuleCommand4Public createModuleCommand) throws PersistenceException, E;
     public R handleCreateProgramCommand(CreateProgramCommand4Public createProgramCommand) throws PersistenceException, E;
     public R handleCreateStudentCommand(CreateStudentCommand4Public createStudentCommand) throws PersistenceException, E;
+    public R handleEndStudyGroupCommand(EndStudyGroupCommand4Public endStudyGroupCommand) throws PersistenceException, E;
     public R handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException, E;
     public R handleGradeChange(GradeChange4Public gradeChange) throws PersistenceException, E;
     public R handleModuleManager(ModuleManager4Public moduleManager) throws PersistenceException, E;

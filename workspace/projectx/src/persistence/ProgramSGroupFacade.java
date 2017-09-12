@@ -25,7 +25,7 @@ public class ProgramSGroupFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ProgramSGroup result = new ProgramSGroup(null,null,id);
+            ProgramSGroup result = new ProgramSGroup(null,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentProgramSGroup)PersistentProxi.createProxi(id, 177);
         }catch(SQLException se) {
@@ -41,7 +41,7 @@ public class ProgramSGroupFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ProgramSGroup result = new ProgramSGroup(null,null,id);
+            ProgramSGroup result = new ProgramSGroup(null,null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentProgramSGroup)PersistentProxi.createProxi(id, 177);
         }catch(SQLException se) {
@@ -65,10 +65,14 @@ public class ProgramSGroupFacade{
             PersistentProgram programCopy = null;
             if (obj.getLong(2) != 0)
                 programCopy = (PersistentProgram)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
-            PersistentProgramSGroup This = null;
+            PersistentMyBoolean finished = null;
             if (obj.getLong(4) != 0)
-                This = (PersistentProgramSGroup)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+                finished = (PersistentMyBoolean)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+            PersistentProgramSGroup This = null;
+            if (obj.getLong(6) != 0)
+                This = (PersistentProgramSGroup)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
             ProgramSGroup result = new ProgramSGroup(programCopy,
+                                                     finished,
                                                      This,
                                                      ProgramSGroupId);
             obj.close();
@@ -148,6 +152,19 @@ public class ProgramSGroupFacade{
             callable.setLong(1, ProgramSGroupId);
             callable.setLong(2, programCopyVal.getId());
             callable.setLong(3, programCopyVal.getClassId());
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void finishedSet(long ProgramSGroupId, MyBoolean4Public finishedVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".PrgrmSGrpFacade.fnshdSet(?, ?, ?); end;");
+            callable.setLong(1, ProgramSGroupId);
+            callable.setLong(2, finishedVal.getId());
+            callable.setLong(3, finishedVal.getClassId());
             callable.execute();
             callable.close();
         }catch(SQLException se) {

@@ -14,6 +14,9 @@ public abstract class CommonDateStandardVisitor implements CommonDateVisitor {
     public void handleChangeGradeSystemCommand(ChangeGradeSystemCommand4Public changeGradeSystemCommand) throws PersistenceException{
         this.standardHandling(changeGradeSystemCommand);
     }
+    public void handleEndStudyGroupCommand(EndStudyGroupCommand4Public endStudyGroupCommand) throws PersistenceException{
+        this.standardHandling(endStudyGroupCommand);
+    }
     public void handleCreateStudentCommand(CreateStudentCommand4Public createStudentCommand) throws PersistenceException{
         this.standardHandling(createStudentCommand);
     }

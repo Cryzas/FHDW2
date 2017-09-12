@@ -70,6 +70,8 @@ public interface Server4Public extends Invoker, Anything, Remote, AbstractPersis
 				throws PersistenceException;
     public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
 				throws PersistenceException;
+    public void endStudyGroup(final StudyGroup4Public studyGroup) 
+				throws PersistenceException;
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException;
     public void handleResult(final Command command) 

@@ -5,6 +5,7 @@ import view.*;
 public interface UserExceptionVisitor {
     
     public void handleAlreadyExistsInParentException(AlreadyExistsInParentException alreadyExistsInParentException) throws ModelException;
+    public void handleAlreadyFinishedException(AlreadyFinishedException alreadyFinishedException) throws ModelException;
     public void handleCycleException(CycleException cycleException) throws ModelException;
     public void handleInvalidGradeForSystemException(InvalidGradeForSystemException invalidGradeForSystemException) throws ModelException;
     public void handleNoFractionValueException(NoFractionValueException noFractionValueException) throws ModelException;

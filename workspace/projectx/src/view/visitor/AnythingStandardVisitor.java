@@ -59,6 +59,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleZ_1_2(Z_1_2View z_1_2) throws ModelException{
         this.standardHandling(z_1_2);
     }
+    public void handleNoProgram(NoProgramView noProgram) throws ModelException{
+        this.standardHandling(noProgram);
+    }
     public void handleSimpleGradeSystem(SimpleGradeSystemView simpleGradeSystem) throws ModelException{
         this.standardHandling(simpleGradeSystem);
     }
@@ -95,6 +98,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleUnitSGroup(UnitSGroupView unitSGroup) throws ModelException{
         this.standardHandling(unitSGroup);
     }
+    public void handleBFalse(BFalseView bFalse) throws ModelException{
+        this.standardHandling(bFalse);
+    }
     public void handleStudentManager(StudentManagerView studentManager) throws ModelException{
         this.standardHandling(studentManager);
     }
@@ -118,6 +124,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleUnitStudent(UnitStudentView unitStudent) throws ModelException{
         this.standardHandling(unitStudent);
+    }
+    public void handleBTrue(BTrueView bTrue) throws ModelException{
+        this.standardHandling(bTrue);
     }
     public void handleModuleWithUnitsSGroup(ModuleWithUnitsSGroupView moduleWithUnitsSGroup) throws ModelException{
         this.standardHandling(moduleWithUnitsSGroup);

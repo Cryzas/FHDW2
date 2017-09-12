@@ -26,7 +26,7 @@ public class ModuleAtomarSGroupFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ModuleAtomarSGroup result = new ModuleAtomarSGroup(null,null,ownCreditPoints,null,id);
+            ModuleAtomarSGroup result = new ModuleAtomarSGroup(null,null,null,ownCreditPoints,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentModuleAtomarSGroup)PersistentProxi.createProxi(id, 179);
         }catch(SQLException se) {
@@ -42,7 +42,7 @@ public class ModuleAtomarSGroupFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ModuleAtomarSGroup result = new ModuleAtomarSGroup(null,null,ownCreditPoints,null,id);
+            ModuleAtomarSGroup result = new ModuleAtomarSGroup(null,null,null,ownCreditPoints,null,id);
             Cache.getTheCache().put(result);
             return (PersistentModuleAtomarSGroup)PersistentProxi.createProxi(id, 179);
         }catch(SQLException se) {
@@ -66,15 +66,19 @@ public class ModuleAtomarSGroupFacade{
             PersistentModuleAbstract moduleCopy = null;
             if (obj.getLong(2) != 0)
                 moduleCopy = (PersistentModuleAbstract)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
-            PersistentModuleAbstractSGroup This = null;
+            PersistentMyBoolean finished = null;
             if (obj.getLong(4) != 0)
-                This = (PersistentModuleAbstractSGroup)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+                finished = (PersistentMyBoolean)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+            PersistentModuleAbstractSGroup This = null;
+            if (obj.getLong(6) != 0)
+                This = (PersistentModuleAbstractSGroup)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
             PersistentGradeSystem gradeSystem = null;
-            if (obj.getLong(7) != 0)
-                gradeSystem = (PersistentGradeSystem)PersistentProxi.createProxi(obj.getLong(7), obj.getLong(8));
+            if (obj.getLong(9) != 0)
+                gradeSystem = (PersistentGradeSystem)PersistentProxi.createProxi(obj.getLong(9), obj.getLong(10));
             ModuleAtomarSGroup result = new ModuleAtomarSGroup(moduleCopy,
+                                                               finished,
                                                                This,
-                                                               (obj.getString(6) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(6))),
+                                                               (obj.getString(8) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(8))),
                                                                gradeSystem,
                                                                ModuleAtomarSGroupId);
             obj.close();

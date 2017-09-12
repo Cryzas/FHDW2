@@ -225,6 +225,10 @@ public class ModuleWithUnitsStudent extends model.ModuleAbstractStudent implemen
     
     // Start of section that contains overridden operations only.
     
+    public MyBoolean4Public getFinished() 
+				throws PersistenceException{
+        return getThis().getModuleCopy().getFinished();
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
     

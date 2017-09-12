@@ -68,6 +68,13 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
             result.put("modules", this.getModules().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, false, false));
             result.put("name", this.getName());
             result.put("creditPoints", this.getCreditPoints().toString());
+            AbstractPersistentRoot finished = (AbstractPersistentRoot)this.getFinished();
+            if (finished != null) {
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    finished, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
+                result.put("finished", proxiInformation);
+                
+            }
         }
         return result;
     }
@@ -75,6 +82,7 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
     public ProgramSGroup provideCopy() throws PersistenceException{
         ProgramSGroup result = this;
         result = new ProgramSGroup(this.programCopy, 
+                                   this.finished, 
                                    this.This, 
                                    this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -86,13 +94,15 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
     }
     protected ProgramSGroup_ModulesProxi modules;
     protected PersistentProgram programCopy;
+    protected PersistentMyBoolean finished;
     protected PersistentProgramSGroup This;
     
-    public ProgramSGroup(PersistentProgram programCopy,PersistentProgramSGroup This,long id) throws PersistenceException {
+    public ProgramSGroup(PersistentProgram programCopy,PersistentMyBoolean finished,PersistentProgramSGroup This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.modules = new ProgramSGroup_ModulesProxi(this);
         this.programCopy = programCopy;
+        this.finished = finished;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -113,6 +123,10 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
         if(this.getProgramCopy() != null){
             this.getProgramCopy().store();
             ConnectionHandler.getTheConnectionHandler().theProgramSGroupFacade.programCopySet(this.getId(), getProgramCopy());
+        }
+        if(this.getFinished() != null){
+            this.getFinished().store();
+            ConnectionHandler.getTheConnectionHandler().theProgramSGroupFacade.finishedSet(this.getId(), getFinished());
         }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
@@ -136,6 +150,20 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theProgramSGroupFacade.programCopySet(this.getId(), newValue);
+        }
+    }
+    public MyBoolean4Public getFinished() throws PersistenceException {
+        return this.finished;
+    }
+    public void setFinished(MyBoolean4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.finished)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.finished = (PersistentMyBoolean)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theProgramSGroupFacade.finishedSet(this.getId(), newValue);
         }
     }
     protected void setThis(PersistentProgramSGroup newValue) throws PersistenceException {
@@ -237,6 +265,11 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
 				throws PersistenceException{
         
     }
+    public void endProgram() 
+				throws PersistenceException{
+        getThis().setFinished(BTrue.getTheBTrue());
+        getThis().getModules().applyToAll(module -> module.endModule());
+    }
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
     	return getThis().getModules().aggregate(Fraction.Null, (result, argument) -> result.add(argument.getCreditPoints()));
@@ -247,7 +280,7 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        
+        getThis().setFinished(BFalse.getTheBFalse());
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{

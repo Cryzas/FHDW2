@@ -77,6 +77,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleZ_1_2(Z_1_24Public z_1_2) throws PersistenceException{
         this.standardHandling(z_1_2);
     }
+    public void handleNoProgram(NoProgram4Public noProgram) throws PersistenceException{
+        this.standardHandling(noProgram);
+    }
     public void handleSimpleGradeSystem(SimpleGradeSystem4Public simpleGradeSystem) throws PersistenceException{
         this.standardHandling(simpleGradeSystem);
     }
@@ -116,6 +119,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleCreateStudentCommand(CreateStudentCommand4Public createStudentCommand) throws PersistenceException{
         this.standardHandling(createStudentCommand);
     }
+    public void handleBFalse(BFalse4Public bFalse) throws PersistenceException{
+        this.standardHandling(bFalse);
+    }
     public void handleStudentManager(StudentManager4Public studentManager) throws PersistenceException{
         this.standardHandling(studentManager);
     }
@@ -143,6 +149,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleUnitStudent(UnitStudent4Public unitStudent) throws PersistenceException{
         this.standardHandling(unitStudent);
     }
+    public void handleBTrue(BTrue4Public bTrue) throws PersistenceException{
+        this.standardHandling(bTrue);
+    }
     public void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException{
         this.standardHandling(commonDate);
     }
@@ -154,6 +163,9 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     }
     public void handleChangeCPOnModuleCommand(ChangeCPOnModuleCommand4Public changeCPOnModuleCommand) throws PersistenceException{
         this.standardHandling(changeCPOnModuleCommand);
+    }
+    public void handleEndStudyGroupCommand(EndStudyGroupCommand4Public endStudyGroupCommand) throws PersistenceException{
+        this.standardHandling(endStudyGroupCommand);
     }
     public void handleSwapCPonModuleWithUnitsCommand(SwapCPonModuleWithUnitsCommand4Public swapCPonModuleWithUnitsCommand) throws PersistenceException{
         this.standardHandling(swapCPonModuleWithUnitsCommand);

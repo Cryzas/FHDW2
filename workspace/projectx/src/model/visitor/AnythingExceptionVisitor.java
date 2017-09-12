@@ -2,7 +2,7 @@
 package model.visitor;
 import persistence.*;
 
-public interface AnythingExceptionVisitor<E extends model.UserException> extends CommonDateExceptionVisitor<E>,GradeExceptionVisitor<E>,GradeSystemExceptionVisitor<E>,ModuleAbstractExceptionVisitor<E>,ModuleAbstractSGroupExceptionVisitor<E>,ModuleAbstractStudentExceptionVisitor<E>{
+public interface AnythingExceptionVisitor<E extends model.UserException> extends CommonDateExceptionVisitor<E>,GradeExceptionVisitor<E>,GradeSystemExceptionVisitor<E>,ModuleAbstractExceptionVisitor<E>,ModuleAbstractSGroupExceptionVisitor<E>,ModuleAbstractStudentExceptionVisitor<E>,MyBooleanExceptionVisitor<E>,ProgramStudentExceptionVisitor<E>{
     
     public void handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException, E;
     public void handleAddModuleToProgCommand(AddModuleToProgCommand4Public addModuleToProgCommand) throws PersistenceException, E;
@@ -18,6 +18,7 @@ public interface AnythingExceptionVisitor<E extends model.UserException> extends
     public void handleCreateModuleCommand(CreateModuleCommand4Public createModuleCommand) throws PersistenceException, E;
     public void handleCreateProgramCommand(CreateProgramCommand4Public createProgramCommand) throws PersistenceException, E;
     public void handleCreateStudentCommand(CreateStudentCommand4Public createStudentCommand) throws PersistenceException, E;
+    public void handleEndStudyGroupCommand(EndStudyGroupCommand4Public endStudyGroupCommand) throws PersistenceException, E;
     public void handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException, E;
     public void handleGradeChange(GradeChange4Public gradeChange) throws PersistenceException, E;
     public void handleModuleManager(ModuleManager4Public moduleManager) throws PersistenceException, E;

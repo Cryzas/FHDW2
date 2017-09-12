@@ -31,6 +31,13 @@ public class ModuleAtomarStudentProxi extends ModuleAbstractStudentProxi impleme
         }
         common.Fraction CPmulGrade = common.Fraction.parse((String)resultTable.get("CPmulGrade"));
         common.Fraction CPwithGrade = common.Fraction.parse((String)resultTable.get("CPwithGrade"));
+        ViewProxi finished = null;
+        String finished$String = (String)resultTable.get("finished");
+        if (finished$String != null) {
+            common.ProxiInformation finished$Info = common.RPCConstantsAndServices.createProxiInformation(finished$String);
+            finished = view.objects.ViewProxi.createProxi(finished$Info,connectionKey);
+            finished.setToString(finished$Info.getToString());
+        }
         ViewProxi ownGrade = null;
         String ownGrade$String = (String)resultTable.get("ownGrade");
         if (ownGrade$String != null) {
@@ -40,7 +47,7 @@ public class ModuleAtomarStudentProxi extends ModuleAbstractStudentProxi impleme
         }
         java.util.Vector<String> changes_string = (java.util.Vector<String>)resultTable.get("changes");
         java.util.Vector<GradeChangeView> changes = ViewProxi.getProxiVector(changes_string, connectionKey);
-        ModuleAtomarStudentView result$$ = new ModuleAtomarStudent((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradeView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,(GradesInSimpleOrThirdView)ownGrade,changes, this.getId(), this.getClassId());
+        ModuleAtomarStudentView result$$ = new ModuleAtomarStudent((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradeView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,(MyBooleanView)finished,(GradesInSimpleOrThirdView)ownGrade,changes, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }

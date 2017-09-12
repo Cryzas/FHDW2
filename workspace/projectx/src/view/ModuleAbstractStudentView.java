@@ -13,6 +13,7 @@ public interface ModuleAbstractStudentView extends Anything, AbstractViewRoot {
     public GradeView getGrade()throws ModelException;
     public common.Fraction getCPmulGrade()throws ModelException;
     public common.Fraction getCPwithGrade()throws ModelException;
+    public MyBooleanView getFinished()throws ModelException;
     
     public void accept(ModuleAbstractStudentVisitor visitor) throws ModelException;
     public <R> R accept(ModuleAbstractStudentReturnVisitor<R>  visitor) throws ModelException;

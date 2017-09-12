@@ -11,13 +11,15 @@ public abstract class ModuleAbstractSGroup extends ViewObject implements ModuleA
     protected String name;
     protected common.Fraction creditPoints;
     protected ModuleAbstractView moduleCopy;
+    protected MyBooleanView finished;
     
-    public ModuleAbstractSGroup(String name,common.Fraction creditPoints,ModuleAbstractView moduleCopy,long id, long classId) {
+    public ModuleAbstractSGroup(String name,common.Fraction creditPoints,ModuleAbstractView moduleCopy,MyBooleanView finished,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.name = name;
         this.creditPoints = creditPoints;
-        this.moduleCopy = moduleCopy;        
+        this.moduleCopy = moduleCopy;
+        this.finished = finished;        
     }
     
     public String getName()throws ModelException{
@@ -32,12 +34,22 @@ public abstract class ModuleAbstractSGroup extends ViewObject implements ModuleA
     public void setModuleCopy(ModuleAbstractView newValue) throws ModelException {
         this.moduleCopy = newValue;
     }
+    public MyBooleanView getFinished()throws ModelException{
+        return this.finished;
+    }
+    public void setFinished(MyBooleanView newValue) throws ModelException {
+        this.finished = newValue;
+    }
     
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
         ModuleAbstractView moduleCopy = this.getModuleCopy();
         if (moduleCopy != null) {
             ((ViewProxi)moduleCopy).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(moduleCopy.getClassId(), moduleCopy.getId())));
+        }
+        MyBooleanView finished = this.getFinished();
+        if (finished != null) {
+            ((ViewProxi)finished).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(finished.getClassId(), finished.getId())));
         }
         
     }

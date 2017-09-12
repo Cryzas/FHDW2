@@ -5,6 +5,9 @@ import persistence.*;
 
 public abstract class programHierarchyStudentHIERARCHYStandardVisitor implements programHierarchyStudentHIERARCHYVisitor {
     
+    public void handleNoProgram(NoProgram4Public noProgram) throws PersistenceException{
+        this.standardHandling(noProgram);
+    }
     public void handleModuleWithUnitsStudent(ModuleWithUnitsStudent4Public moduleWithUnitsStudent) throws PersistenceException{
         this.standardHandling(moduleWithUnitsStudent);
     }

@@ -83,6 +83,7 @@ public class Student extends PersistentObject implements PersistentStudent{
                 result.put("program", proxiInformation);
                 
             }
+            result.put("oldPrograms", this.getOldPrograms().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, false, false));
             result.put("parentGroup", this.getParentGroup().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, false, false));
         }
         return result;
@@ -107,6 +108,7 @@ public class Student extends PersistentObject implements PersistentStudent{
     protected String lastName;
     protected java.sql.Date birthDate;
     protected PersistentProgramStudent program;
+    protected Student_OldProgramsProxi oldPrograms;
     protected PersistentStudent This;
     
     public Student(String firstName,String lastName,java.sql.Date birthDate,PersistentProgramStudent program,PersistentStudent This,long id) throws PersistenceException {
@@ -116,6 +118,7 @@ public class Student extends PersistentObject implements PersistentStudent{
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.program = program;
+        this.oldPrograms = new Student_OldProgramsProxi(this);
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -136,6 +139,7 @@ public class Student extends PersistentObject implements PersistentStudent{
             this.getProgram().store();
             ConnectionHandler.getTheConnectionHandler().theStudentFacade.programSet(this.getId(), getProgram());
         }
+        this.getOldPrograms().store();
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theStudentFacade.ThisSet(this.getId(), getThis());
@@ -180,6 +184,9 @@ public class Student extends PersistentObject implements PersistentStudent{
             ConnectionHandler.getTheConnectionHandler().theStudentFacade.programSet(this.getId(), newValue);
         }
     }
+    public Student_OldProgramsProxi getOldPrograms() throws PersistenceException {
+        return this.oldPrograms;
+    }
     protected void setThis(PersistentStudent newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if (newValue.isTheSameAs(this)){
@@ -217,6 +224,7 @@ public class Student extends PersistentObject implements PersistentStudent{
     }
     public int getLeafInfo() throws PersistenceException{
         if (this.getProgram() != null) return 1;
+        if (this.getOldPrograms().getLength() > 0) return 1;
         return 0;
     }
     
@@ -243,7 +251,6 @@ public class Student extends PersistentObject implements PersistentStudent{
     
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-        
     }
     public long getMatrNr() 
 				throws PersistenceException{
@@ -251,7 +258,7 @@ public class Student extends PersistentObject implements PersistentStudent{
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        
+    	getThis().setProgram(NoProgram.getTheNoProgram());
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{

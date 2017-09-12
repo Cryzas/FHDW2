@@ -18,6 +18,12 @@ public abstract class ModuleAbstractSGroupICProxi extends PersistentInCacheProxi
     public void setModuleCopy(ModuleAbstract4Public newValue) throws PersistenceException {
         ((PersistentModuleAbstractSGroup)this.getTheObject()).setModuleCopy(newValue);
     }
+    public MyBoolean4Public getFinished() throws PersistenceException {
+        return ((PersistentModuleAbstractSGroup)this.getTheObject()).getFinished();
+    }
+    public void setFinished(MyBoolean4Public newValue) throws PersistenceException {
+        ((PersistentModuleAbstractSGroup)this.getTheObject()).setFinished(newValue);
+    }
     public abstract PersistentModuleAbstractSGroup getThis() throws PersistenceException ;
     
     
@@ -37,6 +43,10 @@ public abstract class ModuleAbstractSGroupICProxi extends PersistentInCacheProxi
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentModuleAbstractSGroup)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public void endModule() 
+				throws PersistenceException{
+        ((PersistentModuleAbstractSGroup)this.getTheObject()).endModule();
     }
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{

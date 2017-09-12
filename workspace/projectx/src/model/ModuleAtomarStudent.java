@@ -217,7 +217,7 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
     // Start of section that contains operations that must be implemented.
     
     public void changeGrade(final Grade4Public grade, final String comment) 
-				throws model.InvalidGradeForSystemException, PersistenceException{
+				throws model.AlreadyFinishedException, model.InvalidGradeForSystemException, PersistenceException{
     	((ModuleAtomarSGroupProxi)getThis().getModuleCopy()).getGradeSystem().accept(new GradeSystemExceptionVisitor<InvalidGradeForSystemException>() {
 
 			@Override
@@ -234,6 +234,17 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
 				if(grade instanceof GradesInSimple4Public){
 					throw new InvalidGradeForSystemException(String.format(InvalidGradeForSystemMessage3, grade.toString()));
 				}
+			}
+		});
+    	getThis().getFinished().accept(new MyBooleanExceptionVisitor<AlreadyFinishedException>() {
+
+			@Override
+			public void handleBFalse(BFalse4Public bFalse) throws PersistenceException, AlreadyFinishedException {
+							}
+
+			@Override
+			public void handleBTrue(BTrue4Public bTrue) throws PersistenceException, AlreadyFinishedException {
+				throw new AlreadyFinishedException(FinishedMessage);
 			}
 		});
     	getThis().getChanges().add(GradeChange.createGradeChange(getThis().getGrade(), grade, comment));
@@ -276,11 +287,16 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
     
     // Start of section that contains overridden operations only.
     
+    public MyBoolean4Public getFinished() 
+				throws PersistenceException{
+        return getThis().getModuleCopy().getFinished();
+    }
 
     /* Start of protected part that is not overridden by persistence generator */
     
     static String InvalidGradeForSystemMessage2 = "Die Note \"%s\" ist nicht mit dem zweiwertigen Notensystem des Moduls kompatibel.";    
     static String InvalidGradeForSystemMessage3 = "Die Note \"%s\" ist nicht mit dem Drittel-Notensystem des Moduls kompatibel.";
+    static String FinishedMessage = "Der Studiengang ist abgeschlossen.";
     
     /* End of protected part that is not overridden by persistence generator */
     

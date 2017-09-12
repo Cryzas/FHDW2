@@ -179,6 +179,14 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleStudentManager(StudentManagerView studentManager) throws ModelException;
     
+    public abstract void handleMyBoolean(MyBooleanView myBoolean) throws ModelException;
+    
+    public void handleBFalse(BFalseView bFalse) throws ModelException{
+        this.handleMyBoolean(bFalse);
+    }
+    public void handleBTrue(BTrueView bTrue) throws ModelException{
+        this.handleMyBoolean(bTrue);
+    }
     public abstract void handleStudent(StudentView student) throws ModelException;
     
     public abstract void handleModuleManager(ModuleManagerView moduleManager) throws ModelException;
@@ -214,6 +222,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleProgramStudent(ProgramStudentView programStudent) throws ModelException;
     
+    public void handleNoProgram(NoProgramView noProgram) throws ModelException{
+        this.handleProgramStudent(noProgram);
+    }
     public abstract void handleProgramManager(ProgramManagerView programManager) throws ModelException;
     
     

@@ -82,6 +82,13 @@ public class ProgramStudent extends PersistentObject implements PersistentProgra
                 result.put("grade", proxiInformation);
                 
             }
+            AbstractPersistentRoot finished = (AbstractPersistentRoot)this.getFinished();
+            if (finished != null) {
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    finished, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, true, false, false);
+                result.put("finished", proxiInformation);
+                
+            }
         }
         return result;
     }
@@ -175,6 +182,18 @@ public class ProgramStudent extends PersistentObject implements PersistentProgra
         }return (PersistentProgramStudent)this.This;
     }
     
+    public void accept(ProgramStudentVisitor visitor) throws PersistenceException {
+        visitor.handleProgramStudent(this);
+    }
+    public <R> R accept(ProgramStudentReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleProgramStudent(this);
+    }
+    public <E extends model.UserException>  void accept(ProgramStudentExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleProgramStudent(this);
+    }
+    public <R, E extends model.UserException> R accept(ProgramStudentReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleProgramStudent(this);
+    }
     public void accept(AnythingVisitor visitor) throws PersistenceException {
         visitor.handleProgramStudent(this);
     }
@@ -248,6 +267,22 @@ public class ProgramStudent extends PersistentObject implements PersistentProgra
 				throws PersistenceException{
         return getThis().getModules().aggregate(Fraction.Null, (result, argument) -> result.add(argument.getCreditPoints()));
     }
+    public MyBoolean4Public getFinished() 
+				throws PersistenceException{
+    	return getThis().accept(new ProgramStudentReturnVisitor<MyBoolean4Public>() {
+
+			@Override
+			public MyBoolean4Public handleNoProgram(NoProgram4Public noProgram) throws PersistenceException {
+				return BFalse.getTheBFalse();
+			}
+
+			@Override
+			public MyBoolean4Public handleProgramStudent(ProgramStudent4Public programStudent)
+					throws PersistenceException {
+		        return getThis().getProgramCopy().getFinished();
+			}
+		});
+    }
     public Grade4Public getGrade() 
 				throws PersistenceException{
 
@@ -264,7 +299,18 @@ public class ProgramStudent extends PersistentObject implements PersistentProgra
     }
     public String getName() 
 				throws PersistenceException{
-        return getThis().getProgramCopy().getName();
+        return getThis().accept(new ProgramStudentReturnVisitor<String>() {
+
+			@Override
+			public String handleNoProgram(NoProgram4Public noProgram) throws PersistenceException {
+				return "";
+			}
+
+			@Override
+			public String handleProgramStudent(ProgramStudent4Public programStudent) throws PersistenceException {
+				return getThis().getProgramCopy().getName();
+			}
+		});
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

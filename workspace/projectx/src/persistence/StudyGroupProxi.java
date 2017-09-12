@@ -33,6 +33,12 @@ public class StudyGroupProxi extends PersistentProxi implements PersistentStudyG
     public StudyGroup_StudentsProxi getStudents() throws PersistenceException {
         return ((PersistentStudyGroup)this.getTheObject()).getStudents();
     }
+    public MyBoolean4Public getFinished() throws PersistenceException {
+        return ((PersistentStudyGroup)this.getTheObject()).getFinished();
+    }
+    public void setFinished(MyBoolean4Public newValue) throws PersistenceException {
+        ((PersistentStudyGroup)this.getTheObject()).setFinished(newValue);
+    }
     public PersistentStudyGroup getThis() throws PersistenceException {
         return ((PersistentStudyGroup)this.getTheObject()).getThis();
     }
@@ -62,6 +68,10 @@ public class StudyGroupProxi extends PersistentProxi implements PersistentStudyG
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentStudyGroup)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public void endStudyGroup() 
+				throws model.AlreadyFinishedException, PersistenceException{
+        ((PersistentStudyGroup)this.getTheObject()).endStudyGroup();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

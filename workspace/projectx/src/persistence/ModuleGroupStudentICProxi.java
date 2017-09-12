@@ -99,6 +99,10 @@ public class ModuleGroupStudentICProxi extends ModuleAbstractStudentICProxi impl
 				throws PersistenceException{
         return ((PersistentModuleGroupStudent)this.getTheObject()).getCreditPoints();
     }
+    public MyBoolean4Public getFinished() 
+				throws PersistenceException{
+        return ((PersistentModuleGroupStudent)this.getTheObject()).getFinished();
+    }
     public Grade4Public getGrade() 
 				throws PersistenceException{
         return ((PersistentModuleGroupStudent)this.getTheObject()).getGrade();

@@ -215,6 +215,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).disconnected();
     }
+    public void endStudyGroup(final StudyGroup4Public studyGroup) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).endStudyGroup(studyGroup);
+    }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).handleException(command, exception);

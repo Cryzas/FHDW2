@@ -22,6 +22,12 @@ public abstract class ModuleAbstractSGroupProxi extends ViewProxi implements Mod
     public void setModuleCopy(ModuleAbstractView newValue) throws ModelException {
         ((ModuleAbstractSGroup)this.getTheObject()).setModuleCopy(newValue);
     }
+    public MyBooleanView getFinished()throws ModelException{
+        return ((ModuleAbstractSGroup)this.getTheObject()).getFinished();
+    }
+    public void setFinished(MyBooleanView newValue) throws ModelException {
+        ((ModuleAbstractSGroup)this.getTheObject()).setFinished(newValue);
+    }
     
     
     

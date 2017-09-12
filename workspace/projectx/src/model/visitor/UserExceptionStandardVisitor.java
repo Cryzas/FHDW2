@@ -5,6 +5,9 @@ import persistence.*;
 
 public abstract class UserExceptionStandardVisitor implements UserExceptionVisitor {
     
+    public void handleAlreadyFinishedException(model.AlreadyFinishedException alreadyFinishedException) throws PersistenceException{
+        this.standardHandling(alreadyFinishedException);
+    }
     public void handleInvalidGradeForSystemException(model.InvalidGradeForSystemException invalidGradeForSystemException) throws PersistenceException{
         this.standardHandling(invalidGradeForSystemException);
     }

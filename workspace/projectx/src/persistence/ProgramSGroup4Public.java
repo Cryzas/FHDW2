@@ -6,6 +6,7 @@ import model.visitor.*;
 public interface ProgramSGroup4Public extends programHierarchySGroupHIERARCHY, Anything, AbstractPersistentProxi {
     
     public ProgramSGroup_ModulesProxi getModules() throws PersistenceException ;
+    public MyBoolean4Public getFinished() throws PersistenceException ;
     
     public void accept(programHierarchySGroupHIERARCHYVisitor visitor) throws PersistenceException;
     public <R> R accept(programHierarchySGroupHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException;
@@ -27,6 +28,8 @@ public interface ProgramSGroup4Public extends programHierarchySGroupHIERARCHY, A
     public ProgramStudent4Public copyForStudent() 
 				throws model.UserException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
+				throws PersistenceException;
+    public void endProgram() 
 				throws PersistenceException;
     public common.Fraction getCreditPoints() 
 				throws PersistenceException;

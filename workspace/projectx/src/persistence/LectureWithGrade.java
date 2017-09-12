@@ -8,7 +8,7 @@ public interface LectureWithGrade extends AbstractPersistentProxi {
     
     
     public void changeGrade(final Grade4Public grade, final String comment) 
-				throws model.InvalidGradeForSystemException, PersistenceException;
+				throws model.AlreadyFinishedException, model.InvalidGradeForSystemException, PersistenceException;
 
     public void accept(LectureWithGradeVisitor visitor) throws PersistenceException;
     public <R> R accept(LectureWithGradeReturnVisitor<R>  visitor) throws PersistenceException;

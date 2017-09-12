@@ -15,6 +15,8 @@ public interface StudentView extends Anything, AbstractViewRoot {
     public long getMatrNr()throws ModelException;
     public ProgramStudentView getProgram()throws ModelException;
     public void setProgram(ProgramStudentView newValue) throws ModelException ;
+    public java.util.Vector<ProgramStudentView> getOldPrograms()throws ModelException;
+    public void setOldPrograms(java.util.Vector<ProgramStudentView> newValue) throws ModelException ;
     public java.util.Vector<StudyGroupView> getParentGroup()throws ModelException;
     
     public void accept(AnythingVisitor visitor) throws ModelException;

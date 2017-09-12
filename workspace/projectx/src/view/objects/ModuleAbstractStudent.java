@@ -14,8 +14,9 @@ public abstract class ModuleAbstractStudent extends ViewObject implements Module
     protected GradeView grade;
     protected common.Fraction CPmulGrade;
     protected common.Fraction CPwithGrade;
+    protected MyBooleanView finished;
     
-    public ModuleAbstractStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,GradeView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,long id, long classId) {
+    public ModuleAbstractStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,GradeView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,MyBooleanView finished,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.moduleCopy = moduleCopy;
@@ -23,7 +24,8 @@ public abstract class ModuleAbstractStudent extends ViewObject implements Module
         this.creditPoints = creditPoints;
         this.grade = grade;
         this.CPmulGrade = CPmulGrade;
-        this.CPwithGrade = CPwithGrade;        
+        this.CPwithGrade = CPwithGrade;
+        this.finished = finished;        
     }
     
     public ModuleAbstractSGroupView getModuleCopy()throws ModelException{
@@ -47,6 +49,9 @@ public abstract class ModuleAbstractStudent extends ViewObject implements Module
     public common.Fraction getCPwithGrade()throws ModelException{
         return this.CPwithGrade;
     }
+    public MyBooleanView getFinished()throws ModelException{
+        return this.finished;
+    }
     
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
@@ -57,6 +62,10 @@ public abstract class ModuleAbstractStudent extends ViewObject implements Module
         GradeView grade = this.getGrade();
         if (grade != null) {
             ((ViewProxi)grade).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(grade.getClassId(), grade.getId())));
+        }
+        MyBooleanView finished = this.getFinished();
+        if (finished != null) {
+            ((ViewProxi)finished).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(finished.getClassId(), finished.getId())));
         }
         
     }

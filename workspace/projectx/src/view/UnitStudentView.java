@@ -14,6 +14,7 @@ public interface UnitStudentView extends Anything, LectureWithGrade, AbstractVie
     public common.Fraction getCPwithGrade()throws ModelException;
     public java.util.Vector<GradeChangeView> getChanges()throws ModelException;
     public void setChanges(java.util.Vector<GradeChangeView> newValue) throws ModelException ;
+    public MyBooleanView getFinished()throws ModelException;
     
     public void accept(AnythingVisitor visitor) throws ModelException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException;

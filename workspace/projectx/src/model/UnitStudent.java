@@ -77,6 +77,13 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
             result.put("CPmulGrade", this.getCPmulGrade().toString());
             result.put("CPwithGrade", this.getCPwithGrade().toString());
             result.put("changes", this.getChanges().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, false, false));
+            AbstractPersistentRoot finished = (AbstractPersistentRoot)this.getFinished();
+            if (finished != null) {
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    finished, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, true, false, false);
+                result.put("finished", proxiInformation);
+                
+            }
         }
         return result;
     }
@@ -255,10 +262,21 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
     // Start of section that contains operations that must be implemented.
     
     public void changeGrade(final Grade4Public grade, final String comment) 
-				throws model.InvalidGradeForSystemException, PersistenceException{
+				throws model.AlreadyFinishedException, model.InvalidGradeForSystemException, PersistenceException{
     	if(!(grade instanceof GradesInThird4Public)){
-    		throw new InvalidGradeForSystemException(InvalidGradeForSystemMessage);
+    		throw new InvalidGradeForSystemException(String.format(InvalidGradeForSystemMessage,grade.toString()));
     	}
+    	getThis().getFinished().accept(new MyBooleanExceptionVisitor<AlreadyFinishedException>() {
+
+			@Override
+			public void handleBFalse(BFalse4Public bFalse) throws PersistenceException, AlreadyFinishedException {
+							}
+
+			@Override
+			public void handleBTrue(BTrue4Public bTrue) throws PersistenceException, AlreadyFinishedException {
+				throw new AlreadyFinishedException(FinishedMessage);
+			}
+		});
     	getThis().getChanges().add(GradeChange.createGradeChange(getThis().getGrade(), grade, comment));
     	getThis().setGrade((GradesInThird4Public)grade);
     }
@@ -286,6 +304,10 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
 				throws PersistenceException{
         return getThis().getUnitCopy().getCreditPoints();
     }
+    public MyBoolean4Public getFinished() 
+				throws PersistenceException{
+        return getThis().getUnitCopy().getFinished();
+    }
     public String getName() 
 				throws PersistenceException{
         return getThis().getUnitCopy().getName();
@@ -304,7 +326,8 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
 
     /* Start of protected part that is not overridden by persistence generator */
     
-    static String InvalidGradeForSystemMessage = "Die Note ist nicht mit dem Notensystem des Moduls kompatibel.";
+    static String InvalidGradeForSystemMessage = "Die Note \"%s\" ist nicht mit dem Drittel-Notensystem des Moduls kompatibel.";
+    static String FinishedMessage = "Der Studiengang ist abgeschlossen.";
     
     /* End of protected part that is not overridden by persistence generator */
     

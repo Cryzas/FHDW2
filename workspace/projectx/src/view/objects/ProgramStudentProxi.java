@@ -31,7 +31,14 @@ public class ProgramStudentProxi extends ViewProxi implements ProgramStudentView
             grade = view.objects.ViewProxi.createProxi(grade$Info,connectionKey);
             grade.setToString(grade$Info.getToString());
         }
-        ProgramStudentView result$$ = new ProgramStudent(modules,(String)name,(common.Fraction)creditPoints,(ProgramSGroupView)programCopy,(GradeView)grade, this.getId(), this.getClassId());
+        ViewProxi finished = null;
+        String finished$String = (String)resultTable.get("finished");
+        if (finished$String != null) {
+            common.ProxiInformation finished$Info = common.RPCConstantsAndServices.createProxiInformation(finished$String);
+            finished = view.objects.ViewProxi.createProxi(finished$Info,connectionKey);
+            finished.setToString(finished$Info.getToString());
+        }
+        ProgramStudentView result$$ = new ProgramStudent(modules,(String)name,(common.Fraction)creditPoints,(ProgramSGroupView)programCopy,(GradeView)grade,(MyBooleanView)finished, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -85,7 +92,22 @@ public class ProgramStudentProxi extends ViewProxi implements ProgramStudentView
     public GradeView getGrade()throws ModelException{
         return ((ProgramStudent)this.getTheObject()).getGrade();
     }
+    public MyBooleanView getFinished()throws ModelException{
+        return ((ProgramStudent)this.getTheObject()).getFinished();
+    }
     
+    public void accept(ProgramStudentVisitor visitor) throws ModelException {
+        visitor.handleProgramStudent(this);
+    }
+    public <R> R accept(ProgramStudentReturnVisitor<R>  visitor) throws ModelException {
+         return visitor.handleProgramStudent(this);
+    }
+    public <E extends view.UserException>  void accept(ProgramStudentExceptionVisitor<E> visitor) throws ModelException, E {
+         visitor.handleProgramStudent(this);
+    }
+    public <R, E extends view.UserException> R accept(ProgramStudentReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+         return visitor.handleProgramStudent(this);
+    }
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleProgramStudent(this);
     }

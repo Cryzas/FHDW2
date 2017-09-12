@@ -69,6 +69,13 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
             if (leaf) allResults.put(uniqueKey, result);
             result.put("name", this.getName());
             result.put("creditPoints", this.getCreditPoints().toString());
+            AbstractPersistentRoot finished = (AbstractPersistentRoot)this.getFinished();
+            if (finished != null) {
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    finished, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
+                result.put("finished", proxiInformation);
+                
+            }
         }
         return result;
     }
@@ -77,6 +84,7 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
         UnitSGroup result = this;
         result = new UnitSGroup(this.unitCopy, 
                                 this.creditPoints, 
+                                this.finished, 
                                 this.This, 
                                 this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -88,13 +96,15 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
     }
     protected PersistentUnit unitCopy;
     protected common.Fraction creditPoints;
+    protected PersistentMyBoolean finished;
     protected PersistentUnitSGroup This;
     
-    public UnitSGroup(PersistentUnit unitCopy,common.Fraction creditPoints,PersistentUnitSGroup This,long id) throws PersistenceException {
+    public UnitSGroup(PersistentUnit unitCopy,common.Fraction creditPoints,PersistentMyBoolean finished,PersistentUnitSGroup This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.unitCopy = unitCopy;
         this.creditPoints = creditPoints;
+        this.finished = finished;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -114,6 +124,10 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
         if(this.getUnitCopy() != null){
             this.getUnitCopy().store();
             ConnectionHandler.getTheConnectionHandler().theUnitSGroupFacade.unitCopySet(this.getId(), getUnitCopy());
+        }
+        if(this.getFinished() != null){
+            this.getFinished().store();
+            ConnectionHandler.getTheConnectionHandler().theUnitSGroupFacade.finishedSet(this.getId(), getFinished());
         }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
@@ -142,6 +156,20 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
     public void setCreditPoints(common.Fraction newValue) throws PersistenceException {
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theUnitSGroupFacade.creditPointsSet(this.getId(), newValue);
         this.creditPoints = newValue;
+    }
+    public MyBoolean4Public getFinished() throws PersistenceException {
+        return this.finished;
+    }
+    public void setFinished(MyBoolean4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.finished)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.finished = (PersistentMyBoolean)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theUnitSGroupFacade.finishedSet(this.getId(), newValue);
+        }
     }
     protected void setThis(PersistentUnitSGroup newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -229,13 +257,17 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
 				throws PersistenceException{
         
     }
+    public void endUnit() 
+				throws PersistenceException{
+        getThis().setFinished(BTrue.getTheBTrue());
+    }
     public String getName() 
 				throws PersistenceException{
         return getThis().getUnitCopy().getName();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        
+        getThis().setFinished(BFalse.getTheBFalse());
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{

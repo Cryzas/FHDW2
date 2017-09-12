@@ -96,6 +96,10 @@ public class ModuleAtomarSGroupICProxi extends ModuleAbstractSGroupICProxi imple
 				throws PersistenceException{
         ((PersistentModuleAtomarSGroup)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public void endModule() 
+				throws PersistenceException{
+        ((PersistentModuleAtomarSGroup)this.getTheObject()).endModule();
+    }
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
         return ((PersistentModuleAtomarSGroup)this.getTheObject()).getCreditPoints();

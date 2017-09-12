@@ -15,8 +15,9 @@ public class UnitStudent extends ViewObject implements UnitStudentView{
     protected common.Fraction CPmulGrade;
     protected common.Fraction CPwithGrade;
     protected java.util.Vector<GradeChangeView> changes;
+    protected MyBooleanView finished;
     
-    public UnitStudent(String name,common.Fraction creditPoints,GradesInThirdView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,java.util.Vector<GradeChangeView> changes,long id, long classId) {
+    public UnitStudent(String name,common.Fraction creditPoints,GradesInThirdView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,java.util.Vector<GradeChangeView> changes,MyBooleanView finished,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.name = name;
@@ -24,7 +25,8 @@ public class UnitStudent extends ViewObject implements UnitStudentView{
         this.grade = grade;
         this.CPmulGrade = CPmulGrade;
         this.CPwithGrade = CPwithGrade;
-        this.changes = changes;        
+        this.changes = changes;
+        this.finished = finished;        
     }
     
     static public long getTypeId() {
@@ -58,6 +60,9 @@ public class UnitStudent extends ViewObject implements UnitStudentView{
     }
     public void setChanges(java.util.Vector<GradeChangeView> newValue) throws ModelException {
         this.changes = newValue;
+    }
+    public MyBooleanView getFinished()throws ModelException{
+        return this.finished;
     }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
@@ -93,6 +98,10 @@ public class UnitStudent extends ViewObject implements UnitStudentView{
         java.util.Vector<?> changes = this.getChanges();
         if (changes != null) {
             ViewObject.resolveVectorProxies(changes, resultTable);
+        }
+        MyBooleanView finished = this.getFinished();
+        if (finished != null) {
+            ((ViewProxi)finished).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(finished.getClassId(), finished.getId())));
         }
         
     }

@@ -247,6 +247,9 @@ public class ChangeGradeCommand extends PersistentObject implements PersistentCh
         try{
 			this.commandReceiver.changeGrade(this.getLecture(), this.getGrade(), this.getComment());
 		}
+		catch(model.AlreadyFinishedException e){
+			this.commandException = e;
+		}
 		catch(model.InvalidGradeForSystemException e){
 			this.commandException = e;
 		}

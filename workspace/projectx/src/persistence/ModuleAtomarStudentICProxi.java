@@ -98,7 +98,7 @@ public class ModuleAtomarStudentICProxi extends ModuleAbstractStudentICProxi imp
         return ((PersistentModuleAtomarStudent)this.getTheObject()).strategyprogramHierarchyStudent(strategy);
     }
     public void changeGrade(final Grade4Public grade, final String comment) 
-				throws model.InvalidGradeForSystemException, PersistenceException{
+				throws model.AlreadyFinishedException, model.InvalidGradeForSystemException, PersistenceException{
         ((PersistentModuleAtomarStudent)this.getTheObject()).changeGrade(grade, comment);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
@@ -116,6 +116,10 @@ public class ModuleAtomarStudentICProxi extends ModuleAbstractStudentICProxi imp
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
         return ((PersistentModuleAtomarStudent)this.getTheObject()).getCreditPoints();
+    }
+    public MyBoolean4Public getFinished() 
+				throws PersistenceException{
+        return ((PersistentModuleAtomarStudent)this.getTheObject()).getFinished();
     }
     public Grade4Public getGrade() 
 				throws PersistenceException{

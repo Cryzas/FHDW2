@@ -15,6 +15,7 @@ public interface CommonDateVisitor {
     public void handleCreateModuleCommand(CreateModuleCommand4Public createModuleCommand) throws PersistenceException;
     public void handleCreateProgramCommand(CreateProgramCommand4Public createProgramCommand) throws PersistenceException;
     public void handleCreateStudentCommand(CreateStudentCommand4Public createStudentCommand) throws PersistenceException;
+    public void handleEndStudyGroupCommand(EndStudyGroupCommand4Public endStudyGroupCommand) throws PersistenceException;
     public void handleStartStudyGroupCommand(StartStudyGroupCommand4Public startStudyGroupCommand) throws PersistenceException;
     public void handleSwapCPonModuleWithUnitsCommand(SwapCPonModuleWithUnitsCommand4Public swapCPonModuleWithUnitsCommand) throws PersistenceException;
     public void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException;

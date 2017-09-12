@@ -87,6 +87,10 @@ public class ModuleWithUnitsSGroupProxi extends ModuleAbstractSGroupProxi implem
 				throws PersistenceException{
         ((PersistentModuleWithUnitsSGroup)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
+    public void endModule() 
+				throws PersistenceException{
+        ((PersistentModuleWithUnitsSGroup)this.getTheObject()).endModule();
+    }
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{
         return ((PersistentModuleWithUnitsSGroup)this.getTheObject()).getCreditPoints();

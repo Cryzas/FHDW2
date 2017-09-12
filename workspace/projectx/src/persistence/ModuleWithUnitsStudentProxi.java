@@ -95,6 +95,10 @@ public class ModuleWithUnitsStudentProxi extends ModuleAbstractStudentProxi impl
 				throws PersistenceException{
         return ((PersistentModuleWithUnitsStudent)this.getTheObject()).getCreditPoints();
     }
+    public MyBoolean4Public getFinished() 
+				throws PersistenceException{
+        return ((PersistentModuleWithUnitsStudent)this.getTheObject()).getFinished();
+    }
     public Grade4Public getGrade() 
 				throws PersistenceException{
         return ((PersistentModuleWithUnitsStudent)this.getTheObject()).getGrade();

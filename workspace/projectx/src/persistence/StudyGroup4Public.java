@@ -9,6 +9,7 @@ public interface StudyGroup4Public extends Anything, AbstractPersistentProxi {
     public ProgramSGroup4Public getProgram() throws PersistenceException ;
     public void setProgram(ProgramSGroup4Public newValue) throws PersistenceException ;
     public StudyGroup_StudentsProxi getStudents() throws PersistenceException ;
+    public MyBoolean4Public getFinished() throws PersistenceException ;
     
     public void accept(AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;
@@ -21,6 +22,8 @@ public interface StudyGroup4Public extends Anything, AbstractPersistentProxi {
 				throws model.AlreadyExistsInParentException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
+    public void endStudyGroup() 
+				throws model.AlreadyFinishedException, PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 

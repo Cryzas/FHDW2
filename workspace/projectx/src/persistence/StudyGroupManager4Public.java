@@ -12,6 +12,8 @@ public interface StudyGroupManager4Public extends Anything, AbstractPersistentPr
     public <E extends model.UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
+    public void endStudyGroup(final StudyGroup4Public studyGroup, final Invoker invoker) 
+				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
     public void startStudyGroup(final Program4Public program, final String name, final Invoker invoker) 
@@ -20,6 +22,8 @@ public interface StudyGroupManager4Public extends Anything, AbstractPersistentPr
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
+    public void endStudyGroup(final StudyGroup4Public studyGroup) 
+				throws model.AlreadyFinishedException, PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 

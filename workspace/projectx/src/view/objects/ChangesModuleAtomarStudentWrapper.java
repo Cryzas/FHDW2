@@ -16,7 +16,6 @@ public class ChangesModuleAtomarStudentWrapper extends AssociationInTreeWrapper 
 	
 	
 	public String toString(){
-    	//TODO: Implement toString in wrapper class for association changes in class ModuleAtomarStudent
     	return this.getWrappedObject().toString();
     }
 

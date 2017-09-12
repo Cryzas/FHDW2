@@ -26,7 +26,7 @@ public class UnitSGroupFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            UnitSGroup result = new UnitSGroup(null,creditPoints,null,id);
+            UnitSGroup result = new UnitSGroup(null,creditPoints,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentUnitSGroup)PersistentProxi.createProxi(id, 181);
         }catch(SQLException se) {
@@ -42,7 +42,7 @@ public class UnitSGroupFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            UnitSGroup result = new UnitSGroup(null,creditPoints,null,id);
+            UnitSGroup result = new UnitSGroup(null,creditPoints,null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentUnitSGroup)PersistentProxi.createProxi(id, 181);
         }catch(SQLException se) {
@@ -66,11 +66,15 @@ public class UnitSGroupFacade{
             PersistentUnit unitCopy = null;
             if (obj.getLong(2) != 0)
                 unitCopy = (PersistentUnit)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
-            PersistentUnitSGroup This = null;
+            PersistentMyBoolean finished = null;
             if (obj.getLong(5) != 0)
-                This = (PersistentUnitSGroup)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
+                finished = (PersistentMyBoolean)PersistentProxi.createProxi(obj.getLong(5), obj.getLong(6));
+            PersistentUnitSGroup This = null;
+            if (obj.getLong(7) != 0)
+                This = (PersistentUnitSGroup)PersistentProxi.createProxi(obj.getLong(7), obj.getLong(8));
             UnitSGroup result = new UnitSGroup(unitCopy,
                                                (obj.getString(4) == null ? common.Fraction.Null : common.Fraction.parse(obj.getString(4))),
+                                               finished,
                                                This,
                                                UnitSGroupId);
             obj.close();
@@ -116,6 +120,19 @@ public class UnitSGroupFacade{
             callable = this.con.prepareCall("Begin " + this.schemaName + ".UntSGrpFacade.crdtPntsSet(?, ?); end;");
             callable.setLong(1, UnitSGroupId);
             callable.setString(2, creditPointsVal.toString());
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void finishedSet(long UnitSGroupId, MyBoolean4Public finishedVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".UntSGrpFacade.fnshdSet(?, ?, ?); end;");
+            callable.setLong(1, UnitSGroupId);
+            callable.setLong(2, finishedVal.getId());
+            callable.setLong(3, finishedVal.getClassId());
             callable.execute();
             callable.close();
         }catch(SQLException se) {

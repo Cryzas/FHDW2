@@ -24,9 +24,11 @@ public class StudentProxi extends ViewProxi implements StudentView{
             program = view.objects.ViewProxi.createProxi(program$Info,connectionKey);
             program.setToString(program$Info.getToString());
         }
+        java.util.Vector<String> oldPrograms_string = (java.util.Vector<String>)resultTable.get("oldPrograms");
+        java.util.Vector<ProgramStudentView> oldPrograms = ViewProxi.getProxiVector(oldPrograms_string, connectionKey);
         java.util.Vector<String> parentGroup_string = (java.util.Vector<String>)resultTable.get("parentGroup");
         java.util.Vector<StudyGroupView> parentGroup = ViewProxi.getProxiVector(parentGroup_string, connectionKey);
-        StudentView result$$ = new Student((String)firstName,(String)lastName,(java.util.Date)birthDate,(long)matrNr,(ProgramStudentView)program,parentGroup, this.getId(), this.getClassId());
+        StudentView result$$ = new Student((String)firstName,(String)lastName,(java.util.Date)birthDate,(long)matrNr,(ProgramStudentView)program,oldPrograms,parentGroup, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -38,21 +40,30 @@ public class StudentProxi extends ViewProxi implements StudentView{
         int index = originalIndex;
         if(index == 0 && this.getProgram() != null) return new ProgramStudentWrapper(this, originalIndex, (ViewRoot)this.getProgram());
         if(this.getProgram() != null) index = index - 1;
+        if(index < this.getOldPrograms().size()) return new OldProgramsStudentWrapper(this, originalIndex, (ViewRoot)this.getOldPrograms().get(index));
+        index = index - this.getOldPrograms().size();
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getProgram() == null ? 0 : 1);
+            + (this.getProgram() == null ? 0 : 1)
+            + (this.getOldPrograms().size());
     }
     public boolean isLeaf() throws ModelException {
         if (this.object == null) return this.getLeafInfo() == 0;
         return true 
-            && (this.getProgram() == null ? true : false);
+            && (this.getProgram() == null ? true : false)
+            && (this.getOldPrograms().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
         if(this.getProgram() != null && this.getProgram().equals(child)) return result;
         if(this.getProgram() != null) result = result + 1;
+        java.util.Iterator<?> getOldProgramsIterator = this.getOldPrograms().iterator();
+        while(getOldProgramsIterator.hasNext()){
+            if(getOldProgramsIterator.next().equals(child)) return result;
+            result = result + 1;
+        }
         return -1;
     }
     
@@ -82,6 +93,12 @@ public class StudentProxi extends ViewProxi implements StudentView{
     }
     public void setProgram(ProgramStudentView newValue) throws ModelException {
         ((Student)this.getTheObject()).setProgram(newValue);
+    }
+    public java.util.Vector<ProgramStudentView> getOldPrograms()throws ModelException{
+        return ((Student)this.getTheObject()).getOldPrograms();
+    }
+    public void setOldPrograms(java.util.Vector<ProgramStudentView> newValue) throws ModelException {
+        ((Student)this.getTheObject()).setOldPrograms(newValue);
     }
     public java.util.Vector<StudyGroupView> getParentGroup()throws ModelException{
         return ((Student)this.getTheObject()).getParentGroup();

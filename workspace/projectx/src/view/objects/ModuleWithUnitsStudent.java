@@ -11,9 +11,9 @@ public class ModuleWithUnitsStudent extends view.objects.ModuleAbstractStudent i
     
     protected java.util.Vector<UnitStudentView> units;
     
-    public ModuleWithUnitsStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,GradeView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,java.util.Vector<UnitStudentView> units,long id, long classId) {
+    public ModuleWithUnitsStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,GradeView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,MyBooleanView finished,java.util.Vector<UnitStudentView> units,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradeView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,id, classId);
+        super((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradeView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,(MyBooleanView)finished,id, classId);
         this.units = units;        
     }
     
@@ -65,6 +65,10 @@ public class ModuleWithUnitsStudent extends view.objects.ModuleAbstractStudent i
         GradeView grade = this.getGrade();
         if (grade != null) {
             ((ViewProxi)grade).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(grade.getClassId(), grade.getId())));
+        }
+        MyBooleanView finished = this.getFinished();
+        if (finished != null) {
+            ((ViewProxi)finished).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(finished.getClassId(), finished.getId())));
         }
         java.util.Vector<?> units = this.getUnits();
         if (units != null) {

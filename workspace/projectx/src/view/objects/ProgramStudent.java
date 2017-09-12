@@ -14,15 +14,17 @@ public class ProgramStudent extends ViewObject implements ProgramStudentView{
     protected common.Fraction creditPoints;
     protected ProgramSGroupView programCopy;
     protected GradeView grade;
+    protected MyBooleanView finished;
     
-    public ProgramStudent(java.util.Vector<ModuleAbstractStudentView> modules,String name,common.Fraction creditPoints,ProgramSGroupView programCopy,GradeView grade,long id, long classId) {
+    public ProgramStudent(java.util.Vector<ModuleAbstractStudentView> modules,String name,common.Fraction creditPoints,ProgramSGroupView programCopy,GradeView grade,MyBooleanView finished,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.modules = modules;
         this.name = name;
         this.creditPoints = creditPoints;
         this.programCopy = programCopy;
-        this.grade = grade;        
+        this.grade = grade;
+        this.finished = finished;        
     }
     
     static public long getTypeId() {
@@ -54,7 +56,22 @@ public class ProgramStudent extends ViewObject implements ProgramStudentView{
     public GradeView getGrade()throws ModelException{
         return this.grade;
     }
+    public MyBooleanView getFinished()throws ModelException{
+        return this.finished;
+    }
     
+    public void accept(ProgramStudentVisitor visitor) throws ModelException {
+        visitor.handleProgramStudent(this);
+    }
+    public <R> R accept(ProgramStudentReturnVisitor<R>  visitor) throws ModelException {
+         return visitor.handleProgramStudent(this);
+    }
+    public <E extends view.UserException>  void accept(ProgramStudentExceptionVisitor<E> visitor) throws ModelException, E {
+         visitor.handleProgramStudent(this);
+    }
+    public <R, E extends view.UserException> R accept(ProgramStudentReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+         return visitor.handleProgramStudent(this);
+    }
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleProgramStudent(this);
     }
@@ -80,6 +97,10 @@ public class ProgramStudent extends ViewObject implements ProgramStudentView{
         GradeView grade = this.getGrade();
         if (grade != null) {
             ((ViewProxi)grade).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(grade.getClassId(), grade.getId())));
+        }
+        MyBooleanView finished = this.getFinished();
+        if (finished != null) {
+            ((ViewProxi)finished).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(finished.getClassId(), finished.getId())));
         }
         
     }

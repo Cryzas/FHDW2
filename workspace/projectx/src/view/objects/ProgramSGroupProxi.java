@@ -17,7 +17,14 @@ public class ProgramSGroupProxi extends ViewProxi implements ProgramSGroupView{
         java.util.Vector<ModuleAbstractSGroupView> modules = ViewProxi.getProxiVector(modules_string, connectionKey);
         String name = (String)resultTable.get("name");
         common.Fraction creditPoints = common.Fraction.parse((String)resultTable.get("creditPoints"));
-        ProgramSGroupView result$$ = new ProgramSGroup(modules,(String)name,(common.Fraction)creditPoints, this.getId(), this.getClassId());
+        ViewProxi finished = null;
+        String finished$String = (String)resultTable.get("finished");
+        if (finished$String != null) {
+            common.ProxiInformation finished$Info = common.RPCConstantsAndServices.createProxiInformation(finished$String);
+            finished = view.objects.ViewProxi.createProxi(finished$Info,connectionKey);
+            finished.setToString(finished$Info.getToString());
+        }
+        ProgramSGroupView result$$ = new ProgramSGroup(modules,(String)name,(common.Fraction)creditPoints,(MyBooleanView)finished, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -61,6 +68,12 @@ public class ProgramSGroupProxi extends ViewProxi implements ProgramSGroupView{
     }
     public common.Fraction getCreditPoints()throws ModelException{
         return ((ProgramSGroup)this.getTheObject()).getCreditPoints();
+    }
+    public MyBooleanView getFinished()throws ModelException{
+        return ((ProgramSGroup)this.getTheObject()).getFinished();
+    }
+    public void setFinished(MyBooleanView newValue) throws ModelException {
+        ((ProgramSGroup)this.getTheObject()).setFinished(newValue);
     }
     
     public void accept(AnythingVisitor visitor) throws ModelException {

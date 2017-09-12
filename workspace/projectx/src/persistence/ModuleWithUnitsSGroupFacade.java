@@ -25,7 +25,7 @@ public class ModuleWithUnitsSGroupFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ModuleWithUnitsSGroup result = new ModuleWithUnitsSGroup(null,null,id);
+            ModuleWithUnitsSGroup result = new ModuleWithUnitsSGroup(null,null,null,id);
             if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
             return (PersistentModuleWithUnitsSGroup)PersistentProxi.createProxi(id, 182);
         }catch(SQLException se) {
@@ -41,7 +41,7 @@ public class ModuleWithUnitsSGroupFacade{
             callable.execute();
             long id = callable.getLong(1);
             callable.close();
-            ModuleWithUnitsSGroup result = new ModuleWithUnitsSGroup(null,null,id);
+            ModuleWithUnitsSGroup result = new ModuleWithUnitsSGroup(null,null,null,id);
             Cache.getTheCache().put(result);
             return (PersistentModuleWithUnitsSGroup)PersistentProxi.createProxi(id, 182);
         }catch(SQLException se) {
@@ -65,10 +65,14 @@ public class ModuleWithUnitsSGroupFacade{
             PersistentModuleAbstract moduleCopy = null;
             if (obj.getLong(2) != 0)
                 moduleCopy = (PersistentModuleAbstract)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
-            PersistentModuleAbstractSGroup This = null;
+            PersistentMyBoolean finished = null;
             if (obj.getLong(4) != 0)
-                This = (PersistentModuleAbstractSGroup)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+                finished = (PersistentMyBoolean)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
+            PersistentModuleAbstractSGroup This = null;
+            if (obj.getLong(6) != 0)
+                This = (PersistentModuleAbstractSGroup)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
             ModuleWithUnitsSGroup result = new ModuleWithUnitsSGroup(moduleCopy,
+                                                                     finished,
                                                                      This,
                                                                      ModuleWithUnitsSGroupId);
             obj.close();

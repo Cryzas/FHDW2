@@ -42,6 +42,19 @@ public class ModuleAbstractSGroupFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
+    public void finishedSet(long ModuleAbstractSGroupId, MyBoolean4Public finishedVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".m_abstr_grFacade.fnshdSet(?, ?, ?); end;");
+            callable.setLong(1, ModuleAbstractSGroupId);
+            callable.setLong(2, finishedVal.getId());
+            callable.setLong(3, finishedVal.getClassId());
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
     public void ThisSet(long ModuleAbstractSGroupId, ModuleAbstractSGroup4Public ThisVal) throws PersistenceException {
         try{
             CallableStatement callable;

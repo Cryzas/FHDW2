@@ -77,6 +77,7 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
     public ModuleAtomarSGroup provideCopy() throws PersistenceException{
         ModuleAtomarSGroup result = this;
         result = new ModuleAtomarSGroup(this.moduleCopy, 
+                                        this.finished, 
                                         this.This, 
                                         this.ownCreditPoints, 
                                         this.gradeSystem, 
@@ -91,9 +92,9 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
     protected common.Fraction ownCreditPoints;
     protected PersistentGradeSystem gradeSystem;
     
-    public ModuleAtomarSGroup(PersistentModuleAbstract moduleCopy,PersistentModuleAbstractSGroup This,common.Fraction ownCreditPoints,PersistentGradeSystem gradeSystem,long id) throws PersistenceException {
+    public ModuleAtomarSGroup(PersistentModuleAbstract moduleCopy,PersistentMyBoolean finished,PersistentModuleAbstractSGroup This,common.Fraction ownCreditPoints,PersistentGradeSystem gradeSystem,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentModuleAbstract)moduleCopy,(PersistentModuleAbstractSGroup)This,id);
+        super((PersistentModuleAbstract)moduleCopy,(PersistentMyBoolean)finished,(PersistentModuleAbstractSGroup)This,id);
         this.ownCreditPoints = ownCreditPoints;
         this.gradeSystem = gradeSystem;        
     }
@@ -218,6 +219,10 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         
+    }
+    public void endModule() 
+				throws PersistenceException{
+        getThis().setFinished(BTrue.getTheBTrue());
     }
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{

@@ -43,6 +43,10 @@ public class StudyGroupManagerICProxi extends PersistentInCacheProxiOptimistic i
     }
     
     
+    public void endStudyGroup(final StudyGroup4Public studyGroup, final Invoker invoker) 
+				throws PersistenceException{
+        ((PersistentStudyGroupManager)this.getTheObject()).endStudyGroup(studyGroup, invoker);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentStudyGroupManager)this.getTheObject()).initialize(This, final$$Fields);
@@ -58,6 +62,10 @@ public class StudyGroupManagerICProxi extends PersistentInCacheProxiOptimistic i
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentStudyGroupManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public void endStudyGroup(final StudyGroup4Public studyGroup) 
+				throws model.AlreadyFinishedException, PersistenceException{
+        ((PersistentStudyGroupManager)this.getTheObject()).endStudyGroup(studyGroup);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

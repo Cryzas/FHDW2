@@ -46,6 +46,10 @@ public abstract class ModuleAbstractStudentICProxi extends PersistentInCacheProx
 				throws PersistenceException{
         return ((PersistentModuleAbstractStudent)this.getTheObject()).getCreditPoints();
     }
+    public MyBoolean4Public getFinished() 
+				throws PersistenceException{
+        return ((PersistentModuleAbstractStudent)this.getTheObject()).getFinished();
+    }
     public Grade4Public getGrade() 
 				throws PersistenceException{
         return ((PersistentModuleAbstractStudent)this.getTheObject()).getGrade();

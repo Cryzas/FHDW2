@@ -21,6 +21,13 @@ public class ModuleAtomarSGroupProxi extends ModuleAbstractSGroupProxi implement
             moduleCopy = view.objects.ViewProxi.createProxi(moduleCopy$Info,connectionKey);
             moduleCopy.setToString(moduleCopy$Info.getToString());
         }
+        ViewProxi finished = null;
+        String finished$String = (String)resultTable.get("finished");
+        if (finished$String != null) {
+            common.ProxiInformation finished$Info = common.RPCConstantsAndServices.createProxiInformation(finished$String);
+            finished = view.objects.ViewProxi.createProxi(finished$Info,connectionKey);
+            finished.setToString(finished$Info.getToString());
+        }
         ViewProxi gradeSystem = null;
         String gradeSystem$String = (String)resultTable.get("gradeSystem");
         if (gradeSystem$String != null) {
@@ -28,7 +35,7 @@ public class ModuleAtomarSGroupProxi extends ModuleAbstractSGroupProxi implement
             gradeSystem = view.objects.ViewProxi.createProxi(gradeSystem$Info,connectionKey);
             gradeSystem.setToString(gradeSystem$Info.getToString());
         }
-        ModuleAtomarSGroupView result$$ = new ModuleAtomarSGroup((String)name,(common.Fraction)creditPoints,(ModuleAbstractView)moduleCopy,(GradeSystemView)gradeSystem, this.getId(), this.getClassId());
+        ModuleAtomarSGroupView result$$ = new ModuleAtomarSGroup((String)name,(common.Fraction)creditPoints,(ModuleAbstractView)moduleCopy,(MyBooleanView)finished,(GradeSystemView)gradeSystem, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }

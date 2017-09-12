@@ -314,5 +314,17 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	public void handleGradeChange(GradeChange4Public gradeChange) throws PersistenceException {
 		result = "Von \"" + gradeChange.getFromGrade().toString() + "\" zu \"" + gradeChange.getToGrade().toString() + "\" / Kommentar: " + gradeChange.getComment() + " / " + gradeChange.getDateOfChange().toLocalDate().toString();
 	}
+	@Override
+	public void handleBFalse(BFalse4Public bFalse) throws PersistenceException {
+		result = "false";		
+	}
+	@Override
+	public void handleBTrue(BTrue4Public bTrue) throws PersistenceException {
+		result = "true";
+	}
+	@Override
+	public void handleNoProgram(NoProgram4Public noProgram) throws PersistenceException {
+		result = "Kein aktuelles Studienprogramm";
+	}
 
 }

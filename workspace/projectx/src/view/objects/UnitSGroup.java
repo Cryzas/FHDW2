@@ -11,12 +11,14 @@ public class UnitSGroup extends ViewObject implements UnitSGroupView{
     
     protected String name;
     protected common.Fraction creditPoints;
+    protected MyBooleanView finished;
     
-    public UnitSGroup(String name,common.Fraction creditPoints,long id, long classId) {
+    public UnitSGroup(String name,common.Fraction creditPoints,MyBooleanView finished,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.name = name;
-        this.creditPoints = creditPoints;        
+        this.creditPoints = creditPoints;
+        this.finished = finished;        
     }
     
     static public long getTypeId() {
@@ -36,6 +38,12 @@ public class UnitSGroup extends ViewObject implements UnitSGroupView{
     public void setCreditPoints(common.Fraction newValue) throws ModelException {
         this.creditPoints = newValue;
     }
+    public MyBooleanView getFinished()throws ModelException{
+        return this.finished;
+    }
+    public void setFinished(MyBooleanView newValue) throws ModelException {
+        this.finished = newValue;
+    }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleUnitSGroup(this);
@@ -51,6 +59,10 @@ public class UnitSGroup extends ViewObject implements UnitSGroupView{
     }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
+        MyBooleanView finished = this.getFinished();
+        if (finished != null) {
+            ((ViewProxi)finished).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(finished.getClassId(), finished.getId())));
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {

@@ -14,9 +14,10 @@ public class Student extends ViewObject implements StudentView{
     protected java.util.Date birthDate;
     protected long matrNr;
     protected ProgramStudentView program;
+    protected java.util.Vector<ProgramStudentView> oldPrograms;
     protected java.util.Vector<StudyGroupView> parentGroup;
     
-    public Student(String firstName,String lastName,java.util.Date birthDate,long matrNr,ProgramStudentView program,java.util.Vector<StudyGroupView> parentGroup,long id, long classId) {
+    public Student(String firstName,String lastName,java.util.Date birthDate,long matrNr,ProgramStudentView program,java.util.Vector<ProgramStudentView> oldPrograms,java.util.Vector<StudyGroupView> parentGroup,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.firstName = firstName;
@@ -24,6 +25,7 @@ public class Student extends ViewObject implements StudentView{
         this.birthDate = birthDate;
         this.matrNr = matrNr;
         this.program = program;
+        this.oldPrograms = oldPrograms;
         this.parentGroup = parentGroup;        
     }
     
@@ -62,6 +64,12 @@ public class Student extends ViewObject implements StudentView{
     public void setProgram(ProgramStudentView newValue) throws ModelException {
         this.program = newValue;
     }
+    public java.util.Vector<ProgramStudentView> getOldPrograms()throws ModelException{
+        return this.oldPrograms;
+    }
+    public void setOldPrograms(java.util.Vector<ProgramStudentView> newValue) throws ModelException {
+        this.oldPrograms = newValue;
+    }
     public java.util.Vector<StudyGroupView> getParentGroup()throws ModelException{
         return this.parentGroup;
     }
@@ -84,6 +92,10 @@ public class Student extends ViewObject implements StudentView{
         if (program != null) {
             ((ViewProxi)program).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(program.getClassId(), program.getId())));
         }
+        java.util.Vector<?> oldPrograms = this.getOldPrograms();
+        if (oldPrograms != null) {
+            ViewObject.resolveVectorProxies(oldPrograms, resultTable);
+        }
         java.util.Vector<?> parentGroup = this.getParentGroup();
         if (parentGroup != null) {
             ViewObject.resolveVectorProxies(parentGroup, resultTable);
@@ -97,20 +109,29 @@ public class Student extends ViewObject implements StudentView{
         int index = originalIndex;
         if(index == 0 && this.getProgram() != null) return new ProgramStudentWrapper(this, originalIndex, (ViewRoot)this.getProgram());
         if(this.getProgram() != null) index = index - 1;
+        if(index < this.getOldPrograms().size()) return new OldProgramsStudentWrapper(this, originalIndex, (ViewRoot)this.getOldPrograms().get(index));
+        index = index - this.getOldPrograms().size();
         return null;
     }
     public int getChildCount() throws ModelException {
         return 0 
-            + (this.getProgram() == null ? 0 : 1);
+            + (this.getProgram() == null ? 0 : 1)
+            + (this.getOldPrograms().size());
     }
     public boolean isLeaf() throws ModelException {
         return true 
-            && (this.getProgram() == null ? true : false);
+            && (this.getProgram() == null ? true : false)
+            && (this.getOldPrograms().size() == 0);
     }
     public int getIndexOfChild(Object child) throws ModelException {
         int result = 0;
         if(this.getProgram() != null && this.getProgram().equals(child)) return result;
         if(this.getProgram() != null) result = result + 1;
+        java.util.Iterator<?> getOldProgramsIterator = this.getOldPrograms().iterator();
+        while(getOldProgramsIterator.hasNext()){
+            if(getOldProgramsIterator.next().equals(child)) return result;
+            result = result + 1;
+        }
         return -1;
     }
     public int getFirstNameIndex() throws ModelException {

@@ -5,6 +5,7 @@ import persistence.*;
 public interface UserExceptionExceptionVisitor<E extends model.UserException> {
     
     public void handleAlreadyExistsInParentException(model.AlreadyExistsInParentException alreadyExistsInParentException) throws PersistenceException, E;
+    public void handleAlreadyFinishedException(model.AlreadyFinishedException alreadyFinishedException) throws PersistenceException, E;
     public void handleCycleException(model.CycleException cycleException) throws PersistenceException, E;
     public void handleInvalidGradeForSystemException(model.InvalidGradeForSystemException invalidGradeForSystemException) throws PersistenceException, E;
     public void handleNoFractionValueException(model.NoFractionValueException noFractionValueException) throws PersistenceException, E;

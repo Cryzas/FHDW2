@@ -46,6 +46,9 @@ public class StudentICProxi extends PersistentInCacheProxiOptimistic implements 
     public void setProgram(ProgramStudent4Public newValue) throws PersistenceException {
         ((PersistentStudent)this.getTheObject()).setProgram(newValue);
     }
+    public Student_OldProgramsProxi getOldPrograms() throws PersistenceException {
+        return ((PersistentStudent)this.getTheObject()).getOldPrograms();
+    }
     public PersistentStudent getThis() throws PersistenceException {
         return ((PersistentStudent)this.getTheObject()).getThis();
     }

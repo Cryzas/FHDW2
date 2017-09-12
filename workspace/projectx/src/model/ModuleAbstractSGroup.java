@@ -34,6 +34,13 @@ public abstract class ModuleAbstractSGroup extends PersistentObject implements P
                 result.put("moduleCopy", proxiInformation);
                 
             }
+            AbstractPersistentRoot finished = (AbstractPersistentRoot)this.getFinished();
+            if (finished != null) {
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    finished, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
+                result.put("finished", proxiInformation);
+                
+            }
         }
         return result;
     }
@@ -44,12 +51,14 @@ public abstract class ModuleAbstractSGroup extends PersistentObject implements P
         return false;
     }
     protected PersistentModuleAbstract moduleCopy;
+    protected PersistentMyBoolean finished;
     protected PersistentModuleAbstractSGroup This;
     
-    public ModuleAbstractSGroup(PersistentModuleAbstract moduleCopy,PersistentModuleAbstractSGroup This,long id) throws PersistenceException {
+    public ModuleAbstractSGroup(PersistentModuleAbstract moduleCopy,PersistentMyBoolean finished,PersistentModuleAbstractSGroup This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.moduleCopy = moduleCopy;
+        this.finished = finished;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -67,6 +76,10 @@ public abstract class ModuleAbstractSGroup extends PersistentObject implements P
         if(this.getModuleCopy() != null){
             this.getModuleCopy().store();
             ConnectionHandler.getTheConnectionHandler().theModuleAbstractSGroupFacade.moduleCopySet(this.getId(), getModuleCopy());
+        }
+        if(this.getFinished() != null){
+            this.getFinished().store();
+            ConnectionHandler.getTheConnectionHandler().theModuleAbstractSGroupFacade.finishedSet(this.getId(), getFinished());
         }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
@@ -87,6 +100,20 @@ public abstract class ModuleAbstractSGroup extends PersistentObject implements P
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theModuleAbstractSGroupFacade.moduleCopySet(this.getId(), newValue);
+        }
+    }
+    public MyBoolean4Public getFinished() throws PersistenceException {
+        return this.finished;
+    }
+    public void setFinished(MyBoolean4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.finished)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.finished = (PersistentMyBoolean)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theModuleAbstractSGroupFacade.finishedSet(this.getId(), newValue);
         }
     }
     protected void setThis(PersistentModuleAbstractSGroup newValue) throws PersistenceException {
@@ -125,7 +152,7 @@ public abstract class ModuleAbstractSGroup extends PersistentObject implements P
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        
+        getThis().setFinished(BFalse.getTheBFalse());        
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{

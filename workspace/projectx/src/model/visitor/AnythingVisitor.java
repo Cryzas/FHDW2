@@ -2,7 +2,7 @@
 package model.visitor;
 import persistence.*;
 
-public interface AnythingVisitor extends CommonDateVisitor,GradeVisitor,GradeSystemVisitor,ModuleAbstractVisitor,ModuleAbstractSGroupVisitor,ModuleAbstractStudentVisitor{
+public interface AnythingVisitor extends CommonDateVisitor,GradeVisitor,GradeSystemVisitor,ModuleAbstractVisitor,ModuleAbstractSGroupVisitor,ModuleAbstractStudentVisitor,MyBooleanVisitor,ProgramStudentVisitor{
     
     public void handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand) throws PersistenceException;
     public void handleAddModuleToProgCommand(AddModuleToProgCommand4Public addModuleToProgCommand) throws PersistenceException;
@@ -18,6 +18,7 @@ public interface AnythingVisitor extends CommonDateVisitor,GradeVisitor,GradeSys
     public void handleCreateModuleCommand(CreateModuleCommand4Public createModuleCommand) throws PersistenceException;
     public void handleCreateProgramCommand(CreateProgramCommand4Public createProgramCommand) throws PersistenceException;
     public void handleCreateStudentCommand(CreateStudentCommand4Public createStudentCommand) throws PersistenceException;
+    public void handleEndStudyGroupCommand(EndStudyGroupCommand4Public endStudyGroupCommand) throws PersistenceException;
     public void handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException;
     public void handleGradeChange(GradeChange4Public gradeChange) throws PersistenceException;
     public void handleModuleManager(ModuleManager4Public moduleManager) throws PersistenceException;

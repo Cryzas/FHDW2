@@ -22,9 +22,16 @@ public class ModuleWithUnitsSGroupProxi extends ModuleAbstractSGroupProxi implem
             moduleCopy = view.objects.ViewProxi.createProxi(moduleCopy$Info,connectionKey);
             moduleCopy.setToString(moduleCopy$Info.getToString());
         }
+        ViewProxi finished = null;
+        String finished$String = (String)resultTable.get("finished");
+        if (finished$String != null) {
+            common.ProxiInformation finished$Info = common.RPCConstantsAndServices.createProxiInformation(finished$String);
+            finished = view.objects.ViewProxi.createProxi(finished$Info,connectionKey);
+            finished.setToString(finished$Info.getToString());
+        }
         java.util.Vector<String> units_string = (java.util.Vector<String>)resultTable.get("units");
         java.util.Vector<UnitSGroupView> units = ViewProxi.getProxiVector(units_string, connectionKey);
-        ModuleWithUnitsSGroupView result$$ = new ModuleWithUnitsSGroup((String)name,(common.Fraction)creditPoints,(ModuleAbstractView)moduleCopy,units, this.getId(), this.getClassId());
+        ModuleWithUnitsSGroupView result$$ = new ModuleWithUnitsSGroup((String)name,(common.Fraction)creditPoints,(ModuleAbstractView)moduleCopy,(MyBooleanView)finished,units, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }

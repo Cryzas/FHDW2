@@ -179,6 +179,14 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleStudentManager(StudentManager4Public studentManager) throws PersistenceException;
     
+    public abstract void handleMyBoolean(MyBoolean4Public myBoolean) throws PersistenceException;
+    
+    public void handleBFalse(BFalse4Public bFalse) throws PersistenceException{
+        this.handleMyBoolean(bFalse);
+    }
+    public void handleBTrue(BTrue4Public bTrue) throws PersistenceException{
+        this.handleMyBoolean(bTrue);
+    }
     public abstract void handleStudent(Student4Public student) throws PersistenceException;
     
     public abstract void handleModuleManager(ModuleManager4Public moduleManager) throws PersistenceException;
@@ -216,6 +224,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public abstract void handleProgramStudent(ProgramStudent4Public programStudent) throws PersistenceException;
     
+    public void handleNoProgram(NoProgram4Public noProgram) throws PersistenceException{
+        this.handleProgramStudent(noProgram);
+    }
     public abstract void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException;
     
     public void handleCreateProgramCommand(CreateProgramCommand4Public createProgramCommand) throws PersistenceException{
@@ -226,6 +237,9 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     }
     public void handleChangeGradeSystemCommand(ChangeGradeSystemCommand4Public changeGradeSystemCommand) throws PersistenceException{
         this.handleCommonDate(changeGradeSystemCommand);
+    }
+    public void handleEndStudyGroupCommand(EndStudyGroupCommand4Public endStudyGroupCommand) throws PersistenceException{
+        this.handleCommonDate(endStudyGroupCommand);
     }
     public void handleCreateStudentCommand(CreateStudentCommand4Public createStudentCommand) throws PersistenceException{
         this.handleCommonDate(createStudentCommand);

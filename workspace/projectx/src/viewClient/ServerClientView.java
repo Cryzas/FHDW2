@@ -331,6 +331,7 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         ImageView handle(CreateProgramPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(CreateStudentPRMTRStudyGroupPRMTRStringPRMTRStringPRMTRDatePRMTRMenuItem menuItem);
         ImageView handle(AddStudentToGroupPRMTRStudyGroupPRMTRStudentLSTPRMTRMenuItem menuItem);
+        ImageView handle(EndStudyGroupPRMTRStudyGroupPRMTRMenuItem menuItem);
         ImageView handle(StartStudyGroupPRMTRProgramPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(AddUnitPRMTRModuleWithUnitsPRMTRStringPRMTRFractionPRMTRMenuItem menuItem);
     }
@@ -406,6 +407,11 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
         }
     }
     private class AddStudentToGroupPRMTRStudyGroupPRMTRStudentLSTPRMTRMenuItem extends ServerMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class EndStudyGroupPRMTRStudyGroupPRMTRMenuItem extends ServerMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -535,6 +541,29 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
                         wizard.setX( getPointForView().getX());
                         wizard.setY( getPointForView().getY());
                         wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+                item = new EndStudyGroupPRMTRStudyGroupPRMTRMenuItem();
+                item.setText("Studiengruppe abschlieﬂen");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        Alert confirm = new Alert(AlertType.CONFIRMATION);
+                        confirm.setTitle(GUIConstants.ConfirmButtonText);
+                        confirm.setHeaderText(null);
+                        confirm.setContentText("Studiengruppe abschlieﬂen" + GUIConstants.ConfirmQuestionMark);
+                        confirm.setX( getPointForView().getX() );
+                        confirm.setY( getPointForView().getY() );
+                        Optional<ButtonType> buttonResult = confirm.showAndWait();
+                        if (buttonResult.get() == ButtonType.OK) {
+                            try {
+                                getConnection().endStudyGroup((StudyGroupView)selected);
+                                getConnection().setEagerRefresh();
+                                
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
                     }
                 });
                 result.getItems().add(item);

@@ -14,7 +14,14 @@ public class UnitSGroupProxi extends ViewProxi implements UnitSGroupView{
     public UnitSGroupView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         String name = (String)resultTable.get("name");
         common.Fraction creditPoints = common.Fraction.parse((String)resultTable.get("creditPoints"));
-        UnitSGroupView result$$ = new UnitSGroup((String)name,(common.Fraction)creditPoints, this.getId(), this.getClassId());
+        ViewProxi finished = null;
+        String finished$String = (String)resultTable.get("finished");
+        if (finished$String != null) {
+            common.ProxiInformation finished$Info = common.RPCConstantsAndServices.createProxiInformation(finished$String);
+            finished = view.objects.ViewProxi.createProxi(finished$Info,connectionKey);
+            finished.setToString(finished$Info.getToString());
+        }
+        UnitSGroupView result$$ = new UnitSGroup((String)name,(common.Fraction)creditPoints,(MyBooleanView)finished, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -45,6 +52,12 @@ public class UnitSGroupProxi extends ViewProxi implements UnitSGroupView{
     }
     public void setCreditPoints(common.Fraction newValue) throws ModelException {
         ((UnitSGroup)this.getTheObject()).setCreditPoints(newValue);
+    }
+    public MyBooleanView getFinished()throws ModelException{
+        return ((UnitSGroup)this.getTheObject()).getFinished();
+    }
+    public void setFinished(MyBooleanView newValue) throws ModelException {
+        ((UnitSGroup)this.getTheObject()).setFinished(newValue);
     }
     
     public void accept(AnythingVisitor visitor) throws ModelException {

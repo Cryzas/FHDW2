@@ -5,4 +5,4 @@ public interface ProgramStudentMssgs {
 }
 
 interface ProgramStudentDOWNMssgs extends Mssgs, ProgramStudentMssgs{}
-interface ProgramStudentUPMssgs extends Mssgs, ProgramStudentMssgs{}
+interface ProgramStudentUPMssgs extends NoProgramUPMssgs, ProgramStudentMssgs{}

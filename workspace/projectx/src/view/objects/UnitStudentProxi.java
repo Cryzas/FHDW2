@@ -26,7 +26,14 @@ public class UnitStudentProxi extends ViewProxi implements UnitStudentView{
         common.Fraction CPwithGrade = common.Fraction.parse((String)resultTable.get("CPwithGrade"));
         java.util.Vector<String> changes_string = (java.util.Vector<String>)resultTable.get("changes");
         java.util.Vector<GradeChangeView> changes = ViewProxi.getProxiVector(changes_string, connectionKey);
-        UnitStudentView result$$ = new UnitStudent((String)name,(common.Fraction)creditPoints,(GradesInThirdView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,changes, this.getId(), this.getClassId());
+        ViewProxi finished = null;
+        String finished$String = (String)resultTable.get("finished");
+        if (finished$String != null) {
+            common.ProxiInformation finished$Info = common.RPCConstantsAndServices.createProxiInformation(finished$String);
+            finished = view.objects.ViewProxi.createProxi(finished$Info,connectionKey);
+            finished.setToString(finished$Info.getToString());
+        }
+        UnitStudentView result$$ = new UnitStudent((String)name,(common.Fraction)creditPoints,(GradesInThirdView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,changes,(MyBooleanView)finished, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -82,6 +89,9 @@ public class UnitStudentProxi extends ViewProxi implements UnitStudentView{
     }
     public void setChanges(java.util.Vector<GradeChangeView> newValue) throws ModelException {
         ((UnitStudent)this.getTheObject()).setChanges(newValue);
+    }
+    public MyBooleanView getFinished()throws ModelException{
+        return ((UnitStudent)this.getTheObject()).getFinished();
     }
     
     public void accept(AnythingVisitor visitor) throws ModelException {

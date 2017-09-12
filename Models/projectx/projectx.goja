@@ -37,6 +37,8 @@ server Server {
 	void changeGradeOfModule @@ Note_ändern (ModuleAtomarStudent module, GradesInSimpleOrThirdSUBTYPEName grade, String comment);
 /* Note für einen Studenten ändern */
 	void changeGradeforStudent @@ Note_eintragen (Student student, LectureWithGrade lecture {;student;program;modules}, GradesInSimpleOrThirdSUBTYPEName grade, String comment);
+/* Beendet die Studiengruppe, Noten können nicht mehr verändert werden */
+	void endStudyGroup @@ Studiengruppe_abschließen (StudyGroup studyGroup);
 }
 
 																									/* Manager Klassen */
@@ -70,6 +72,8 @@ class StudyGroupManager {
 	active void startStudyGroup(Program program, String name) throws UserException;	
 /* Credit Points zwischen zwei Unit verschieben -> Attribute: module, fromUnit, toUnit, creditPoints */
 	active void swapCPonModuleWithUnits ## sCPonMWU(ModuleWithUnitsSGroup module, UnitSGroup fromUnit, UnitSGroup ToUnit, Fraction creditPoints) throws UnitSwapException;
+/* Beendet die Studiengruppe, Noten können nicht mehr verändert werden */
+	active void endStudyGroup (StudyGroup studyGroup) throws AlreadyFinishedException;
 }
 
 class StudentManager {
@@ -79,7 +83,7 @@ class StudentManager {
 /* Student zu einer Studiengruppe zuordnen -> Attribute: group, student */
 	active void addStudentToGroup ## add_S2G (StudyGroup group, Student student) throws UserException;
 /* Note einer Unit ändern */
-	active void changeGrade(LectureWithGrade lecture, GradesInSimpleOrThirdSUBTYPEName grade, String comment) throws InvalidGradeForSystemException;
+	active void changeGrade(LectureWithGrade lecture, GradesInSimpleOrThirdSUBTYPEName grade, String comment) throws InvalidGradeForSystemException, AlreadyFinishedException;
 }
 
 																			/* Aufbau eines Studienprogramms */
@@ -143,9 +147,12 @@ class Unit {
 class StudyGroup {
 	public prior indexed String name;
 	public-write ProgramSGroup program;
-	public leaf-view symmetric (no-view parentGroup) Student ** students;
+	public leaf-view symmetric (public no-view parentGroup) Student ** students;
 	/* Fügt den Student zu der Gruppe hinzu, schmeißt Exception, wenn Student schon drin ist. */
 	void addStudent(Student student) throws AlreadyExistsInParentException;
+	public no-view MyBoolean finished;
+/* Beendet die Studiengruppe, Noten können nicht mehr verändert werden */
+	void endStudyGroup () throws AlreadyFinishedException;
 }
 
 hierarchy programHierarchySGroup ## pro_hier_s;
@@ -157,6 +164,8 @@ class ProgramSGroup {
 	prior Program programCopy;
 	void addModule(ModuleAbstractSGroup module) throws CycleException;
 	ProgramStudent copyForStudent() throws UserException;
+	public no-view MyBoolean finished;
+	void endProgram();
 }
 
 abstract string-factory class ModuleAbstractSGroup ## m_abstr_gr {
@@ -164,6 +173,8 @@ abstract string-factory class ModuleAbstractSGroup ## m_abstr_gr {
 	public abstract derived Fraction creditPoints;		
 	public no-view prior ModuleAbstract moduleCopy;
 	abstract ModuleAbstractStudent copyForStudent() throws UserException;
+	public no-view MyBoolean finished;
+	abstract void endModule();
 }
 
 class ModuleGroupSGroup extends ModuleAbstractSGroup {
@@ -189,6 +200,8 @@ class UnitSGroup {
 	void addCP(Fraction creditPoints);
 	void subCP(Fraction creditPoints) throws UnitSwapException;
 	UnitStudent copyForStudent() throws UserException;
+	public no-view MyBoolean finished;
+	void endUnit();
 }
 
 
@@ -202,17 +215,19 @@ class Student {
 	public derived Integer matrNr;
 	/* Authorisiert ProgramStudent das Objekt Student mit Schreibzugriff */	
 	public-write ProgramStudent program;
+	public ProgramStudent ** oldPrograms;
 }
 
 hierarchy programHierarchyStudent ## pr_hier_std;
 
-class ProgramStudent {
+class ProgramStudent (NoProgram) {
 	public ModuleAbstractStudent ** modules hierarchy programHierarchyStudent;
 	public derived String name;
 	public derived Fraction creditPoints;
 	public no-view prior ProgramSGroup programCopy;
 	void addModule(ModuleAbstractStudent module) throws CycleException;
 	public no-view derived Grade grade;
+	public no-view derived MyBoolean finished;
 }
 
 abstract string-factory class ModuleAbstractStudent ## m_abstr_st {
@@ -222,6 +237,7 @@ abstract string-factory class ModuleAbstractStudent ## m_abstr_st {
 	public abstract no-view derived Grade grade;
 	public abstract no-view derived Fraction CPmulGrade;
 	public abstract no-view derived Fraction CPwithGrade;
+	public no-view derived MyBoolean finished;
 }
 
 class ModuleGroupStudent extends ModuleAbstractStudent {
@@ -247,10 +263,11 @@ class UnitStudent implements LectureWithGrade {
 	public no-view derived Fraction CPmulGrade;
 	public no-view derived Fraction CPwithGrade;
 	public GradeChange ** changes;
+	public no-view derived MyBoolean finished;
 }
 
 interface LectureWithGrade {
-	void changeGrade(Grade grade, String comment) throws InvalidGradeForSystemException;
+	void changeGrade(Grade grade, String comment) throws InvalidGradeForSystemException, AlreadyFinishedException;
 }
 																																			/* Noten */
 
@@ -282,6 +299,10 @@ exception UnitSwapException{}
 exception AlreadyExistsInParentException{}
 exception InvalidGradeForSystemException{}
 exception NoFractionValueException{}
+exception AlreadyFinishedException{}
 
+																													/* Boolean */
+
+abstract class MyBoolean (BTrue, BFalse) {}
 }
 

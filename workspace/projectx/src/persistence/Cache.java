@@ -278,6 +278,8 @@ public class Cache {
 		this.number2NameMap.put(168, "AddModuleToProgCommand");
 		this.number2NameMap.put(203, "AddStudentToGroupCommand");
 		this.number2NameMap.put(161, "AddUnitCommand");
+		this.number2NameMap.put(282, "BFalse");
+		this.number2NameMap.put(281, "BTrue");
 		this.number2NameMap.put(156, "ChangeCPOnModuleCommand");
 		this.number2NameMap.put(157, "ChangeCPOnUnitCommand");
 		this.number2NameMap.put(275, "ChangeGradeCommand");
@@ -288,6 +290,7 @@ public class Cache {
 		this.number2NameMap.put(159, "CreateModuleCommand");
 		this.number2NameMap.put(155, "CreateProgramCommand");
 		this.number2NameMap.put(200, "CreateStudentCommand");
+		this.number2NameMap.put(284, "EndStudyGroupCommand");
 		this.number2NameMap.put(-144, "ErrorDisplay");
 		this.number2NameMap.put(276, "GradeChange");
 		this.number2NameMap.put(153, "ModuleAtomar");
@@ -301,6 +304,7 @@ public class Cache {
 		this.number2NameMap.put(182, "ModuleWithUnitsSGroup");
 		this.number2NameMap.put(193, "ModuleWithUnitsStudent");
 		this.number2NameMap.put(273, "NoGrade");
+		this.number2NameMap.put(285, "NoProgram");
 		this.number2NameMap.put(219, "NotPassed");
 		this.number2NameMap.put(214, "Passed");
 		this.number2NameMap.put(143, "Program");

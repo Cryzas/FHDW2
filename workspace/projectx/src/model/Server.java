@@ -472,6 +472,10 @@ public class Server extends PersistentObject implements PersistentServer{
 				throws PersistenceException{
         
     }
+    public void endStudyGroup(final StudyGroup4Public studyGroup) 
+				throws PersistenceException{
+        getThis().getGroupManager().endStudyGroup(studyGroup, getThis());
+    }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{
         new Thread(new Runnable(){

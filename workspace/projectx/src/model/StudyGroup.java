@@ -75,6 +75,13 @@ public class StudyGroup extends PersistentObject implements PersistentStudyGroup
                 
             }
             result.put("students", this.getStudents().getVector(allResults, depth, essentialLevel, forGUI, true, true, inDerived, false, false));
+            AbstractPersistentRoot finished = (AbstractPersistentRoot)this.getFinished();
+            if (finished != null) {
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    finished, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
+                result.put("finished", proxiInformation);
+                
+            }
         }
         return result;
     }
@@ -88,6 +95,7 @@ public class StudyGroup extends PersistentObject implements PersistentStudyGroup
         StudyGroup result = this;
         result = new StudyGroup(this.name, 
                                 this.program, 
+                                this.finished, 
                                 this.This, 
                                 this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -100,14 +108,16 @@ public class StudyGroup extends PersistentObject implements PersistentStudyGroup
     protected String name;
     protected PersistentProgramSGroup program;
     protected StudyGroup_StudentsProxi students;
+    protected PersistentMyBoolean finished;
     protected PersistentStudyGroup This;
     
-    public StudyGroup(String name,PersistentProgramSGroup program,PersistentStudyGroup This,long id) throws PersistenceException {
+    public StudyGroup(String name,PersistentProgramSGroup program,PersistentMyBoolean finished,PersistentStudyGroup This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.name = name;
         this.program = program;
         this.students = new StudyGroup_StudentsProxi(this);
+        this.finished = finished;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -129,6 +139,10 @@ public class StudyGroup extends PersistentObject implements PersistentStudyGroup
             ConnectionHandler.getTheConnectionHandler().theStudyGroupFacade.programSet(this.getId(), getProgram());
         }
         this.getStudents().store();
+        if(this.getFinished() != null){
+            this.getFinished().store();
+            ConnectionHandler.getTheConnectionHandler().theStudyGroupFacade.finishedSet(this.getId(), getFinished());
+        }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theStudyGroupFacade.ThisSet(this.getId(), getThis());
@@ -160,6 +174,20 @@ public class StudyGroup extends PersistentObject implements PersistentStudyGroup
     }
     public StudyGroup_StudentsProxi getStudents() throws PersistenceException {
         return this.students;
+    }
+    public MyBoolean4Public getFinished() throws PersistenceException {
+        return this.finished;
+    }
+    public void setFinished(MyBoolean4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.finished)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.finished = (PersistentMyBoolean)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theStudyGroupFacade.finishedSet(this.getId(), newValue);
+        }
     }
     protected void setThis(PersistentStudyGroup newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -225,13 +253,32 @@ public class StudyGroup extends PersistentObject implements PersistentStudyGroup
 				throws PersistenceException{
         
     }
+    public void endStudyGroup() 
+				throws model.AlreadyFinishedException, PersistenceException{
+        getThis().getFinished().accept(new MyBooleanExceptionVisitor<AlreadyFinishedException>() {
+
+			@Override
+			public void handleBFalse(BFalse4Public bFalse) throws PersistenceException, AlreadyFinishedException {
+				getThis().getProgram().endProgram();
+				getThis().getStudents().applyToAll(student -> {
+					student.getOldPrograms().add(student.getProgram());
+					student.setProgram(NoProgram.getTheNoProgram());
+				});
+				getThis().setFinished(BTrue.getTheBTrue());
+			}
+
+			@Override
+			public void handleBTrue(BTrue4Public bTrue) throws PersistenceException, AlreadyFinishedException {
+				throw new AlreadyFinishedException(String.format(GroupAlreadyFinishedMessage, getThis().getName()));
+			}
+		});
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
-        
+        getThis().setFinished(BFalse.getTheBFalse());
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        
     }
     
     
@@ -241,6 +288,7 @@ public class StudyGroup extends PersistentObject implements PersistentStudyGroup
     /* Start of protected part that is not overridden by persistence generator */
     
     static String StudentAlreadyInGroupMessage = "Der Student %s %s ist bereits in der Studiengruppe %s.";
+    static String GroupAlreadyFinishedMessage = "Die Studiengruppe %s ist bereits abgeschlossen.";
     
     /* End of protected part that is not overridden by persistence generator */
     

@@ -12,6 +12,8 @@ public interface StudyGroupView extends Anything, AbstractViewRoot {
     public void setProgram(ProgramSGroupView newValue) throws ModelException ;
     public java.util.Vector<StudentView> getStudents()throws ModelException;
     public void setStudents(java.util.Vector<StudentView> newValue) throws ModelException ;
+    public MyBooleanView getFinished()throws ModelException;
+    public void setFinished(MyBooleanView newValue) throws ModelException ;
     
     public void accept(AnythingVisitor visitor) throws ModelException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException;

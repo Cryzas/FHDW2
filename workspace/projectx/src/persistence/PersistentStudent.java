@@ -9,8 +9,6 @@ public interface PersistentStudent extends Anything, AbstractPersistentProxi, St
     public PersistentStudent getThis() throws PersistenceException ;
     
     
-    public StudyGroupSearchList getParentGroup() 
-				throws PersistenceException;
 
 }
 

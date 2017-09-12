@@ -20,6 +20,12 @@ public interface programHierarchyStudentHIERARCHYStrategy<T> {
 				throws PersistenceException;
     public T ModuleWithUnitsStudent$$units$$consolidate(final ModuleWithUnitsStudent4Public ths, final T result, final T current) 
 				throws PersistenceException;
+    public T NoProgram$$finalize(final NoProgram4Public ths, final T modules) 
+				throws PersistenceException;
+    public T NoProgram$$modules$$$initialize(final NoProgram4Public ths) 
+				throws PersistenceException;
+    public T NoProgram$$modules$$consolidate(final NoProgram4Public ths, final T result, final T current) 
+				throws PersistenceException;
     public T ProgramStudent$$finalize(final ProgramStudent4Public ths, final T modules) 
 				throws PersistenceException;
     public T ProgramStudent$$modules$$$initialize(final ProgramStudent4Public ths) 

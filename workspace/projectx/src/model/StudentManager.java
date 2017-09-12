@@ -197,11 +197,38 @@ public class StudentManager extends PersistentObject implements PersistentStuden
     
     public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student) 
 				throws model.UserException, PersistenceException{
+    	student.getProgram().accept(new ProgramStudentExceptionVisitor<AlreadyExistsInParentException>() {
+
+			@Override
+			public void handleNoProgram(NoProgram4Public noProgram)
+					throws PersistenceException, AlreadyExistsInParentException {
+			}
+
+			@Override
+			public void handleProgramStudent(ProgramStudent4Public programStudent)
+					throws PersistenceException, AlreadyExistsInParentException {
+	    		throw new AlreadyExistsInParentException(String.format(studentHasProgramMessage, student.getFirstName(), student.getLastName(), student.getParentGroup().iterator().next().getName()));
+			}
+		});
+    	if(group.getFinished().accept(new MyBooleanReturnVisitor<Boolean>() {
+
+			@Override
+			public Boolean handleBFalse(BFalse4Public bFalse) throws PersistenceException {
+				return false;
+			}
+
+			@Override
+			public Boolean handleBTrue(BTrue4Public bTrue) throws PersistenceException {
+				return true;
+			}
+		})) {
+    		throw new AlreadyFinishedException(String.format(GroupFinishedMessage,group.getName()));
+    	}
     	student.setProgram(group.getProgram().copyForStudent());
     	group.addStudent(student);
     }
     public void changeGrade(final LectureWithGrade lecture, final String grade, final String comment) 
-				throws model.InvalidGradeForSystemException, PersistenceException{
+				throws model.AlreadyFinishedException, model.InvalidGradeForSystemException, PersistenceException{
     	GradesInSimpleOrThird4Public newGrade = StringFACTORY.createObjectBySubTypeNameForGradesInSimpleOrThird(grade);
     	lecture.changeGrade(newGrade, comment);
     }
@@ -229,6 +256,9 @@ public class StudentManager extends PersistentObject implements PersistentStuden
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    static String studentHasProgramMessage = "Der Student %s %s studiert bereits in der Studiengruppe %s.";
+    static String GroupFinishedMessage = "Die Studiengruppe %s ist schon abgeschlossen.";
     
     /* End of protected part that is not overridden by persistence generator */
     

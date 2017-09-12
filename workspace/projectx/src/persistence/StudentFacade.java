@@ -150,6 +150,52 @@ public class StudentFacade{
             throw new PersistenceException(se.getMessage(), se.getErrorCode());
         }
     }
+    public long oldProgramsAdd(long StudentId, ProgramStudent4Public oldProgramsVal) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".StdntFacade.oldPrgrmsAdd(?, ?, ?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
+            callable.setLong(2, StudentId);
+            callable.setLong(3, oldProgramsVal.getId());
+            callable.setLong(4, oldProgramsVal.getClassId());
+            callable.execute();
+            long result = callable.getLong(1);
+            callable.close();
+            return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public void oldProgramsRem(long oldProgramsId) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin " + this.schemaName + ".StdntFacade.oldPrgrmsRem(?); end;");
+            callable.setLong(1, oldProgramsId);
+            callable.execute();
+            callable.close();
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
+    public ProgramStudentList oldProgramsGet(long StudentId) throws PersistenceException {
+        try{
+            CallableStatement callable;
+            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".StdntFacade.oldPrgrmsGet(?); end;");
+            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
+            callable.setLong(2, StudentId);
+            callable.execute();
+            ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
+            ProgramStudentList result = new ProgramStudentList();
+            while (list.next()) {
+                result.add((PersistentProgramStudent)PersistentProxi.createListEntryProxi(list.getLong(1), list.getLong(2), list.getLong(3)));
+            }
+            list.close();
+            callable.close();
+            return result;
+        }catch(SQLException se) {
+            throw new PersistenceException(se.getMessage(), se.getErrorCode());
+        }
+    }
     public void ThisSet(long StudentId, Student4Public ThisVal) throws PersistenceException {
         try{
             CallableStatement callable;

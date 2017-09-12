@@ -12,9 +12,9 @@ public class ModuleAtomarStudent extends view.objects.ModuleAbstractStudent impl
     protected GradesInSimpleOrThirdView ownGrade;
     protected java.util.Vector<GradeChangeView> changes;
     
-    public ModuleAtomarStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,GradeView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,GradesInSimpleOrThirdView ownGrade,java.util.Vector<GradeChangeView> changes,long id, long classId) {
+    public ModuleAtomarStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,GradeView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,MyBooleanView finished,GradesInSimpleOrThirdView ownGrade,java.util.Vector<GradeChangeView> changes,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradeView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,id, classId);
+        super((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradeView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,(MyBooleanView)finished,id, classId);
         this.ownGrade = ownGrade;
         this.changes = changes;        
     }
@@ -85,6 +85,10 @@ public class ModuleAtomarStudent extends view.objects.ModuleAbstractStudent impl
         GradeView grade = this.getGrade();
         if (grade != null) {
             ((ViewProxi)grade).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(grade.getClassId(), grade.getId())));
+        }
+        MyBooleanView finished = this.getFinished();
+        if (finished != null) {
+            ((ViewProxi)finished).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(finished.getClassId(), finished.getId())));
         }
         GradesInSimpleOrThirdView ownGrade = this.getOwnGrade();
         if (ownGrade != null) {

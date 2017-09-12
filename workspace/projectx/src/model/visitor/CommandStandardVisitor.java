@@ -14,6 +14,9 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleChangeGradeSystemCommand(ChangeGradeSystemCommand4Public changeGradeSystemCommand) throws PersistenceException{
         this.standardHandling(changeGradeSystemCommand);
     }
+    public void handleEndStudyGroupCommand(EndStudyGroupCommand4Public endStudyGroupCommand) throws PersistenceException{
+        this.standardHandling(endStudyGroupCommand);
+    }
     public void handleSwapCPonModuleWithUnitsCommand(SwapCPonModuleWithUnitsCommand4Public swapCPonModuleWithUnitsCommand) throws PersistenceException{
         this.standardHandling(swapCPonModuleWithUnitsCommand);
     }

@@ -12,13 +12,15 @@ public class StudyGroup extends ViewObject implements StudyGroupView{
     protected String name;
     protected ProgramSGroupView program;
     protected java.util.Vector<StudentView> students;
+    protected MyBooleanView finished;
     
-    public StudyGroup(String name,ProgramSGroupView program,java.util.Vector<StudentView> students,long id, long classId) {
+    public StudyGroup(String name,ProgramSGroupView program,java.util.Vector<StudentView> students,MyBooleanView finished,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.name = name;
         this.program = program;
-        this.students = students;        
+        this.students = students;
+        this.finished = finished;        
     }
     
     static public long getTypeId() {
@@ -47,6 +49,12 @@ public class StudyGroup extends ViewObject implements StudyGroupView{
     public void setStudents(java.util.Vector<StudentView> newValue) throws ModelException {
         this.students = newValue;
     }
+    public MyBooleanView getFinished()throws ModelException{
+        return this.finished;
+    }
+    public void setFinished(MyBooleanView newValue) throws ModelException {
+        this.finished = newValue;
+    }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleStudyGroup(this);
@@ -69,6 +77,10 @@ public class StudyGroup extends ViewObject implements StudyGroupView{
         java.util.Vector<?> students = this.getStudents();
         if (students != null) {
             ViewObject.resolveVectorProxies(students, resultTable);
+        }
+        MyBooleanView finished = this.getFinished();
+        if (finished != null) {
+            ((ViewProxi)finished).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(finished.getClassId(), finished.getId())));
         }
         
     }

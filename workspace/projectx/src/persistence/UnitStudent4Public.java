@@ -35,6 +35,8 @@ public interface UnitStudent4Public extends Anything, programHierarchyStudentHIE
 				throws PersistenceException;
     public common.Fraction getCreditPoints() 
 				throws PersistenceException;
+    public MyBoolean4Public getFinished() 
+				throws PersistenceException;
     public String getName() 
 				throws PersistenceException;
     public void initializeOnCreation() 

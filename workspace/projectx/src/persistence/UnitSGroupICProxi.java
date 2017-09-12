@@ -34,6 +34,12 @@ public class UnitSGroupICProxi extends PersistentInCacheProxiOptimistic implemen
     public void setCreditPoints(common.Fraction newValue) throws PersistenceException {
         ((PersistentUnitSGroup)this.getTheObject()).setCreditPoints(newValue);
     }
+    public MyBoolean4Public getFinished() throws PersistenceException {
+        return ((PersistentUnitSGroup)this.getTheObject()).getFinished();
+    }
+    public void setFinished(MyBoolean4Public newValue) throws PersistenceException {
+        ((PersistentUnitSGroup)this.getTheObject()).setFinished(newValue);
+    }
     public PersistentUnitSGroup getThis() throws PersistenceException {
         return ((PersistentUnitSGroup)this.getTheObject()).getThis();
     }
@@ -87,6 +93,10 @@ public class UnitSGroupICProxi extends PersistentInCacheProxiOptimistic implemen
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentUnitSGroup)this.getTheObject()).copyingPrivateUserAttributes(copy);
+    }
+    public void endUnit() 
+				throws PersistenceException{
+        ((PersistentUnitSGroup)this.getTheObject()).endUnit();
     }
     public String getName() 
 				throws PersistenceException{

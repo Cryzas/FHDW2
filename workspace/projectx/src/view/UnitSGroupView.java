@@ -9,6 +9,8 @@ public interface UnitSGroupView extends Anything, AbstractViewRoot {
     public String getName()throws ModelException;
     public common.Fraction getCreditPoints()throws ModelException;
     public void setCreditPoints(common.Fraction newValue) throws ModelException ;
+    public MyBooleanView getFinished()throws ModelException;
+    public void setFinished(MyBooleanView newValue) throws ModelException ;
     
     public void accept(AnythingVisitor visitor) throws ModelException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws ModelException;

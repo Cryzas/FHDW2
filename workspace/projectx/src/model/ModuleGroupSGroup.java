@@ -68,6 +68,7 @@ public class ModuleGroupSGroup extends model.ModuleAbstractSGroup implements Per
     public ModuleGroupSGroup provideCopy() throws PersistenceException{
         ModuleGroupSGroup result = this;
         result = new ModuleGroupSGroup(this.moduleCopy, 
+                                       this.finished, 
                                        this.This, 
                                        this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -79,9 +80,9 @@ public class ModuleGroupSGroup extends model.ModuleAbstractSGroup implements Per
     }
     protected ModuleGroupSGroup_ModulesProxi modules;
     
-    public ModuleGroupSGroup(PersistentModuleAbstract moduleCopy,PersistentModuleAbstractSGroup This,long id) throws PersistenceException {
+    public ModuleGroupSGroup(PersistentModuleAbstract moduleCopy,PersistentMyBoolean finished,PersistentModuleAbstractSGroup This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentModuleAbstract)moduleCopy,(PersistentModuleAbstractSGroup)This,id);
+        super((PersistentModuleAbstract)moduleCopy,(PersistentMyBoolean)finished,(PersistentModuleAbstractSGroup)This,id);
         this.modules = new ModuleGroupSGroup_ModulesProxi(this);        
     }
     
@@ -199,6 +200,11 @@ public class ModuleGroupSGroup extends model.ModuleAbstractSGroup implements Per
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         
+    }
+    public void endModule() 
+				throws PersistenceException{
+        getThis().setFinished(BTrue.getTheBTrue());
+        getThis().getModules().applyToAll(module -> module.endModule());
     }
     public common.Fraction getCreditPoints() 
 				throws PersistenceException{

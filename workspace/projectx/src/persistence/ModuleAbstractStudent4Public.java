@@ -22,6 +22,8 @@ public interface ModuleAbstractStudent4Public extends Anything, programHierarchy
 				throws PersistenceException;
     public common.Fraction getCreditPoints() 
 				throws PersistenceException;
+    public MyBoolean4Public getFinished() 
+				throws PersistenceException;
     public Grade4Public getGrade() 
 				throws PersistenceException;
     public String getName() 
