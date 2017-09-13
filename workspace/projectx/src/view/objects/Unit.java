@@ -11,14 +11,12 @@ public class Unit extends ViewObject implements UnitView{
     
     protected String name;
     protected common.Fraction creditPoints;
-    protected GradeSystemView gradeSystem;
     
-    public Unit(String name,common.Fraction creditPoints,GradeSystemView gradeSystem,long id, long classId) {
+    public Unit(String name,common.Fraction creditPoints,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.name = name;
-        this.creditPoints = creditPoints;
-        this.gradeSystem = gradeSystem;        
+        this.creditPoints = creditPoints;        
     }
     
     static public long getTypeId() {
@@ -41,12 +39,6 @@ public class Unit extends ViewObject implements UnitView{
     public void setCreditPoints(common.Fraction newValue) throws ModelException {
         this.creditPoints = newValue;
     }
-    public GradeSystemView getGradeSystem()throws ModelException{
-        return this.gradeSystem;
-    }
-    public void setGradeSystem(GradeSystemView newValue) throws ModelException {
-        this.gradeSystem = newValue;
-    }
     
     public void accept(AnythingVisitor visitor) throws ModelException {
         visitor.handleUnit(this);
@@ -62,10 +54,6 @@ public class Unit extends ViewObject implements UnitView{
     }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
-        GradeSystemView gradeSystem = this.getGradeSystem();
-        if (gradeSystem != null) {
-            ((ViewProxi)gradeSystem).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(gradeSystem.getClassId(), gradeSystem.getId())));
-        }
         
     }
     public void sortSetValuedFields() throws ModelException {

@@ -17,14 +17,7 @@ public class ProgramProxi extends ViewProxi implements ProgramView{
         java.util.Vector<ModuleAbstractView> modules = ViewProxi.getProxiVector(modules_string, connectionKey);
         String name = (String)resultTable.get("name");
         common.Fraction creditPoints = common.Fraction.parse((String)resultTable.get("creditPoints"));
-        ViewProxi gradeSystem = null;
-        String gradeSystem$String = (String)resultTable.get("gradeSystem");
-        if (gradeSystem$String != null) {
-            common.ProxiInformation gradeSystem$Info = common.RPCConstantsAndServices.createProxiInformation(gradeSystem$String);
-            gradeSystem = view.objects.ViewProxi.createProxi(gradeSystem$Info,connectionKey);
-            gradeSystem.setToString(gradeSystem$Info.getToString());
-        }
-        ProgramView result$$ = new Program(modules,(String)name,(common.Fraction)creditPoints,(GradeSystemView)gradeSystem, this.getId(), this.getClassId());
+        ProgramView result$$ = new Program(modules,(String)name,(common.Fraction)creditPoints, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -71,12 +64,6 @@ public class ProgramProxi extends ViewProxi implements ProgramView{
     }
     public common.Fraction getCreditPoints()throws ModelException{
         return ((Program)this.getTheObject()).getCreditPoints();
-    }
-    public GradeSystemView getGradeSystem()throws ModelException{
-        return ((Program)this.getTheObject()).getGradeSystem();
-    }
-    public void setGradeSystem(GradeSystemView newValue) throws ModelException {
-        ((Program)this.getTheObject()).setGradeSystem(newValue);
     }
     
     public void accept(AnythingVisitor visitor) throws ModelException {

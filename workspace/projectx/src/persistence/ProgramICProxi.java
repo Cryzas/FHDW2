@@ -31,12 +31,6 @@ public class ProgramICProxi extends PersistentInCacheProxiOptimistic implements 
     public void setName(String newValue) throws PersistenceException {
         ((PersistentProgram)this.getTheObject()).setName(newValue);
     }
-    public GradeSystem4Public getGradeSystem() throws PersistenceException {
-        return ((PersistentProgram)this.getTheObject()).getGradeSystem();
-    }
-    public void setGradeSystem(GradeSystem4Public newValue) throws PersistenceException {
-        ((PersistentProgram)this.getTheObject()).setGradeSystem(newValue);
-    }
     public PersistentProgram getThis() throws PersistenceException {
         return ((PersistentProgram)this.getTheObject()).getThis();
     }

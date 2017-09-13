@@ -421,9 +421,6 @@ create table Unt(
     constraint FUntCls foreign key (Cls) references Cls (id) on delete cascade,
     UntNm varchar2(2000),
     UntCrdtPnts varchar2(2000),
-    UntGrdSstm number,
-    UntGrdSstmCls number,
-    constraint FUntGrdSstm foreign key (UntGrdSstmCls) references Cls (id),
     UntThis number,
     UntThisCls number,
     constraint FUntThis foreign key (UntThisCls) references Cls (id)    
@@ -473,9 +470,6 @@ create table Prgrm(
     Cls number not null,
     constraint FPrgrmCls foreign key (Cls) references Cls (id) on delete cascade,
     PrgrmNm varchar2(2000),
-    PrgrmGrdSstm number,
-    PrgrmGrdSstmCls number,
-    constraint FPrgrmGrdSstm foreign key (PrgrmGrdSstmCls) references Cls (id),
     PrgrmThis number,
     PrgrmThisCls number,
     constraint FPrgrmThis foreign key (PrgrmThisCls) references Cls (id)    

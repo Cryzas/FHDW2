@@ -103,7 +103,6 @@ class Program {
 	public prior indexed String name;
 	/* wird als derived attribute aus den Attributen der Module errechnet. */
 	public derived Fraction creditPoints;
-	public no-view GradeSystem gradeSystem;
 	/* Ermöglicht das Hinzufügen von Modulen und Modulgruppen zu einem Studienprogramm. Wirft eine Exception, falls Modul/Modulgruppe bereits in Studienprogramm vorhanden ist. */
 	void addModule(ModuleAbstract module) throws CycleException, AlreadyExistsInParentException;
 	ProgramSGroup copyForStudyGroup() throws UserException;
@@ -145,7 +144,6 @@ class ModuleWithUnits @@ Mit_Units extends ModuleAbstract {
 class Unit {
 	public prior String name;
 	public prior Fraction creditPoints;
-	public no-view GradeSystem gradeSystem;
 	/* Ermöglicht das Ändern der CreditPoints, welche durch das absolvieren der Unit erreicht werden können */
 	void changeCPOnUnit(Fraction creditPoints);
 	UnitSGroup copyForStudyGroup() throws UserException;

@@ -9,10 +9,11 @@ import common.Fraction;
 import model.*;
 import persistence.*;
 
-public class ProgramCreationTest {
+public class StudyGroupTest {
 	
 	ProgramManager4Public programManager;
 	ModuleManager4Public moduleManager;
+	StudyGroupManager4Public groupManager;
 	
 	Program4Public programWirtschaftsinformatik; 
 	
@@ -21,18 +22,29 @@ public class ProgramCreationTest {
 	ModuleAtomar4Public moduleAtomarDBSQL; 
 	
 	ModuleWithUnits4Public moduleWithUnitsMathe;
+	Unit4Public unitMathe1;
+	Unit4Public unitMathe2;
+	
 	ModuleWithUnits4Public moduleWithUnitsSWT;
+	Unit4Public unitSWT1;
+	Unit4Public unitSWT2;
+	
 	ModuleWithUnits4Public moduleWithUnitsDBProgra;
+	Unit4Public unitDB1;
+	Unit4Public unitDB2;
 	
 	ModuleGroup4Public moduleGroupInformatik;
 	ModuleGroup4Public moduleGroupDB;
 	
+	StudyGroup4Public studyGroupHFW1;
+
 	@Before
 	public void setUp() throws Exception {
 		TestSupport.clearDatabase();
 		TestSupport.prepareSingletons();
 		programManager = ProgramManager.createProgramManager();
 		moduleManager = ModuleManager.createModuleManager();
+		groupManager = StudyGroupManager.createStudyGroupManager();
 		
 		programWirtschaftsinformatik = Program.createProgram("Wirtschaftsinformatik");
 		programManager.getPrograms().add(programWirtschaftsinformatik);
@@ -46,108 +58,66 @@ public class ProgramCreationTest {
 		moduleGroupInformatik.addModule(moduleGroupDB);
 		
 		moduleAtomarSoko = ModuleAtomar.createModuleAtomar("Soziale Kompetenz");
+		moduleAtomarSoko.changeCPOnModule(Fraction.parse("3"));
 		moduleManager.getModules().add(moduleAtomarSoko);
 		programWirtschaftsinformatik.addModule(moduleAtomarSoko);
 		
 		moduleWithUnitsMathe = ModuleWithUnits.createModuleWithUnits("Mathe");
-		moduleWithUnitsMathe.addUnit("Mathe 1", Fraction.parse("3"));
-		moduleWithUnitsMathe.addUnit("Mathe 2", Fraction.parse("4"));
+		unitMathe1 = Unit.createUnit("Mathe 1", Fraction.parse("3"));
+		unitMathe2 = Unit.createUnit("Mathe 2", Fraction.parse("4"));
+		moduleWithUnitsMathe.getUnits().add(unitMathe1);
+		moduleWithUnitsMathe.getUnits().add(unitMathe2);
 		moduleManager.getModules().add(moduleWithUnitsMathe);
 		programWirtschaftsinformatik.addModule(moduleWithUnitsMathe);
 		
 		moduleAtomarLomf = ModuleAtomar.createModuleAtomar("LOMF");
+		moduleAtomarLomf.changeCPOnModule(Fraction.parse("5"));
 		moduleManager.getModules().add(moduleAtomarLomf);
+		moduleGroupInformatik.getModules().add(moduleAtomarLomf);
 		
 		moduleAtomarDBSQL = ModuleAtomar.createModuleAtomar("Datenbanken SQL");
+		moduleAtomarDBSQL.changeCPOnModule(Fraction.parse("4"));
 		moduleManager.getModules().add(moduleAtomarDBSQL);
+		moduleGroupDB.getModules().add(moduleAtomarDBSQL);
 		
 		moduleWithUnitsSWT = ModuleWithUnits.createModuleWithUnits("SWT");
-		moduleWithUnitsSWT.addUnit("SWT 1", Fraction.parse("4"));
-		moduleWithUnitsSWT.addUnit("SWT 2", Fraction.parse("3"));
+		unitSWT1 = Unit.createUnit("SWT 1", Fraction.parse("4"));
+		unitSWT2 = Unit.createUnit("SWT 2", Fraction.parse("3"));
+		moduleWithUnitsSWT.getUnits().add(unitSWT1);
+		moduleWithUnitsSWT.getUnits().add(unitSWT2);
 		moduleManager.getModules().add(moduleWithUnitsSWT);
 		moduleGroupInformatik.addModule(moduleWithUnitsSWT);
 		
 		moduleWithUnitsDBProgra = ModuleWithUnits.createModuleWithUnits("Database Programming");
-		moduleWithUnitsDBProgra.addUnit("Datenbanken 1", Fraction.parse("5"));
-		moduleWithUnitsDBProgra.addUnit("Datenbanken 2", Fraction.parse("4"));
+		unitDB1 = Unit.createUnit("Datenbanken 1", Fraction.parse("5"));
+		unitDB2 = Unit.createUnit("Datenbanken 2", Fraction.parse("4"));
+		moduleWithUnitsDBProgra.getUnits().add(unitDB1);
+		moduleWithUnitsDBProgra.getUnits().add(unitDB2);
 		moduleManager.getModules().add(moduleWithUnitsDBProgra);
 		moduleGroupDB.addModule(moduleWithUnitsDBProgra);
 		
-		
+		studyGroupHFW1 = StudyGroup.createStudyGroup("HFW1");
+		studyGroupHFW1.setProgram(programWirtschaftsinformatik.copyForStudyGroup());
 	}
 
 	@Test
-	public void createProgramDuplicate() throws PersistenceException {
+	public void startStudyGroup() {
 		try {
-			programManager.createProgram("Wirtschaftsinformatik");
+			groupManager.startStudyGroup(programWirtschaftsinformatik, "HFW2");
+			assertTrue(groupManager.getGroups().findFirst(group -> group.getName().equals("HFW2")) != null);
+		} catch (UserException e) {
 			fail();
-		} catch (AlreadyExistsInParentException e) {
-			//Should go in here
-		}
-		try {
-			programManager.createProgram("Soziale Kompetenz");
-			fail();
-		} catch (AlreadyExistsInParentException e) {
-			//Should go in here
-		}		
-	}
-	
-	@Test
-	public void createModuleDuplicate() throws PersistenceException {
-		try {
-			moduleManager.createModule("Atomar", "Soziale Kompetenz");
-			fail();
-		} catch (AlreadyExistsInParentException e) {
-			//Should go in here
-		}
-		try {
-			moduleManager.createModule("Atomar", "Wirtschaftsinformatik");
-			fail();
-		} catch (AlreadyExistsInParentException e) {
-			//Should go in here
-		}
-	}
-	
-	@Test
-	public void createUnitDuplicate() throws PersistenceException {
-		try {
-			moduleManager.addUnit(moduleWithUnitsMathe, "Mathe 1", Fraction.parse("3"));
-			fail();
-		} catch (AlreadyExistsInParentException e) {
-			//Should go in here
-		} catch (CycleException e) {
+		} catch (PersistenceException e) {
 			fail();
 		}
 		try {
-			moduleManager.addUnit(moduleWithUnitsSWT, "Mathe 1", Fraction.parse("3"));
-		} catch (AlreadyExistsInParentException e) {
+			groupManager.startStudyGroup(programWirtschaftsinformatik, "HFW1");
 			fail();
-		} catch (CycleException e) {
+		} catch (UserException e) {
+			// Should go in here
+		} catch (PersistenceException e) {
 			fail();
 		}
 	}
-	
-	@Test
-	public void createModuleGroupDuplicate() throws PersistenceException {
-		try {
-			moduleManager.createModule("Gruppe", "Informatik");
-			fail();
-		} catch (AlreadyExistsInParentException e) {
-			//Should go in here
-		} 
-	}
-	
-	@Test
-	public void createUnit() throws PersistenceException {
-		try {
-			moduleManager.addUnit(moduleWithUnitsMathe, "Mathe 3", Fraction.parse("3"));
-		} catch (AlreadyExistsInParentException e) {
-			fail();
-		} catch (CycleException e) {
-			fail();
-		}
-	}
-	
-	
-	
+
 }
