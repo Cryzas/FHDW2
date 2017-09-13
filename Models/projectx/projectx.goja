@@ -17,21 +17,21 @@ server DozentenService extends Service {
 	void removeError @@ Error_entfernen (ErrorDisplay error);
 
 	/* Kommentare siehe Manager-Klassen | Service ruft Methoden der Managerklassen auf */
-	void createProgram @@ Programm_erstellen (String name);
-	void addModuleToProg @@ Module_hinzufügen (Program program, ModuleAbstract ** modules {moduleManager;modules});
-	void addModuleToGroup @@ Module_hinzufügen (ModuleGroup group, ModuleAbstract ** modules {moduleManager;modules});
-	void createModule @@ Modul_erstellen (ModuleAbstractSUBTYPEName type, String name);
-	void addUnit @@ Unit_hinzufügen (ModuleWithUnits module, String name, Fraction creditPoints);
-	void changeCPOnUnit @@ CP_ändern (Unit unit, Fraction creditPoints);
-	void changeCPOnModule @@ CP_ändern (ModuleAtomar module, Fraction creditPoints);
-	void startStudyGroup @@ Studiengruppe_eröffnen (Program program, String name);
-	void swapCPonModuleWithUnits @@ CP_Gewichtung_ändern (ModuleWithUnitsSGroup module, UnitSGroup fromUnit @@ Von_Unit{;module;units}, UnitSGroup ToUnit @@ Zu_Unit{;module;units}, Fraction creditPoints);
-	void createStudent @@ Student_erstellen (StudyGroup group, String firstName, String lastName, Date birthDate);
-	void addStudentToGroup @@ Studenten_hinzufügen (StudyGroup group, Student ** students {studentManager;students});
+	void createProgram @@ Programm_erstellen (String name @@ Name);
+	void addModuleToProg @@ Module_hinzufügen (Program program, ModuleAbstract ** modules @@ Module {moduleManager;modules});
+	void addModuleToGroup @@ Module_hinzufügen (ModuleGroup group, ModuleAbstract ** modules @@ Module {moduleManager;modules});
+	void createModule @@ Modul_erstellen (ModuleAbstractSUBTYPEName type @@ Typ, String name @@ Name);
+	void addUnit @@ Unit_hinzufügen (ModuleWithUnits module, String name @@ Name, Fraction creditPoints @@ Credit_Points);
+	void changeCPOnUnit @@ CP_ändern (Unit unit, Fraction creditPoints @@ Credit_Points);
+	void changeCPOnModule @@ CP_ändern (ModuleAtomar module, Fraction creditPoints @@ Credit_Points);
+	void startStudyGroup @@ Studiengruppe_eröffnen (Program program, String name @@ Name);
+	void swapCPonModuleWithUnits @@ CP_Gewichtung_ändern (ModuleWithUnitsSGroup module, UnitSGroup fromUnit @@ Von_Unit{;module;units}, UnitSGroup ToUnit @@ Zu_Unit{;module;units}, Fraction creditPoints @@ Credit_Points);
+	void createStudent @@ Student_erstellen (StudyGroup group, String firstName @@ Vorname, String lastName @@ Nachname, Date birthDate @@ Geburtsdatum);
+	void addStudentToGroup @@ Studenten_hinzufügen (StudyGroup group, Student ** students @@ Studenten {studentManager;students});
 	void changeGradeSystem @@ Notensystem_ändern (ModuleAtomar module);
-	void changeGradeOfUnit @@ Note_ändern (UnitStudent unit, GradesInThirdSUBTYPEName grade, String comment);
-	void changeGradeOfModule @@ Note_ändern (ModuleAtomarStudent module, GradesInSimpleOrThirdSUBTYPEName grade, String comment);
-	void changeGradeforStudent @@ Note_eintragen (Student student, LectureWithGrade lecture {;student;program;modules}, GradesInSimpleOrThirdSUBTYPEName grade, String comment);
+	void changeGradeOfUnit @@ Note_ändern (UnitStudent unit, GradesInThirdSUBTYPEName grade @@ Note, String comment @@ Kommentar);
+	void changeGradeOfModule @@ Note_ändern (ModuleAtomarStudent module, GradesInSimpleOrThirdSUBTYPEName grade @@ Note, String comment @@ Kommentar);
+	void changeGradeforStudent @@ Note_eintragen (Student student, LectureWithGrade lecture @@ Vorlesung{;student;program;modules}, GradesInSimpleOrThirdSUBTYPEName grade @@ Grade, String comment @@ Kommentar);
 	void endStudyGroup @@ Studiengruppe_abschließen (StudyGroup studyGroup);
 }
 

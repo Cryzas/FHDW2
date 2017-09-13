@@ -224,7 +224,6 @@ public class Unit extends PersistentObject implements PersistentUnit{
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-    	getThis().setGradeSystem(ThirdGradeSystem.getTheThirdGradeSystem());
     }
     
     

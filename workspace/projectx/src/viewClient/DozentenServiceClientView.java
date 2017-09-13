@@ -778,7 +778,7 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 		}
 		protected void addParameters(){
 			try{
-				final ObjectCollectionSelectionPanel panel1 = new ObjectCollectionSelectionPanel("modules", "view.ModuleAbstractView", null, this, getMultiSelectionFor("addModuleToGroupPRMTRModuleGroupPRMTRModuleAbstractLSTPRMTRmodules"));
+				final ObjectCollectionSelectionPanel panel1 = new ObjectCollectionSelectionPanel("Module", "view.ModuleAbstractView", null, this, getMultiSelectionFor("addModuleToGroupPRMTRModuleGroupPRMTRModuleAbstractLSTPRMTRmodules"));
 				getParametersPanel().getChildren().add(panel1);
 				panel1.setBrowserRoot(new ListRoot(getConnection().modules_Path_In_AddModuleToGroup()));
 			}catch(ModelException me){;
@@ -844,7 +844,7 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 		}
 		protected void addParameters(){
 			try{
-				final ObjectCollectionSelectionPanel panel2 = new ObjectCollectionSelectionPanel("modules", "view.ModuleAbstractView", null, this, getMultiSelectionFor("addModuleToProgPRMTRProgramPRMTRModuleAbstractLSTPRMTRmodules"));
+				final ObjectCollectionSelectionPanel panel2 = new ObjectCollectionSelectionPanel("Module", "view.ModuleAbstractView", null, this, getMultiSelectionFor("addModuleToProgPRMTRProgramPRMTRModuleAbstractLSTPRMTRmodules"));
 				getParametersPanel().getChildren().add(panel2);
 				panel2.setBrowserRoot(new ListRoot(getConnection().modules_Path_In_AddModuleToProg()));
 			}catch(ModelException me){;
@@ -910,7 +910,7 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 		}
 		protected void addParameters(){
 			try{
-				final ObjectCollectionSelectionPanel panel3 = new ObjectCollectionSelectionPanel("students", "view.StudentView", null, this, getMultiSelectionFor("addStudentToGroupPRMTRStudyGroupPRMTRStudentLSTPRMTRstudents"));
+				final ObjectCollectionSelectionPanel panel3 = new ObjectCollectionSelectionPanel("Studenten", "view.StudentView", null, this, getMultiSelectionFor("addStudentToGroupPRMTRStudyGroupPRMTRStudentLSTPRMTRstudents"));
 				getParametersPanel().getChildren().add(panel3);
 				panel3.setBrowserRoot(new ListRoot(getConnection().students_Path_In_AddStudentToGroup()));
 			}catch(ModelException me){;
@@ -976,8 +976,8 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 			return false;
 		}
 		protected void addParameters(){
-			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));
-			getParametersPanel().getChildren().add(new FractionSelectionPanel("creditPoints", this));		
+			getParametersPanel().getChildren().add(new StringSelectionPanel("Name", this));
+			getParametersPanel().getChildren().add(new FractionSelectionPanel("Credit Points", this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -1038,7 +1038,7 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 			return false;
 		}
 		protected void addParameters(){
-			getParametersPanel().getChildren().add(new FractionSelectionPanel("creditPoints", this));		
+			getParametersPanel().getChildren().add(new FractionSelectionPanel("Credit Points", this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -1092,7 +1092,7 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 			return false;
 		}
 		protected void addParameters(){
-			getParametersPanel().getChildren().add(new FractionSelectionPanel("creditPoints", this));		
+			getParametersPanel().getChildren().add(new FractionSelectionPanel("Credit Points", this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -1147,8 +1147,8 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 			return false;
 		}
 		protected void addParameters(){
-			getParametersPanel().getChildren().add(new RegExprSelectionPanel("grade", this, common.RegularExpressionManager.gradesInSimpleOrThirdSUBTYPEName.getRegExpr()));
-			getParametersPanel().getChildren().add(new StringSelectionPanel("comment", this));		
+			getParametersPanel().getChildren().add(new RegExprSelectionPanel("Note", this, common.RegularExpressionManager.gradesInSimpleOrThirdSUBTYPEName.getRegExpr()));
+			getParametersPanel().getChildren().add(new StringSelectionPanel("Kommentar", this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -1196,8 +1196,8 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 			return false;
 		}
 		protected void addParameters(){
-			getParametersPanel().getChildren().add(new RegExprSelectionPanel("grade", this, common.RegularExpressionManager.gradesInThirdSUBTYPEName.getRegExpr()));
-			getParametersPanel().getChildren().add(new StringSelectionPanel("comment", this));		
+			getParametersPanel().getChildren().add(new RegExprSelectionPanel("Note", this, common.RegularExpressionManager.gradesInThirdSUBTYPEName.getRegExpr()));
+			getParametersPanel().getChildren().add(new StringSelectionPanel("Kommentar", this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -1246,7 +1246,7 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 			return false;
 		}
 		protected void addParameters(){
-			final ObjectSelectionPanel panel4 = new ObjectSelectionPanel("lecture", "view.LectureWithGrade", null, this)
+			final ObjectSelectionPanel panel4 = new ObjectSelectionPanel("Vorlesung", "view.LectureWithGrade", null, this)
 											{protected ViewRoot getBrowserRoot(){
 												{try{
 													return new ListRoot(getConnection().lecture_Path_In_ChangeGradeforStudent((StudentView)this.navigationRoot));
@@ -1256,8 +1256,8 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 													return (ViewRoot) this.navigationRoot;
 											}}}};
 			getParametersPanel().getChildren().add(panel4);
-			getParametersPanel().getChildren().add(new RegExprSelectionPanel("grade", this, common.RegularExpressionManager.gradesInSimpleOrThirdSUBTYPEName.getRegExpr()));
-			getParametersPanel().getChildren().add(new StringSelectionPanel("comment", this));		
+			getParametersPanel().getChildren().add(new RegExprSelectionPanel("Grade", this, common.RegularExpressionManager.gradesInSimpleOrThirdSUBTYPEName.getRegExpr()));
+			getParametersPanel().getChildren().add(new StringSelectionPanel("Kommentar", this));		
 		}	
 		protected void handleDependencies(int i) {
 			if(i == 0){
@@ -1308,8 +1308,8 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 			return false;
 		}
 		protected void addParameters(){
-			getParametersPanel().getChildren().add(new RegExprSelectionPanel("type", this, common.RegularExpressionManager.moduleAbstractSUBTYPEName.getRegExpr()));
-			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));		
+			getParametersPanel().getChildren().add(new RegExprSelectionPanel("Typ", this, common.RegularExpressionManager.moduleAbstractSUBTYPEName.getRegExpr()));
+			getParametersPanel().getChildren().add(new StringSelectionPanel("Name", this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -1347,7 +1347,7 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 			return false;
 		}
 		protected void addParameters(){
-			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));		
+			getParametersPanel().getChildren().add(new StringSelectionPanel("Name", this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -1387,9 +1387,9 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 			return false;
 		}
 		protected void addParameters(){
-			getParametersPanel().getChildren().add(new StringSelectionPanel("firstName", this));
-			getParametersPanel().getChildren().add(new StringSelectionPanel("lastName", this));
-			getParametersPanel().getChildren().add(new DateSelectionPanel("birthDate", this));		
+			getParametersPanel().getChildren().add(new StringSelectionPanel("Vorname", this));
+			getParametersPanel().getChildren().add(new StringSelectionPanel("Nachname", this));
+			getParametersPanel().getChildren().add(new DateSelectionPanel("Geburtsdatum", this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -1436,7 +1436,7 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 			return false;
 		}
 		protected void addParameters(){
-			getParametersPanel().getChildren().add(new StringSelectionPanel("name", this));		
+			getParametersPanel().getChildren().add(new StringSelectionPanel("Name", this));		
 		}	
 		protected void handleDependencies(int i) {
 		}
@@ -1512,7 +1512,7 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 													return (ViewRoot) this.navigationRoot;
 											}}}};
 			getParametersPanel().getChildren().add(panel6);
-			getParametersPanel().getChildren().add(new FractionSelectionPanel("creditPoints", this));		
+			getParametersPanel().getChildren().add(new FractionSelectionPanel("Credit Points", this));		
 		}	
 		protected void handleDependencies(int i) {
 			if(i == 0){
