@@ -240,6 +240,7 @@ class ProgramStudent (NoProgram) {
 	void addModule(ModuleAbstractStudent module) throws CycleException;
 	public no-view derived Grade grade;
 	public no-view derived MyBoolean finished;
+	public no-view derived Fraction passedCP;
 }
 
 abstract string-factory class ModuleAbstractStudent ## m_abstr_st {
@@ -249,6 +250,7 @@ abstract string-factory class ModuleAbstractStudent ## m_abstr_st {
 	public abstract no-view derived Grade grade;
 	public abstract no-view derived Fraction CPmulGrade;
 	public abstract no-view derived Fraction CPwithGrade;
+	public abstract no-view derived Fraction passedCP;
 	public no-view derived MyBoolean finished;
 }
 
@@ -274,6 +276,7 @@ class UnitStudent implements LectureWithGrade {
 	public no-view GradesInThird grade;
 	public no-view derived Fraction CPmulGrade;
 	public no-view derived Fraction CPwithGrade;
+	public no-view derived Fraction passedCP;
 	public GradeChange ** changes;
 	public no-view derived MyBoolean finished;
 }

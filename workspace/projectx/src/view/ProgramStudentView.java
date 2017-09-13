@@ -14,6 +14,7 @@ public interface ProgramStudentView extends Anything, AbstractViewRoot {
     public void setProgramCopy(ProgramSGroupView newValue) throws ModelException ;
     public GradeView getGrade()throws ModelException;
     public MyBooleanView getFinished()throws ModelException;
+    public common.Fraction getPassedCP()throws ModelException;
     
     public void accept(ProgramStudentVisitor visitor) throws ModelException;
     public <R> R accept(ProgramStudentReturnVisitor<R>  visitor) throws ModelException;

@@ -24,6 +24,7 @@ public class UnitStudentProxi extends ViewProxi implements UnitStudentView{
         }
         common.Fraction CPmulGrade = common.Fraction.parse((String)resultTable.get("CPmulGrade"));
         common.Fraction CPwithGrade = common.Fraction.parse((String)resultTable.get("CPwithGrade"));
+        common.Fraction passedCP = common.Fraction.parse((String)resultTable.get("passedCP"));
         java.util.Vector<String> changes_string = (java.util.Vector<String>)resultTable.get("changes");
         java.util.Vector<GradeChangeView> changes = ViewProxi.getProxiVector(changes_string, connectionKey);
         ViewProxi finished = null;
@@ -33,7 +34,7 @@ public class UnitStudentProxi extends ViewProxi implements UnitStudentView{
             finished = view.objects.ViewProxi.createProxi(finished$Info,connectionKey);
             finished.setToString(finished$Info.getToString());
         }
-        UnitStudentView result$$ = new UnitStudent((String)name,(common.Fraction)creditPoints,(GradesInThirdView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,changes,(MyBooleanView)finished, this.getId(), this.getClassId());
+        UnitStudentView result$$ = new UnitStudent((String)name,(common.Fraction)creditPoints,(GradesInThirdView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,(common.Fraction)passedCP,changes,(MyBooleanView)finished, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -83,6 +84,9 @@ public class UnitStudentProxi extends ViewProxi implements UnitStudentView{
     }
     public common.Fraction getCPwithGrade()throws ModelException{
         return ((UnitStudent)this.getTheObject()).getCPwithGrade();
+    }
+    public common.Fraction getPassedCP()throws ModelException{
+        return ((UnitStudent)this.getTheObject()).getPassedCP();
     }
     public java.util.Vector<GradeChangeView> getChanges()throws ModelException{
         return ((UnitStudent)this.getTheObject()).getChanges();

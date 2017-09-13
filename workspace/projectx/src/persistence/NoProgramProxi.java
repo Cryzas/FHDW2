@@ -96,6 +96,10 @@ public class NoProgramProxi extends ProgramStudentProxi implements PersistentNoP
 				throws PersistenceException{
         return ((PersistentNoProgram)this.getTheObject()).getName();
     }
+    public common.Fraction getPassedCP() 
+				throws PersistenceException{
+        return ((PersistentNoProgram)this.getTheObject()).getPassedCP();
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentNoProgram)this.getTheObject()).initializeOnCreation();

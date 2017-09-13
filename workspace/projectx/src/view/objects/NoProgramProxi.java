@@ -38,7 +38,8 @@ public class NoProgramProxi extends ProgramStudentProxi implements NoProgramView
             finished = view.objects.ViewProxi.createProxi(finished$Info,connectionKey);
             finished.setToString(finished$Info.getToString());
         }
-        NoProgramView result$$ = new NoProgram(modules,(String)name,(common.Fraction)creditPoints,(ProgramSGroupView)programCopy,(GradeView)grade,(MyBooleanView)finished, this.getId(), this.getClassId());
+        common.Fraction passedCP = common.Fraction.parse((String)resultTable.get("passedCP"));
+        NoProgramView result$$ = new NoProgram(modules,(String)name,(common.Fraction)creditPoints,(ProgramSGroupView)programCopy,(GradeView)grade,(MyBooleanView)finished,(common.Fraction)passedCP, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }

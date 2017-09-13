@@ -76,6 +76,7 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
             }
             result.put("CPmulGrade", this.getCPmulGrade().toString());
             result.put("CPwithGrade", this.getCPwithGrade().toString());
+            result.put("passedCP", this.getPassedCP().toString());
             result.put("changes", this.getChanges().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, false, false));
             AbstractPersistentRoot finished = (AbstractPersistentRoot)this.getFinished();
             if (finished != null) {
@@ -311,6 +312,14 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
     public String getName() 
 				throws PersistenceException{
         return getThis().getUnitCopy().getName();
+    }
+    public common.Fraction getPassedCP() 
+				throws PersistenceException{
+    	if(getThis().getGrade() instanceof NoGrade4Public || getThis().getGrade() instanceof T_5_04Public) {
+        	return Fraction.Null;
+        } else {
+        	return getThis().getCreditPoints();
+        }
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

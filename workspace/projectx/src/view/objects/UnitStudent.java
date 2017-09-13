@@ -14,10 +14,11 @@ public class UnitStudent extends ViewObject implements UnitStudentView{
     protected GradesInThirdView grade;
     protected common.Fraction CPmulGrade;
     protected common.Fraction CPwithGrade;
+    protected common.Fraction passedCP;
     protected java.util.Vector<GradeChangeView> changes;
     protected MyBooleanView finished;
     
-    public UnitStudent(String name,common.Fraction creditPoints,GradesInThirdView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,java.util.Vector<GradeChangeView> changes,MyBooleanView finished,long id, long classId) {
+    public UnitStudent(String name,common.Fraction creditPoints,GradesInThirdView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,common.Fraction passedCP,java.util.Vector<GradeChangeView> changes,MyBooleanView finished,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.name = name;
@@ -25,6 +26,7 @@ public class UnitStudent extends ViewObject implements UnitStudentView{
         this.grade = grade;
         this.CPmulGrade = CPmulGrade;
         this.CPwithGrade = CPwithGrade;
+        this.passedCP = passedCP;
         this.changes = changes;
         this.finished = finished;        
     }
@@ -54,6 +56,9 @@ public class UnitStudent extends ViewObject implements UnitStudentView{
     }
     public common.Fraction getCPwithGrade()throws ModelException{
         return this.CPwithGrade;
+    }
+    public common.Fraction getPassedCP()throws ModelException{
+        return this.passedCP;
     }
     public java.util.Vector<GradeChangeView> getChanges()throws ModelException{
         return this.changes;

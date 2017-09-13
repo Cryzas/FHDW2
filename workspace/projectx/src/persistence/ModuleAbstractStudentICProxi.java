@@ -58,6 +58,10 @@ public abstract class ModuleAbstractStudentICProxi extends PersistentInCacheProx
 				throws PersistenceException{
         return ((PersistentModuleAbstractStudent)this.getTheObject()).getName();
     }
+    public common.Fraction getPassedCP() 
+				throws PersistenceException{
+        return ((PersistentModuleAbstractStudent)this.getTheObject()).getPassedCP();
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentModuleAbstractStudent)this.getTheObject()).initializeOnCreation();

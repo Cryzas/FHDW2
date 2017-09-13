@@ -107,6 +107,10 @@ public class ModuleWithUnitsStudentProxi extends ModuleAbstractStudentProxi impl
 				throws PersistenceException{
         return ((PersistentModuleWithUnitsStudent)this.getTheObject()).getName();
     }
+    public common.Fraction getPassedCP() 
+				throws PersistenceException{
+        return ((PersistentModuleWithUnitsStudent)this.getTheObject()).getPassedCP();
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentModuleWithUnitsStudent)this.getTheObject()).initializeOnCreation();

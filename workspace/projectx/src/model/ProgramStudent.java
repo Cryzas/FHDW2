@@ -89,6 +89,7 @@ public class ProgramStudent extends PersistentObject implements PersistentProgra
                 result.put("finished", proxiInformation);
                 
             }
+            result.put("passedCP", this.getPassedCP().toString());
         }
         return result;
     }
@@ -311,6 +312,12 @@ public class ProgramStudent extends PersistentObject implements PersistentProgra
 				return getThis().getProgramCopy().getName();
 			}
 		});
+    }
+    public common.Fraction getPassedCP() 
+				throws PersistenceException{
+    	return getThis().getModules().aggregate(Fraction.Null, (result,argument) -> {
+        	return result.add(argument.getPassedCP());
+		} );
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

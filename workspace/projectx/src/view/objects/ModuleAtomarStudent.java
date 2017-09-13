@@ -12,9 +12,9 @@ public class ModuleAtomarStudent extends view.objects.ModuleAbstractStudent impl
     protected GradesInSimpleOrThirdView ownGrade;
     protected java.util.Vector<GradeChangeView> changes;
     
-    public ModuleAtomarStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,GradeView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,MyBooleanView finished,GradesInSimpleOrThirdView ownGrade,java.util.Vector<GradeChangeView> changes,long id, long classId) {
+    public ModuleAtomarStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,GradeView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,common.Fraction passedCP,MyBooleanView finished,GradesInSimpleOrThirdView ownGrade,java.util.Vector<GradeChangeView> changes,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradeView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,(MyBooleanView)finished,id, classId);
+        super((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradeView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,(common.Fraction)passedCP,(MyBooleanView)finished,id, classId);
         this.ownGrade = ownGrade;
         this.changes = changes;        
     }

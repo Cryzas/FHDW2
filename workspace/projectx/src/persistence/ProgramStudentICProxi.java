@@ -109,6 +109,10 @@ public class ProgramStudentICProxi extends PersistentInCacheProxiOptimistic impl
 				throws PersistenceException{
         return ((PersistentProgramStudent)this.getTheObject()).getName();
     }
+    public common.Fraction getPassedCP() 
+				throws PersistenceException{
+        return ((PersistentProgramStudent)this.getTheObject()).getPassedCP();
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentProgramStudent)this.getTheObject()).initializeOnCreation();

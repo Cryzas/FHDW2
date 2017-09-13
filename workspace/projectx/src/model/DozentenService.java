@@ -412,7 +412,14 @@ public class DozentenService extends model.Service implements PersistentDozenten
 				getThis().getGroupManager().getGroups().add(group);
 			}
 		});
-		// TODO Students Instantiation
+		ServerSearchList servers = Server.getServerByUser("%");
+		servers.filter(server -> !server.getUser().equals(common.RPCConstantsAndServices.AdministratorName));
+		servers.applyToAll(server -> {
+			Student4Public student = Student.getById(Long.valueOf(server.getUser()));
+			if(getThis().getStudentManager().getStudents().findFirst(argument -> argument.equals(student)) == null) {
+				getThis().getStudentManager().getStudents().add(student);
+			}
+		});
 	}
     public void removeError(final ErrorDisplay4Public error) 
 				throws PersistenceException{

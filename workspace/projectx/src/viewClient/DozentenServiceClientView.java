@@ -78,7 +78,7 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 		if( this.mainSplitPane == null) {
 			this.mainSplitPane = new SplitPane();
 			this.mainSplitPane.setOrientation( Orientation.HORIZONTAL);
-			this.mainSplitPane.getItems().addAll( this.getNavigationSplitPane(), this.getTitledDetailsPane() );	
+			this.mainSplitPane.getItems().addAll( this.getNavigationSplitPane());	
 			this.mainSplitPane.setDividerPosition( 0, 0.7);
 			this.mainSplitPane.prefHeightProperty().bind( this.heightProperty());
 			this.mainSplitPane.prefWidthProperty().bind( this.widthProperty());
@@ -424,7 +424,7 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
             return visitor.handle(this);
         }
     }
-    java.util.Vector<javafx.scene.control.Button> getToolButtonsForStaticOperations() {
+    private java.util.Vector<javafx.scene.control.Button> getToolButtonsForStaticOperations() {
         java.util.Vector<javafx.scene.control.Button> result = new java.util.Vector<javafx.scene.control.Button>();
         javafx.scene.control.Button currentButton = null;
         currentButton = new javafx.scene.control.Button("Modul erstellen ... ");
@@ -740,8 +740,7 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
         return result;
     }
     private String preCalculatedFilters = "";
-    @SuppressWarnings("unused")
-	private String getPreCalculatedFilters() {
+    private String getPreCalculatedFilters() {
         return this.preCalculatedFilters;
     }
     private void setPreCalculatedFilters(String switchOff) {
@@ -760,7 +759,6 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 			super.initialize();		
 		}
 				
-		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
 				getConnection().addModuleToGroup(firstArgument, (java.util.Vector<ModuleAbstractView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
@@ -827,7 +825,6 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 			super.initialize();		
 		}
 				
-		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
 				getConnection().addModuleToProg(firstArgument, (java.util.Vector<ModuleAbstractView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
@@ -894,7 +891,6 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 			super.initialize();		
 		}
 				
-		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
 				getConnection().addStudentToGroup(firstArgument, (java.util.Vector<StudentView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());

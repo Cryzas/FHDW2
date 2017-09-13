@@ -213,6 +213,12 @@ public class ModuleWithUnitsStudent extends model.ModuleAbstractStudent implemen
 		}
 		return getThis().getCPmulGrade().div(getThis().getCPwithGrade()).toGradeinThird();
     }
+    public common.Fraction getPassedCP() 
+				throws PersistenceException{
+    	return getThis().getUnits().aggregate(Fraction.Null, (result,argument) -> {
+        	return result.add(argument.getPassedCP());
+		} );
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         super.initializeOnCreation();

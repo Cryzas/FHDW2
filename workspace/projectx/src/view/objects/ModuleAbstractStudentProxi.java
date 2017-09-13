@@ -31,6 +31,9 @@ public abstract class ModuleAbstractStudentProxi extends ViewProxi implements Mo
     public common.Fraction getCPwithGrade()throws ModelException{
         return ((ModuleAbstractStudent)this.getTheObject()).getCPwithGrade();
     }
+    public common.Fraction getPassedCP()throws ModelException{
+        return ((ModuleAbstractStudent)this.getTheObject()).getPassedCP();
+    }
     public MyBooleanView getFinished()throws ModelException{
         return ((ModuleAbstractStudent)this.getTheObject()).getFinished();
     }

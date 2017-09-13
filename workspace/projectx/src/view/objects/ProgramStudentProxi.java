@@ -38,7 +38,8 @@ public class ProgramStudentProxi extends ViewProxi implements ProgramStudentView
             finished = view.objects.ViewProxi.createProxi(finished$Info,connectionKey);
             finished.setToString(finished$Info.getToString());
         }
-        ProgramStudentView result$$ = new ProgramStudent(modules,(String)name,(common.Fraction)creditPoints,(ProgramSGroupView)programCopy,(GradeView)grade,(MyBooleanView)finished, this.getId(), this.getClassId());
+        common.Fraction passedCP = common.Fraction.parse((String)resultTable.get("passedCP"));
+        ProgramStudentView result$$ = new ProgramStudent(modules,(String)name,(common.Fraction)creditPoints,(ProgramSGroupView)programCopy,(GradeView)grade,(MyBooleanView)finished,(common.Fraction)passedCP, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -94,6 +95,9 @@ public class ProgramStudentProxi extends ViewProxi implements ProgramStudentView
     }
     public MyBooleanView getFinished()throws ModelException{
         return ((ProgramStudent)this.getTheObject()).getFinished();
+    }
+    public common.Fraction getPassedCP()throws ModelException{
+        return ((ProgramStudent)this.getTheObject()).getPassedCP();
     }
     
     public void accept(ProgramStudentVisitor visitor) throws ModelException {

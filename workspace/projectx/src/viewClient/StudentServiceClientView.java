@@ -325,8 +325,7 @@ public class StudentServiceClientView extends BorderPane implements ExceptionAnd
     }
     private ContextMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations, final Point2D menuPos) {
         final ContextMenu result = new ContextMenu();
-        @SuppressWarnings("unused")
-		MenuItem item = null;
+        MenuItem item = null;
         if (selected != null){
             try {
                 this.setPreCalculatedFilters(this.getConnection().studentService_Menu_Filter((Anything)selected));
@@ -340,8 +339,7 @@ public class StudentServiceClientView extends BorderPane implements ExceptionAnd
         return result;
     }
     private String preCalculatedFilters = "";
-    @SuppressWarnings("unused")
-	private String getPreCalculatedFilters() {
+    private String getPreCalculatedFilters() {
         return this.preCalculatedFilters;
     }
     private void setPreCalculatedFilters(String switchOff) {

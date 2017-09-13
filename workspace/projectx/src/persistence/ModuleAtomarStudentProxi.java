@@ -125,6 +125,10 @@ public class ModuleAtomarStudentProxi extends ModuleAbstractStudentProxi impleme
 				throws PersistenceException{
         return ((PersistentModuleAtomarStudent)this.getTheObject()).getName();
     }
+    public common.Fraction getPassedCP() 
+				throws PersistenceException{
+        return ((PersistentModuleAtomarStudent)this.getTheObject()).getPassedCP();
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentModuleAtomarStudent)this.getTheObject()).initializeOnCreation();

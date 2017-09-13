@@ -274,6 +274,14 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
 				throws PersistenceException{
         return getThis().getOwnGrade();
     }
+    public common.Fraction getPassedCP() 
+				throws PersistenceException{
+        if(getThis().getGrade() instanceof NoGrade4Public || getThis().getGrade() instanceof T_5_04Public || getThis().getGrade() instanceof NotPassed4Public) {
+        	return Fraction.Null;
+        } else {
+        	return getThis().getCreditPoints();
+        }
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         super.initializeOnCreation();

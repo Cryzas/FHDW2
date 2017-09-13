@@ -31,6 +31,7 @@ public class ModuleWithUnitsStudentProxi extends ModuleAbstractStudentProxi impl
         }
         common.Fraction CPmulGrade = common.Fraction.parse((String)resultTable.get("CPmulGrade"));
         common.Fraction CPwithGrade = common.Fraction.parse((String)resultTable.get("CPwithGrade"));
+        common.Fraction passedCP = common.Fraction.parse((String)resultTable.get("passedCP"));
         ViewProxi finished = null;
         String finished$String = (String)resultTable.get("finished");
         if (finished$String != null) {
@@ -40,7 +41,7 @@ public class ModuleWithUnitsStudentProxi extends ModuleAbstractStudentProxi impl
         }
         java.util.Vector<String> units_string = (java.util.Vector<String>)resultTable.get("units");
         java.util.Vector<UnitStudentView> units = ViewProxi.getProxiVector(units_string, connectionKey);
-        ModuleWithUnitsStudentView result$$ = new ModuleWithUnitsStudent((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradeView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,(MyBooleanView)finished,units, this.getId(), this.getClassId());
+        ModuleWithUnitsStudentView result$$ = new ModuleWithUnitsStudent((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradeView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,(common.Fraction)passedCP,(MyBooleanView)finished,units, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }

@@ -13,9 +13,13 @@ import persistence.AbstractPersistentRoot;
 import persistence.Remote;
 
 import persistence.PersistentDozentenService;
+import persistence.DozentenService4Public;
 import persistence.PersistentServer;
 import persistence.Server4Public;
 import persistence.PersistentStudentService;
+import persistence.StudentService4Public;
+
+
 import common.RPCConstantsAndServices;
 
 

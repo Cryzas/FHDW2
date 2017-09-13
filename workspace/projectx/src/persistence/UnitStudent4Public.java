@@ -39,6 +39,8 @@ public interface UnitStudent4Public extends Anything, programHierarchyStudentHIE
 				throws PersistenceException;
     public String getName() 
 				throws PersistenceException;
+    public common.Fraction getPassedCP() 
+				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 

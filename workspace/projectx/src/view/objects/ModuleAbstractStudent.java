@@ -14,9 +14,10 @@ public abstract class ModuleAbstractStudent extends ViewObject implements Module
     protected GradeView grade;
     protected common.Fraction CPmulGrade;
     protected common.Fraction CPwithGrade;
+    protected common.Fraction passedCP;
     protected MyBooleanView finished;
     
-    public ModuleAbstractStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,GradeView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,MyBooleanView finished,long id, long classId) {
+    public ModuleAbstractStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,GradeView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,common.Fraction passedCP,MyBooleanView finished,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.moduleCopy = moduleCopy;
@@ -25,6 +26,7 @@ public abstract class ModuleAbstractStudent extends ViewObject implements Module
         this.grade = grade;
         this.CPmulGrade = CPmulGrade;
         this.CPwithGrade = CPwithGrade;
+        this.passedCP = passedCP;
         this.finished = finished;        
     }
     
@@ -48,6 +50,9 @@ public abstract class ModuleAbstractStudent extends ViewObject implements Module
     }
     public common.Fraction getCPwithGrade()throws ModelException{
         return this.CPwithGrade;
+    }
+    public common.Fraction getPassedCP()throws ModelException{
+        return this.passedCP;
     }
     public MyBooleanView getFinished()throws ModelException{
         return this.finished;

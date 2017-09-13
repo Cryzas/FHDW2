@@ -10,9 +10,9 @@ import view.visitor.*;
 public class NoProgram extends view.objects.ProgramStudent implements NoProgramView{
     
     
-    public NoProgram(java.util.Vector<ModuleAbstractStudentView> modules,String name,common.Fraction creditPoints,ProgramSGroupView programCopy,GradeView grade,MyBooleanView finished,long id, long classId) {
+    public NoProgram(java.util.Vector<ModuleAbstractStudentView> modules,String name,common.Fraction creditPoints,ProgramSGroupView programCopy,GradeView grade,MyBooleanView finished,common.Fraction passedCP,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super(modules,(String)name,(common.Fraction)creditPoints,(ProgramSGroupView)programCopy,(GradeView)grade,(MyBooleanView)finished,id, classId);        
+        super(modules,(String)name,(common.Fraction)creditPoints,(ProgramSGroupView)programCopy,(GradeView)grade,(MyBooleanView)finished,(common.Fraction)passedCP,id, classId);        
     }
     
     static public long getTypeId() {

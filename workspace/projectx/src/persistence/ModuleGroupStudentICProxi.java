@@ -111,6 +111,10 @@ public class ModuleGroupStudentICProxi extends ModuleAbstractStudentICProxi impl
 				throws PersistenceException{
         return ((PersistentModuleGroupStudent)this.getTheObject()).getName();
     }
+    public common.Fraction getPassedCP() 
+				throws PersistenceException{
+        return ((PersistentModuleGroupStudent)this.getTheObject()).getPassedCP();
+    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         ((PersistentModuleGroupStudent)this.getTheObject()).initializeOnCreation();

@@ -43,6 +43,7 @@ public abstract class ModuleAbstractStudent extends PersistentObject implements 
             }
             result.put("CPmulGrade", this.getCPmulGrade().toString());
             result.put("CPwithGrade", this.getCPwithGrade().toString());
+            result.put("passedCP", this.getPassedCP().toString());
             AbstractPersistentRoot finished = (AbstractPersistentRoot)this.getFinished();
             if (finished != null) {
                 String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(

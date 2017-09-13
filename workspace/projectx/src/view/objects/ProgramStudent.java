@@ -15,8 +15,9 @@ public class ProgramStudent extends ViewObject implements ProgramStudentView{
     protected ProgramSGroupView programCopy;
     protected GradeView grade;
     protected MyBooleanView finished;
+    protected common.Fraction passedCP;
     
-    public ProgramStudent(java.util.Vector<ModuleAbstractStudentView> modules,String name,common.Fraction creditPoints,ProgramSGroupView programCopy,GradeView grade,MyBooleanView finished,long id, long classId) {
+    public ProgramStudent(java.util.Vector<ModuleAbstractStudentView> modules,String name,common.Fraction creditPoints,ProgramSGroupView programCopy,GradeView grade,MyBooleanView finished,common.Fraction passedCP,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.modules = modules;
@@ -24,7 +25,8 @@ public class ProgramStudent extends ViewObject implements ProgramStudentView{
         this.creditPoints = creditPoints;
         this.programCopy = programCopy;
         this.grade = grade;
-        this.finished = finished;        
+        this.finished = finished;
+        this.passedCP = passedCP;        
     }
     
     static public long getTypeId() {
@@ -58,6 +60,9 @@ public class ProgramStudent extends ViewObject implements ProgramStudentView{
     }
     public MyBooleanView getFinished()throws ModelException{
         return this.finished;
+    }
+    public common.Fraction getPassedCP()throws ModelException{
+        return this.passedCP;
     }
     
     public void accept(ProgramStudentVisitor visitor) throws ModelException {

@@ -11,9 +11,9 @@ public class ModuleGroupStudent extends view.objects.ModuleAbstractStudent imple
     
     protected java.util.Vector<ModuleAbstractStudentView> modules;
     
-    public ModuleGroupStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,GradeView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,MyBooleanView finished,java.util.Vector<ModuleAbstractStudentView> modules,long id, long classId) {
+    public ModuleGroupStudent(ModuleAbstractSGroupView moduleCopy,String name,common.Fraction creditPoints,GradeView grade,common.Fraction CPmulGrade,common.Fraction CPwithGrade,common.Fraction passedCP,MyBooleanView finished,java.util.Vector<ModuleAbstractStudentView> modules,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradeView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,(MyBooleanView)finished,id, classId);
+        super((ModuleAbstractSGroupView)moduleCopy,(String)name,(common.Fraction)creditPoints,(GradeView)grade,(common.Fraction)CPmulGrade,(common.Fraction)CPwithGrade,(common.Fraction)passedCP,(MyBooleanView)finished,id, classId);
         this.modules = modules;        
     }
     

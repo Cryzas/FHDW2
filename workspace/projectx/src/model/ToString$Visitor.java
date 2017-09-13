@@ -91,16 +91,16 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleModuleAtomarStudent(ModuleAtomarStudent4Public moduleAtomarStudent) throws PersistenceException {
-		result = "Atomares Modul: " + moduleAtomarStudent.getName() + " (" + moduleAtomarStudent.getCreditPoints() + " CP / Note: " + moduleAtomarStudent.getGrade().toString() + ") " + "NotenSchema: " + ((ModuleAtomarSGroup4Public)moduleAtomarStudent.getModuleCopy()).getGradeSystem().toString();
+		result = "Atomares Modul: " + moduleAtomarStudent.getName() + " (" + moduleAtomarStudent.getPassedCP() + "/" + moduleAtomarStudent.getCreditPoints() +  " CP | " + moduleAtomarStudent.getGrade().toString() + ") " + "Schema: " + ((ModuleAtomarSGroup4Public)moduleAtomarStudent.getModuleCopy()).getGradeSystem().toString();
 	}
 	@Override
 	public void handleProgramStudent(ProgramStudent4Public programStudent) throws PersistenceException {
-		result = "Studienprogramm: " + programStudent.getName() + " (" + programStudent.getCreditPoints() + " CP / Note: " + programStudent.getGrade().toString() + ")";	
+		result = "Studienprogramm: " + programStudent.getName() + " (" + programStudent.getPassedCP() + "/" + programStudent.getCreditPoints() +  " CP | " + programStudent.getGrade().toString() + ")";	
 	}
 	@Override
 	public void handleModuleWithUnitsStudent(ModuleWithUnitsStudent4Public moduleWithUnitsStudent)
 			throws PersistenceException {
-		result = "Modul mit Units: " + moduleWithUnitsStudent.getName() + " (" + moduleWithUnitsStudent.getCreditPoints() + " CP / Note: " + moduleWithUnitsStudent.getGrade().toString() + ")";	
+		result = "Modul mit Units: " + moduleWithUnitsStudent.getName() + " (" + moduleWithUnitsStudent.getPassedCP() + "/" + moduleWithUnitsStudent.getCreditPoints() +  " CP | " + moduleWithUnitsStudent.getGrade().toString() + ")";	
 	}
 	@Override
 	public void handleStudentManager(StudentManager4Public studentManager) throws PersistenceException {
@@ -108,7 +108,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleModuleGroupStudent(ModuleGroupStudent4Public moduleGroupStudent) throws PersistenceException {
-		result = "Modulgruppe: " + moduleGroupStudent.getName() + " (" + moduleGroupStudent.getCreditPoints() + " CP / Note: " + moduleGroupStudent.getGrade().toString() + ")";
+		result = "Modulgruppe: " + moduleGroupStudent.getName() + " (" + moduleGroupStudent.getPassedCP() + "/" + moduleGroupStudent.getCreditPoints() +  " CP | " + moduleGroupStudent.getGrade().toString() + ")";
 	}
 	@Override
 	public void handleStudent(Student4Public student) throws PersistenceException {
@@ -116,7 +116,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleUnitStudent(UnitStudent4Public unitStudent) throws PersistenceException {
-		result = "Unit: " + unitStudent.getName() + " (" + unitStudent.getCreditPoints() + " CP / Note: " + unitStudent.getGrade().toString() + ")";
+		result = "Unit: " + unitStudent.getName() + " (" + unitStudent.getPassedCP() + "/" + unitStudent.getCreditPoints() +  " CP | " + unitStudent.getGrade().toString() + ")";
 	}
 	@Override
 	public void handleThirdGradeSystem(ThirdGradeSystem4Public ThirdGradeSystem) throws PersistenceException {
@@ -312,7 +312,10 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleGradeChange(GradeChange4Public gradeChange) throws PersistenceException {
-		result = "Von \"" + gradeChange.getFromGrade().toString() + "\" zu \"" + gradeChange.getToGrade().toString() + "\" / Kommentar: " + gradeChange.getComment() + " / " + gradeChange.getDateOfChange().toLocalDate().toString();
+		result = "Von \"" + gradeChange.getFromGrade().toString() + "\" zu \"" + gradeChange.getToGrade().toString() + "\" | " + gradeChange.getDateOfChange().toLocalDate().toString();
+		if (!gradeChange.getComment().equals("")) {
+			result = result + " | " + gradeChange.getComment();
+		}
 	}
 	@Override
 	public void handleBFalse(BFalse4Public bFalse) throws PersistenceException {
