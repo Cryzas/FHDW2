@@ -16,7 +16,6 @@ public class ServiceServerWrapper extends AssociationInTreeWrapper {
 	
 	
 	public String toString(){
-    	//TODO: Implement toString in wrapper class for association service in class Server
     	return this.getWrappedObject().toString();
     }
 

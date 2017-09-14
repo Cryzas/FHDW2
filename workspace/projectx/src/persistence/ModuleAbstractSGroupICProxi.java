@@ -37,7 +37,7 @@ public abstract class ModuleAbstractSGroupICProxi extends PersistentInCacheProxi
         return ((PersistentModuleAbstractSGroup)this.getTheObject()).containsprogramHierarchySGroup(part);
     }
     public ModuleAbstractStudent4Public copyForStudent() 
-				throws model.UserException, PersistenceException{
+				throws PersistenceException{
         return ((PersistentModuleAbstractSGroup)this.getTheObject()).copyForStudent();
     }
     public void copyingPrivateUserAttributes(final Anything copy) 

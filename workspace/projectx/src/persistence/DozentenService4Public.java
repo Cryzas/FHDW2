@@ -33,6 +33,8 @@ public interface DozentenService4Public extends Service4Public {
 				throws PersistenceException;
     public UnitSGroupSearchList fromUnit_Path_In_SwapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module) 
 				throws model.UserException, PersistenceException;
+    public StudyGroupSearchList groups_Path_In_DeleteStudyGroups(final StudyGroupManager4Public manager) 
+				throws model.UserException, PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
     public ModuleAbstractStudentSearchList lecture_Path_In_ChangeGradeforStudent(final Student4Public student) 
@@ -41,7 +43,21 @@ public interface DozentenService4Public extends Service4Public {
 				throws model.UserException, PersistenceException;
     public ModuleAbstractSearchList modules_Path_In_AddModuleToProg() 
 				throws model.UserException, PersistenceException;
+    public ModuleAbstractSearchList modules_Path_In_DeleteModules(final ModuleManager4Public manager) 
+				throws model.UserException, PersistenceException;
+    public ModuleAbstractSearchList modules_Path_In_RemoveModuleFromGroup(final ModuleGroup4Public group) 
+				throws model.UserException, PersistenceException;
+    public ModuleAbstractSearchList modules_Path_In_RemoveModuleFromProg(final Program4Public program) 
+				throws model.UserException, PersistenceException;
+    public ProgramSearchList programs_Path_In_DeletePrograms(final ProgramManager4Public manager) 
+				throws model.UserException, PersistenceException;
     public StudentSearchList students_Path_In_AddStudentToGroup() 
+				throws model.UserException, PersistenceException;
+    public StudentSearchList students_Path_In_DeleteStudents(final StudentManager4Public manager) 
+				throws model.UserException, PersistenceException;
+    public StudentSearchList students_Path_In_RemoveStudentFromGroup(final StudyGroup4Public group) 
+				throws model.UserException, PersistenceException;
+    public UnitSearchList units_Path_In_RemoveUnit(final ModuleWithUnits4Public module) 
 				throws model.UserException, PersistenceException;
     public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstractSearchList modules) 
 				throws PersistenceException;
@@ -71,6 +87,14 @@ public interface DozentenService4Public extends Service4Public {
 				throws PersistenceException;
     public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
 				throws PersistenceException;
+    public void deleteModules(final ModuleManager4Public manager, final ModuleAbstractSearchList modules) 
+				throws PersistenceException;
+    public void deletePrograms(final ProgramManager4Public manager, final ProgramSearchList programs) 
+				throws PersistenceException;
+    public void deleteStudents(final StudentManager4Public manager, final StudentSearchList students) 
+				throws PersistenceException;
+    public void deleteStudyGroups(final StudyGroupManager4Public manager, final StudyGroupSearchList groups) 
+				throws PersistenceException;
     public void endStudyGroup(final StudyGroup4Public studyGroup) 
 				throws PersistenceException;
     public void initializeOnCreation() 
@@ -78,6 +102,14 @@ public interface DozentenService4Public extends Service4Public {
     public void initializeOnInstantiation() 
 				throws PersistenceException;
     public void removeError(final ErrorDisplay4Public error) 
+				throws PersistenceException;
+    public void removeModuleFromGroup(final ModuleGroup4Public group, final ModuleAbstractSearchList modules) 
+				throws PersistenceException;
+    public void removeModuleFromProg(final Program4Public program, final ModuleAbstractSearchList modules) 
+				throws PersistenceException;
+    public void removeStudentFromGroup(final StudyGroup4Public group, final StudentSearchList students) 
+				throws PersistenceException;
+    public void removeUnit(final ModuleWithUnits4Public module, final UnitSearchList units) 
 				throws PersistenceException;
     public void startStudyGroup(final Program4Public program, final String name) 
 				throws PersistenceException;

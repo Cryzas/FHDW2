@@ -93,7 +93,7 @@ public class ModuleAtomarProxi extends ModuleAbstractProxi implements Persistent
         ((PersistentModuleAtomar)this.getTheObject()).changeGradeSystem(gradeSystem);
     }
     public ModuleAbstractSGroup4Public copyForStudyGroup() 
-				throws model.UserException, PersistenceException{
+				throws PersistenceException{
         return ((PersistentModuleAtomar)this.getTheObject()).copyForStudyGroup();
     }
     public void copyingPrivateUserAttributes(final Anything copy) 

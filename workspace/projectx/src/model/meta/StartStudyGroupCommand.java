@@ -236,7 +236,10 @@ public class StartStudyGroupCommand extends PersistentObject implements Persiste
         try{
 			this.commandReceiver.startStudyGroup(this.getProgram(), this.getName());
 		}
-		catch(model.UserException e){
+		catch(model.AlreadyExistsInParentException e){
+			this.commandException = e;
+		}
+		catch(model.NoFractionValueException e){
 			this.commandException = e;
 		}
     }

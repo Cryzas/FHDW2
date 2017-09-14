@@ -116,6 +116,10 @@ public class DozentenServiceICProxi extends ServiceICProxi implements Persistent
 				throws PersistenceException{
         return ((PersistentDozentenService)this.getTheObject()).getParentServer();
     }
+    public StudyGroupSearchList groups_Path_In_DeleteStudyGroups(final StudyGroupManager4Public manager) 
+				throws model.UserException, PersistenceException{
+        return ((PersistentDozentenService)this.getTheObject()).groups_Path_In_DeleteStudyGroups(manager);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentDozentenService)this.getTheObject()).initialize(This, final$$Fields);
@@ -132,6 +136,22 @@ public class DozentenServiceICProxi extends ServiceICProxi implements Persistent
 				throws model.UserException, PersistenceException{
         return ((PersistentDozentenService)this.getTheObject()).modules_Path_In_AddModuleToProg();
     }
+    public ModuleAbstractSearchList modules_Path_In_DeleteModules(final ModuleManager4Public manager) 
+				throws model.UserException, PersistenceException{
+        return ((PersistentDozentenService)this.getTheObject()).modules_Path_In_DeleteModules(manager);
+    }
+    public ModuleAbstractSearchList modules_Path_In_RemoveModuleFromGroup(final ModuleGroup4Public group) 
+				throws model.UserException, PersistenceException{
+        return ((PersistentDozentenService)this.getTheObject()).modules_Path_In_RemoveModuleFromGroup(group);
+    }
+    public ModuleAbstractSearchList modules_Path_In_RemoveModuleFromProg(final Program4Public program) 
+				throws model.UserException, PersistenceException{
+        return ((PersistentDozentenService)this.getTheObject()).modules_Path_In_RemoveModuleFromProg(program);
+    }
+    public ProgramSearchList programs_Path_In_DeletePrograms(final ProgramManager4Public manager) 
+				throws model.UserException, PersistenceException{
+        return ((PersistentDozentenService)this.getTheObject()).programs_Path_In_DeletePrograms(manager);
+    }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
         ((PersistentDozentenService)this.getTheObject()).signalChanged(signal);
@@ -139,6 +159,18 @@ public class DozentenServiceICProxi extends ServiceICProxi implements Persistent
     public StudentSearchList students_Path_In_AddStudentToGroup() 
 				throws model.UserException, PersistenceException{
         return ((PersistentDozentenService)this.getTheObject()).students_Path_In_AddStudentToGroup();
+    }
+    public StudentSearchList students_Path_In_DeleteStudents(final StudentManager4Public manager) 
+				throws model.UserException, PersistenceException{
+        return ((PersistentDozentenService)this.getTheObject()).students_Path_In_DeleteStudents(manager);
+    }
+    public StudentSearchList students_Path_In_RemoveStudentFromGroup(final StudyGroup4Public group) 
+				throws model.UserException, PersistenceException{
+        return ((PersistentDozentenService)this.getTheObject()).students_Path_In_RemoveStudentFromGroup(group);
+    }
+    public UnitSearchList units_Path_In_RemoveUnit(final ModuleWithUnits4Public module) 
+				throws model.UserException, PersistenceException{
+        return ((PersistentDozentenService)this.getTheObject()).units_Path_In_RemoveUnit(module);
     }
     public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstractSearchList modules) 
 				throws PersistenceException{
@@ -200,6 +232,22 @@ public class DozentenServiceICProxi extends ServiceICProxi implements Persistent
 				throws PersistenceException{
         ((PersistentDozentenService)this.getTheObject()).createStudent(group, firstName, lastName, birthDate);
     }
+    public void deleteModules(final ModuleManager4Public manager, final ModuleAbstractSearchList modules) 
+				throws PersistenceException{
+        ((PersistentDozentenService)this.getTheObject()).deleteModules(manager, modules);
+    }
+    public void deletePrograms(final ProgramManager4Public manager, final ProgramSearchList programs) 
+				throws PersistenceException{
+        ((PersistentDozentenService)this.getTheObject()).deletePrograms(manager, programs);
+    }
+    public void deleteStudents(final StudentManager4Public manager, final StudentSearchList students) 
+				throws PersistenceException{
+        ((PersistentDozentenService)this.getTheObject()).deleteStudents(manager, students);
+    }
+    public void deleteStudyGroups(final StudyGroupManager4Public manager, final StudyGroupSearchList groups) 
+				throws PersistenceException{
+        ((PersistentDozentenService)this.getTheObject()).deleteStudyGroups(manager, groups);
+    }
     public void disconnected() 
 				throws PersistenceException{
         ((PersistentDozentenService)this.getTheObject()).disconnected();
@@ -235,6 +283,22 @@ public class DozentenServiceICProxi extends ServiceICProxi implements Persistent
     public void removeError(final ErrorDisplay4Public error) 
 				throws PersistenceException{
         ((PersistentDozentenService)this.getTheObject()).removeError(error);
+    }
+    public void removeModuleFromGroup(final ModuleGroup4Public group, final ModuleAbstractSearchList modules) 
+				throws PersistenceException{
+        ((PersistentDozentenService)this.getTheObject()).removeModuleFromGroup(group, modules);
+    }
+    public void removeModuleFromProg(final Program4Public program, final ModuleAbstractSearchList modules) 
+				throws PersistenceException{
+        ((PersistentDozentenService)this.getTheObject()).removeModuleFromProg(program, modules);
+    }
+    public void removeStudentFromGroup(final StudyGroup4Public group, final StudentSearchList students) 
+				throws PersistenceException{
+        ((PersistentDozentenService)this.getTheObject()).removeStudentFromGroup(group, students);
+    }
+    public void removeUnit(final ModuleWithUnits4Public module, final UnitSearchList units) 
+				throws PersistenceException{
+        ((PersistentDozentenService)this.getTheObject()).removeUnit(module, units);
     }
     public void startStudyGroup(final Program4Public program, final String name) 
 				throws PersistenceException{

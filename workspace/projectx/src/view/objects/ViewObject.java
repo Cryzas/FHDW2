@@ -19,7 +19,6 @@ public abstract class ViewObject extends ViewRoot {
 
 
 	public void valueForPathChanged(javax.swing.tree.TreePath path, Object newValue) {
-		// TODO specialize this operation for the individual classes!
 	}
 
 	private EventListenerList tabelModelListeners;

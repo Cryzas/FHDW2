@@ -214,7 +214,7 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
     	getThis().setGradeSystem(gradeSystem);
     }
     public ModuleAbstractSGroup4Public copyForStudyGroup() 
-				throws model.UserException, PersistenceException{
+				throws PersistenceException{
     	return ModuleAtomarSGroup.createModuleAtomarSGroup(getThis(), getThis().getCreditPoints(), getThis().getGradeSystem());
     }
     public void copyingPrivateUserAttributes(final Anything copy) 

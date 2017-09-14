@@ -286,6 +286,11 @@ public class DozentenService extends model.Service implements PersistentDozenten
         	return new UnitSGroupSearchList(module.
                 getUnits().getList());
     }
+    public StudyGroupSearchList groups_Path_In_DeleteStudyGroups(final StudyGroupManager4Public manager) 
+				throws model.UserException, PersistenceException{
+        	return new StudyGroupSearchList(manager.
+                getGroups().getList());
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentDozentenService)This);
@@ -308,10 +313,45 @@ public class DozentenService extends model.Service implements PersistentDozenten
         	return new ModuleAbstractSearchList(getThis().getModuleManager().
                 getModules().getList());
     }
+    public ModuleAbstractSearchList modules_Path_In_DeleteModules(final ModuleManager4Public manager) 
+				throws model.UserException, PersistenceException{
+        	return new ModuleAbstractSearchList(manager.
+                getModules().getList());
+    }
+    public ModuleAbstractSearchList modules_Path_In_RemoveModuleFromGroup(final ModuleGroup4Public group) 
+				throws model.UserException, PersistenceException{
+        	return new ModuleAbstractSearchList(group.
+                getModules().getList());
+    }
+    public ModuleAbstractSearchList modules_Path_In_RemoveModuleFromProg(final Program4Public program) 
+				throws model.UserException, PersistenceException{
+        	return new ModuleAbstractSearchList(program.
+                getModules().getList());
+    }
+    public ProgramSearchList programs_Path_In_DeletePrograms(final ProgramManager4Public manager) 
+				throws model.UserException, PersistenceException{
+        	return new ProgramSearchList(manager.
+                getPrograms().getList());
+    }
     public StudentSearchList students_Path_In_AddStudentToGroup() 
 				throws model.UserException, PersistenceException{
         	return new StudentSearchList(getThis().getStudentManager().
                 getStudents().getList());
+    }
+    public StudentSearchList students_Path_In_DeleteStudents(final StudentManager4Public manager) 
+				throws model.UserException, PersistenceException{
+        	return new StudentSearchList(manager.
+                getStudents().getList());
+    }
+    public StudentSearchList students_Path_In_RemoveStudentFromGroup(final StudyGroup4Public group) 
+				throws model.UserException, PersistenceException{
+        	return new StudentSearchList(group.
+                getStudents().getList());
+    }
+    public UnitSearchList units_Path_In_RemoveUnit(final ModuleWithUnits4Public module) 
+				throws model.UserException, PersistenceException{
+        	return new UnitSearchList(module.
+                getUnits().getList());
     }
     
     
@@ -375,6 +415,39 @@ public class DozentenService extends model.Service implements PersistentDozenten
 				throws PersistenceException{
 		getThis().getStudentManager().createStudent(group, firstName, lastName, birthDate, getThis());
 	}
+    public void deleteModules(final ModuleManager4Public manager, final ModuleAbstractSearchList modules) 
+				throws PersistenceException{
+    	modules.applyToAll(module -> {
+    		manager.getModules().removeFirst(module);
+    		module.delete$Me();
+    	});
+    	getThis().signalChanged(true);
+    }
+    public void deletePrograms(final ProgramManager4Public manager, final ProgramSearchList programs) 
+				throws PersistenceException{
+    	programs.applyToAll(program -> {
+    		manager.getPrograms().removeFirst(program);
+    		program.delete$Me();
+    	});
+    	getThis().signalChanged(true);
+    }
+    public void deleteStudents(final StudentManager4Public manager, final StudentSearchList students) 
+				throws PersistenceException{
+    	students.applyToAll(student -> {
+    		manager.getStudents().removeFirst(student);
+    		student.delete$Me();
+    		Server.getServerByUser(String.valueOf(student.getMatrNr())).iterator().next().delete$Me();
+    	});
+    	getThis().signalChanged(true);
+    }
+    public void deleteStudyGroups(final StudyGroupManager4Public manager, final StudyGroupSearchList groups) 
+				throws PersistenceException{
+    	groups.applyToAll(group -> {
+    		manager.getGroups().removeFirst(group);
+    		group.delete$Me();
+    	});
+    	getThis().signalChanged(true);
+    }
     public void disconnected() 
 				throws PersistenceException{
 	}
@@ -384,7 +457,7 @@ public class DozentenService extends model.Service implements PersistentDozenten
 	}
     public String getUsername() 
 				throws PersistenceException{
-        return getThis().getParentServer().iterator().next().toString();
+        return getThis().getParentServer().iterator().next().getUser();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -426,17 +499,39 @@ public class DozentenService extends model.Service implements PersistentDozenten
 		getThis().getErrors().filter(arg -> !arg.equals(error));
 		getThis().signalChanged(true);
 	}
+    public void removeModuleFromGroup(final ModuleGroup4Public group, final ModuleAbstractSearchList modules) 
+				throws PersistenceException{
+    	modules.applyToAll(module -> group.getModules().removeFirst(module));
+        getThis().signalChanged(true);
+    }
+    public void removeModuleFromProg(final Program4Public program, final ModuleAbstractSearchList modules) 
+				throws PersistenceException{
+        modules.applyToAll(module -> program.getModules().removeFirst(module));
+        getThis().signalChanged(true);
+    }
+    public void removeStudentFromGroup(final StudyGroup4Public group, final StudentSearchList students) 
+				throws PersistenceException{
+    	students.applyToAll(student -> {
+    		group.getStudents().removeFirst(student);
+    		student.setProgram(NoProgram.getTheNoProgram());
+    	});
+        getThis().signalChanged(true);
+    }
+    public void removeUnit(final ModuleWithUnits4Public module, final UnitSearchList units) 
+				throws PersistenceException{
+        units.applyToAll(unit -> {
+        	module.getUnits().removeFirst(unit);
+        	unit.delete$Me();
+        });
+        getThis().signalChanged(true);
+    }
     public void startStudyGroup(final Program4Public program, final String name) 
 				throws PersistenceException{
 		getThis().getGroupManager().startStudyGroup(program, name, getThis());
 	}
     public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
 				throws PersistenceException{
-		getThis().setModuleManager(ModuleManager.createModuleManager());
-		getThis().setProgramManager(ProgramManager.createProgramManager());
-		getThis().setGroupManager(StudyGroupManager.createStudyGroupManager());
-		getThis().setStudentManager(StudentManager.createStudentManager());
-		getThis().signalChanged(true);
+		getThis().getGroupManager().swapCPonModuleWithUnits(module, fromUnit, ToUnit, creditPoints, getThis());
 	}
     
     

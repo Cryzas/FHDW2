@@ -16,7 +16,6 @@ public class UnitsModuleWithUnitsSGroupWrapper extends AssociationInTreeWrapper 
 	
 	
 	public String toString(){
-    	//TODO: Implement toString in wrapper class for association units in class ModuleWithUnitsSGroup
     	return this.getWrappedObject().toString();
     }
 

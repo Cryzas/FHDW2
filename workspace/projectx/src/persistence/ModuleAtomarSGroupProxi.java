@@ -85,7 +85,7 @@ public class ModuleAtomarSGroupProxi extends ModuleAbstractSGroupProxi implement
         return ((PersistentModuleAtomarSGroup)this.getTheObject()).strategyprogramHierarchySGroup(strategy);
     }
     public ModuleAbstractStudent4Public copyForStudent() 
-				throws model.UserException, PersistenceException{
+				throws PersistenceException{
         return ((PersistentModuleAtomarSGroup)this.getTheObject()).copyForStudent();
     }
     public void copyingPrivateUserAttributes(final Anything copy) 

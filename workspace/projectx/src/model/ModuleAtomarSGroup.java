@@ -213,7 +213,7 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
     // Start of section that contains operations that must be implemented.
     
     public ModuleAbstractStudent4Public copyForStudent() 
-				throws model.UserException, PersistenceException{
+				throws PersistenceException{
     	return ModuleAtomarStudent.createModuleAtomarStudent(getThis());
     }
     public void copyingPrivateUserAttributes(final Anything copy) 

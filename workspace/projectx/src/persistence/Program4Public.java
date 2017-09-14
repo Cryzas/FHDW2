@@ -26,7 +26,7 @@ public interface Program4Public extends Anything, programHierarchyHIERARCHY, Abs
     public void addModule(final ModuleAbstract4Public module) 
 				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException;
     public ProgramSGroup4Public copyForStudyGroup() 
-				throws model.UserException, PersistenceException;
+				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public common.Fraction getCreditPoints() 

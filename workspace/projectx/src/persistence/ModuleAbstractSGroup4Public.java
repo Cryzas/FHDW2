@@ -16,7 +16,7 @@ public interface ModuleAbstractSGroup4Public extends programHierarchySGroupHIERA
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
     public ModuleAbstractStudent4Public copyForStudent() 
-				throws model.UserException, PersistenceException;
+				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void endModule() 

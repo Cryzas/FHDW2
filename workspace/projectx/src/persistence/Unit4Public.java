@@ -26,7 +26,7 @@ public interface Unit4Public extends Anything, programHierarchyHIERARCHY, Abstra
     public void changeCPOnUnit(final common.Fraction creditPoints) 
 				throws PersistenceException;
     public UnitSGroup4Public copyForStudyGroup() 
-				throws model.UserException, PersistenceException;
+				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void initializeOnCreation() 

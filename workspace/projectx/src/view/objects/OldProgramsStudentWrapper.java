@@ -16,7 +16,6 @@ public class OldProgramsStudentWrapper extends AssociationInTreeWrapper {
 	
 	
 	public String toString(){
-    	//TODO: Implement toString in wrapper class for association oldPrograms in class Student
     	return this.getWrappedObject().toString();
     }
 

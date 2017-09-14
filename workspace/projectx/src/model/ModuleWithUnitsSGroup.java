@@ -192,9 +192,13 @@ public class ModuleWithUnitsSGroup extends model.ModuleAbstractSGroup implements
     	getThis().getUnits().add(unit);
     }
     public ModuleAbstractStudent4Public copyForStudent() 
-				throws model.UserException, PersistenceException{
+				throws PersistenceException{
     	ModuleWithUnitsStudent4Public toBeAdded = ModuleWithUnitsStudent.createModuleWithUnitsStudent(getThis());
-    	getThis().getUnits().applyToAllException(unit -> toBeAdded.addUnit(unit.copyForStudent()));
+    	try {
+			getThis().getUnits().applyToAllException(unit -> toBeAdded.addUnit(unit.copyForStudent()));
+		} catch (CycleException e) {
+			throw new Error();
+		}
     	return toBeAdded;
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
@@ -220,8 +224,13 @@ public class ModuleWithUnitsSGroup extends model.ModuleAbstractSGroup implements
     }
     public void swapCPonModuleWithUnits(final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
 				throws model.UnitSwapException, PersistenceException{
-    	getThis().getUnits().findFirst(unit -> unit.equals(fromUnit)).subCP(creditPoints);
-    	getThis().getUnits().findFirst(unit -> unit.equals(ToUnit)).addCP(creditPoints);
+    	if (creditPoints.lessOrEquals(Fraction.Null)) {
+    		ToUnit.subCP(creditPoints);
+    		fromUnit.addCP(creditPoints);
+		} else {
+	    	fromUnit.subCP(creditPoints);
+	    	ToUnit.addCP(creditPoints);
+		}
     }
     
     

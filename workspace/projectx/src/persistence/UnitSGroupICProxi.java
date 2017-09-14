@@ -87,7 +87,7 @@ public class UnitSGroupICProxi extends PersistentInCacheProxiOptimistic implemen
         ((PersistentUnitSGroup)this.getTheObject()).addCP(creditPoints);
     }
     public UnitStudent4Public copyForStudent() 
-				throws model.UserException, PersistenceException{
+				throws PersistenceException{
         return ((PersistentUnitSGroup)this.getTheObject()).copyForStudent();
     }
     public void copyingPrivateUserAttributes(final Anything copy) 

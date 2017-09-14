@@ -256,9 +256,13 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
         
     }
     public ProgramStudent4Public copyForStudent() 
-				throws model.UserException, PersistenceException{
+				throws PersistenceException{
     	ProgramStudent4Public newProgram = ProgramStudent.createProgramStudent(getThis());
-    	getThis().getModules().applyToAllException(module -> newProgram.addModule(module.copyForStudent()));
+    	try {
+			getThis().getModules().applyToAllException(module -> newProgram.addModule(module.copyForStudent()));
+		} catch (CycleException e) {
+			throw new Error();
+		}
     	return newProgram;
     }
     public void copyingPrivateUserAttributes(final Anything copy) 

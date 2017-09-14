@@ -80,7 +80,7 @@ public class ModuleGroupProxi extends ModuleAbstractProxi implements PersistentM
         ((PersistentModuleGroup)this.getTheObject()).addModule(module);
     }
     public ModuleAbstractSGroup4Public copyForStudyGroup() 
-				throws model.UserException, PersistenceException{
+				throws PersistenceException{
         return ((PersistentModuleGroup)this.getTheObject()).copyForStudyGroup();
     }
     public void copyingPrivateUserAttributes(final Anything copy) 

@@ -84,7 +84,7 @@ public class ProgramSGroupICProxi extends PersistentInCacheProxiOptimistic imple
         ((PersistentProgramSGroup)this.getTheObject()).addModule(module);
     }
     public ProgramStudent4Public copyForStudent() 
-				throws model.UserException, PersistenceException{
+				throws PersistenceException{
         return ((PersistentProgramSGroup)this.getTheObject()).copyForStudent();
     }
     public void copyingPrivateUserAttributes(final Anything copy) 

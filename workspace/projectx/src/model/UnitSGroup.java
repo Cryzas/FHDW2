@@ -250,7 +250,7 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
     	getThis().setCreditPoints(getThis().getCreditPoints().add(creditPoints));
     }
     public UnitStudent4Public copyForStudent() 
-				throws model.UserException, PersistenceException{
+				throws PersistenceException{
         return UnitStudent.createUnitStudent(getThis());
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
@@ -276,7 +276,7 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
     public void subCP(final common.Fraction creditPoints) 
 				throws model.UnitSwapException, PersistenceException{
     	if(getThis().getCreditPoints().add(creditPoints.mul(Fraction.parse("-1"))).lessOrEquals(Fraction.Null))
-    		throw new UnitSwapException(CreditPointsUnderNullMessage);
+    		throw new UnitSwapException(String.format(CreditPointsUnderNullMessage,getThis().getName()));
     	getThis().setCreditPoints(getThis().getCreditPoints().add(creditPoints.mul(Fraction.parse("-1"))));
     }
     
@@ -286,7 +286,7 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
 
     /* Start of protected part that is not overridden by persistence generator */
     
-    static String CreditPointsUnderNullMessage = "Units müssen mehr als Null Creditpoints haben.";
+    static String CreditPointsUnderNullMessage = "Die Unit %s muss mehr als 0 Credit-Points haben.";
     /* End of protected part that is not overridden by persistence generator */
     
 }

@@ -320,18 +320,26 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
         ImageView handle(ChangeCPOnUnitPRMTRUnitPRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(RemoveErrorPRMTRErrorDisplayPRMTRMenuItem menuItem);
         ImageView handle(CreateModulePRMTRModuleAbstractSUBTYPENamePRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(RemoveModuleFromGroupPRMTRModuleGroupPRMTRModuleAbstractLSTPRMTRMenuItem menuItem);
+        ImageView handle(RemoveModuleFromProgPRMTRProgramPRMTRModuleAbstractLSTPRMTRMenuItem menuItem);
         ImageView handle(AddModuleToGroupPRMTRModuleGroupPRMTRModuleAbstractLSTPRMTRMenuItem menuItem);
         ImageView handle(AddModuleToProgPRMTRProgramPRMTRModuleAbstractLSTPRMTRMenuItem menuItem);
+        ImageView handle(DeleteModulesPRMTRModuleManagerPRMTRModuleAbstractLSTPRMTRMenuItem menuItem);
         ImageView handle(ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(ChangeGradeOfModulePRMTRModuleAtomarStudentPRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(ChangeGradeOfUnitPRMTRUnitStudentPRMTRGradesInThirdSUBTYPENamePRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(ChangeGradeSystemPRMTRModuleAtomarPRMTRMenuItem menuItem);
         ImageView handle(CreateProgramPRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(DeleteProgramsPRMTRProgramManagerPRMTRProgramLSTPRMTRMenuItem menuItem);
         ImageView handle(CreateStudentPRMTRStudyGroupPRMTRStringPRMTRStringPRMTRDatePRMTRMenuItem menuItem);
+        ImageView handle(RemoveStudentFromGroupPRMTRStudyGroupPRMTRStudentLSTPRMTRMenuItem menuItem);
         ImageView handle(AddStudentToGroupPRMTRStudyGroupPRMTRStudentLSTPRMTRMenuItem menuItem);
+        ImageView handle(DeleteStudentsPRMTRStudentManagerPRMTRStudentLSTPRMTRMenuItem menuItem);
         ImageView handle(EndStudyGroupPRMTRStudyGroupPRMTRMenuItem menuItem);
         ImageView handle(StartStudyGroupPRMTRProgramPRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(DeleteStudyGroupsPRMTRStudyGroupManagerPRMTRStudyGroupLSTPRMTRMenuItem menuItem);
         ImageView handle(AddUnitPRMTRModuleWithUnitsPRMTRStringPRMTRFractionPRMTRMenuItem menuItem);
+        ImageView handle(RemoveUnitPRMTRModuleWithUnitsPRMTRUnitLSTPRMTRMenuItem menuItem);
     }
     private abstract class DozentenServiceMenuItem extends MenuItem{
         private DozentenServiceMenuItem(){
@@ -364,12 +372,27 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
             return visitor.handle(this);
         }
     }
+    private class RemoveModuleFromGroupPRMTRModuleGroupPRMTRModuleAbstractLSTPRMTRMenuItem extends DozentenServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class RemoveModuleFromProgPRMTRProgramPRMTRModuleAbstractLSTPRMTRMenuItem extends DozentenServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
     private class AddModuleToGroupPRMTRModuleGroupPRMTRModuleAbstractLSTPRMTRMenuItem extends DozentenServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
     }
     private class AddModuleToProgPRMTRProgramPRMTRModuleAbstractLSTPRMTRMenuItem extends DozentenServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class DeleteModulesPRMTRModuleManagerPRMTRModuleAbstractLSTPRMTRMenuItem extends DozentenServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -399,12 +422,27 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
             return visitor.handle(this);
         }
     }
+    private class DeleteProgramsPRMTRProgramManagerPRMTRProgramLSTPRMTRMenuItem extends DozentenServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
     private class CreateStudentPRMTRStudyGroupPRMTRStringPRMTRStringPRMTRDatePRMTRMenuItem extends DozentenServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
     }
+    private class RemoveStudentFromGroupPRMTRStudyGroupPRMTRStudentLSTPRMTRMenuItem extends DozentenServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
     private class AddStudentToGroupPRMTRStudyGroupPRMTRStudentLSTPRMTRMenuItem extends DozentenServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class DeleteStudentsPRMTRStudentManagerPRMTRStudentLSTPRMTRMenuItem extends DozentenServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -419,7 +457,17 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
             return visitor.handle(this);
         }
     }
+    private class DeleteStudyGroupsPRMTRStudyGroupManagerPRMTRStudyGroupLSTPRMTRMenuItem extends DozentenServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
     private class AddUnitPRMTRModuleWithUnitsPRMTRStringPRMTRFractionPRMTRMenuItem extends DozentenServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class RemoveUnitPRMTRModuleWithUnitsPRMTRUnitLSTPRMTRMenuItem extends DozentenServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -488,6 +536,19 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
                 return result;
             }
             if (selected instanceof ProgramView){
+                item = new RemoveModuleFromProgPRMTRProgramPRMTRModuleAbstractLSTPRMTRMenuItem();
+                item.setText("Module entfernen ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final DozentenServiceRemoveModuleFromProgProgramModuleAbstractLSTMssgWizard wizard = new DozentenServiceRemoveModuleFromProgProgramModuleAbstractLSTMssgWizard("Module entfernen");
+                        wizard.setFirstArgument((ProgramView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.setX( getPointForView().getX());
+                        wizard.setY( getPointForView().getY());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
                 item = new AddModuleToProgPRMTRProgramPRMTRModuleAbstractLSTPRMTRMenuItem();
                 item.setText("Module hinzufügen ... ");
                 item.setOnAction(new EventHandler<ActionEvent>(){
@@ -515,12 +576,191 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
                 });
                 result.getItems().add(item);
             }
+            if (selected instanceof ErrorDisplayView){
+                item = new RemoveErrorPRMTRErrorDisplayPRMTRMenuItem();
+                item.setText("Error entfernen");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        Alert confirm = new Alert(AlertType.CONFIRMATION);
+                        confirm.setTitle(GUIConstants.ConfirmButtonText);
+                        confirm.setHeaderText(null);
+                        confirm.setContentText("Error entfernen" + GUIConstants.ConfirmQuestionMark);
+                        confirm.setX( getPointForView().getX() );
+                        confirm.setY( getPointForView().getY() );
+                        Optional<ButtonType> buttonResult = confirm.showAndWait();
+                        if (buttonResult.get() == ButtonType.OK) {
+                            try {
+                                getConnection().removeError((ErrorDisplayView)selected);
+                                getConnection().setEagerRefresh();
+                                
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
+                    }
+                });
+                result.getItems().add(item);
+            }
+            if (selected instanceof ModuleAtomarView){
+                item = new ChangeCPOnModulePRMTRModuleAtomarPRMTRFractionPRMTRMenuItem();
+                item.setText("CP ändern ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final DozentenServiceChangeCPOnModuleModuleAtomarFractionMssgWizard wizard = new DozentenServiceChangeCPOnModuleModuleAtomarFractionMssgWizard("CP ändern");
+                        wizard.setFirstArgument((ModuleAtomarView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.setX( getPointForView().getX());
+                        wizard.setY( getPointForView().getY());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+                item = new ChangeGradeSystemPRMTRModuleAtomarPRMTRMenuItem();
+                item.setText("Notensystem ändern");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        Alert confirm = new Alert(AlertType.CONFIRMATION);
+                        confirm.setTitle(GUIConstants.ConfirmButtonText);
+                        confirm.setHeaderText(null);
+                        confirm.setContentText("Notensystem ändern" + GUIConstants.ConfirmQuestionMark);
+                        confirm.setX( getPointForView().getX() );
+                        confirm.setY( getPointForView().getY() );
+                        Optional<ButtonType> buttonResult = confirm.showAndWait();
+                        if (buttonResult.get() == ButtonType.OK) {
+                            try {
+                                getConnection().changeGradeSystem((ModuleAtomarView)selected);
+                                getConnection().setEagerRefresh();
+                                
+                            }catch(ModelException me){
+                                handleException(me);
+                            }
+                        }
+                    }
+                });
+                result.getItems().add(item);
+            }
+            if (selected instanceof StudentManagerView){
+                item = new DeleteStudentsPRMTRStudentManagerPRMTRStudentLSTPRMTRMenuItem();
+                item.setText("Studenten löschen ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final DozentenServiceDeleteStudentsStudentManagerStudentLSTMssgWizard wizard = new DozentenServiceDeleteStudentsStudentManagerStudentLSTMssgWizard("Studenten löschen");
+                        wizard.setFirstArgument((StudentManagerView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.setX( getPointForView().getX());
+                        wizard.setY( getPointForView().getY());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+            }
+            if (selected instanceof UnitView){
+                item = new ChangeCPOnUnitPRMTRUnitPRMTRFractionPRMTRMenuItem();
+                item.setText("CP ändern ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final DozentenServiceChangeCPOnUnitUnitFractionMssgWizard wizard = new DozentenServiceChangeCPOnUnitUnitFractionMssgWizard("CP ändern");
+                        wizard.setFirstArgument((UnitView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.setX( getPointForView().getX());
+                        wizard.setY( getPointForView().getY());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+            }
+            if (selected instanceof ModuleGroupView){
+                item = new RemoveModuleFromGroupPRMTRModuleGroupPRMTRModuleAbstractLSTPRMTRMenuItem();
+                item.setText("Module entfernen ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final DozentenServiceRemoveModuleFromGroupModuleGroupModuleAbstractLSTMssgWizard wizard = new DozentenServiceRemoveModuleFromGroupModuleGroupModuleAbstractLSTMssgWizard("Module entfernen");
+                        wizard.setFirstArgument((ModuleGroupView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.setX( getPointForView().getX());
+                        wizard.setY( getPointForView().getY());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+                item = new AddModuleToGroupPRMTRModuleGroupPRMTRModuleAbstractLSTPRMTRMenuItem();
+                item.setText("Module hinzufügen ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final DozentenServiceAddModuleToGroupModuleGroupModuleAbstractLSTMssgWizard wizard = new DozentenServiceAddModuleToGroupModuleGroupModuleAbstractLSTMssgWizard("Module hinzufügen");
+                        wizard.setFirstArgument((ModuleGroupView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.setX( getPointForView().getX());
+                        wizard.setY( getPointForView().getY());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+            }
+            if (selected instanceof ModuleManagerView){
+                item = new DeleteModulesPRMTRModuleManagerPRMTRModuleAbstractLSTPRMTRMenuItem();
+                item.setText("Module löschen ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final DozentenServiceDeleteModulesModuleManagerModuleAbstractLSTMssgWizard wizard = new DozentenServiceDeleteModulesModuleManagerModuleAbstractLSTMssgWizard("Module löschen");
+                        wizard.setFirstArgument((ModuleManagerView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.setX( getPointForView().getX());
+                        wizard.setY( getPointForView().getY());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+            }
+            if (selected instanceof StudentView){
+                item = new ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem();
+                item.setText("Note eintragen ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final DozentenServiceChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameStringMssgWizard wizard = new DozentenServiceChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameStringMssgWizard("Note eintragen");
+                        wizard.setFirstArgument((StudentView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.setX( getPointForView().getX());
+                        wizard.setY( getPointForView().getY());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+            }
+            if (selected instanceof StudyGroupManagerView){
+                item = new DeleteStudyGroupsPRMTRStudyGroupManagerPRMTRStudyGroupLSTPRMTRMenuItem();
+                item.setText("Studiengruppen löschen ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final DozentenServiceDeleteStudyGroupsStudyGroupManagerStudyGroupLSTMssgWizard wizard = new DozentenServiceDeleteStudyGroupsStudyGroupManagerStudyGroupLSTMssgWizard("Studiengruppen löschen");
+                        wizard.setFirstArgument((StudyGroupManagerView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.setX( getPointForView().getX());
+                        wizard.setY( getPointForView().getY());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+            }
             if (selected instanceof StudyGroupView){
                 item = new CreateStudentPRMTRStudyGroupPRMTRStringPRMTRStringPRMTRDatePRMTRMenuItem();
                 item.setText("Student erstellen ... ");
                 item.setOnAction(new EventHandler<ActionEvent>(){
                     public void handle(javafx.event.ActionEvent e) {
                         final DozentenServiceCreateStudentStudyGroupStringStringDateMssgWizard wizard = new DozentenServiceCreateStudentStudyGroupStringStringDateMssgWizard("Student erstellen");
+                        wizard.setFirstArgument((StudyGroupView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.setX( getPointForView().getX());
+                        wizard.setY( getPointForView().getY());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+                item = new RemoveStudentFromGroupPRMTRStudyGroupPRMTRStudentLSTPRMTRMenuItem();
+                item.setText("Studenten entfernen ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final DozentenServiceRemoveStudentFromGroupStudyGroupStudentLSTMssgWizard wizard = new DozentenServiceRemoveStudentFromGroupStudyGroupStudentLSTMssgWizard("Studenten entfernen");
                         wizard.setFirstArgument((StudyGroupView)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.setX( getPointForView().getX());
@@ -566,31 +806,6 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
                 });
                 result.getItems().add(item);
             }
-            if (selected instanceof ErrorDisplayView){
-                item = new RemoveErrorPRMTRErrorDisplayPRMTRMenuItem();
-                item.setText("Error entfernen");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        Alert confirm = new Alert(AlertType.CONFIRMATION);
-                        confirm.setTitle(GUIConstants.ConfirmButtonText);
-                        confirm.setHeaderText(null);
-                        confirm.setContentText("Error entfernen" + GUIConstants.ConfirmQuestionMark);
-                        confirm.setX( getPointForView().getX() );
-                        confirm.setY( getPointForView().getY() );
-                        Optional<ButtonType> buttonResult = confirm.showAndWait();
-                        if (buttonResult.get() == ButtonType.OK) {
-                            try {
-                                getConnection().removeError((ErrorDisplayView)selected);
-                                getConnection().setEagerRefresh();
-                                
-                            }catch(ModelException me){
-                                handleException(me);
-                            }
-                        }
-                    }
-                });
-                result.getItems().add(item);
-            }
             if (selected instanceof ModuleAtomarStudentView){
                 item = new ChangeGradeOfModulePRMTRModuleAtomarStudentPRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem();
                 item.setText("Note ändern ... ");
@@ -621,44 +836,6 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
                 });
                 result.getItems().add(item);
             }
-            if (selected instanceof ModuleAtomarView){
-                item = new ChangeCPOnModulePRMTRModuleAtomarPRMTRFractionPRMTRMenuItem();
-                item.setText("CP ändern ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final DozentenServiceChangeCPOnModuleModuleAtomarFractionMssgWizard wizard = new DozentenServiceChangeCPOnModuleModuleAtomarFractionMssgWizard("CP ändern");
-                        wizard.setFirstArgument((ModuleAtomarView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.setX( getPointForView().getX());
-                        wizard.setY( getPointForView().getY());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-                item = new ChangeGradeSystemPRMTRModuleAtomarPRMTRMenuItem();
-                item.setText("Notensystem ändern");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        Alert confirm = new Alert(AlertType.CONFIRMATION);
-                        confirm.setTitle(GUIConstants.ConfirmButtonText);
-                        confirm.setHeaderText(null);
-                        confirm.setContentText("Notensystem ändern" + GUIConstants.ConfirmQuestionMark);
-                        confirm.setX( getPointForView().getX() );
-                        confirm.setY( getPointForView().getY() );
-                        Optional<ButtonType> buttonResult = confirm.showAndWait();
-                        if (buttonResult.get() == ButtonType.OK) {
-                            try {
-                                getConnection().changeGradeSystem((ModuleAtomarView)selected);
-                                getConnection().setEagerRefresh();
-                                
-                            }catch(ModelException me){
-                                handleException(me);
-                            }
-                        }
-                    }
-                });
-                result.getItems().add(item);
-            }
             if (selected instanceof ModuleWithUnitsView){
                 item = new AddUnitPRMTRModuleWithUnitsPRMTRStringPRMTRFractionPRMTRMenuItem();
                 item.setText("Unit hinzufügen ... ");
@@ -673,44 +850,12 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
                     }
                 });
                 result.getItems().add(item);
-            }
-            if (selected instanceof UnitView){
-                item = new ChangeCPOnUnitPRMTRUnitPRMTRFractionPRMTRMenuItem();
-                item.setText("CP ändern ... ");
+                item = new RemoveUnitPRMTRModuleWithUnitsPRMTRUnitLSTPRMTRMenuItem();
+                item.setText("Units entfernen ... ");
                 item.setOnAction(new EventHandler<ActionEvent>(){
                     public void handle(javafx.event.ActionEvent e) {
-                        final DozentenServiceChangeCPOnUnitUnitFractionMssgWizard wizard = new DozentenServiceChangeCPOnUnitUnitFractionMssgWizard("CP ändern");
-                        wizard.setFirstArgument((UnitView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.setX( getPointForView().getX());
-                        wizard.setY( getPointForView().getY());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-            }
-            if (selected instanceof ModuleGroupView){
-                item = new AddModuleToGroupPRMTRModuleGroupPRMTRModuleAbstractLSTPRMTRMenuItem();
-                item.setText("Module hinzufügen ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final DozentenServiceAddModuleToGroupModuleGroupModuleAbstractLSTMssgWizard wizard = new DozentenServiceAddModuleToGroupModuleGroupModuleAbstractLSTMssgWizard("Module hinzufügen");
-                        wizard.setFirstArgument((ModuleGroupView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.setX( getPointForView().getX());
-                        wizard.setY( getPointForView().getY());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-            }
-            if (selected instanceof StudentView){
-                item = new ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem();
-                item.setText("Note eintragen ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final DozentenServiceChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameStringMssgWizard wizard = new DozentenServiceChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameStringMssgWizard("Note eintragen");
-                        wizard.setFirstArgument((StudentView)selected);
+                        final DozentenServiceRemoveUnitModuleWithUnitsUnitLSTMssgWizard wizard = new DozentenServiceRemoveUnitModuleWithUnitsUnitLSTMssgWizard("Units entfernen");
+                        wizard.setFirstArgument((ModuleWithUnitsView)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.setX( getPointForView().getX());
                         wizard.setY( getPointForView().getY());
@@ -726,6 +871,21 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
                     public void handle(javafx.event.ActionEvent e) {
                         final DozentenServiceSwapCPonModuleWithUnitsModuleWithUnitsSGroupUnitSGroupUnitSGroupFractionMssgWizard wizard = new DozentenServiceSwapCPonModuleWithUnitsModuleWithUnitsSGroupUnitSGroupUnitSGroupFractionMssgWizard("CP Gewichtung ändern");
                         wizard.setFirstArgument((ModuleWithUnitsSGroupView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.setX( getPointForView().getX());
+                        wizard.setY( getPointForView().getY());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+            }
+            if (selected instanceof ProgramManagerView){
+                item = new DeleteProgramsPRMTRProgramManagerPRMTRProgramLSTPRMTRMenuItem();
+                item.setText("Programme löschen ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final DozentenServiceDeleteProgramsProgramManagerProgramLSTMssgWizard wizard = new DozentenServiceDeleteProgramsProgramManagerProgramLSTMssgWizard("Programme löschen");
+                        wizard.setFirstArgument((ProgramManagerView)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.setX( getPointForView().getX());
                         wizard.setY( getPointForView().getY());
@@ -1406,6 +1566,534 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 		
 	}
 
+	class DozentenServiceDeleteModulesModuleManagerModuleAbstractLSTMssgWizard extends Wizard {
+
+		protected DozentenServiceDeleteModulesModuleManagerModuleAbstractLSTMssgWizard(String operationName){
+			super(DozentenServiceClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new DeleteModulesPRMTRModuleManagerPRMTRModuleAbstractLSTPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "DozentenServiceDeleteModulesModuleManagerModuleAbstractLSTMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().deleteModules(firstArgument, (java.util.Vector<ModuleAbstractView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			final ObjectCollectionSelectionPanel panel5 = new ObjectCollectionSelectionPanel("Module", "view.ModuleAbstractView", null, this, getMultiSelectionFor("deleteModulesPRMTRModuleManagerPRMTRModuleAbstractLSTPRMTRmodules"))
+											{protected ViewRoot getBrowserRoot(){
+												{try{
+													return new ListRoot(getConnection().modules_Path_In_DeleteModules((ModuleManagerView)this.navigationRoot));
+												}catch(ModelException me){
+													return (ViewRoot) this.navigationRoot;
+												}catch(UserException ue){
+													return (ViewRoot) this.navigationRoot;
+											}}}};
+			getParametersPanel().getChildren().add(panel5);		
+		}	
+		protected void handleDependencies(int i) {
+			if(i == 0){
+				((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(i)).setBrowserRoot((ViewRoot)firstArgument);
+			}
+		}
+		
+		
+		private ModuleManagerView firstArgument; 
+	
+		public void setFirstArgument(ModuleManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
+				selectionPanel0.preset((java.util.Vector<?>)firstArgument.getModules());
+				if (!selectionPanel0.check()) selectionPanel0.preset(new java.util.Vector<Object>());
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			this.check();
+		}
+		
+		
+	}
+
+	class DozentenServiceDeleteProgramsProgramManagerProgramLSTMssgWizard extends Wizard {
+
+		protected DozentenServiceDeleteProgramsProgramManagerProgramLSTMssgWizard(String operationName){
+			super(DozentenServiceClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new DeleteProgramsPRMTRProgramManagerPRMTRProgramLSTPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "DozentenServiceDeleteProgramsProgramManagerProgramLSTMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().deletePrograms(firstArgument, (java.util.Vector<ProgramView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			final ObjectCollectionSelectionPanel panel6 = new ObjectCollectionSelectionPanel("Programme", "view.ProgramView", null, this, getMultiSelectionFor("deleteProgramsPRMTRProgramManagerPRMTRProgramLSTPRMTRprograms"))
+											{protected ViewRoot getBrowserRoot(){
+												{try{
+													return new ListRoot(getConnection().programs_Path_In_DeletePrograms((ProgramManagerView)this.navigationRoot));
+												}catch(ModelException me){
+													return (ViewRoot) this.navigationRoot;
+												}catch(UserException ue){
+													return (ViewRoot) this.navigationRoot;
+											}}}};
+			getParametersPanel().getChildren().add(panel6);		
+		}	
+		protected void handleDependencies(int i) {
+			if(i == 0){
+				((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(i)).setBrowserRoot((ViewRoot)firstArgument);
+			}
+		}
+		
+		
+		private ProgramManagerView firstArgument; 
+	
+		public void setFirstArgument(ProgramManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
+				selectionPanel0.preset((java.util.Vector<?>)firstArgument.getPrograms());
+				if (!selectionPanel0.check()) selectionPanel0.preset(new java.util.Vector<Object>());
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			this.check();
+		}
+		
+		
+	}
+
+	class DozentenServiceDeleteStudentsStudentManagerStudentLSTMssgWizard extends Wizard {
+
+		protected DozentenServiceDeleteStudentsStudentManagerStudentLSTMssgWizard(String operationName){
+			super(DozentenServiceClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new DeleteStudentsPRMTRStudentManagerPRMTRStudentLSTPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "DozentenServiceDeleteStudentsStudentManagerStudentLSTMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().deleteStudents(firstArgument, (java.util.Vector<StudentView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			final ObjectCollectionSelectionPanel panel7 = new ObjectCollectionSelectionPanel("Studenten", "view.StudentView", null, this, getMultiSelectionFor("deleteStudentsPRMTRStudentManagerPRMTRStudentLSTPRMTRstudents"))
+											{protected ViewRoot getBrowserRoot(){
+												{try{
+													return new ListRoot(getConnection().students_Path_In_DeleteStudents((StudentManagerView)this.navigationRoot));
+												}catch(ModelException me){
+													return (ViewRoot) this.navigationRoot;
+												}catch(UserException ue){
+													return (ViewRoot) this.navigationRoot;
+											}}}};
+			getParametersPanel().getChildren().add(panel7);		
+		}	
+		protected void handleDependencies(int i) {
+			if(i == 0){
+				((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(i)).setBrowserRoot((ViewRoot)firstArgument);
+			}
+		}
+		
+		
+		private StudentManagerView firstArgument; 
+	
+		public void setFirstArgument(StudentManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
+				selectionPanel0.preset((java.util.Vector<?>)firstArgument.getStudents());
+				if (!selectionPanel0.check()) selectionPanel0.preset(new java.util.Vector<Object>());
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			this.check();
+		}
+		
+		
+	}
+
+	class DozentenServiceDeleteStudyGroupsStudyGroupManagerStudyGroupLSTMssgWizard extends Wizard {
+
+		protected DozentenServiceDeleteStudyGroupsStudyGroupManagerStudyGroupLSTMssgWizard(String operationName){
+			super(DozentenServiceClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new DeleteStudyGroupsPRMTRStudyGroupManagerPRMTRStudyGroupLSTPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "DozentenServiceDeleteStudyGroupsStudyGroupManagerStudyGroupLSTMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().deleteStudyGroups(firstArgument, (java.util.Vector<StudyGroupView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			final ObjectCollectionSelectionPanel panel8 = new ObjectCollectionSelectionPanel("Studiengruppen", "view.StudyGroupView", null, this, getMultiSelectionFor("deleteStudyGroupsPRMTRStudyGroupManagerPRMTRStudyGroupLSTPRMTRgroups"))
+											{protected ViewRoot getBrowserRoot(){
+												{try{
+													return new ListRoot(getConnection().groups_Path_In_DeleteStudyGroups((StudyGroupManagerView)this.navigationRoot));
+												}catch(ModelException me){
+													return (ViewRoot) this.navigationRoot;
+												}catch(UserException ue){
+													return (ViewRoot) this.navigationRoot;
+											}}}};
+			getParametersPanel().getChildren().add(panel8);		
+		}	
+		protected void handleDependencies(int i) {
+			if(i == 0){
+				((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(i)).setBrowserRoot((ViewRoot)firstArgument);
+			}
+		}
+		
+		
+		private StudyGroupManagerView firstArgument; 
+	
+		public void setFirstArgument(StudyGroupManagerView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
+				selectionPanel0.preset((java.util.Vector<?>)firstArgument.getGroups());
+				if (!selectionPanel0.check()) selectionPanel0.preset(new java.util.Vector<Object>());
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			this.check();
+		}
+		
+		
+	}
+
+	class DozentenServiceRemoveModuleFromGroupModuleGroupModuleAbstractLSTMssgWizard extends Wizard {
+
+		protected DozentenServiceRemoveModuleFromGroupModuleGroupModuleAbstractLSTMssgWizard(String operationName){
+			super(DozentenServiceClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new RemoveModuleFromGroupPRMTRModuleGroupPRMTRModuleAbstractLSTPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "DozentenServiceRemoveModuleFromGroupModuleGroupModuleAbstractLSTMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().removeModuleFromGroup(firstArgument, (java.util.Vector<ModuleAbstractView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			final ObjectCollectionSelectionPanel panel9 = new ObjectCollectionSelectionPanel("Module", "view.ModuleAbstractView", null, this, getMultiSelectionFor("removeModuleFromGroupPRMTRModuleGroupPRMTRModuleAbstractLSTPRMTRmodules"))
+											{protected ViewRoot getBrowserRoot(){
+												{try{
+													return new ListRoot(getConnection().modules_Path_In_RemoveModuleFromGroup((ModuleGroupView)this.navigationRoot));
+												}catch(ModelException me){
+													return (ViewRoot) this.navigationRoot;
+												}catch(UserException ue){
+													return (ViewRoot) this.navigationRoot;
+											}}}};
+			getParametersPanel().getChildren().add(panel9);		
+		}	
+		protected void handleDependencies(int i) {
+			if(i == 0){
+				((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(i)).setBrowserRoot((ViewRoot)firstArgument);
+			}
+		}
+		
+		
+		private ModuleGroupView firstArgument; 
+	
+		public void setFirstArgument(ModuleGroupView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
+				selectionPanel0.preset((java.util.Vector<?>)firstArgument.getModules());
+				if (!selectionPanel0.check()) selectionPanel0.preset(new java.util.Vector<Object>());
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			this.check();
+		}
+		
+		
+	}
+
+	class DozentenServiceRemoveModuleFromProgProgramModuleAbstractLSTMssgWizard extends Wizard {
+
+		protected DozentenServiceRemoveModuleFromProgProgramModuleAbstractLSTMssgWizard(String operationName){
+			super(DozentenServiceClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new RemoveModuleFromProgPRMTRProgramPRMTRModuleAbstractLSTPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "DozentenServiceRemoveModuleFromProgProgramModuleAbstractLSTMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().removeModuleFromProg(firstArgument, (java.util.Vector<ModuleAbstractView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			final ObjectCollectionSelectionPanel panel10 = new ObjectCollectionSelectionPanel("Module", "view.ModuleAbstractView", null, this, getMultiSelectionFor("removeModuleFromProgPRMTRProgramPRMTRModuleAbstractLSTPRMTRmodules"))
+											{protected ViewRoot getBrowserRoot(){
+												{try{
+													return new ListRoot(getConnection().modules_Path_In_RemoveModuleFromProg((ProgramView)this.navigationRoot));
+												}catch(ModelException me){
+													return (ViewRoot) this.navigationRoot;
+												}catch(UserException ue){
+													return (ViewRoot) this.navigationRoot;
+											}}}};
+			getParametersPanel().getChildren().add(panel10);		
+		}	
+		protected void handleDependencies(int i) {
+			if(i == 0){
+				((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(i)).setBrowserRoot((ViewRoot)firstArgument);
+			}
+		}
+		
+		
+		private ProgramView firstArgument; 
+	
+		public void setFirstArgument(ProgramView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
+				selectionPanel0.preset((java.util.Vector<?>)firstArgument.getModules());
+				if (!selectionPanel0.check()) selectionPanel0.preset(new java.util.Vector<Object>());
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			this.check();
+		}
+		
+		
+	}
+
+	class DozentenServiceRemoveStudentFromGroupStudyGroupStudentLSTMssgWizard extends Wizard {
+
+		protected DozentenServiceRemoveStudentFromGroupStudyGroupStudentLSTMssgWizard(String operationName){
+			super(DozentenServiceClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new RemoveStudentFromGroupPRMTRStudyGroupPRMTRStudentLSTPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "DozentenServiceRemoveStudentFromGroupStudyGroupStudentLSTMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().removeStudentFromGroup(firstArgument, (java.util.Vector<StudentView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			final ObjectCollectionSelectionPanel panel11 = new ObjectCollectionSelectionPanel("Studenten", "view.StudentView", null, this, getMultiSelectionFor("removeStudentFromGroupPRMTRStudyGroupPRMTRStudentLSTPRMTRstudents"))
+											{protected ViewRoot getBrowserRoot(){
+												{try{
+													return new ListRoot(getConnection().students_Path_In_RemoveStudentFromGroup((StudyGroupView)this.navigationRoot));
+												}catch(ModelException me){
+													return (ViewRoot) this.navigationRoot;
+												}catch(UserException ue){
+													return (ViewRoot) this.navigationRoot;
+											}}}};
+			getParametersPanel().getChildren().add(panel11);		
+		}	
+		protected void handleDependencies(int i) {
+			if(i == 0){
+				((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(i)).setBrowserRoot((ViewRoot)firstArgument);
+			}
+		}
+		
+		
+		private StudyGroupView firstArgument; 
+	
+		public void setFirstArgument(StudyGroupView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
+				selectionPanel0.preset((java.util.Vector<?>)firstArgument.getStudents());
+				if (!selectionPanel0.check()) selectionPanel0.preset(new java.util.Vector<Object>());
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			this.check();
+		}
+		
+		
+	}
+
+	class DozentenServiceRemoveUnitModuleWithUnitsUnitLSTMssgWizard extends Wizard {
+
+		protected DozentenServiceRemoveUnitModuleWithUnitsUnitLSTMssgWizard(String operationName){
+			super(DozentenServiceClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new RemoveUnitPRMTRModuleWithUnitsPRMTRUnitLSTPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "DozentenServiceRemoveUnitModuleWithUnitsUnitLSTMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().removeUnit(firstArgument, (java.util.Vector<UnitView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			final ObjectCollectionSelectionPanel panel12 = new ObjectCollectionSelectionPanel("Units", "view.UnitView", null, this, getMultiSelectionFor("removeUnitPRMTRModuleWithUnitsPRMTRUnitLSTPRMTRunits"))
+											{protected ViewRoot getBrowserRoot(){
+												{try{
+													return new ListRoot(getConnection().units_Path_In_RemoveUnit((ModuleWithUnitsView)this.navigationRoot));
+												}catch(ModelException me){
+													return (ViewRoot) this.navigationRoot;
+												}catch(UserException ue){
+													return (ViewRoot) this.navigationRoot;
+											}}}};
+			getParametersPanel().getChildren().add(panel12);		
+		}	
+		protected void handleDependencies(int i) {
+			if(i == 0){
+				((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(i)).setBrowserRoot((ViewRoot)firstArgument);
+			}
+		}
+		
+		
+		private ModuleWithUnitsView firstArgument; 
+	
+		public void setFirstArgument(ModuleWithUnitsView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			try{
+				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
+				selectionPanel0.preset((java.util.Vector<?>)firstArgument.getUnits());
+				if (!selectionPanel0.check()) selectionPanel0.preset(new java.util.Vector<Object>());
+			}catch(ModelException me){
+				 handleException(me);
+			}
+			this.check();
+		}
+		
+		
+	}
+
 	class DozentenServiceStartStudyGroupProgramStringMssgWizard extends Wizard {
 
 		protected DozentenServiceStartStudyGroupProgramStringMssgWizard(String operationName){
@@ -1492,7 +2180,7 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 			return false;
 		}
 		protected void addParameters(){
-			final ObjectSelectionPanel panel5 = new ObjectSelectionPanel("Von Unit", "view.UnitSGroupView", null, this)
+			final ObjectSelectionPanel panel13 = new ObjectSelectionPanel("Von Unit", "view.UnitSGroupView", null, this)
 											{protected ViewRoot getBrowserRoot(){
 												{try{
 													return new ListRoot(getConnection().fromUnit_Path_In_SwapCPonModuleWithUnits((ModuleWithUnitsSGroupView)this.navigationRoot));
@@ -1501,8 +2189,8 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 												}catch(UserException ue){
 													return (ViewRoot) this.navigationRoot;
 											}}}};
-			getParametersPanel().getChildren().add(panel5);
-			final ObjectSelectionPanel panel6 = new ObjectSelectionPanel("Zu Unit", "view.UnitSGroupView", null, this)
+			getParametersPanel().getChildren().add(panel13);
+			final ObjectSelectionPanel panel14 = new ObjectSelectionPanel("Zu Unit", "view.UnitSGroupView", null, this)
 											{protected ViewRoot getBrowserRoot(){
 												{try{
 													return new ListRoot(getConnection().ToUnit_Path_In_SwapCPonModuleWithUnits((ModuleWithUnitsSGroupView)this.navigationRoot));
@@ -1511,7 +2199,7 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 												}catch(UserException ue){
 													return (ViewRoot) this.navigationRoot;
 											}}}};
-			getParametersPanel().getChildren().add(panel6);
+			getParametersPanel().getChildren().add(panel14);
 			getParametersPanel().getChildren().add(new FractionSelectionPanel("Credit Points", this));		
 		}	
 		protected void handleDependencies(int i) {
@@ -1545,10 +2233,9 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 	/* Menu and wizard section end */
 	
 	private ImageView getIconForMenuItem(DozentenServiceMenuItem menuItem){
-		return new ImageView(new javafx.scene.image.Image("/viewResources/default.gif")); //TODO Pimp-up your menu items!
+		return new ImageView(new javafx.scene.image.Image("/viewResources/default.gif"));
 	}	
 	private void addNotGeneratedItems(ContextMenu result, ViewRoot selected) {
-		// TODO Add items to menue if you have not generated service calls!!!
 	}
 	protected boolean getMultiSelectionFor(String parameterInBrowser){
 		return false;

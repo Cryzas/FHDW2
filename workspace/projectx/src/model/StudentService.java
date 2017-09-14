@@ -197,8 +197,7 @@ public class StudentService extends model.Service implements PersistentStudentSe
     }
     public String getUsername() 
 				throws PersistenceException{
-        Student4Public student = getThis().getStudent();
-        return student.getFirstName() + " " + student.getLastName();
+        return getThis().getParentServer().iterator().next().getUser();
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

@@ -74,7 +74,7 @@ public class ProgramProxi extends PersistentProxi implements PersistentProgram{
         ((PersistentProgram)this.getTheObject()).addModule(module);
     }
     public ProgramSGroup4Public copyForStudyGroup() 
-				throws model.UserException, PersistenceException{
+				throws PersistenceException{
         return ((PersistentProgram)this.getTheObject()).copyForStudyGroup();
     }
     public void copyingPrivateUserAttributes(final Anything copy) 

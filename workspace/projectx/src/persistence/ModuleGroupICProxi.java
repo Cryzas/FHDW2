@@ -84,7 +84,7 @@ public class ModuleGroupICProxi extends ModuleAbstractICProxi implements Persist
         ((PersistentModuleGroup)this.getTheObject()).addModule(module);
     }
     public ModuleAbstractSGroup4Public copyForStudyGroup() 
-				throws model.UserException, PersistenceException{
+				throws PersistenceException{
         return ((PersistentModuleGroup)this.getTheObject()).copyForStudyGroup();
     }
     public void copyingPrivateUserAttributes(final Anything copy) 

@@ -13,8 +13,20 @@ server DozentenService extends Service {
 	public ModuleManager moduleManager;
 	public StudyGroupManager groupManager;
 	public StudentManager studentManager;
-/* Fehler aus dem Error-Screen entfernen */
+	/* Fehler aus dem Error-Screen entfernen */
 	void removeError @@ Error_entfernen (ErrorDisplay error);
+ 
+	/* Funktionen zum Löschen der Unterobjekte der Manager */
+	void deletePrograms @@ Programme_löschen (ProgramManager manager, Program ** programs @@ Programme {;manager;programs});
+	void deleteModules @@ Module_löschen (ModuleManager manager, ModuleAbstract ** modules @@ Module {;manager;modules});
+	void deleteStudyGroups @@ Studiengruppen_löschen (StudyGroupManager manager, StudyGroup ** groups @@ Studiengruppen {;manager;groups});
+	void deleteStudents @@ Studenten_löschen (StudentManager manager, Student ** students @@ Studenten {;manager;students}); 
+ 
+	/* Funktionen zum Entfernen von Objekten aus dem Parent */
+	void removeModuleFromProg @@ Module_entfernen (Program program, ModuleAbstract ** modules @@ Module {;program;modules}); 
+	void removeModuleFromGroup @@ Module_entfernen (ModuleGroup group, ModuleAbstract ** modules @@ Module {;group;modules});
+	void removeStudentFromGroup @@ Studenten_entfernen (StudyGroup group, Student ** students @@ Studenten {;group;students});
+	void removeUnit @@ Units_entfernen (ModuleWithUnits module, Unit ** units @@ Units {;module;units});
 
 	/* Kommentare siehe Manager-Klassen | Service ruft Methoden der Managerklassen auf */
 	void createProgram @@ Programm_erstellen (String name @@ Name);
@@ -63,7 +75,7 @@ class ModuleManager {
 class StudyGroupManager {
 	public StudyGroup ** groups;
 /* Neue Studiengruppe eröffnen | Exception wenn schon eine Studiengruppe mit dem Namen existiert */
-	active void startStudyGroup(Program program, String name) throws UserException;	
+	active void startStudyGroup(Program program, String name) throws AlreadyExistsInParentException, NoFractionValueException;	
 /* CreditPoints der einzelnen Units ändern, ohne die Gesamtmenge der CPs für das Modul zu verändern | Exception wenn CP <= 0 seien würden */
 	active void swapCPonModuleWithUnits ## sCPonMWU(ModuleWithUnitsSGroup module, UnitSGroup fromUnit, UnitSGroup ToUnit, Fraction creditPoints) throws UnitSwapException;
 /* Beendet die Studiengruppe, Noten können nicht mehr verändert werden | Exception wenn Studiengruppe schon beendet ist*/
@@ -92,7 +104,7 @@ class Program {
 	/* Ermöglicht das Hinzufügen von Modulen und Modulgruppen zu einem Studienprogramm. Wirft eine Exception, falls Modul/Modulgruppe bereits in Studienprogramm vorhanden ist. */
 	void addModule(ModuleAbstract module) throws CycleException, AlreadyExistsInParentException;
 	/* Gibt eine Kopie von sich für eine Studiengruppe aus */
-	ProgramSGroup copyForStudyGroup() throws UserException;
+	ProgramSGroup copyForStudyGroup();
 }
 
 /** Definiert das abstrakte Modul mit den Kernattributen, welche an die Children weitervererbt werden. Attribute: name, creditPoints, gradeSystem */
@@ -101,7 +113,7 @@ abstract string-factory class ModuleAbstract {
 	/* wird als derived attribute aus den CP der Module errechnet. */
 	public abstract derived Fraction creditPoints;
 	/* Gibt eine Kopie von sich für eine Studiengruppe aus */
-	abstract ModuleAbstractSGroup copyForStudyGroup() throws UserException;
+	abstract ModuleAbstractSGroup copyForStudyGroup();
 }
 
 /** Definiert die Modul-Gruppe als Erweiterung des abstrakten Moduls */
@@ -136,7 +148,7 @@ class Unit {
 	/* Ermöglicht das Ändern der CreditPoints, welche durch das absolvieren der Unit erreicht werden können */
 	void changeCPOnUnit(Fraction creditPoints);
 	/* Gibt eine Kopie von sich für eine Studiengruppe aus */
-	UnitSGroup copyForStudyGroup() throws UserException;
+	UnitSGroup copyForStudyGroup();
 }
 
 																			/* Aufbau der Studiengruppen */
@@ -161,7 +173,7 @@ class ProgramSGroup {
 	/* Ermöglicht das Hinzufügen von Modulen und Modulgruppen zu einem Studienprogramm. Wirft eine Exception, falls Modul/Modulgruppe bereits in Studienprogramm vorhanden ist. */
 	void addModule(ModuleAbstractSGroup module) throws CycleException;
 	/* Gibt eine Kopie von sich für einen Studenten aus */
-	ProgramStudent copyForStudent() throws UserException;
+	ProgramStudent copyForStudent();
 	public no-view MyBoolean finished;
 /* Finalisiert das Programm, Noten können nicht mehr verändert werden | Exception wenn Studiengruppe schon beendet ist */
 	void endProgram();
@@ -172,7 +184,7 @@ abstract string-factory class ModuleAbstractSGroup ## m_abstr_gr {
 	public abstract derived Fraction creditPoints;		
 	public no-view prior ModuleAbstract moduleCopy;
 	/* Gibt eine Kopie von sich für einen Studenten aus */
-	abstract ModuleAbstractStudent copyForStudent() throws UserException;
+	abstract ModuleAbstractStudent copyForStudent();
 	public no-view MyBoolean finished;
 /* Finalisiert das Modul, Noten können nicht mehr verändert werden | Exception wenn Studiengruppe schon beendet ist */
 	abstract void endModule();
@@ -206,7 +218,7 @@ class UnitSGroup {
    /* Zieht CP ab | Exception wenn CP <= 0 seien würden */
 	void subCP(Fraction creditPoints) throws UnitSwapException;
 	/* Gibt eine Kopie von sich für einen Studenten aus */
-	UnitStudent copyForStudent() throws UserException;
+	UnitStudent copyForStudent();
 	public no-view MyBoolean finished;
 	/* Finalisiert die Unit, Noten können nicht mehr verändert werden | Exception wenn Studiengruppe schon beendet ist */
 	void endUnit();

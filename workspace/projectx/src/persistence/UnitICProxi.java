@@ -81,7 +81,7 @@ public class UnitICProxi extends PersistentInCacheProxiOptimistic implements Per
         ((PersistentUnit)this.getTheObject()).changeCPOnUnit(creditPoints);
     }
     public UnitSGroup4Public copyForStudyGroup() 
-				throws model.UserException, PersistenceException{
+				throws PersistenceException{
         return ((PersistentUnit)this.getTheObject()).copyForStudyGroup();
     }
     public void copyingPrivateUserAttributes(final Anything copy) 

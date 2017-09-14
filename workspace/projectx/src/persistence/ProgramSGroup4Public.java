@@ -26,7 +26,7 @@ public interface ProgramSGroup4Public extends programHierarchySGroupHIERARCHY, A
     public void addModule(final ModuleAbstractSGroup4Public module) 
 				throws model.CycleException, PersistenceException;
     public ProgramStudent4Public copyForStudent() 
-				throws model.UserException, PersistenceException;
+				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void endProgram() 

@@ -26,7 +26,7 @@ public interface UnitSGroup4Public extends programHierarchySGroupHIERARCHY, Anyt
     public void addCP(final common.Fraction creditPoints) 
 				throws PersistenceException;
     public UnitStudent4Public copyForStudent() 
-				throws model.UserException, PersistenceException;
+				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void endUnit() 

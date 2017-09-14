@@ -2,6 +2,7 @@
 package model;
 
 import persistence.*;
+import common.Fraction;
 import model.visitor.*;
 
 
@@ -212,10 +213,40 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
         
     }
     public void startStudyGroup(final Program4Public program, final String name) 
-				throws model.UserException, PersistenceException{
+				throws model.AlreadyExistsInParentException, model.NoFractionValueException, PersistenceException{
     	if(getThis().getGroups().findFirst(argument -> argument.getName().equals(name)) != null) {
     		throw new AlreadyExistsInParentException(String.format(GroupAlreadyExistsMessage, name));
     	}
+    	program.getModules().applyToAllException(module -> {
+    		module.accept(new ModuleAbstractExceptionVisitor<NoFractionValueException>() {
+
+				@Override
+				public void handleModuleAtomar(ModuleAtomar4Public moduleAtomar)
+						throws PersistenceException, NoFractionValueException {
+		    		if(moduleAtomar.getCreditPoints().lessOrEquals(Fraction.Null)) {
+		    			throw new NoFractionValueException(String.format(NoCPMessage, moduleAtomar.getName()));
+		    		}
+				}
+
+				@Override
+				public void handleModuleGroup(ModuleGroup4Public moduleGroup)
+						throws PersistenceException, NoFractionValueException {
+					moduleGroup.getModules().applyToAllException(module2 -> {
+						module2.accept(this);
+					});
+				}
+
+				@Override
+				public void handleModuleWithUnits(ModuleWithUnits4Public moduleWithUnits)
+						throws PersistenceException, NoFractionValueException {
+					moduleWithUnits.getUnits().applyToAllException(unit -> {
+						if(unit.getCreditPoints().lessOrEquals(Fraction.Null)) {
+			    			throw new NoFractionValueException(String.format(NoCPMessage, moduleWithUnits.getName()));
+			    		}
+					});
+				}
+			});
+    	});
     	StudyGroup4Public toBeAdded = StudyGroup.createStudyGroup(name);
     	toBeAdded.setProgram(program.copyForStudyGroup());
     	getThis().getGroups().add(toBeAdded);
@@ -232,6 +263,7 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
     /* Start of protected part that is not overridden by persistence generator */
     
     static String GroupAlreadyExistsMessage = "Es existiert bereits eine Studiengruppe mit dem Namen %s.";
+    static String NoCPMessage = "Das Modul %s enthält keine Credit-Points.";
     
     /* End of protected part that is not overridden by persistence generator */
     

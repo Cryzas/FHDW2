@@ -349,10 +349,9 @@ public class StudentServiceClientView extends BorderPane implements ExceptionAnd
 	/* Menu and wizard section end */
 	
 	private ImageView getIconForMenuItem(StudentServiceMenuItem menuItem){
-		return new ImageView(new javafx.scene.image.Image("/viewResources/default.gif")); //TODO Pimp-up your menu items!
+		return new ImageView(new javafx.scene.image.Image("/viewResources/default.gif"));
 	}	
 	private void addNotGeneratedItems(ContextMenu result, ViewRoot selected) {
-		// TODO Add items to menue if you have not generated service calls!!!
 	}
 	protected boolean getMultiSelectionFor(String parameterInBrowser){
 		return false;

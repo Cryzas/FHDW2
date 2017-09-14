@@ -193,9 +193,13 @@ public class ModuleGroup extends model.ModuleAbstract implements PersistentModul
     	getThis().getModules().add(module);
     }
     public ModuleAbstractSGroup4Public copyForStudyGroup() 
-				throws model.UserException, PersistenceException{
+				throws PersistenceException{
         ModuleGroupSGroup4Public toBeAdded = ModuleGroupSGroup.createModuleGroupSGroup(getThis());
-        getThis().getModules().applyToAllException(module -> toBeAdded.addModule(module.copyForStudyGroup()));
+        try {
+			getThis().getModules().applyToAllException(module -> toBeAdded.addModule(module.copyForStudyGroup()));
+		} catch (CycleException e) {
+			throw new Error();
+		}
         return toBeAdded;
     }
     public void copyingPrivateUserAttributes(final Anything copy) 

@@ -15,7 +15,7 @@ public interface ModuleAbstract4Public extends Anything, programHierarchyHIERARC
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
     public ModuleAbstractSGroup4Public copyForStudyGroup() 
-				throws model.UserException, PersistenceException;
+				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public common.Fraction getCreditPoints() 

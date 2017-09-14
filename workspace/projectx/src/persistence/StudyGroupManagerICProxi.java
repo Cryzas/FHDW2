@@ -76,7 +76,7 @@ public class StudyGroupManagerICProxi extends PersistentInCacheProxiOptimistic i
         ((PersistentStudyGroupManager)this.getTheObject()).initializeOnInstantiation();
     }
     public void startStudyGroup(final Program4Public program, final String name) 
-				throws model.UserException, PersistenceException{
+				throws model.AlreadyExistsInParentException, model.NoFractionValueException, PersistenceException{
         ((PersistentStudyGroupManager)this.getTheObject()).startStudyGroup(program, name);
     }
     public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 

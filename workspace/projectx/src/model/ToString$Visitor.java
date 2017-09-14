@@ -30,7 +30,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleProgram(Program4Public program) throws PersistenceException {
-		result = "Studienprogramm: " + program.getName() + " (" + program.getCreditPoints() + " CP)";		
+		result = program.getName() + " (" + program.getCreditPoints() + " CP)";		
 	}
 	@Override
 	public void handleServer(Server4Public server) throws PersistenceException {		
@@ -38,7 +38,7 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleModuleAtomar(ModuleAtomar4Public moduleAtomar) throws PersistenceException {
-		result = "Atomares Modul: " + moduleAtomar.getName() + " (" + moduleAtomar.getCreditPoints() + " CP) " + "NotenSchema: " + moduleAtomar.getGradeSystem().toString();
+		result = moduleAtomar.getName() + " (" + moduleAtomar.getCreditPoints() + " CP) " + "NotenSchema: " + moduleAtomar.getGradeSystem().toString();
 	}
 	@Override
 	public void handleModuleManager(ModuleManager4Public moduleManager) throws PersistenceException {
@@ -46,11 +46,11 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleUnit(Unit4Public unit) throws PersistenceException {
-		result = "Unit: " + unit.getName() + " (" + unit.getCreditPoints() + " CP)";		
+		result = unit.getName() + " (" + unit.getCreditPoints() + " CP)";		
 	}
 	@Override
 	public void handleModuleWithUnits(ModuleWithUnits4Public moduleWithUnits) throws PersistenceException {
-		result = "Modul mit Units: " + moduleWithUnits.getName() + " (" + moduleWithUnits.getCreditPoints() + " CP)";		
+		result = moduleWithUnits.getName() + " (" + moduleWithUnits.getCreditPoints() + " CP)";		
 	}
 	@Override
 	public void handleProgramManager(ProgramManager4Public programManager) throws PersistenceException {
@@ -58,32 +58,32 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleModuleGroup(ModuleGroup4Public moduleGroup) throws PersistenceException {
-		result = "Modulgruppe: " + moduleGroup.getName() + " (" + moduleGroup.getCreditPoints() + " CP)";
+		result = moduleGroup.getName() + " (" + moduleGroup.getCreditPoints() + " CP)";
 	}
 	@Override
 	public void handleProgramSGroup(ProgramSGroup4Public programSGroup) throws PersistenceException {
-		result = "Studienprogramm: " + programSGroup.getName() + " (" + programSGroup.getCreditPoints() + " CP)";		
+		result = programSGroup.getName() + " (" + programSGroup.getCreditPoints() + " CP)";		
 	}
 	@Override
 	public void handleModuleGroupSGroup(ModuleGroupSGroup4Public moduleGroupSGroup) throws PersistenceException {
-		result = "Modulgruppe: " + moduleGroupSGroup.getName() + " (" + moduleGroupSGroup.getCreditPoints() + " CP)";
+		result = moduleGroupSGroup.getName() + " (" + moduleGroupSGroup.getCreditPoints() + " CP)";
 	}
 	@Override
 	public void handleModuleAtomarSGroup(ModuleAtomarSGroup4Public moduleAtomarSGroup) throws PersistenceException {
-		result = "Atomares Modul: " + moduleAtomarSGroup.getName() + " (" + moduleAtomarSGroup.getCreditPoints() + " CP) " + "NotenSchema: " + moduleAtomarSGroup.getGradeSystem().toString();
+		result = moduleAtomarSGroup.getName() + " (" + moduleAtomarSGroup.getCreditPoints() + " CP) " + "NotenSchema: " + moduleAtomarSGroup.getGradeSystem().toString();
 	}
 	@Override
 	public void handleStudyGroup(StudyGroup4Public studyGroup) throws PersistenceException {
-		result = "Studiengruppe: " + studyGroup.getName();		
+		result = studyGroup.getName();		
 	}
 	@Override
 	public void handleUnitSGroup(UnitSGroup4Public unitSGroup) throws PersistenceException {
-		result = "Unit: " + unitSGroup.getName() + " (" + unitSGroup.getCreditPoints() + " CP)";		
+		result = unitSGroup.getName() + " (" + unitSGroup.getCreditPoints() + " CP)";		
 	}
 	@Override
 	public void handleModuleWithUnitsSGroup(ModuleWithUnitsSGroup4Public moduleWithUnitsSGroup)
 			throws PersistenceException {
-		result = "Modul mit Units: " + moduleWithUnitsSGroup.getName() + " (" + moduleWithUnitsSGroup.getCreditPoints() + " CP)";		
+		result = moduleWithUnitsSGroup.getName() + " (" + moduleWithUnitsSGroup.getCreditPoints() + " CP)";		
 	}
 	@Override
 	public void handleStudyGroupManager(StudyGroupManager4Public studyGroupManager) throws PersistenceException {
@@ -91,16 +91,16 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleModuleAtomarStudent(ModuleAtomarStudent4Public moduleAtomarStudent) throws PersistenceException {
-		result = "Atomares Modul: " + moduleAtomarStudent.getName() + " (" + moduleAtomarStudent.getPassedCP() + "/" + moduleAtomarStudent.getCreditPoints() +  " CP | " + moduleAtomarStudent.getGrade().toString() + ") " + "Schema: " + ((ModuleAtomarSGroup4Public)moduleAtomarStudent.getModuleCopy()).getGradeSystem().toString();
+		result = moduleAtomarStudent.getName() + " (" + moduleAtomarStudent.getPassedCP() + "/" + moduleAtomarStudent.getCreditPoints() +  " CP | " + moduleAtomarStudent.getGrade().toString() + ") ";
 	}
 	@Override
 	public void handleProgramStudent(ProgramStudent4Public programStudent) throws PersistenceException {
-		result = "Studienprogramm: " + programStudent.getName() + " (" + programStudent.getPassedCP() + "/" + programStudent.getCreditPoints() +  " CP | " + programStudent.getGrade().toString() + ")";	
+		result = programStudent.getName() + " (" + programStudent.getPassedCP() + "/" + programStudent.getCreditPoints() +  " CP | " + programStudent.getGrade().toString() + ")";	
 	}
 	@Override
 	public void handleModuleWithUnitsStudent(ModuleWithUnitsStudent4Public moduleWithUnitsStudent)
 			throws PersistenceException {
-		result = "Modul mit Units: " + moduleWithUnitsStudent.getName() + " (" + moduleWithUnitsStudent.getPassedCP() + "/" + moduleWithUnitsStudent.getCreditPoints() +  " CP | " + moduleWithUnitsStudent.getGrade().toString() + ")";	
+		result = moduleWithUnitsStudent.getName() + " (" + moduleWithUnitsStudent.getPassedCP() + "/" + moduleWithUnitsStudent.getCreditPoints() +  " CP | " + moduleWithUnitsStudent.getGrade().toString() + ")";	
 	}
 	@Override
 	public void handleStudentManager(StudentManager4Public studentManager) throws PersistenceException {
@@ -108,15 +108,15 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleModuleGroupStudent(ModuleGroupStudent4Public moduleGroupStudent) throws PersistenceException {
-		result = "Modulgruppe: " + moduleGroupStudent.getName() + " (" + moduleGroupStudent.getPassedCP() + "/" + moduleGroupStudent.getCreditPoints() +  " CP | " + moduleGroupStudent.getGrade().toString() + ")";
+		result = moduleGroupStudent.getName() + " (" + moduleGroupStudent.getPassedCP() + "/" + moduleGroupStudent.getCreditPoints() +  " CP | " + moduleGroupStudent.getGrade().toString() + ")";
 	}
 	@Override
 	public void handleStudent(Student4Public student) throws PersistenceException {
-		result = "Student: " + student.getFirstName() + " " + student.getLastName() + " (" + student.getMatrNr() + ")";
+		result = student.getFirstName() + " " + student.getLastName() + " (" + student.getMatrNr() + ")";
 	}
 	@Override
 	public void handleUnitStudent(UnitStudent4Public unitStudent) throws PersistenceException {
-		result = "Unit: " + unitStudent.getName() + " (" + unitStudent.getPassedCP() + "/" + unitStudent.getCreditPoints() +  " CP | " + unitStudent.getGrade().toString() + ")";
+		result = unitStudent.getName() + " (" + unitStudent.getPassedCP() + "/" + unitStudent.getCreditPoints() +  " CP | " + unitStudent.getGrade().toString() + ")";
 	}
 	@Override
 	public void handleThirdGradeSystem(ThirdGradeSystem4Public ThirdGradeSystem) throws PersistenceException {
