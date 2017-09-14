@@ -2233,7 +2233,139 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 	/* Menu and wizard section end */
 	
 	private ImageView getIconForMenuItem(DozentenServiceMenuItem menuItem){
-		return new ImageView(new javafx.scene.image.Image("/viewResources/default.gif"));
+		return menuItem.accept(new MenuItemVisitor() {
+			
+			@Override
+			public ImageView handle(RemoveUnitPRMTRModuleWithUnitsPRMTRUnitLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(10));
+			}
+			
+			@Override
+			public ImageView handle(AddUnitPRMTRModuleWithUnitsPRMTRStringPRMTRFractionPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(9));
+			}
+			
+			@Override
+			public ImageView handle(DeleteStudyGroupsPRMTRStudyGroupManagerPRMTRStudyGroupLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(8));
+			}
+			
+			@Override
+			public ImageView handle(StartStudyGroupPRMTRProgramPRMTRStringPRMTRMenuItem menuItem) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public ImageView handle(EndStudyGroupPRMTRStudyGroupPRMTRMenuItem menuItem) {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+			@Override
+			public ImageView handle(DeleteStudentsPRMTRStudentManagerPRMTRStudentLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(8));
+			}
+			
+			@Override
+			public ImageView handle(AddStudentToGroupPRMTRStudyGroupPRMTRStudentLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(9));
+			}
+			
+			@Override
+			public ImageView handle(RemoveStudentFromGroupPRMTRStudyGroupPRMTRStudentLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(10));
+			}
+			
+			@Override
+			public ImageView handle(CreateStudentPRMTRStudyGroupPRMTRStringPRMTRStringPRMTRDatePRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(9));
+			}
+			
+			@Override
+			public ImageView handle(DeleteProgramsPRMTRProgramManagerPRMTRProgramLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(8));
+			}
+			
+			@Override
+			public ImageView handle(CreateProgramPRMTRStringPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(9));
+			}
+			
+			@Override
+			public ImageView handle(ChangeGradeSystemPRMTRModuleAtomarPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(11));
+			}
+			
+			@Override
+			public ImageView handle(
+					ChangeGradeOfUnitPRMTRUnitStudentPRMTRGradesInThirdSUBTYPENamePRMTRStringPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(11));
+			}
+			
+			@Override
+			public ImageView handle(
+					ChangeGradeOfModulePRMTRModuleAtomarStudentPRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(11));
+			}
+			
+			@Override
+			public ImageView handle(
+					ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(11));
+			}
+			
+			@Override
+			public ImageView handle(DeleteModulesPRMTRModuleManagerPRMTRModuleAbstractLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(8));
+			}
+			
+			@Override
+			public ImageView handle(AddModuleToProgPRMTRProgramPRMTRModuleAbstractLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(9));
+			}
+			
+			@Override
+			public ImageView handle(AddModuleToGroupPRMTRModuleGroupPRMTRModuleAbstractLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(9));
+			}
+			
+			@Override
+			public ImageView handle(RemoveModuleFromProgPRMTRProgramPRMTRModuleAbstractLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(10));
+			}
+			
+			@Override
+			public ImageView handle(RemoveModuleFromGroupPRMTRModuleGroupPRMTRModuleAbstractLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(10));
+			}
+			
+			@Override
+			public ImageView handle(CreateModulePRMTRModuleAbstractSUBTYPENamePRMTRStringPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(9));
+			}
+			
+			@Override
+			public ImageView handle(RemoveErrorPRMTRErrorDisplayPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(10));
+			}
+			
+			@Override
+			public ImageView handle(ChangeCPOnUnitPRMTRUnitPRMTRFractionPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(11));
+			}
+			
+			@Override
+			public ImageView handle(ChangeCPOnModulePRMTRModuleAtomarPRMTRFractionPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(11));
+			}
+			
+			@Override
+			public ImageView handle(
+					SwapCPonModuleWithUnitsPRMTRModuleWithUnitsSGroupPRMTRUnitSGroupPRMTRUnitSGroupPRMTRFractionPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(11));
+			}
+		});
 	}	
 	private void addNotGeneratedItems(ContextMenu result, ViewRoot selected) {
 	}

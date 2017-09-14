@@ -1,5 +1,10 @@
 package view.objects;
 
+import view.ModelException;
+import view.ModuleAtomarView;
+import view.ModuleGroupView;
+import view.ModuleWithUnitsView;
+import view.visitor.ModuleAbstractVisitor;
 
 /* Additional import section end */
 
@@ -11,7 +16,29 @@ public class ModulesModuleManagerWrapper extends AssociationInTreeWrapper {
     
     /*Start of protected part that is not overridden by persistence generator*/
 	public javafx.scene.image.Image getImage() {
-    	 return this.getWrappedObject().getImage();
+		try {
+			ModuleAbstract module = (ModuleAbstract)getWrappedObject().getTheObject();
+			module.accept(new ModuleAbstractVisitor() {
+				
+				@Override
+				public void handleModuleWithUnits(ModuleWithUnitsView moduleWithUnits) throws ModelException {
+					getWrappedObject().setIconInfo(13);
+				}
+				
+				@Override
+				public void handleModuleGroup(ModuleGroupView moduleGroup) throws ModelException {
+					getWrappedObject().setIconInfo(12);
+				}
+				
+				@Override
+				public void handleModuleAtomar(ModuleAtomarView moduleAtomar) throws ModelException {
+					getWrappedObject().setIconInfo(14);
+				}
+			});
+		} catch (ModelException e) {
+			e.printStackTrace();
+		}
+    	return this.getWrappedObject().getImage();
     }
 	
 	
