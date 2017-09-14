@@ -206,7 +206,7 @@ class ModuleWithUnitsSGroup ## m_unit_gr extends ModuleAbstractSGroup {
 	/* Ermöglicht das Hinzufügen von Unit zu ModuleWithUnits und erwartet Name & creditPoints. Wirft eine Exception, falls Unit mit identischem Name bereits in Modul vorhanden ist. */
 	void addUnit(UnitSGroup unit) throws CycleException;
 /* CreditPoints der einzelnen Units ändern, ohne die Gesamtmenge der CPs für das Modul zu verändern | Exception wenn CP <= 0 seien würden */
-	void swapCPonModuleWithUnits ## sCPonMWU(UnitSGroup fromUnit, UnitSGroup ToUnit, Fraction creditPoints) throws UnitSwapException;
+	void swapCP(UnitSGroup fromUnit, UnitSGroup ToUnit, Fraction creditPoints) throws UnitSwapException;
 }
 
 class UnitSGroup {

@@ -107,9 +107,9 @@ public class ModuleWithUnitsSGroupProxi extends ModuleAbstractSGroupProxi implem
 				throws PersistenceException{
         ((PersistentModuleWithUnitsSGroup)this.getTheObject()).initializeOnInstantiation();
     }
-    public void swapCPonModuleWithUnits(final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
+    public void swapCP(final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
 				throws model.UnitSwapException, PersistenceException{
-        ((PersistentModuleWithUnitsSGroup)this.getTheObject()).swapCPonModuleWithUnits(fromUnit, ToUnit, creditPoints);
+        ((PersistentModuleWithUnitsSGroup)this.getTheObject()).swapCP(fromUnit, ToUnit, creditPoints);
     }
 
     

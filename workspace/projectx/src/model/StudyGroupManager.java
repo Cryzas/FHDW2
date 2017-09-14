@@ -253,7 +253,7 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
     }
     public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
 				throws model.UnitSwapException, PersistenceException{
-    	module.swapCPonModuleWithUnits(fromUnit, ToUnit, creditPoints);
+    	module.swapCP(fromUnit, ToUnit, creditPoints);
     }
     
     

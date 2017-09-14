@@ -222,7 +222,7 @@ public class ModuleWithUnitsSGroup extends model.ModuleAbstractSGroup implements
 				throws PersistenceException{
         super.initializeOnInstantiation();
     }
-    public void swapCPonModuleWithUnits(final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
+    public void swapCP(final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
 				throws model.UnitSwapException, PersistenceException{
     	if (creditPoints.lessOrEquals(Fraction.Null)) {
     		ToUnit.subCP(creditPoints);
