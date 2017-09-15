@@ -105,176 +105,137 @@ public class StudyGroupTest {
 	}
 
 	@Test
-	public void startStudyGroup() {
-		try {
-			groupManager.startStudyGroup(programWirtschaftsinformatik, "HFW2");
-			assertTrue(groupManager.getGroups().findFirst(group -> group.getName().equals("HFW2")) != null);
-		} catch (UserException e) {
-			fail();
-		} catch (PersistenceException e) {
-			fail();
-		}
+	public void startStudyGroup()
+			throws AlreadyExistsInParentException, NoFractionValueException, PersistenceException {
+		groupManager.startStudyGroup(programWirtschaftsinformatik, "HFW2");
+		assertTrue(groupManager.getGroups().findFirst(group -> group.getName().equals("HFW2")) != null);
 		try {
 			groupManager.startStudyGroup(programWirtschaftsinformatik, "HFW1");
 			fail();
 		} catch (UserException e) {
 			// Should go in here
-		} catch (PersistenceException e) {
-			fail();
 		}
 	}
 
 	@Test
-	public void startStudyGroupWith0CPUnit() {
+	public void startStudyGroupWith0CPUnit() throws PersistenceException, AlreadyExistsInParentException {
 		try {
 			unitDB1.changeCPOnUnit(Fraction.parse("0"));
 			groupManager.startStudyGroup(programWirtschaftsinformatik, "HFW2");
 			fail();
-		} catch (AlreadyExistsInParentException e) {
-			fail();
 		} catch (NoFractionValueException e) {
 			// Should go in here
-		} catch (PersistenceException e) {
-			fail();
 		}
 	}
-	
+
 	@Test
-	public void startStudyGroupWith0CPModuleAtomar() {
+	public void startStudyGroupWith0CPModuleAtomar() throws AlreadyExistsInParentException, PersistenceException {
 		try {
 			moduleAtomarLomf.changeCPOnModule(Fraction.parse("0"));
 			groupManager.startStudyGroup(programWirtschaftsinformatik, "HFW2");
 			fail();
-		} catch (AlreadyExistsInParentException e) {
-			fail();
 		} catch (NoFractionValueException e) {
 			// Should go in here
-		} catch (PersistenceException e) {
-			fail();
 		}
 	}
-	
+
 	@Test
-	public void startStudyGroupProgramCopy() {
-		try {
-			ProgramSGroup4Public programCopy = programWirtschaftsinformatik.copyForStudyGroup();
-			groupManager.startStudyGroup(programWirtschaftsinformatik, "HFW2");
-			StudyGroup4Public group = StudyGroup.getStudyGroupByName("HFW2").iterator().next();
-			assertEquals(group.getProgram().getName(), programCopy.getName());
-			assertEquals(group.getProgram().getCreditPoints(), programCopy.getCreditPoints());
-			group.getProgram().getModules().applyToAll(module -> {
-				assertTrue(programCopy.getModules().findFirst(moduleCopy -> moduleCopy.toString().equals(module.toString())) != null);
-			});
-		} catch (AlreadyExistsInParentException e) {
-			fail();
-		} catch (NoFractionValueException e) {
-			fail();
-		} catch (PersistenceException e) {
-			fail();
-		}
+	public void startStudyGroupProgramCopy()
+			throws PersistenceException, AlreadyExistsInParentException, NoFractionValueException {
+		ProgramSGroup4Public programCopy = programWirtschaftsinformatik.copyForStudyGroup();
+		groupManager.startStudyGroup(programWirtschaftsinformatik, "HFW2");
+		StudyGroup4Public group = StudyGroup.getStudyGroupByName("HFW2").iterator().next();
+		assertEquals(group.getProgram().getName(), programCopy.getName());
+		assertEquals(group.getProgram().getCreditPoints(), programCopy.getCreditPoints());
+		group.getProgram().getModules().applyToAll(module -> {
+			assertTrue(programCopy.getModules()
+					.findFirst(moduleCopy -> moduleCopy.toString().equals(module.toString())) != null);
+		});
 	}
-	
+
 	@Test
-	public void endStudyGroup() {
-		try {
-			MyBooleanVisitor visitor = new MyBooleanVisitor() {
-				
+	public void endStudyGroup() throws AlreadyFinishedException, PersistenceException {
+		MyBooleanVisitor visitor = new MyBooleanVisitor() {
+
+			@Override
+			public void handleBTrue(BTrue4Public bTrue) throws PersistenceException {
+			}
+
+			@Override
+			public void handleBFalse(BFalse4Public bFalse) throws PersistenceException {
+				fail();
+			}
+		};
+		groupManager.endStudyGroup(studyGroupHFW1);
+		studyGroupHFW1.getFinished().accept(visitor);
+		studyGroupHFW1.getProgram().getFinished().accept(visitor);
+		studyGroupHFW1.getProgram().getModules().applyToAll(module -> {
+			module.accept(new ModuleAbstractSGroupVisitor() {
+
 				@Override
-				public void handleBTrue(BTrue4Public bTrue) throws PersistenceException {
+				public void handleModuleWithUnitsSGroup(ModuleWithUnitsSGroup4Public moduleWithUnitsSGroup)
+						throws PersistenceException {
+					moduleWithUnitsSGroup.getFinished().accept(visitor);
+					moduleWithUnitsSGroup.getUnits()
+							.applyToAll(unit -> moduleWithUnitsSGroup.getFinished().accept(visitor));
 				}
-				
+
 				@Override
-				public void handleBFalse(BFalse4Public bFalse) throws PersistenceException {
-					fail();
+				public void handleModuleGroupSGroup(ModuleGroupSGroup4Public moduleGroupSGroup)
+						throws PersistenceException {
+					moduleGroupSGroup.getFinished().accept(visitor);
+					moduleGroupSGroup.getModules().applyToAll(module2 -> module2.accept(this));
 				}
-			};
-			groupManager.endStudyGroup(studyGroupHFW1);
-			studyGroupHFW1.getFinished().accept(visitor);
-			studyGroupHFW1.getProgram().getFinished().accept(visitor);
-			studyGroupHFW1.getProgram().getModules().applyToAll(module -> {
-				module.accept(new ModuleAbstractSGroupVisitor() {
-					
-					@Override
-					public void handleModuleWithUnitsSGroup(ModuleWithUnitsSGroup4Public moduleWithUnitsSGroup)
-							throws PersistenceException {
-						moduleWithUnitsSGroup.getFinished().accept(visitor);
-						moduleWithUnitsSGroup.getUnits().applyToAll(unit -> moduleWithUnitsSGroup.getFinished().accept(visitor));
-					}
-					
-					@Override
-					public void handleModuleGroupSGroup(ModuleGroupSGroup4Public moduleGroupSGroup) throws PersistenceException {
-						moduleGroupSGroup.getFinished().accept(visitor);
-						moduleGroupSGroup.getModules().applyToAll(module2 -> module2.accept(this));
-					}
-					
-					@Override
-					public void handleModuleAtomarSGroup(ModuleAtomarSGroup4Public moduleAtomarSGroup) throws PersistenceException {
-						moduleAtomarSGroup.getFinished().accept(visitor);
-					}
-				});
+
+				@Override
+				public void handleModuleAtomarSGroup(ModuleAtomarSGroup4Public moduleAtomarSGroup)
+						throws PersistenceException {
+					moduleAtomarSGroup.getFinished().accept(visitor);
+				}
 			});
-		} catch (AlreadyFinishedException e) {
-			fail();
-		} catch (PersistenceException e) {
-			fail();
-		}
+		});
 		try {
 			studyGroupHFW1.endStudyGroup();
 		} catch (AlreadyFinishedException e) {
 			// Should go in here
-		} catch (PersistenceException e) {
-			fail();
 		}
 	}
-	
+
 	@Test
-	public void swapCP() {
+	public void swapCP() throws AlreadyFinishedException, UnitSwapException, PersistenceException {
+		ModuleWithUnitsSGroup4Public moduleWithUnitsSMathe = (ModuleWithUnitsSGroup4Public) studyGroupHFW1.getProgram()
+				.getModules().findFirst(module -> module.getName().equals("Mathe"));
+		UnitSGroup4Public unitGMathe1 = moduleWithUnitsSMathe.getUnits()
+				.findFirst(unit -> unit.getName().equals("Mathe 1"));
+		UnitSGroup4Public unitGMathe2 = moduleWithUnitsSMathe.getUnits()
+				.findFirst(unit -> unit.getName().equals("Mathe 2"));
+		groupManager.swapCPonModuleWithUnits(moduleWithUnitsSMathe, unitGMathe2, unitGMathe1, Fraction.parse("2"));
+		assertEquals(Fraction.parse("5"), unitGMathe1.getCreditPoints());
+		assertEquals(Fraction.parse("2"), unitGMathe2.getCreditPoints());
 		try {
-			ModuleWithUnitsSGroup4Public moduleWithUnitsSMathe = (ModuleWithUnitsSGroup4Public) studyGroupHFW1.getProgram().getModules().findFirst(module -> module.getName().equals("Mathe"));
-			UnitSGroup4Public unitGMathe1 = moduleWithUnitsSMathe.getUnits().findFirst(unit -> unit.getName().equals("Mathe 1"));
-			UnitSGroup4Public unitGMathe2 = moduleWithUnitsSMathe.getUnits().findFirst(unit -> unit.getName().equals("Mathe 2"));
-			try {
-				groupManager.swapCPonModuleWithUnits(moduleWithUnitsSMathe, unitGMathe2, unitGMathe1, Fraction.parse("2"));
-			} catch (UnitSwapException | AlreadyFinishedException e) {
-				fail();
-			}
-			assertEquals(Fraction.parse("5"), unitGMathe1.getCreditPoints());
-			assertEquals(Fraction.parse("2"), unitGMathe2.getCreditPoints());
-			try {
-				groupManager.swapCPonModuleWithUnits(moduleWithUnitsSMathe, unitGMathe2, unitGMathe1, Fraction.parse("2"));
-				fail();
-			} catch (UnitSwapException e) {
-				// Should go in here
-			} catch (AlreadyFinishedException e) {
-				fail();
-			}
-			try {
-				groupManager.swapCPonModuleWithUnits(moduleWithUnitsSMathe, unitGMathe2, unitGMathe1, Fraction.parse("4"));
-				fail();
-			} catch (UnitSwapException e) {
-				// Should go in here
-			} catch (AlreadyFinishedException e) {
-				fail();
-			}
-			try {
-				groupManager.swapCPonModuleWithUnits(moduleWithUnitsSMathe, unitGMathe1, unitGMathe2, Fraction.parse("-2"));
-				fail();
-			} catch (UnitSwapException e) {
-				// Should go in here
-			} catch (AlreadyFinishedException e) {
-				fail();
-			}
-			try {
-				groupManager.endStudyGroup(studyGroupHFW1);
-				groupManager.swapCPonModuleWithUnits(moduleWithUnitsSMathe, unitGMathe1, unitGMathe2, Fraction.parse("1"));
-				fail();
-			} catch (UnitSwapException e) {
-				fail();
-			} catch (AlreadyFinishedException e) {
-				// SHould go in here
-			}
-		} catch (PersistenceException e) {
+			groupManager.swapCPonModuleWithUnits(moduleWithUnitsSMathe, unitGMathe2, unitGMathe1, Fraction.parse("2"));
 			fail();
+		} catch (UnitSwapException e) {
+			// Should go in here
+		}
+		try {
+			groupManager.swapCPonModuleWithUnits(moduleWithUnitsSMathe, unitGMathe2, unitGMathe1, Fraction.parse("4"));
+			fail();
+		} catch (UnitSwapException e) {
+			// Should go in here
+		}
+		try {
+			groupManager.swapCPonModuleWithUnits(moduleWithUnitsSMathe, unitGMathe1, unitGMathe2, Fraction.parse("-2"));
+			fail();
+		} catch (UnitSwapException e) {
+			// Should go in here
+		}
+		try {
+			groupManager.endStudyGroup(studyGroupHFW1);
+			groupManager.swapCPonModuleWithUnits(moduleWithUnitsSMathe, unitGMathe1, unitGMathe2, Fraction.parse("1"));
+			fail();
+		} catch (AlreadyFinishedException e) {
+			// Should go in here
 		}
 	}
 

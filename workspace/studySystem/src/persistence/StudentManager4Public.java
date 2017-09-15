@@ -21,13 +21,13 @@ public interface StudentManager4Public extends Anything, AbstractPersistentProxi
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
     public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student) 
-				throws model.UserException, PersistenceException;
+				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException;
     public void changeGrade(final LectureWithGrade lecture, final String grade, final String comment) 
 				throws model.AlreadyFinishedException, model.InvalidGradeForSystemException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
-				throws model.UserException, PersistenceException;
+				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 

@@ -40,6 +40,10 @@ public class IconManager {
 			return new Image("/viewResources/Unit.png");
 		case 16:
 			return new Image("/viewResources/GradeChange.png");
+		case 17:
+			return new Image("/viewResources/StudyGroup_Play.png");
+		case 18:
+			return new Image("/viewResources/StudyGroup_Stop.png");
 		default:
 			return new Image("/viewResources/default.gif");
 		}

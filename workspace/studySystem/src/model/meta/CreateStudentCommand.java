@@ -256,7 +256,13 @@ public class CreateStudentCommand extends PersistentObject implements Persistent
         try{
 			this.commandReceiver.createStudent(this.getGroup(), this.getFirstName(), this.getLastName(), this.getBirthDate());
 		}
-		catch(model.UserException e){
+		catch(model.AlreadyFinishedException e){
+			this.commandException = e;
+		}
+		catch(model.AlreadyExistsInParentException e){
+			this.commandException = e;
+		}
+		catch(model.CycleException e){
 			this.commandException = e;
 		}
     }

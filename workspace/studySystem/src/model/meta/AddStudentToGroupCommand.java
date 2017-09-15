@@ -246,7 +246,13 @@ public class AddStudentToGroupCommand extends PersistentObject implements Persis
         try{
 			this.commandReceiver.addStudentToGroup(this.getGroup(), this.getStudent());
 		}
-		catch(model.UserException e){
+		catch(model.AlreadyFinishedException e){
+			this.commandException = e;
+		}
+		catch(model.AlreadyExistsInParentException e){
+			this.commandException = e;
+		}
+		catch(model.CycleException e){
 			this.commandException = e;
 		}
     }

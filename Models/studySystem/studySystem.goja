@@ -85,9 +85,9 @@ class StudyGroupManager {
 class StudentManager {
 	public Student ** students;
 /* Anlegen eines neuen Studenten zu einer Studiengruppe */
-	active void createStudent (StudyGroup group, String firstName, String lastName, Date birthDate) throws UserException;
+	active void createStudent (StudyGroup group, String firstName, String lastName, Date birthDate) throws CycleException, AlreadyExistsInParentException, AlreadyFinishedException;
 /* Studenten zu Studiengruppe hinzufügen | Exception wenn er schon drin ist */
-	active void addStudentToGroup ## add_S2G (StudyGroup group, Student student) throws UserException;
+	active void addStudentToGroup ## add_S2G (StudyGroup group, Student student) throws CycleException, AlreadyExistsInParentException, AlreadyFinishedException;
 /* Note ändern und alte Note in Historie vermerken | Exception wenn Note aus falschem Notensystem gewählt wird */
 	active void changeGrade(LectureWithGrade lecture, GradesInSimpleOrThirdSUBTYPEName grade, String comment) throws InvalidGradeForSystemException, AlreadyFinishedException;
 }

@@ -198,7 +198,7 @@ public class StudentManager extends PersistentObject implements PersistentStuden
     // Start of section that contains operations that must be implemented.
     
     public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student) 
-				throws model.UserException, PersistenceException{
+				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
     	student.getProgram().accept(new ProgramStudentExceptionVisitor<AlreadyExistsInParentException>() {
 
 			@Override
@@ -239,7 +239,7 @@ public class StudentManager extends PersistentObject implements PersistentStuden
         
     }
     public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
-				throws model.UserException, PersistenceException{
+				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
     	Student4Public newStudent = Student.createStudent(firstName, lastName, birthDate);
     	getThis().addStudentToGroup(group, newStudent);
         getThis().getStudents().add(newStudent);

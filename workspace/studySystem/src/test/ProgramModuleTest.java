@@ -129,22 +129,14 @@ public class ProgramModuleTest {
 	}
 	
 	@Test
-	public void createUnitDuplicate() throws PersistenceException {
+	public void createUnitDuplicate() throws PersistenceException, AlreadyExistsInParentException, CycleException {
 		try {
 			moduleManager.addUnit(moduleWithUnitsMathe, "Mathe 1", Fraction.parse("3"));
 			fail();
 		} catch (AlreadyExistsInParentException e) {
 			//Should go in here
-		} catch (CycleException e) {
-			fail();
 		}
-		try {
-			moduleManager.addUnit(moduleWithUnitsSWT, "Mathe 1", Fraction.parse("3"));
-		} catch (AlreadyExistsInParentException e) {
-			fail();
-		} catch (CycleException e) {
-			fail();
-		}
+		moduleManager.addUnit(moduleWithUnitsSWT, "Mathe 1", Fraction.parse("3"));
 	}
 	
 	@Test
@@ -158,65 +150,41 @@ public class ProgramModuleTest {
 	}
 	
 	@Test
-	public void createUnit() throws PersistenceException {
-		try {
-			moduleManager.addUnit(moduleWithUnitsMathe, "Mathe 3", Fraction.parse("3"));
-		} catch (AlreadyExistsInParentException e) {
-			fail();
-		} catch (CycleException e) {
-			fail();
-		}
+	public void createUnit() throws PersistenceException, CycleException, AlreadyExistsInParentException {
+		moduleManager.addUnit(moduleWithUnitsMathe, "Mathe 3", Fraction.parse("3"));
 		try {
 			moduleManager.addUnit(moduleWithUnitsMathe, "Mathe 3", Fraction.parse("3"));
 			fail();
 		} catch (AlreadyExistsInParentException e) {
 			//Should go in here
-		} catch (CycleException e) {
-			fail();
 		}
 	}
 	
 	@Test
-	public void addModuleToProgram() throws PersistenceException {
+	public void addModuleToProgram() throws PersistenceException, AlreadyExistsInParentException, CycleException {
 		ModuleAtomar4Public moduleAtomar;
 		moduleAtomar = ModuleAtomar.createModuleAtomar("Rechnungswesen");
-		try {
-			programManager.addModuleToProg(programWirtschaftsinformatik, moduleAtomar);
-			assertTrue(programWirtschaftsinformatik.containsprogramHierarchy(moduleAtomar));
-		} catch (AlreadyExistsInParentException e) {
-			fail();
-		} catch (CycleException e) {
-			fail();
-		}
+		programManager.addModuleToProg(programWirtschaftsinformatik, moduleAtomar);
+		assertTrue(programWirtschaftsinformatik.containsprogramHierarchy(moduleAtomar));
 		try {
 			programManager.addModuleToProg(programWirtschaftsinformatik, moduleAtomar);
 			fail();
 		} catch (AlreadyExistsInParentException e) {
 			// Should go in here
-		} catch (CycleException e) {
-			fail();
 		}
 	}
 	
 	@Test
-	public void addModuleToGroup() throws PersistenceException {
+	public void addModuleToGroup() throws PersistenceException, AlreadyExistsInParentException, CycleException {
 		ModuleAtomar4Public moduleAtomar;
 		moduleAtomar = ModuleAtomar.createModuleAtomar("Rechnungswesen");
-		try {
-			moduleManager.addModuleToGroup(moduleGroupDB, moduleAtomar);
-			assertTrue(moduleGroupDB.containsprogramHierarchy(moduleAtomar));
-		} catch (AlreadyExistsInParentException e) {
-			fail();
-		} catch (CycleException e) {
-			fail();
-		}
+		moduleManager.addModuleToGroup(moduleGroupDB, moduleAtomar);
+		assertTrue(moduleGroupDB.containsprogramHierarchy(moduleAtomar));
 		try {
 			moduleManager.addModuleToGroup(moduleGroupDB, moduleAtomar);
 			fail();
 		} catch (AlreadyExistsInParentException e) {
 			// Should go in here
-		} catch (CycleException e) {
-			fail();
 		}
 	}
 	
