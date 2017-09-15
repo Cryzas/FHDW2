@@ -2252,13 +2252,13 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 			
 			@Override
 			public ImageView handle(StartStudyGroupPRMTRProgramPRMTRStringPRMTRMenuItem menuItem) {
-				// TODO Auto-generated method stub
+				// TODO Icon startStudyGroup
 				return null;
 			}
 			
 			@Override
 			public ImageView handle(EndStudyGroupPRMTRStudyGroupPRMTRMenuItem menuItem) {
-				// TODO Auto-generated method stub
+				// TODO Icon endStudyGroup
 				return null;
 			}
 			

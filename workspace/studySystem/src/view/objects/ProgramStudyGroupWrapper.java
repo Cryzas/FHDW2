@@ -11,7 +11,8 @@ public class ProgramStudyGroupWrapper extends AssociationInTreeWrapper {
     
     /*Start of protected part that is not overridden by persistence generator*/
 	public javafx.scene.image.Image getImage() {
-    	 return this.getWrappedObject().getImage();
+		// TODO Icon Programm unter Studeiengruppe
+    	return this.getWrappedObject().getImage();
     }
 	
 	
