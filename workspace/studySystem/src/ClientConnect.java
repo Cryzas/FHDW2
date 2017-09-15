@@ -44,7 +44,7 @@ public class ClientConnect extends Application {
 	public void init(){
 		List<String> parlist = this.getParameters().getRaw();
 		this.url = ( parlist.size() >= 3 ? parlist.get(2) : "http://localhost");
-		// TODO provide your own application icons		
+		// TODO Icon Applikation
 		logoFHDW = new Image( this.getClass().getResourceAsStream("/viewResources/applicationLogo.jpg"));
 		logoApp = new Image( this.getClass().getResourceAsStream("/viewResources/generatorLogo.jpg"));
 		this.rootPane = new BorderPane();
