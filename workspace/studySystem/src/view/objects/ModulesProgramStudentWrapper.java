@@ -1,6 +1,5 @@
 package view.objects;
 
-import common.Fraction;
 import view.ModelException;
 import view.ModuleAtomarStudentView;
 import view.ModuleGroupStudentView;
@@ -17,18 +16,6 @@ public class ModulesProgramStudentWrapper extends AssociationInTreeWrapper {
     
     /*Start of protected part that is not overridden by persistence generator*/
 	public javafx.scene.image.Image getImage() {
-		try {
-			ModuleAbstractStudent module = (ModuleAbstractStudent)getWrappedObject().getTheObject();
-			if(module.getPassedCP().equals(Fraction.Null)){
-				this.getWrappedObject().setIconInfo(5);
-			} else if (module.getPassedCP().equals(module.getCreditPoints())) {
-				this.getWrappedObject().setIconInfo(3);
-			} else {
-				this.getWrappedObject().setIconInfo(4);
-			}
-		} catch (ModelException e) {
-			e.printStackTrace();
-		}
     	return this.getWrappedObject().getImage();
     }
 	

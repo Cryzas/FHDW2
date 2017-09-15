@@ -11,7 +11,6 @@ public class ModuleManagerDozentenServiceWrapper extends AssociationInTreeWrappe
     
     /*Start of protected part that is not overridden by persistence generator*/
 	public javafx.scene.image.Image getImage() {
-		// TODO Icon ModuleManager
     	return this.getWrappedObject().getImage();
     }
 	

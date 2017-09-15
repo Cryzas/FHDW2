@@ -11,7 +11,6 @@ public class ChangesModuleAtomarStudentWrapper extends AssociationInTreeWrapper 
     
     /*Start of protected part that is not overridden by persistence generator*/
 	public javafx.scene.image.Image getImage() {
-		this.getWrappedObject().setIconInfo(16);
     	return this.getWrappedObject().getImage();
     }
 	

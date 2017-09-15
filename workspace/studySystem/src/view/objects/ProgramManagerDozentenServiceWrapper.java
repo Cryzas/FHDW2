@@ -11,8 +11,7 @@ public class ProgramManagerDozentenServiceWrapper extends AssociationInTreeWrapp
     
     /*Start of protected part that is not overridden by persistence generator*/
 	public javafx.scene.image.Image getImage() {
-		// TODO Icon ProgramManager
-    	return this.getWrappedObject().getImage();
+		return this.getWrappedObject().getImage();
     }
 	
 	
