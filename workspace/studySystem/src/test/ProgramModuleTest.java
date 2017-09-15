@@ -3,6 +3,7 @@ package test;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import common.Fraction;
@@ -35,11 +36,15 @@ public class ProgramModuleTest {
 	ModuleGroup4Public moduleGroupInformatik;
 	ModuleGroup4Public moduleGroupDB;
 	
-	@Before
-	public void setUp() throws Exception {
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
 		TestSupport.clearDatabase();
 		TestSupport.prepareSingletons();
 		Cache.getTheCache().reset$For$Test();
+	}
+
+	@Before
+	public void setUp() throws Exception {
 		programManager = ProgramManager.createProgramManager();
 		moduleManager = ModuleManager.createModuleManager();
 		
@@ -56,6 +61,7 @@ public class ProgramModuleTest {
 		
 		moduleAtomarSoko = ModuleAtomar.createModuleAtomar("Soziale Kompetenz");
 		moduleAtomarSoko.changeCPOnModule(Fraction.parse("3"));
+		moduleAtomarSoko.changeGradeSystem(SimpleGradeSystem.getTheSimpleGradeSystem());
 		moduleManager.getModules().add(moduleAtomarSoko);
 		programWirtschaftsinformatik.addModule(moduleAtomarSoko);
 		

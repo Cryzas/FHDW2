@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.sql.Date;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import common.Fraction;
@@ -45,12 +46,16 @@ public class StudentTest {
 	Student4Public florian;
 	Student4Public michael;
 	Student4Public jens;
-
-	@Before
-	public void setUp() throws Exception {
+	
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
 		TestSupport.clearDatabase();
 		TestSupport.prepareSingletons();
 		Cache.getTheCache().reset$For$Test();
+	}
+
+	@Before
+	public void setUp() throws Exception {
 		programManager = ProgramManager.createProgramManager();
 		moduleManager = ModuleManager.createModuleManager();
 		groupManager = StudyGroupManager.createStudyGroupManager();
@@ -69,6 +74,7 @@ public class StudentTest {
 
 		moduleAtomarSoko = ModuleAtomar.createModuleAtomar("Soziale Kompetenz");
 		moduleAtomarSoko.changeCPOnModule(Fraction.parse("3"));
+		moduleAtomarSoko.changeGradeSystem(SimpleGradeSystem.getTheSimpleGradeSystem());
 		moduleManager.getModules().add(moduleAtomarSoko);
 		programWirtschaftsinformatik.addModule(moduleAtomarSoko);
 
@@ -114,6 +120,8 @@ public class StudentTest {
 		florian = Student.createStudent("Florian", "Raetsch", Date.valueOf("1994-10-29"));
 		michael = Student.createStudent("Michael", "Lange", Date.valueOf("1995-05-03"));
 		jens = Student.createStudent("Jens", "Burczyk", Date.valueOf("1998-11-16"));
+		
+		studyGroupHFW1.addStudent(jens);
 	}
 
 	@Test
@@ -133,6 +141,25 @@ public class StudentTest {
 		assertTrue(Server.getServerByUser(String.valueOf(florian.getId())).iterator().hasNext());
 		assertTrue(Server.getServerByUser(String.valueOf(michael.getId())).iterator().hasNext());
 		assertTrue(Server.getServerByUser(String.valueOf(jens.getId())).iterator().hasNext());
+	}
+	
+	@Test
+	public void addStudent2Group() throws PersistenceException, AlreadyFinishedException, AlreadyExistsInParentException, CycleException {
+		studentManager.addStudentToGroup(studyGroupHFW1, florian);
+		assertTrue(studyGroupHFW1.getStudents()
+				.findFirst(student -> student.getFirstName().equals("Florian") && student.getLastName().equals("Raetsch")
+						&& student.getBirthDate().equals(Date.valueOf("1994-10-29"))) != null);
+		try {
+			studentManager.addStudentToGroup(studyGroupHFW1, jens);
+		} catch (AlreadyExistsInParentException e) {
+			// Should go in here
+		}
+		groupManager.endStudyGroup(studyGroupHFW1);
+		try {
+			studentManager.addStudentToGroup(studyGroupHFW1, hakan);
+		} catch (AlreadyFinishedException e) {
+			// Should go in here
+		}
 	}
 
 }
