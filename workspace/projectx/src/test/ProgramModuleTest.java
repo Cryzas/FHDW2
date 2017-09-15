@@ -39,6 +39,7 @@ public class ProgramModuleTest {
 	public void setUp() throws Exception {
 		TestSupport.clearDatabase();
 		TestSupport.prepareSingletons();
+		Cache.getTheCache().reset$For$Test();
 		programManager = ProgramManager.createProgramManager();
 		moduleManager = ModuleManager.createModuleManager();
 		

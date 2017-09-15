@@ -42,6 +42,7 @@ public class StudyGroupTest {
 	public void setUp() throws Exception {
 		TestSupport.clearDatabase();
 		TestSupport.prepareSingletons();
+		Cache.getTheCache().reset$For$Test();
 		programManager = ProgramManager.createProgramManager();
 		moduleManager = ModuleManager.createModuleManager();
 		groupManager = StudyGroupManager.createStudyGroupManager();
@@ -98,6 +99,7 @@ public class StudyGroupTest {
 		
 		studyGroupHFW1 = StudyGroup.createStudyGroup("HFW1");
 		studyGroupHFW1.setProgram(programWirtschaftsinformatik.copyForStudyGroup());
+		groupManager.getGroups().add(studyGroupHFW1);
 	}
 
 	@Test

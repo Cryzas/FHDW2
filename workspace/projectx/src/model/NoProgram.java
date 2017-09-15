@@ -75,6 +75,7 @@ public class NoProgram extends model.ProgramStudent implements PersistentNoProgr
         result = new NoProgram(this.programCopy, 
                                this.This, 
                                this.getId());
+        result.modules = this.modules.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

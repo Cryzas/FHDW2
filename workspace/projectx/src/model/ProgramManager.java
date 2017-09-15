@@ -71,6 +71,7 @@ public class ProgramManager extends PersistentObject implements PersistentProgra
         ProgramManager result = this;
         result = new ProgramManager(this.This, 
                                     this.getId());
+        result.programs = this.programs.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

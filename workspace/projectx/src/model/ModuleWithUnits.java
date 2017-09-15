@@ -70,6 +70,7 @@ public class ModuleWithUnits extends model.ModuleAbstract implements PersistentM
         result = new ModuleWithUnits(this.name, 
                                      this.This, 
                                      this.getId());
+        result.units = this.units.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

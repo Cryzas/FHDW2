@@ -71,6 +71,7 @@ public class ModuleGroupSGroup extends model.ModuleAbstractSGroup implements Per
                                        this.finished, 
                                        this.This, 
                                        this.getId());
+        result.modules = this.modules.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

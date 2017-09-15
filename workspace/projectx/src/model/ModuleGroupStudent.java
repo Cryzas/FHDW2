@@ -70,6 +70,7 @@ public class ModuleGroupStudent extends model.ModuleAbstractStudent implements P
         result = new ModuleGroupStudent(this.moduleCopy, 
                                         this.This, 
                                         this.getId());
+        result.modules = this.modules.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

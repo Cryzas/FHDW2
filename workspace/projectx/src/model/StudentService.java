@@ -73,6 +73,7 @@ public class StudentService extends model.Service implements PersistentStudentSe
         result = new StudentService(this.This, 
                                     this.getId());
         result.errors = this.errors.copy(result);
+        result.errors = this.errors.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

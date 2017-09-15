@@ -84,6 +84,7 @@ public class Program extends PersistentObject implements PersistentProgram{
         result = new Program(this.name, 
                              this.This, 
                              this.getId());
+        result.modules = this.modules.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

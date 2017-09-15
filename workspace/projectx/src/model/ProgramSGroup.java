@@ -85,6 +85,7 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
                                    this.finished, 
                                    this.This, 
                                    this.getId());
+        result.modules = this.modules.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

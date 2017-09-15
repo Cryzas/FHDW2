@@ -70,6 +70,7 @@ public class ModuleGroup extends model.ModuleAbstract implements PersistentModul
         result = new ModuleGroup(this.name, 
                                  this.This, 
                                  this.getId());
+        result.modules = this.modules.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

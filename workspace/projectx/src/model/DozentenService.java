@@ -97,6 +97,7 @@ public class DozentenService extends model.Service implements PersistentDozenten
                                      this.studentManager, 
                                      this.getId());
         result.errors = this.errors.copy(result);
+        result.errors = this.errors.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
