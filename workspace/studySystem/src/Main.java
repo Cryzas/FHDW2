@@ -343,7 +343,7 @@ public class Main extends Application implements ServerReporter, ClientReporter 
 	private CheckBox getCreateUserCheckBox() {
 		if( this.createUserBox == null){
 			this.createUserBox = new CheckBox("Create User");
-			this.createUserBox.setSelected(true);
+			this.createUserBox.setSelected(false);
 		}
 		return this.createUserBox;
 	}
