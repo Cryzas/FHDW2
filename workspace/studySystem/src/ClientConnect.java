@@ -59,7 +59,7 @@ public class ClientConnect extends Application {
 		this.loginScene = new Scene( this.rootPane, 750, 200);	
 		this.stage.setScene( this.loginScene );		
 		this.getNameTextField().requestFocus();
-		this.stage.setTitle("GOJA Client Connect");
+		this.stage.setTitle("Studienprogramm");
 		this.stage.getIcons().add( logoApp );
 		this.stage.setOnCloseRequest( new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent event) {

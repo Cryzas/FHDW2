@@ -37,7 +37,7 @@ public class MainView extends Stage implements ExceptionAndEventHandler{
 		this.setScene( rootScene );
 		this.sizeToScene();
 		this.getRootPane().prefHeightProperty().bind(rootScene.heightProperty());
-		this.setTitle( "MainView: ");
+		this.setTitle("Studienprogramm | Benutzer: ");
 		this.setOnCloseRequest( new EventHandler<WindowEvent>() {
 			public void handle( WindowEvent event) {
 				getConnection().refresherStop();
