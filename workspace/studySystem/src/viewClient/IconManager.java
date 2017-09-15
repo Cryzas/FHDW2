@@ -33,7 +33,7 @@ public class IconManager {
 		case 12:
 			return new Image("/viewResources/ModuleGroup.png");
 		case 13:
-			return new Image("/viewResources/Module.png");
+			return new Image("/viewResources/ModuleWithUnits.png");
 		case 14:
 			return new Image("/viewResources/ModuleAtomar.png");
 		case 15:
