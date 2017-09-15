@@ -3,8 +3,6 @@ package model;
 
 import persistence.*;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import model.visitor.*;
 
 
@@ -272,7 +270,7 @@ public class Student extends PersistentObject implements PersistentStudent{
     	if (month < 10) monthS = "0" + monthS;
     	if (day < 10) dayS = "0" + dayS;
     	String pw = yearS + monthS + dayS;
-    	Server.createServer(pw, String.valueOf(getThis().getMatrNr()), 0, Timestamp.from(Instant.now()));
+    	Server.createServer(pw, String.valueOf(getThis().getMatrNr()), 0, new java.sql.Timestamp(0));
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
