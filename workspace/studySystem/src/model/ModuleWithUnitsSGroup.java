@@ -224,10 +224,22 @@ public class ModuleWithUnitsSGroup extends model.ModuleAbstractSGroup implements
         super.initializeOnInstantiation();
     }
     public void swapCP(final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
-				throws model.UnitSwapException, PersistenceException{
+				throws model.AlreadyFinishedException, model.UnitSwapException, PersistenceException{
+    	getThis().getFinished().accept(new MyBooleanExceptionVisitor<AlreadyFinishedException>() {
+
+			@Override
+			public void handleBFalse(BFalse4Public bFalse) throws PersistenceException, AlreadyFinishedException {
+			}
+
+			@Override
+			public void handleBTrue(BTrue4Public bTrue) throws PersistenceException, AlreadyFinishedException {
+				throw new AlreadyFinishedException(AlreadyFinishedMessage);
+			}
+		});
+    	
     	if (creditPoints.lessOrEquals(Fraction.Null)) {
-    		ToUnit.subCP(creditPoints);
-    		fromUnit.addCP(creditPoints);
+    		fromUnit.addCP(creditPoints.mul(Fraction.parse("-1")));
+    		ToUnit.subCP(creditPoints.mul(Fraction.parse("-1")));
 		} else {
 	    	fromUnit.subCP(creditPoints);
 	    	ToUnit.addCP(creditPoints);
@@ -240,7 +252,7 @@ public class ModuleWithUnitsSGroup extends model.ModuleAbstractSGroup implements
 
     /* Start of protected part that is not overridden by persistence generator */
     
-    
+    static String AlreadyFinishedMessage = "Der Studiengang ist bereits abgeschlossen.";    
     
     /* End of protected part that is not overridden by persistence generator */
     

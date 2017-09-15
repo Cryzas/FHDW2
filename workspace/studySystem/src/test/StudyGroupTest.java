@@ -8,6 +8,7 @@ import org.junit.Test;
 import common.Fraction;
 import model.*;
 import model.visitor.ModuleAbstractSGroupVisitor;
+import model.visitor.MyBooleanVisitor;
 import persistence.*;
 
 public class StudyGroupTest {
@@ -162,36 +163,116 @@ public class StudyGroupTest {
 			assertEquals(group.getProgram().getName(), programCopy.getName());
 			assertEquals(group.getProgram().getCreditPoints(), programCopy.getCreditPoints());
 			group.getProgram().getModules().applyToAll(module -> {
-				module.accept(new ModuleAbstractSGroupVisitor() {
-					
-					@Override
-					public void handleModuleWithUnitsSGroup(ModuleWithUnitsSGroup4Public moduleWithUnitsSGroup)
-							throws PersistenceException {
-						assertTrue(programCopy.getModules().findFirst(moduleCopy -> moduleCopy.toString().equals(moduleWithUnitsSGroup.toString())) != null);
-						moduleWithUnitsSGroup.getUnits().applyToAll(unit -> {
-							programCopy.getModules().findAll(moduleCopy -> moduleCopy instanceof ModuleWithUnitsSGroup4Public)
-								.applyToAll(moduleWithUnitsCopy -> {
-									assertTrue(((ModuleWithUnits4Public)moduleWithUnitsCopy).getUnits().findFirst(unitCopy -> unitCopy.toString().equals(unit.toString())) != null);
-								});			
-						});
-					}
-					
-					@Override
-					public void handleModuleGroupSGroup(ModuleGroupSGroup4Public moduleGroupSGroup) throws PersistenceException {
-						assertTrue(programCopy.getModules().findFirst(moduleCopy -> moduleCopy.toString().equals(moduleGroupSGroup.toString())) != null);
-						moduleGroupSGroup.getModules().applyToAll(moduleCopy -> moduleCopy.accept(this));
-					}
-					
-					@Override
-					public void handleModuleAtomarSGroup(ModuleAtomarSGroup4Public moduleAtomarSGroup) throws PersistenceException {
-						assertTrue(programCopy.getModules().findFirst(moduleCopy -> moduleCopy.toString().equals(moduleAtomarSGroup.toString())) != null);
-					}
-				});
+				assertTrue(programCopy.getModules().findFirst(moduleCopy -> moduleCopy.toString().equals(module.toString())) != null);
 			});
 		} catch (AlreadyExistsInParentException e) {
 			fail();
 		} catch (NoFractionValueException e) {
 			fail();
+		} catch (PersistenceException e) {
+			fail();
+		}
+	}
+	
+	@Test
+	public void endStudyGroup() {
+		try {
+			MyBooleanVisitor visitor = new MyBooleanVisitor() {
+				
+				@Override
+				public void handleBTrue(BTrue4Public bTrue) throws PersistenceException {
+				}
+				
+				@Override
+				public void handleBFalse(BFalse4Public bFalse) throws PersistenceException {
+					fail();
+				}
+			};
+			groupManager.endStudyGroup(studyGroupHFW1);
+			studyGroupHFW1.getFinished().accept(visitor);
+			studyGroupHFW1.getProgram().getFinished().accept(visitor);
+			studyGroupHFW1.getProgram().getModules().applyToAll(module -> {
+				module.accept(new ModuleAbstractSGroupVisitor() {
+					
+					@Override
+					public void handleModuleWithUnitsSGroup(ModuleWithUnitsSGroup4Public moduleWithUnitsSGroup)
+							throws PersistenceException {
+						moduleWithUnitsSGroup.getFinished().accept(visitor);
+						moduleWithUnitsSGroup.getUnits().applyToAll(unit -> moduleWithUnitsSGroup.getFinished().accept(visitor));
+					}
+					
+					@Override
+					public void handleModuleGroupSGroup(ModuleGroupSGroup4Public moduleGroupSGroup) throws PersistenceException {
+						moduleGroupSGroup.getFinished().accept(visitor);
+						moduleGroupSGroup.getModules().applyToAll(module2 -> module2.accept(this));
+					}
+					
+					@Override
+					public void handleModuleAtomarSGroup(ModuleAtomarSGroup4Public moduleAtomarSGroup) throws PersistenceException {
+						moduleAtomarSGroup.getFinished().accept(visitor);
+					}
+				});
+			});
+		} catch (AlreadyFinishedException e) {
+			fail();
+		} catch (PersistenceException e) {
+			fail();
+		}
+		try {
+			studyGroupHFW1.endStudyGroup();
+		} catch (AlreadyFinishedException e) {
+			// Should go in here
+		} catch (PersistenceException e) {
+			fail();
+		}
+	}
+	
+	@Test
+	public void swapCP() {
+		try {
+			ModuleWithUnitsSGroup4Public moduleWithUnitsSMathe = (ModuleWithUnitsSGroup4Public) studyGroupHFW1.getProgram().getModules().findFirst(module -> module.getName().equals("Mathe"));
+			UnitSGroup4Public unitGMathe1 = moduleWithUnitsSMathe.getUnits().findFirst(unit -> unit.getName().equals("Mathe 1"));
+			UnitSGroup4Public unitGMathe2 = moduleWithUnitsSMathe.getUnits().findFirst(unit -> unit.getName().equals("Mathe 2"));
+			try {
+				groupManager.swapCPonModuleWithUnits(moduleWithUnitsSMathe, unitGMathe2, unitGMathe1, Fraction.parse("2"));
+			} catch (UnitSwapException | AlreadyFinishedException e) {
+				fail();
+			}
+			assertEquals(Fraction.parse("5"), unitGMathe1.getCreditPoints());
+			assertEquals(Fraction.parse("2"), unitGMathe2.getCreditPoints());
+			try {
+				groupManager.swapCPonModuleWithUnits(moduleWithUnitsSMathe, unitGMathe2, unitGMathe1, Fraction.parse("2"));
+				fail();
+			} catch (UnitSwapException e) {
+				// Should go in here
+			} catch (AlreadyFinishedException e) {
+				fail();
+			}
+			try {
+				groupManager.swapCPonModuleWithUnits(moduleWithUnitsSMathe, unitGMathe2, unitGMathe1, Fraction.parse("4"));
+				fail();
+			} catch (UnitSwapException e) {
+				// Should go in here
+			} catch (AlreadyFinishedException e) {
+				fail();
+			}
+			try {
+				groupManager.swapCPonModuleWithUnits(moduleWithUnitsSMathe, unitGMathe1, unitGMathe2, Fraction.parse("-2"));
+				fail();
+			} catch (UnitSwapException e) {
+				// Should go in here
+			} catch (AlreadyFinishedException e) {
+				fail();
+			}
+			try {
+				groupManager.endStudyGroup(studyGroupHFW1);
+				groupManager.swapCPonModuleWithUnits(moduleWithUnitsSMathe, unitGMathe1, unitGMathe2, Fraction.parse("1"));
+				fail();
+			} catch (UnitSwapException e) {
+				fail();
+			} catch (AlreadyFinishedException e) {
+				// SHould go in here
+			}
 		} catch (PersistenceException e) {
 			fail();
 		}

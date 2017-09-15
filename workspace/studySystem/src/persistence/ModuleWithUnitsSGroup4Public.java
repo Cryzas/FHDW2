@@ -35,7 +35,7 @@ public interface ModuleWithUnitsSGroup4Public extends ModuleAbstractSGroup4Publi
     public void initializeOnInstantiation() 
 				throws PersistenceException;
     public void swapCP(final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
-				throws model.UnitSwapException, PersistenceException;
+				throws model.AlreadyFinishedException, model.UnitSwapException, PersistenceException;
 
 }
 

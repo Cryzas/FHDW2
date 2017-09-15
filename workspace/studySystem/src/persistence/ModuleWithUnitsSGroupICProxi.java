@@ -112,7 +112,7 @@ public class ModuleWithUnitsSGroupICProxi extends ModuleAbstractSGroupICProxi im
         ((PersistentModuleWithUnitsSGroup)this.getTheObject()).initializeOnInstantiation();
     }
     public void swapCP(final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
-				throws model.UnitSwapException, PersistenceException{
+				throws model.AlreadyFinishedException, model.UnitSwapException, PersistenceException{
         ((PersistentModuleWithUnitsSGroup)this.getTheObject()).swapCP(fromUnit, ToUnit, creditPoints);
     }
 

@@ -77,7 +77,7 @@ class StudyGroupManager {
 /* Neue Studiengruppe eröffnen | Exception wenn schon eine Studiengruppe mit dem Namen existiert */
 	active void startStudyGroup(Program program, String name) throws AlreadyExistsInParentException, NoFractionValueException;	
 /* CreditPoints der einzelnen Units ändern, ohne die Gesamtmenge der CPs für das Modul zu verändern | Exception wenn CP <= 0 seien würden */
-	active void swapCPonModuleWithUnits ## sCPonMWU(ModuleWithUnitsSGroup module, UnitSGroup fromUnit, UnitSGroup ToUnit, Fraction creditPoints) throws UnitSwapException;
+	active void swapCPonModuleWithUnits ## sCPonMWU(ModuleWithUnitsSGroup module, UnitSGroup fromUnit, UnitSGroup ToUnit, Fraction creditPoints) throws UnitSwapException,AlreadyFinishedException;
 /* Beendet die Studiengruppe, Noten können nicht mehr verändert werden | Exception wenn Studiengruppe schon beendet ist*/
 	active void endStudyGroup (StudyGroup studyGroup) throws AlreadyFinishedException;
 }
@@ -205,8 +205,8 @@ class ModuleWithUnitsSGroup ## m_unit_gr extends ModuleAbstractSGroup {
 	public UnitSGroup ** units hierarchy programHierarchySGroup;
 	/* Ermöglicht das Hinzufügen von Unit zu ModuleWithUnits und erwartet Name & creditPoints. Wirft eine Exception, falls Unit mit identischem Name bereits in Modul vorhanden ist. */
 	void addUnit(UnitSGroup unit) throws CycleException;
-/* CreditPoints der einzelnen Units ändern, ohne die Gesamtmenge der CPs für das Modul zu verändern | Exception wenn CP <= 0 seien würden */
-	void swapCP(UnitSGroup fromUnit, UnitSGroup ToUnit, Fraction creditPoints) throws UnitSwapException;
+/* CreditPoints der einzelnen Units ändern, ohne die Gesamtmenge der CPs für das Modul zu verändern | Exception wenn CP <= 0 seien würden oder Studiengruppe abgeschlossen ist */
+	void swapCP(UnitSGroup fromUnit, UnitSGroup ToUnit, Fraction creditPoints) throws UnitSwapException,AlreadyFinishedException;
 }
 
 class UnitSGroup {

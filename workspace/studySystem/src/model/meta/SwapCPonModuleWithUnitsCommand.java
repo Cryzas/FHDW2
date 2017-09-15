@@ -276,6 +276,9 @@ public class SwapCPonModuleWithUnitsCommand extends PersistentObject implements 
         try{
 			this.commandReceiver.swapCPonModuleWithUnits(this.getModule(), this.getFromUnit(), this.getToUnit(), this.getCreditPoints());
 		}
+		catch(model.AlreadyFinishedException e){
+			this.commandException = e;
+		}
 		catch(model.UnitSwapException e){
 			this.commandException = e;
 		}

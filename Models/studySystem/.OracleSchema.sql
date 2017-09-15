@@ -42,7 +42,7 @@ create table Association3 (
     constraint FAssociation3Target foreign key (target) references Cls(id) on delete cascade
 );
 
-create sequence GlobalSequencer nocache;
+create sequence SSrvr nocache;
 
 create table Srvr(
     id number primary key,
@@ -63,6 +63,8 @@ create index ISrvcSrvr on Srvr (SrvrSrvc, SrvrSrvcCls);
 create index IUserSrvr on Srvr (SrvrUser);
 
 
+create sequence SPrgrmSGrp nocache;
+
 create table PrgrmSGrp(
     id number primary key,
     Cls number not null,
@@ -78,11 +80,15 @@ create table PrgrmSGrp(
     constraint FPrgrmSGrpThis foreign key (PrgrmSGrpThisCls) references Cls (id)    
 );
 
+create sequence SCmmndCrdntr nocache;
+
 create table CmmndCrdntr(
     id number primary key,
     Cls number not null,
     constraint FCmmndCrdntrCls foreign key (Cls) references Cls (id) on delete cascade    
 );
+
+create sequence SStdGrp nocache;
 
 create table StdGrp(
     id number primary key,
@@ -101,6 +107,8 @@ create table StdGrp(
 );
 create index INmStdGrp on StdGrp (StdGrpNm);
 
+
+create sequence SAdd_S2GCMD nocache;
 
 create table Add_S2GCMD(
     id number primary key,
@@ -123,6 +131,8 @@ create table Add_S2GCMD(
     constraint FAdd_S2GCMDMyCmmnDt foreign key (Add_S2GCMDMyCmmnDtCls) references Cls (id)    
 );
 
+create sequence SAddMdlTPrgCMD nocache;
+
 create table AddMdlTPrgCMD(
     id number primary key,
     Cls number not null,
@@ -143,6 +153,8 @@ create table AddMdlTPrgCMD(
     AddMdlTPrgCMDMyCmmnDtCls number,
     constraint FAddMdlTPrgCMDMyCmmnDt foreign key (AddMdlTPrgCMDMyCmmnDtCls) references Cls (id)    
 );
+
+create sequence SCrtStdntCMD nocache;
 
 create table CrtStdntCMD(
     id number primary key,
@@ -165,6 +177,8 @@ create table CrtStdntCMD(
     constraint FCrtStdntCMDMyCmmnDt foreign key (CrtStdntCMDMyCmmnDtCls) references Cls (id)    
 );
 
+create sequence SStdntMngr nocache;
+
 create table StdntMngr(
     id number primary key,
     Cls number not null,
@@ -173,6 +187,8 @@ create table StdntMngr(
     StdntMngrThisCls number,
     constraint FStdntMngrThis foreign key (StdntMngrThisCls) references Cls (id)    
 );
+
+create sequence SStdnt nocache;
 
 create table Stdnt(
     id number primary key,
@@ -188,6 +204,8 @@ create table Stdnt(
     StdntThisCls number,
     constraint FStdntThis foreign key (StdntThisCls) references Cls (id)    
 );
+
+create sequence SCrtMdlCMD nocache;
 
 create table CrtMdlCMD(
     id number primary key,
@@ -206,6 +224,8 @@ create table CrtMdlCMD(
     constraint FCrtMdlCMDMyCmmnDt foreign key (CrtMdlCMDMyCmmnDtCls) references Cls (id)    
 );
 
+create sequence SUntStdnt nocache;
+
 create table UntStdnt(
     id number primary key,
     Cls number not null,
@@ -221,6 +241,8 @@ create table UntStdnt(
     constraint FUntStdntThis foreign key (UntStdntThisCls) references Cls (id)    
 );
 
+create sequence SCmmnDt nocache;
+
 create table CmmnDt(
     id number primary key,
     Cls number not null,
@@ -228,6 +250,8 @@ create table CmmnDt(
     CmmnDtCrtdt Date,
     CmmnDtCmmtdt Date    
 );
+
+create sequence SMdlAbstrct nocache;
 
 create table MdlAbstrct(
     id number primary key,
@@ -244,6 +268,8 @@ create table MdlAbstrct(
 );
 create index INmMdlAbstrct on MdlAbstrct (MdlAbstrctNm);
 
+
+create sequence SChngCPOnMdlCMD nocache;
 
 create table ChngCPOnMdlCMD(
     id number primary key,
@@ -264,6 +290,8 @@ create table ChngCPOnMdlCMD(
     constraint FChngCPOnMdlCMDMyCmmnDt foreign key (ChngCPOnMdlCMDMyCmmnDtCls) references Cls (id)    
 );
 
+create sequence SGrdChng nocache;
+
 create table GrdChng(
     id number primary key,
     Cls number not null,
@@ -281,6 +309,8 @@ create table GrdChng(
     constraint FGrdChngThis foreign key (GrdChngThisCls) references Cls (id)    
 );
 
+create sequence SPrgrmStdnt nocache;
+
 create table PrgrmStdnt(
     id number primary key,
     Cls number not null,
@@ -292,6 +322,8 @@ create table PrgrmStdnt(
     PrgrmStdntThisCls number,
     constraint FPrgrmStdntThis foreign key (PrgrmStdntThisCls) references Cls (id)    
 );
+
+create sequence SChngGrdSstmCMD nocache;
 
 create table ChngGrdSstmCMD(
     id number primary key,
@@ -311,6 +343,8 @@ create table ChngGrdSstmCMD(
     constraint FChngGrdSstmCMDMyCmmnDt foreign key (ChngGrdSstmCMDMyCmmnDtCls) references Cls (id)    
 );
 
+create sequence SChngCPOnUntCMD nocache;
+
 create table ChngCPOnUntCMD(
     id number primary key,
     Cls number not null,
@@ -329,6 +363,8 @@ create table ChngCPOnUntCMD(
     ChngCPOnUntCMDMyCmmnDtCls number,
     constraint FChngCPOnUntCMDMyCmmnDt foreign key (ChngCPOnUntCMDMyCmmnDtCls) references Cls (id)    
 );
+
+create sequence SChngGrdCMD nocache;
 
 create table ChngGrdCMD(
     id number primary key,
@@ -350,6 +386,8 @@ create table ChngGrdCMD(
     constraint FChngGrdCMDMyCmmnDt foreign key (ChngGrdCMDMyCmmnDtCls) references Cls (id)    
 );
 
+create sequence Sm_abstr_st nocache;
+
 create table m_abstr_st(
     id number primary key,
     Cls number not null,
@@ -365,11 +403,15 @@ create table m_abstr_st(
     constraint Fm_atom_studOwnGrd foreign key (m_atom_studOwnGrdCls) references Cls (id)    
 );
 
+create sequence SCmmndExctr nocache;
+
 create table CmmndExctr(
     id number primary key,
     Cls number not null,
     constraint FCmmndExctrCls foreign key (Cls) references Cls (id) on delete cascade    
 );
+
+create sequence SCrtPrgrmCMD nocache;
 
 create table CrtPrgrmCMD(
     id number primary key,
@@ -386,6 +428,8 @@ create table CrtPrgrmCMD(
     CrtPrgrmCMDMyCmmnDtCls number,
     constraint FCrtPrgrmCMDMyCmmnDt foreign key (CrtPrgrmCMDMyCmmnDtCls) references Cls (id)    
 );
+
+create sequence SStrtStdGrpCMD nocache;
 
 create table StrtStdGrpCMD(
     id number primary key,
@@ -406,6 +450,8 @@ create table StrtStdGrpCMD(
     constraint FStrtStdGrpCMDMyCmmnDt foreign key (StrtStdGrpCMDMyCmmnDtCls) references Cls (id)    
 );
 
+create sequence SMdlMngr nocache;
+
 create table MdlMngr(
     id number primary key,
     Cls number not null,
@@ -414,6 +460,8 @@ create table MdlMngr(
     MdlMngrThisCls number,
     constraint FMdlMngrThis foreign key (MdlMngrThisCls) references Cls (id)    
 );
+
+create sequence SUnt nocache;
 
 create table Unt(
     id number primary key,
@@ -426,6 +474,8 @@ create table Unt(
     constraint FUntThis foreign key (UntThisCls) references Cls (id)    
 );
 
+create sequence SGrdSstm nocache;
+
 create table GrdSstm(
     id number primary key,
     Cls number not null,
@@ -434,6 +484,8 @@ create table GrdSstm(
     GrdSstmThisCls number,
     constraint FGrdSstmThis foreign key (GrdSstmThisCls) references Cls (id)    
 );
+
+create sequence SAddMdlTGrpCMD nocache;
 
 create table AddMdlTGrpCMD(
     id number primary key,
@@ -456,6 +508,8 @@ create table AddMdlTGrpCMD(
     constraint FAddMdlTGrpCMDMyCmmnDt foreign key (AddMdlTGrpCMDMyCmmnDtCls) references Cls (id)    
 );
 
+create sequence SPrgrmMngr nocache;
+
 create table PrgrmMngr(
     id number primary key,
     Cls number not null,
@@ -464,6 +518,8 @@ create table PrgrmMngr(
     PrgrmMngrThisCls number,
     constraint FPrgrmMngrThis foreign key (PrgrmMngrThisCls) references Cls (id)    
 );
+
+create sequence SPrgrm nocache;
 
 create table Prgrm(
     id number primary key,
@@ -476,6 +532,8 @@ create table Prgrm(
 );
 create index INmPrgrm on Prgrm (PrgrmNm);
 
+
+create sequence SUntSGrp nocache;
 
 create table UntSGrp(
     id number primary key,
@@ -493,6 +551,8 @@ create table UntSGrp(
     constraint FUntSGrpThis foreign key (UntSGrpThisCls) references Cls (id)    
 );
 
+create sequence SGrd nocache;
+
 create table Grd(
     id number primary key,
     Cls number not null,
@@ -501,6 +561,8 @@ create table Grd(
     GrdThisCls number,
     constraint FGrdThis foreign key (GrdThisCls) references Cls (id)    
 );
+
+create sequence SMBln nocache;
 
 create table MBln(
     id number primary key,
@@ -511,6 +573,8 @@ create table MBln(
     constraint FMBlnThis foreign key (MBlnThisCls) references Cls (id)    
 );
 
+create sequence SStdGrpMngr nocache;
+
 create table StdGrpMngr(
     id number primary key,
     Cls number not null,
@@ -519,6 +583,8 @@ create table StdGrpMngr(
     StdGrpMngrThisCls number,
     constraint FStdGrpMngrThis foreign key (StdGrpMngrThisCls) references Cls (id)    
 );
+
+create sequence SAddUntCMD nocache;
 
 create table AddUntCMD(
     id number primary key,
@@ -540,6 +606,8 @@ create table AddUntCMD(
     constraint FAddUntCMDMyCmmnDt foreign key (AddUntCMDMyCmmnDtCls) references Cls (id)    
 );
 
+create sequence Sm_abstr_gr nocache;
+
 create table m_abstr_gr(
     id number primary key,
     Cls number not null,
@@ -559,6 +627,8 @@ create table m_abstr_gr(
     constraint FMdlAtmrSGrpGrdSstm foreign key (MdlAtmrSGrpGrdSstmCls) references Cls (id)    
 );
 
+create sequence SEndStdGrpCMD nocache;
+
 create table EndStdGrpCMD(
     id number primary key,
     Cls number not null,
@@ -576,6 +646,8 @@ create table EndStdGrpCMD(
     EndStdGrpCMDMyCmmnDtCls number,
     constraint FEndStdGrpCMDMyCmmnDt foreign key (EndStdGrpCMDMyCmmnDtCls) references Cls (id)    
 );
+
+create sequence SSCPonMWUCMD nocache;
 
 create table SCPonMWUCMD(
     id number primary key,
@@ -602,6 +674,8 @@ create table SCPonMWUCMD(
     constraint FSCPonMWUCMDMyCmmnDt foreign key (SCPonMWUCMDMyCmmnDtCls) references Cls (id)    
 );
 
+create sequence SSrvc nocache;
+
 create table Srvc(
     id number primary key,
     Cls number not null,
@@ -623,6 +697,8 @@ create table Srvc(
     constraint FDzntnSrvcStdntMngr foreign key (DzntnSrvcStdntMngrCls) references Cls (id)    
 );
 
+create sequence SPrgrmSGrpMdls nocache;
+
 create table PrgrmSGrpMdls(
     id number primary key,
     frm number not null,
@@ -632,6 +708,8 @@ create table PrgrmSGrpMdls(
     constraint FPrgrmSGrpMdlsfrm foreign key(frm) references PrgrmSGrp(id)
 );
 create index IFrmPrgrmSGrpMdls on PrgrmSGrpMdls(frm);
+
+create sequence SMdlGrpSGrpMdls nocache;
 
 create table MdlGrpSGrpMdls(
     id number primary key,
@@ -643,6 +721,8 @@ create table MdlGrpSGrpMdls(
 );
 create index IFrmMdlGrpSGrpMdls on MdlGrpSGrpMdls(frm);
 
+create sequence SCmmndCrdntrExctr nocache;
+
 create table CmmndCrdntrExctr(
     id number primary key,
     frm number not null,
@@ -652,6 +732,8 @@ create table CmmndCrdntrExctr(
     constraint FCmmndCrdntrExctrfrm foreign key(frm) references CmmndCrdntr(id)
 );
 create index IFrmCmmndCrdntrExctr on CmmndCrdntrExctr(frm);
+
+create sequence SStdGrpStdnts nocache;
 
 create table StdGrpStdnts(
     id number primary key,
@@ -665,6 +747,8 @@ create index IFrmStdGrpStdnts on StdGrpStdnts(frm);
 
 
 create index IStdntsStdGrpStdnts on StdGrpStdnts(stdnts);
+create sequence SStdntMngrStdnts nocache;
+
 create table StdntMngrStdnts(
     id number primary key,
     frm number not null,
@@ -674,6 +758,8 @@ create table StdntMngrStdnts(
     constraint FStdntMngrStdntsfrm foreign key(frm) references StdntMngr(id)
 );
 create index IFrmStdntMngrStdnts on StdntMngrStdnts(frm);
+
+create sequence SStdntOldPrgrms nocache;
 
 create table StdntOldPrgrms(
     id number primary key,
@@ -685,6 +771,8 @@ create table StdntOldPrgrms(
 );
 create index IFrmStdntOldPrgrms on StdntOldPrgrms(frm);
 
+create sequence SUntStdntChngs nocache;
+
 create table UntStdntChngs(
     id number primary key,
     frm number not null,
@@ -694,6 +782,8 @@ create table UntStdntChngs(
     constraint FUntStdntChngsfrm foreign key(frm) references UntStdnt(id)
 );
 create index IFrmUntStdntChngs on UntStdntChngs(frm);
+
+create sequence Sm_unit_grUnts nocache;
 
 create table m_unit_grUnts(
     id number primary key,
@@ -705,6 +795,8 @@ create table m_unit_grUnts(
 );
 create index IFrmm_unit_grUnts on m_unit_grUnts(frm);
 
+create sequence Sm_atom_studChngs nocache;
+
 create table m_atom_studChngs(
     id number primary key,
     frm number not null,
@@ -714,6 +806,8 @@ create table m_atom_studChngs(
     constraint Fm_atom_studChngsfrm foreign key(frm) references m_abstr_st(id)
 );
 create index IFrmm_atom_studChngs on m_atom_studChngs(frm);
+
+create sequence SMdlWthUntsUnts nocache;
 
 create table MdlWthUntsUnts(
     id number primary key,
@@ -725,6 +819,8 @@ create table MdlWthUntsUnts(
 );
 create index IFrmMdlWthUntsUnts on MdlWthUntsUnts(frm);
 
+create sequence SPrgrmStdntMdls nocache;
+
 create table PrgrmStdntMdls(
     id number primary key,
     frm number not null,
@@ -734,6 +830,8 @@ create table PrgrmStdntMdls(
     constraint FPrgrmStdntMdlsfrm foreign key(frm) references PrgrmStdnt(id)
 );
 create index IFrmPrgrmStdntMdls on PrgrmStdntMdls(frm);
+
+create sequence Sm_unit_studUnts nocache;
 
 create table m_unit_studUnts(
     id number primary key,
@@ -745,6 +843,8 @@ create table m_unit_studUnts(
 );
 create index IFrmm_unit_studUnts on m_unit_studUnts(frm);
 
+create sequence SMdlGrpStdntMdls nocache;
+
 create table MdlGrpStdntMdls(
     id number primary key,
     frm number not null,
@@ -754,6 +854,8 @@ create table MdlGrpStdntMdls(
     constraint FMdlGrpStdntMdlsfrm foreign key(frm) references m_abstr_st(id)
 );
 create index IFrmMdlGrpStdntMdls on MdlGrpStdntMdls(frm);
+
+create sequence SCmmndExctrCommands nocache;
 
 create table CmmndExctrCommands(
     id number primary key,
@@ -765,6 +867,8 @@ create table CmmndExctrCommands(
 );
 create index IFrmCmmndExctrCommands on CmmndExctrCommands(frm);
 
+create sequence SMdlMngrMdls nocache;
+
 create table MdlMngrMdls(
     id number primary key,
     frm number not null,
@@ -774,6 +878,8 @@ create table MdlMngrMdls(
     constraint FMdlMngrMdlsfrm foreign key(frm) references MdlMngr(id)
 );
 create index IFrmMdlMngrMdls on MdlMngrMdls(frm);
+
+create sequence SMdlGrpMdls nocache;
 
 create table MdlGrpMdls(
     id number primary key,
@@ -785,6 +891,8 @@ create table MdlGrpMdls(
 );
 create index IFrmMdlGrpMdls on MdlGrpMdls(frm);
 
+create sequence SPrgrmMngrPrgrms nocache;
+
 create table PrgrmMngrPrgrms(
     id number primary key,
     frm number not null,
@@ -795,6 +903,8 @@ create table PrgrmMngrPrgrms(
 );
 create index IFrmPrgrmMngrPrgrms on PrgrmMngrPrgrms(frm);
 
+create sequence SPrgrmMdls nocache;
+
 create table PrgrmMdls(
     id number primary key,
     frm number not null,
@@ -804,6 +914,8 @@ create table PrgrmMdls(
     constraint FPrgrmMdlsfrm foreign key(frm) references Prgrm(id)
 );
 create index IFrmPrgrmMdls on PrgrmMdls(frm);
+
+create sequence SStdGrpMngrGrps nocache;
 
 create table StdGrpMngrGrps(
     id number primary key,
