@@ -323,7 +323,7 @@ public class GetIconInfo$Visitor extends model.visitor.AnythingStandardVisitor {
 			
 			@Override
 			public void handleStudyGroupManager(StudyGroupManager4Public studyGroupManager) throws PersistenceException {
-				// TODO Icon StudyGroupManager
+				result = 22;
 			}
 			
 			@Override
@@ -333,7 +333,7 @@ public class GetIconInfo$Visitor extends model.visitor.AnythingStandardVisitor {
 			
 			@Override
 			public void handleStudentManager(StudentManager4Public studentManager) throws PersistenceException {
-				// TODO Icon StudentManager
+				result = 23;
 			}
 			
 			@Override
@@ -369,7 +369,7 @@ public class GetIconInfo$Visitor extends model.visitor.AnythingStandardVisitor {
 			
 			@Override
 			public void handleProgramManager(ProgramManager4Public programManager) throws PersistenceException {
-				// TODO Icon ProgramManager
+				result = 20;
 			}
 			
 			@Override
@@ -379,7 +379,7 @@ public class GetIconInfo$Visitor extends model.visitor.AnythingStandardVisitor {
 			
 			@Override
 			public void handleModuleManager(ModuleManager4Public moduleManager) throws PersistenceException {
-				// TODO Icon ModuleManager
+				result = 21;
 			}
 			
 			@Override

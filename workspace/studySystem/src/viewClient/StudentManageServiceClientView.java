@@ -747,7 +747,41 @@ public class StudentManageServiceClientView extends BorderPane implements Except
 	/* Menu and wizard section end */
 	
 	private ImageView getIconForMenuItem(StudentManageServiceMenuItem menuItem){
-		return new ImageView(new javafx.scene.image.Image("/viewResources/default.gif")); //TODO Pimp-up your menu items!
+		return menuItem.accept(new MenuItemVisitor() {
+			
+			@Override
+			public ImageView handle(DeleteStudentsPRMTRStudentManagerPRMTRStudentLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(8));
+			}
+			
+			@Override
+			public ImageView handle(
+					ChangeGradeOfUnitPRMTRUnitStudentPRMTRGradesInThirdSUBTYPENamePRMTRStringPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(11));
+			}
+			
+			@Override
+			public ImageView handle(
+					ChangeGradeOfModulePRMTRModuleAtomarStudentPRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(11));
+			}
+			
+			@Override
+			public ImageView handle(
+					ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(11));
+			}
+			
+			@Override
+			public ImageView handle(RemoveErrorPRMTRErrorDisplayPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(8));
+			}
+			
+			@Override
+			public ImageView handle(UpdateMePRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(16));
+			}
+		});
 	}	
 	private void addNotGeneratedItems(ContextMenu result, ViewRoot selected) {
 	}

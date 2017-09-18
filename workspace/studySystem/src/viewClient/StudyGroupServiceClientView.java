@@ -897,7 +897,49 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 	/* Menu and wizard section end */
 	
 	private ImageView getIconForMenuItem(StudyGroupServiceMenuItem menuItem){
-		return new ImageView(new javafx.scene.image.Image("/viewResources/default.gif")); //TODO Pimp-up your menu items!
+		return menuItem.accept(new MenuItemVisitor() {
+			
+			@Override
+			public ImageView handle(DeleteStudyGroupsPRMTRStudyGroupManagerPRMTRStudyGroupLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(8));
+			}
+			
+			@Override
+			public ImageView handle(EndStudyGroupPRMTRStudyGroupPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(18));
+			}
+			
+			@Override
+			public ImageView handle(AddStudentToGroupPRMTRStudyGroupPRMTRStudentLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(9));
+			}
+			
+			@Override
+			public ImageView handle(RemoveStudentFromGroupPRMTRStudyGroupPRMTRStudentLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(10));
+			}
+			
+			@Override
+			public ImageView handle(CreateStudentPRMTRStudyGroupPRMTRStringPRMTRStringPRMTRDatePRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(9));
+			}
+			
+			@Override
+			public ImageView handle(RemoveErrorPRMTRErrorDisplayPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(8));
+			}
+			
+			@Override
+			public ImageView handle(
+					SwapCPonModuleWithUnitsPRMTRModuleWithUnitsSGroupPRMTRUnitSGroupPRMTRUnitSGroupPRMTRFractionPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(11));
+			}
+			
+			@Override
+			public ImageView handle(UpdateMePRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(16));
+			}
+		});
 	}	
 	private void addNotGeneratedItems(ContextMenu result, ViewRoot selected) {
 	}

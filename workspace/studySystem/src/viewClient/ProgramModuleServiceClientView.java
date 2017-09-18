@@ -864,13 +864,6 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 		public void setFirstArgument(ProgramView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
-			try{
-				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
-				selectionPanel0.preset((java.util.Vector<?>)firstArgument.getModules());
-				if (!selectionPanel0.check()) selectionPanel0.preset(new java.util.Vector<Object>());
-			}catch(ModelException me){
-				 handleException(me);
-			}
 			this.check();
 		}
 		
@@ -1377,13 +1370,6 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 		public void setFirstArgument(ProgramView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
-			try{
-				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
-				selectionPanel0.preset((java.util.Vector<?>)firstArgument.getModules());
-				if (!selectionPanel0.check()) selectionPanel0.preset(new java.util.Vector<Object>());
-			}catch(ModelException me){
-				 handleException(me);
-			}
 			this.check();
 		}
 		
@@ -1513,7 +1499,88 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 	/* Menu and wizard section end */
 	
 	private ImageView getIconForMenuItem(ProgramModuleServiceMenuItem menuItem){
-		return new ImageView(new javafx.scene.image.Image("/viewResources/default.gif")); //TODO Pimp-up your menu items!
+		return menuItem.accept(new MenuItemVisitor() {
+			
+			@Override
+			public ImageView handle(RemoveUnitPRMTRModuleWithUnitsPRMTRUnitLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(10));
+			}
+			
+			@Override
+			public ImageView handle(AddUnitPRMTRModuleWithUnitsPRMTRStringPRMTRFractionPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(9));
+			}
+			
+			@Override
+			public ImageView handle(StartStudyGroupPRMTRProgramPRMTRStringPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(17));
+			}
+			
+			@Override
+			public ImageView handle(DeleteProgramsPRMTRProgramManagerPRMTRProgramLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(8));
+			}
+			
+			@Override
+			public ImageView handle(CreateProgramPRMTRStringPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(9));
+			}
+			
+			@Override
+			public ImageView handle(ChangeGradeSystemPRMTRModuleAtomarPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(11));
+			}
+			
+			@Override
+			public ImageView handle(DeleteModulesPRMTRModuleManagerPRMTRModuleAbstractLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(8));
+			}
+			
+			@Override
+			public ImageView handle(AddModuleToProgPRMTRProgramPRMTRModuleAbstractLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(9));
+			}
+			
+			@Override
+			public ImageView handle(AddModuleToGroupPRMTRModuleGroupPRMTRModuleAbstractLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(9));
+			}
+			
+			@Override
+			public ImageView handle(RemoveModuleFromProgPRMTRProgramPRMTRModuleAbstractLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(10));
+			}
+			
+			@Override
+			public ImageView handle(RemoveModuleFromGroupPRMTRModuleGroupPRMTRModuleAbstractLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(10));
+			}
+			
+			@Override
+			public ImageView handle(CreateModulePRMTRModuleAbstractSUBTYPENamePRMTRStringPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(9));
+			}
+			
+			@Override
+			public ImageView handle(RemoveErrorPRMTRErrorDisplayPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(8));
+			}
+			
+			@Override
+			public ImageView handle(ChangeCPOnUnitPRMTRUnitPRMTRFractionPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(11));
+			}
+			
+			@Override
+			public ImageView handle(ChangeCPOnModulePRMTRModuleAtomarPRMTRFractionPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(11));
+			}
+			
+			@Override
+			public ImageView handle(UpdateMePRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(16));
+			}
+		});
 	}	
 	private void addNotGeneratedItems(ContextMenu result, ViewRoot selected) {
 	}

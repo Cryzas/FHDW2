@@ -13,11 +13,11 @@ public class IconManager {
 		case 2:
 			return new Image("/viewResources/Blue.gif");
 		case 3:
-			return new Image("/viewResources/Green.gif");
+			return new Image("/viewResources/Green.png");
 		case 4:
-			return new Image("/viewResources/Yellow.gif");
+			return new Image("/viewResources/Yellow.png");
 		case 5:
-			return new Image("/viewResources/Red.gif");
+			return new Image("/viewResources/Red.png");
 		case 6:
 			return new Image("/viewResources/Student.png");
 		case 7:
@@ -46,8 +46,16 @@ public class IconManager {
 			return new Image("/viewResources/StudyGroup_Stop.png");
 		case 19:
 			return new Image("/viewResources/StudyProgramme.png");
+		case 20:
+			return new Image("/viewResources/StudyProgramme_Manager.png");
+		case 21:
+			return new Image("/viewResources/ModuleGroup_Manager.png");
+		case 22:
+			return new Image("/viewResources/StudyGroup_Manager.png");
+		case 23:
+			return new Image("/viewResources/Student_Manager.png");
 		default:
-			return new Image("/viewResources/default.gif");
+			return new Image("/viewResources/default.png");
 		}
 	}
 }
