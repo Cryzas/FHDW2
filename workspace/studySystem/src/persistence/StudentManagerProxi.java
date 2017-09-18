@@ -57,10 +57,6 @@ public class StudentManagerProxi extends PersistentProxi implements PersistentSt
     }
     
     
-    public void changeGrade(final LectureWithGrade lecture, final String grade, final String comment) 
-				throws model.AlreadyFinishedException, model.InvalidGradeForSystemException, PersistenceException{
-        ((PersistentStudentManager)this.getTheObject()).changeGrade(lecture, grade, comment);
-    }
     public void changeGrade(final LectureWithGrade lecture, final String grade, final String comment, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentStudentManager)this.getTheObject()).changeGrade(lecture, grade, comment, invoker);
@@ -81,9 +77,9 @@ public class StudentManagerProxi extends PersistentProxi implements PersistentSt
 				throws PersistenceException{
         ((PersistentStudentManager)this.getTheObject()).updateObservers(event);
     }
-    public void changeGradeImplementation(final LectureWithGrade lecture, final String grade, final String comment) 
+    public void changeGrade(final LectureWithGrade lecture, final String grade, final String comment) 
 				throws model.AlreadyFinishedException, model.InvalidGradeForSystemException, PersistenceException{
-        ((PersistentStudentManager)this.getTheObject()).changeGradeImplementation(lecture, grade, comment);
+        ((PersistentStudentManager)this.getTheObject()).changeGrade(lecture, grade, comment);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

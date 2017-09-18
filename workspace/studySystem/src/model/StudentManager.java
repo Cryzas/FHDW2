@@ -188,13 +188,6 @@ public class StudentManager extends PersistentObject implements PersistentStuden
     }
     
     
-    public void changeGrade(final LectureWithGrade lecture, final String grade, final String comment) 
-				throws model.AlreadyFinishedException, model.InvalidGradeForSystemException, PersistenceException{
-        model.meta.StudentManagerChangeGradeLectureWithGradeGradesInSimpleOrThirdSUBTYPENameStringMssg event = new model.meta.StudentManagerChangeGradeLectureWithGradeGradesInSimpleOrThirdSUBTYPENameStringMssg(lecture, grade, comment, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
-    }
     public void changeGrade(final LectureWithGrade lecture, final String grade, final String comment, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
@@ -242,7 +235,7 @@ public class StudentManager extends PersistentObject implements PersistentStuden
     
     // Start of section that contains operations that must be implemented.
     
-    public void changeGradeImplementation(final LectureWithGrade lecture, final String grade, final String comment) 
+    public void changeGrade(final LectureWithGrade lecture, final String grade, final String comment) 
 				throws model.AlreadyFinishedException, model.InvalidGradeForSystemException, PersistenceException{
     	GradesInSimpleOrThird4Public newGrade = StringFACTORY.createObjectBySubTypeNameForGradesInSimpleOrThird(grade);
     	lecture.changeGrade(newGrade, comment);

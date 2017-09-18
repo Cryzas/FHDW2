@@ -5,23 +5,11 @@ public interface ModuleManagerMssgsVisitor extends ModuleManagerDOWNMssgsVisitor
 
 interface ModuleManagerDOWNMssgsVisitor  {
 
-    public void handleModuleManagerAddModuleToGroupModuleGroupModuleAbstractMssg(ModuleManagerAddModuleToGroupModuleGroupModuleAbstractMssg event) throws persistence.PersistenceException;
-    public void handleModuleManagerAddUnitModuleWithUnitsStringFractionMssg(ModuleManagerAddUnitModuleWithUnitsStringFractionMssg event) throws persistence.PersistenceException;
-    public void handleModuleManagerChangeCPOnModuleModuleAtomarFractionMssg(ModuleManagerChangeCPOnModuleModuleAtomarFractionMssg event) throws persistence.PersistenceException;
-    public void handleModuleManagerChangeCPOnUnitUnitFractionMssg(ModuleManagerChangeCPOnUnitUnitFractionMssg event) throws persistence.PersistenceException;
-    public void handleModuleManagerChangeGradeSystemModuleAtomarMssg(ModuleManagerChangeGradeSystemModuleAtomarMssg event) throws persistence.PersistenceException;
-    public void handleModuleManagerCreateModuleModuleAbstractSUBTYPENameStringMssg(ModuleManagerCreateModuleModuleAbstractSUBTYPENameStringMssg event) throws persistence.PersistenceException;
     
 }
 
 
 interface ModuleManagerUPMssgsVisitor  {
 
-    public void handleModuleManagerAddModuleToGroupModuleGroupModuleAbstractMssg(ModuleManagerAddModuleToGroupModuleGroupModuleAbstractMssg event) throws persistence.PersistenceException;
-    public void handleModuleManagerAddUnitModuleWithUnitsStringFractionMssg(ModuleManagerAddUnitModuleWithUnitsStringFractionMssg event) throws persistence.PersistenceException;
-    public void handleModuleManagerChangeCPOnModuleModuleAtomarFractionMssg(ModuleManagerChangeCPOnModuleModuleAtomarFractionMssg event) throws persistence.PersistenceException;
-    public void handleModuleManagerChangeCPOnUnitUnitFractionMssg(ModuleManagerChangeCPOnUnitUnitFractionMssg event) throws persistence.PersistenceException;
-    public void handleModuleManagerChangeGradeSystemModuleAtomarMssg(ModuleManagerChangeGradeSystemModuleAtomarMssg event) throws persistence.PersistenceException;
-    public void handleModuleManagerCreateModuleModuleAbstractSUBTYPENameStringMssg(ModuleManagerCreateModuleModuleAbstractSUBTYPENameStringMssg event) throws persistence.PersistenceException;
     
 }

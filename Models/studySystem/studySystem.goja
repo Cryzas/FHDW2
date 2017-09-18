@@ -78,47 +78,47 @@ server StudentManageService ## StuMService extends subAdminService {
 active class ProgramManager {
 	public Program ** programs;
 /* Programm erstellen | Exception wenn schon Modul oder Programm mit selben Namen existiert */
-	event void createProgram(String name) throws AlreadyExistsInParentException;
+	void createProgram(String name) throws AlreadyExistsInParentException;
 /* Modul zum jeweiligen Programm hinzufügen | Exception wenn Modul schon in Programm ist */
-	event void addModuleToProg(Program program, ModuleAbstract module) throws CycleException, AlreadyExistsInParentException;
+	void addModuleToProg(Program program, ModuleAbstract module) throws CycleException, AlreadyExistsInParentException;
 /* Neue Studiengruppe eröffnen | Exception wenn schon eine Studiengruppe mit dem Namen existiert */
-	event void startStudyGroup(Program program, String name) throws AlreadyExistsInParentException, NoFractionValueException;	
+	void startStudyGroup(Program program, String name) throws AlreadyExistsInParentException, NoFractionValueException;	
 
 }
 
 active class ModuleManager {
 	public ModuleAbstract ** modules;
 /* Modul erstellen mit Typ "type" | Exception wenn schon Modul oder Programm mit selben Namen existiert */
-	event void createModule(ModuleAbstractSUBTYPEName type, String name) throws AlreadyExistsInParentException;
+	void createModule(ModuleAbstractSUBTYPEName type, String name) throws AlreadyExistsInParentException;
 /* Modul zur jeweiligen Gruppe hinzufügen | Exception wenn Modul schon in der Gruppe ist */
-	event void addModuleToGroup(ModuleGroup group, ModuleAbstract module) throws CycleException, AlreadyExistsInParentException;
+	void addModuleToGroup(ModuleGroup group, ModuleAbstract module) throws CycleException, AlreadyExistsInParentException;
 /* Unit zu ModulMitUnits hinzufügen | Exception wenn eine Unit mit selben Namen in dem Modul bereits existiert */
-	event void addUnit(ModuleWithUnits module, String name, Fraction creditPoints) throws CycleException, AlreadyExistsInParentException;
+	void addUnit(ModuleWithUnits module, String name, Fraction creditPoints) throws CycleException, AlreadyExistsInParentException;
 /* Menge der erreichbaren creditPoints der Unit ändern */
-	event void changeCPOnUnit(Unit unit, Fraction creditPoints);
+	void changeCPOnUnit(Unit unit, Fraction creditPoints);
 /* Menge der erreichbaren creditpoints des Moduls ändern */
-	event void changeCPOnModule(ModuleAtomar module, Fraction creditPoints);
+	void changeCPOnModule(ModuleAtomar module, Fraction creditPoints);
 /* Gewähltes Notensystem eines atomaren Moduls ändern [1,0/1,3/...] <-> [Bestanden,NichtBestanden] */
-	event void changeGradeSystem (ModuleAtomar module);
+	void changeGradeSystem (ModuleAtomar module);
 }
 
 active class StudyGroupManager {
 	public StudyGroup ** groups;
 /* CreditPoints der einzelnen Units ändern, ohne die Gesamtmenge der CPs für das Modul zu verändern | Exception wenn CP <= 0 seien würden */
-	event void swapCPonModuleWithUnits ## sCPonMWU(ModuleWithUnitsSGroup module, UnitSGroup fromUnit, UnitSGroup ToUnit, Fraction creditPoints) throws UnitSwapException,AlreadyFinishedException;
+	void swapCPonModuleWithUnits ## sCPonMWU(ModuleWithUnitsSGroup module, UnitSGroup fromUnit, UnitSGroup ToUnit, Fraction creditPoints) throws UnitSwapException,AlreadyFinishedException;
 /* Studenten zu Studiengruppe hinzufügen | Exception wenn er schon drin ist */
- 	event void addStudentToGroup ## add_S2G (StudyGroup group, Student student) throws CycleException, AlreadyExistsInParentException, AlreadyFinishedException;
+ 	void addStudentToGroup ## add_S2G (StudyGroup group, Student student) throws CycleException, AlreadyExistsInParentException, AlreadyFinishedException;
 /* Beendet die Studiengruppe, Noten können nicht mehr verändert werden | Exception wenn Studiengruppe schon beendet ist*/
-	event void endStudyGroup (StudyGroup studyGroup) throws AlreadyFinishedException;
+	void endStudyGroup (StudyGroup studyGroup) throws AlreadyFinishedException;
 /* Anlegen eines neuen Studenten zu einer Studiengruppe */
-	event void createStudent (StudyGroup group, String firstName, String lastName, Date birthDate) throws CycleException, AlreadyExistsInParentException, AlreadyFinishedException;
+	void createStudent (StudyGroup group, String firstName, String lastName, Date birthDate) throws CycleException, AlreadyExistsInParentException, AlreadyFinishedException;
 
 }
 
 active class StudentManager {
 	public Student ** students;
 /* Note ändern und alte Note in Historie vermerken | Exception wenn Note aus falschem Notensystem gewählt wird */
-	event void changeGrade(LectureWithGrade lecture, GradesInSimpleOrThirdSUBTYPEName grade, String comment) throws InvalidGradeForSystemException, AlreadyFinishedException;
+	void changeGrade(LectureWithGrade lecture, GradesInSimpleOrThirdSUBTYPEName grade, String comment) throws InvalidGradeForSystemException, AlreadyFinishedException;
 }
 
 																			/* Aufbau eines Studienprogramms */

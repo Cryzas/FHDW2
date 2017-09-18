@@ -188,13 +188,6 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
     }
     
     
-    public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstract4Public module) 
-				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
-        model.meta.ModuleManagerAddModuleToGroupModuleGroupModuleAbstractMssg event = new model.meta.ModuleManagerAddModuleToGroupModuleGroupModuleAbstractMssg(group, module, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
-    }
     public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstract4Public module, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
@@ -206,13 +199,6 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
-				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
-        model.meta.ModuleManagerAddUnitModuleWithUnitsStringFractionMssg event = new model.meta.ModuleManagerAddUnitModuleWithUnitsStringFractionMssg(module, name, creditPoints, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
-    }
     public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
@@ -222,13 +208,6 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void changeCPOnModule(final ModuleAtomar4Public module, final common.Fraction creditPoints) 
-				throws PersistenceException{
-        model.meta.ModuleManagerChangeCPOnModuleModuleAtomarFractionMssg event = new model.meta.ModuleManagerChangeCPOnModuleModuleAtomarFractionMssg(module, creditPoints, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
     }
     public void changeCPOnModule(final ModuleAtomar4Public module, final common.Fraction creditPoints, final Invoker invoker) 
 				throws PersistenceException{
@@ -240,13 +219,6 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void changeCPOnUnit(final Unit4Public unit, final common.Fraction creditPoints) 
-				throws PersistenceException{
-        model.meta.ModuleManagerChangeCPOnUnitUnitFractionMssg event = new model.meta.ModuleManagerChangeCPOnUnitUnitFractionMssg(unit, creditPoints, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
-    }
     public void changeCPOnUnit(final Unit4Public unit, final common.Fraction creditPoints, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
@@ -257,13 +229,6 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void changeGradeSystem(final ModuleAtomar4Public module) 
-				throws PersistenceException{
-        model.meta.ModuleManagerChangeGradeSystemModuleAtomarMssg event = new model.meta.ModuleManagerChangeGradeSystemModuleAtomarMssg(module, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
-    }
     public void changeGradeSystem(final ModuleAtomar4Public module, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
@@ -273,13 +238,6 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void createModule(final String type, final String name) 
-				throws model.AlreadyExistsInParentException, PersistenceException{
-        model.meta.ModuleManagerCreateModuleModuleAbstractSUBTYPENameStringMssg event = new model.meta.ModuleManagerCreateModuleModuleAbstractSUBTYPENameStringMssg(type, name, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
     }
     public void createModule(final String type, final String name, final Invoker invoker) 
 				throws PersistenceException{
@@ -327,23 +285,23 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
     
     // Start of section that contains operations that must be implemented.
     
-    public void addModuleToGroupImplementation(final ModuleGroup4Public group, final ModuleAbstract4Public module) 
+    public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstract4Public module) 
 				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
     	group.addModule(module);
     }
-    public void addUnitImplementation(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
+    public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
 				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
     	module.addUnit(name, creditPoints);
     }
-    public void changeCPOnModuleImplementation(final ModuleAtomar4Public module, final common.Fraction creditPoints) 
+    public void changeCPOnModule(final ModuleAtomar4Public module, final common.Fraction creditPoints) 
 				throws PersistenceException{
         module.changeCPOnModule(creditPoints);        
     }
-    public void changeCPOnUnitImplementation(final Unit4Public unit, final common.Fraction creditPoints) 
+    public void changeCPOnUnit(final Unit4Public unit, final common.Fraction creditPoints) 
 				throws PersistenceException{
         unit.changeCPOnUnit(creditPoints);
     }
-    public void changeGradeSystemImplementation(final ModuleAtomar4Public module) 
+    public void changeGradeSystem(final ModuleAtomar4Public module) 
 				throws PersistenceException{
     	GradeSystem4Public newSystem = module.getGradeSystem().accept(new GradeSystemReturnVisitor<GradeSystem4Public>() {
 
@@ -363,7 +321,7 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
 				throws PersistenceException{
         
     }
-    public void createModuleImplementation(final String type, final String name) 
+    public void createModule(final String type, final String name) 
 				throws model.AlreadyExistsInParentException, PersistenceException{
     	if (ModuleAbstract.getModuleAbstractByName(name).iterator().hasNext()) {
 			throw new AlreadyExistsInParentException(String.format(ModuleAlreadyExistsInDBMessage, name));

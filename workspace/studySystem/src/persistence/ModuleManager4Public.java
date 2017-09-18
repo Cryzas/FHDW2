@@ -16,45 +16,33 @@ public interface ModuleManager4Public extends Anything, SubjInterface, AbstractP
     public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
-    public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstract4Public module) 
-				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException;
     public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstract4Public module, final Invoker invoker) 
 				throws PersistenceException;
-    public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
-				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException;
     public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints, final Invoker invoker) 
-				throws PersistenceException;
-    public void changeCPOnModule(final ModuleAtomar4Public module, final common.Fraction creditPoints) 
 				throws PersistenceException;
     public void changeCPOnModule(final ModuleAtomar4Public module, final common.Fraction creditPoints, final Invoker invoker) 
 				throws PersistenceException;
-    public void changeCPOnUnit(final Unit4Public unit, final common.Fraction creditPoints) 
-				throws PersistenceException;
     public void changeCPOnUnit(final Unit4Public unit, final common.Fraction creditPoints, final Invoker invoker) 
-				throws PersistenceException;
-    public void changeGradeSystem(final ModuleAtomar4Public module) 
 				throws PersistenceException;
     public void changeGradeSystem(final ModuleAtomar4Public module, final Invoker invoker) 
 				throws PersistenceException;
-    public void createModule(final String type, final String name) 
-				throws model.AlreadyExistsInParentException, PersistenceException;
     public void createModule(final String type, final String name, final Invoker invoker) 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
-    public void addModuleToGroupImplementation(final ModuleGroup4Public group, final ModuleAbstract4Public module) 
+    public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstract4Public module) 
 				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException;
-    public void addUnitImplementation(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
+    public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
 				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException;
-    public void changeCPOnModuleImplementation(final ModuleAtomar4Public module, final common.Fraction creditPoints) 
+    public void changeCPOnModule(final ModuleAtomar4Public module, final common.Fraction creditPoints) 
 				throws PersistenceException;
-    public void changeCPOnUnitImplementation(final Unit4Public unit, final common.Fraction creditPoints) 
+    public void changeCPOnUnit(final Unit4Public unit, final common.Fraction creditPoints) 
 				throws PersistenceException;
-    public void changeGradeSystemImplementation(final ModuleAtomar4Public module) 
+    public void changeGradeSystem(final ModuleAtomar4Public module) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
-    public void createModuleImplementation(final String type, final String name) 
+    public void createModule(final String type, final String name) 
 				throws model.AlreadyExistsInParentException, PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;

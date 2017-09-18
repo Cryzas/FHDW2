@@ -61,49 +61,25 @@ public class ModuleManagerICProxi extends PersistentInCacheProxiOptimistic imple
     }
     
     
-    public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstract4Public module) 
-				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
-        ((PersistentModuleManager)this.getTheObject()).addModuleToGroup(group, module);
-    }
     public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstract4Public module, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentModuleManager)this.getTheObject()).addModuleToGroup(group, module, invoker);
-    }
-    public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
-				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
-        ((PersistentModuleManager)this.getTheObject()).addUnit(module, name, creditPoints);
     }
     public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentModuleManager)this.getTheObject()).addUnit(module, name, creditPoints, invoker);
     }
-    public void changeCPOnModule(final ModuleAtomar4Public module, final common.Fraction creditPoints) 
-				throws PersistenceException{
-        ((PersistentModuleManager)this.getTheObject()).changeCPOnModule(module, creditPoints);
-    }
     public void changeCPOnModule(final ModuleAtomar4Public module, final common.Fraction creditPoints, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentModuleManager)this.getTheObject()).changeCPOnModule(module, creditPoints, invoker);
-    }
-    public void changeCPOnUnit(final Unit4Public unit, final common.Fraction creditPoints) 
-				throws PersistenceException{
-        ((PersistentModuleManager)this.getTheObject()).changeCPOnUnit(unit, creditPoints);
     }
     public void changeCPOnUnit(final Unit4Public unit, final common.Fraction creditPoints, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentModuleManager)this.getTheObject()).changeCPOnUnit(unit, creditPoints, invoker);
     }
-    public void changeGradeSystem(final ModuleAtomar4Public module) 
-				throws PersistenceException{
-        ((PersistentModuleManager)this.getTheObject()).changeGradeSystem(module);
-    }
     public void changeGradeSystem(final ModuleAtomar4Public module, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentModuleManager)this.getTheObject()).changeGradeSystem(module, invoker);
-    }
-    public void createModule(final String type, final String name) 
-				throws model.AlreadyExistsInParentException, PersistenceException{
-        ((PersistentModuleManager)this.getTheObject()).createModule(type, name);
     }
     public void createModule(final String type, final String name, final Invoker invoker) 
 				throws PersistenceException{
@@ -125,33 +101,33 @@ public class ModuleManagerICProxi extends PersistentInCacheProxiOptimistic imple
 				throws PersistenceException{
         ((PersistentModuleManager)this.getTheObject()).updateObservers(event);
     }
-    public void addModuleToGroupImplementation(final ModuleGroup4Public group, final ModuleAbstract4Public module) 
+    public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstract4Public module) 
 				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
-        ((PersistentModuleManager)this.getTheObject()).addModuleToGroupImplementation(group, module);
+        ((PersistentModuleManager)this.getTheObject()).addModuleToGroup(group, module);
     }
-    public void addUnitImplementation(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
+    public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
 				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
-        ((PersistentModuleManager)this.getTheObject()).addUnitImplementation(module, name, creditPoints);
+        ((PersistentModuleManager)this.getTheObject()).addUnit(module, name, creditPoints);
     }
-    public void changeCPOnModuleImplementation(final ModuleAtomar4Public module, final common.Fraction creditPoints) 
+    public void changeCPOnModule(final ModuleAtomar4Public module, final common.Fraction creditPoints) 
 				throws PersistenceException{
-        ((PersistentModuleManager)this.getTheObject()).changeCPOnModuleImplementation(module, creditPoints);
+        ((PersistentModuleManager)this.getTheObject()).changeCPOnModule(module, creditPoints);
     }
-    public void changeCPOnUnitImplementation(final Unit4Public unit, final common.Fraction creditPoints) 
+    public void changeCPOnUnit(final Unit4Public unit, final common.Fraction creditPoints) 
 				throws PersistenceException{
-        ((PersistentModuleManager)this.getTheObject()).changeCPOnUnitImplementation(unit, creditPoints);
+        ((PersistentModuleManager)this.getTheObject()).changeCPOnUnit(unit, creditPoints);
     }
-    public void changeGradeSystemImplementation(final ModuleAtomar4Public module) 
+    public void changeGradeSystem(final ModuleAtomar4Public module) 
 				throws PersistenceException{
-        ((PersistentModuleManager)this.getTheObject()).changeGradeSystemImplementation(module);
+        ((PersistentModuleManager)this.getTheObject()).changeGradeSystem(module);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentModuleManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public void createModuleImplementation(final String type, final String name) 
+    public void createModule(final String type, final String name) 
 				throws model.AlreadyExistsInParentException, PersistenceException{
-        ((PersistentModuleManager)this.getTheObject()).createModuleImplementation(type, name);
+        ((PersistentModuleManager)this.getTheObject()).createModule(type, name);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

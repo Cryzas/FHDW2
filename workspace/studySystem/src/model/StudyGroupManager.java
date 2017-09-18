@@ -186,13 +186,6 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
     }
     
     
-    public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student) 
-				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
-        model.meta.StudyGroupManagerAddStudentToGroupStudyGroupStudentMssg event = new model.meta.StudyGroupManagerAddStudentToGroupStudyGroupStudentMssg(group, student, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
-    }
     public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
@@ -203,13 +196,6 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
-				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
-        model.meta.StudyGroupManagerCreateStudentStudyGroupStringStringDateMssg event = new model.meta.StudyGroupManagerCreateStudentStudyGroupStringStringDateMssg(group, firstName, lastName, birthDate, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
     }
     public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate, final Invoker invoker) 
 				throws PersistenceException{
@@ -229,13 +215,6 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
 			getThis().setSubService(subService);
 		}
 		subService.deregister(observee);
-    }
-    public void endStudyGroup(final StudyGroup4Public studyGroup) 
-				throws model.AlreadyFinishedException, PersistenceException{
-        model.meta.StudyGroupManagerEndStudyGroupStudyGroupMssg event = new model.meta.StudyGroupManagerEndStudyGroupStudyGroupMssg(studyGroup, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
     }
     public void endStudyGroup(final StudyGroup4Public studyGroup, final Invoker invoker) 
 				throws PersistenceException{
@@ -262,13 +241,6 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
 		}
 		subService.register(observee);
     }
-    public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
-				throws model.AlreadyFinishedException, model.UnitSwapException, PersistenceException{
-        model.meta.StudyGroupManagerSwapCPonModuleWithUnitsModuleWithUnitsSGroupUnitSGroupUnitSGroupFractionMssg event = new model.meta.StudyGroupManagerSwapCPonModuleWithUnitsModuleWithUnitsSGroupUnitSGroupUnitSGroupFractionMssg(module, fromUnit, ToUnit, creditPoints, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
-    }
     public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
@@ -294,7 +266,7 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
     
     // Start of section that contains operations that must be implemented.
     
-    public void addStudentToGroupImplementation(final StudyGroup4Public group, final Student4Public student) 
+    public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student) 
 				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
        group.addStudent(student);
        student.setProgram(group.getProgram().copyForStudent());
@@ -303,12 +275,12 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
 				throws PersistenceException{
         
     }
-    public void createStudentImplementation(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
+    public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
 				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
     	Student4Public newStudent = Student.createStudent(firstName, lastName, birthDate);
     	getThis().addStudentToGroup(group, newStudent);
     }
-    public void endStudyGroupImplementation(final StudyGroup4Public studyGroup) 
+    public void endStudyGroup(final StudyGroup4Public studyGroup) 
 				throws model.AlreadyFinishedException, PersistenceException{
         studyGroup.endStudyGroup();
     }
@@ -320,7 +292,7 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
 				throws PersistenceException{
     	
     }
-    public void swapCPonModuleWithUnitsImplementation(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
+    public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
 				throws model.AlreadyFinishedException, model.UnitSwapException, PersistenceException{
     	module.swapCP(fromUnit, ToUnit, creditPoints);
     }

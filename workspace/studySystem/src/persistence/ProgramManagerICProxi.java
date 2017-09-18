@@ -61,17 +61,9 @@ public class ProgramManagerICProxi extends PersistentInCacheProxiOptimistic impl
     }
     
     
-    public void addModuleToProg(final Program4Public program, final ModuleAbstract4Public module) 
-				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
-        ((PersistentProgramManager)this.getTheObject()).addModuleToProg(program, module);
-    }
     public void addModuleToProg(final Program4Public program, final ModuleAbstract4Public module, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentProgramManager)this.getTheObject()).addModuleToProg(program, module, invoker);
-    }
-    public void createProgram(final String name) 
-				throws model.AlreadyExistsInParentException, PersistenceException{
-        ((PersistentProgramManager)this.getTheObject()).createProgram(name);
     }
     public void createProgram(final String name, final Invoker invoker) 
 				throws PersistenceException{
@@ -89,10 +81,6 @@ public class ProgramManagerICProxi extends PersistentInCacheProxiOptimistic impl
 				throws PersistenceException{
         ((PersistentProgramManager)this.getTheObject()).register(observee);
     }
-    public void startStudyGroup(final Program4Public program, final String name) 
-				throws model.AlreadyExistsInParentException, model.NoFractionValueException, PersistenceException{
-        ((PersistentProgramManager)this.getTheObject()).startStudyGroup(program, name);
-    }
     public void startStudyGroup(final Program4Public program, final String name, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentProgramManager)this.getTheObject()).startStudyGroup(program, name, invoker);
@@ -101,17 +89,17 @@ public class ProgramManagerICProxi extends PersistentInCacheProxiOptimistic impl
 				throws PersistenceException{
         ((PersistentProgramManager)this.getTheObject()).updateObservers(event);
     }
-    public void addModuleToProgImplementation(final Program4Public program, final ModuleAbstract4Public module) 
+    public void addModuleToProg(final Program4Public program, final ModuleAbstract4Public module) 
 				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
-        ((PersistentProgramManager)this.getTheObject()).addModuleToProgImplementation(program, module);
+        ((PersistentProgramManager)this.getTheObject()).addModuleToProg(program, module);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentProgramManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public void createProgramImplementation(final String name) 
+    public void createProgram(final String name) 
 				throws model.AlreadyExistsInParentException, PersistenceException{
-        ((PersistentProgramManager)this.getTheObject()).createProgramImplementation(name);
+        ((PersistentProgramManager)this.getTheObject()).createProgram(name);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -121,9 +109,9 @@ public class ProgramManagerICProxi extends PersistentInCacheProxiOptimistic impl
 				throws PersistenceException{
         ((PersistentProgramManager)this.getTheObject()).initializeOnInstantiation();
     }
-    public void startStudyGroupImplementation(final Program4Public program, final String name) 
+    public void startStudyGroup(final Program4Public program, final String name) 
 				throws model.AlreadyExistsInParentException, model.NoFractionValueException, PersistenceException{
-        ((PersistentProgramManager)this.getTheObject()).startStudyGroupImplementation(program, name);
+        ((PersistentProgramManager)this.getTheObject()).startStudyGroup(program, name);
     }
 
     

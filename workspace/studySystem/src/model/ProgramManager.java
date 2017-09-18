@@ -187,13 +187,6 @@ public class ProgramManager extends PersistentObject implements PersistentProgra
     }
     
     
-    public void addModuleToProg(final Program4Public program, final ModuleAbstract4Public module) 
-				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
-        model.meta.ProgramManagerAddModuleToProgProgramModuleAbstractMssg event = new model.meta.ProgramManagerAddModuleToProgProgramModuleAbstractMssg(program, module, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
-    }
     public void addModuleToProg(final Program4Public program, final ModuleAbstract4Public module, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
@@ -204,13 +197,6 @@ public class ProgramManager extends PersistentObject implements PersistentProgra
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void createProgram(final String name) 
-				throws model.AlreadyExistsInParentException, PersistenceException{
-        model.meta.ProgramManagerCreateProgramStringMssg event = new model.meta.ProgramManagerCreateProgramStringMssg(name, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
     }
     public void createProgram(final String name, final Invoker invoker) 
 				throws PersistenceException{
@@ -245,13 +231,6 @@ public class ProgramManager extends PersistentObject implements PersistentProgra
 		}
 		subService.register(observee);
     }
-    public void startStudyGroup(final Program4Public program, final String name) 
-				throws model.AlreadyExistsInParentException, model.NoFractionValueException, PersistenceException{
-        model.meta.ProgramManagerStartStudyGroupProgramStringMssg event = new model.meta.ProgramManagerStartStudyGroupProgramStringMssg(program, name, getThis());
-		event.execute();
-		getThis().updateObservers(event);
-		event.getResult();
-    }
     public void startStudyGroup(final Program4Public program, final String name, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
@@ -275,7 +254,7 @@ public class ProgramManager extends PersistentObject implements PersistentProgra
     
     // Start of section that contains operations that must be implemented.
     
-    public void addModuleToProgImplementation(final Program4Public program, final ModuleAbstract4Public module) 
+    public void addModuleToProg(final Program4Public program, final ModuleAbstract4Public module) 
 				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
     	program.addModule(module);        
     }
@@ -283,7 +262,7 @@ public class ProgramManager extends PersistentObject implements PersistentProgra
 				throws PersistenceException{
         
     }
-    public void createProgramImplementation(final String name) 
+    public void createProgram(final String name) 
 				throws model.AlreadyExistsInParentException, PersistenceException{
     	if (Program.getProgramByName(name).iterator().hasNext()) {
 			throw new AlreadyExistsInParentException(String.format(ProgramAlreadyExistsInDBMessage, name));
@@ -301,7 +280,7 @@ public class ProgramManager extends PersistentObject implements PersistentProgra
 				throws PersistenceException{
     	
     }
-    public void startStudyGroupImplementation(final Program4Public program, final String name) 
+    public void startStudyGroup(final Program4Public program, final String name) 
 				throws model.AlreadyExistsInParentException, model.NoFractionValueException, PersistenceException{
     	if(StudyGroup.getStudyGroupByName(name).iterator().hasNext()) {
     		throw new AlreadyExistsInParentException(String.format(GroupAlreadyExistsMessage, name));

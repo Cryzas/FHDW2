@@ -16,13 +16,11 @@ public interface StudentManager4Public extends Anything, SubjInterface, Abstract
     public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
-    public void changeGrade(final LectureWithGrade lecture, final String grade, final String comment) 
-				throws model.AlreadyFinishedException, model.InvalidGradeForSystemException, PersistenceException;
     public void changeGrade(final LectureWithGrade lecture, final String grade, final String comment, final Invoker invoker) 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
-    public void changeGradeImplementation(final LectureWithGrade lecture, final String grade, final String comment) 
+    public void changeGrade(final LectureWithGrade lecture, final String grade, final String comment) 
 				throws model.AlreadyFinishedException, model.InvalidGradeForSystemException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
