@@ -14,11 +14,11 @@ public abstract class programHierarchyHIERARCHYStandardVisitor implements progra
     public void handleModuleWithUnits(ModuleWithUnits4Public moduleWithUnits) throws PersistenceException{
         this.standardHandling(moduleWithUnits);
     }
-    public void handleUnit(Unit4Public unit) throws PersistenceException{
-        this.standardHandling(unit);
-    }
     public void handleModuleGroup(ModuleGroup4Public moduleGroup) throws PersistenceException{
         this.standardHandling(moduleGroup);
+    }
+    public void handleUnit(Unit4Public unit) throws PersistenceException{
+        this.standardHandling(unit);
     }
     protected abstract void standardHandling(programHierarchyHIERARCHY programHierarchyHIERARCHY) throws PersistenceException;
 }

@@ -335,7 +335,29 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 	}
 	@Override
 	public void handleDozentenService(DozentenService4Public dozentenService) throws PersistenceException {
-		result = dozentenService.getUsername();
+		result = "Administration";
+	}
+	@Override
+	public void handleAdminService(AdminService4Public adminService) throws PersistenceException {
+		result = "Admin";
+	}
+	@Override
+	public void handleUserManagerService(UserManagerService4Public userManagerService) throws PersistenceException {
+		result = "Benutzerverwaltung";
+	}
+	@Override
+	public void handleStudyGroupService(StudyGroupService4Public studyGroupService) throws PersistenceException {
+		result = "Studiengruppen";
+	}
+	@Override
+	public void handleStudentManageService(StudentManageService4Public studentManageService)
+			throws PersistenceException {
+		result = "Studenten";
+	}
+	@Override
+	public void handleProgramModuleService(ProgramModuleService4Public programModuleService)
+			throws PersistenceException {
+		result = "Studienprogramme";
 	}
 
 }

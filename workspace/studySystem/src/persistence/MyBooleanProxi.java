@@ -12,13 +12,31 @@ public abstract class MyBooleanProxi extends PersistentProxi implements Persiste
     }
     
     
+    public SubjInterface getSubService() throws PersistenceException {
+        return ((PersistentMyBoolean)this.getTheObject()).getSubService();
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        ((PersistentMyBoolean)this.getTheObject()).setSubService(newValue);
+    }
     public abstract PersistentMyBoolean getThis() throws PersistenceException ;
     
     
     
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentMyBoolean)this.getTheObject()).deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentMyBoolean)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentMyBoolean)this.getTheObject()).register(observee);
+    }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentMyBoolean)this.getTheObject()).updateObservers(event);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

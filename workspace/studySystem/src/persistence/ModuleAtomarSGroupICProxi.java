@@ -74,19 +74,43 @@ public class ModuleAtomarSGroupICProxi extends ModuleAbstractSGroupICProxi imple
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleModuleAtomarSGroup(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleModuleAtomarSGroup(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleModuleAtomarSGroup(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleModuleAtomarSGroup(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleModuleAtomarSGroup(this);
+    }
     
     
     public boolean containsprogramHierarchySGroup(final programHierarchySGroupHIERARCHY part) 
 				throws PersistenceException{
         return ((PersistentModuleAtomarSGroup)this.getTheObject()).containsprogramHierarchySGroup(part);
     }
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentModuleAtomarSGroup)this.getTheObject()).deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentModuleAtomarSGroup)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentModuleAtomarSGroup)this.getTheObject()).register(observee);
+    }
     public <T> T strategyprogramHierarchySGroup(final programHierarchySGroupHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         return ((PersistentModuleAtomarSGroup)this.getTheObject()).strategyprogramHierarchySGroup(strategy);
+    }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentModuleAtomarSGroup)this.getTheObject()).updateObservers(event);
     }
     public ModuleAbstractStudent4Public copyForStudent() 
 				throws PersistenceException{

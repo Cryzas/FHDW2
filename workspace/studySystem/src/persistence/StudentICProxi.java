@@ -49,6 +49,12 @@ public class StudentICProxi extends PersistentInCacheProxiOptimistic implements 
     public Student_OldProgramsProxi getOldPrograms() throws PersistenceException {
         return ((PersistentStudent)this.getTheObject()).getOldPrograms();
     }
+    public SubjInterface getSubService() throws PersistenceException {
+        return ((PersistentStudent)this.getTheObject()).getSubService();
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        ((PersistentStudent)this.getTheObject()).setSubService(newValue);
+    }
     public PersistentStudent getThis() throws PersistenceException {
         return ((PersistentStudent)this.getTheObject()).getThis();
     }
@@ -65,8 +71,24 @@ public class StudentICProxi extends PersistentInCacheProxiOptimistic implements 
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleStudent(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleStudent(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleStudent(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleStudent(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleStudent(this);
+    }
     
     
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentStudent)this.getTheObject()).deregister(observee);
+    }
     public StudyGroupSearchList getParentGroup() 
 				throws PersistenceException{
         return ((PersistentStudent)this.getTheObject()).getParentGroup();
@@ -74,6 +96,14 @@ public class StudentICProxi extends PersistentInCacheProxiOptimistic implements 
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentStudent)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentStudent)this.getTheObject()).register(observee);
+    }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentStudent)this.getTheObject()).updateObservers(event);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

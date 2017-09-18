@@ -36,6 +36,12 @@ public class UnitSGroupProxi extends PersistentProxi implements PersistentUnitSG
     public void setFinished(MyBoolean4Public newValue) throws PersistenceException {
         ((PersistentUnitSGroup)this.getTheObject()).setFinished(newValue);
     }
+    public SubjInterface getSubService() throws PersistenceException {
+        return ((PersistentUnitSGroup)this.getTheObject()).getSubService();
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        ((PersistentUnitSGroup)this.getTheObject()).setSubService(newValue);
+    }
     public PersistentUnitSGroup getThis() throws PersistenceException {
         return ((PersistentUnitSGroup)this.getTheObject()).getThis();
     }
@@ -64,19 +70,43 @@ public class UnitSGroupProxi extends PersistentProxi implements PersistentUnitSG
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleUnitSGroup(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleUnitSGroup(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleUnitSGroup(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleUnitSGroup(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleUnitSGroup(this);
+    }
     
     
     public boolean containsprogramHierarchySGroup(final programHierarchySGroupHIERARCHY part) 
 				throws PersistenceException{
         return ((PersistentUnitSGroup)this.getTheObject()).containsprogramHierarchySGroup(part);
     }
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentUnitSGroup)this.getTheObject()).deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentUnitSGroup)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentUnitSGroup)this.getTheObject()).register(observee);
+    }
     public <T> T strategyprogramHierarchySGroup(final programHierarchySGroupHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         return ((PersistentUnitSGroup)this.getTheObject()).strategyprogramHierarchySGroup(strategy);
+    }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentUnitSGroup)this.getTheObject()).updateObservers(event);
     }
     public void addCP(final common.Fraction creditPoints) 
 				throws PersistenceException{

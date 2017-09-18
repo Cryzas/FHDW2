@@ -56,24 +56,24 @@ public class Cache {
 				while (!garbageCollector.isInterrupted()){
 					synchronized(lock){try {lock.wait(GarbageCollectorReportInterval);} catch (InterruptedException e) {return;}}//Do nothing and terminate!
 					reporter.reportCurrentCacheSize(size, PersistentInCacheProxi.recycleCounter);
-//					if (Cache.this.heapSpaceFree < HeapSpaceReserve | forced){
-//						forced = false;
-// 						System.out.println("Free heap space: " + Cache.this.heapSpaceFree);
-//						Cache.this.heapSpaceFree = Long.MAX_VALUE;
-//						Object[] classes = classMap.keySet().toArray();
-//						for (int i = 0; i < classes.length; i++){
-//							long currentKey = (Long) classes[i];
-//							if (currentKey > 0){
-//								Hashtable<Long, PersistentInCacheProxi> objectMap = classMap.get(classes[i]);
-//								Object[] objects = objectMap.keySet().toArray();
-//								for (int j = 0; j < objects.length; j++){
-//									PersistentInCacheProxi current = objectMap.get(objects[j]);
-//									if (current != null) current.tryBreak();
-//								}
-//							}
-//						}
-//						System.gc();
-//					}
+					if (Cache.this.heapSpaceFree < HeapSpaceReserve | forced){
+						forced = false;
+ 						System.out.println("Free heap space: " + Cache.this.heapSpaceFree);
+						Cache.this.heapSpaceFree = Long.MAX_VALUE;
+						Object[] classes = classMap.keySet().toArray();
+						for (int i = 0; i < classes.length; i++){
+							long currentKey = (Long) classes[i];
+							if (currentKey > 0){
+								Hashtable<Long, PersistentInCacheProxi> objectMap = classMap.get(classes[i]);
+								Object[] objects = objectMap.keySet().toArray();
+								for (int j = 0; j < objects.length; j++){
+									PersistentInCacheProxi current = objectMap.get(objects[j]);
+									if (current != null) current.tryBreak();
+								}
+							}
+						}
+						System.gc();
+					}
 				}
 			}
 		},"Cache Garbage Collector");
@@ -278,6 +278,8 @@ public class Cache {
 		this.number2NameMap.put(168, "AddModuleToProgCommand");
 		this.number2NameMap.put(203, "AddStudentToGroupCommand");
 		this.number2NameMap.put(161, "AddUnitCommand");
+		this.number2NameMap.put(-289, "AdminService");
+		this.number2NameMap.put(298, "AdminServiceServices");
 		this.number2NameMap.put(282, "BFalse");
 		this.number2NameMap.put(281, "BTrue");
 		this.number2NameMap.put(156, "ChangeCPOnModuleCommand");
@@ -310,16 +312,24 @@ public class Cache {
 		this.number2NameMap.put(214, "Passed");
 		this.number2NameMap.put(143, "Program");
 		this.number2NameMap.put(148, "ProgramManager");
+		this.number2NameMap.put(-305, "ProgramModuleService");
+		this.number2NameMap.put(310, "ProgramModuleServiceModuleManager");
+		this.number2NameMap.put(309, "ProgramModuleServiceProgramManager");
 		this.number2NameMap.put(177, "ProgramSGroup");
 		this.number2NameMap.put(192, "ProgramStudent");
 		this.number2NameMap.put(-102, "Server");
 		this.number2NameMap.put(213, "SimpleGradeSystem");
-		this.number2NameMap.put(185, "StartStudyGroupCommand");
+		this.number2NameMap.put(313, "StartStudyGroupCommand");
 		this.number2NameMap.put(195, "Student");
+		this.number2NameMap.put(-303, "StudentManageService");
+		this.number2NameMap.put(311, "StudentManageServiceStudentManager");
 		this.number2NameMap.put(201, "StudentManager");
 		this.number2NameMap.put(-286, "StudentService");
 		this.number2NameMap.put(180, "StudyGroup");
 		this.number2NameMap.put(186, "StudyGroupManager");
+		this.number2NameMap.put(-302, "StudyGroupService");
+		this.number2NameMap.put(308, "StudyGroupServiceGroupManager");
+		this.number2NameMap.put(293, "Subj");
 		this.number2NameMap.put(188, "SwapCPonModuleWithUnitsCommand");
 		this.number2NameMap.put(221, "T_1_0");
 		this.number2NameMap.put(220, "T_1_3");
@@ -336,6 +346,7 @@ public class Cache {
 		this.number2NameMap.put(147, "Unit");
 		this.number2NameMap.put(181, "UnitSGroup");
 		this.number2NameMap.put(197, "UnitStudent");
+		this.number2NameMap.put(-290, "UserManagerService");
 		this.number2NameMap.put(226, "Z_1_0");
 		this.number2NameMap.put(227, "Z_1_1");
 		this.number2NameMap.put(229, "Z_1_2");

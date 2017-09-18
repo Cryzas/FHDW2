@@ -5,8 +5,8 @@ import persistence.*;
 
 public abstract class ServiceStandardVisitor implements ServiceVisitor {
     
-    public void handleDozentenService(DozentenService4Public dozentenService) throws PersistenceException{
-        this.standardHandling(dozentenService);
+    public void handleAdminService(AdminService4Public adminService) throws PersistenceException{
+        this.standardHandling(adminService);
     }
     public void handleStudentService(StudentService4Public studentService) throws PersistenceException{
         this.standardHandling(studentService);

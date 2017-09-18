@@ -46,6 +46,12 @@ public class GradeChangeICProxi extends PersistentInCacheProxiOptimistic impleme
     public void setComment(String newValue) throws PersistenceException {
         ((PersistentGradeChange)this.getTheObject()).setComment(newValue);
     }
+    public SubjInterface getSubService() throws PersistenceException {
+        return ((PersistentGradeChange)this.getTheObject()).getSubService();
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        ((PersistentGradeChange)this.getTheObject()).setSubService(newValue);
+    }
     public PersistentGradeChange getThis() throws PersistenceException {
         return ((PersistentGradeChange)this.getTheObject()).getThis();
     }
@@ -62,11 +68,35 @@ public class GradeChangeICProxi extends PersistentInCacheProxiOptimistic impleme
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleGradeChange(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleGradeChange(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleGradeChange(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleGradeChange(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleGradeChange(this);
+    }
     
     
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentGradeChange)this.getTheObject()).deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentGradeChange)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentGradeChange)this.getTheObject()).register(observee);
+    }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentGradeChange)this.getTheObject()).updateObservers(event);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

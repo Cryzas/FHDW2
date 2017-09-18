@@ -44,6 +44,8 @@ public class IconManager {
 			return new Image("/viewResources/StudyGroup_Play.png");
 		case 18:
 			return new Image("/viewResources/StudyGroup_Stop.png");
+		case 19:
+			return new Image("/viewResources/StudyProgramme.png");
 		default:
 			return new Image("/viewResources/default.gif");
 		}

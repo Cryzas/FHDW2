@@ -4,7 +4,7 @@ import model.visitor.*;
 
 /* Additional import section end */
 
-public interface LectureWithGrade extends AbstractPersistentProxi {
+public interface LectureWithGrade extends  SubjInterface {
     
     
     public void changeGrade(final Grade4Public grade, final String comment) 

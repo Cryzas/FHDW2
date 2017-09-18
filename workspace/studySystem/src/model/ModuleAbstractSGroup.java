@@ -52,13 +52,15 @@ public abstract class ModuleAbstractSGroup extends PersistentObject implements P
     }
     protected PersistentModuleAbstract moduleCopy;
     protected PersistentMyBoolean finished;
+    protected SubjInterface subService;
     protected PersistentModuleAbstractSGroup This;
     
-    public ModuleAbstractSGroup(PersistentModuleAbstract moduleCopy,PersistentMyBoolean finished,PersistentModuleAbstractSGroup This,long id) throws PersistenceException {
+    public ModuleAbstractSGroup(PersistentModuleAbstract moduleCopy,PersistentMyBoolean finished,SubjInterface subService,PersistentModuleAbstractSGroup This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.moduleCopy = moduleCopy;
         this.finished = finished;
+        this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -80,6 +82,10 @@ public abstract class ModuleAbstractSGroup extends PersistentObject implements P
         if(this.getFinished() != null){
             this.getFinished().store();
             ConnectionHandler.getTheConnectionHandler().theModuleAbstractSGroupFacade.finishedSet(this.getId(), getFinished());
+        }
+        if(this.getSubService() != null){
+            this.getSubService().store();
+            ConnectionHandler.getTheConnectionHandler().theModuleAbstractSGroupFacade.subServiceSet(this.getId(), getSubService());
         }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
@@ -114,6 +120,20 @@ public abstract class ModuleAbstractSGroup extends PersistentObject implements P
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theModuleAbstractSGroupFacade.finishedSet(this.getId(), newValue);
+        }
+    }
+    public SubjInterface getSubService() throws PersistenceException {
+        return this.subService;
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.subService)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.subService = (SubjInterface)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theModuleAbstractSGroupFacade.subServiceSet(this.getId(), newValue);
         }
     }
     protected void setThis(PersistentModuleAbstractSGroup newValue) throws PersistenceException {

@@ -6,6 +6,8 @@ public interface PersistentUnitStudent extends Anything, programHierarchyStudent
     public UnitSGroup4Public getUnitCopy() throws PersistenceException ;
     public void setUnitCopy(UnitSGroup4Public newValue) throws PersistenceException ;
     public void setGrade(GradesInThird4Public newValue) throws PersistenceException ;
+    public SubjInterface getSubService() throws PersistenceException ;
+    public void setSubService(SubjInterface newValue) throws PersistenceException ;
     public PersistentUnitStudent getThis() throws PersistenceException ;
     
     

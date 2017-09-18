@@ -6,14 +6,14 @@ import model.visitor.*;
 
 /* Additional import section end */
 
-public class DozentenService extends model.Service implements PersistentDozentenService{
+public class DozentenService extends model.subAdminService implements PersistentDozentenService{
     
     
-    public static DozentenService4Public createDozentenService() throws PersistenceException{
-        return createDozentenService(false);
+    public static DozentenService4Public createDozentenService(AdminService4Public parentService) throws PersistenceException{
+        return createDozentenService(parentService,false);
     }
     
-    public static DozentenService4Public createDozentenService(boolean delayed$Persistence) throws PersistenceException {
+    public static DozentenService4Public createDozentenService(AdminService4Public parentService,boolean delayed$Persistence) throws PersistenceException {
         PersistentDozentenService result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theDozentenServiceFacade
@@ -24,12 +24,13 @@ public class DozentenService extends model.Service implements PersistentDozenten
                 .newDozentenService(-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
+        final$$Fields.put("parentService", parentService);
         result.initialize(result, final$$Fields);
         result.initializeOnCreation();
         return result;
     }
     
-    public static DozentenService4Public createDozentenService(boolean delayed$Persistence,DozentenService4Public This) throws PersistenceException {
+    public static DozentenService4Public createDozentenService(AdminService4Public parentService,boolean delayed$Persistence,DozentenService4Public This) throws PersistenceException {
         PersistentDozentenService result = null;
         if(delayed$Persistence){
             result = ConnectionHandler.getTheConnectionHandler().theDozentenServiceFacade
@@ -40,6 +41,7 @@ public class DozentenService extends model.Service implements PersistentDozenten
                 .newDozentenService(-1);
         }
         java.util.HashMap<String,Object> final$$Fields = new java.util.HashMap<String,Object>();
+        final$$Fields.put("parentService", parentService);
         result.initialize(This, final$$Fields);
         result.initializeOnCreation();
         return result;
@@ -90,13 +92,14 @@ public class DozentenService extends model.Service implements PersistentDozenten
     
     public DozentenService provideCopy() throws PersistenceException{
         DozentenService result = this;
-        result = new DozentenService(this.This, 
+        result = new DozentenService(this.parentService, 
+                                     this.subService, 
+                                     this.This, 
                                      this.programManager, 
                                      this.moduleManager, 
                                      this.groupManager, 
                                      this.studentManager, 
                                      this.getId());
-        result.errors = this.errors.copy(result);
         result.errors = this.errors.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -110,9 +113,9 @@ public class DozentenService extends model.Service implements PersistentDozenten
     protected PersistentStudyGroupManager groupManager;
     protected PersistentStudentManager studentManager;
     
-    public DozentenService(PersistentService This,PersistentProgramManager programManager,PersistentModuleManager moduleManager,PersistentStudyGroupManager groupManager,PersistentStudentManager studentManager,long id) throws PersistenceException {
+    public DozentenService(PersistentAdminService parentService,SubjInterface subService,PersistentsubAdminService This,PersistentProgramManager programManager,PersistentModuleManager moduleManager,PersistentStudyGroupManager groupManager,PersistentStudentManager studentManager,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentService)This,id);
+        super((PersistentAdminService)parentService,(SubjInterface)subService,(PersistentsubAdminService)This,id);
         this.programManager = programManager;
         this.moduleManager = moduleManager;
         this.groupManager = groupManager;
@@ -215,16 +218,16 @@ public class DozentenService extends model.Service implements PersistentDozenten
         }return (PersistentDozentenService)this.This;
     }
     
-    public void accept(ServiceVisitor visitor) throws PersistenceException {
+    public void accept(subAdminServiceVisitor visitor) throws PersistenceException {
         visitor.handleDozentenService(this);
     }
-    public <R> R accept(ServiceReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(subAdminServiceReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleDozentenService(this);
     }
-    public <E extends model.UserException>  void accept(ServiceExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(subAdminServiceExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleDozentenService(this);
     }
-    public <R, E extends model.UserException> R accept(ServiceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(subAdminServiceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleDozentenService(this);
     }
     public void accept(InvokerVisitor visitor) throws PersistenceException {
@@ -249,6 +252,18 @@ public class DozentenService extends model.Service implements PersistentDozenten
          visitor.handleDozentenService(this);
     }
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleDozentenService(this);
+    }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleDozentenService(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleDozentenService(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleDozentenService(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleDozentenService(this);
     }
     public void accept(RemoteVisitor visitor) throws PersistenceException {
@@ -277,6 +292,15 @@ public class DozentenService extends model.Service implements PersistentDozenten
         	return new UnitSGroupSearchList(module.
                 getUnits().getList());
     }
+    public synchronized void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.deregister(observee);
+    }
     public String dozentenService_Menu_Filter(final Anything anything) 
 				throws PersistenceException{
         String result = "+++";
@@ -296,6 +320,7 @@ public class DozentenService extends model.Service implements PersistentDozenten
 				throws PersistenceException{
         this.setThis((PersistentDozentenService)This);
 		if(this.isTheSameAs(This)){
+			this.setParentService((PersistentAdminService)final$$Fields.get("parentService"));
 		}
     }
     public ModuleAbstractStudentSearchList lecture_Path_In_ChangeGradeforStudent(final Student4Public student) 
@@ -334,6 +359,15 @@ public class DozentenService extends model.Service implements PersistentDozenten
         	return new ProgramSearchList(manager.
                 getPrograms().getList());
     }
+    public synchronized void register(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.register(observee);
+    }
     public StudentSearchList students_Path_In_AddStudentToGroup() 
 				throws model.UserException, PersistenceException{
         	return new StudentSearchList(getThis().getStudentManager().
@@ -354,6 +388,15 @@ public class DozentenService extends model.Service implements PersistentDozenten
         	return new UnitSearchList(module.
                 getUnits().getList());
     }
+    public synchronized void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.updateObservers(event);
+    }
     
     
     // Start of section that contains operations that must be implemented.
@@ -368,7 +411,7 @@ public class DozentenService extends model.Service implements PersistentDozenten
 	}
     public void addStudentToGroup(final StudyGroup4Public group, final StudentSearchList students) 
 				throws PersistenceException{
-		students.applyToAll(student -> getThis().getStudentManager().addStudentToGroup(group, student, getThis()));
+		students.applyToAll(student -> getThis().getGroupManager().addStudentToGroup(group, student, getThis()));
 	}
     public void addUnit(final ModuleWithUnits4Public module, final String name, final common.Fraction creditPoints) 
 				throws PersistenceException{
@@ -414,7 +457,7 @@ public class DozentenService extends model.Service implements PersistentDozenten
 	}
     public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
 				throws PersistenceException{
-		getThis().getStudentManager().createStudent(group, firstName, lastName, birthDate, getThis());
+		getThis().getGroupManager().createStudent(group, firstName, lastName, birthDate, getThis());
 	}
     public void deleteModules(final ModuleManager4Public manager, final ModuleAbstractSearchList modules) 
 				throws PersistenceException{
@@ -456,10 +499,6 @@ public class DozentenService extends model.Service implements PersistentDozenten
 				throws PersistenceException{
 		getThis().getGroupManager().endStudyGroup(studyGroup, getThis());
 	}
-    public String getUsername() 
-				throws PersistenceException{
-        return getThis().getParentServer().iterator().next().getUser();
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
 		super.initializeOnCreation();
@@ -471,29 +510,6 @@ public class DozentenService extends model.Service implements PersistentDozenten
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 		super.initializeOnInstantiation();
-		Program.getProgramByName("%").applyToAll(program -> {
-			if(getThis().getProgramManager().getPrograms().findFirst(argument -> argument.equals(program)) == null) {
-				getThis().getProgramManager().getPrograms().add(program);
-			}
-		});
-		ModuleAbstract.getModuleAbstractByName("%").applyToAll(module -> {
-			if(getThis().getModuleManager().getModules().findFirst(argument -> argument.equals(module)) == null) {
-				getThis().getModuleManager().getModules().add(module);
-			}
-		});
-		StudyGroup.getStudyGroupByName("%").applyToAll(group -> {
-			if(getThis().getGroupManager().getGroups().findFirst(argument -> argument.equals(group)) == null) {
-				getThis().getGroupManager().getGroups().add(group);
-			}
-		});
-		ServerSearchList servers = Server.getServerByUser("%");
-		servers.filter(server -> !server.getUser().equals(common.RPCConstantsAndServices.AdministratorName));
-		servers.applyToAll(server -> {
-			Student4Public student = Student.getById(Long.valueOf(server.getUser()));
-			if(getThis().getStudentManager().getStudents().findFirst(argument -> argument.equals(student)) == null) {
-				getThis().getStudentManager().getStudents().add(student);
-			}
-		});
 	}
     public void removeError(final ErrorDisplay4Public error) 
 				throws PersistenceException{
@@ -528,12 +544,22 @@ public class DozentenService extends model.Service implements PersistentDozenten
     }
     public void startStudyGroup(final Program4Public program, final String name) 
 				throws PersistenceException{
-		getThis().getGroupManager().startStudyGroup(program, name, getThis());
+		getThis().getProgramManager().startStudyGroup(program, name, getThis());
 	}
     public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
 				throws PersistenceException{
 		getThis().getGroupManager().swapCPonModuleWithUnits(module, fromUnit, ToUnit, creditPoints, getThis());
 	}
+    public void updateMe() 
+				throws PersistenceException{
+        getThis().getGroupManager().initializeOnInstantiation();
+        getThis().getStudentManager().initializeOnInstantiation();
+        getThis().getProgramManager().initializeOnInstantiation();
+        getThis().getModuleManager().initializeOnInstantiation();
+    }
+    public void updatePLZImplementation() 
+				throws PersistenceException{
+    }
     
     
     // Start of section that contains overridden operations only.

@@ -3,7 +3,7 @@ package persistence;
 
 import model.visitor.*;
 
-public interface Student4Public extends Anything, AbstractPersistentProxi {
+public interface Student4Public extends Anything, SubjInterface, AbstractPersistentProxi {
     
     public String getFirstName() throws PersistenceException ;
     public String getLastName() throws PersistenceException ;
@@ -16,6 +16,10 @@ public interface Student4Public extends Anything, AbstractPersistentProxi {
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends model.UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException;
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
     public StudyGroupSearchList getParentGroup() 
 				throws PersistenceException;

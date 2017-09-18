@@ -69,9 +69,9 @@ public class ModuleGroupSGroup extends model.ModuleAbstractSGroup implements Per
         ModuleGroupSGroup result = this;
         result = new ModuleGroupSGroup(this.moduleCopy, 
                                        this.finished, 
+                                       this.subService, 
                                        this.This, 
                                        this.getId());
-        result.modules = this.modules.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -81,9 +81,9 @@ public class ModuleGroupSGroup extends model.ModuleAbstractSGroup implements Per
     }
     protected ModuleGroupSGroup_ModulesProxi modules;
     
-    public ModuleGroupSGroup(PersistentModuleAbstract moduleCopy,PersistentMyBoolean finished,PersistentModuleAbstractSGroup This,long id) throws PersistenceException {
+    public ModuleGroupSGroup(PersistentModuleAbstract moduleCopy,PersistentMyBoolean finished,SubjInterface subService,PersistentModuleAbstractSGroup This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentModuleAbstract)moduleCopy,(PersistentMyBoolean)finished,(PersistentModuleAbstractSGroup)This,id);
+        super((PersistentModuleAbstract)moduleCopy,(PersistentMyBoolean)finished,(SubjInterface)subService,(PersistentModuleAbstractSGroup)This,id);
         this.modules = new ModuleGroupSGroup_ModulesProxi(this);        
     }
     
@@ -151,6 +151,18 @@ public class ModuleGroupSGroup extends model.ModuleAbstractSGroup implements Per
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleModuleGroupSGroup(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleModuleGroupSGroup(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleModuleGroupSGroup(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleModuleGroupSGroup(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleModuleGroupSGroup(this);
+    }
     public int getLeafInfo() throws PersistenceException{
         if (this.getModules().getLength() > 0) return 1;
         return 0;
@@ -165,12 +177,30 @@ public class ModuleGroupSGroup extends model.ModuleAbstractSGroup implements Per
 			if(((programHierarchySGroupHIERARCHY)iterator0.next()).containsprogramHierarchySGroup(part)) return true; 
 		return false;
     }
+    public synchronized void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentModuleGroupSGroup)This);
 		if(this.isTheSameAs(This)){
 			this.setModuleCopy((PersistentModuleAbstract)final$$Fields.get("moduleCopy"));
 		}
+    }
+    public synchronized void register(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.register(observee);
     }
     public <T> T strategyprogramHierarchySGroup(final programHierarchySGroupHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
@@ -183,6 +213,15 @@ public class ModuleGroupSGroup extends model.ModuleAbstractSGroup implements Per
 		}
 		T result = strategy.ModuleGroupSGroup$$finalize(getThis() ,result$$modules$$ModuleGroupSGroup);
 		return result;
+    }
+    public synchronized void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.updateObservers(event);
     }
     
     

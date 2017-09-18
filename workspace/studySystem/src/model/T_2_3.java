@@ -76,7 +76,8 @@ public class T_2_3 extends model.GradesInThird implements PersistentT_2_3{
     
     public T_2_3 provideCopy() throws PersistenceException{
         T_2_3 result = this;
-        result = new T_2_3(this.This, 
+        result = new T_2_3(this.subService, 
+                           this.This, 
                            this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -86,9 +87,9 @@ public class T_2_3 extends model.GradesInThird implements PersistentT_2_3{
         return false;
     }
     
-    public T_2_3(PersistentGrade This,long id) throws PersistenceException {
+    public T_2_3(SubjInterface subService,PersistentGrade This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentGrade)This,id);        
+        super((SubjInterface)subService,(PersistentGrade)This,id);        
     }
     
     static public long getTypeId() {
@@ -159,16 +160,55 @@ public class T_2_3 extends model.GradesInThird implements PersistentT_2_3{
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleT_2_3(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleT_2_3(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleT_2_3(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleT_2_3(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleT_2_3(this);
+    }
     public int getLeafInfo() throws PersistenceException{
         return 0;
     }
     
     
+    public synchronized void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentT_2_3)This);
 		if(this.isTheSameAs(This)){
 		}
+    }
+    public synchronized void register(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.register(observee);
+    }
+    public synchronized void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.updateObservers(event);
     }
     
     

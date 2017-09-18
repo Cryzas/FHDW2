@@ -4,7 +4,7 @@ package persistence;
 
 import model.visitor.*;
 
-public class DozentenServiceICProxi extends ServiceICProxi implements PersistentDozentenService{
+public class DozentenServiceICProxi extends subAdminServiceICProxi implements PersistentDozentenService{
     
     public DozentenServiceICProxi(long objectId) {
         super(objectId);
@@ -50,16 +50,16 @@ public class DozentenServiceICProxi extends ServiceICProxi implements Persistent
         return ((PersistentDozentenService)this.getTheObject()).getThis();
     }
     
-    public void accept(ServiceVisitor visitor) throws PersistenceException {
+    public void accept(subAdminServiceVisitor visitor) throws PersistenceException {
         visitor.handleDozentenService(this);
     }
-    public <R> R accept(ServiceReturnVisitor<R>  visitor) throws PersistenceException {
+    public <R> R accept(subAdminServiceReturnVisitor<R>  visitor) throws PersistenceException {
          return visitor.handleDozentenService(this);
     }
-    public <E extends model.UserException>  void accept(ServiceExceptionVisitor<E> visitor) throws PersistenceException, E {
+    public <E extends model.UserException>  void accept(subAdminServiceExceptionVisitor<E> visitor) throws PersistenceException, E {
          visitor.handleDozentenService(this);
     }
-    public <R, E extends model.UserException> R accept(ServiceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+    public <R, E extends model.UserException> R accept(subAdminServiceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleDozentenService(this);
     }
     public void accept(InvokerVisitor visitor) throws PersistenceException {
@@ -86,6 +86,18 @@ public class DozentenServiceICProxi extends ServiceICProxi implements Persistent
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleDozentenService(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleDozentenService(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleDozentenService(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleDozentenService(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleDozentenService(this);
+    }
     public void accept(RemoteVisitor visitor) throws PersistenceException {
         visitor.handleDozentenService(this);
     }
@@ -104,6 +116,10 @@ public class DozentenServiceICProxi extends ServiceICProxi implements Persistent
 				throws model.UserException, PersistenceException{
         return ((PersistentDozentenService)this.getTheObject()).ToUnit_Path_In_SwapCPonModuleWithUnits(module);
     }
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentDozentenService)this.getTheObject()).deregister(observee);
+    }
     public String dozentenService_Menu_Filter(final Anything anything) 
 				throws PersistenceException{
         return ((PersistentDozentenService)this.getTheObject()).dozentenService_Menu_Filter(anything);
@@ -111,10 +127,6 @@ public class DozentenServiceICProxi extends ServiceICProxi implements Persistent
     public UnitSGroupSearchList fromUnit_Path_In_SwapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module) 
 				throws model.UserException, PersistenceException{
         return ((PersistentDozentenService)this.getTheObject()).fromUnit_Path_In_SwapCPonModuleWithUnits(module);
-    }
-    public ServerSearchList getParentServer() 
-				throws PersistenceException{
-        return ((PersistentDozentenService)this.getTheObject()).getParentServer();
     }
     public StudyGroupSearchList groups_Path_In_DeleteStudyGroups(final StudyGroupManager4Public manager) 
 				throws model.UserException, PersistenceException{
@@ -152,6 +164,10 @@ public class DozentenServiceICProxi extends ServiceICProxi implements Persistent
 				throws model.UserException, PersistenceException{
         return ((PersistentDozentenService)this.getTheObject()).programs_Path_In_DeletePrograms(manager);
     }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentDozentenService)this.getTheObject()).register(observee);
+    }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
         ((PersistentDozentenService)this.getTheObject()).signalChanged(signal);
@@ -171,6 +187,14 @@ public class DozentenServiceICProxi extends ServiceICProxi implements Persistent
     public UnitSearchList units_Path_In_RemoveUnit(final ModuleWithUnits4Public module) 
 				throws model.UserException, PersistenceException{
         return ((PersistentDozentenService)this.getTheObject()).units_Path_In_RemoveUnit(module);
+    }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentDozentenService)this.getTheObject()).updateObservers(event);
+    }
+    public void updatePLZ() 
+				throws PersistenceException{
+        ((PersistentDozentenService)this.getTheObject()).updatePLZ();
     }
     public void addModuleToGroup(final ModuleGroup4Public group, final ModuleAbstractSearchList modules) 
 				throws PersistenceException{
@@ -256,10 +280,6 @@ public class DozentenServiceICProxi extends ServiceICProxi implements Persistent
 				throws PersistenceException{
         ((PersistentDozentenService)this.getTheObject()).endStudyGroup(studyGroup);
     }
-    public String getUsername() 
-				throws PersistenceException{
-        return ((PersistentDozentenService)this.getTheObject()).getUsername();
-    }
     public void handleException(final Command command, final PersistenceException exception) 
 				throws PersistenceException{
         ((PersistentDozentenService)this.getTheObject()).handleException(command, exception);
@@ -307,6 +327,14 @@ public class DozentenServiceICProxi extends ServiceICProxi implements Persistent
     public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
 				throws PersistenceException{
         ((PersistentDozentenService)this.getTheObject()).swapCPonModuleWithUnits(module, fromUnit, ToUnit, creditPoints);
+    }
+    public void updateMe() 
+				throws PersistenceException{
+        ((PersistentDozentenService)this.getTheObject()).updateMe();
+    }
+    public void updatePLZImplementation() 
+				throws PersistenceException{
+        ((PersistentDozentenService)this.getTheObject()).updatePLZImplementation();
     }
 
     

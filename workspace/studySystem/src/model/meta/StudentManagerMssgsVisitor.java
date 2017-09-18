@@ -5,11 +5,13 @@ public interface StudentManagerMssgsVisitor extends StudentManagerDOWNMssgsVisit
 
 interface StudentManagerDOWNMssgsVisitor  {
 
+    public void handleStudentManagerChangeGradeLectureWithGradeGradesInSimpleOrThirdSUBTYPENameStringMssg(StudentManagerChangeGradeLectureWithGradeGradesInSimpleOrThirdSUBTYPENameStringMssg event) throws persistence.PersistenceException;
     
 }
 
 
 interface StudentManagerUPMssgsVisitor  {
 
+    public void handleStudentManagerChangeGradeLectureWithGradeGradesInSimpleOrThirdSUBTYPENameStringMssg(StudentManagerChangeGradeLectureWithGradeGradesInSimpleOrThirdSUBTYPENameStringMssg event) throws persistence.PersistenceException;
     
 }

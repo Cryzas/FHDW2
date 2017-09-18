@@ -2,7 +2,6 @@
 package model;
 
 import persistence.*;
-import common.Fraction;
 import model.visitor.*;
 
 
@@ -70,9 +69,9 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
     
     public StudyGroupManager provideCopy() throws PersistenceException{
         StudyGroupManager result = this;
-        result = new StudyGroupManager(this.This, 
+        result = new StudyGroupManager(this.subService, 
+                                       this.This, 
                                        this.getId());
-        result.groups = this.groups.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -81,12 +80,14 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
         return false;
     }
     protected StudyGroupManager_GroupsProxi groups;
+    protected SubjInterface subService;
     protected PersistentStudyGroupManager This;
     
-    public StudyGroupManager(PersistentStudyGroupManager This,long id) throws PersistenceException {
+    public StudyGroupManager(SubjInterface subService,PersistentStudyGroupManager This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.groups = new StudyGroupManager_GroupsProxi(this);
+        this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -104,6 +105,10 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
             .newStudyGroupManager(this.getId());
         super.store();
         this.getGroups().store();
+        if(this.getSubService() != null){
+            this.getSubService().store();
+            ConnectionHandler.getTheConnectionHandler().theStudyGroupManagerFacade.subServiceSet(this.getId(), getSubService());
+        }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theStudyGroupManagerFacade.ThisSet(this.getId(), getThis());
@@ -113,6 +118,20 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
     
     public StudyGroupManager_GroupsProxi getGroups() throws PersistenceException {
         return this.groups;
+    }
+    public SubjInterface getSubService() throws PersistenceException {
+        return this.subService;
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.subService)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.subService = (SubjInterface)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theStudyGroupManagerFacade.subServiceSet(this.getId(), newValue);
+        }
     }
     protected void setThis(PersistentStudyGroupManager newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -149,12 +168,75 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleStudyGroupManager(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleStudyGroupManager(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleStudyGroupManager(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleStudyGroupManager(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleStudyGroupManager(this);
+    }
     public int getLeafInfo() throws PersistenceException{
         if (this.getGroups().getLength() > 0) return 1;
         return 0;
     }
     
     
+    public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student) 
+				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
+        model.meta.StudyGroupManagerAddStudentToGroupStudyGroupStudentMssg event = new model.meta.StudyGroupManagerAddStudentToGroupStudyGroupStudentMssg(group, student, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
+    public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
+		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
+		AddStudentToGroupCommand4Public command = model.meta.AddStudentToGroupCommand.createAddStudentToGroupCommand(nw, d1170);
+		command.setGroup(group);
+		command.setStudent(student);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
+				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
+        model.meta.StudyGroupManagerCreateStudentStudyGroupStringStringDateMssg event = new model.meta.StudyGroupManagerCreateStudentStudyGroupStringStringDateMssg(group, firstName, lastName, birthDate, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
+    public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate, final Invoker invoker) 
+				throws PersistenceException{
+        java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
+		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
+		CreateStudentCommand4Public command = model.meta.CreateStudentCommand.createCreateStudentCommand(firstName, lastName, birthDate, nw, d1170);
+		command.setGroup(group);
+		command.setInvoker(invoker);
+		command.setCommandReceiver(getThis());
+		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    }
+    public synchronized void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.deregister(observee);
+    }
+    public void endStudyGroup(final StudyGroup4Public studyGroup) 
+				throws model.AlreadyFinishedException, PersistenceException{
+        model.meta.StudyGroupManagerEndStudyGroupStudyGroupMssg event = new model.meta.StudyGroupManagerEndStudyGroupStudyGroupMssg(studyGroup, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
     public void endStudyGroup(final StudyGroup4Public studyGroup, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
@@ -171,15 +253,21 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
 		if(this.isTheSameAs(This)){
 		}
     }
-    public void startStudyGroup(final Program4Public program, final String name, final Invoker invoker) 
+    public synchronized void register(final ObsInterface observee) 
 				throws PersistenceException{
-        java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
-		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
-		StartStudyGroupCommand4Public command = model.meta.StartStudyGroupCommand.createStartStudyGroupCommand(name, nw, d1170);
-		command.setProgram(program);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.register(observee);
+    }
+    public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
+				throws model.AlreadyFinishedException, model.UnitSwapException, PersistenceException{
+        model.meta.StudyGroupManagerSwapCPonModuleWithUnitsModuleWithUnitsSGroupUnitSGroupUnitSGroupFractionMssg event = new model.meta.StudyGroupManagerSwapCPonModuleWithUnitsModuleWithUnitsSGroupUnitSGroupUnitSGroupFractionMssg(module, fromUnit, ToUnit, creditPoints, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
     }
     public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints, final Invoker invoker) 
 				throws PersistenceException{
@@ -193,15 +281,34 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    public synchronized void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.updateObservers(event);
+    }
     
     
     // Start of section that contains operations that must be implemented.
     
+    public void addStudentToGroupImplementation(final StudyGroup4Public group, final Student4Public student) 
+				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
+       group.addStudent(student);
+       student.setProgram(group.getProgram().copyForStudent());
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         
     }
-    public void endStudyGroup(final StudyGroup4Public studyGroup) 
+    public void createStudentImplementation(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
+				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
+    	Student4Public newStudent = Student.createStudent(firstName, lastName, birthDate);
+    	getThis().addStudentToGroup(group, newStudent);
+    }
+    public void endStudyGroupImplementation(final StudyGroup4Public studyGroup) 
 				throws model.AlreadyFinishedException, PersistenceException{
         studyGroup.endStudyGroup();
     }
@@ -211,48 +318,9 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        
+    	
     }
-    public void startStudyGroup(final Program4Public program, final String name) 
-				throws model.AlreadyExistsInParentException, model.NoFractionValueException, PersistenceException{
-    	if(getThis().getGroups().findFirst(argument -> argument.getName().equals(name)) != null) {
-    		throw new AlreadyExistsInParentException(String.format(GroupAlreadyExistsMessage, name));
-    	}
-    	program.getModules().applyToAllException(module -> {
-    		module.accept(new ModuleAbstractExceptionVisitor<NoFractionValueException>() {
-
-				@Override
-				public void handleModuleAtomar(ModuleAtomar4Public moduleAtomar)
-						throws PersistenceException, NoFractionValueException {
-		    		if(moduleAtomar.getCreditPoints().lessOrEquals(Fraction.Null)) {
-		    			throw new NoFractionValueException(String.format(NoCPMessage, moduleAtomar.getName()));
-		    		}
-				}
-
-				@Override
-				public void handleModuleGroup(ModuleGroup4Public moduleGroup)
-						throws PersistenceException, NoFractionValueException {
-					moduleGroup.getModules().applyToAllException(module2 -> {
-						module2.accept(this);
-					});
-				}
-
-				@Override
-				public void handleModuleWithUnits(ModuleWithUnits4Public moduleWithUnits)
-						throws PersistenceException, NoFractionValueException {
-					moduleWithUnits.getUnits().applyToAllException(unit -> {
-						if(unit.getCreditPoints().lessOrEquals(Fraction.Null)) {
-			    			throw new NoFractionValueException(String.format(NoCPMessage, moduleWithUnits.getName()));
-			    		}
-					});
-				}
-			});
-    	});
-    	StudyGroup4Public toBeAdded = StudyGroup.createStudyGroup(name);
-    	toBeAdded.setProgram(program.copyForStudyGroup());
-    	getThis().getGroups().add(toBeAdded);
-    }
-    public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
+    public void swapCPonModuleWithUnitsImplementation(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
 				throws model.AlreadyFinishedException, model.UnitSwapException, PersistenceException{
     	module.swapCP(fromUnit, ToUnit, creditPoints);
     }
@@ -264,8 +332,7 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
     /* Start of protected part that is not overridden by persistence generator */
     
     
-    static String GroupAlreadyExistsMessage = "Es existiert bereits eine Studiengruppe mit dem Namen %s.";
-    static String NoCPMessage = "Das Modul %s enthält keine Credit-Points.";
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

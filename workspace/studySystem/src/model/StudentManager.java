@@ -71,9 +71,9 @@ public class StudentManager extends PersistentObject implements PersistentStuden
     
     public StudentManager provideCopy() throws PersistenceException{
         StudentManager result = this;
-        result = new StudentManager(this.This, 
+        result = new StudentManager(this.subService, 
+                                    this.This, 
                                     this.getId());
-        result.students = this.students.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -82,12 +82,14 @@ public class StudentManager extends PersistentObject implements PersistentStuden
         return false;
     }
     protected StudentManager_StudentsProxi students;
+    protected SubjInterface subService;
     protected PersistentStudentManager This;
     
-    public StudentManager(PersistentStudentManager This,long id) throws PersistenceException {
+    public StudentManager(SubjInterface subService,PersistentStudentManager This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.students = new StudentManager_StudentsProxi(this);
+        this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -105,6 +107,10 @@ public class StudentManager extends PersistentObject implements PersistentStuden
             .newStudentManager(this.getId());
         super.store();
         this.getStudents().store();
+        if(this.getSubService() != null){
+            this.getSubService().store();
+            ConnectionHandler.getTheConnectionHandler().theStudentManagerFacade.subServiceSet(this.getId(), getSubService());
+        }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theStudentManagerFacade.ThisSet(this.getId(), getThis());
@@ -114,6 +120,20 @@ public class StudentManager extends PersistentObject implements PersistentStuden
     
     public StudentManager_StudentsProxi getStudents() throws PersistenceException {
         return this.students;
+    }
+    public SubjInterface getSubService() throws PersistenceException {
+        return this.subService;
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.subService)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.subService = (SubjInterface)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theStudentManagerFacade.subServiceSet(this.getId(), newValue);
+        }
     }
     protected void setThis(PersistentStudentManager newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
@@ -150,22 +170,30 @@ public class StudentManager extends PersistentObject implements PersistentStuden
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleStudentManager(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleStudentManager(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleStudentManager(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleStudentManager(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleStudentManager(this);
+    }
     public int getLeafInfo() throws PersistenceException{
         if (this.getStudents().getLength() > 0) return 1;
         return 0;
     }
     
     
-    public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
-		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
-		AddStudentToGroupCommand4Public command = model.meta.AddStudentToGroupCommand.createAddStudentToGroupCommand(nw, d1170);
-		command.setGroup(group);
-		command.setStudent(student);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+    public void changeGrade(final LectureWithGrade lecture, final String grade, final String comment) 
+				throws model.AlreadyFinishedException, model.InvalidGradeForSystemException, PersistenceException{
+        model.meta.StudentManagerChangeGradeLectureWithGradeGradesInSimpleOrThirdSUBTYPENameStringMssg event = new model.meta.StudentManagerChangeGradeLectureWithGradeGradesInSimpleOrThirdSUBTYPENameStringMssg(lecture, grade, comment, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
     }
     public void changeGrade(final LectureWithGrade lecture, final String grade, final String comment, final Invoker invoker) 
 				throws PersistenceException{
@@ -177,15 +205,14 @@ public class StudentManager extends PersistentObject implements PersistentStuden
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
-    public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate, final Invoker invoker) 
+    public synchronized void deregister(final ObsInterface observee) 
 				throws PersistenceException{
-        java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
-		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
-		CreateStudentCommand4Public command = model.meta.CreateStudentCommand.createCreateStudentCommand(firstName, lastName, birthDate, nw, d1170);
-		command.setGroup(group);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.deregister(observee);
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -193,32 +220,29 @@ public class StudentManager extends PersistentObject implements PersistentStuden
 		if(this.isTheSameAs(This)){
 		}
     }
+    public synchronized void register(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.register(observee);
+    }
+    public synchronized void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.updateObservers(event);
+    }
     
     
     // Start of section that contains operations that must be implemented.
     
-    public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student) 
-				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
-    	student.getProgram().accept(new ProgramStudentExceptionVisitor<AlreadyExistsInParentException>() {
-
-			@Override
-			public void handleNoProgram(NoProgram4Public noProgram)
-					throws PersistenceException, AlreadyExistsInParentException {
-			}
-
-			@Override
-			public void handleProgramStudent(ProgramStudent4Public programStudent)
-					throws PersistenceException, AlreadyExistsInParentException {
-	    		throw new AlreadyExistsInParentException(String.format(studentHasProgramMessage, student.getFirstName(), student.getLastName(), student.getParentGroup().iterator().next().getName()));
-			}
-		});
-    	if(group.getFinished().toBoolean()) {
-    		throw new AlreadyFinishedException(String.format(GroupFinishedMessage,group.getName()));
-    	}
-    	student.setProgram(group.getProgram().copyForStudent());
-    	group.addStudent(student);
-    }
-    public void changeGrade(final LectureWithGrade lecture, final String grade, final String comment) 
+    public void changeGradeImplementation(final LectureWithGrade lecture, final String grade, final String comment) 
 				throws model.AlreadyFinishedException, model.InvalidGradeForSystemException, PersistenceException{
     	GradesInSimpleOrThird4Public newGrade = StringFACTORY.createObjectBySubTypeNameForGradesInSimpleOrThird(grade);
     	lecture.changeGrade(newGrade, comment);
@@ -227,19 +251,13 @@ public class StudentManager extends PersistentObject implements PersistentStuden
 				throws PersistenceException{
         
     }
-    public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
-				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
-    	Student4Public newStudent = Student.createStudent(firstName, lastName, birthDate);
-    	getThis().addStudentToGroup(group, newStudent);
-        getThis().getStudents().add(newStudent);
-    }
     public void initializeOnCreation() 
 				throws PersistenceException{
         
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
-        
+		
     }
     
     

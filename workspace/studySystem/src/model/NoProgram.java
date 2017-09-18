@@ -73,9 +73,9 @@ public class NoProgram extends model.ProgramStudent implements PersistentNoProgr
     public NoProgram provideCopy() throws PersistenceException{
         NoProgram result = this;
         result = new NoProgram(this.programCopy, 
+                               this.subService, 
                                this.This, 
                                this.getId());
-        result.modules = this.modules.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -84,9 +84,9 @@ public class NoProgram extends model.ProgramStudent implements PersistentNoProgr
         return false;
     }
     
-    public NoProgram(PersistentProgramSGroup programCopy,PersistentProgramStudent This,long id) throws PersistenceException {
+    public NoProgram(PersistentProgramSGroup programCopy,SubjInterface subService,PersistentProgramStudent This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentProgramSGroup)programCopy,(PersistentProgramStudent)This,id);        
+        super((PersistentProgramSGroup)programCopy,(SubjInterface)subService,(PersistentProgramStudent)This,id);        
     }
     
     static public long getTypeId() {
@@ -143,6 +143,18 @@ public class NoProgram extends model.ProgramStudent implements PersistentNoProgr
          visitor.handleNoProgram(this);
     }
     public <R, E extends model.UserException> R accept(programHierarchyStudentHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleNoProgram(this);
+    }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleNoProgram(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleNoProgram(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleNoProgram(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleNoProgram(this);
     }
     public int getLeafInfo() throws PersistenceException{

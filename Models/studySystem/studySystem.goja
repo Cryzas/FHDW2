@@ -1,20 +1,32 @@
 model studySystem {
 
 server Server {
-	public skip-view symmetric ( no-view parentServer) Service service;
+	public-write skip-view symmetric ( no-view parentServer) Service service;
 }
 
 abstract server Service {
 	public abstract derived no-view String username;
 }
 
-server DozentenService extends Service {
+server AdminService extends Service {
+	public observe subAdminService ** services;
+}
+
+abstract server subAdminService {
+	public prior no-view AdminService parentService;
+	
+	/* Fehler aus dem Error-Screen entfernen */
+	abstract void removeError @@ Error_entfernen (ErrorDisplay error);
+
+	abstract void updateMe @@ Aktualisieren();
+	abstract event no-view void updatePLZ();
+}
+
+server DozentenService extends subAdminService {
 	public ProgramManager programManager;
 	public ModuleManager moduleManager;
 	public StudyGroupManager groupManager;
 	public StudentManager studentManager;
-	/* Fehler aus dem Error-Screen entfernen */
-	void removeError @@ Error_entfernen (ErrorDisplay error);
  
 	/* Funktionen zum Löschen der Unterobjekte der Manager */
 	void deletePrograms @@ Programme_löschen (ProgramManager manager, Program ** programs @@ Programme {;manager;programs});
@@ -47,49 +59,104 @@ server DozentenService extends Service {
 	void endStudyGroup @@ Studiengruppe_abschließen (StudyGroup studyGroup);
 }
 
+server UserManagerService extends subAdminService {
+	public sorted-view leaf-view Server ** users;
+	void createAdminUser @@ Admin-User_erstellen ( String name @@ Benutzername, String pw @@ Initialpasswort);
+}
+
+server ProgramModuleService ## PMService extends subAdminService {
+	public observe ProgramManager programManager;
+	public observe ModuleManager moduleManager;
+
+	/* Funktionen zum Löschen der Unterobjekte der Manager */
+	void deletePrograms @@ Programme_löschen (ProgramManager manager, Program ** programs @@ Programme {;manager;programs});
+	void deleteModules @@ Module_löschen (ModuleManager manager, ModuleAbstract ** modules @@ Module {;manager;modules});
+
+	/* Funktionen zum Entfernen von Objekten aus dem Parent */
+	void removeModuleFromProg @@ Module_entfernen (Program program, ModuleAbstract ** modules @@ Module {;program;modules}); 
+	void removeModuleFromGroup @@ Module_entfernen (ModuleGroup group, ModuleAbstract ** modules @@ Module {;group;modules});
+	void removeUnit @@ Units_entfernen (ModuleWithUnits module, Unit ** units @@ Units {;module;units});
+
+	/* Kommentare siehe Manager-Klassen | Service ruft Methoden der Managerklassen auf */
+	void createProgram @@ Programm_erstellen (String name @@ Name);
+	void addModuleToProg @@ Module_hinzufügen (Program program, ModuleAbstract ** modules @@ Module {moduleManager;modules});
+	void addModuleToGroup @@ Module_hinzufügen (ModuleGroup group, ModuleAbstract ** modules @@ Module {moduleManager;modules});
+	void createModule @@ Modul_erstellen (ModuleAbstractSUBTYPEName type @@ Typ, String name @@ Name);
+	void addUnit @@ Unit_hinzufügen (ModuleWithUnits module, String name @@ Name, Fraction creditPoints @@ Credit_Points);
+	void changeCPOnUnit @@ CP_ändern (Unit unit, Fraction creditPoints @@ Credit_Points);
+	void changeCPOnModule @@ CP_ändern (ModuleAtomar module, Fraction creditPoints @@ Credit_Points);
+	void startStudyGroup @@ Studiengruppe_eröffnen (Program program, String name @@ Name);
+	void changeGradeSystem @@ Notensystem_ändern (ModuleAtomar module);
+
+
+}
+
+server StudyGroupService extends subAdminService {
+	public skip-view observe StudyGroupManager groupManager;
+	no-view derived Student ** students;
+	void swapCPonModuleWithUnits @@ CP_Gewichtung_ändern (ModuleWithUnitsSGroup module, UnitSGroup fromUnit @@ Von_Unit{;module;units}, UnitSGroup ToUnit @@ Zu_Unit{;module;units}, Fraction creditPoints @@ Credit_Points);
+	void endStudyGroup @@ Studiengruppe_abschließen (StudyGroup studyGroup);
+	void addStudentToGroup @@ Studenten_hinzufügen (StudyGroup group, Student ** students @@ Studenten {students});
+	void createStudent @@ Student_erstellen (StudyGroup group, String firstName @@ Vorname, String lastName @@ Nachname, Date birthDate @@ Geburtsdatum);
+	void removeStudentFromGroup @@ Studenten_entfernen (StudyGroup group, Student ** students @@ Studenten {;group;students});
+	void deleteStudyGroups @@ Studiengruppen_löschen (StudyGroupManager manager, StudyGroup ** groups @@ Studiengruppen {;manager;groups});
+
+}
+
+server StudentManageService ## StuMService extends subAdminService {
+	public skip-view observe StudentManager studentManager;
+
+	void changeGradeOfUnit @@ Note_ändern (UnitStudent unit, GradesInThirdSUBTYPEName grade @@ Note, String comment @@ Kommentar);
+	void changeGradeOfModule @@ Note_ändern (ModuleAtomarStudent module, GradesInSimpleOrThirdSUBTYPEName grade @@ Note, String comment @@ Kommentar);
+	void changeGradeforStudent @@ Note_eintragen (Student student, LectureWithGrade lecture @@ Vorlesung{;student;program;modules}, GradesInSimpleOrThirdSUBTYPEName grade @@ Grade, String comment @@ Kommentar);
+	void deleteStudents @@ Studenten_löschen (StudentManager manager, Student ** students @@ Studenten {;manager;students}); 
+}
+
 																									/* Manager Klassen */
-class ProgramManager {
+active class ProgramManager {
 	public Program ** programs;
 /* Programm erstellen | Exception wenn schon Modul oder Programm mit selben Namen existiert */
-	active void createProgram(String name) throws AlreadyExistsInParentException;
+	event void createProgram(String name) throws AlreadyExistsInParentException;
 /* Modul zum jeweiligen Programm hinzufügen | Exception wenn Modul schon in Programm ist */
-	active void addModuleToProg(Program program, ModuleAbstract module) throws CycleException, AlreadyExistsInParentException;
+	event void addModuleToProg(Program program, ModuleAbstract module) throws CycleException, AlreadyExistsInParentException;
+/* Neue Studiengruppe eröffnen | Exception wenn schon eine Studiengruppe mit dem Namen existiert */
+	event void startStudyGroup(Program program, String name) throws AlreadyExistsInParentException, NoFractionValueException;	
+
 }
 
-class ModuleManager {
+active class ModuleManager {
 	public ModuleAbstract ** modules;
 /* Modul erstellen mit Typ "type" | Exception wenn schon Modul oder Programm mit selben Namen existiert */
-	active void createModule(ModuleAbstractSUBTYPEName type, String name) throws AlreadyExistsInParentException;
+	event void createModule(ModuleAbstractSUBTYPEName type, String name) throws AlreadyExistsInParentException;
 /* Modul zur jeweiligen Gruppe hinzufügen | Exception wenn Modul schon in der Gruppe ist */
-	active void addModuleToGroup(ModuleGroup group, ModuleAbstract module) throws CycleException, AlreadyExistsInParentException;
+	event void addModuleToGroup(ModuleGroup group, ModuleAbstract module) throws CycleException, AlreadyExistsInParentException;
 /* Unit zu ModulMitUnits hinzufügen | Exception wenn eine Unit mit selben Namen in dem Modul bereits existiert */
-	active void addUnit(ModuleWithUnits module, String name, Fraction creditPoints) throws CycleException, AlreadyExistsInParentException;
+	event void addUnit(ModuleWithUnits module, String name, Fraction creditPoints) throws CycleException, AlreadyExistsInParentException;
 /* Menge der erreichbaren creditPoints der Unit ändern */
-	active void changeCPOnUnit(Unit unit, Fraction creditPoints);
+	event void changeCPOnUnit(Unit unit, Fraction creditPoints);
 /* Menge der erreichbaren creditpoints des Moduls ändern */
-	active void changeCPOnModule(ModuleAtomar module, Fraction creditPoints);
+	event void changeCPOnModule(ModuleAtomar module, Fraction creditPoints);
 /* Gewähltes Notensystem eines atomaren Moduls ändern [1,0/1,3/...] <-> [Bestanden,NichtBestanden] */
-	active void changeGradeSystem (ModuleAtomar module);
+	event void changeGradeSystem (ModuleAtomar module);
 }
 
-class StudyGroupManager {
+active class StudyGroupManager {
 	public StudyGroup ** groups;
-/* Neue Studiengruppe eröffnen | Exception wenn schon eine Studiengruppe mit dem Namen existiert */
-	active void startStudyGroup(Program program, String name) throws AlreadyExistsInParentException, NoFractionValueException;	
 /* CreditPoints der einzelnen Units ändern, ohne die Gesamtmenge der CPs für das Modul zu verändern | Exception wenn CP <= 0 seien würden */
-	active void swapCPonModuleWithUnits ## sCPonMWU(ModuleWithUnitsSGroup module, UnitSGroup fromUnit, UnitSGroup ToUnit, Fraction creditPoints) throws UnitSwapException,AlreadyFinishedException;
+	event void swapCPonModuleWithUnits ## sCPonMWU(ModuleWithUnitsSGroup module, UnitSGroup fromUnit, UnitSGroup ToUnit, Fraction creditPoints) throws UnitSwapException,AlreadyFinishedException;
+/* Studenten zu Studiengruppe hinzufügen | Exception wenn er schon drin ist */
+ 	event void addStudentToGroup ## add_S2G (StudyGroup group, Student student) throws CycleException, AlreadyExistsInParentException, AlreadyFinishedException;
 /* Beendet die Studiengruppe, Noten können nicht mehr verändert werden | Exception wenn Studiengruppe schon beendet ist*/
-	active void endStudyGroup (StudyGroup studyGroup) throws AlreadyFinishedException;
+	event void endStudyGroup (StudyGroup studyGroup) throws AlreadyFinishedException;
+/* Anlegen eines neuen Studenten zu einer Studiengruppe */
+	event void createStudent (StudyGroup group, String firstName, String lastName, Date birthDate) throws CycleException, AlreadyExistsInParentException, AlreadyFinishedException;
+
 }
 
-class StudentManager {
+active class StudentManager {
 	public Student ** students;
-/* Anlegen eines neuen Studenten zu einer Studiengruppe */
-	active void createStudent (StudyGroup group, String firstName, String lastName, Date birthDate) throws CycleException, AlreadyExistsInParentException, AlreadyFinishedException;
-/* Studenten zu Studiengruppe hinzufügen | Exception wenn er schon drin ist */
-	active void addStudentToGroup ## add_S2G (StudyGroup group, Student student) throws CycleException, AlreadyExistsInParentException, AlreadyFinishedException;
 /* Note ändern und alte Note in Historie vermerken | Exception wenn Note aus falschem Notensystem gewählt wird */
-	active void changeGrade(LectureWithGrade lecture, GradesInSimpleOrThirdSUBTYPEName grade, String comment) throws InvalidGradeForSystemException, AlreadyFinishedException;
+	event void changeGrade(LectureWithGrade lecture, GradesInSimpleOrThirdSUBTYPEName grade, String comment) throws InvalidGradeForSystemException, AlreadyFinishedException;
 }
 
 																			/* Aufbau eines Studienprogramms */

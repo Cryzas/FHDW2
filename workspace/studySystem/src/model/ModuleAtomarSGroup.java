@@ -78,6 +78,7 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
         ModuleAtomarSGroup result = this;
         result = new ModuleAtomarSGroup(this.moduleCopy, 
                                         this.finished, 
+                                        this.subService, 
                                         this.This, 
                                         this.ownCreditPoints, 
                                         this.gradeSystem, 
@@ -92,9 +93,9 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
     protected common.Fraction ownCreditPoints;
     protected PersistentGradeSystem gradeSystem;
     
-    public ModuleAtomarSGroup(PersistentModuleAbstract moduleCopy,PersistentMyBoolean finished,PersistentModuleAbstractSGroup This,common.Fraction ownCreditPoints,PersistentGradeSystem gradeSystem,long id) throws PersistenceException {
+    public ModuleAtomarSGroup(PersistentModuleAbstract moduleCopy,PersistentMyBoolean finished,SubjInterface subService,PersistentModuleAbstractSGroup This,common.Fraction ownCreditPoints,PersistentGradeSystem gradeSystem,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentModuleAbstract)moduleCopy,(PersistentMyBoolean)finished,(PersistentModuleAbstractSGroup)This,id);
+        super((PersistentModuleAbstract)moduleCopy,(PersistentMyBoolean)finished,(SubjInterface)subService,(PersistentModuleAbstractSGroup)This,id);
         this.ownCreditPoints = ownCreditPoints;
         this.gradeSystem = gradeSystem;        
     }
@@ -184,6 +185,18 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleModuleAtomarSGroup(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleModuleAtomarSGroup(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleModuleAtomarSGroup(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleModuleAtomarSGroup(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleModuleAtomarSGroup(this);
+    }
     public int getLeafInfo() throws PersistenceException{
         return 0;
     }
@@ -194,6 +207,15 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
         if(getThis().equals(part)) return true;
 		return false;
     }
+    public synchronized void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentModuleAtomarSGroup)This);
@@ -203,10 +225,28 @@ public class ModuleAtomarSGroup extends model.ModuleAbstractSGroup implements Pe
 			this.setGradeSystem((PersistentGradeSystem)final$$Fields.get("gradeSystem"));
 		}
     }
+    public synchronized void register(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.register(observee);
+    }
     public <T> T strategyprogramHierarchySGroup(final programHierarchySGroupHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         T result = strategy.ModuleAtomarSGroup$$finalize(getThis() );
 		return result;
+    }
+    public synchronized void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.updateObservers(event);
     }
     
     

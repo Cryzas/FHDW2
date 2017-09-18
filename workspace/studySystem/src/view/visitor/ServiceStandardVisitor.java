@@ -5,8 +5,8 @@ import view.*;
 
 public abstract class ServiceStandardVisitor implements ServiceVisitor {
     
-    public void handleDozentenService(DozentenServiceView dozentenService) throws ModelException{
-        this.standardHandling(dozentenService);
+    public void handleAdminService(AdminServiceView adminService) throws ModelException{
+        this.standardHandling(adminService);
     }
     public void handleStudentService(StudentServiceView studentService) throws ModelException{
         this.standardHandling(studentService);

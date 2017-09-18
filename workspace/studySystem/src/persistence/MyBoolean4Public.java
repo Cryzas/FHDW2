@@ -3,7 +3,7 @@ package persistence;
 
 import model.visitor.*;
 
-public interface MyBoolean4Public extends Anything, AbstractPersistentProxi {
+public interface MyBoolean4Public extends Anything, SubjInterface, AbstractPersistentProxi {
     
     
     public void accept(MyBooleanVisitor visitor) throws PersistenceException;

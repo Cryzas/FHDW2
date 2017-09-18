@@ -4,5 +4,5 @@ public interface DozentenServiceMssgs {
     void accept(DozentenServiceMssgsVisitor visitor) throws persistence.PersistenceException;
 }
 
-interface DozentenServiceDOWNMssgs extends ServiceDOWNMssgs, DozentenServiceMssgs{}
+interface DozentenServiceDOWNMssgs extends subAdminServiceDOWNMssgs, DozentenServiceMssgs{}
 interface DozentenServiceUPMssgs extends Mssgs, DozentenServiceMssgs{}

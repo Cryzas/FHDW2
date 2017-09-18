@@ -30,9 +30,9 @@ public abstract class GradesInThird extends model.GradesInSimpleOrThird implemen
         return false;
     }
     
-    public GradesInThird(PersistentGrade This,long id) throws PersistenceException {
+    public GradesInThird(SubjInterface subService,PersistentGrade This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentGrade)This,id);        
+        super((SubjInterface)subService,(PersistentGrade)This,id);        
     }
     
     static public long getTypeId() {

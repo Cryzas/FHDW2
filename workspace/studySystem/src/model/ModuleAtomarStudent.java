@@ -75,10 +75,10 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
     public ModuleAtomarStudent provideCopy() throws PersistenceException{
         ModuleAtomarStudent result = this;
         result = new ModuleAtomarStudent(this.moduleCopy, 
+                                         this.subService, 
                                          this.This, 
                                          this.ownGrade, 
                                          this.getId());
-        result.changes = this.changes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -89,9 +89,9 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
     protected PersistentGradesInSimpleOrThird ownGrade;
     protected ModuleAtomarStudent_ChangesProxi changes;
     
-    public ModuleAtomarStudent(PersistentModuleAbstractSGroup moduleCopy,PersistentModuleAbstractStudent This,PersistentGradesInSimpleOrThird ownGrade,long id) throws PersistenceException {
+    public ModuleAtomarStudent(PersistentModuleAbstractSGroup moduleCopy,SubjInterface subService,PersistentModuleAbstractStudent This,PersistentGradesInSimpleOrThird ownGrade,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentModuleAbstractSGroup)moduleCopy,(PersistentModuleAbstractStudent)This,id);
+        super((PersistentModuleAbstractSGroup)moduleCopy,(SubjInterface)subService,(PersistentModuleAbstractStudent)This,id);
         this.ownGrade = ownGrade;
         this.changes = new ModuleAtomarStudent_ChangesProxi(this);        
     }
@@ -178,6 +178,18 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
     public <R, E extends model.UserException> R accept(programHierarchyStudentHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleModuleAtomarStudent(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleModuleAtomarStudent(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleModuleAtomarStudent(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleModuleAtomarStudent(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleModuleAtomarStudent(this);
+    }
     public void accept(LectureWithGradeVisitor visitor) throws PersistenceException {
         visitor.handleModuleAtomarStudent(this);
     }
@@ -201,6 +213,15 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
         if(getThis().equals(part)) return true;
 		return false;
     }
+    public synchronized void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentModuleAtomarStudent)This);
@@ -208,10 +229,28 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
 			this.setModuleCopy((PersistentModuleAbstractSGroup)final$$Fields.get("moduleCopy"));
 		}
     }
+    public synchronized void register(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.register(observee);
+    }
     public <T> T strategyprogramHierarchyStudent(final programHierarchyStudentHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         T result = strategy.ModuleAtomarStudent$$finalize(getThis() );
 		return result;
+    }
+    public synchronized void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.updateObservers(event);
     }
     
     

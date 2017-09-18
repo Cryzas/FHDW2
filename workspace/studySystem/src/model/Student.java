@@ -96,9 +96,9 @@ public class Student extends PersistentObject implements PersistentStudent{
                              this.lastName, 
                              this.birthDate, 
                              this.program, 
+                             this.subService, 
                              this.This, 
                              this.getId());
-        result.oldPrograms = this.oldPrograms.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -111,9 +111,10 @@ public class Student extends PersistentObject implements PersistentStudent{
     protected java.sql.Date birthDate;
     protected PersistentProgramStudent program;
     protected Student_OldProgramsProxi oldPrograms;
+    protected SubjInterface subService;
     protected PersistentStudent This;
     
-    public Student(String firstName,String lastName,java.sql.Date birthDate,PersistentProgramStudent program,PersistentStudent This,long id) throws PersistenceException {
+    public Student(String firstName,String lastName,java.sql.Date birthDate,PersistentProgramStudent program,SubjInterface subService,PersistentStudent This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.firstName = firstName;
@@ -121,6 +122,7 @@ public class Student extends PersistentObject implements PersistentStudent{
         this.birthDate = birthDate;
         this.program = program;
         this.oldPrograms = new Student_OldProgramsProxi(this);
+        this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -142,6 +144,10 @@ public class Student extends PersistentObject implements PersistentStudent{
             ConnectionHandler.getTheConnectionHandler().theStudentFacade.programSet(this.getId(), getProgram());
         }
         this.getOldPrograms().store();
+        if(this.getSubService() != null){
+            this.getSubService().store();
+            ConnectionHandler.getTheConnectionHandler().theStudentFacade.subServiceSet(this.getId(), getSubService());
+        }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theStudentFacade.ThisSet(this.getId(), getThis());
@@ -189,6 +195,20 @@ public class Student extends PersistentObject implements PersistentStudent{
     public Student_OldProgramsProxi getOldPrograms() throws PersistenceException {
         return this.oldPrograms;
     }
+    public SubjInterface getSubService() throws PersistenceException {
+        return this.subService;
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.subService)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.subService = (SubjInterface)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theStudentFacade.subServiceSet(this.getId(), newValue);
+        }
+    }
     protected void setThis(PersistentStudent newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if (newValue.isTheSameAs(this)){
@@ -224,6 +244,18 @@ public class Student extends PersistentObject implements PersistentStudent{
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleStudent(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleStudent(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleStudent(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleStudent(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleStudent(this);
+    }
     public int getLeafInfo() throws PersistenceException{
         if (this.getProgram() != null) return 1;
         if (this.getOldPrograms().getLength() > 0) return 1;
@@ -231,6 +263,15 @@ public class Student extends PersistentObject implements PersistentStudent{
     }
     
     
+    public synchronized void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.deregister(observee);
+    }
     public StudyGroupSearchList getParentGroup() 
 				throws PersistenceException{
         StudyGroupSearchList result = null;
@@ -246,6 +287,24 @@ public class Student extends PersistentObject implements PersistentStudent{
 			this.setLastName((String)final$$Fields.get("lastName"));
 			this.setBirthDate((java.sql.Date)final$$Fields.get("birthDate"));
 		}
+    }
+    public synchronized void register(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.register(observee);
+    }
+    public synchronized void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.updateObservers(event);
     }
     
     

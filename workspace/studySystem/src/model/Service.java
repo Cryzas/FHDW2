@@ -41,12 +41,14 @@ public abstract class Service extends PersistentObject implements PersistentServ
     protected model.UserException userException = null;
     protected boolean changed = false;
     
+    protected SubjInterface subService;
     protected PersistentService This;
     protected Service_ErrorsProxi errors;
     
-    public Service(PersistentService This,long id) throws PersistenceException {
+    public Service(SubjInterface subService,PersistentService This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
+        this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;
         this.errors = new Service_ErrorsProxi(this);        
     }
@@ -62,6 +64,10 @@ public abstract class Service extends PersistentObject implements PersistentServ
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         super.store();
+        if(this.getSubService() != null){
+            this.getSubService().store();
+            ConnectionHandler.getTheConnectionHandler().theServiceFacade.subServiceSet(this.getId(), getSubService());
+        }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theServiceFacade.ThisSet(this.getId(), getThis());
@@ -69,6 +75,20 @@ public abstract class Service extends PersistentObject implements PersistentServ
         
     }
     
+    public SubjInterface getSubService() throws PersistenceException {
+        return this.subService;
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.subService)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.subService = (SubjInterface)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theServiceFacade.subServiceSet(this.getId(), newValue);
+        }
+    }
     protected void setThis(PersistentService newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if (newValue.isTheSameAs(this)){

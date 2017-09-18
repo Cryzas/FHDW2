@@ -71,6 +71,18 @@ public class ModuleAtomarStudentICProxi extends ModuleAbstractStudentICProxi imp
     public <R, E extends model.UserException> R accept(programHierarchyStudentHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleModuleAtomarStudent(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleModuleAtomarStudent(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleModuleAtomarStudent(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleModuleAtomarStudent(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleModuleAtomarStudent(this);
+    }
     public void accept(LectureWithGradeVisitor visitor) throws PersistenceException {
         visitor.handleModuleAtomarStudent(this);
     }
@@ -89,13 +101,25 @@ public class ModuleAtomarStudentICProxi extends ModuleAbstractStudentICProxi imp
 				throws PersistenceException{
         return ((PersistentModuleAtomarStudent)this.getTheObject()).containsprogramHierarchyStudent(part);
     }
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentModuleAtomarStudent)this.getTheObject()).deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentModuleAtomarStudent)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentModuleAtomarStudent)this.getTheObject()).register(observee);
+    }
     public <T> T strategyprogramHierarchyStudent(final programHierarchyStudentHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         return ((PersistentModuleAtomarStudent)this.getTheObject()).strategyprogramHierarchyStudent(strategy);
+    }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentModuleAtomarStudent)this.getTheObject()).updateObservers(event);
     }
     public void changeGrade(final Grade4Public grade, final String comment) 
 				throws model.AlreadyFinishedException, model.InvalidGradeForSystemException, PersistenceException{

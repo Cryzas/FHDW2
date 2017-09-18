@@ -34,11 +34,13 @@ public abstract class GradeSystem extends PersistentObject implements Persistent
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
+    protected SubjInterface subService;
     protected PersistentGradeSystem This;
     
-    public GradeSystem(PersistentGradeSystem This,long id) throws PersistenceException {
+    public GradeSystem(SubjInterface subService,PersistentGradeSystem This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
+        this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -53,6 +55,10 @@ public abstract class GradeSystem extends PersistentObject implements Persistent
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
         super.store();
+        if(this.getSubService() != null){
+            this.getSubService().store();
+            ConnectionHandler.getTheConnectionHandler().theGradeSystemFacade.subServiceSet(this.getId(), getSubService());
+        }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
             ConnectionHandler.getTheConnectionHandler().theGradeSystemFacade.ThisSet(this.getId(), getThis());
@@ -60,6 +66,20 @@ public abstract class GradeSystem extends PersistentObject implements Persistent
         
     }
     
+    public SubjInterface getSubService() throws PersistenceException {
+        return this.subService;
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.subService)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.subService = (SubjInterface)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theGradeSystemFacade.subServiceSet(this.getId(), newValue);
+        }
+    }
     protected void setThis(PersistentGradeSystem newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if (newValue.isTheSameAs(this)){

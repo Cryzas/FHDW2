@@ -28,6 +28,12 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void setService(Service4Public newValue) throws PersistenceException {
         ((PersistentServer)this.getTheObject()).setService(newValue);
     }
+    public SubjInterface getSubService() throws PersistenceException {
+        return ((PersistentServer)this.getTheObject()).getSubService();
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        ((PersistentServer)this.getTheObject()).setSubService(newValue);
+    }
     public Server_ErrorsProxi getErrors() throws PersistenceException {
         return ((PersistentServer)this.getTheObject()).getErrors();
     }
@@ -83,6 +89,18 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleServer(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleServer(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleServer(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleServer(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleServer(this);
+    }
     public void accept(RemoteVisitor visitor) throws PersistenceException {
         visitor.handleServer(this);
     }
@@ -97,9 +115,17 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     }
     
     
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initialize(This, final$$Fields);
+    }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).register(observee);
     }
     public String server_Menu_Filter(final Anything anything) 
 				throws PersistenceException{
@@ -108,6 +134,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).signalChanged(signal);
+    }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).updateObservers(event);
     }
     public void connected(final String user) 
 				throws PersistenceException{

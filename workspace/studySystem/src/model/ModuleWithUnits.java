@@ -68,9 +68,9 @@ public class ModuleWithUnits extends model.ModuleAbstract implements PersistentM
     public ModuleWithUnits provideCopy() throws PersistenceException{
         ModuleWithUnits result = this;
         result = new ModuleWithUnits(this.name, 
+                                     this.subService, 
                                      this.This, 
                                      this.getId());
-        result.units = this.units.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -80,9 +80,9 @@ public class ModuleWithUnits extends model.ModuleAbstract implements PersistentM
     }
     protected ModuleWithUnits_UnitsProxi units;
     
-    public ModuleWithUnits(String name,PersistentModuleAbstract This,long id) throws PersistenceException {
+    public ModuleWithUnits(String name,SubjInterface subService,PersistentModuleAbstract This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((String)name,(PersistentModuleAbstract)This,id);
+        super((String)name,(SubjInterface)subService,(PersistentModuleAbstract)This,id);
         this.units = new ModuleWithUnits_UnitsProxi(this);        
     }
     
@@ -150,6 +150,18 @@ public class ModuleWithUnits extends model.ModuleAbstract implements PersistentM
     public <R, E extends model.UserException> R accept(programHierarchyHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleModuleWithUnits(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleModuleWithUnits(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleModuleWithUnits(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleModuleWithUnits(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleModuleWithUnits(this);
+    }
     public int getLeafInfo() throws PersistenceException{
         if (this.getUnits().getLength() > 0) return 1;
         return 0;
@@ -164,12 +176,30 @@ public class ModuleWithUnits extends model.ModuleAbstract implements PersistentM
 			if(((programHierarchyHIERARCHY)iterator0.next()).containsprogramHierarchy(part)) return true; 
 		return false;
     }
+    public synchronized void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentModuleWithUnits)This);
 		if(this.isTheSameAs(This)){
 			this.setName((String)final$$Fields.get("name"));
 		}
+    }
+    public synchronized void register(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.register(observee);
     }
     public <T> T strategyprogramHierarchy(final programHierarchyHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
@@ -182,6 +212,15 @@ public class ModuleWithUnits extends model.ModuleAbstract implements PersistentM
 		}
 		T result = strategy.ModuleWithUnits$$finalize(getThis() ,result$$units$$ModuleWithUnits);
 		return result;
+    }
+    public synchronized void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.updateObservers(event);
     }
     
     

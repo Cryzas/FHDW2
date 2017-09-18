@@ -62,6 +62,18 @@ public class StudentServiceICProxi extends ServiceICProxi implements PersistentS
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleStudentService(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleStudentService(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleStudentService(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleStudentService(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleStudentService(this);
+    }
     public void accept(RemoteVisitor visitor) throws PersistenceException {
         visitor.handleStudentService(this);
     }
@@ -76,6 +88,10 @@ public class StudentServiceICProxi extends ServiceICProxi implements PersistentS
     }
     
     
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentStudentService)this.getTheObject()).deregister(observee);
+    }
     public ServerSearchList getParentServer() 
 				throws PersistenceException{
         return ((PersistentStudentService)this.getTheObject()).getParentServer();
@@ -84,6 +100,10 @@ public class StudentServiceICProxi extends ServiceICProxi implements PersistentS
 				throws PersistenceException{
         ((PersistentStudentService)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentStudentService)this.getTheObject()).register(observee);
+    }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
         ((PersistentStudentService)this.getTheObject()).signalChanged(signal);
@@ -91,6 +111,10 @@ public class StudentServiceICProxi extends ServiceICProxi implements PersistentS
     public String studentService_Menu_Filter(final Anything anything) 
 				throws PersistenceException{
         return ((PersistentStudentService)this.getTheObject()).studentService_Menu_Filter(anything);
+    }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentStudentService)this.getTheObject()).updateObservers(event);
     }
     public void connected(final String user) 
 				throws PersistenceException{

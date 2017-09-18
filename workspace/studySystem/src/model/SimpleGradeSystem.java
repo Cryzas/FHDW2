@@ -72,7 +72,8 @@ public class SimpleGradeSystem extends model.GradeSystem implements PersistentSi
     
     public SimpleGradeSystem provideCopy() throws PersistenceException{
         SimpleGradeSystem result = this;
-        result = new SimpleGradeSystem(this.This, 
+        result = new SimpleGradeSystem(this.subService, 
+                                       this.This, 
                                        this.getId());
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -82,9 +83,9 @@ public class SimpleGradeSystem extends model.GradeSystem implements PersistentSi
         return false;
     }
     
-    public SimpleGradeSystem(PersistentGradeSystem This,long id) throws PersistenceException {
+    public SimpleGradeSystem(SubjInterface subService,PersistentGradeSystem This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentGradeSystem)This,id);        
+        super((SubjInterface)subService,(PersistentGradeSystem)This,id);        
     }
     
     static public long getTypeId() {
@@ -131,16 +132,55 @@ public class SimpleGradeSystem extends model.GradeSystem implements PersistentSi
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleSimpleGradeSystem(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleSimpleGradeSystem(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleSimpleGradeSystem(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleSimpleGradeSystem(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleSimpleGradeSystem(this);
+    }
     public int getLeafInfo() throws PersistenceException{
         return 0;
     }
     
     
+    public synchronized void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentSimpleGradeSystem)This);
 		if(this.isTheSameAs(This)){
 		}
+    }
+    public synchronized void register(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.register(observee);
+    }
+    public synchronized void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.updateObservers(event);
     }
     
     

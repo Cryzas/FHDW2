@@ -40,12 +40,12 @@ public class StartStudyGroupCommand extends PersistentObject implements Persiste
     protected PersistentProgram program;
     protected String name;
     protected Invoker invoker;
-    protected PersistentStudyGroupManager commandReceiver;
+    protected PersistentProgramManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public StartStudyGroupCommand(PersistentProgram program,String name,Invoker invoker,PersistentStudyGroupManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
+    public StartStudyGroupCommand(PersistentProgram program,String name,Invoker invoker,PersistentProgramManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.program = program;
@@ -56,7 +56,7 @@ public class StartStudyGroupCommand extends PersistentObject implements Persiste
     }
     
     static public long getTypeId() {
-        return 185;
+        return 313;
     }
     
     public long getClassId() {
@@ -65,7 +65,7 @@ public class StartStudyGroupCommand extends PersistentObject implements Persiste
     
     public void store() throws PersistenceException {
         if(!this.isDelayed$Persistence()) return;
-        if (this.getClassId() == 185) ConnectionHandler.getTheConnectionHandler().theStartStudyGroupCommandFacade
+        if (this.getClassId() == 313) ConnectionHandler.getTheConnectionHandler().theStartStudyGroupCommandFacade
             .newStartStudyGroupCommand(name,this.getId());
         super.store();
         if(this.getProgram() != null){
@@ -123,15 +123,15 @@ public class StartStudyGroupCommand extends PersistentObject implements Persiste
             ConnectionHandler.getTheConnectionHandler().theStartStudyGroupCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
-    public StudyGroupManager4Public getCommandReceiver() throws PersistenceException {
+    public ProgramManager4Public getCommandReceiver() throws PersistenceException {
         return this.commandReceiver;
     }
-    public void setCommandReceiver(StudyGroupManager4Public newValue) throws PersistenceException {
+    public void setCommandReceiver(ProgramManager4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.commandReceiver)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.commandReceiver = (PersistentStudyGroupManager)PersistentProxi.createProxi(objectId, classId);
+        this.commandReceiver = (PersistentProgramManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theStartStudyGroupCommandFacade.commandReceiverSet(this.getId(), newValue);
@@ -192,18 +192,6 @@ public class StartStudyGroupCommand extends PersistentObject implements Persiste
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleStartStudyGroupCommand(this);
     }
-    public void accept(StudyGroupManagerCommandVisitor visitor) throws PersistenceException {
-        visitor.handleStartStudyGroupCommand(this);
-    }
-    public <R> R accept(StudyGroupManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleStartStudyGroupCommand(this);
-    }
-    public <E extends model.UserException>  void accept(StudyGroupManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleStartStudyGroupCommand(this);
-    }
-    public <R, E extends model.UserException> R accept(StudyGroupManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleStartStudyGroupCommand(this);
-    }
     public void accept(CommandVisitor visitor) throws PersistenceException {
         visitor.handleStartStudyGroupCommand(this);
     }
@@ -214,6 +202,18 @@ public class StartStudyGroupCommand extends PersistentObject implements Persiste
          visitor.handleStartStudyGroupCommand(this);
     }
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleStartStudyGroupCommand(this);
+    }
+    public void accept(ProgramManagerCommandVisitor visitor) throws PersistenceException {
+        visitor.handleStartStudyGroupCommand(this);
+    }
+    public <R> R accept(ProgramManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleStartStudyGroupCommand(this);
+    }
+    public <E extends model.UserException>  void accept(ProgramManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleStartStudyGroupCommand(this);
+    }
+    public <R, E extends model.UserException> R accept(ProgramManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleStartStudyGroupCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{

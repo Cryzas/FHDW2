@@ -30,9 +30,9 @@ public abstract class GradesInTenth extends model.Grade implements PersistentGra
         return false;
     }
     
-    public GradesInTenth(PersistentGrade This,long id) throws PersistenceException {
+    public GradesInTenth(SubjInterface subService,PersistentGrade This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentGrade)This,id);        
+        super((SubjInterface)subService,(PersistentGrade)This,id);        
     }
     
     static public long getTypeId() {

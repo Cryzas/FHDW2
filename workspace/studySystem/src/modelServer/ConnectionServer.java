@@ -12,12 +12,22 @@ import persistence.PersistenceException;
 import persistence.AbstractPersistentRoot;
 import persistence.Remote;
 
+import persistence.PersistentStudyGroupService;
+import persistence.StudyGroupService4Public;
+import persistence.PersistentStudentManageService;
+import persistence.StudentManageService4Public;
 import persistence.PersistentDozentenService;
 import persistence.DozentenService4Public;
+import persistence.PersistentAdminService;
+import persistence.AdminService4Public;
 import persistence.PersistentServer;
 import persistence.Server4Public;
+import persistence.PersistentUserManagerService;
+import persistence.UserManagerService4Public;
 import persistence.PersistentStudentService;
 import persistence.StudentService4Public;
+import persistence.PersistentProgramModuleService;
+import persistence.ProgramModuleService4Public;
 
 
 import common.RPCConstantsAndServices;
@@ -57,9 +67,14 @@ public class ConnectionServer extends RemoteServerMaster {
 
 	public RemoteServerMaster createRemoteServer(String connectionName, String userName, long objectId, long classId){
 		try {
+			if(classId == -302)return new RemoteStudyGroupService(connectionName, userName, (PersistentStudyGroupService)PersistentProxi.createProxi(objectId, classId));
+			if(classId == -303)return new RemoteStudentManageService(connectionName, userName, (PersistentStudentManageService)PersistentProxi.createProxi(objectId, classId));
 			if(classId == -287)return new RemoteDozentenService(connectionName, userName, (PersistentDozentenService)PersistentProxi.createProxi(objectId, classId));
+			if(classId == -289)return new RemoteAdminService(connectionName, userName, (PersistentAdminService)PersistentProxi.createProxi(objectId, classId));
 			if(classId == -102)return new RemoteServer(connectionName, userName, (PersistentServer)PersistentProxi.createProxi(objectId, classId));
+			if(classId == -290)return new RemoteUserManagerService(connectionName, userName, (PersistentUserManagerService)PersistentProxi.createProxi(objectId, classId));
 			if(classId == -286)return new RemoteStudentService(connectionName, userName, (PersistentStudentService)PersistentProxi.createProxi(objectId, classId));
+			if(classId == -305)return new RemoteProgramModuleService(connectionName, userName, (PersistentProgramModuleService)PersistentProxi.createProxi(objectId, classId));
 			
 		}catch(PersistenceException pe){
 			return null;

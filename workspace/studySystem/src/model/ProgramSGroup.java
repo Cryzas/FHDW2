@@ -83,9 +83,9 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
         ProgramSGroup result = this;
         result = new ProgramSGroup(this.programCopy, 
                                    this.finished, 
+                                   this.subService, 
                                    this.This, 
                                    this.getId());
-        result.modules = this.modules.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -96,14 +96,16 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
     protected ProgramSGroup_ModulesProxi modules;
     protected PersistentProgram programCopy;
     protected PersistentMyBoolean finished;
+    protected SubjInterface subService;
     protected PersistentProgramSGroup This;
     
-    public ProgramSGroup(PersistentProgram programCopy,PersistentMyBoolean finished,PersistentProgramSGroup This,long id) throws PersistenceException {
+    public ProgramSGroup(PersistentProgram programCopy,PersistentMyBoolean finished,SubjInterface subService,PersistentProgramSGroup This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.modules = new ProgramSGroup_ModulesProxi(this);
         this.programCopy = programCopy;
         this.finished = finished;
+        this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -128,6 +130,10 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
         if(this.getFinished() != null){
             this.getFinished().store();
             ConnectionHandler.getTheConnectionHandler().theProgramSGroupFacade.finishedSet(this.getId(), getFinished());
+        }
+        if(this.getSubService() != null){
+            this.getSubService().store();
+            ConnectionHandler.getTheConnectionHandler().theProgramSGroupFacade.subServiceSet(this.getId(), getSubService());
         }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
@@ -165,6 +171,20 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theProgramSGroupFacade.finishedSet(this.getId(), newValue);
+        }
+    }
+    public SubjInterface getSubService() throws PersistenceException {
+        return this.subService;
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.subService)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.subService = (SubjInterface)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theProgramSGroupFacade.subServiceSet(this.getId(), newValue);
         }
     }
     protected void setThis(PersistentProgramSGroup newValue) throws PersistenceException {
@@ -214,6 +234,18 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleProgramSGroup(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleProgramSGroup(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleProgramSGroup(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleProgramSGroup(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleProgramSGroup(this);
+    }
     public int getLeafInfo() throws PersistenceException{
         if (this.getModules().getLength() > 0) return 1;
         return 0;
@@ -228,12 +260,30 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
 			if(((programHierarchySGroupHIERARCHY)iterator0.next()).containsprogramHierarchySGroup(part)) return true; 
 		return false;
     }
+    public synchronized void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentProgramSGroup)This);
 		if(this.isTheSameAs(This)){
 			this.setProgramCopy((PersistentProgram)final$$Fields.get("programCopy"));
 		}
+    }
+    public synchronized void register(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.register(observee);
     }
     public <T> T strategyprogramHierarchySGroup(final programHierarchySGroupHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
@@ -246,6 +296,15 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
 		}
 		T result = strategy.ProgramSGroup$$finalize(getThis() ,result$$modules$$ProgramSGroup);
 		return result;
+    }
+    public synchronized void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.updateObservers(event);
     }
     
     

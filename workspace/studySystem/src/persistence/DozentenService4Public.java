@@ -3,17 +3,17 @@ package persistence;
 
 import model.visitor.*;
 
-public interface DozentenService4Public extends Service4Public {
+public interface DozentenService4Public extends subAdminService4Public {
     
     public ProgramManager4Public getProgramManager() throws PersistenceException ;
     public ModuleManager4Public getModuleManager() throws PersistenceException ;
     public StudyGroupManager4Public getGroupManager() throws PersistenceException ;
     public StudentManager4Public getStudentManager() throws PersistenceException ;
     
-    public void accept(ServiceVisitor visitor) throws PersistenceException;
-    public <R> R accept(ServiceReturnVisitor<R>  visitor) throws PersistenceException;
-    public <E extends model.UserException>  void accept(ServiceExceptionVisitor<E> visitor) throws PersistenceException, E;
-    public <R, E extends model.UserException> R accept(ServiceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
+    public void accept(subAdminServiceVisitor visitor) throws PersistenceException;
+    public <R> R accept(subAdminServiceReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends model.UserException>  void accept(subAdminServiceExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends model.UserException> R accept(subAdminServiceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     public void accept(InvokerVisitor visitor) throws PersistenceException;
     public <R> R accept(InvokerReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends model.UserException>  void accept(InvokerExceptionVisitor<E> visitor) throws PersistenceException, E;
@@ -22,6 +22,10 @@ public interface DozentenService4Public extends Service4Public {
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends model.UserException>  void accept(AnythingExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException;
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     public void accept(RemoteVisitor visitor) throws PersistenceException;
     public <R> R accept(RemoteReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends model.UserException>  void accept(RemoteExceptionVisitor<E> visitor) throws PersistenceException, E;
@@ -100,8 +104,6 @@ public interface DozentenService4Public extends Service4Public {
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
-				throws PersistenceException;
-    public void removeError(final ErrorDisplay4Public error) 
 				throws PersistenceException;
     public void removeModuleFromGroup(final ModuleGroup4Public group, final ModuleAbstractSearchList modules) 
 				throws PersistenceException;

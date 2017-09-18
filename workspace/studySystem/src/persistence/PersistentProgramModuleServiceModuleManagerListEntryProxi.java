@@ -1,0 +1,5 @@
+package persistence;
+
+public interface PersistentProgramModuleServiceModuleManagerListEntryProxi extends PersistentListEntryProxi {
+
+}

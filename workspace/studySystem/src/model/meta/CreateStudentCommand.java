@@ -43,12 +43,12 @@ public class CreateStudentCommand extends PersistentObject implements Persistent
     protected String lastName;
     protected java.sql.Date birthDate;
     protected Invoker invoker;
-    protected PersistentStudentManager commandReceiver;
+    protected PersistentStudyGroupManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public CreateStudentCommand(PersistentStudyGroup group,String firstName,String lastName,java.sql.Date birthDate,Invoker invoker,PersistentStudentManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
+    public CreateStudentCommand(PersistentStudyGroup group,String firstName,String lastName,java.sql.Date birthDate,Invoker invoker,PersistentStudyGroupManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.group = group;
@@ -143,15 +143,15 @@ public class CreateStudentCommand extends PersistentObject implements Persistent
             ConnectionHandler.getTheConnectionHandler().theCreateStudentCommandFacade.invokerSet(this.getId(), newValue);
         }
     }
-    public StudentManager4Public getCommandReceiver() throws PersistenceException {
+    public StudyGroupManager4Public getCommandReceiver() throws PersistenceException {
         return this.commandReceiver;
     }
-    public void setCommandReceiver(StudentManager4Public newValue) throws PersistenceException {
+    public void setCommandReceiver(StudyGroupManager4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.commandReceiver)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.commandReceiver = (PersistentStudentManager)PersistentProxi.createProxi(objectId, classId);
+        this.commandReceiver = (PersistentStudyGroupManager)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theCreateStudentCommandFacade.commandReceiverSet(this.getId(), newValue);
@@ -212,6 +212,18 @@ public class CreateStudentCommand extends PersistentObject implements Persistent
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateStudentCommand(this);
     }
+    public void accept(StudyGroupManagerCommandVisitor visitor) throws PersistenceException {
+        visitor.handleCreateStudentCommand(this);
+    }
+    public <R> R accept(StudyGroupManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleCreateStudentCommand(this);
+    }
+    public <E extends model.UserException>  void accept(StudyGroupManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleCreateStudentCommand(this);
+    }
+    public <R, E extends model.UserException> R accept(StudyGroupManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleCreateStudentCommand(this);
+    }
     public void accept(CommandVisitor visitor) throws PersistenceException {
         visitor.handleCreateStudentCommand(this);
     }
@@ -222,18 +234,6 @@ public class CreateStudentCommand extends PersistentObject implements Persistent
          visitor.handleCreateStudentCommand(this);
     }
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleCreateStudentCommand(this);
-    }
-    public void accept(StudentManagerCommandVisitor visitor) throws PersistenceException {
-        visitor.handleCreateStudentCommand(this);
-    }
-    public <R> R accept(StudentManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleCreateStudentCommand(this);
-    }
-    public <E extends model.UserException>  void accept(StudentManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleCreateStudentCommand(this);
-    }
-    public <R, E extends model.UserException> R accept(StudentManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleCreateStudentCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{

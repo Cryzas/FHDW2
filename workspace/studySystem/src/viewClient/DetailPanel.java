@@ -1285,6 +1285,9 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleModuleWithUnitsSGroup(view.ModuleWithUnitsSGroupView object){
         result = new ModuleWithUnitsSGroupDefaultDetailPanel(handler, object);
     }
+    public void handleStudyGroupService(view.StudyGroupServiceView object){
+        result = new StudyGroupServiceDefaultDetailPanel(handler, object);
+    }
     public void handleGradeChange(view.GradeChangeView object){
         result = new GradeChangeDefaultDetailPanel(handler, object);
     }
@@ -1336,6 +1339,12 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handlePassed(view.PassedView object){
         result = new PassedDefaultDetailPanel(handler, object);
     }
+    public void handleStudentManageService(view.StudentManageServiceView object){
+        result = new StudentManageServiceDefaultDetailPanel(handler, object);
+    }
+    public void handleAdminService(view.AdminServiceView object){
+        result = new AdminServiceDefaultDetailPanel(handler, object);
+    }
     public void handleErrorDisplay(view.ErrorDisplayView object){
         result = new ErrorDisplayDefaultDetailPanel(handler, object);
     }
@@ -1377,6 +1386,12 @@ class DetailPanelFactory implements AnythingVisitor {
     }
     public void handleStudyGroupManager(view.StudyGroupManagerView object){
         result = new StudyGroupManagerDefaultDetailPanel(handler, object);
+    }
+    public void handleUserManagerService(view.UserManagerServiceView object){
+        result = new UserManagerServiceDefaultDetailPanel(handler, object);
+    }
+    public void handleProgramModuleService(view.ProgramModuleServiceView object){
+        result = new ProgramModuleServiceDefaultDetailPanel(handler, object);
     }
     public void handleNoGrade(view.NoGradeView object){
         result = new NoGradeDefaultDetailPanel(handler, object);
@@ -1998,6 +2013,21 @@ class ModuleWithUnitsSGroupDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class StudyGroupServiceDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String StudyGroupService$$groupManager = "StudyGroupService$$groupManager";
+    
+    protected StudyGroupServiceDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.StudyGroupServiceView getAnything(){
+        return (view.StudyGroupServiceView)this.anything;
+    }
+}
+
 class GradeChangeDefaultDetailPanel extends DefaultDetailPanel{
     
     protected GradeChangeDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -2309,6 +2339,36 @@ class PassedDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
+class StudentManageServiceDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String StudentManageService$$studentManager = "StudentManageService$$studentManager";
+    
+    protected StudentManageServiceDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.StudentManageServiceView getAnything(){
+        return (view.StudentManageServiceView)this.anything;
+    }
+}
+
+class AdminServiceDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String AdminService$$services = "AdminService$$services";
+    
+    protected AdminServiceDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.AdminServiceView getAnything(){
+        return (view.AdminServiceView)this.anything;
+    }
+}
+
 class ErrorDisplayDefaultDetailPanel extends DefaultDetailPanel{
     
     protected ErrorDisplayDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -2566,6 +2626,37 @@ class StudyGroupManagerDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.StudyGroupManagerView getAnything(){
         return (view.StudyGroupManagerView)this.anything;
+    }
+}
+
+class UserManagerServiceDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String UserManagerService$$users = "UserManagerService$$users";
+    
+    protected UserManagerServiceDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.UserManagerServiceView getAnything(){
+        return (view.UserManagerServiceView)this.anything;
+    }
+}
+
+class ProgramModuleServiceDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String ProgramModuleService$$programManager = "ProgramModuleService$$programManager";
+    protected static final String ProgramModuleService$$moduleManager = "ProgramModuleService$$moduleManager";
+    
+    protected ProgramModuleServiceDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.ProgramModuleServiceView getAnything(){
+        return (view.ProgramModuleServiceView)this.anything;
     }
 }
 

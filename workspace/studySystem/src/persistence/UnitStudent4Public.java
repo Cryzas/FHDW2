@@ -16,6 +16,10 @@ public interface UnitStudent4Public extends Anything, programHierarchyStudentHIE
     public <R> R accept(programHierarchyStudentHIERARCHYReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends model.UserException>  void accept(programHierarchyStudentHIERARCHYExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(programHierarchyStudentHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException;
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     public void accept(LectureWithGradeVisitor visitor) throws PersistenceException;
     public <R> R accept(LectureWithGradeReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends model.UserException>  void accept(LectureWithGradeExceptionVisitor<E> visitor) throws PersistenceException, E;

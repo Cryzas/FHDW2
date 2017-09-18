@@ -298,11 +298,10 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 					
 					setCenter(view);
 				}
-				
 				@Override
-				public void handleDozentenService(DozentenServiceView dozentenService) throws ModelException {
-					DozentenServiceClientView view = new DozentenServiceClientView(ServerClientView.this, dozentenService);
-					dozentenService.connectDozentenService(ServerClientView.this.getConnection(), view);
+				public void handleAdminService(AdminServiceView adminService) throws ModelException {
+					AdminServiceClientView view = new AdminServiceClientView(ServerClientView.this, adminService);
+					adminService.connectAdminService(ServerClientView.this.getConnection(), view);
 					
 					setCenter(view);
 				}
@@ -312,14 +311,6 @@ public class ServerClientView extends BorderPane implements ExceptionAndEventHan
 			this.handleException(e);
 		}
 	}
-	
-//	private TabPane mainTabPane = null;
-//	private TabPane getMainTabPane(){
-//		if (this.mainTabPane == null) {
-//			this.mainTabPane = new TabPane();
-//		}
-//		return this.mainTabPane;
-//	}
 	
 	public void handleException(ModelException exception) {
 		this.parent.handleException(exception);

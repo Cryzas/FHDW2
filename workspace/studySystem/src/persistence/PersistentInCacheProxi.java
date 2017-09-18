@@ -12,7 +12,7 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		
 	  private static ICProxiFactory [] getTheICProxiFactories(){
 		if (iCProxiFactories == null){
-			iCProxiFactories = new ICProxiFactory[188];
+			iCProxiFactories = new ICProxiFactory[213];
         iCProxiFactories[1] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ServerICProxi(objectId);
@@ -153,6 +153,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new T_2_3ICProxi(objectId);
             }
         };
+        iCProxiFactories[207] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new StudyGroupServiceGroupManagerICProxi(objectId);
+            }
+        };
         iCProxiFactories[186] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new DozentenServiceICProxi(objectId);
@@ -178,6 +183,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new BTrueICProxi(objectId);
             }
         };
+        iCProxiFactories[197] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new AdminServiceServicesICProxi(objectId);
+            }
+        };
         iCProxiFactories[3] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CommonDateICProxi(objectId);
@@ -186,6 +196,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[81] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ModuleWithUnitsSGroupICProxi(objectId);
+            }
+        };
+        iCProxiFactories[201] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new StudyGroupServiceICProxi(objectId);
             }
         };
         iCProxiFactories[55] = new ICProxiFactory(){
@@ -273,6 +288,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new ChangeCPOnUnitCommandICProxi(objectId);
             }
         };
+        iCProxiFactories[192] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new SubjICProxi(objectId);
+            }
+        };
         iCProxiFactories[174] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ChangeGradeCommandICProxi(objectId);
@@ -298,9 +318,19 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new PassedICProxi(objectId);
             }
         };
+        iCProxiFactories[202] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new StudentManageServiceICProxi(objectId);
+            }
+        };
         iCProxiFactories[54] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CreateProgramCommandICProxi(objectId);
+            }
+        };
+        iCProxiFactories[188] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new AdminServiceICProxi(objectId);
             }
         };
         iCProxiFactories[43] = new ICProxiFactory(){
@@ -308,7 +338,12 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new ErrorDisplayICProxi(objectId);
             }
         };
-        iCProxiFactories[84] = new ICProxiFactory(){
+        iCProxiFactories[208] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new ProgramModuleServiceProgramManagerICProxi(objectId);
+            }
+        };
+        iCProxiFactories[212] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new StartStudyGroupCommandICProxi(objectId);
             }
@@ -383,6 +418,16 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new StudyGroupManagerICProxi(objectId);
             }
         };
+        iCProxiFactories[189] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new UserManagerServiceICProxi(objectId);
+            }
+        };
+        iCProxiFactories[204] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new ProgramModuleServiceICProxi(objectId);
+            }
+        };
         iCProxiFactories[60] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new AddUnitCommandICProxi(objectId);
@@ -396,6 +441,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[87] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new SwapCPonModuleWithUnitsCommandICProxi(objectId);
+            }
+        };
+        iCProxiFactories[209] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new ProgramModuleServiceModuleManagerICProxi(objectId);
             }
         };
         iCProxiFactories[172] = new ICProxiFactory(){
@@ -461,6 +511,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[158] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new Z_3_9ICProxi(objectId);
+            }
+        };
+        iCProxiFactories[210] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new StudentManageServiceStudentManagerICProxi(objectId);
             }
         };
         iCProxiFactories[160] = new ICProxiFactory(){
@@ -607,11 +662,5 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		return this.getTheObject().getThis();
 	}
 	
-    protected void setDltd() throws PersistenceException {
-        this.getTheObject().setDltd();
-    }
-    public boolean isDltd() throws PersistenceException {
-        return this.getTheObject().isDltd();
-    }
-
+    
 }

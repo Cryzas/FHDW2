@@ -4,7 +4,7 @@ package modelServer;
 
 import persistence.*;
 
-public  class RemoteDozentenService extends RemoteService {
+public  class RemoteDozentenService extends RemotesubAdminService {
 
 	
 	public RemoteDozentenService(String connectionName, String userName, PersistentDozentenService server){
@@ -504,6 +504,24 @@ public  class RemoteDozentenService extends RemoteService {
             PersistentUnitSGroup ToUnit = (PersistentUnitSGroup)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(ToUnitProxiString));
             common.Fraction creditPoints = common.Fraction.parse(creditPointsAsString);
             ((PersistentDozentenService)this.server).swapCPonModuleWithUnits(module, fromUnit, ToUnit, creditPoints);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> updateMe(){
+        try {
+            ((PersistentDozentenService)this.server).updateMe();
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> updatePLZImplementation(){
+        try {
+            ((PersistentDozentenService)this.server).updatePLZImplementation();
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

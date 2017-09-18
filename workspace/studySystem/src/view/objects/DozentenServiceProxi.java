@@ -5,7 +5,7 @@ import viewClient.*;
 
 import view.visitor.*;
 
-public class DozentenServiceProxi extends ServiceProxi implements DozentenServiceView{
+public class DozentenServiceProxi extends subAdminServiceProxi implements DozentenServiceView{
     
     public DozentenServiceProxi(long objectId, long classId, ExceptionAndEventHandler connectionKey) {
         super(objectId, classId, connectionKey);
@@ -13,9 +13,13 @@ public class DozentenServiceProxi extends ServiceProxi implements DozentenServic
     
     @SuppressWarnings("unchecked")
     public DozentenServiceView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
-        String username = (String)resultTable.get("username");
-        java.util.Vector<String> parentServer_string = (java.util.Vector<String>)resultTable.get("parentServer");
-        java.util.Vector<ServerView> parentServer = ViewProxi.getProxiVector(parentServer_string, connectionKey);
+        ViewProxi parentService = null;
+        String parentService$String = (String)resultTable.get("parentService");
+        if (parentService$String != null) {
+            common.ProxiInformation parentService$Info = common.RPCConstantsAndServices.createProxiInformation(parentService$String);
+            parentService = view.objects.ViewProxi.createProxi(parentService$Info,connectionKey);
+            parentService.setToString(parentService$Info.getToString());
+        }
         java.util.Vector<String> errors_string = (java.util.Vector<String>)resultTable.get("errors");
         java.util.Vector<ErrorDisplayView> errors = ViewProxi.getProxiVector(errors_string, connectionKey);
         ViewProxi programManager = null;
@@ -46,7 +50,7 @@ public class DozentenServiceProxi extends ServiceProxi implements DozentenServic
             studentManager = view.objects.ViewProxi.createProxi(studentManager$Info,connectionKey);
             studentManager.setToString(studentManager$Info.getToString());
         }
-        DozentenServiceView result$$ = new DozentenService((String)username,parentServer,errors,(ProgramManagerView)programManager,(ModuleManagerView)moduleManager,(StudyGroupManagerView)groupManager,(StudentManagerView)studentManager, this.getId(), this.getClassId());
+        DozentenServiceView result$$ = new DozentenService((AdminServiceView)parentService,errors,(ProgramManagerView)programManager,(ModuleManagerView)moduleManager,(StudyGroupManagerView)groupManager,(StudentManagerView)studentManager, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }
@@ -119,16 +123,16 @@ public class DozentenServiceProxi extends ServiceProxi implements DozentenServic
         ((DozentenService)this.getTheObject()).setStudentManager(newValue);
     }
     
-    public void accept(ServiceVisitor visitor) throws ModelException {
+    public void accept(subAdminServiceVisitor visitor) throws ModelException {
         visitor.handleDozentenService(this);
     }
-    public <R> R accept(ServiceReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(subAdminServiceReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleDozentenService(this);
     }
-    public <E extends view.UserException>  void accept(ServiceExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends view.UserException>  void accept(subAdminServiceExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleDozentenService(this);
     }
-    public <R, E extends view.UserException> R accept(ServiceReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends view.UserException> R accept(subAdminServiceReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleDozentenService(this);
     }
     public void accept(AnythingVisitor visitor) throws ModelException {

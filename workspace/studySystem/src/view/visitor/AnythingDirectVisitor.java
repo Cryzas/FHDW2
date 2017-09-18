@@ -54,6 +54,23 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleNoProgram(NoProgramView noProgram) throws ModelException{
         this.handleProgramStudent(noProgram);
     }
+    public abstract void handlesubAdminService(subAdminServiceView subAdminService) throws ModelException;
+    
+    public void handleStudyGroupService(StudyGroupServiceView studyGroupService) throws ModelException{
+        this.handlesubAdminService(studyGroupService);
+    }
+    public void handleStudentManageService(StudentManageServiceView studentManageService) throws ModelException{
+        this.handlesubAdminService(studentManageService);
+    }
+    public void handleDozentenService(DozentenServiceView dozentenService) throws ModelException{
+        this.handlesubAdminService(dozentenService);
+    }
+    public void handleUserManagerService(UserManagerServiceView userManagerService) throws ModelException{
+        this.handlesubAdminService(userManagerService);
+    }
+    public void handleProgramModuleService(ProgramModuleServiceView programModuleService) throws ModelException{
+        this.handlesubAdminService(programModuleService);
+    }
     public abstract void handleProgramManager(ProgramManagerView programManager) throws ModelException;
     
     public abstract void handleProgram(ProgramView program) throws ModelException;
@@ -62,8 +79,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleService(ServiceView service) throws ModelException;
     
-    public void handleDozentenService(DozentenServiceView dozentenService) throws ModelException{
-        this.handleService(dozentenService);
+    public void handleAdminService(AdminServiceView adminService) throws ModelException{
+        this.handleService(adminService);
     }
     public void handleStudentService(StudentServiceView studentService) throws ModelException{
         this.handleService(studentService);

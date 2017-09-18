@@ -315,6 +315,7 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 
 
     interface MenuItemVisitor{
+        ImageView handle(UpdateMePRMTRMenuItem menuItem);
         ImageView handle(SwapCPonModuleWithUnitsPRMTRModuleWithUnitsSGroupPRMTRUnitSGroupPRMTRUnitSGroupPRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(ChangeCPOnModulePRMTRModuleAtomarPRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(ChangeCPOnUnitPRMTRUnitPRMTRFractionPRMTRMenuItem menuItem);
@@ -346,6 +347,11 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
             this.setGraphic(getIconForMenuItem(this));
         }
         abstract protected ImageView accept(MenuItemVisitor visitor);
+    }
+    private class UpdateMePRMTRMenuItem extends DozentenServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
     }
     private class SwapCPonModuleWithUnitsPRMTRModuleWithUnitsSGroupPRMTRUnitSGroupPRMTRUnitSGroupPRMTRFractionPRMTRMenuItem extends DozentenServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
@@ -475,6 +481,29 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
     private java.util.Vector<javafx.scene.control.Button> getToolButtonsForStaticOperations() {
         java.util.Vector<javafx.scene.control.Button> result = new java.util.Vector<javafx.scene.control.Button>();
         javafx.scene.control.Button currentButton = null;
+        currentButton = new javafx.scene.control.Button("Aktualisieren");
+        currentButton.setGraphic(new UpdateMePRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                Alert confirm = new Alert(AlertType.CONFIRMATION);
+                confirm.setTitle(GUIConstants.ConfirmButtonText);
+                confirm.setHeaderText(null);
+                confirm.setContentText("Aktualisieren" + GUIConstants.ConfirmQuestionMark);
+                confirm.setX( getPointForView().getX() );
+                confirm.setY( getPointForView().getY() );
+                Optional<ButtonType> buttonResult = confirm.showAndWait();
+                if (buttonResult.get() == ButtonType.OK) {
+                    try {
+                        getConnection().updateMe();
+                        getConnection().setEagerRefresh();
+                        
+                    }catch(ModelException me){
+                        handleException(me);
+                    }
+                }
+            }
+        });
+        result.add(currentButton);
         currentButton = new javafx.scene.control.Button("Modul erstellen ... ");
         currentButton.setGraphic(new CreateModulePRMTRModuleAbstractSUBTYPENamePRMTRStringPRMTRMenuItem().getGraphic());
         currentButton.setOnAction(new EventHandler<ActionEvent>(){
@@ -504,6 +533,29 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
     private ContextMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations, final Point2D menuPos) {
         final ContextMenu result = new ContextMenu();
         MenuItem item = null;
+        item = new UpdateMePRMTRMenuItem();
+        item.setText("(S) Aktualisieren");
+        item.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                Alert confirm = new Alert(AlertType.CONFIRMATION);
+                confirm.setTitle(GUIConstants.ConfirmButtonText);
+                confirm.setHeaderText(null);
+                confirm.setContentText("Aktualisieren" + GUIConstants.ConfirmQuestionMark);
+                confirm.setX( getPointForView().getX() );
+                confirm.setY( getPointForView().getY() );
+                Optional<ButtonType> buttonResult = confirm.showAndWait();
+                if (buttonResult.get() == ButtonType.OK) {
+                    try {
+                        getConnection().updateMe();
+                        getConnection().setEagerRefresh();
+                        
+                    }catch(ModelException me){
+                        handleException(me);
+                    }
+                }
+            }
+        });
+        if (withStaticOperations) result.getItems().add(item);
         item = new CreateModulePRMTRModuleAbstractSUBTYPENamePRMTRStringPRMTRMenuItem();
         item.setText("(S) Modul erstellen ... ");
         item.setOnAction(new EventHandler<ActionEvent>(){
@@ -2276,11 +2328,6 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 			}
 			
 			@Override
-			public ImageView handle(CreateStudentPRMTRStudyGroupPRMTRStringPRMTRStringPRMTRDatePRMTRMenuItem menuItem) {
-				return new ImageView(IconManager.getImage(9));
-			}
-			
-			@Override
 			public ImageView handle(DeleteProgramsPRMTRProgramManagerPRMTRProgramLSTPRMTRMenuItem menuItem) {
 				return new ImageView(IconManager.getImage(8));
 			}
@@ -2362,6 +2409,16 @@ public class DozentenServiceClientView extends BorderPane implements ExceptionAn
 			public ImageView handle(
 					SwapCPonModuleWithUnitsPRMTRModuleWithUnitsSGroupPRMTRUnitSGroupPRMTRUnitSGroupPRMTRFractionPRMTRMenuItem menuItem) {
 				return new ImageView(IconManager.getImage(11));
+			}
+
+			@Override
+			public ImageView handle(CreateStudentPRMTRStudyGroupPRMTRStringPRMTRStringPRMTRDatePRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(9));
+			}
+
+			@Override
+			public ImageView handle(UpdateMePRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(16));
 			}
 		});
 	}	

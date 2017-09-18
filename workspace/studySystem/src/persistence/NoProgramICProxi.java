@@ -62,19 +62,43 @@ public class NoProgramICProxi extends ProgramStudentICProxi implements Persisten
     public <R, E extends model.UserException> R accept(programHierarchyStudentHIERARCHYReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleNoProgram(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleNoProgram(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleNoProgram(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleNoProgram(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleNoProgram(this);
+    }
     
     
     public boolean containsprogramHierarchyStudent(final programHierarchyStudentHIERARCHY part) 
 				throws PersistenceException{
         return ((PersistentNoProgram)this.getTheObject()).containsprogramHierarchyStudent(part);
     }
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentNoProgram)this.getTheObject()).deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentNoProgram)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentNoProgram)this.getTheObject()).register(observee);
+    }
     public <T> T strategyprogramHierarchyStudent(final programHierarchyStudentHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         return ((PersistentNoProgram)this.getTheObject()).strategyprogramHierarchyStudent(strategy);
+    }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentNoProgram)this.getTheObject()).updateObservers(event);
     }
     public void addModule(final ModuleAbstractStudent4Public module) 
 				throws model.CycleException, PersistenceException{

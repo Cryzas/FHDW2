@@ -3,7 +3,7 @@ package persistence;
 
 import model.visitor.*;
 
-public interface Service4Public extends Invoker, Anything, Remote, AbstractPersistentProxi {
+public interface Service4Public extends Invoker, Anything, SubjInterface, Remote, AbstractPersistentProxi {
     
     
     public void accept(ServiceVisitor visitor) throws PersistenceException;

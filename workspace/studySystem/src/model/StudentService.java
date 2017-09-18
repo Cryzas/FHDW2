@@ -70,9 +70,9 @@ public class StudentService extends model.Service implements PersistentStudentSe
     
     public StudentService provideCopy() throws PersistenceException{
         StudentService result = this;
-        result = new StudentService(this.This, 
+        result = new StudentService(this.subService, 
+                                    this.This, 
                                     this.getId());
-        result.errors = this.errors.copy(result);
         result.errors = this.errors.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
@@ -82,9 +82,9 @@ public class StudentService extends model.Service implements PersistentStudentSe
         return false;
     }
     
-    public StudentService(PersistentService This,long id) throws PersistenceException {
+    public StudentService(SubjInterface subService,PersistentService This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
-        super((PersistentService)This,id);        
+        super((SubjInterface)subService,(PersistentService)This,id);        
     }
     
     static public long getTypeId() {
@@ -147,6 +147,18 @@ public class StudentService extends model.Service implements PersistentStudentSe
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleStudentService(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleStudentService(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleStudentService(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleStudentService(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleStudentService(this);
+    }
     public void accept(RemoteVisitor visitor) throws PersistenceException {
         visitor.handleStudentService(this);
     }
@@ -165,16 +177,43 @@ public class StudentService extends model.Service implements PersistentStudentSe
     }
     
     
+    public synchronized void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentStudentService)This);
 		if(this.isTheSameAs(This)){
 		}
     }
+    public synchronized void register(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.register(observee);
+    }
     public String studentService_Menu_Filter(final Anything anything) 
 				throws PersistenceException{
         String result = "+++";
 		return result;
+    }
+    public synchronized void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.updateObservers(event);
     }
     
     
@@ -198,7 +237,7 @@ public class StudentService extends model.Service implements PersistentStudentSe
     }
     public String getUsername() 
 				throws PersistenceException{
-        return getThis().getParentServer().iterator().next().getUser();
+        return String.valueOf(getThis().getStudent().getMatrNr());
     }
     public void initializeOnCreation() 
 				throws PersistenceException{

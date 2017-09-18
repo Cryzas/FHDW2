@@ -3,7 +3,7 @@ package persistence;
 
 import model.visitor.*;
 
-public interface ModuleAbstractSGroup4Public extends programHierarchySGroupHIERARCHY, Anything, AbstractPersistentProxi {
+public interface ModuleAbstractSGroup4Public extends programHierarchySGroupHIERARCHY, Anything, SubjInterface, AbstractPersistentProxi {
     
     public ModuleAbstract4Public getModuleCopy() throws PersistenceException ;
     public MyBoolean4Public getFinished() throws PersistenceException ;

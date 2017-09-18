@@ -85,6 +85,7 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
         result = new UnitSGroup(this.unitCopy, 
                                 this.creditPoints, 
                                 this.finished, 
+                                this.subService, 
                                 this.This, 
                                 this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -97,14 +98,16 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
     protected PersistentUnit unitCopy;
     protected common.Fraction creditPoints;
     protected PersistentMyBoolean finished;
+    protected SubjInterface subService;
     protected PersistentUnitSGroup This;
     
-    public UnitSGroup(PersistentUnit unitCopy,common.Fraction creditPoints,PersistentMyBoolean finished,PersistentUnitSGroup This,long id) throws PersistenceException {
+    public UnitSGroup(PersistentUnit unitCopy,common.Fraction creditPoints,PersistentMyBoolean finished,SubjInterface subService,PersistentUnitSGroup This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.unitCopy = unitCopy;
         this.creditPoints = creditPoints;
         this.finished = finished;
+        this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -128,6 +131,10 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
         if(this.getFinished() != null){
             this.getFinished().store();
             ConnectionHandler.getTheConnectionHandler().theUnitSGroupFacade.finishedSet(this.getId(), getFinished());
+        }
+        if(this.getSubService() != null){
+            this.getSubService().store();
+            ConnectionHandler.getTheConnectionHandler().theUnitSGroupFacade.subServiceSet(this.getId(), getSubService());
         }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
@@ -169,6 +176,20 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theUnitSGroupFacade.finishedSet(this.getId(), newValue);
+        }
+    }
+    public SubjInterface getSubService() throws PersistenceException {
+        return this.subService;
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.subService)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.subService = (SubjInterface)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theUnitSGroupFacade.subServiceSet(this.getId(), newValue);
         }
     }
     protected void setThis(PersistentUnitSGroup newValue) throws PersistenceException {
@@ -218,6 +239,18 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleUnitSGroup(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleUnitSGroup(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleUnitSGroup(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleUnitSGroup(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleUnitSGroup(this);
+    }
     public int getLeafInfo() throws PersistenceException{
         return 0;
     }
@@ -228,6 +261,15 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
         if(getThis().equals(part)) return true;
 		return false;
     }
+    public synchronized void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentUnitSGroup)This);
@@ -236,10 +278,28 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
 			this.setCreditPoints((common.Fraction)final$$Fields.get("creditPoints"));
 		}
     }
+    public synchronized void register(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.register(observee);
+    }
     public <T> T strategyprogramHierarchySGroup(final programHierarchySGroupHIERARCHYStrategy<T> strategy) 
 				throws PersistenceException{
         T result = strategy.UnitSGroup$$finalize(getThis() );
 		return result;
+    }
+    public synchronized void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.updateObservers(event);
     }
     
     

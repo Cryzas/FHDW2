@@ -8,16 +8,16 @@ import view.visitor.*;
 
 /* Additional import section end */
 
-public class DozentenService extends view.objects.Service implements DozentenServiceView{
+public class DozentenService extends view.objects.subAdminService implements DozentenServiceView{
     
     protected ProgramManagerView programManager;
     protected ModuleManagerView moduleManager;
     protected StudyGroupManagerView groupManager;
     protected StudentManagerView studentManager;
     
-    public DozentenService(String username,java.util.Vector<ServerView> parentServer,java.util.Vector<ErrorDisplayView> errors,ProgramManagerView programManager,ModuleManagerView moduleManager,StudyGroupManagerView groupManager,StudentManagerView studentManager,long id, long classId) {
+    public DozentenService(AdminServiceView parentService,java.util.Vector<ErrorDisplayView> errors,ProgramManagerView programManager,ModuleManagerView moduleManager,StudyGroupManagerView groupManager,StudentManagerView studentManager,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((String)username,parentServer,errors,id, classId);
+        super((AdminServiceView)parentService,errors,id, classId);
         this.programManager = programManager;
         this.moduleManager = moduleManager;
         this.groupManager = groupManager;
@@ -57,16 +57,16 @@ public class DozentenService extends view.objects.Service implements DozentenSer
         this.studentManager = newValue;
     }
     
-    public void accept(ServiceVisitor visitor) throws ModelException {
+    public void accept(subAdminServiceVisitor visitor) throws ModelException {
         visitor.handleDozentenService(this);
     }
-    public <R> R accept(ServiceReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(subAdminServiceReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleDozentenService(this);
     }
-    public <E extends view.UserException>  void accept(ServiceExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends view.UserException>  void accept(subAdminServiceExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleDozentenService(this);
     }
-    public <R, E extends view.UserException> R accept(ServiceReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends view.UserException> R accept(subAdminServiceReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleDozentenService(this);
     }
     public void accept(AnythingVisitor visitor) throws ModelException {
@@ -95,9 +95,9 @@ public class DozentenService extends view.objects.Service implements DozentenSer
     }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
-        java.util.Vector<?> parentServer = this.getParentServer();
-        if (parentServer != null) {
-            ViewObject.resolveVectorProxies(parentServer, resultTable);
+        AdminServiceView parentService = this.getParentService();
+        if (parentService != null) {
+            ((ViewProxi)parentService).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(parentService.getClassId(), parentService.getId())));
         }
         java.util.Vector<?> errors = this.getErrors();
         if (errors != null) {

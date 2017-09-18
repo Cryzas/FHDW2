@@ -126,7 +126,7 @@ public class StudentTest {
 
 	@Test
 	public void createStudent() throws PersistenceException, CycleException, AlreadyFinishedException, AlreadyExistsInParentException {
-		studentManager.createStudent(studyGroupHFW1, "Michael", "Löwe", Date.valueOf("1956-01-01"));
+		groupManager.createStudent(studyGroupHFW1, "Michael", "Löwe", Date.valueOf("1956-01-01"));
 		assertTrue(studyGroupHFW1.getStudents()
 				.findFirst(student -> student.getFirstName().equals("Michael") && student.getLastName().equals("Löwe")
 						&& student.getBirthDate().equals(Date.valueOf("1956-01-01"))) != null);
@@ -145,18 +145,18 @@ public class StudentTest {
 	
 	@Test
 	public void addStudent2Group() throws PersistenceException, AlreadyFinishedException, AlreadyExistsInParentException, CycleException {
-		studentManager.addStudentToGroup(studyGroupHFW1, florian);
+		groupManager.addStudentToGroup(studyGroupHFW1, florian);
 		assertTrue(studyGroupHFW1.getStudents()
 				.findFirst(student -> student.getFirstName().equals("Florian") && student.getLastName().equals("Raetsch")
 						&& student.getBirthDate().equals(Date.valueOf("1994-10-29"))) != null);
 		try {
-			studentManager.addStudentToGroup(studyGroupHFW1, jens);
+			groupManager.addStudentToGroup(studyGroupHFW1, jens);
 		} catch (AlreadyExistsInParentException e) {
 			// Should go in here
 		}
 		groupManager.endStudyGroup(studyGroupHFW1);
 		try {
-			studentManager.addStudentToGroup(studyGroupHFW1, hakan);
+			groupManager.addStudentToGroup(studyGroupHFW1, hakan);
 		} catch (AlreadyFinishedException e) {
 			// Should go in here
 		}

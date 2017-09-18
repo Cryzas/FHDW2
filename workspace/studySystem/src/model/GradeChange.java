@@ -100,6 +100,7 @@ public class GradeChange extends PersistentObject implements PersistentGradeChan
                                  this.toGrade, 
                                  this.dateOfChange, 
                                  this.comment, 
+                                 this.subService, 
                                  this.This, 
                                  this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -113,15 +114,17 @@ public class GradeChange extends PersistentObject implements PersistentGradeChan
     protected PersistentGrade toGrade;
     protected java.sql.Date dateOfChange;
     protected String comment;
+    protected SubjInterface subService;
     protected PersistentGradeChange This;
     
-    public GradeChange(PersistentGrade fromGrade,PersistentGrade toGrade,java.sql.Date dateOfChange,String comment,PersistentGradeChange This,long id) throws PersistenceException {
+    public GradeChange(PersistentGrade fromGrade,PersistentGrade toGrade,java.sql.Date dateOfChange,String comment,SubjInterface subService,PersistentGradeChange This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.fromGrade = fromGrade;
         this.toGrade = toGrade;
         this.dateOfChange = dateOfChange;
         this.comment = comment;
+        this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -145,6 +148,10 @@ public class GradeChange extends PersistentObject implements PersistentGradeChan
         if(this.getToGrade() != null){
             this.getToGrade().store();
             ConnectionHandler.getTheConnectionHandler().theGradeChangeFacade.toGradeSet(this.getId(), getToGrade());
+        }
+        if(this.getSubService() != null){
+            this.getSubService().store();
+            ConnectionHandler.getTheConnectionHandler().theGradeChangeFacade.subServiceSet(this.getId(), getSubService());
         }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
@@ -196,6 +203,20 @@ public class GradeChange extends PersistentObject implements PersistentGradeChan
         if(!this.isDelayed$Persistence()) ConnectionHandler.getTheConnectionHandler().theGradeChangeFacade.commentSet(this.getId(), newValue);
         this.comment = newValue;
     }
+    public SubjInterface getSubService() throws PersistenceException {
+        return this.subService;
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.subService)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.subService = (SubjInterface)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theGradeChangeFacade.subServiceSet(this.getId(), newValue);
+        }
+    }
     protected void setThis(PersistentGradeChange newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if (newValue.isTheSameAs(this)){
@@ -231,11 +252,32 @@ public class GradeChange extends PersistentObject implements PersistentGradeChan
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleGradeChange(this);
     }
+    public void accept(SubjInterfaceVisitor visitor) throws PersistenceException {
+        visitor.handleGradeChange(this);
+    }
+    public <R> R accept(SubjInterfaceReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleGradeChange(this);
+    }
+    public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleGradeChange(this);
+    }
+    public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleGradeChange(this);
+    }
     public int getLeafInfo() throws PersistenceException{
         return 0;
     }
     
     
+    public synchronized void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.deregister(observee);
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentGradeChange)This);
@@ -244,6 +286,24 @@ public class GradeChange extends PersistentObject implements PersistentGradeChan
 			this.setToGrade((PersistentGrade)final$$Fields.get("toGrade"));
 			this.setComment((String)final$$Fields.get("comment"));
 		}
+    }
+    public synchronized void register(final ObsInterface observee) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.register(observee);
+    }
+    public synchronized void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        SubjInterface subService = getThis().getSubService();
+		if (subService == null) {
+			subService = model.Subj.createSubj(this.isDelayed$Persistence());
+			getThis().setSubService(subService);
+		}
+		subService.updateObservers(event);
     }
     
     

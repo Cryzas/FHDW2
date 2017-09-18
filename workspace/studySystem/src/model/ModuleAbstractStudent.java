@@ -61,12 +61,14 @@ public abstract class ModuleAbstractStudent extends PersistentObject implements 
         return false;
     }
     protected PersistentModuleAbstractSGroup moduleCopy;
+    protected SubjInterface subService;
     protected PersistentModuleAbstractStudent This;
     
-    public ModuleAbstractStudent(PersistentModuleAbstractSGroup moduleCopy,PersistentModuleAbstractStudent This,long id) throws PersistenceException {
+    public ModuleAbstractStudent(PersistentModuleAbstractSGroup moduleCopy,SubjInterface subService,PersistentModuleAbstractStudent This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.moduleCopy = moduleCopy;
+        this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
     
@@ -84,6 +86,10 @@ public abstract class ModuleAbstractStudent extends PersistentObject implements 
         if(this.getModuleCopy() != null){
             this.getModuleCopy().store();
             ConnectionHandler.getTheConnectionHandler().theModuleAbstractStudentFacade.moduleCopySet(this.getId(), getModuleCopy());
+        }
+        if(this.getSubService() != null){
+            this.getSubService().store();
+            ConnectionHandler.getTheConnectionHandler().theModuleAbstractStudentFacade.subServiceSet(this.getId(), getSubService());
         }
         if(!this.isTheSameAs(this.getThis())){
             this.getThis().store();
@@ -104,6 +110,20 @@ public abstract class ModuleAbstractStudent extends PersistentObject implements 
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theModuleAbstractStudentFacade.moduleCopySet(this.getId(), newValue);
+        }
+    }
+    public SubjInterface getSubService() throws PersistenceException {
+        return this.subService;
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.subService)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.subService = (SubjInterface)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theModuleAbstractStudentFacade.subServiceSet(this.getId(), newValue);
         }
     }
     protected void setThis(PersistentModuleAbstractStudent newValue) throws PersistenceException {

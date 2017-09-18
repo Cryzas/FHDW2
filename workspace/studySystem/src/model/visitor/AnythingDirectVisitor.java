@@ -33,6 +33,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleErrorDisplay(ErrorDisplay4Public errorDisplay) throws PersistenceException;
     
+    public abstract void handleProgramModuleServiceProgramManager(ProgramModuleServiceProgramManager4Public programModuleServiceProgramManager) throws PersistenceException;
+    
     public abstract void handleModuleManager(ModuleManager4Public moduleManager) throws PersistenceException;
     
     public abstract void handleUnit(Unit4Public unit) throws PersistenceException;
@@ -42,6 +44,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public abstract void handleGradeChange(GradeChange4Public gradeChange) throws PersistenceException;
     
     public abstract void handleStudyGroup(StudyGroup4Public studyGroup) throws PersistenceException;
+    
+    public abstract void handleProgramModuleServiceModuleManager(ProgramModuleServiceModuleManager4Public programModuleServiceModuleManager) throws PersistenceException;
     
     public abstract void handleGradeSystem(GradeSystem4Public gradeSystem) throws PersistenceException;
     
@@ -56,6 +60,23 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleNoProgram(NoProgram4Public noProgram) throws PersistenceException{
         this.handleProgramStudent(noProgram);
     }
+    public abstract void handlesubAdminService(subAdminService4Public subAdminService) throws PersistenceException;
+    
+    public void handleStudyGroupService(StudyGroupService4Public studyGroupService) throws PersistenceException{
+        this.handlesubAdminService(studyGroupService);
+    }
+    public void handleStudentManageService(StudentManageService4Public studentManageService) throws PersistenceException{
+        this.handlesubAdminService(studentManageService);
+    }
+    public void handleDozentenService(DozentenService4Public dozentenService) throws PersistenceException{
+        this.handlesubAdminService(dozentenService);
+    }
+    public void handleUserManagerService(UserManagerService4Public userManagerService) throws PersistenceException{
+        this.handlesubAdminService(userManagerService);
+    }
+    public void handleProgramModuleService(ProgramModuleService4Public programModuleService) throws PersistenceException{
+        this.handlesubAdminService(programModuleService);
+    }
     public abstract void handleProgramManager(ProgramManager4Public programManager) throws PersistenceException;
     
     public abstract void handleProgram(Program4Public program) throws PersistenceException;
@@ -64,8 +85,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     
     public abstract void handleService(Service4Public service) throws PersistenceException;
     
-    public void handleDozentenService(DozentenService4Public dozentenService) throws PersistenceException{
-        this.handleService(dozentenService);
+    public void handleAdminService(AdminService4Public adminService) throws PersistenceException{
+        this.handleService(adminService);
     }
     public void handleStudentService(StudentService4Public studentService) throws PersistenceException{
         this.handleService(studentService);
@@ -220,7 +241,13 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
     public void handleBTrue(BTrue4Public bTrue) throws PersistenceException{
         this.handleMyBoolean(bTrue);
     }
+    public abstract void handleStudentManageServiceStudentManager(StudentManageServiceStudentManager4Public studentManageServiceStudentManager) throws PersistenceException;
+    
     public abstract void handleStudent(Student4Public student) throws PersistenceException;
+    
+    public abstract void handleSubj(Subj4Public subj) throws PersistenceException;
+    
+    public abstract void handleStudyGroupServiceGroupManager(StudyGroupServiceGroupManager4Public studyGroupServiceGroupManager) throws PersistenceException;
     
     public abstract void handleStudyGroupManager(StudyGroupManager4Public studyGroupManager) throws PersistenceException;
     
@@ -236,6 +263,8 @@ public abstract class AnythingDirectVisitor implements AnythingVisitor {
         this.handleModuleAbstractStudent(moduleGroupStudent);
     }
     public abstract void handleUnitStudent(UnitStudent4Public unitStudent) throws PersistenceException;
+    
+    public abstract void handleAdminServiceServices(AdminServiceServices4Public adminServiceServices) throws PersistenceException;
     
     public abstract void handleCommonDate(CommonDate4Public commonDate) throws PersistenceException;
     

@@ -348,6 +348,7 @@ public class GetIconInfo$Visitor extends model.visitor.AnythingStandardVisitor {
 			
 			@Override
 			public void handleServer(Server4Public server) throws PersistenceException {
+				result = 6;
 			}
 			
 			@Override
@@ -363,7 +364,7 @@ public class GetIconInfo$Visitor extends model.visitor.AnythingStandardVisitor {
 			
 			@Override
 			public void handleProgramSGroup(ProgramSGroup4Public programSGroup) throws PersistenceException {
-				// TODO Icon Program
+				result = 19;
 			}
 			
 			@Override
@@ -373,7 +374,7 @@ public class GetIconInfo$Visitor extends model.visitor.AnythingStandardVisitor {
 			
 			@Override
 			public void handleProgram(Program4Public program) throws PersistenceException {
-				// TODO Icon Program
+				result = 19;
 			}
 			
 			@Override
@@ -459,6 +460,62 @@ public class GetIconInfo$Visitor extends model.visitor.AnythingStandardVisitor {
 			public void handleAddModuleToGroupCommand(AddModuleToGroupCommand4Public addModuleToGroupCommand)
 					throws PersistenceException {
 			}
+
+			@Override
+			public void handleAdminService(AdminService4Public adminService) throws PersistenceException {
+			}
+
+			@Override
+			public void handleUserManagerService(UserManagerService4Public userManagerService)
+					throws PersistenceException {
+			}
+
+			@Override
+			public void handleSubj(Subj4Public subj) throws PersistenceException {
+			}
+
+			@Override
+			public void handleAdminServiceServices(AdminServiceServices4Public adminServiceServices)
+					throws PersistenceException {
+			}
+			@Override
+			public void handleProgramModuleService(ProgramModuleService4Public programModuleService)
+					throws PersistenceException {
+			}
+
+			@Override
+			public void handleStudentManageService(StudentManageService4Public studentManageService)
+					throws PersistenceException {
+			}
+
+			@Override
+			public void handleStudyGroupService(StudyGroupService4Public studyGroupService)
+					throws PersistenceException {
+			}
+
+			@Override
+			public void handleProgramModuleServiceModuleManager(
+					ProgramModuleServiceModuleManager4Public programModuleServiceModuleManager)
+					throws PersistenceException {
+			}
+
+			@Override
+			public void handleProgramModuleServiceProgramManager(
+					ProgramModuleServiceProgramManager4Public programModuleServiceProgramManager)
+					throws PersistenceException {
+			}
+
+			@Override
+			public void handleStudentManageServiceStudentManager(
+					StudentManageServiceStudentManager4Public studentManageServiceStudentManager)
+					throws PersistenceException {
+			}
+
+			@Override
+			public void handleStudyGroupServiceGroupManager(
+					StudyGroupServiceGroupManager4Public studyGroupServiceGroupManager) throws PersistenceException {
+			}
+
 		});
 		return result;
 	}

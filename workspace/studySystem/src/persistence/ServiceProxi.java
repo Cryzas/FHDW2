@@ -12,6 +12,12 @@ public abstract class ServiceProxi extends PersistentProxi implements Persistent
     }
     
     
+    public SubjInterface getSubService() throws PersistenceException {
+        return ((PersistentService)this.getTheObject()).getSubService();
+    }
+    public void setSubService(SubjInterface newValue) throws PersistenceException {
+        ((PersistentService)this.getTheObject()).setSubService(newValue);
+    }
     public Service_ErrorsProxi getErrors() throws PersistenceException {
         return ((PersistentService)this.getTheObject()).getErrors();
     }
@@ -19,6 +25,10 @@ public abstract class ServiceProxi extends PersistentProxi implements Persistent
     
     
     
+    public void deregister(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentService)this.getTheObject()).deregister(observee);
+    }
     public ServerSearchList getParentServer() 
 				throws PersistenceException{
         return ((PersistentService)this.getTheObject()).getParentServer();
@@ -27,9 +37,17 @@ public abstract class ServiceProxi extends PersistentProxi implements Persistent
 				throws PersistenceException{
         ((PersistentService)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public void register(final ObsInterface observee) 
+				throws PersistenceException{
+        ((PersistentService)this.getTheObject()).register(observee);
+    }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
         ((PersistentService)this.getTheObject()).signalChanged(signal);
+    }
+    public void updateObservers(final model.meta.Mssgs event) 
+				throws PersistenceException{
+        ((PersistentService)this.getTheObject()).updateObservers(event);
     }
     public void connected(final String user) 
 				throws PersistenceException{

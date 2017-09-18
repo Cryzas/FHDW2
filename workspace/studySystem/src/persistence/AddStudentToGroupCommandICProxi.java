@@ -40,10 +40,10 @@ public class AddStudentToGroupCommandICProxi extends PersistentInCacheProxi impl
     public void setInvoker(Invoker newValue) throws PersistenceException {
         ((PersistentAddStudentToGroupCommand)this.getTheObject()).setInvoker(newValue);
     }
-    public StudentManager4Public getCommandReceiver() throws PersistenceException {
+    public StudyGroupManager4Public getCommandReceiver() throws PersistenceException {
         return ((PersistentAddStudentToGroupCommand)this.getTheObject()).getCommandReceiver();
     }
-    public void setCommandReceiver(StudentManager4Public newValue) throws PersistenceException {
+    public void setCommandReceiver(StudyGroupManager4Public newValue) throws PersistenceException {
         ((PersistentAddStudentToGroupCommand)this.getTheObject()).setCommandReceiver(newValue);
     }
     public PersistentCommonDate getMyCommonDate() throws PersistenceException {
@@ -89,6 +89,18 @@ public class AddStudentToGroupCommandICProxi extends PersistentInCacheProxi impl
     public <R, E extends model.UserException> R accept(AnythingReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleAddStudentToGroupCommand(this);
     }
+    public void accept(StudyGroupManagerCommandVisitor visitor) throws PersistenceException {
+        visitor.handleAddStudentToGroupCommand(this);
+    }
+    public <R> R accept(StudyGroupManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleAddStudentToGroupCommand(this);
+    }
+    public <E extends model.UserException>  void accept(StudyGroupManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleAddStudentToGroupCommand(this);
+    }
+    public <R, E extends model.UserException> R accept(StudyGroupManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleAddStudentToGroupCommand(this);
+    }
     public void accept(CommandVisitor visitor) throws PersistenceException {
         visitor.handleAddStudentToGroupCommand(this);
     }
@@ -99,18 +111,6 @@ public class AddStudentToGroupCommandICProxi extends PersistentInCacheProxi impl
          visitor.handleAddStudentToGroupCommand(this);
     }
     public <R, E extends model.UserException> R accept(CommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
-         return visitor.handleAddStudentToGroupCommand(this);
-    }
-    public void accept(StudentManagerCommandVisitor visitor) throws PersistenceException {
-        visitor.handleAddStudentToGroupCommand(this);
-    }
-    public <R> R accept(StudentManagerCommandReturnVisitor<R>  visitor) throws PersistenceException {
-         return visitor.handleAddStudentToGroupCommand(this);
-    }
-    public <E extends model.UserException>  void accept(StudentManagerCommandExceptionVisitor<E> visitor) throws PersistenceException, E {
-         visitor.handleAddStudentToGroupCommand(this);
-    }
-    public <R, E extends model.UserException> R accept(StudentManagerCommandReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
          return visitor.handleAddStudentToGroupCommand(this);
     }
     

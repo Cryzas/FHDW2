@@ -1,9 +1,10 @@
 package persistence;
 
 
-public interface PersistentServer extends Invoker, Anything, Remote, AbstractPersistentProxi, Server4Public {
+public interface PersistentServer extends Invoker, Anything, SubjInterface, Remote, AbstractPersistentProxi, Server4Public {
     
-    public void setService(Service4Public newValue) throws PersistenceException ;
+    public SubjInterface getSubService() throws PersistenceException ;
+    public void setSubService(SubjInterface newValue) throws PersistenceException ;
     public Server_ErrorsProxi getErrors() throws PersistenceException ;
     public String getPassword() throws PersistenceException ;
     public void setPassword(String newValue) throws PersistenceException ;

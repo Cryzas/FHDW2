@@ -6,6 +6,8 @@ import persistence.*;
 public abstract class Server$AuthoriseVisitor extends AnythingStandardVisitor{
     
     public abstract void handlePassed(PersistentPassed passed) throws PersistenceException;
+    public abstract void handleStudentManageService(PersistentStudentManageService studentManageService) throws PersistenceException;
+    public abstract void handleAdminService(PersistentAdminService adminService) throws PersistenceException;
     public abstract void handleServer(PersistentServer server) throws PersistenceException;
     public abstract void handleProgramSGroup(PersistentProgramSGroup programSGroup) throws PersistenceException;
     public abstract void handleErrorDisplay(PersistentErrorDisplay errorDisplay) throws PersistenceException;
@@ -36,8 +38,8 @@ public abstract class Server$AuthoriseVisitor extends AnythingStandardVisitor{
     public abstract void handleZ_2_8(PersistentZ_2_8 z_2_8) throws PersistenceException;
     public abstract void handleZ_2_9(PersistentZ_2_9 z_2_9) throws PersistenceException;
     public abstract void handleUnitSGroup(PersistentUnitSGroup unitSGroup) throws PersistenceException;
-    public abstract void handleStudentService(PersistentStudentService studentService) throws PersistenceException;
     public abstract void handleBFalse(PersistentBFalse bFalse) throws PersistenceException;
+    public abstract void handleStudentService(PersistentStudentService studentService) throws PersistenceException;
     public abstract void handleStudentManager(PersistentStudentManager studentManager) throws PersistenceException;
     public abstract void handleStudent(PersistentStudent student) throws PersistenceException;
     public abstract void handleT_2_3(PersistentT_2_3 t_2_3) throws PersistenceException;
@@ -46,9 +48,12 @@ public abstract class Server$AuthoriseVisitor extends AnythingStandardVisitor{
     public abstract void handleDozentenService(PersistentDozentenService dozentenService) throws PersistenceException;
     public abstract void handleStudyGroupManager(PersistentStudyGroupManager studyGroupManager) throws PersistenceException;
     public abstract void handleT_2_7(PersistentT_2_7 t_2_7) throws PersistenceException;
+    public abstract void handleUserManagerService(PersistentUserManagerService userManagerService) throws PersistenceException;
     public abstract void handleBTrue(PersistentBTrue bTrue) throws PersistenceException;
     public abstract void handleUnitStudent(PersistentUnitStudent unitStudent) throws PersistenceException;
     public abstract void handleModuleWithUnitsSGroup(PersistentModuleWithUnitsSGroup moduleWithUnitsSGroup) throws PersistenceException;
+    public abstract void handleProgramModuleService(PersistentProgramModuleService programModuleService) throws PersistenceException;
+    public abstract void handleStudyGroupService(PersistentStudyGroupService studyGroupService) throws PersistenceException;
     public abstract void handleGradeChange(PersistentGradeChange gradeChange) throws PersistenceException;
     public abstract void handleModuleAtomarStudent(PersistentModuleAtomarStudent moduleAtomarStudent) throws PersistenceException;
     public abstract void handleProgramStudent(PersistentProgramStudent programStudent) throws PersistenceException;

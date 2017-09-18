@@ -4,7 +4,7 @@ import view.*;
 
 public interface ServiceReturnExceptionVisitor<R, E extends view.UserException> {
     
-    public R handleDozentenService(DozentenServiceView dozentenService) throws ModelException, E;
+    public R handleAdminService(AdminServiceView adminService) throws ModelException, E;
     public R handleStudentService(StudentServiceView studentService) throws ModelException, E;
     
 }

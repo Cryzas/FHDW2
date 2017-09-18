@@ -113,10 +113,10 @@ public class StudyGroupTest {
 	@Test
 	public void startStudyGroup()
 			throws AlreadyExistsInParentException, NoFractionValueException, PersistenceException {
-		groupManager.startStudyGroup(programWirtschaftsinformatik, "HFW2");
+		programManager.startStudyGroup(programWirtschaftsinformatik, "HFW2");
 		assertTrue(groupManager.getGroups().findFirst(group -> group.getName().equals("HFW2")) != null);
 		try {
-			groupManager.startStudyGroup(programWirtschaftsinformatik, "HFW1");
+			programManager.startStudyGroup(programWirtschaftsinformatik, "HFW1");
 			fail();
 		} catch (UserException e) {
 			// Should go in here
@@ -127,7 +127,7 @@ public class StudyGroupTest {
 	public void startStudyGroupWith0CPUnit() throws PersistenceException, AlreadyExistsInParentException {
 		try {
 			unitDB1.changeCPOnUnit(Fraction.parse("0"));
-			groupManager.startStudyGroup(programWirtschaftsinformatik, "HFW2");
+			programManager.startStudyGroup(programWirtschaftsinformatik, "HFW2");
 			fail();
 		} catch (NoFractionValueException e) {
 			// Should go in here
@@ -138,7 +138,7 @@ public class StudyGroupTest {
 	public void startStudyGroupWith0CPModuleAtomar() throws AlreadyExistsInParentException, PersistenceException {
 		try {
 			moduleAtomarLomf.changeCPOnModule(Fraction.parse("0"));
-			groupManager.startStudyGroup(programWirtschaftsinformatik, "HFW2");
+			programManager.startStudyGroup(programWirtschaftsinformatik, "HFW2");
 			fail();
 		} catch (NoFractionValueException e) {
 			// Should go in here
@@ -149,7 +149,7 @@ public class StudyGroupTest {
 	public void startStudyGroupProgramCopy()
 			throws PersistenceException, AlreadyExistsInParentException, NoFractionValueException {
 		ProgramSGroup4Public programCopy = programWirtschaftsinformatik.copyForStudyGroup();
-		groupManager.startStudyGroup(programWirtschaftsinformatik, "HFW2");
+		programManager.startStudyGroup(programWirtschaftsinformatik, "HFW2");
 		StudyGroup4Public group = StudyGroup.getStudyGroupByName("HFW2").iterator().next();
 		assertEquals(group.getProgram().getName(), programCopy.getName());
 		assertEquals(group.getProgram().getCreditPoints(), programCopy.getCreditPoints());

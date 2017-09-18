@@ -17,11 +17,11 @@ public abstract class CommandStandardVisitor implements CommandVisitor {
     public void handleEndStudyGroupCommand(EndStudyGroupCommand4Public endStudyGroupCommand) throws PersistenceException{
         this.standardHandling(endStudyGroupCommand);
     }
-    public void handleSwapCPonModuleWithUnitsCommand(SwapCPonModuleWithUnitsCommand4Public swapCPonModuleWithUnitsCommand) throws PersistenceException{
-        this.standardHandling(swapCPonModuleWithUnitsCommand);
-    }
     public void handleCreateStudentCommand(CreateStudentCommand4Public createStudentCommand) throws PersistenceException{
         this.standardHandling(createStudentCommand);
+    }
+    public void handleSwapCPonModuleWithUnitsCommand(SwapCPonModuleWithUnitsCommand4Public swapCPonModuleWithUnitsCommand) throws PersistenceException{
+        this.standardHandling(swapCPonModuleWithUnitsCommand);
     }
     public void handleChangeCPOnUnitCommand(ChangeCPOnUnitCommand4Public changeCPOnUnitCommand) throws PersistenceException{
         this.standardHandling(changeCPOnUnitCommand);

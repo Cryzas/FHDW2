@@ -9,7 +9,7 @@ interface DozentenServiceDOWNMssgsVisitor  {
 }
 
 
-interface DozentenServiceUPMssgsVisitor extends ServiceUPMssgsVisitor {
+interface DozentenServiceUPMssgsVisitor extends subAdminServiceUPMssgsVisitor {
 
     
 }
