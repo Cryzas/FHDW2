@@ -68,6 +68,10 @@ public class BTrueICProxi extends MyBooleanICProxi implements PersistentBTrue{
 				throws PersistenceException{
         ((PersistentBTrue)this.getTheObject()).initializeOnInstantiation();
     }
+    public boolean toBoolean() 
+				throws PersistenceException{
+        return ((PersistentBTrue)this.getTheObject()).toBoolean();
+    }
 
     
 }

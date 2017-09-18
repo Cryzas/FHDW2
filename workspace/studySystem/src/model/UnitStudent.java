@@ -268,17 +268,9 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
     	if(!(grade instanceof GradesInThird4Public)){
     		throw new InvalidGradeForSystemException(String.format(InvalidGradeForSystemMessage,grade.toString()));
     	}
-    	getThis().getFinished().accept(new MyBooleanExceptionVisitor<AlreadyFinishedException>() {
-
-			@Override
-			public void handleBFalse(BFalse4Public bFalse) throws PersistenceException, AlreadyFinishedException {
-							}
-
-			@Override
-			public void handleBTrue(BTrue4Public bTrue) throws PersistenceException, AlreadyFinishedException {
-				throw new AlreadyFinishedException(FinishedMessage);
-			}
-		});
+    	if(getThis().getFinished().toBoolean()) {
+			throw new AlreadyFinishedException(FinishedMessage);    		
+    	}
     	getThis().getChanges().add(GradeChange.createGradeChange(getThis().getGrade(), grade, comment));
     	getThis().setGrade((GradesInThird4Public)grade);
     }

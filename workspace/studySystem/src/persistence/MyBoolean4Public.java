@@ -19,6 +19,8 @@ public interface MyBoolean4Public extends Anything, AbstractPersistentProxi {
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
+    public boolean toBoolean() 
+				throws PersistenceException;
 
 }
 

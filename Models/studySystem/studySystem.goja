@@ -334,6 +334,8 @@ exception AlreadyFinishedException{}
 
 																													/* Boolean */
 
-abstract class MyBoolean (BTrue, BFalse) {}
+abstract class MyBoolean (BTrue, BFalse) {
+	abstract extern boolean toBoolean();	
+}
 }
 

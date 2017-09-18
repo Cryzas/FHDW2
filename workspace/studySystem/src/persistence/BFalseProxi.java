@@ -64,6 +64,10 @@ public class BFalseProxi extends MyBooleanProxi implements PersistentBFalse{
 				throws PersistenceException{
         ((PersistentBFalse)this.getTheObject()).initializeOnInstantiation();
     }
+    public boolean toBoolean() 
+				throws PersistenceException{
+        return ((PersistentBFalse)this.getTheObject()).toBoolean();
+    }
 
     
 }

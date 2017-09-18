@@ -157,6 +157,10 @@ public class BTrue extends model.MyBoolean implements PersistentBTrue{
 				throws PersistenceException{
         super.initializeOnInstantiation();
     }
+    public boolean toBoolean() 
+				throws PersistenceException{
+        return true;
+    }
     
     
     // Start of section that contains overridden operations only.

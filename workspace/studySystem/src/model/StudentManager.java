@@ -212,18 +212,7 @@ public class StudentManager extends PersistentObject implements PersistentStuden
 	    		throw new AlreadyExistsInParentException(String.format(studentHasProgramMessage, student.getFirstName(), student.getLastName(), student.getParentGroup().iterator().next().getName()));
 			}
 		});
-    	if(group.getFinished().accept(new MyBooleanReturnVisitor<Boolean>() {
-
-			@Override
-			public Boolean handleBFalse(BFalse4Public bFalse) throws PersistenceException {
-				return false;
-			}
-
-			@Override
-			public Boolean handleBTrue(BTrue4Public bTrue) throws PersistenceException {
-				return true;
-			}
-		})) {
+    	if(group.getFinished().toBoolean()) {
     		throw new AlreadyFinishedException(String.format(GroupFinishedMessage,group.getName()));
     	}
     	student.setProgram(group.getProgram().copyForStudent());

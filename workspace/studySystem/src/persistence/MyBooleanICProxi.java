@@ -32,6 +32,10 @@ public abstract class MyBooleanICProxi extends PersistentInCacheProxiOptimistic 
 				throws PersistenceException{
         ((PersistentMyBoolean)this.getTheObject()).initializeOnInstantiation();
     }
+    public boolean toBoolean() 
+				throws PersistenceException{
+        return ((PersistentMyBoolean)this.getTheObject()).toBoolean();
+    }
 
     
 }

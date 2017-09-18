@@ -157,6 +157,10 @@ public class BFalse extends model.MyBoolean implements PersistentBFalse{
 				throws PersistenceException{
         super.initializeOnInstantiation();
     }
+    public boolean toBoolean() 
+				throws PersistenceException{
+        return false;
+    }
     
     
     // Start of section that contains overridden operations only.

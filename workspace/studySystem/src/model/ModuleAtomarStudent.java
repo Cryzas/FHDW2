@@ -237,17 +237,9 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
 				}
 			}
 		});
-    	getThis().getFinished().accept(new MyBooleanExceptionVisitor<AlreadyFinishedException>() {
-
-			@Override
-			public void handleBFalse(BFalse4Public bFalse) throws PersistenceException, AlreadyFinishedException {
-							}
-
-			@Override
-			public void handleBTrue(BTrue4Public bTrue) throws PersistenceException, AlreadyFinishedException {
-				throw new AlreadyFinishedException(FinishedMessage);
-			}
-		});
+    	if(getThis().getFinished().toBoolean()) {
+    		throw new AlreadyFinishedException(FinishedMessage);
+		}
     	getThis().getChanges().add(GradeChange.createGradeChange(getThis().getGrade(), grade, comment));
     	getThis().setOwnGrade((GradesInSimpleOrThird4Public)grade);
     }

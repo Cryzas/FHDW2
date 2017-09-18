@@ -225,18 +225,9 @@ public class ModuleWithUnitsSGroup extends model.ModuleAbstractSGroup implements
     }
     public void swapCP(final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
 				throws model.AlreadyFinishedException, model.UnitSwapException, PersistenceException{
-    	getThis().getFinished().accept(new MyBooleanExceptionVisitor<AlreadyFinishedException>() {
-
-			@Override
-			public void handleBFalse(BFalse4Public bFalse) throws PersistenceException, AlreadyFinishedException {
-			}
-
-			@Override
-			public void handleBTrue(BTrue4Public bTrue) throws PersistenceException, AlreadyFinishedException {
-				throw new AlreadyFinishedException(AlreadyFinishedMessage);
-			}
-		});
-    	
+    	if(getThis().getFinished().toBoolean()) {
+    		throw new AlreadyFinishedException(AlreadyFinishedMessage);
+		}    	
     	if (creditPoints.lessOrEquals(Fraction.Null)) {
     		fromUnit.addCP(creditPoints.mul(Fraction.parse("-1")));
     		ToUnit.subCP(creditPoints.mul(Fraction.parse("-1")));
