@@ -106,11 +106,11 @@ active class ModuleManager {
 active class StudyGroupManager {
 	public StudyGroup ** groups;
 /* CreditPoints der einzelnen Units ändern, ohne die Gesamtmenge der CPs für das Modul zu verändern | Exception wenn CP <= 0 seien würden */
-	void swapCPonModuleWithUnits ## sCPonMWU(ModuleWithUnitsSGroup module, UnitSGroup fromUnit, UnitSGroup ToUnit, Fraction creditPoints) throws UnitSwapException,AlreadyFinishedException;
+	event void swapCPonModuleWithUnits ## sCPonMWU(ModuleWithUnitsSGroup module, UnitSGroup fromUnit, UnitSGroup ToUnit, Fraction creditPoints) throws UnitSwapException,AlreadyFinishedException;
 /* Studenten zu Studiengruppe hinzufügen | Exception wenn er schon drin ist */
  	event void addStudentToGroup ## add_S2G (StudyGroup group, Student student) throws CycleException, AlreadyExistsInParentException, AlreadyFinishedException;
 /* Beendet die Studiengruppe, Noten können nicht mehr verändert werden | Exception wenn Studiengruppe schon beendet ist*/
-	void endStudyGroup (StudyGroup studyGroup) throws AlreadyFinishedException;
+	event void endStudyGroup (StudyGroup studyGroup) throws AlreadyFinishedException;
 /* Anlegen eines neuen Studenten zu einer Studiengruppe */
 	event void createStudent (StudyGroup group, String firstName, String lastName, Date birthDate) throws CycleException, AlreadyExistsInParentException, AlreadyFinishedException;
 

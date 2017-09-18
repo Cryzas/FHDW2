@@ -77,6 +77,10 @@ public class StudyGroupManagerProxi extends PersistentProxi implements Persisten
 				throws PersistenceException{
         ((PersistentStudyGroupManager)this.getTheObject()).deregister(observee);
     }
+    public void endStudyGroup(final StudyGroup4Public studyGroup) 
+				throws model.AlreadyFinishedException, PersistenceException{
+        ((PersistentStudyGroupManager)this.getTheObject()).endStudyGroup(studyGroup);
+    }
     public void endStudyGroup(final StudyGroup4Public studyGroup, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentStudyGroupManager)this.getTheObject()).endStudyGroup(studyGroup, invoker);
@@ -88,6 +92,10 @@ public class StudyGroupManagerProxi extends PersistentProxi implements Persisten
     public void register(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentStudyGroupManager)this.getTheObject()).register(observee);
+    }
+    public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
+				throws model.AlreadyFinishedException, model.UnitSwapException, PersistenceException{
+        ((PersistentStudyGroupManager)this.getTheObject()).swapCPonModuleWithUnits(module, fromUnit, ToUnit, creditPoints);
     }
     public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints, final Invoker invoker) 
 				throws PersistenceException{
@@ -109,9 +117,9 @@ public class StudyGroupManagerProxi extends PersistentProxi implements Persisten
 				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
         ((PersistentStudyGroupManager)this.getTheObject()).createStudentImplementation(group, firstName, lastName, birthDate);
     }
-    public void endStudyGroup(final StudyGroup4Public studyGroup) 
+    public void endStudyGroupImplementation(final StudyGroup4Public studyGroup) 
 				throws model.AlreadyFinishedException, PersistenceException{
-        ((PersistentStudyGroupManager)this.getTheObject()).endStudyGroup(studyGroup);
+        ((PersistentStudyGroupManager)this.getTheObject()).endStudyGroupImplementation(studyGroup);
     }
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -121,9 +129,9 @@ public class StudyGroupManagerProxi extends PersistentProxi implements Persisten
 				throws PersistenceException{
         ((PersistentStudyGroupManager)this.getTheObject()).initializeOnInstantiation();
     }
-    public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
+    public void swapCPonModuleWithUnitsImplementation(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
 				throws model.AlreadyFinishedException, model.UnitSwapException, PersistenceException{
-        ((PersistentStudyGroupManager)this.getTheObject()).swapCPonModuleWithUnits(module, fromUnit, ToUnit, creditPoints);
+        ((PersistentStudyGroupManager)this.getTheObject()).swapCPonModuleWithUnitsImplementation(module, fromUnit, ToUnit, creditPoints);
     }
 
     

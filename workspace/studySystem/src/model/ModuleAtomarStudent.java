@@ -79,6 +79,7 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
                                          this.This, 
                                          this.ownGrade, 
                                          this.getId());
+        result.changes = this.changes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

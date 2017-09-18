@@ -72,6 +72,7 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
         result = new StudyGroupManager(this.subService, 
                                        this.This, 
                                        this.getId());
+        result.groups = this.groups.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -230,6 +231,13 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
 		}
 		subService.deregister(observee);
     }
+    public void endStudyGroup(final StudyGroup4Public studyGroup) 
+				throws model.AlreadyFinishedException, PersistenceException{
+        model.meta.StudyGroupManagerEndStudyGroupStudyGroupMssg event = new model.meta.StudyGroupManagerEndStudyGroupStudyGroupMssg(studyGroup, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
     public void endStudyGroup(final StudyGroup4Public studyGroup, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
@@ -254,6 +262,13 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
 			getThis().setSubService(subService);
 		}
 		subService.register(observee);
+    }
+    public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
+				throws model.AlreadyFinishedException, model.UnitSwapException, PersistenceException{
+        model.meta.StudyGroupManagerSwapCPonModuleWithUnitsModuleWithUnitsSGroupUnitSGroupUnitSGroupFractionMssg event = new model.meta.StudyGroupManagerSwapCPonModuleWithUnitsModuleWithUnitsSGroupUnitSGroupUnitSGroupFractionMssg(module, fromUnit, ToUnit, creditPoints, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
     }
     public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints, final Invoker invoker) 
 				throws PersistenceException{
@@ -294,7 +309,7 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
     	Student4Public newStudent = Student.createStudent(firstName, lastName, birthDate);
     	getThis().addStudentToGroup(group, newStudent);
     }
-    public void endStudyGroup(final StudyGroup4Public studyGroup) 
+    public void endStudyGroupImplementation(final StudyGroup4Public studyGroup) 
 				throws model.AlreadyFinishedException, PersistenceException{
         studyGroup.endStudyGroup();
     }
@@ -306,7 +321,7 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
 				throws PersistenceException{
     	
     }
-    public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
+    public void swapCPonModuleWithUnitsImplementation(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 
 				throws model.AlreadyFinishedException, model.UnitSwapException, PersistenceException{
     	module.swapCP(fromUnit, ToUnit, creditPoints);
     }

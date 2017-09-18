@@ -85,6 +85,7 @@ public class ProgramModuleService extends model.subAdminService implements Persi
                                           this.moduleManager, 
                                           this.getId());
         result.errors = this.errors.copy(result);
+        result.errors = this.errors.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

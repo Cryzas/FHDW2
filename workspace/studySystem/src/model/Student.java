@@ -99,6 +99,7 @@ public class Student extends PersistentObject implements PersistentStudent{
                              this.subService, 
                              this.This, 
                              this.getId());
+        result.oldPrograms = this.oldPrograms.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

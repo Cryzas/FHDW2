@@ -96,6 +96,7 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
                                  this.subService, 
                                  this.This, 
                                  this.getId());
+        result.changes = this.changes.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

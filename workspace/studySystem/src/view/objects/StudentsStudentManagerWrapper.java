@@ -1,5 +1,6 @@
 package view.objects;
 
+import view.ModelException;
 
 /* Additional import section end */
 
@@ -16,7 +17,13 @@ public class StudentsStudentManagerWrapper extends AssociationInTreeWrapper {
 	
 	
 	public String toString(){
-    	return this.getWrappedObject().toString();
+		String toBeAdded = "";
+		try {
+			toBeAdded = " | " + ((Student)this.getWrappedObject().getTheObject()).getParentGroup().iterator().next().getName();
+		} catch (ModelException e) {
+			e.printStackTrace();
+		}
+    	return this.getWrappedObject().toString() + toBeAdded;
     }
 
     /*End of protected part that is not overridden by persistence generator*/

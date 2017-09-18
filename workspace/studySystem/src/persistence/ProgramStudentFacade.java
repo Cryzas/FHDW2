@@ -2,187 +2,71 @@ package persistence;
 
 import model.*;
 
-import java.sql.*;
-//import oracle.jdbc.*;
-
 public class ProgramStudentFacade{
 
-	private String schemaName;
-	private Connection con;
+	static private Long sequencer = new Long(0);
 
-	public ProgramStudentFacade(String schemaName, Connection con) {
-		this.schemaName = schemaName;
-		this.con = con;
+	static protected long getTheNextId(){
+		long result = -1;
+		synchronized (sequencer) { 
+			result = sequencer.longValue() + 1;
+			sequencer = new Long(result);
+		}
+		return result;
+	}
+
+	protected long getNextId(){
+		return getTheNextId();
+	}
+
+	
+
+	public ProgramStudentFacade() {
 	}
 
     /* If idCreateIfLessZero is negative, a new id is generated. */
     public PersistentProgramStudent newProgramStudent(long idCreateIfLessZero) throws PersistenceException {
-        oracle.jdbc.OracleCallableStatement callable;
-        try{
-            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".PrgrmStdntFacade.newPrgrmStdnt(?); end;");
-            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
-            callable.setLong(2, idCreateIfLessZero);
-            callable.execute();
-            long id = callable.getLong(1);
-            callable.close();
-            ProgramStudent result = new ProgramStudent(null,null,null,id);
-            if (idCreateIfLessZero < 0)Cache.getTheCache().put(result);
-            return (PersistentProgramStudent)PersistentProxi.createProxi(id, 192);
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
+        if(idCreateIfLessZero > 0) return (PersistentProgramStudent)PersistentProxi.createProxi(idCreateIfLessZero, 192);
+        long id = ConnectionHandler.getTheConnectionHandler().theProgramStudentFacade.getNextId();
+        ProgramStudent result = new ProgramStudent(null,null,null,id);
+        Cache.getTheCache().put(result);
+        return (PersistentProgramStudent)PersistentProxi.createProxi(id, 192);
     }
     
     public PersistentProgramStudent newDelayedProgramStudent() throws PersistenceException {
-        oracle.jdbc.OracleCallableStatement callable;
-        try{
-            callable = (oracle.jdbc.OracleCallableStatement)this.con.prepareCall("Begin ? := " + this.schemaName + ".PrgrmStdntFacade.newDelayedPrgrmStdnt(); end;");
-            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
-            callable.execute();
-            long id = callable.getLong(1);
-            callable.close();
-            ProgramStudent result = new ProgramStudent(null,null,null,id);
-            Cache.getTheCache().put(result);
-            return (PersistentProgramStudent)PersistentProxi.createProxi(id, 192);
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
+        long id = ConnectionHandler.getTheConnectionHandler().theProgramStudentFacade.getNextId();
+        ProgramStudent result = new ProgramStudent(null,null,null,id);
+        Cache.getTheCache().put(result);
+        return (PersistentProgramStudent)PersistentProxi.createProxi(id, 192);
     }
     
     public ProgramStudent getProgramStudent(long ProgramStudentId) throws PersistenceException{
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".PrgrmStdntFacade.getPrgrmStdnt(?); end;");
-            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
-            callable.setLong(2, ProgramStudentId);
-            callable.execute();
-            ResultSet obj = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
-            if (!obj.next()) {
-                obj.close();
-                callable.close();
-                return null;
-            }
-            PersistentProgramSGroup programCopy = null;
-            if (obj.getLong(2) != 0)
-                programCopy = (PersistentProgramSGroup)PersistentProxi.createProxi(obj.getLong(2), obj.getLong(3));
-            SubjInterface subService = null;
-            if (obj.getLong(4) != 0)
-                subService = (SubjInterface)PersistentProxi.createProxi(obj.getLong(4), obj.getLong(5));
-            PersistentProgramStudent This = null;
-            if (obj.getLong(6) != 0)
-                This = (PersistentProgramStudent)PersistentProxi.createProxi(obj.getLong(6), obj.getLong(7));
-            ProgramStudent result = new ProgramStudent(programCopy,
-                                                       subService,
-                                                       This,
-                                                       ProgramStudentId);
-            obj.close();
-            callable.close();
-            ProgramStudentICProxi inCache = (ProgramStudentICProxi)Cache.getTheCache().put(result);
-            ProgramStudent objectInCache = (ProgramStudent)inCache.getTheObject();
-            if (objectInCache == result)result.initializeOnInstantiation();
-            return objectInCache;
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
+        return null; //All data is in the cache!
     }
     public long getClass(long objectId) throws PersistenceException{
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".PrgrmStdntFacade.getClass(?); end;");
-            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
-            callable.setLong(2, objectId);
-            callable.execute();
-            long result = callable.getLong(1);
-            callable.close();
-            return result;
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
+        if(Cache.getTheCache().contains(objectId, 285)) return 285;
+        if(Cache.getTheCache().contains(objectId, 192)) return 192;
+        
+        throw new PersistenceException("No such object: " + new Long(objectId).toString(), 0);
+        
     }
     public long modulesAdd(long ProgramStudentId, ModuleAbstractStudent4Public modulesVal) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".PrgrmStdntFacade.mdlsAdd(?, ?, ?); end;");
-            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.NUMBER);
-            callable.setLong(2, ProgramStudentId);
-            callable.setLong(3, modulesVal.getId());
-            callable.setLong(4, modulesVal.getClassId());
-            callable.execute();
-            long result = callable.getLong(1);
-            callable.close();
-            return result;
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
+        return 0;
     }
     public void modulesRem(long modulesId) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".PrgrmStdntFacade.mdlsRem(?); end;");
-            callable.setLong(1, modulesId);
-            callable.execute();
-            callable.close();
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
+        
     }
     public ModuleAbstractStudentList modulesGet(long ProgramStudentId) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin ? := " + this.schemaName + ".PrgrmStdntFacade.mdlsGet(?); end;");
-            callable.registerOutParameter(1, oracle.jdbc.OracleTypes.CURSOR);
-            callable.setLong(2, ProgramStudentId);
-            callable.execute();
-            ResultSet list = ((oracle.jdbc.OracleCallableStatement)callable).getCursor(1);
-            ModuleAbstractStudentList result = new ModuleAbstractStudentList();
-            while (list.next()) {
-                result.add((PersistentModuleAbstractStudent)PersistentProxi.createListEntryProxi(list.getLong(1), list.getLong(2), list.getLong(3)));
-            }
-            list.close();
-            callable.close();
-            return result;
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
+        return new ModuleAbstractStudentList(); // remote access for initialization only!
     }
     public void programCopySet(long ProgramStudentId, ProgramSGroup4Public programCopyVal) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".PrgrmStdntFacade.prgrmCpSet(?, ?, ?); end;");
-            callable.setLong(1, ProgramStudentId);
-            callable.setLong(2, programCopyVal.getId());
-            callable.setLong(3, programCopyVal.getClassId());
-            callable.execute();
-            callable.close();
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
+        
     }
     public void subServiceSet(long ProgramStudentId, SubjInterface subServiceVal) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".PrgrmStdntFacade.sbSrvcSet(?, ?, ?); end;");
-            callable.setLong(1, ProgramStudentId);
-            callable.setLong(2, subServiceVal.getId());
-            callable.setLong(3, subServiceVal.getClassId());
-            callable.execute();
-            callable.close();
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
+        
     }
     public void ThisSet(long ProgramStudentId, ProgramStudent4Public ThisVal) throws PersistenceException {
-        try{
-            CallableStatement callable;
-            callable = this.con.prepareCall("Begin " + this.schemaName + ".PrgrmStdntFacade.ThisSet(?, ?, ?); end;");
-            callable.setLong(1, ProgramStudentId);
-            callable.setLong(2, ThisVal.getId());
-            callable.setLong(3, ThisVal.getClassId());
-            callable.execute();
-            callable.close();
-        }catch(SQLException se) {
-            throw new PersistenceException(se.getMessage(), se.getErrorCode());
-        }
+        
     }
 
 }
