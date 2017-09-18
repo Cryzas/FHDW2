@@ -50,6 +50,18 @@ public  class RemoteStudyGroupService extends RemotesubAdminService {
         }
     }
     
+    public synchronized java.util.HashMap<?,?> lecture_Path_In_ChangeGradeforStudent(String studentProxiString){
+        try {
+            PersistentStudent student = (PersistentStudent)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(studentProxiString));
+            ModuleAbstractStudentSearchList result = ((PersistentStudyGroupService)this.server).lecture_Path_In_ChangeGradeforStudent(student);
+            return createOKResult(result.getVector(1, 0, false, false, true));
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }catch(model.UserException e0){
+            return createExceptionResult(e0);
+        }
+    }
+    
     public synchronized java.util.HashMap<?,?> students_Path_In_AddStudentToGroup(){
         try {
             StudentSearchList result = ((PersistentStudyGroupService)this.server).students_Path_In_AddStudentToGroup();
@@ -93,6 +105,17 @@ public  class RemoteStudyGroupService extends RemotesubAdminService {
 				students.add(currentProxi);
 			}
             ((PersistentStudyGroupService)this.server).addStudentToGroup(group, students);
+            return createOKResult();
+        }catch(PersistenceException pe){
+            return createExceptionResult(pe);
+        }
+    }
+    
+    public synchronized java.util.HashMap<?,?> changeGradeforStudent(String studentProxiString, String lectureProxiString, String grade, String comment){
+        try {
+            PersistentStudent student = (PersistentStudent)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(studentProxiString));
+            LectureWithGrade lecture = (LectureWithGrade)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(lectureProxiString));
+            ((PersistentStudyGroupService)this.server).changeGradeforStudent(student, lecture, grade, comment);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

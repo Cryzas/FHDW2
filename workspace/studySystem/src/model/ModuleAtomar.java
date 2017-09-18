@@ -197,6 +197,13 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
     }
     
     
+    public void changeGradeSystem(final GradeSystem4Public gradeSystem) 
+				throws PersistenceException{
+        model.meta.ModuleAtomarChangeGradeSystemGradeSystemMssg event = new model.meta.ModuleAtomarChangeGradeSystemGradeSystemMssg(gradeSystem, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
     public boolean containsprogramHierarchy(final programHierarchyHIERARCHY part) 
 				throws PersistenceException{
         if(getThis().equals(part)) return true;
@@ -249,7 +256,7 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
 				throws PersistenceException{
         getThis().setOwnCreditPoints(creditPoints);
     }
-    public void changeGradeSystem(final GradeSystem4Public gradeSystem) 
+    public void changeGradeSystemImplementation(final GradeSystem4Public gradeSystem) 
 				throws PersistenceException{
     	getThis().setGradeSystem(gradeSystem);
     }

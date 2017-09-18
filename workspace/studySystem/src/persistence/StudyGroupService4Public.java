@@ -37,6 +37,8 @@ public interface StudyGroupService4Public extends subAdminService4Public {
 				throws model.UserException, PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
+    public ModuleAbstractStudentSearchList lecture_Path_In_ChangeGradeforStudent(final Student4Public student) 
+				throws model.UserException, PersistenceException;
     public StudentSearchList students_Path_In_AddStudentToGroup() 
 				throws model.UserException, PersistenceException;
     public StudentSearchList students_Path_In_RemoveStudentFromGroup(final StudyGroup4Public group) 
@@ -44,6 +46,8 @@ public interface StudyGroupService4Public extends subAdminService4Public {
     public String studyGroupService_Menu_Filter(final Anything anything) 
 				throws PersistenceException;
     public void addStudentToGroup(final StudyGroup4Public group, final StudentSearchList students) 
+				throws PersistenceException;
+    public void changeGradeforStudent(final Student4Public student, final LectureWithGrade lecture, final String grade, final String comment) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;

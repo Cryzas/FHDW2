@@ -309,17 +309,7 @@ public class StudentManageService extends model.subAdminService implements Persi
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         super.initializeOnInstantiation();
-        ServerSearchList servers = Server.getServerByUser("%");
-		servers.filter(server -> !server.getUser().equals(common.RPCConstantsAndServices.AdministratorName));
-		servers.applyToAll(server -> {
-			try {Student4Public student = Student.getById(Long.valueOf(server.getUser()));
-			if(getThis().getStudentManager().getStudents().findFirst(argument -> argument.equals(student)) == null) {
-				getThis().getStudentManager().getStudents().add(student);
-			}
-			} catch (NumberFormatException e) {
-				
-			}
-		});
+        getThis().updateMe();
     }
     public void removeError(final ErrorDisplay4Public error) 
 				throws PersistenceException{
@@ -332,7 +322,17 @@ public class StudentManageService extends model.subAdminService implements Persi
     }
     public void updateMe() 
 				throws PersistenceException{
-    	getThis().getStudentManager().initializeOnInstantiation();
+    	ServerSearchList servers = Server.getServerByUser("%");
+		servers.filter(server -> !server.getUser().equals(common.RPCConstantsAndServices.AdministratorName));
+		servers.applyToAll(server -> {
+			try {Student4Public student = Student.getById(Long.valueOf(server.getUser()));
+			if(getThis().getStudentManager().getStudents().findFirst(argument -> argument.equals(student)) == null) {
+				getThis().getStudentManager().getStudents().add(student);
+			}
+			} catch (NumberFormatException e) {
+				
+			}
+		});
     	getThis().signalChanged(true);
     }
     public void updatePLZImplementation() 

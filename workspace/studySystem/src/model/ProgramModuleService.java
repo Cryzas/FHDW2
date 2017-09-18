@@ -2,6 +2,9 @@
 package model;
 
 import persistence.*;
+import model.meta.ModuleManagerMssgsVisitor;
+import model.meta.ProgramManagerMssgsVisitor;
+import model.meta.ProgramManagerStartStudyGroupProgramStringMssg;
 import model.visitor.*;
 
 /* Additional import section end */
@@ -395,24 +398,23 @@ public class ProgramModuleService extends model.subAdminService implements Persi
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 		super.initializeOnInstantiation();
-		Program.getProgramByName("%").applyToAll(program -> {
-			if(getThis().getProgramManager().getPrograms().findFirst(argument -> argument.equals(program)) == null) {
-				getThis().getProgramManager().getPrograms().add(program);
-			}
-		});
-		ModuleAbstract.getModuleAbstractByName("%").applyToAll(module -> {
-			if(getThis().getModuleManager().getModules().findFirst(argument -> argument.equals(module)) == null) {
-				getThis().getModuleManager().getModules().add(module);
-			}
-		});
+		getThis().updateMe();
 	}
     public void moduleManager_update(final model.meta.ModuleManagerMssgs event) 
 				throws PersistenceException{
-        updatePLZ();
+        event.accept(new ModuleManagerMssgsVisitor() {
+		});
     }
     public void programManager_update(final model.meta.ProgramManagerMssgs event) 
 				throws PersistenceException{
-        updatePLZ();
+        event.accept(new ProgramManagerMssgsVisitor() {
+
+			@Override
+			public void handleProgramManagerStartStudyGroupProgramStringMssg(
+					ProgramManagerStartStudyGroupProgramStringMssg event) throws PersistenceException {
+				getThis().updatePLZ();
+			}
+		});
     }
     public void removeError(final ErrorDisplay4Public error) 
 				throws PersistenceException{
@@ -443,8 +445,18 @@ public class ProgramModuleService extends model.subAdminService implements Persi
     }
     public void updateMe() 
 				throws PersistenceException{
-        getThis().getProgramManager().initializeOnInstantiation();
-        getThis().getModuleManager().initializeOnInstantiation();
+    	getThis().getProgramManager().getPrograms().filter(argument -> false);
+    	Program.getProgramByName("%").applyToAll(program -> {
+			if(getThis().getProgramManager().getPrograms().findFirst(argument -> argument.equals(program)) == null) {
+				getThis().getProgramManager().getPrograms().add(program);
+			}
+		});
+    	getThis().getModuleManager().getModules().filter(argument -> false);
+		ModuleAbstract.getModuleAbstractByName("%").applyToAll(module -> {
+			if(getThis().getModuleManager().getModules().findFirst(argument -> argument.equals(module)) == null) {
+				getThis().getModuleManager().getModules().add(module);
+			}
+		});
         getThis().signalChanged(true);
     }
     public void updatePLZImplementation() 

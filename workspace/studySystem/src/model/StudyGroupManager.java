@@ -197,6 +197,13 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
     }
+    public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
+				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
+        model.meta.StudyGroupManagerCreateStudentStudyGroupStringStringDateMssg event = new model.meta.StudyGroupManagerCreateStudentStudyGroupStringStringDateMssg(group, firstName, lastName, birthDate, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
     public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
@@ -275,7 +282,7 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
 				throws PersistenceException{
         
     }
-    public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
+    public void createStudentImplementation(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
 				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
     	Student4Public newStudent = Student.createStudent(firstName, lastName, birthDate);
     	getThis().addStudentToGroup(group, newStudent);

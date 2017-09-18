@@ -115,6 +115,10 @@ public class StudyGroupServiceICProxi extends subAdminServiceICProxi implements 
 				throws PersistenceException{
         ((PersistentStudyGroupService)this.getTheObject()).initialize(This, final$$Fields);
     }
+    public ModuleAbstractStudentSearchList lecture_Path_In_ChangeGradeforStudent(final Student4Public student) 
+				throws model.UserException, PersistenceException{
+        return ((PersistentStudyGroupService)this.getTheObject()).lecture_Path_In_ChangeGradeforStudent(student);
+    }
     public void register(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentStudyGroupService)this.getTheObject()).register(observee);
@@ -150,6 +154,10 @@ public class StudyGroupServiceICProxi extends subAdminServiceICProxi implements 
     public void addStudentToGroup(final StudyGroup4Public group, final StudentSearchList students) 
 				throws PersistenceException{
         ((PersistentStudyGroupService)this.getTheObject()).addStudentToGroup(group, students);
+    }
+    public void changeGradeforStudent(final Student4Public student, final LectureWithGrade lecture, final String grade, final String comment) 
+				throws PersistenceException{
+        ((PersistentStudyGroupService)this.getTheObject()).changeGradeforStudent(student, lecture, grade, comment);
     }
     public void connected(final String user) 
 				throws PersistenceException{

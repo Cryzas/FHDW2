@@ -254,7 +254,6 @@ public class AdminService extends model.Service implements PersistentAdminServic
     public void initializeOnCreation() 
 				throws PersistenceException{
 		super.initializeOnCreation();
-//		getThis().getServices().add(DozentenService.createDozentenService(getThis()));
 		getThis().getServices().add(ProgramModuleService.createProgramModuleService(getThis()));
 		getThis().getServices().add(StudyGroupService.createStudyGroupService(getThis()));
 		getThis().getServices().add(StudentManageService.createStudentManageService(getThis()));

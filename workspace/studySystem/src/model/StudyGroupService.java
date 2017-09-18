@@ -233,6 +233,12 @@ public class StudyGroupService extends model.subAdminService implements Persiste
 			this.setParentService((PersistentAdminService)final$$Fields.get("parentService"));
 		}
     }
+    public ModuleAbstractStudentSearchList lecture_Path_In_ChangeGradeforStudent(final Student4Public student) 
+				throws model.UserException, PersistenceException{
+        	return new ModuleAbstractStudentSearchList(student.
+                getProgram().
+                getModules().getList());
+    }
     public synchronized void register(final ObsInterface observee) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
@@ -281,6 +287,10 @@ public class StudyGroupService extends model.subAdminService implements Persiste
 				throws PersistenceException{
 		students.applyToAll(student -> getThis().getGroupManager().addStudentToGroup(group, student, getThis()));
 	}
+    public void changeGradeforStudent(final Student4Public student, final LectureWithGrade lecture, final String grade, final String comment) 
+				throws PersistenceException{
+        ((StudentManageService4Public)getThis().getParentService().getServices().findFirst(service -> service instanceof StudentManageService4Public)).changeGradeforStudent(student, lecture, grade, comment);
+    }
     public void connected(final String user) 
 				throws PersistenceException{
 	}
@@ -322,11 +332,7 @@ public class StudyGroupService extends model.subAdminService implements Persiste
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 		super.initializeOnInstantiation();
-		StudyGroup.getStudyGroupByName("%").applyToAll(group -> {
-			if(getThis().getGroupManager().getGroups().findFirst(argument -> argument.equals(group)) == null) {
-				getThis().getGroupManager().getGroups().add(group);
-			}
-		});
+		getThis().updateMe();
 	}
     public void removeError(final ErrorDisplay4Public error) 
 				throws PersistenceException{
@@ -347,7 +353,11 @@ public class StudyGroupService extends model.subAdminService implements Persiste
 	}
     public void updateMe() 
 				throws PersistenceException{
-		getThis().getGroupManager().initializeOnInstantiation();
+    	StudyGroup.getStudyGroupByName("%").applyToAll(group -> {
+			if(getThis().getGroupManager().getGroups().findFirst(argument -> argument.equals(group)) == null) {
+				getThis().getGroupManager().getGroups().add(group);
+			}
+		});
 		getThis().signalChanged(true);
 	}
     public void updatePLZImplementation() 

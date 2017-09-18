@@ -81,6 +81,10 @@ public class ProgramManagerICProxi extends PersistentInCacheProxiOptimistic impl
 				throws PersistenceException{
         ((PersistentProgramManager)this.getTheObject()).register(observee);
     }
+    public void startStudyGroup(final Program4Public program, final String name) 
+				throws model.AlreadyExistsInParentException, model.NoFractionValueException, PersistenceException{
+        ((PersistentProgramManager)this.getTheObject()).startStudyGroup(program, name);
+    }
     public void startStudyGroup(final Program4Public program, final String name, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentProgramManager)this.getTheObject()).startStudyGroup(program, name, invoker);
@@ -109,9 +113,9 @@ public class ProgramManagerICProxi extends PersistentInCacheProxiOptimistic impl
 				throws PersistenceException{
         ((PersistentProgramManager)this.getTheObject()).initializeOnInstantiation();
     }
-    public void startStudyGroup(final Program4Public program, final String name) 
+    public void startStudyGroupImplementation(final Program4Public program, final String name) 
 				throws model.AlreadyExistsInParentException, model.NoFractionValueException, PersistenceException{
-        ((PersistentProgramManager)this.getTheObject()).startStudyGroup(program, name);
+        ((PersistentProgramManager)this.getTheObject()).startStudyGroupImplementation(program, name);
     }
 
     

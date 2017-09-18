@@ -18,6 +18,8 @@ public interface StudyGroupManager4Public extends Anything, SubjInterface, Abstr
     
     public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student, final Invoker invoker) 
 				throws PersistenceException;
+    public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
+				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException;
     public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate, final Invoker invoker) 
 				throws PersistenceException;
     public void endStudyGroup(final StudyGroup4Public studyGroup, final Invoker invoker) 
@@ -30,7 +32,7 @@ public interface StudyGroupManager4Public extends Anything, SubjInterface, Abstr
 				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
-    public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
+    public void createStudentImplementation(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
 				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException;
     public void endStudyGroup(final StudyGroup4Public studyGroup) 
 				throws model.AlreadyFinishedException, PersistenceException;

@@ -318,6 +318,7 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
         ImageView handle(UpdateMePRMTRMenuItem menuItem);
         ImageView handle(SwapCPonModuleWithUnitsPRMTRModuleWithUnitsSGroupPRMTRUnitSGroupPRMTRUnitSGroupPRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(RemoveErrorPRMTRErrorDisplayPRMTRMenuItem menuItem);
+        ImageView handle(ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(CreateStudentPRMTRStudyGroupPRMTRStringPRMTRStringPRMTRDatePRMTRMenuItem menuItem);
         ImageView handle(RemoveStudentFromGroupPRMTRStudyGroupPRMTRStudentLSTPRMTRMenuItem menuItem);
         ImageView handle(AddStudentToGroupPRMTRStudyGroupPRMTRStudentLSTPRMTRMenuItem menuItem);
@@ -341,6 +342,11 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
         }
     }
     private class RemoveErrorPRMTRErrorDisplayPRMTRMenuItem extends StudyGroupServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem extends StudyGroupServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -535,6 +541,21 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
                 });
                 result.getItems().add(item);
             }
+            if (selected instanceof StudentView){
+                item = new ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem();
+                item.setText("Note eintragen ... ");
+                item.setOnAction(new EventHandler<ActionEvent>(){
+                    public void handle(javafx.event.ActionEvent e) {
+                        final StudyGroupServiceChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameStringMssgWizard wizard = new StudyGroupServiceChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameStringMssgWizard("Note eintragen");
+                        wizard.setFirstArgument((StudentView)selected);
+                        wizard.setWidth(getNavigationPanel().getWidth());
+                        wizard.setX( getPointForView().getX());
+                        wizard.setY( getPointForView().getY());
+                        wizard.showAndWait();
+                    }
+                });
+                result.getItems().add(item);
+            }
             if (selected instanceof ModuleWithUnitsSGroupView){
                 item = new SwapCPonModuleWithUnitsPRMTRModuleWithUnitsSGroupPRMTRUnitSGroupPRMTRUnitSGroupPRMTRFractionPRMTRMenuItem();
                 item.setText("CP Gewichtung ändern ... ");
@@ -629,6 +650,69 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 		
 	}
 
+	class StudyGroupServiceChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameStringMssgWizard extends Wizard {
+
+		protected StudyGroupServiceChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameStringMssgWizard(String operationName){
+			super(StudyGroupServiceClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "StudyGroupServiceChangeGradeforStudentStudentLectureWithGradeGradesInSimpleOrThirdSUBTYPENameStringMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().changeGradeforStudent(firstArgument, (LectureWithGrade)((ObjectSelectionPanel)getParametersPanel().getChildren().get(0)).getResult(),
+									((StringSelectionPanel)getParametersPanel().getChildren().get(1)).getResult(),
+									((StringSelectionPanel)getParametersPanel().getChildren().get(2)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			final ObjectSelectionPanel panel2 = new ObjectSelectionPanel("Vorlesung", "view.LectureWithGrade", null, this)
+											{protected ViewRoot getBrowserRoot(){
+												{try{
+													return new ListRoot(getConnection().lecture_Path_In_ChangeGradeforStudent((StudentView)this.navigationRoot));
+												}catch(ModelException me){
+													return (ViewRoot) this.navigationRoot;
+												}catch(UserException ue){
+													return (ViewRoot) this.navigationRoot;
+											}}}};
+			getParametersPanel().getChildren().add(panel2);
+			getParametersPanel().getChildren().add(new RegExprSelectionPanel("Grade", this, common.RegularExpressionManager.gradesInSimpleOrThirdSUBTYPEName.getRegExpr()));
+			getParametersPanel().getChildren().add(new StringSelectionPanel("Kommentar", this));		
+		}	
+		protected void handleDependencies(int i) {
+			if(i == 0){
+				((ObjectSelectionPanel)getParametersPanel().getChildren().get(i)).setBrowserRoot((ViewRoot)firstArgument);
+			}
+		}
+		
+		
+		private StudentView firstArgument; 
+	
+		public void setFirstArgument(StudentView firstArgument){
+			this.firstArgument = firstArgument;
+			this.setTitle(this.firstArgument.toString());
+			this.check();
+		}
+		
+		
+	}
+
 	class StudyGroupServiceCreateStudentStudyGroupStringStringDateMssgWizard extends Wizard {
 
 		protected StudyGroupServiceCreateStudentStudyGroupStringStringDateMssgWizard(String operationName){
@@ -710,7 +794,7 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 			return false;
 		}
 		protected void addParameters(){
-			final ObjectCollectionSelectionPanel panel2 = new ObjectCollectionSelectionPanel("Studiengruppen", "view.StudyGroupView", null, this, getMultiSelectionFor("deleteStudyGroupsPRMTRStudyGroupManagerPRMTRStudyGroupLSTPRMTRgroups"))
+			final ObjectCollectionSelectionPanel panel3 = new ObjectCollectionSelectionPanel("Studiengruppen", "view.StudyGroupView", null, this, getMultiSelectionFor("deleteStudyGroupsPRMTRStudyGroupManagerPRMTRStudyGroupLSTPRMTRgroups"))
 											{protected ViewRoot getBrowserRoot(){
 												{try{
 													return new ListRoot(getConnection().groups_Path_In_DeleteStudyGroups((StudyGroupManagerView)this.navigationRoot));
@@ -719,7 +803,7 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 												}catch(UserException ue){
 													return (ViewRoot) this.navigationRoot;
 											}}}};
-			getParametersPanel().getChildren().add(panel2);		
+			getParametersPanel().getChildren().add(panel3);		
 		}	
 		protected void handleDependencies(int i) {
 			if(i == 0){
@@ -776,7 +860,7 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 			return false;
 		}
 		protected void addParameters(){
-			final ObjectCollectionSelectionPanel panel3 = new ObjectCollectionSelectionPanel("Studenten", "view.StudentView", null, this, getMultiSelectionFor("removeStudentFromGroupPRMTRStudyGroupPRMTRStudentLSTPRMTRstudents"))
+			final ObjectCollectionSelectionPanel panel4 = new ObjectCollectionSelectionPanel("Studenten", "view.StudentView", null, this, getMultiSelectionFor("removeStudentFromGroupPRMTRStudyGroupPRMTRStudentLSTPRMTRstudents"))
 											{protected ViewRoot getBrowserRoot(){
 												{try{
 													return new ListRoot(getConnection().students_Path_In_RemoveStudentFromGroup((StudyGroupView)this.navigationRoot));
@@ -785,7 +869,7 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 												}catch(UserException ue){
 													return (ViewRoot) this.navigationRoot;
 											}}}};
-			getParametersPanel().getChildren().add(panel3);		
+			getParametersPanel().getChildren().add(panel4);		
 		}	
 		protected void handleDependencies(int i) {
 			if(i == 0){
@@ -844,7 +928,7 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 			return false;
 		}
 		protected void addParameters(){
-			final ObjectSelectionPanel panel4 = new ObjectSelectionPanel("Von Unit", "view.UnitSGroupView", null, this)
+			final ObjectSelectionPanel panel5 = new ObjectSelectionPanel("Von Unit", "view.UnitSGroupView", null, this)
 											{protected ViewRoot getBrowserRoot(){
 												{try{
 													return new ListRoot(getConnection().fromUnit_Path_In_SwapCPonModuleWithUnits((ModuleWithUnitsSGroupView)this.navigationRoot));
@@ -853,8 +937,8 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 												}catch(UserException ue){
 													return (ViewRoot) this.navigationRoot;
 											}}}};
-			getParametersPanel().getChildren().add(panel4);
-			final ObjectSelectionPanel panel5 = new ObjectSelectionPanel("Zu Unit", "view.UnitSGroupView", null, this)
+			getParametersPanel().getChildren().add(panel5);
+			final ObjectSelectionPanel panel6 = new ObjectSelectionPanel("Zu Unit", "view.UnitSGroupView", null, this)
 											{protected ViewRoot getBrowserRoot(){
 												{try{
 													return new ListRoot(getConnection().ToUnit_Path_In_SwapCPonModuleWithUnits((ModuleWithUnitsSGroupView)this.navigationRoot));
@@ -863,7 +947,7 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 												}catch(UserException ue){
 													return (ViewRoot) this.navigationRoot;
 											}}}};
-			getParametersPanel().getChildren().add(panel5);
+			getParametersPanel().getChildren().add(panel6);
 			getParametersPanel().getChildren().add(new FractionSelectionPanel("Credit Points", this));		
 		}	
 		protected void handleDependencies(int i) {
@@ -938,6 +1022,12 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 			@Override
 			public ImageView handle(UpdateMePRMTRMenuItem menuItem) {
 				return new ImageView(IconManager.getImage(16));
+			}
+
+			@Override
+			public ImageView handle(
+					ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(11));
 			}
 		});
 	}	

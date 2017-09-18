@@ -5,11 +5,13 @@ public interface ProgramManagerMssgsVisitor extends ProgramManagerDOWNMssgsVisit
 
 interface ProgramManagerDOWNMssgsVisitor  {
 
+    public void handleProgramManagerStartStudyGroupProgramStringMssg(ProgramManagerStartStudyGroupProgramStringMssg event) throws persistence.PersistenceException;
     
 }
 
 
 interface ProgramManagerUPMssgsVisitor  {
 
+    public void handleProgramManagerStartStudyGroupProgramStringMssg(ProgramManagerStartStudyGroupProgramStringMssg event) throws persistence.PersistenceException;
     
 }

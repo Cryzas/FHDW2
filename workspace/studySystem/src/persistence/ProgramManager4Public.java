@@ -22,6 +22,8 @@ public interface ProgramManager4Public extends Anything, SubjInterface, Abstract
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
+    public void startStudyGroup(final Program4Public program, final String name) 
+				throws model.AlreadyExistsInParentException, model.NoFractionValueException, PersistenceException;
     public void startStudyGroup(final Program4Public program, final String name, final Invoker invoker) 
 				throws PersistenceException;
     public void addModuleToProg(final Program4Public program, final ModuleAbstract4Public module) 
@@ -34,7 +36,7 @@ public interface ProgramManager4Public extends Anything, SubjInterface, Abstract
 				throws PersistenceException;
     public void initializeOnInstantiation() 
 				throws PersistenceException;
-    public void startStudyGroup(final Program4Public program, final String name) 
+    public void startStudyGroupImplementation(final Program4Public program, final String name) 
 				throws model.AlreadyExistsInParentException, model.NoFractionValueException, PersistenceException;
 
 }

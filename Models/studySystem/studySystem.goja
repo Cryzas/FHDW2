@@ -62,6 +62,7 @@ server StudyGroupService extends subAdminService {
 	void createStudent @@ Student_erstellen (StudyGroup group, String firstName @@ Vorname, String lastName @@ Nachname, Date birthDate @@ Geburtsdatum);
 	void removeStudentFromGroup @@ Studenten_entfernen (StudyGroup group, Student ** students @@ Studenten {;group;students});
 	void deleteStudyGroups @@ Studiengruppen_löschen (StudyGroupManager manager, StudyGroup ** groups @@ Studiengruppen {;manager;groups});
+	void changeGradeforStudent @@ Note_eintragen (Student student, LectureWithGrade lecture @@ Vorlesung{;student;program;modules}, GradesInSimpleOrThirdSUBTYPEName grade @@ Grade, String comment @@ Kommentar);
 
 }
 
@@ -82,7 +83,7 @@ active class ProgramManager {
 /* Modul zum jeweiligen Programm hinzufügen | Exception wenn Modul schon in Programm ist */
 	void addModuleToProg(Program program, ModuleAbstract module) throws CycleException, AlreadyExistsInParentException;
 /* Neue Studiengruppe eröffnen | Exception wenn schon eine Studiengruppe mit dem Namen existiert */
-	void startStudyGroup(Program program, String name) throws AlreadyExistsInParentException, NoFractionValueException;	
+	event void startStudyGroup(Program program, String name) throws AlreadyExistsInParentException, NoFractionValueException;	
 
 }
 
@@ -111,7 +112,7 @@ active class StudyGroupManager {
 /* Beendet die Studiengruppe, Noten können nicht mehr verändert werden | Exception wenn Studiengruppe schon beendet ist*/
 	void endStudyGroup (StudyGroup studyGroup) throws AlreadyFinishedException;
 /* Anlegen eines neuen Studenten zu einer Studiengruppe */
-	void createStudent (StudyGroup group, String firstName, String lastName, Date birthDate) throws CycleException, AlreadyExistsInParentException, AlreadyFinishedException;
+	event void createStudent (StudyGroup group, String firstName, String lastName, Date birthDate) throws CycleException, AlreadyExistsInParentException, AlreadyFinishedException;
 
 }
 
@@ -160,7 +161,7 @@ class ModuleAtomar @@ Atomar extends ModuleAbstract {
 	/* Ermöglicht das Ändern der Creditpoints, welche durch das erfolgreiche Absolvieren des Moduls erreicht werden können */
 	void changeCPOnModule(Fraction creditPoints);
 	/* Ermöglicht das Ändern des Notensystems, nach welchem das Modul bewertet wird */
-	void changeGradeSystem (GradeSystem gradeSystem);
+	event void changeGradeSystem (GradeSystem gradeSystem);
 }
 
 /** Definiert das Modul, welches sich aus Units zusammensetzt, als Erweiterung des abstrakten Moduls */
