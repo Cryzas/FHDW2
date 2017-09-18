@@ -158,11 +158,6 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new StudyGroupServiceGroupManagerICProxi(objectId);
             }
         };
-        iCProxiFactories[186] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new DozentenServiceICProxi(objectId);
-            }
-        };
         iCProxiFactories[122] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new T_2_0ICProxi(objectId);

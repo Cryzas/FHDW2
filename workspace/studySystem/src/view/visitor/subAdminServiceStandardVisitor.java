@@ -11,9 +11,6 @@ public abstract class subAdminServiceStandardVisitor implements subAdminServiceV
     public void handleStudentManageService(StudentManageServiceView studentManageService) throws ModelException{
         this.standardHandling(studentManageService);
     }
-    public void handleDozentenService(DozentenServiceView dozentenService) throws ModelException{
-        this.standardHandling(dozentenService);
-    }
     public void handleUserManagerService(UserManagerServiceView userManagerService) throws ModelException{
         this.standardHandling(userManagerService);
     }

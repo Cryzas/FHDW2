@@ -23,9 +23,6 @@ public abstract class RemoteDirectVisitor implements RemoteVisitor {
     public void handleStudentManageService(StudentManageServiceView studentManageService) throws ModelException{
         this.handlesubAdminService(studentManageService);
     }
-    public void handleDozentenService(DozentenServiceView dozentenService) throws ModelException{
-        this.handlesubAdminService(dozentenService);
-    }
     public void handleUserManagerService(UserManagerServiceView userManagerService) throws ModelException{
         this.handlesubAdminService(userManagerService);
     }

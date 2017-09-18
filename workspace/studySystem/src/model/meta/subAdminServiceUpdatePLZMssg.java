@@ -17,9 +17,6 @@ public class subAdminServiceUpdatePLZMssg implements subAdminServiceDOWNMssgs,su
     public void accept(StudentManageServiceMssgsVisitor visitor) throws PersistenceException{
         visitor.handlesubAdminServiceUpdatePLZMssg(this);
     }
-    public void accept(DozentenServiceMssgsVisitor visitor) throws PersistenceException{
-        visitor.handlesubAdminServiceUpdatePLZMssg(this);
-    }
     public void accept(UserManagerServiceMssgsVisitor visitor) throws PersistenceException{
         visitor.handlesubAdminServiceUpdatePLZMssg(this);
     }

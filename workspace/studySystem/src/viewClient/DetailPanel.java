@@ -1267,9 +1267,6 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleT_2_3(view.T_2_3View object){
         result = new T_2_3DefaultDetailPanel(handler, object);
     }
-    public void handleDozentenService(view.DozentenServiceView object){
-        result = new DozentenServiceDefaultDetailPanel(handler, object);
-    }
     public void handleT_2_0(view.T_2_0View object){
         result = new T_2_0DefaultDetailPanel(handler, object);
     }
@@ -1891,24 +1888,6 @@ class T_2_3DefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.T_2_3View getAnything(){
         return (view.T_2_3View)this.anything;
-    }
-}
-
-class DozentenServiceDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String DozentenService$$programManager = "DozentenService$$programManager";
-    protected static final String DozentenService$$moduleManager = "DozentenService$$moduleManager";
-    protected static final String DozentenService$$groupManager = "DozentenService$$groupManager";
-    protected static final String DozentenService$$studentManager = "DozentenService$$studentManager";
-    
-    protected DozentenServiceDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.DozentenServiceView getAnything(){
-        return (view.DozentenServiceView)this.anything;
     }
 }
 

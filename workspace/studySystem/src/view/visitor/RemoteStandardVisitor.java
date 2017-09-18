@@ -11,9 +11,6 @@ public abstract class RemoteStandardVisitor implements RemoteVisitor {
     public void handleStudentManageService(StudentManageServiceView studentManageService) throws ModelException{
         this.standardHandling(studentManageService);
     }
-    public void handleDozentenService(DozentenServiceView dozentenService) throws ModelException{
-        this.standardHandling(dozentenService);
-    }
     public void handleAdminService(AdminServiceView adminService) throws ModelException{
         this.standardHandling(adminService);
     }

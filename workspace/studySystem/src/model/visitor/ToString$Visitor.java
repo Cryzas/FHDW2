@@ -29,7 +29,6 @@ public abstract class ToString$Visitor extends AnythingStandardVisitor{
     public abstract void handleStudent(Student4Public student) throws PersistenceException;
     public abstract void handleT_2_3(T_2_34Public t_2_3) throws PersistenceException;
     public abstract void handleT_2_0(T_2_04Public t_2_0) throws PersistenceException;
-    public abstract void handleDozentenService(DozentenService4Public dozentenService) throws PersistenceException;
     public abstract void handleT_2_7(T_2_74Public t_2_7) throws PersistenceException;
     public abstract void handleUnitStudent(UnitStudent4Public unitStudent) throws PersistenceException;
     public abstract void handleBTrue(BTrue4Public bTrue) throws PersistenceException;

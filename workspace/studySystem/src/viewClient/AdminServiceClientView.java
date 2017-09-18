@@ -341,14 +341,6 @@ public class AdminServiceClientView extends BorderPane implements ExceptionAndEv
 					}
 
 					@Override
-					public void handleDozentenService(DozentenServiceView dozentenService) throws ModelException {
-						DozentenServiceClientView view = new DozentenServiceClientView(AdminServiceClientView.this, dozentenService);
-						dozentenService.connectDozentenService(AdminServiceClientView.this.getConnection(), view);
-						Tab newTab = new Tab(dozentenService.toString(), view);
-						getMainTabPane().getTabs().add(newTab);
-					}
-
-					@Override
 					public void handleProgramModuleService(ProgramModuleServiceView programModuleService)
 							throws ModelException {
 						ProgramModuleServiceClientView view = new ProgramModuleServiceClientView(AdminServiceClientView.this, programModuleService);

@@ -128,9 +128,6 @@ public abstract class SubjInterfaceStandardVisitor implements SubjInterfaceVisit
     public void handleStudyGroupManager(StudyGroupManager4Public studyGroupManager) throws PersistenceException{
         this.standardHandling(studyGroupManager);
     }
-    public void handleDozentenService(DozentenService4Public dozentenService) throws PersistenceException{
-        this.standardHandling(dozentenService);
-    }
     public void handleT_2_7(T_2_74Public t_2_7) throws PersistenceException{
         this.standardHandling(t_2_7);
     }

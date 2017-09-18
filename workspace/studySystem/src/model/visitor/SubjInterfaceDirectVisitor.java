@@ -243,9 +243,6 @@ public abstract class SubjInterfaceDirectVisitor implements SubjInterfaceVisitor
     public void handleStudentManageService(StudentManageService4Public studentManageService) throws PersistenceException{
         this.handlesubAdminService(studentManageService);
     }
-    public void handleDozentenService(DozentenService4Public dozentenService) throws PersistenceException{
-        this.handlesubAdminService(dozentenService);
-    }
     public void handleUserManagerService(UserManagerService4Public userManagerService) throws PersistenceException{
         this.handlesubAdminService(userManagerService);
     }

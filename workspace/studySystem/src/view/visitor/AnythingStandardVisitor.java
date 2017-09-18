@@ -77,9 +77,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleT_2_0(T_2_0View t_2_0) throws ModelException{
         this.standardHandling(t_2_0);
     }
-    public void handleDozentenService(DozentenServiceView dozentenService) throws ModelException{
-        this.standardHandling(dozentenService);
-    }
     public void handleT_2_7(T_2_7View t_2_7) throws ModelException{
         this.standardHandling(t_2_7);
     }

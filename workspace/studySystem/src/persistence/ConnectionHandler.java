@@ -139,7 +139,6 @@ public class ConnectionHandler {
     public CreateModuleCommandFacade theCreateModuleCommandFacade;
     public T_2_3Facade theT_2_3Facade;
     public StudyGroupServiceGroupManagerFacade theStudyGroupServiceGroupManagerFacade;
-    public DozentenServiceFacade theDozentenServiceFacade;
     public T_2_0Facade theT_2_0Facade;
     public T_2_7Facade theT_2_7Facade;
     public UnitStudentFacade theUnitStudentFacade;
@@ -280,7 +279,6 @@ public class ConnectionHandler {
             this.theCreateModuleCommandFacade= new CreateModuleCommandFacade(this.schemaName, this.con);
             this.theT_2_3Facade= new T_2_3Facade(this.schemaName, this.con);
             this.theStudyGroupServiceGroupManagerFacade= new StudyGroupServiceGroupManagerFacade(this.schemaName, this.con);
-            this.theDozentenServiceFacade= new DozentenServiceFacade(this.schemaName, this.con);
             this.theT_2_0Facade= new T_2_0Facade(this.schemaName, this.con);
             this.theT_2_7Facade= new T_2_7Facade(this.schemaName, this.con);
             this.theUnitStudentFacade= new UnitStudentFacade(this.schemaName, this.con);

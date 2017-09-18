@@ -5,4 +5,4 @@ public interface subAdminServiceMssgs {
 }
 
 interface subAdminServiceDOWNMssgs extends Mssgs, subAdminServiceMssgs{}
-interface subAdminServiceUPMssgs extends StudentManageServiceUPMssgs, DozentenServiceUPMssgs, UserManagerServiceUPMssgs, ProgramModuleServiceUPMssgs, StudyGroupServiceUPMssgs, subAdminServiceMssgs{}
+interface subAdminServiceUPMssgs extends StudentManageServiceUPMssgs, UserManagerServiceUPMssgs, ProgramModuleServiceUPMssgs, StudyGroupServiceUPMssgs, subAdminServiceMssgs{}

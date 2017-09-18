@@ -334,10 +334,6 @@ public class ToString$Visitor extends model.visitor.ToString$Visitor {
 		result = studentService.getUsername();
 	}
 	@Override
-	public void handleDozentenService(DozentenService4Public dozentenService) throws PersistenceException {
-		result = "Administration";
-	}
-	@Override
 	public void handleAdminService(AdminService4Public adminService) throws PersistenceException {
 		result = "Admin";
 	}

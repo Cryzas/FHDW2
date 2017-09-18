@@ -11,9 +11,6 @@ public abstract class subAdminServiceStandardVisitor implements subAdminServiceV
     public void handleStudentManageService(StudentManageService4Public studentManageService) throws PersistenceException{
         this.standardHandling(studentManageService);
     }
-    public void handleDozentenService(DozentenService4Public dozentenService) throws PersistenceException{
-        this.standardHandling(dozentenService);
-    }
     public void handleUserManagerService(UserManagerService4Public userManagerService) throws PersistenceException{
         this.standardHandling(userManagerService);
     }

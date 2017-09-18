@@ -95,9 +95,6 @@ public abstract class AnythingStandardVisitor implements AnythingVisitor {
     public void handleT_2_0(T_2_04Public t_2_0) throws PersistenceException{
         this.standardHandling(t_2_0);
     }
-    public void handleDozentenService(DozentenService4Public dozentenService) throws PersistenceException{
-        this.standardHandling(dozentenService);
-    }
     public void handleT_2_7(T_2_74Public t_2_7) throws PersistenceException{
         this.standardHandling(t_2_7);
     }

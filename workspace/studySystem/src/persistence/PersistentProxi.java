@@ -165,11 +165,6 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
                 return new StudyGroupServiceGroupManagerListEntryProxi(objectId, entryId);
             }
         };
-        listProxiFactories[186] = new ListProxiFactory(){
-            AbstractPersistentRoot create(long objectId, long entryId){
-                return new DozentenServiceListEntryProxi(objectId, entryId);
-            }
-        };
         listProxiFactories[122] = new ListProxiFactory(){
             AbstractPersistentRoot create(long objectId, long entryId){
                 return new T_2_0ListEntryProxi(objectId, entryId);
@@ -694,11 +689,6 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
         proxiFactories[207] = new ProxiFactory(){
             AbstractPersistentRoot create(long objectId){
                 return new StudyGroupServiceGroupManagerProxi(objectId);
-            }
-        };
-        proxiFactories[186] = new ProxiFactory(){
-            AbstractPersistentRoot create(long objectId){
-                return new DozentenServiceProxi(objectId);
             }
         };
         proxiFactories[122] = new ProxiFactory(){

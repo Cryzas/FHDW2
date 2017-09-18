@@ -45,7 +45,6 @@ public abstract class StudyGroupService$AuthoriseVisitor extends AnythingStandar
     public abstract void handleT_2_3(PersistentT_2_3 t_2_3) throws PersistenceException;
     public abstract void handleT_4_0(PersistentT_4_0 t_4_0) throws PersistenceException;
     public abstract void handleT_2_0(PersistentT_2_0 t_2_0) throws PersistenceException;
-    public abstract void handleDozentenService(PersistentDozentenService dozentenService) throws PersistenceException;
     public abstract void handleStudyGroupManager(PersistentStudyGroupManager studyGroupManager) throws PersistenceException;
     public abstract void handleT_2_7(PersistentT_2_7 t_2_7) throws PersistenceException;
     public abstract void handleUserManagerService(PersistentUserManagerService userManagerService) throws PersistenceException;

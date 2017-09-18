@@ -171,11 +171,6 @@ public abstract class ViewProxi extends ViewRoot {
                 return new T_2_3Proxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[186] = new ProxiFactory(){
-            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
-                return new DozentenServiceProxi(objectId, classId, connectionKey);
-            }
-        };
         proxiFactories[122] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new T_2_0Proxi(objectId, classId, connectionKey);

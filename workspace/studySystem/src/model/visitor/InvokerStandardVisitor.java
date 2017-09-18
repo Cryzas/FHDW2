@@ -11,9 +11,6 @@ public abstract class InvokerStandardVisitor implements InvokerVisitor {
     public void handleStudentManageService(StudentManageService4Public studentManageService) throws PersistenceException{
         this.standardHandling(studentManageService);
     }
-    public void handleDozentenService(DozentenService4Public dozentenService) throws PersistenceException{
-        this.standardHandling(dozentenService);
-    }
     public void handleAdminService(AdminService4Public adminService) throws PersistenceException{
         this.standardHandling(adminService);
     }

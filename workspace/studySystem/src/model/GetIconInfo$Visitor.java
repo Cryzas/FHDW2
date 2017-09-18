@@ -22,10 +22,6 @@ public class GetIconInfo$Visitor extends model.visitor.AnythingStandardVisitor {
 			}
 			
 			@Override
-			public void handleDozentenService(DozentenService4Public dozentenService) throws PersistenceException {
-			}
-			
-			@Override
 			public void handleNoProgram(NoProgram4Public noProgram) throws PersistenceException {
 				result = 5;				
 			}
