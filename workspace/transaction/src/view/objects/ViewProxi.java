@@ -55,25 +55,20 @@ public abstract class ViewProxi extends ViewRoot {
 	
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [41];
-        proxiFactories[13] = new ProxiFactory(){
-            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
-                return new TransferManagerProxi(objectId, classId, connectionKey);
-            }
-        };
+		proxiFactories = new ProxiFactory [42];
         proxiFactories[14] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new AccountProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[15] = new ProxiFactory(){
-            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
-                return new DebitProxi(objectId, classId, connectionKey);
-            }
-        };
         proxiFactories[1] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
                 return new ServerProxi(objectId, classId, connectionKey);
+            }
+        };
+        proxiFactories[39] = new ProxiFactory(){
+            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
+                return new NoAccountProxi(objectId, classId, connectionKey);
             }
         };
         proxiFactories[2] = new ProxiFactory(){
@@ -91,9 +86,29 @@ public abstract class ViewProxi extends ViewRoot {
                 return new CreditProxi(objectId, classId, connectionKey);
             }
         };
-        proxiFactories[34] = new ProxiFactory(){
+        proxiFactories[36] = new ProxiFactory(){
             ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
-                return new TransactionProxi(objectId, classId, connectionKey);
+                return new BookedProxi(objectId, classId, connectionKey);
+            }
+        };
+        proxiFactories[13] = new ProxiFactory(){
+            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
+                return new TransferManagerProxi(objectId, classId, connectionKey);
+            }
+        };
+        proxiFactories[40] = new ProxiFactory(){
+            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
+                return new WrapperRecycleProxi(objectId, classId, connectionKey);
+            }
+        };
+        proxiFactories[15] = new ProxiFactory(){
+            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
+                return new DebitProxi(objectId, classId, connectionKey);
+            }
+        };
+        proxiFactories[37] = new ProxiFactory(){
+            ViewProxi create(long objectId, long classId, ExceptionAndEventHandler connectionKey){
+                return new NotBookedProxi(objectId, classId, connectionKey);
             }
         };
         proxiFactories[20] = new ProxiFactory(){
@@ -143,12 +158,16 @@ public abstract class ViewProxi extends ViewRoot {
 		if (!expanded){
 			try {
 				this.getRemote(new java.util.Vector<ViewRoot>(), true);
+				this.expanded = true;
 			} catch (ModelException e) {
-				this.setToString(e.getMessage());
-				return !(e.getMessage().equals(RPCConstantsAndServices.ObjectNotAvailableErrorMessage) &&
-						 e.getErrorNumber() == RPCConstantsAndServices.ObjectNotAvailableErrorNo);
+				if (e.getErrorNumber() == RPCConstantsAndServices.ObjectNotAvailableErrorNo && this.object != null){
+					this.expanded = true;
+					return true;
+				} else {
+					this.setToString(e.getMessage());
+					return false;
+				}
 			}
-			this.expanded = true;
 		}
 		return true;
 	}

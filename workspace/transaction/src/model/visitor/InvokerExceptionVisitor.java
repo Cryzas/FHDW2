@@ -1,6 +1,5 @@
 
 package model.visitor;
-
 import persistence.*;
 
 public interface InvokerExceptionVisitor<E extends model.UserException> {

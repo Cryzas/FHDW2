@@ -22,10 +22,7 @@ public class AccountWrpprICProxi extends AccountHandleICProxi implements Persist
         return 118;
     }
     
-    public Account4Public getAccount() throws PersistenceException {
-        return ((PersistentAccountWrppr)this.getTheObject()).getAccount();
-    }
-    public void setAccount(Account4Public newValue) throws PersistenceException {
+    public void setAccount(AccountWrpprAccount4Public newValue) throws PersistenceException {
         ((PersistentAccountWrppr)this.getTheObject()).setAccount(newValue);
     }
     public PersistentAccountWrppr getThis() throws PersistenceException {
@@ -70,9 +67,17 @@ public class AccountWrpprICProxi extends AccountHandleICProxi implements Persist
     }
     
     
+    public void accountChanged(final Account4Public account) 
+				throws PersistenceException{
+        ((PersistentAccountWrppr)this.getTheObject()).accountChanged(account);
+    }
     public void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentAccountWrppr)this.getTheObject()).deregister(observee);
+    }
+    public Account4Public getAccount() 
+				throws PersistenceException{
+        return ((PersistentAccountWrppr)this.getTheObject()).getAccount();
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -82,9 +87,21 @@ public class AccountWrpprICProxi extends AccountHandleICProxi implements Persist
 				throws PersistenceException{
         ((PersistentAccountWrppr)this.getTheObject()).register(observee);
     }
+    public void setAccount(final Account4Public account) 
+				throws PersistenceException{
+        ((PersistentAccountWrppr)this.getTheObject()).setAccount(account);
+    }
     public void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         ((PersistentAccountWrppr)this.getTheObject()).updateObservers(event);
+    }
+    public void accountChangedImplementation(final Account4Public account) 
+				throws PersistenceException{
+        ((PersistentAccountWrppr)this.getTheObject()).accountChangedImplementation(account);
+    }
+    public void account_update(final model.meta.AccountMssgs event) 
+				throws PersistenceException{
+        ((PersistentAccountWrppr)this.getTheObject()).account_update(event);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
@@ -101,6 +118,10 @@ public class AccountWrpprICProxi extends AccountHandleICProxi implements Persist
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentAccountWrppr)this.getTheObject()).initializeOnInstantiation();
+    }
+    public void recycle() 
+				throws PersistenceException{
+        ((PersistentAccountWrppr)this.getTheObject()).recycle();
     }
 
     

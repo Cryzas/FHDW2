@@ -41,6 +41,18 @@ public class AccountICProxi extends AccountHandleICProxi implements PersistentAc
         return ((PersistentAccount)this.getTheObject()).getThis();
     }
     
+    public void accept(AccountVisitor visitor) throws PersistenceException {
+        visitor.handleAccount(this);
+    }
+    public <R> R accept(AccountReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleAccount(this);
+    }
+    public <E extends model.UserException>  void accept(AccountExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleAccount(this);
+    }
+    public <R, E extends model.UserException> R accept(AccountReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleAccount(this);
+    }
     public void accept(AccountHandleVisitor visitor) throws PersistenceException {
         visitor.handleAccount(this);
     }
@@ -79,6 +91,14 @@ public class AccountICProxi extends AccountHandleICProxi implements PersistentAc
     }
     
     
+    public void credit(final Transfer4Public transfer) 
+				throws PersistenceException{
+        ((PersistentAccount)this.getTheObject()).credit(transfer);
+    }
+    public void debit(final Transfer4Public transfer) 
+				throws PersistenceException{
+        ((PersistentAccount)this.getTheObject()).debit(transfer);
+    }
     public void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentAccount)this.getTheObject()).deregister(observee);
@@ -99,13 +119,13 @@ public class AccountICProxi extends AccountHandleICProxi implements PersistentAc
 				throws PersistenceException{
         ((PersistentAccount)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public void credit(final Transfer4Public transfer) 
+    public void creditImplementation(final Transfer4Public transfer) 
 				throws PersistenceException{
-        ((PersistentAccount)this.getTheObject()).credit(transfer);
+        ((PersistentAccount)this.getTheObject()).creditImplementation(transfer);
     }
-    public void debit(final Transfer4Public transfer) 
+    public void debitImplementation(final Transfer4Public transfer) 
 				throws PersistenceException{
-        ((PersistentAccount)this.getTheObject()).debit(transfer);
+        ((PersistentAccount)this.getTheObject()).debitImplementation(transfer);
     }
     public Account4Public fetchAccount() 
 				throws PersistenceException{

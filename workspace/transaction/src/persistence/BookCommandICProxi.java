@@ -22,11 +22,11 @@ public class BookCommandICProxi extends PersistentInCacheProxi implements Persis
         return 129;
     }
     
-    public Bookable4Public getBookable() throws PersistenceException {
-        return ((PersistentBookCommand)this.getTheObject()).getBookable();
+    public AbstractTransfer4Public getTranfer() throws PersistenceException {
+        return ((PersistentBookCommand)this.getTheObject()).getTranfer();
     }
-    public void setBookable(Bookable4Public newValue) throws PersistenceException {
-        ((PersistentBookCommand)this.getTheObject()).setBookable(newValue);
+    public void setTranfer(AbstractTransfer4Public newValue) throws PersistenceException {
+        ((PersistentBookCommand)this.getTheObject()).setTranfer(newValue);
     }
     public Invoker getInvoker() throws PersistenceException {
         return ((PersistentBookCommand)this.getTheObject()).getInvoker();
@@ -40,10 +40,10 @@ public class BookCommandICProxi extends PersistentInCacheProxi implements Persis
     public void setCommandReceiver(TransferManager4Public newValue) throws PersistenceException {
         ((PersistentBookCommand)this.getTheObject()).setCommandReceiver(newValue);
     }
-    public CommonDate4Public getMyCommonDate() throws PersistenceException {
+    public PersistentCommonDate getMyCommonDate() throws PersistenceException {
         return ((PersistentBookCommand)this.getTheObject()).getMyCommonDate();
     }
-    public void setMyCommonDate(CommonDate4Public newValue) throws PersistenceException {
+    public void setMyCommonDate(PersistentCommonDate newValue) throws PersistenceException {
         ((PersistentBookCommand)this.getTheObject()).setMyCommonDate(newValue);
     }
     public java.sql.Date getCreateDate() throws PersistenceException {

@@ -1,6 +1,5 @@
 
 package view.visitor;
-
 import view.*;
 
 public interface RemoteReturnVisitor<R> {

@@ -7,13 +7,13 @@ import view.visitor.*;
 
 /* Additional import section end */
 
-public class Transfer extends view.objects.Bookable implements TransferView{
+public class Transfer extends view.objects.AbstractTransfer implements TransferView{
     
     protected common.Fraction amount;
     
-    public Transfer(String subject,common.Fraction amount,long id, long classId) {
+    public Transfer(String subject,TransferStateView state,common.Fraction amount,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((String)subject,id, classId);
+        super((String)subject,(TransferStateView)state,id, classId);
         this.amount = amount;        
     }
     
@@ -32,16 +32,16 @@ public class Transfer extends view.objects.Bookable implements TransferView{
         this.amount = newValue;
     }
     
-    public void accept(BookableVisitor visitor) throws ModelException {
+    public void accept(AbstractTransferVisitor visitor) throws ModelException {
         visitor.handleTransfer(this);
     }
-    public <R> R accept(BookableReturnVisitor<R>  visitor) throws ModelException {
+    public <R> R accept(AbstractTransferReturnVisitor<R>  visitor) throws ModelException {
          return visitor.handleTransfer(this);
     }
-    public <E extends view.UserException>  void accept(BookableExceptionVisitor<E> visitor) throws ModelException, E {
+    public <E extends view.UserException>  void accept(AbstractTransferExceptionVisitor<E> visitor) throws ModelException, E {
          visitor.handleTransfer(this);
     }
-    public <R, E extends view.UserException> R accept(BookableReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+    public <R, E extends view.UserException> R accept(AbstractTransferReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
          return visitor.handleTransfer(this);
     }
     public void accept(AnythingVisitor visitor) throws ModelException {
@@ -58,30 +58,40 @@ public class Transfer extends view.objects.Bookable implements TransferView{
     }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
+        TransferStateView state = this.getState();
+        if (state != null) {
+            ((ViewProxi)state).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(state.getClassId(), state.getId())));
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {
         
     }
     public ViewObjectInTree getChild(int originalIndex) throws ModelException{
-        
+        int index = originalIndex;
+        if(index == 0 && this.getState() != null) return new StateAbstractTransferWrapper(this, originalIndex, (ViewRoot)this.getState());
+        if(this.getState() != null) index = index - 1;
         return null;
     }
     public int getChildCount() throws ModelException {
-        return 0 ;
+        return 0 
+            + (this.getState() == null ? 0 : 1);
     }
     public boolean isLeaf() throws ModelException {
-        return true;
+        return true 
+            && (this.getState() == null ? true : false);
     }
     public int getIndexOfChild(Object child) throws ModelException {
-        
+        int result = 0;
+        if(this.getState() != null && this.getState().equals(child)) return result;
+        if(this.getState() != null) result = result + 1;
         return -1;
     }
     public int getSubjectIndex() throws ModelException {
         return 0;
     }
     public int getAmountIndex() throws ModelException {
-        return 0 + 1;
+        return 0 + 1 + (this.getState() == null ? 0 : 1);
     }
     public int getRowCount(){
         return 0 

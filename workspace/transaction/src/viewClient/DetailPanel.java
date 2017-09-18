@@ -222,14 +222,16 @@ abstract class BaseTypePanel extends HBox {
 
 	private void update() {
 		try {
-			this.updater.update( this.getValueComponent().getComponentValue());
+			this.updater.update(this.getCurrentValue());
 			this.setStatus( Neutral);
 		} catch (ModelException ex) {
 			this.getValueComponent().setComponentValue( ex.getMessage());
 			this.setStatus( NotOK);
 		}
 	}
-
+	protected String getCurrentValue(){
+		return this.getValueComponent().getComponentValue();
+	}
 	public int getStatus() {
 		return this.status;
 	}
@@ -356,6 +358,7 @@ class TextPanel extends BaseTypePanelWithTextField {
 	protected TextPanel(DefaultDetailPanel master, String name, String value) {
 		super(master, name, value);
 		this.value = value;
+		this.adjustTextField();
 		// open text view to see the whole text, independent if text editable
 		this.getValueComponent().setOnMouseClicked( new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
@@ -372,8 +375,7 @@ class TextPanel extends BaseTypePanelWithTextField {
 	protected void setValue(String value) {
 		if (this.value != null && this.value.equals(value)) return;
 		this.value = value;
-		boolean tooLong = value.length() > GUIConstants.TextPreviewLength;
-		this.getValueComponent().setComponentValue(value.substring(0, tooLong ? GUIConstants.TextPreviewLength : value.length()) + (tooLong ? "....." : ""));
+		this.adjustTextField();
 		if( this.isUpdatable()) {
 			try {
 				this.setOK( this.updater.check(getValue()));
@@ -383,10 +385,18 @@ class TextPanel extends BaseTypePanelWithTextField {
 			}
 		}
 	}
-
+	private void adjustTextField() {
+		boolean tooLong = this.value.length() > GUIConstants.TextPreviewLength;
+		this.getValueComponent().setComponentValue(this.value.substring(0, tooLong ? GUIConstants.TextPreviewLength : this.value.length()) + (tooLong ? "....." : ""));
+	}
+	
 	protected void setUpdatable() {
 		this.getUpdateMarker().setVisible(true);
 	}
+	protected String getCurrentValue(){
+		return this.getValue();
+	}
+	
 }
 
 
@@ -1188,17 +1198,14 @@ class DetailPanelFactory implements AnythingVisitor {
 	public DetailPanelFactory(ExceptionAndEventHandler handler) {
 		this.handler = handler;
 	}
-    public void handleTransferManager(view.TransferManagerView object){
-        result = new TransferManagerDefaultDetailPanel(handler, object);
-    }
     public void handleAccount(view.AccountView object){
         result = new AccountDefaultDetailPanel(handler, object);
     }
-    public void handleDebit(view.DebitView object){
-        result = new DebitDefaultDetailPanel(handler, object);
-    }
     public void handleServer(view.ServerView object){
         result = new ServerDefaultDetailPanel(handler, object);
+    }
+    public void handleNoAccount(view.NoAccountView object){
+        result = new NoAccountDefaultDetailPanel(handler, object);
     }
     public void handleErrorDisplay(view.ErrorDisplayView object){
         result = new ErrorDisplayDefaultDetailPanel(handler, object);
@@ -1209,8 +1216,20 @@ class DetailPanelFactory implements AnythingVisitor {
     public void handleCredit(view.CreditView object){
         result = new CreditDefaultDetailPanel(handler, object);
     }
-    public void handleTransaction(view.TransactionView object){
-        result = new TransactionDefaultDetailPanel(handler, object);
+    public void handleBooked(view.BookedView object){
+        result = new BookedDefaultDetailPanel(handler, object);
+    }
+    public void handleTransferManager(view.TransferManagerView object){
+        result = new TransferManagerDefaultDetailPanel(handler, object);
+    }
+    public void handleWrapperRecycle(view.WrapperRecycleView object){
+        result = new WrapperRecycleDefaultDetailPanel(handler, object);
+    }
+    public void handleDebit(view.DebitView object){
+        result = new DebitDefaultDetailPanel(handler, object);
+    }
+    public void handleNotBooked(view.NotBookedView object){
+        result = new NotBookedDefaultDetailPanel(handler, object);
     }
     public void handleTransfer(view.TransferView object){
         result = new TransferDefaultDetailPanel(handler, object);
@@ -1222,21 +1241,6 @@ class DetailPanelFactory implements AnythingVisitor {
 }
 
 
-
-class TransferManagerDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected static final String TransferManager$$transfers = "TransferManager$$transfers";
-    
-    protected TransferManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.TransferManagerView getAnything(){
-        return (view.TransferManagerView)this.anything;
-    }
-}
 
 class AccountDefaultDetailPanel extends DefaultDetailPanel{
     
@@ -1269,19 +1273,6 @@ class AccountDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
-class DebitDefaultDetailPanel extends DefaultDetailPanel{
-    
-    protected DebitDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
-        super(exceptionHandler, anything);
-    }
-    protected void addFields(){
-        
-    }
-    protected view.DebitView getAnything(){
-        return (view.DebitView)this.anything;
-    }
-}
-
 class ServerDefaultDetailPanel extends DefaultDetailPanel{
     
     protected static final String Server$$accounts = "Server$$accounts";
@@ -1303,6 +1294,37 @@ class ServerDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected view.ServerView getAnything(){
         return (view.ServerView)this.anything;
+    }
+}
+
+class NoAccountDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String Account$$name = "Account$$name";
+    protected static final String Account$$balance = "Account$$balance";
+    protected static final String Account$$entries = "Account$$entries";
+    
+    protected NoAccountDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        try{
+            BaseTypePanel panel = new StringPanel(this, "name", this.getAnything().getName());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(Account$$name, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        try{
+            BaseTypePanel panel = new FractionPanel(this, "balance", this.getAnything().getBalance());
+            this.getScrollablePane().getChildren().add(panel);
+            this.panels.put(Account$$balance, panel);
+        }catch(ModelException e){
+            this.getExceptionAndEventhandler().handleException(e);
+        }
+        
+    }
+    protected view.NoAccountView getAnything(){
+        return (view.NoAccountView)this.anything;
     }
 }
 
@@ -1345,32 +1367,77 @@ class CreditDefaultDetailPanel extends DefaultDetailPanel{
     }
 }
 
-class TransactionDefaultDetailPanel extends DefaultDetailPanel{
+class BookedDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String Bookable$$subject = "Bookable$$subject";
-    protected static final String Transaction$$transfers = "Transaction$$transfers";
-    
-    protected TransactionDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+    protected BookedDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
         super(exceptionHandler, anything);
     }
     protected void addFields(){
-        try{
-            BaseTypePanel panel = new StringPanel(this, "subject", this.getAnything().getSubject());
-            this.getScrollablePane().getChildren().add(panel);
-            this.panels.put(Bookable$$subject, panel);
-        }catch(ModelException e){
-            this.getExceptionAndEventhandler().handleException(e);
-        }
         
     }
-    protected view.TransactionView getAnything(){
-        return (view.TransactionView)this.anything;
+    protected view.BookedView getAnything(){
+        return (view.BookedView)this.anything;
+    }
+}
+
+class TransferManagerDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected static final String TransferManager$$transfers = "TransferManager$$transfers";
+    
+    protected TransferManagerDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.TransferManagerView getAnything(){
+        return (view.TransferManagerView)this.anything;
+    }
+}
+
+class WrapperRecycleDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected WrapperRecycleDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.WrapperRecycleView getAnything(){
+        return (view.WrapperRecycleView)this.anything;
+    }
+}
+
+class DebitDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected DebitDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.DebitView getAnything(){
+        return (view.DebitView)this.anything;
+    }
+}
+
+class NotBookedDefaultDetailPanel extends DefaultDetailPanel{
+    
+    protected NotBookedDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
+        super(exceptionHandler, anything);
+    }
+    protected void addFields(){
+        
+    }
+    protected view.NotBookedView getAnything(){
+        return (view.NotBookedView)this.anything;
     }
 }
 
 class TransferDefaultDetailPanel extends DefaultDetailPanel{
     
-    protected static final String Bookable$$subject = "Bookable$$subject";
+    protected static final String AbstractTransfer$$subject = "AbstractTransfer$$subject";
+    protected static final String AbstractTransfer$$state = "AbstractTransfer$$state";
     protected static final String Transfer$$amount = "Transfer$$amount";
     
     protected TransferDefaultDetailPanel(ExceptionAndEventHandler exceptionHandler, Anything anything) {
@@ -1378,9 +1445,9 @@ class TransferDefaultDetailPanel extends DefaultDetailPanel{
     }
     protected void addFields(){
         try{
-            BaseTypePanel panel = new StringPanel(this, "subject", this.getAnything().getSubject());
+            BaseTypePanel panel = new TextPanel(this, "subject", this.getAnything().getSubject());
             this.getScrollablePane().getChildren().add(panel);
-            this.panels.put(Bookable$$subject, panel);
+            this.panels.put(AbstractTransfer$$subject, panel);
         }catch(ModelException e){
             this.getExceptionAndEventhandler().handleException(e);
         }

@@ -9,9 +9,9 @@ import view.visitor.*;
 
 public class TransferManager extends ViewObject implements TransferManagerView{
     
-    protected java.util.Vector<BookableView> transfers;
+    protected java.util.Vector<AbstractTransferView> transfers;
     
-    public TransferManager(java.util.Vector<BookableView> transfers,long id, long classId) {
+    public TransferManager(java.util.Vector<AbstractTransferView> transfers,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.transfers = transfers;        
@@ -25,10 +25,10 @@ public class TransferManager extends ViewObject implements TransferManagerView{
         return getTypeId();
     }
     
-    public java.util.Vector<BookableView> getTransfers()throws ModelException{
+    public java.util.Vector<AbstractTransferView> getTransfers()throws ModelException{
         return this.transfers;
     }
-    public void setTransfers(java.util.Vector<BookableView> newValue) throws ModelException {
+    public void setTransfers(java.util.Vector<AbstractTransferView> newValue) throws ModelException {
         this.transfers = newValue;
     }
     

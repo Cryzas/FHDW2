@@ -5,13 +5,13 @@ public interface AccountManagerMssgsVisitor extends AccountManagerDOWNMssgsVisit
 
 interface AccountManagerDOWNMssgsVisitor  {
 
-    public void handleAccountManagerAccountChangedMssg(AccountManagerAccountChangedMssg event) throws persistence.PersistenceException;
+    public void handleAccountManagerAccountChangedAccountMssg(AccountManagerAccountChangedAccountMssg event) throws persistence.PersistenceException;
     
 }
 
 
 interface AccountManagerUPMssgsVisitor  {
 
-    public void handleAccountManagerAccountChangedMssg(AccountManagerAccountChangedMssg event) throws persistence.PersistenceException;
+    public void handleAccountManagerAccountChangedAccountMssg(AccountManagerAccountChangedAccountMssg event) throws persistence.PersistenceException;
     
 }

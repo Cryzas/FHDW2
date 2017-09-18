@@ -48,12 +48,17 @@ public class AccountWrppr extends model.AccountHandle implements PersistentAccou
         return result;
     }
     
-    public java.util.HashMap<String,Object> toHashtable(java.util.HashMap<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
-    java.util.HashMap<String,Object> result = null;
+    @SuppressWarnings("unchecked")
+    public java.util.HashMap<String,Object> toHashtable(java.util.HashMap<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, boolean inDerived) throws PersistenceException {
+        java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
-            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
-            if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
+            if (leaf){
+                result = (java.util.HashMap<String,Object>)allResults.get(uniqueKey);
+                if (result != null) return result;
+            }
+            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, inDerived);
+            if (leaf) allResults.put(uniqueKey, result);
         }
         return result;
     }
@@ -71,9 +76,9 @@ public class AccountWrppr extends model.AccountHandle implements PersistentAccou
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected PersistentAccount account;
+    protected PersistentAccountWrpprAccount account;
     
-    public AccountWrppr(SubjInterface subService,PersistentAccountHandle This,PersistentAccount account,long id) throws PersistenceException {
+    public AccountWrppr(SubjInterface subService,PersistentAccountHandle This,PersistentAccountWrpprAccount account,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super((SubjInterface)subService,(PersistentAccountHandle)This,id);
         this.account = account;        
@@ -92,22 +97,19 @@ public class AccountWrppr extends model.AccountHandle implements PersistentAccou
         if (this.getClassId() == 118) ConnectionHandler.getTheConnectionHandler().theAccountWrpprFacade
             .newAccountWrppr(this.getId());
         super.store();
-        if(this.getAccount() != null){
-            this.getAccount().store();
-            ConnectionHandler.getTheConnectionHandler().theAccountWrpprFacade.accountSet(this.getId(), getAccount());
+        if(this.account != null){
+            this.account.store();
+            ConnectionHandler.getTheConnectionHandler().theAccountWrpprFacade.accountSet(this.getId(), account);
         }
         
     }
     
-    public Account4Public getAccount() throws PersistenceException {
-        return this.account;
-    }
-    public void setAccount(Account4Public newValue) throws PersistenceException {
+    public void setAccount(AccountWrpprAccount4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.account)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.account = (PersistentAccount)PersistentProxi.createProxi(objectId, classId);
+        this.account = (PersistentAccountWrpprAccount)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theAccountWrpprFacade.accountSet(this.getId(), newValue);
@@ -162,6 +164,13 @@ public class AccountWrppr extends model.AccountHandle implements PersistentAccou
     }
     
     
+    public void accountChanged(final Account4Public account) 
+				throws PersistenceException{
+        model.meta.AccountWrpprAccountChangedAccountMssg event = new model.meta.AccountWrpprAccountChangedAccountMssg(account, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
     public synchronized void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
@@ -170,6 +179,11 @@ public class AccountWrppr extends model.AccountHandle implements PersistentAccou
 			getThis().setSubService(subService);
 		}
 		subService.deregister(observee);
+    }
+    public Account4Public getAccount() 
+				throws PersistenceException{
+        if (this.account== null) return null;
+		return this.account.getObservee();
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -187,6 +201,14 @@ public class AccountWrppr extends model.AccountHandle implements PersistentAccou
 		}
 		subService.register(observee);
     }
+    public void setAccount(final Account4Public account) 
+				throws PersistenceException{
+        if (this.account == null) {
+			this.setAccount(model.AccountWrpprAccount.createAccountWrpprAccount(this.isDelayed$Persistence()));
+			this.account.setObserver(getThis());
+		}
+		this.account.setObservee(account);
+    }
     public synchronized void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
@@ -200,6 +222,13 @@ public class AccountWrppr extends model.AccountHandle implements PersistentAccou
     
     // Start of section that contains operations that must be implemented.
     
+    public void accountChangedImplementation(final Account4Public account) 
+				throws PersistenceException{
+    }
+    public void account_update(final model.meta.AccountMssgs event) 
+				throws PersistenceException{
+    	getThis().accountChanged(getThis().getAccount());
+    }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
     }
@@ -213,12 +242,21 @@ public class AccountWrppr extends model.AccountHandle implements PersistentAccou
     public void initializeOnInstantiation() 
 				throws PersistenceException{
     }
+    public void recycle() 
+				throws PersistenceException{
+        getThis().setAccount(NoAccount.getTheNoAccount());
+        WrapperRecycle.getTheWrapperRecycle().storeWrapper(getThis());
+    }
     
     
     // Start of section that contains overridden operations only.
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
+    
+    
     
     
     

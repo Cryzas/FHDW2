@@ -56,24 +56,24 @@ public class Cache {
 				while (!garbageCollector.isInterrupted()){
 					synchronized(lock){try {lock.wait(GarbageCollectorReportInterval);} catch (InterruptedException e) {return;}}//Do nothing and terminate!
 					reporter.reportCurrentCacheSize(size, PersistentInCacheProxi.recycleCounter);
-					if (Cache.this.heapSpaceFree < HeapSpaceReserve | forced){
-						forced = false;
- 						System.out.println("Free heap space: " + Cache.this.heapSpaceFree);
-						Cache.this.heapSpaceFree = Long.MAX_VALUE;
-						Object[] classes = classMap.keySet().toArray();
-						for (int i = 0; i < classes.length; i++){
-							long currentKey = (Long) classes[i];
-							if (currentKey > 0){
-								Hashtable<Long, PersistentInCacheProxi> objectMap = classMap.get(classes[i]);
-								Object[] objects = objectMap.keySet().toArray();
-								for (int j = 0; j < objects.length; j++){
-									PersistentInCacheProxi current = objectMap.get(objects[j]);
-									if (current != null) current.tryBreak();
-								}
-							}
-						}
-						System.gc();
-					}
+//					if (Cache.this.heapSpaceFree < HeapSpaceReserve | forced){
+//						forced = false;
+// 						System.out.println("Free heap space: " + Cache.this.heapSpaceFree);
+//						Cache.this.heapSpaceFree = Long.MAX_VALUE;
+//						Object[] classes = classMap.keySet().toArray();
+//						for (int i = 0; i < classes.length; i++){
+//							long currentKey = (Long) classes[i];
+//							if (currentKey > 0){
+//								Hashtable<Long, PersistentInCacheProxi> objectMap = classMap.get(classes[i]);
+//								Object[] objects = objectMap.keySet().toArray();
+//								for (int j = 0; j < objects.length; j++){
+//									PersistentInCacheProxi current = objectMap.get(objects[j]);
+//									if (current != null) current.tryBreak();
+//								}
+//							}
+//						}
+//						System.gc();
+//					}
 				}
 			}
 		},"Cache Garbage Collector");
@@ -276,24 +276,27 @@ public class Cache {
 		this.number2NameMap = new Hashtable<Integer,String>();
 		this.number2NameMap.put(115, "Account");
 		this.number2NameMap.put(122, "AccountManager");
+		this.number2NameMap.put(135, "AccountManagerCurrentAccounts");
 		this.number2NameMap.put(118, "AccountWrppr");
-		this.number2NameMap.put(137, "AddTransferCommand");
+		this.number2NameMap.put(134, "AccountWrpprAccount");
 		this.number2NameMap.put(129, "BookCommand");
+		this.number2NameMap.put(137, "Booked");
 		this.number2NameMap.put(-101, "CommandCoordinator");
 		this.number2NameMap.put(-105, "CommandExecuter");
 		this.number2NameMap.put(104, "CommonDate");
 		this.number2NameMap.put(123, "CreateAccountCommand");
-		this.number2NameMap.put(134, "CreateTransactionCommand");
 		this.number2NameMap.put(126, "CreateTransferCommand");
 		this.number2NameMap.put(120, "Credit");
 		this.number2NameMap.put(116, "Debit");
 		this.number2NameMap.put(-103, "ErrorDisplay");
-		this.number2NameMap.put(138, "RemoveTransferCommand");
+		this.number2NameMap.put(140, "NoAccount");
+		this.number2NameMap.put(138, "NotBooked");
 		this.number2NameMap.put(-102, "Server");
+		this.number2NameMap.put(136, "ServerAccounts");
 		this.number2NameMap.put(130, "Subj");
-		this.number2NameMap.put(135, "Transaction");
 		this.number2NameMap.put(121, "Transfer");
-		this.number2NameMap.put(114, "TransferManager");	
+		this.number2NameMap.put(114, "TransferManager");
+		this.number2NameMap.put(141, "WrapperRecycle");	
 	}
 	
 }

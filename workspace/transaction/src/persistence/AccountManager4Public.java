@@ -5,7 +5,6 @@ import model.visitor.*;
 
 public interface AccountManager4Public extends Anything, SubjInterface, AbstractPersistentProxi {
     
-    public AccountManager_CurrentAccountsProxi getCurrentAccounts() throws PersistenceException ;
     
     public void accept(AnythingVisitor visitor) throws PersistenceException;
     public <R> R accept(AnythingReturnVisitor<R>  visitor) throws PersistenceException;
@@ -16,13 +15,15 @@ public interface AccountManager4Public extends Anything, SubjInterface, Abstract
     public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
-    public void accountChanged() 
+    public void accountChanged(final Account4Public account) 
 				throws PersistenceException;
     public void createAccount(final String name, final Invoker invoker) 
 				throws PersistenceException;
+    public AccountManagerCurrentAccounts4Public getCurrentAccounts() 
+				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
-    public void accountChangedImplementation() 
+    public void accountChangedImplementation(final Account4Public account) 
 				throws PersistenceException;
     public void clearAccounts() 
 				throws PersistenceException;

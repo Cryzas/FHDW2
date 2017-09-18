@@ -18,8 +18,8 @@ public class AccountManagerProxi extends PersistentProxi implements PersistentAc
         return 122;
     }
     
-    public AccountManager_CurrentAccountsProxi getCurrentAccounts() throws PersistenceException {
-        return ((PersistentAccountManager)this.getTheObject()).getCurrentAccounts();
+    public void setCurrentAccounts(AccountManagerCurrentAccounts4Public newValue) throws PersistenceException {
+        ((PersistentAccountManager)this.getTheObject()).setCurrentAccounts(newValue);
     }
     public SubjInterface getSubService() throws PersistenceException {
         return ((PersistentAccountManager)this.getTheObject()).getSubService();
@@ -57,9 +57,9 @@ public class AccountManagerProxi extends PersistentProxi implements PersistentAc
     }
     
     
-    public void accountChanged() 
+    public void accountChanged(final Account4Public account) 
 				throws PersistenceException{
-        ((PersistentAccountManager)this.getTheObject()).accountChanged();
+        ((PersistentAccountManager)this.getTheObject()).accountChanged(account);
     }
     public void createAccount(final String name, final Invoker invoker) 
 				throws PersistenceException{
@@ -68,6 +68,10 @@ public class AccountManagerProxi extends PersistentProxi implements PersistentAc
     public void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         ((PersistentAccountManager)this.getTheObject()).deregister(observee);
+    }
+    public AccountManagerCurrentAccounts4Public getCurrentAccounts() 
+				throws PersistenceException{
+        return ((PersistentAccountManager)this.getTheObject()).getCurrentAccounts();
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -81,9 +85,9 @@ public class AccountManagerProxi extends PersistentProxi implements PersistentAc
 				throws PersistenceException{
         ((PersistentAccountManager)this.getTheObject()).updateObservers(event);
     }
-    public void accountChangedImplementation() 
+    public void accountChangedImplementation(final Account4Public account) 
 				throws PersistenceException{
-        ((PersistentAccountManager)this.getTheObject()).accountChangedImplementation();
+        ((PersistentAccountManager)this.getTheObject()).accountChangedImplementation(account);
     }
     public void clearAccounts() 
 				throws PersistenceException{
@@ -96,6 +100,10 @@ public class AccountManagerProxi extends PersistentProxi implements PersistentAc
     public void createAccount(final String name) 
 				throws model.AccountException, PersistenceException{
         ((PersistentAccountManager)this.getTheObject()).createAccount(name);
+    }
+    public void currentAccounts_update(final model.meta.AccountHandleMssgs event) 
+				throws PersistenceException{
+        ((PersistentAccountManager)this.getTheObject()).currentAccounts_update(event);
     }
     public void findAccounts(final String name) 
 				throws PersistenceException{

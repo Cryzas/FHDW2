@@ -30,7 +30,7 @@ public class CreateTransferCommand extends PersistentObject implements Persisten
             result = ConnectionHandler.getTheConnectionHandler().theCreateTransferCommandFacade
                 .newCreateTransferCommand(amount,subject,-1);
         }
-        ((PersistentCreateTransferCommand)result).setMyCommonDate(CommonDate.createCommonDate(createDate, createDate));
+        ((PersistentCreateTransferCommand)result).setMyCommonDate((PersistentCommonDate)CommonDate.createCommonDate(createDate, createDate));
         return result;
     }
     
@@ -166,10 +166,10 @@ public class CreateTransferCommand extends PersistentObject implements Persisten
             ConnectionHandler.getTheConnectionHandler().theCreateTransferCommandFacade.commandReceiverSet(this.getId(), newValue);
         }
     }
-    public CommonDate4Public getMyCommonDate() throws PersistenceException {
+    public PersistentCommonDate getMyCommonDate() throws PersistenceException {
         return this.myCommonDate;
     }
-    public void setMyCommonDate(CommonDate4Public newValue) throws PersistenceException {
+    public void setMyCommonDate(PersistentCommonDate newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.myCommonDate)) return;
         long objectId = newValue.getId();
@@ -284,6 +284,10 @@ public class CreateTransferCommand extends PersistentObject implements Persisten
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
+    
+    
     
     
     

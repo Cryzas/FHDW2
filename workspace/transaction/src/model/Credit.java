@@ -48,12 +48,17 @@ public class Credit extends model.Entry implements PersistentCredit{
         return result;
     }
     
-    public java.util.HashMap<String,Object> toHashtable(java.util.HashMap<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
-    java.util.HashMap<String,Object> result = null;
+    @SuppressWarnings("unchecked")
+    public java.util.HashMap<String,Object> toHashtable(java.util.HashMap<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, boolean inDerived) throws PersistenceException {
+        java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
-            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
-            if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
+            if (leaf){
+                result = (java.util.HashMap<String,Object>)allResults.get(uniqueKey);
+                if (result != null) return result;
+            }
+            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, inDerived);
+            if (leaf) allResults.put(uniqueKey, result);
         }
         return result;
     }
@@ -197,6 +202,10 @@ public class Credit extends model.Entry implements PersistentCredit{
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
+    
+    
     
     
     

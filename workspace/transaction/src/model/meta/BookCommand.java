@@ -29,24 +29,24 @@ public class BookCommand extends PersistentObject implements PersistentBookComma
             result = ConnectionHandler.getTheConnectionHandler().theBookCommandFacade
                 .newBookCommand(-1);
         }
-        ((PersistentBookCommand)result).setMyCommonDate(CommonDate.createCommonDate(createDate, createDate));
+        ((PersistentBookCommand)result).setMyCommonDate((PersistentCommonDate)CommonDate.createCommonDate(createDate, createDate));
         return result;
     }
     
     public boolean hasEssentialFields() throws PersistenceException{
         return true;
     }
-    protected PersistentBookable bookable;
+    protected PersistentAbstractTransfer tranfer;
     protected Invoker invoker;
     protected PersistentTransferManager commandReceiver;
     protected PersistentCommonDate myCommonDate;
     
     private model.UserException commandException = null;
     
-    public BookCommand(PersistentBookable bookable,Invoker invoker,PersistentTransferManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
+    public BookCommand(PersistentAbstractTransfer tranfer,Invoker invoker,PersistentTransferManager commandReceiver,PersistentCommonDate myCommonDate,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.bookable = bookable;
+        this.tranfer = tranfer;
         this.invoker = invoker;
         this.commandReceiver = commandReceiver;
         this.myCommonDate = myCommonDate;        
@@ -65,9 +65,9 @@ public class BookCommand extends PersistentObject implements PersistentBookComma
         if (this.getClassId() == 129) ConnectionHandler.getTheConnectionHandler().theBookCommandFacade
             .newBookCommand(this.getId());
         super.store();
-        if(this.getBookable() != null){
-            this.getBookable().store();
-            ConnectionHandler.getTheConnectionHandler().theBookCommandFacade.bookableSet(this.getId(), getBookable());
+        if(this.getTranfer() != null){
+            this.getTranfer().store();
+            ConnectionHandler.getTheConnectionHandler().theBookCommandFacade.tranferSet(this.getId(), getTranfer());
         }
         if(this.getInvoker() != null){
             this.getInvoker().store();
@@ -84,18 +84,18 @@ public class BookCommand extends PersistentObject implements PersistentBookComma
         
     }
     
-    public Bookable4Public getBookable() throws PersistenceException {
-        return this.bookable;
+    public AbstractTransfer4Public getTranfer() throws PersistenceException {
+        return this.tranfer;
     }
-    public void setBookable(Bookable4Public newValue) throws PersistenceException {
+    public void setTranfer(AbstractTransfer4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
-        if(newValue.isTheSameAs(this.bookable)) return;
+        if(newValue.isTheSameAs(this.tranfer)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.bookable = (PersistentBookable)PersistentProxi.createProxi(objectId, classId);
+        this.tranfer = (PersistentAbstractTransfer)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
-            ConnectionHandler.getTheConnectionHandler().theBookCommandFacade.bookableSet(this.getId(), newValue);
+            ConnectionHandler.getTheConnectionHandler().theBookCommandFacade.tranferSet(this.getId(), newValue);
         }
     }
     public Invoker getInvoker() throws PersistenceException {
@@ -126,10 +126,10 @@ public class BookCommand extends PersistentObject implements PersistentBookComma
             ConnectionHandler.getTheConnectionHandler().theBookCommandFacade.commandReceiverSet(this.getId(), newValue);
         }
     }
-    public CommonDate4Public getMyCommonDate() throws PersistenceException {
+    public PersistentCommonDate getMyCommonDate() throws PersistenceException {
         return this.myCommonDate;
     }
-    public void setMyCommonDate(CommonDate4Public newValue) throws PersistenceException {
+    public void setMyCommonDate(PersistentCommonDate newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.myCommonDate)) return;
         long objectId = newValue.getId();
@@ -206,7 +206,7 @@ public class BookCommand extends PersistentObject implements PersistentBookComma
          return visitor.handleBookCommand(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getBookable() != null) return 1;
+        if (this.getTranfer() != null) return 1;
         if (this.getCommandReceiver() != null) return 1;
         return 0;
     }
@@ -222,8 +222,12 @@ public class BookCommand extends PersistentObject implements PersistentBookComma
     }
     public void execute() 
 				throws PersistenceException{
-        this.commandReceiver.book(this.getBookable());
-		
+        try{
+			this.commandReceiver.book(this.getTranfer());
+		}
+		catch(model.TransferException e){
+			this.commandException = e;
+		}
     }
     public Invoker fetchInvoker() 
 				throws PersistenceException{
@@ -243,6 +247,10 @@ public class BookCommand extends PersistentObject implements PersistentBookComma
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
+    
+    
     
     
     

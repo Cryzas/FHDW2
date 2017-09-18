@@ -48,6 +48,18 @@ public class Account extends view.objects.AccountHandle implements AccountView{
         this.entries = newValue;
     }
     
+    public void accept(AccountVisitor visitor) throws ModelException {
+        visitor.handleAccount(this);
+    }
+    public <R> R accept(AccountReturnVisitor<R>  visitor) throws ModelException {
+         return visitor.handleAccount(this);
+    }
+    public <E extends view.UserException>  void accept(AccountExceptionVisitor<E> visitor) throws ModelException, E {
+         visitor.handleAccount(this);
+    }
+    public <R, E extends view.UserException> R accept(AccountReturnExceptionVisitor<R, E>  visitor) throws ModelException, E {
+         return visitor.handleAccount(this);
+    }
     public void accept(AccountHandleVisitor visitor) throws ModelException {
         visitor.handleAccount(this);
     }

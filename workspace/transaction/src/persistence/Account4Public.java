@@ -9,6 +9,10 @@ public interface Account4Public extends AccountHandle4Public {
     public common.Fraction getBalance() throws PersistenceException ;
     public Account_EntriesProxi getEntries() throws PersistenceException ;
     
+    public void accept(AccountVisitor visitor) throws PersistenceException;
+    public <R> R accept(AccountReturnVisitor<R>  visitor) throws PersistenceException;
+    public <E extends model.UserException>  void accept(AccountExceptionVisitor<E> visitor) throws PersistenceException, E;
+    public <R, E extends model.UserException> R accept(AccountReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     public void accept(AccountHandleVisitor visitor) throws PersistenceException;
     public <R> R accept(AccountHandleReturnVisitor<R>  visitor) throws PersistenceException;
     public <E extends model.UserException>  void accept(AccountHandleExceptionVisitor<E> visitor) throws PersistenceException, E;
@@ -22,13 +26,17 @@ public interface Account4Public extends AccountHandle4Public {
     public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
+    public void credit(final Transfer4Public transfer) 
+				throws PersistenceException;
+    public void debit(final Transfer4Public transfer) 
+				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
-    public void credit(final Transfer4Public transfer) 
+    public void creditImplementation(final Transfer4Public transfer) 
 				throws PersistenceException;
-    public void debit(final Transfer4Public transfer) 
+    public void debitImplementation(final Transfer4Public transfer) 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;

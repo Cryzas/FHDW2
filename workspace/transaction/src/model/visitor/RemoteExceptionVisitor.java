@@ -1,6 +1,5 @@
 
 package model.visitor;
-
 import persistence.*;
 
 public interface RemoteExceptionVisitor<E extends model.UserException> {

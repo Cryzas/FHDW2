@@ -1,5 +1,5 @@
 package persistence;
 
-public interface PersistentTransferListEntryProxi extends PersistentBookableListEntryProxi {
+public interface PersistentTransferListEntryProxi extends PersistentAbstractTransferListEntryProxi {
 
 }

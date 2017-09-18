@@ -50,15 +50,20 @@ public class Account extends model.AccountHandle implements PersistentAccount{
         return result;
     }
     
-    public java.util.HashMap<String,Object> toHashtable(java.util.HashMap<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
-    java.util.HashMap<String,Object> result = null;
+    @SuppressWarnings("unchecked")
+    public java.util.HashMap<String,Object> toHashtable(java.util.HashMap<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, boolean inDerived) throws PersistenceException {
+        java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
-            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
+            if (leaf){
+                result = (java.util.HashMap<String,Object>)allResults.get(uniqueKey);
+                if (result != null) return result;
+            }
+            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, inDerived);
+            if (leaf) allResults.put(uniqueKey, result);
             result.put("name", this.getName());
             result.put("balance", this.getBalance().toString());
-            result.put("entries", this.getEntries().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
-            String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
-            if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
+            result.put("entries", this.getEntries().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, false, false));
         }
         return result;
     }
@@ -75,6 +80,7 @@ public class Account extends model.AccountHandle implements PersistentAccount{
                              this.name, 
                              this.balance, 
                              this.getId());
+        result.entries = this.entries.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -137,6 +143,18 @@ public class Account extends model.AccountHandle implements PersistentAccount{
         }return (PersistentAccount)this.This;
     }
     
+    public void accept(AccountVisitor visitor) throws PersistenceException {
+        visitor.handleAccount(this);
+    }
+    public <R> R accept(AccountReturnVisitor<R>  visitor) throws PersistenceException {
+         return visitor.handleAccount(this);
+    }
+    public <E extends model.UserException>  void accept(AccountExceptionVisitor<E> visitor) throws PersistenceException, E {
+         visitor.handleAccount(this);
+    }
+    public <R, E extends model.UserException> R accept(AccountReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E {
+         return visitor.handleAccount(this);
+    }
     public void accept(AccountHandleVisitor visitor) throws PersistenceException {
         visitor.handleAccount(this);
     }
@@ -179,6 +197,20 @@ public class Account extends model.AccountHandle implements PersistentAccount{
     }
     
     
+    public void credit(final Transfer4Public transfer) 
+				throws PersistenceException{
+        model.meta.AccountCreditTransferMssg event = new model.meta.AccountCreditTransferMssg(transfer, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
+    public void debit(final Transfer4Public transfer) 
+				throws PersistenceException{
+        model.meta.AccountDebitTransferMssg event = new model.meta.AccountDebitTransferMssg(transfer, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
     public synchronized void deregister(final ObsInterface observee) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
@@ -220,13 +252,13 @@ public class Account extends model.AccountHandle implements PersistentAccount{
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
     }
-    public void credit(final Transfer4Public transfer) 
+    public void creditImplementation(final Transfer4Public transfer) 
 				throws PersistenceException{
     	getThis().setBalance(getThis().getBalance().add(transfer.getAmount()));
         Credit4Public credit = Credit.createCredit(transfer);
         getThis().getEntries().add(credit);
     }
-    public void debit(final Transfer4Public transfer) 
+    public void debitImplementation(final Transfer4Public transfer) 
 				throws PersistenceException{
     	getThis().setBalance(getThis().getBalance().sub(transfer.getAmount()));
         Debit4Public debit = Debit.createDebit(transfer);
@@ -248,6 +280,10 @@ public class Account extends model.AccountHandle implements PersistentAccount{
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
+    
+    
     
     
     

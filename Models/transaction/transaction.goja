@@ -1,45 +1,47 @@
 model transaction {
 
 server Server {
-	public AccountManager accounts;
+	observe public AccountManager accounts;
 	public TransferManager transfers;
-	void createAccount(String name);
+	void createAccount(String name checked);
 	void clearAccounts();
 	void findAccounts(String name);
-	void createDebit(Account myAccount, AccountHandle otherAccount, Fraction amount, String subject);
-	void createCredit(Account myAccount, AccountHandle otherAccount, Fraction amount, String subject);
-	void book(Bookable bookable);
-	void addTransfer(Transaction transaction, Transfer transfer);
-	void createTransaction(String subject);
-	void removeTransfer(Transaction transaction, Transfer transfer) throws NotPartException;
+	void createDebit(Account myAccount, AccountHandle otherAccount, Fraction amount, Text subject);
+	void createCredit(Account myAccount, AccountHandle otherAccount, Fraction amount, Text subject);
+	void book(AbstractTransfer tranfer checked);
+	void clearErrors();
 }
 class AccountManager {
-	public AccountHandle ** currentAccounts;
+	observe public AccountHandle ** currentAccounts;
 	active void createAccount(String name) throws AccountException;
 	void clearAccounts();
 	void findAccounts(String name);
-	event void accountChanged();
+	event void accountChanged(Account account);
 }
 class TransferManager {
-	public Bookable ** transfers;
+	public AbstractTransfer ** transfers;
 	active void createTransfer(AccountHandle fromAccount, AccountHandle toAccount, Fraction amount, String subject);
-	active void book(Bookable bookable);
-	active void addTransfer(Transaction transaction, Transfer transfer);
-	active void createTransaction(String subject);
-	active void removeTransfer(Transaction transaction, Transfer transfer) throws NotPartException;
+	active void book(AbstractTransfer tranfer) throws TransferException;
 }
 abstract class AccountHandle {
 	abstract Account fetchAccount();
 }
 class AccountWrppr extends AccountHandle {
-	prior server-only public Account account;
+	observe prior server-only public-write Account account;
+	event void accountChanged(Account account);
+	void recycle();
 }
-class Account extends AccountHandle {
+singleton WrapperRecycle {
+	AccountWrppr ** recycled;
+	void storeWrapper(AccountWrppr wrapper);
+	AccountWrppr fecthAccountWrapper(Account account);
+}
+class Account (NoAccount)extends AccountHandle {
 	indexed prior public String name;
 	public Fraction balance;
 	public Entry ** entries;
-	void debit(Transfer transfer);
-	void credit(Transfer transfer);
+	event void debit(Transfer transfer);
+	event void credit(Transfer transfer);
 }
 abstract class Entry {
 	prior server-only public Transfer transfer;
@@ -48,23 +50,31 @@ class Debit extends Entry {
 }
 class Credit extends Entry {
 }
-class Transfer extends Bookable {
+abstract class AbstractTransfer##AbstrTrnsfr {
+	prior public Text subject;
+	public TransferState state;
+	abstract void doBooking();
+	void book() throws TransferException;
+}
+class Transfer extends AbstractTransfer {
 	prior public server-only Account fromAccount;
 	prior public server-only Account toAccount; 
 	prior public Fraction amount;
 }
-class Transaction extends Bookable {
-	public Transfer ** transfers hierarchy bookableHierarchy;
-	void addTransfer(Transfer transfer);
-	void removeTransfer(Transfer transfer);
-}
-abstract class Bookable {
-	prior public String subject;
-	abstract void book();
-}
+abstract class TransferState (Booked,NotBooked) {}
 exception AccountException {}
-exception NotPartException {}
-
-hierarchy bookableHierarchy;
+exception TransferException {}
 }
+
+
+
+
+
+
+
+
+
+
+
+
 

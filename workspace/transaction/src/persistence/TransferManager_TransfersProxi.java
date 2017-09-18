@@ -5,18 +5,18 @@ import model.*;
 import java.util.Iterator;
 import java.util.Vector;
 
-public class TransferManager_TransfersProxi extends PersistentListProxi<Bookable4Public> {
+public class TransferManager_TransfersProxi extends PersistentListProxi<AbstractTransfer4Public> {
 
-  	private BookableList list;
+  	private AbstractTransferList list;
   	private TransferManager owner;
 
   	public TransferManager_TransfersProxi(TransferManager owner) {
     	this.owner = owner;
   	}
-  	public BookableList getList() throws PersistenceException{
+  	public AbstractTransferList getList() throws PersistenceException{
     	if (this.list == null) {
       		if (this.owner.isDelayed$Persistence()) {
-        		this.list = new BookableList();
+        		this.list = new AbstractTransferList();
       		} else {
         		this.list = ConnectionHandler
                 		    .getTheConnectionHandler()
@@ -25,26 +25,26 @@ public class TransferManager_TransfersProxi extends PersistentListProxi<Bookable
     	}
     	return this.list;
   	}
-	protected Vector<Bookable4Public> getData() {
+	protected Vector<AbstractTransfer4Public> getData() {
 		return this.list.data;
 	}
  
-  	public Iterator<Bookable4Public> iterator() throws PersistenceException{
+  	public Iterator<AbstractTransfer4Public> iterator() throws PersistenceException{
     	return this.getList().iterator(this);
   	}
   	public long getLength() throws PersistenceException{
 	  	return this.getList().getLength();
   	}
-  	public void add(Bookable4Public entry) throws PersistenceException {
+  	public void add(AbstractTransfer4Public entry) throws PersistenceException {
     	if (entry != null) {
-      		BookableList list = this.getList();
+      		AbstractTransferList list = this.getList();
       		long entryId = 0;
       		if (!this.owner.isDelayed$Persistence()) {
         		entry.store();  	
         		entryId = ConnectionHandler.getTheConnectionHandler().theTransferManagerFacade
         	               	.transfersAdd(owner.getId(), entry);
       		}
-      		list.add((Bookable4Public)PersistentProxi.createListEntryProxi(entry.getId(),
+      		list.add((AbstractTransfer4Public)PersistentProxi.createListEntryProxi(entry.getId(),
             		                   entry.getClassId(),
         	    	                   entryId));
       		
@@ -62,9 +62,9 @@ public class TransferManager_TransfersProxi extends PersistentListProxi<Bookable
   		return result;
   	}	 
   	public void store() throws PersistenceException {
-  		java.util.Iterator<Bookable4Public> entries = (this.list == null ? new java.util.Vector<Bookable4Public>().iterator() : this.list.iterator(this));
+  		java.util.Iterator<AbstractTransfer4Public> entries = (this.list == null ? new java.util.Vector<AbstractTransfer4Public>().iterator() : this.list.iterator(this));
   		while (entries.hasNext()){
-  			Bookable4Public current = entries.next();
+  			AbstractTransfer4Public current = entries.next();
   			current.store();
       		long entryId = ConnectionHandler.getTheConnectionHandler().theTransferManagerFacade
             	           .transfersAdd(owner.getId(), current);

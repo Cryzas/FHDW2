@@ -63,32 +63,33 @@ public class Server extends PersistentObject implements PersistentServer{
         return result;
     }
     
-    public java.util.HashMap<String,Object> toHashtable(java.util.HashMap<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
-    java.util.HashMap<String,Object> result = null;
+    @SuppressWarnings("unchecked")
+    public java.util.HashMap<String,Object> toHashtable(java.util.HashMap<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, boolean inDerived) throws PersistenceException {
+        java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
-            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
+            String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
+            if (leaf){
+                result = (java.util.HashMap<String,Object>)allResults.get(uniqueKey);
+                if (result != null) return result;
+            }
+            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, inDerived);
+            if (leaf) allResults.put(uniqueKey, result);
             AbstractPersistentRoot accounts = (AbstractPersistentRoot)this.getAccounts();
             if (accounts != null) {
-                result.put("accounts", accounts.createProxiInformation(false, essentialLevel <= 1));
-                if(depth > 1) {
-                    accounts.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && accounts.hasEssentialFields())accounts.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    accounts, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
+                result.put("accounts", proxiInformation);
+                
             }
             AbstractPersistentRoot transfers = (AbstractPersistentRoot)this.getTransfers();
             if (transfers != null) {
-                result.put("transfers", transfers.createProxiInformation(false, essentialLevel <= 1));
-                if(depth > 1) {
-                    transfers.toHashtable(allResults, depth - 1, essentialLevel, forGUI, true , tdObserver);
-                }else{
-                    if(forGUI && transfers.hasEssentialFields())transfers.toHashtable(allResults, depth, essentialLevel + 1, false, true, tdObserver);
-                }
+                String proxiInformation = SearchListRoot.calculateProxiInfoAndRecursiveGet(
+                    transfers, allResults, depth, essentialLevel, forGUI, false, essentialLevel <= 1, inDerived, false, false);
+                result.put("transfers", proxiInformation);
+                
             }
-            result.put("errors", this.getErrors().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
+            result.put("errors", this.getErrors().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, true, false));
             result.put("user", this.getUser());
-            String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
-            if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
         }
         return result;
     }
@@ -110,6 +111,7 @@ public class Server extends PersistentObject implements PersistentServer{
                             this.hackDelay, 
                             this.getId());
         result.errors = this.errors.copy(result);
+        result.errors = this.errors.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -121,7 +123,7 @@ public class Server extends PersistentObject implements PersistentServer{
     protected model.UserException userException = null;
     protected boolean changed = false;
     
-    protected PersistentAccountManager accounts;
+    protected PersistentServerAccounts accounts;
     protected PersistentTransferManager transfers;
     protected SubjInterface subService;
     protected PersistentServer This;
@@ -131,7 +133,7 @@ public class Server extends PersistentObject implements PersistentServer{
     protected long hackCount;
     protected java.sql.Timestamp hackDelay;
     
-    public Server(PersistentAccountManager accounts,PersistentTransferManager transfers,SubjInterface subService,PersistentServer This,String password,String user,long hackCount,java.sql.Timestamp hackDelay,long id) throws PersistenceException {
+    public Server(PersistentServerAccounts accounts,PersistentTransferManager transfers,SubjInterface subService,PersistentServer This,String password,String user,long hackCount,java.sql.Timestamp hackDelay,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
         this.accounts = accounts;
@@ -158,9 +160,9 @@ public class Server extends PersistentObject implements PersistentServer{
         if (this.getClassId() == -102) ConnectionHandler.getTheConnectionHandler().theServerFacade
             .newServer(password,user,hackCount,hackDelay,this.getId());
         super.store();
-        if(this.getAccounts() != null){
-            this.getAccounts().store();
-            ConnectionHandler.getTheConnectionHandler().theServerFacade.accountsSet(this.getId(), getAccounts());
+        if(this.accounts != null){
+            this.accounts.store();
+            ConnectionHandler.getTheConnectionHandler().theServerFacade.accountsSet(this.getId(), accounts);
         }
         if(this.getTransfers() != null){
             this.getTransfers().store();
@@ -177,15 +179,12 @@ public class Server extends PersistentObject implements PersistentServer{
         
     }
     
-    public AccountManager4Public getAccounts() throws PersistenceException {
-        return this.accounts;
-    }
-    public void setAccounts(AccountManager4Public newValue) throws PersistenceException {
+    public void setAccounts(ServerAccounts4Public newValue) throws PersistenceException {
         if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
         if(newValue.isTheSameAs(this.accounts)) return;
         long objectId = newValue.getId();
         long classId = newValue.getClassId();
-        this.accounts = (PersistentAccountManager)PersistentProxi.createProxi(objectId, classId);
+        this.accounts = (PersistentServerAccounts)PersistentProxi.createProxi(objectId, classId);
         if(!this.isDelayed$Persistence()){
             newValue.store();
             ConnectionHandler.getTheConnectionHandler().theServerFacade.accountsSet(this.getId(), newValue);
@@ -339,6 +338,11 @@ public class Server extends PersistentObject implements PersistentServer{
 		}
 		subService.deregister(observee);
     }
+    public AccountManager4Public getAccounts() 
+				throws PersistenceException{
+        if (this.accounts== null) return null;
+		return this.accounts.getObservee();
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentServer)This);
@@ -361,7 +365,18 @@ public class Server extends PersistentObject implements PersistentServer{
     public String server_Menu_Filter(final Anything anything) 
 				throws PersistenceException{
         String result = "+++";
+		if(anything instanceof AbstractTransfer4Public) {
+			if(this.filter_book((AbstractTransfer4Public)anything)) result = result + "bookPRMTRAbstractTransferPRMTR+++";
+		}
 		return result;
+    }
+    public void setAccounts(final AccountManager4Public accounts) 
+				throws PersistenceException{
+        if (this.accounts == null) {
+			this.setAccounts(model.ServerAccounts.createServerAccounts(this.isDelayed$Persistence()));
+			this.accounts.setObserver(getThis());
+		}
+		this.accounts.setObservee(accounts);
     }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
@@ -380,18 +395,28 @@ public class Server extends PersistentObject implements PersistentServer{
     
     // Start of section that contains operations that must be implemented.
     
-    public void addTransfer(final Transaction4Public transaction, final Transfer4Public transfer) 
+    public void accounts_update(final model.meta.AccountManagerMssgs event) 
 				throws PersistenceException{
-        getThis().getTransfers().addTransfer(transaction, transfer, getThis());        
+    	getThis().signalChanged(true);
     }
-    public void book(final Bookable4Public bookable) 
+    public void book(final AbstractTransfer4Public tranfer) 
 				throws PersistenceException{
-    	getThis().getTransfers().book(bookable, getThis());
+        getThis().getTransfers().book(tranfer, getThis());
     }
     public void clearAccounts() 
 				throws PersistenceException{
     	getThis().getAccounts().clearAccounts();
     	getThis().signalChanged(true);
+    }
+    public void clearErrors() 
+				throws PersistenceException{
+        getThis().getErrors().filter(new Predcate<ErrorDisplay4Public>() {
+			@Override
+			public boolean test(ErrorDisplay4Public argument) throws PersistenceException {
+				return false;
+			}
+		});
+        getThis().signalChanged(true);
     }
     public void connected(final String user) 
 				throws PersistenceException{
@@ -410,10 +435,6 @@ public class Server extends PersistentObject implements PersistentServer{
     public void createDebit(final Account4Public myAccount, final AccountHandle4Public otherAccount, final common.Fraction amount, final String subject) 
 				throws PersistenceException{
         getThis().getTransfers().createTransfer(myAccount, otherAccount, amount, subject, getThis());
-    }
-    public void createTransaction(final String subject) 
-				throws PersistenceException{
-        getThis().getTransfers().createTransaction(subject, getThis());        
     }
     public void disconnected() 
 				throws PersistenceException{
@@ -466,10 +487,6 @@ public class Server extends PersistentObject implements PersistentServer{
     public void initializeOnInstantiation() 
 				throws PersistenceException{
     }
-    public void removeTransfer(final Transaction4Public transaction, final Transfer4Public transfer) 
-				throws model.NotPartException, PersistenceException{
-    	getThis().getTransfers().removeTransfer(transaction, transfer, getThis());
-    }
     
     
     // Start of section that contains overridden operations only.
@@ -477,6 +494,25 @@ public class Server extends PersistentObject implements PersistentServer{
 
     /* Start of protected part that is not overridden by persistence generator */
     
+    
+    
+    private boolean filter_book(AbstractTransfer4Public anything) throws PersistenceException {
+		// TODO Auto-generated method stub
+		return anything.getState().accept(new TransferStateReturnVisitor<Boolean>() {
+
+			@Override
+			public Boolean handleBooked(Booked4Public booked) throws PersistenceException {
+				return false;
+			}
+
+			@Override
+			public Boolean handleNotBooked(NotBooked4Public notBooked) throws PersistenceException {
+				// TODO Auto-generated method stub
+				return true;
+			}
+		});
+	}
+
     
     
     /* End of protected part that is not overridden by persistence generator */

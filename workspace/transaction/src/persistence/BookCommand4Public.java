@@ -5,8 +5,8 @@ import model.visitor.*;
 
 public interface BookCommand4Public extends TransferManagerCommand, Anything, CommonDate4Public, AbstractPersistentProxi {
     
-    public Bookable4Public getBookable() throws PersistenceException ;
-    public void setBookable(Bookable4Public newValue) throws PersistenceException ;
+    public AbstractTransfer4Public getTranfer() throws PersistenceException ;
+    public void setTranfer(AbstractTransfer4Public newValue) throws PersistenceException ;
     public Invoker getInvoker() throws PersistenceException ;
     public void setInvoker(Invoker newValue) throws PersistenceException ;
     public TransferManager4Public getCommandReceiver() throws PersistenceException ;

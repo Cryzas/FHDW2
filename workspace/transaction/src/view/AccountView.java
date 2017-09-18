@@ -11,6 +11,10 @@ public interface AccountView extends AccountHandleView {
     public java.util.Vector<EntryView> getEntries()throws ModelException;
     public void setEntries(java.util.Vector<EntryView> newValue) throws ModelException ;
     
+    public void accept(AccountVisitor visitor) throws ModelException;
+    public <R> R accept(AccountReturnVisitor<R>  visitor) throws ModelException;
+    public <E extends view.UserException>  void accept(AccountExceptionVisitor<E> visitor) throws ModelException, E;
+    public <R, E extends view.UserException> R accept(AccountReturnExceptionVisitor<R, E>  visitor) throws ModelException, E;
     public void accept(AccountHandleVisitor visitor) throws ModelException;
     public <R> R accept(AccountHandleReturnVisitor<R>  visitor) throws ModelException;
     public <E extends view.UserException>  void accept(AccountHandleExceptionVisitor<E> visitor) throws ModelException, E;

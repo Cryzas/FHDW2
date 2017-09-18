@@ -12,25 +12,10 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		
 	  private static ICProxiFactory [] getTheICProxiFactories(){
 		if (iCProxiFactories == null){
-			iCProxiFactories = new ICProxiFactory[41];
-        iCProxiFactories[13] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new TransferManagerICProxi(objectId);
-            }
-        };
+			iCProxiFactories = new ICProxiFactory[42];
         iCProxiFactories[14] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new AccountICProxi(objectId);
-            }
-        };
-        iCProxiFactories[15] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new DebitICProxi(objectId);
-            }
-        };
-        iCProxiFactories[37] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new RemoveTransferCommandICProxi(objectId);
             }
         };
         iCProxiFactories[1] = new ICProxiFactory(){
@@ -38,19 +23,24 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new ServerICProxi(objectId);
             }
         };
+        iCProxiFactories[39] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new NoAccountICProxi(objectId);
+            }
+        };
         iCProxiFactories[2] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new ErrorDisplayICProxi(objectId);
             }
         };
+        iCProxiFactories[33] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new AccountWrpprAccountICProxi(objectId);
+            }
+        };
         iCProxiFactories[17] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new AccountWrpprICProxi(objectId);
-            }
-        };
-        iCProxiFactories[29] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new SubjICProxi(objectId);
             }
         };
         iCProxiFactories[0] = new ICProxiFactory(){
@@ -63,14 +53,54 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new CreditICProxi(objectId);
             }
         };
-        iCProxiFactories[33] = new ICProxiFactory(){
+        iCProxiFactories[36] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
-                return new CreateTransactionCommandICProxi(objectId);
+                return new BookedICProxi(objectId);
+            }
+        };
+        iCProxiFactories[25] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new CreateTransferCommandICProxi(objectId);
+            }
+        };
+        iCProxiFactories[22] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new CreateAccountCommandICProxi(objectId);
             }
         };
         iCProxiFactories[34] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
-                return new TransactionICProxi(objectId);
+                return new AccountManagerCurrentAccountsICProxi(objectId);
+            }
+        };
+        iCProxiFactories[13] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new TransferManagerICProxi(objectId);
+            }
+        };
+        iCProxiFactories[40] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new WrapperRecycleICProxi(objectId);
+            }
+        };
+        iCProxiFactories[15] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new DebitICProxi(objectId);
+            }
+        };
+        iCProxiFactories[35] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new ServerAccountsICProxi(objectId);
+            }
+        };
+        iCProxiFactories[37] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new NotBookedICProxi(objectId);
+            }
+        };
+        iCProxiFactories[29] = new ICProxiFactory(){
+            PersistentInCacheProxi create(long objectId){
+                return new SubjICProxi(objectId);
             }
         };
         iCProxiFactories[28] = new ICProxiFactory(){
@@ -88,16 +118,6 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
                 return new AccountManagerICProxi(objectId);
             }
         };
-        iCProxiFactories[25] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new CreateTransferCommandICProxi(objectId);
-            }
-        };
-        iCProxiFactories[22] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new CreateAccountCommandICProxi(objectId);
-            }
-        };
         iCProxiFactories[3] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CommonDateICProxi(objectId);
@@ -106,11 +126,6 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
         iCProxiFactories[4] = new ICProxiFactory(){
             PersistentInCacheProxi create(long objectId){
                 return new CommandExecuterICProxi(objectId);
-            }
-        };
-        iCProxiFactories[36] = new ICProxiFactory(){
-            PersistentInCacheProxi create(long objectId){
-                return new AddTransferCommandICProxi(objectId);
             }
         };
 		}
@@ -159,15 +174,15 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 			throw new PersistenceError(e);
 		}
 	}
-	public HashMap<String,Object> toHashtable(int depth, int essentialLevel, boolean forGUI, TDObserver tdObserver) throws PersistenceException {
+	public HashMap<String,Object> toHashtable(int depth, int essentialLevel, boolean forGUI) throws PersistenceException {
 		PersistentRoot object = this.getTheObject();
 		if (object == null) return null;
-		return object.toHashtable(depth, essentialLevel, forGUI, tdObserver);
+		return object.toHashtable(depth, essentialLevel, forGUI);
 	}
-	public HashMap<String, Object> toHashtable(HashMap<String, Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
+	public HashMap<String, Object> toHashtable(HashMap<String, Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, boolean inDerived) throws PersistenceException {
 		PersistentRoot object = this.getTheObject();
 		if (object == null) return null;
-		return object.toHashtable(allResults, depth, essentialLevel, forGUI, leaf, tdObserver);
+		return object.toHashtable(allResults, depth, essentialLevel, forGUI, leaf, inDerived);
 	}
 
 	protected abstract PersistentObject getRemote() throws PersistenceException;
@@ -237,5 +252,11 @@ public abstract class PersistentInCacheProxi extends PersistentRoot {
 		return this.getTheObject().getThis();
 	}
 	
-    
+    protected void setDltd() throws PersistenceException {
+        this.getTheObject().setDltd();
+    }
+    public boolean isDltd() throws PersistenceException {
+        return this.getTheObject().isDltd();
+    }
+
 }

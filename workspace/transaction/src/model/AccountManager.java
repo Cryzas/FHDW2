@@ -2,6 +2,10 @@
 package model;
 
 import persistence.*;
+import model.meta.AccountCreditTransferMssg;
+import model.meta.AccountDebitTransferMssg;
+import model.meta.AccountHandleMssgsVisitor;
+import model.meta.AccountWrpprAccountChangedAccountMssg;
 import model.visitor.*;
 
 
@@ -51,20 +55,26 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
         return result;
     }
     
-    public java.util.HashMap<String,Object> toHashtable(java.util.HashMap<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
-    java.util.HashMap<String,Object> result = null;
+    @SuppressWarnings("unchecked")
+    public java.util.HashMap<String,Object> toHashtable(java.util.HashMap<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, boolean inDerived) throws PersistenceException {
+        java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
-            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            result.put("currentAccounts", this.getCurrentAccounts().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
-            if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
+            if (leaf){
+                result = (java.util.HashMap<String,Object>)allResults.get(uniqueKey);
+                if (result != null) return result;
+            }
+            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, inDerived);
+            if (leaf) allResults.put(uniqueKey, result);
+            result.put("currentAccounts", this.getCurrentAccounts().getObservee().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, false, false));
         }
         return result;
     }
     
     public AccountManager provideCopy() throws PersistenceException{
         AccountManager result = this;
-        result = new AccountManager(this.subService, 
+        result = new AccountManager(this.currentAccounts, 
+                                    this.subService, 
                                     this.This, 
                                     this.getId());
         this.copyingPrivateUserAttributes(result);
@@ -74,14 +84,14 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
     public boolean hasEssentialFields() throws PersistenceException{
         return false;
     }
-    protected AccountManager_CurrentAccountsProxi currentAccounts;
+    protected PersistentAccountManagerCurrentAccounts currentAccounts;
     protected SubjInterface subService;
     protected PersistentAccountManager This;
     
-    public AccountManager(SubjInterface subService,PersistentAccountManager This,long id) throws PersistenceException {
+    public AccountManager(PersistentAccountManagerCurrentAccounts currentAccounts,SubjInterface subService,PersistentAccountManager This,long id) throws PersistenceException {
         /* Shall not be used by clients for object construction! Use static create operation instead! */
         super(id);
-        this.currentAccounts = new AccountManager_CurrentAccountsProxi(this);
+        this.currentAccounts = currentAccounts;
         this.subService = subService;
         if (This != null && !(this.isTheSameAs(This))) this.This = This;        
     }
@@ -99,7 +109,10 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
         if (this.getClassId() == 122) ConnectionHandler.getTheConnectionHandler().theAccountManagerFacade
             .newAccountManager(this.getId());
         super.store();
-        this.getCurrentAccounts().store();
+        if(this.currentAccounts != null){
+            this.currentAccounts.store();
+            ConnectionHandler.getTheConnectionHandler().theAccountManagerFacade.currentAccountsSet(this.getId(), currentAccounts);
+        }
         if(this.getSubService() != null){
             this.getSubService().store();
             ConnectionHandler.getTheConnectionHandler().theAccountManagerFacade.subServiceSet(this.getId(), getSubService());
@@ -111,8 +124,16 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
         
     }
     
-    public AccountManager_CurrentAccountsProxi getCurrentAccounts() throws PersistenceException {
-        return this.currentAccounts;
+    public void setCurrentAccounts(AccountManagerCurrentAccounts4Public newValue) throws PersistenceException {
+        if (newValue == null) throw new PersistenceException("Null values not allowed!", 0);
+        if(newValue.isTheSameAs(this.currentAccounts)) return;
+        long objectId = newValue.getId();
+        long classId = newValue.getClassId();
+        this.currentAccounts = (PersistentAccountManagerCurrentAccounts)PersistentProxi.createProxi(objectId, classId);
+        if(!this.isDelayed$Persistence()){
+            newValue.store();
+            ConnectionHandler.getTheConnectionHandler().theAccountManagerFacade.currentAccountsSet(this.getId(), newValue);
+        }
     }
     public SubjInterface getSubService() throws PersistenceException {
         return this.subService;
@@ -176,14 +197,14 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
          return visitor.handleAccountManager(this);
     }
     public int getLeafInfo() throws PersistenceException{
-        if (this.getCurrentAccounts().getLength() > 0) return 1;
+        if (this.getCurrentAccounts().getObservee().getLength() > 0) return 1;
         return 0;
     }
     
     
-    public void accountChanged() 
+    public void accountChanged(final Account4Public account) 
 				throws PersistenceException{
-        model.meta.AccountManagerAccountChangedMssg event = new model.meta.AccountManagerAccountChangedMssg(getThis());
+        model.meta.AccountManagerAccountChangedAccountMssg event = new model.meta.AccountManagerAccountChangedAccountMssg(account, getThis());
 		event.execute();
 		getThis().updateObservers(event);
 		event.getResult();
@@ -205,6 +226,14 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
 			getThis().setSubService(subService);
 		}
 		subService.deregister(observee);
+    }
+    public AccountManagerCurrentAccounts4Public getCurrentAccounts() 
+				throws PersistenceException{
+        if (this.currentAccounts == null) {
+			this.setCurrentAccounts(model.AccountManagerCurrentAccounts.createAccountManagerCurrentAccounts(this.isDelayed$Persistence()));
+			this.currentAccounts.setObserver(this);
+		}
+		return this.currentAccounts;
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -234,7 +263,7 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
     
     // Start of section that contains operations that must be implemented.
     
-    public void accountChangedImplementation() 
+    public void accountChangedImplementation(final Account4Public account) 
 				throws PersistenceException{
     }
     public void clearAccounts() 
@@ -249,6 +278,11 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
 					}
 					@Override
 					public Boolean handleAccountWrppr(AccountWrppr4Public accountWrppr) throws PersistenceException {
+						accountWrppr.recycle();
+						return false;
+					}
+					@Override
+					public Boolean handleNoAccount(NoAccount4Public noAccount) throws PersistenceException {
 						return false;
 					}
 				});
@@ -260,22 +294,42 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
     }
     public void createAccount(final String name) 
 				throws model.AccountException, PersistenceException{
+    	if (!common.FieldChecks.checkAccountName(name))
+    		throw new AccountException(serverConstants.ErrorMessages.WrongNameFormatMessage);
     	if (Account.getAccountByName(name).iterator().hasNext())
     		throw new AccountException(serverConstants.ErrorMessages.ChooseOtherNameMessage);
     	getThis().getCurrentAccounts().add(Account.createAccount(name));
+    }
+    public void currentAccounts_update(final model.meta.AccountHandleMssgs event) 
+				throws PersistenceException{
+        event.accept(new AccountHandleMssgsVisitor() {
+			@Override
+			public void handleAccountWrpprAccountChangedAccountMssg(AccountWrpprAccountChangedAccountMssg event)
+					throws PersistenceException {
+		    	getThis().accountChanged(event.account);
+			}
+			@Override
+			public void handleAccountDebitTransferMssg(AccountDebitTransferMssg event) throws PersistenceException {
+		    	getThis().accountChanged(event.rcvr);
+			}
+			@Override
+			public void handleAccountCreditTransferMssg(AccountCreditTransferMssg event) throws PersistenceException {
+		    	getThis().accountChanged(event.rcvr);
+			}
+		});
     }
     public void findAccounts(final String name) 
 				throws PersistenceException{
     	AccountSearchList foundAccounts = Account.getAccountByName(name);
     	foundAccounts.applyToAll(new Procdure<Account4Public>() {
 			@Override
-			public void doItTo(Account4Public foundAcccount) throws PersistenceException {
+			public void doItTo(Account4Public foundAccount) throws PersistenceException {
 				if (getThis().getCurrentAccounts().findFirst(new Predcate<AccountHandle4Public>() {
 					@Override
 					public boolean test(AccountHandle4Public argument) throws PersistenceException {
-						return argument.fetchAccount().equals(foundAcccount);
+						return argument.fetchAccount().equals(foundAccount);
 					}
-				}) == null) getThis().getCurrentAccounts().add(AccountWrppr.createAccountWrppr(foundAcccount));
+				}) == null) getThis().getCurrentAccounts().add(WrapperRecycle.getTheWrapperRecycle().fecthAccountWrapper(foundAccount));
 			}
 		});
     }
@@ -291,6 +345,10 @@ public class AccountManager extends PersistentObject implements PersistentAccoun
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
+    
+    
     
     
     

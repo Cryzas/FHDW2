@@ -5,11 +5,13 @@ public interface AccountWrpprMssgsVisitor extends AccountWrpprDOWNMssgsVisitor, 
 
 interface AccountWrpprDOWNMssgsVisitor  {
 
+    public void handleAccountWrpprAccountChangedAccountMssg(AccountWrpprAccountChangedAccountMssg event) throws persistence.PersistenceException;
     
 }
 
 
 interface AccountWrpprUPMssgsVisitor extends AccountHandleUPMssgsVisitor {
 
+    public void handleAccountWrpprAccountChangedAccountMssg(AccountWrpprAccountChangedAccountMssg event) throws persistence.PersistenceException;
     
 }

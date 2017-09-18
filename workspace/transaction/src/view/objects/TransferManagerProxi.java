@@ -14,7 +14,7 @@ public class TransferManagerProxi extends ViewProxi implements TransferManagerVi
     @SuppressWarnings("unchecked")
     public TransferManagerView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         java.util.Vector<String> transfers_string = (java.util.Vector<String>)resultTable.get("transfers");
-        java.util.Vector<BookableView> transfers = ViewProxi.getProxiVector(transfers_string, connectionKey);
+        java.util.Vector<AbstractTransferView> transfers = ViewProxi.getProxiVector(transfers_string, connectionKey);
         TransferManagerView result$$ = new TransferManager(transfers, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
@@ -48,10 +48,10 @@ public class TransferManagerProxi extends ViewProxi implements TransferManagerVi
         return -1;
     }
     
-    public java.util.Vector<BookableView> getTransfers()throws ModelException{
+    public java.util.Vector<AbstractTransferView> getTransfers()throws ModelException{
         return ((TransferManager)this.getTheObject()).getTransfers();
     }
-    public void setTransfers(java.util.Vector<BookableView> newValue) throws ModelException {
+    public void setTransfers(java.util.Vector<AbstractTransferView> newValue) throws ModelException {
         ((TransferManager)this.getTheObject()).setTransfers(newValue);
     }
     

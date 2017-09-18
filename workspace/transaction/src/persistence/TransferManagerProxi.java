@@ -57,17 +57,9 @@ public class TransferManagerProxi extends PersistentProxi implements PersistentT
     }
     
     
-    public void addTransfer(final Transaction4Public transaction, final Transfer4Public transfer, final Invoker invoker) 
+    public void book(final AbstractTransfer4Public tranfer, final Invoker invoker) 
 				throws PersistenceException{
-        ((PersistentTransferManager)this.getTheObject()).addTransfer(transaction, transfer, invoker);
-    }
-    public void book(final Bookable4Public bookable, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentTransferManager)this.getTheObject()).book(bookable, invoker);
-    }
-    public void createTransaction(final String subject, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentTransferManager)this.getTheObject()).createTransaction(subject, invoker);
+        ((PersistentTransferManager)this.getTheObject()).book(tranfer, invoker);
     }
     public void createTransfer(final AccountHandle4Public fromAccount, final AccountHandle4Public toAccount, final common.Fraction amount, final String subject, final Invoker invoker) 
 				throws PersistenceException{
@@ -85,29 +77,17 @@ public class TransferManagerProxi extends PersistentProxi implements PersistentT
 				throws PersistenceException{
         ((PersistentTransferManager)this.getTheObject()).register(observee);
     }
-    public void removeTransfer(final Transaction4Public transaction, final Transfer4Public transfer, final Invoker invoker) 
-				throws PersistenceException{
-        ((PersistentTransferManager)this.getTheObject()).removeTransfer(transaction, transfer, invoker);
-    }
     public void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         ((PersistentTransferManager)this.getTheObject()).updateObservers(event);
     }
-    public void addTransfer(final Transaction4Public transaction, final Transfer4Public transfer) 
-				throws PersistenceException{
-        ((PersistentTransferManager)this.getTheObject()).addTransfer(transaction, transfer);
-    }
-    public void book(final Bookable4Public bookable) 
-				throws PersistenceException{
-        ((PersistentTransferManager)this.getTheObject()).book(bookable);
+    public void book(final AbstractTransfer4Public tranfer) 
+				throws model.TransferException, PersistenceException{
+        ((PersistentTransferManager)this.getTheObject()).book(tranfer);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
         ((PersistentTransferManager)this.getTheObject()).copyingPrivateUserAttributes(copy);
-    }
-    public void createTransaction(final String subject) 
-				throws PersistenceException{
-        ((PersistentTransferManager)this.getTheObject()).createTransaction(subject);
     }
     public void createTransfer(final AccountHandle4Public fromAccount, final AccountHandle4Public toAccount, final common.Fraction amount, final String subject) 
 				throws PersistenceException{
@@ -120,10 +100,6 @@ public class TransferManagerProxi extends PersistentProxi implements PersistentT
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentTransferManager)this.getTheObject()).initializeOnInstantiation();
-    }
-    public void removeTransfer(final Transaction4Public transaction, final Transfer4Public transfer) 
-				throws model.NotPartException, PersistenceException{
-        ((PersistentTransferManager)this.getTheObject()).removeTransfer(transaction, transfer);
     }
 
     

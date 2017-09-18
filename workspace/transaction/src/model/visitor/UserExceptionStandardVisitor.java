@@ -5,6 +5,9 @@ import persistence.*;
 
 public abstract class UserExceptionStandardVisitor implements UserExceptionVisitor {
     
+    public void handleTransferException(model.TransferException transferException) throws PersistenceException{
+        this.standardHandling(transferException);
+    }
     public void handleAccountException(model.AccountException accountException) throws PersistenceException{
         this.standardHandling(accountException);
     }
@@ -13,9 +16,6 @@ public abstract class UserExceptionStandardVisitor implements UserExceptionVisit
     }
     public void handleRestrictionException(model.RestrictionException restrictionException) throws PersistenceException{
         this.standardHandling(restrictionException);
-    }
-    public void handleNotPartException(model.NotPartException notPartException) throws PersistenceException{
-        this.standardHandling(notPartException);
     }
     protected abstract void standardHandling(model.UserException userException) throws PersistenceException;
 }

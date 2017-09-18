@@ -22,10 +22,7 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
         return -102;
     }
     
-    public AccountManager4Public getAccounts() throws PersistenceException {
-        return ((PersistentServer)this.getTheObject()).getAccounts();
-    }
-    public void setAccounts(AccountManager4Public newValue) throws PersistenceException {
+    public void setAccounts(ServerAccounts4Public newValue) throws PersistenceException {
         ((PersistentServer)this.getTheObject()).setAccounts(newValue);
     }
     public TransferManager4Public getTransfers() throws PersistenceException {
@@ -125,6 +122,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).deregister(observee);
     }
+    public AccountManager4Public getAccounts() 
+				throws PersistenceException{
+        return ((PersistentServer)this.getTheObject()).getAccounts();
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initialize(This, final$$Fields);
@@ -137,6 +138,10 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         return ((PersistentServer)this.getTheObject()).server_Menu_Filter(anything);
     }
+    public void setAccounts(final AccountManager4Public accounts) 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).setAccounts(accounts);
+    }
     public void signalChanged(final boolean signal) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).signalChanged(signal);
@@ -145,17 +150,21 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).updateObservers(event);
     }
-    public void addTransfer(final Transaction4Public transaction, final Transfer4Public transfer) 
+    public void accounts_update(final model.meta.AccountManagerMssgs event) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).addTransfer(transaction, transfer);
+        ((PersistentServer)this.getTheObject()).accounts_update(event);
     }
-    public void book(final Bookable4Public bookable) 
+    public void book(final AbstractTransfer4Public tranfer) 
 				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).book(bookable);
+        ((PersistentServer)this.getTheObject()).book(tranfer);
     }
     public void clearAccounts() 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).clearAccounts();
+    }
+    public void clearErrors() 
+				throws PersistenceException{
+        ((PersistentServer)this.getTheObject()).clearErrors();
     }
     public void connected(final String user) 
 				throws PersistenceException{
@@ -176,10 +185,6 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void createDebit(final Account4Public myAccount, final AccountHandle4Public otherAccount, final common.Fraction amount, final String subject) 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).createDebit(myAccount, otherAccount, amount, subject);
-    }
-    public void createTransaction(final String subject) 
-				throws PersistenceException{
-        ((PersistentServer)this.getTheObject()).createTransaction(subject);
     }
     public void disconnected() 
 				throws PersistenceException{
@@ -208,10 +213,6 @@ public class ServerICProxi extends PersistentInCacheProxiOptimistic implements P
     public void initializeOnInstantiation() 
 				throws PersistenceException{
         ((PersistentServer)this.getTheObject()).initializeOnInstantiation();
-    }
-    public void removeTransfer(final Transaction4Public transaction, final Transfer4Public transfer) 
-				throws model.NotPartException, PersistenceException{
-        ((PersistentServer)this.getTheObject()).removeTransfer(transaction, transfer);
     }
 
     

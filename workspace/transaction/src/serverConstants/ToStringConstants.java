@@ -11,5 +11,6 @@ abstract public class ToStringConstants {
 	public static final String CreditToString = " HABEN: ";
 	public static final String FromInfix = " FROM ";
 	public static final String ToInfix = " TO ";
+	public static final String NoAccountName = "NoAccount";
 
 }

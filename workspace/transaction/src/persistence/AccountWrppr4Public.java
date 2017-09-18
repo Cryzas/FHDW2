@@ -5,7 +5,6 @@ import model.visitor.*;
 
 public interface AccountWrppr4Public extends AccountHandle4Public {
     
-    public Account4Public getAccount() throws PersistenceException ;
     
     public void accept(AccountHandleVisitor visitor) throws PersistenceException;
     public <R> R accept(AccountHandleReturnVisitor<R>  visitor) throws PersistenceException;
@@ -20,13 +19,23 @@ public interface AccountWrppr4Public extends AccountHandle4Public {
     public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
+    public void accountChanged(final Account4Public account) 
+				throws PersistenceException;
+    public Account4Public getAccount() 
+				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
+				throws PersistenceException;
+    public void setAccount(final Account4Public account) 
+				throws PersistenceException;
+    public void accountChangedImplementation(final Account4Public account) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;
     public void initializeOnInstantiation() 
+				throws PersistenceException;
+    public void recycle() 
 				throws PersistenceException;
 
 }

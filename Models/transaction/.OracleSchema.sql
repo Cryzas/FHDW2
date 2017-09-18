@@ -42,40 +42,7 @@ create table Association3 (
     constraint FAssociation3Target foreign key (target) references Cls(id) on delete cascade
 );
 
-create sequence GlobalSequencer nocache;
-
-create table TrnsfrMngr(
-    id number primary key,
-    Cls number not null,
-    constraint FTrnsfrMngrCls foreign key (Cls) references Cls (id) on delete cascade,
-    TrnsfrMngrSbSrvc number,
-    TrnsfrMngrSbSrvcCls number,
-    constraint FTrnsfrMngrSbSrvc foreign key (TrnsfrMngrSbSrvcCls) references Cls (id),
-    TrnsfrMngrThis number,
-    TrnsfrMngrThisCls number,
-    constraint FTrnsfrMngrThis foreign key (TrnsfrMngrThisCls) references Cls (id)    
-);
-
-create table RmvTrnsfrCMD(
-    id number primary key,
-    Cls number not null,
-    constraint FRmvTrnsfrCMDCls foreign key (Cls) references Cls (id) on delete cascade,
-    RmvTrnsfrCMDTrnsctn number,
-    RmvTrnsfrCMDTrnsctnCls number,
-    constraint FRmvTrnsfrCMDTrnsctn foreign key (RmvTrnsfrCMDTrnsctnCls) references Cls (id),
-    RmvTrnsfrCMDTrnsfr number,
-    RmvTrnsfrCMDTrnsfrCls number,
-    constraint FRmvTrnsfrCMDTrnsfr foreign key (RmvTrnsfrCMDTrnsfrCls) references Cls (id),
-    RmvTrnsfrCMDInvoker number,
-    RmvTrnsfrCMDInvokerCls number,
-    constraint FRmvTrnsfrCMDInvoker foreign key (RmvTrnsfrCMDInvokerCls) references Cls (id),
-    RmvTrnsfrCMDCReceiver number,
-    RmvTrnsfrCMDCReceiverCls number,
-    constraint FRmvTrnsfrCMDCReceiver foreign key (RmvTrnsfrCMDCReceiverCls) references Cls (id),
-    RmvTrnsfrCMDMyCmmnDt number,
-    RmvTrnsfrCMDMyCmmnDtCls number,
-    constraint FRmvTrnsfrCMDMyCmmnDt foreign key (RmvTrnsfrCMDMyCmmnDtCls) references Cls (id)    
-);
+create sequence SSrvr nocache;
 
 create table Srvr(
     id number primary key,
@@ -101,20 +68,32 @@ create table Srvr(
 create index IUserSrvr on Srvr (SrvrUser);
 
 
-create table Subj(
+create sequence SAccntWrpprAccnt nocache;
+
+create table AccntWrpprAccnt(
     id number primary key,
     Cls number not null,
-    constraint FSubjCls foreign key (Cls) references Cls (id) on delete cascade,
-    SubjThis number,
-    SubjThisCls number,
-    constraint FSubjThis foreign key (SubjThisCls) references Cls (id)    
+    constraint FAccntWrpprAccntCls foreign key (Cls) references Cls (id) on delete cascade,
+    AccntWrpprAccntMstr number,
+    AccntWrpprAccntMstrCls number,
+    constraint FAccntWrpprAccntMstr foreign key (AccntWrpprAccntMstrCls) references Cls (id),
+    AccntWrpprAccntObs number,
+    AccntWrpprAccntObsCls number,
+    constraint FAccntWrpprAccntObs foreign key (AccntWrpprAccntObsCls) references Cls (id),
+    AccntWrpprAccntThis number,
+    AccntWrpprAccntThisCls number,
+    constraint FAccntWrpprAccntThis foreign key (AccntWrpprAccntThisCls) references Cls (id)    
 );
+
+create sequence SCmmndCrdntr nocache;
 
 create table CmmndCrdntr(
     id number primary key,
     Cls number not null,
     constraint FCmmndCrdntrCls foreign key (Cls) references Cls (id) on delete cascade    
 );
+
+create sequence SEntr nocache;
 
 create table Entr(
     id number primary key,
@@ -131,39 +110,7 @@ create table Entr(
     constraint FEntrThis foreign key (EntrThisCls) references Cls (id)    
 );
 
-create table CrtTrnsctnCMD(
-    id number primary key,
-    Cls number not null,
-    constraint FCrtTrnsctnCMDCls foreign key (Cls) references Cls (id) on delete cascade,
-    CrtTrnsctnCMDSbjct varchar2(2000),
-    CrtTrnsctnCMDInvoker number,
-    CrtTrnsctnCMDInvokerCls number,
-    constraint FCrtTrnsctnCMDInvoker foreign key (CrtTrnsctnCMDInvokerCls) references Cls (id),
-    CrtTrnsctnCMDCReceiver number,
-    CrtTrnsctnCMDCReceiverCls number,
-    constraint FCrtTrnsctnCMDCReceiver foreign key (CrtTrnsctnCMDCReceiverCls) references Cls (id),
-    CrtTrnsctnCMDMyCmmnDt number,
-    CrtTrnsctnCMDMyCmmnDtCls number,
-    constraint FCrtTrnsctnCMDMyCmmnDt foreign key (CrtTrnsctnCMDMyCmmnDtCls) references Cls (id)    
-);
-
-create table BkCMD(
-    id number primary key,
-    Cls number not null,
-    constraint FBkCMDCls foreign key (Cls) references Cls (id) on delete cascade,
-    BkCMDBkbl number,
-    BkCMDBkblCls number,
-    constraint FBkCMDBkbl foreign key (BkCMDBkblCls) references Cls (id),
-    BkCMDInvoker number,
-    BkCMDInvokerCls number,
-    constraint FBkCMDInvoker foreign key (BkCMDInvokerCls) references Cls (id),
-    BkCMDCReceiver number,
-    BkCMDCReceiverCls number,
-    constraint FBkCMDCReceiver foreign key (BkCMDCReceiverCls) references Cls (id),
-    BkCMDMyCmmnDt number,
-    BkCMDMyCmmnDtCls number,
-    constraint FBkCMDMyCmmnDt foreign key (BkCMDMyCmmnDtCls) references Cls (id)    
-);
+create sequence SAccntHndl nocache;
 
 create table AccntHndl(
     id number primary key,
@@ -184,17 +131,7 @@ create table AccntHndl(
 create index INmAccnt on AccntHndl (AccntNm);
 
 
-create table AccntMngr(
-    id number primary key,
-    Cls number not null,
-    constraint FAccntMngrCls foreign key (Cls) references Cls (id) on delete cascade,
-    AccntMngrSbSrvc number,
-    AccntMngrSbSrvcCls number,
-    constraint FAccntMngrSbSrvc foreign key (AccntMngrSbSrvcCls) references Cls (id),
-    AccntMngrThis number,
-    AccntMngrThisCls number,
-    constraint FAccntMngrThis foreign key (AccntMngrThisCls) references Cls (id)    
-);
+create sequence SCrtTrnsfrCMD nocache;
 
 create table CrtTrnsfrCMD(
     id number primary key,
@@ -219,6 +156,8 @@ create table CrtTrnsfrCMD(
     constraint FCrtTrnsfrCMDMyCmmnDt foreign key (CrtTrnsfrCMDMyCmmnDtCls) references Cls (id)    
 );
 
+create sequence SCrtAccntCMD nocache;
+
 create table CrtAccntCMD(
     id number primary key,
     Cls number not null,
@@ -235,31 +174,81 @@ create table CrtAccntCMD(
     constraint FCrtAccntCMDMyCmmnDt foreign key (CrtAccntCMDMyCmmnDtCls) references Cls (id)    
 );
 
-create table CmmnDt(
+create sequence SAccntMngrCrrntAccnts nocache;
+
+create table AccntMngrCrrntAccnts(
     id number primary key,
     Cls number not null,
-    constraint FCmmnDtCls foreign key (Cls) references Cls (id) on delete cascade,
-    CmmnDtCrtdt Date,
-    CmmnDtCmmtdt Date    
+    constraint FAccntMngrCrrntAccntsCls foreign key (Cls) references Cls (id) on delete cascade,
+    AccntMngrCrrntAccntsMstr number,
+    AccntMngrCrrntAccntsMstrCls number,
+    constraint FAccntMngrCrrntAccntsMstr foreign key (AccntMngrCrrntAccntsMstrCls) references Cls (id),
+    AccntMngrCrrntAccntsThis number,
+    AccntMngrCrrntAccntsThisCls number,
+    constraint FAccntMngrCrrntAccntsThis foreign key (AccntMngrCrrntAccntsThisCls) references Cls (id)    
 );
 
-create table CmmndExctr(
+create sequence STrnsfrMngr nocache;
+
+create table TrnsfrMngr(
     id number primary key,
     Cls number not null,
-    constraint FCmmndExctrCls foreign key (Cls) references Cls (id) on delete cascade    
+    constraint FTrnsfrMngrCls foreign key (Cls) references Cls (id) on delete cascade,
+    TrnsfrMngrSbSrvc number,
+    TrnsfrMngrSbSrvcCls number,
+    constraint FTrnsfrMngrSbSrvc foreign key (TrnsfrMngrSbSrvcCls) references Cls (id),
+    TrnsfrMngrThis number,
+    TrnsfrMngrThisCls number,
+    constraint FTrnsfrMngrThis foreign key (TrnsfrMngrThisCls) references Cls (id)    
 );
 
-create table Bkbl(
+create sequence SWrpprRccl nocache;
+
+create table WrpprRccl(
     id number primary key,
     Cls number not null,
-    constraint FBkblCls foreign key (Cls) references Cls (id) on delete cascade,
-    BkblSbjct varchar2(2000),
-    BkblSbSrvc number,
-    BkblSbSrvcCls number,
-    constraint FBkblSbSrvc foreign key (BkblSbSrvcCls) references Cls (id),
-    BkblThis number,
-    BkblThisCls number,
-    constraint FBkblThis foreign key (BkblThisCls) references Cls (id),
+    constraint FWrpprRcclCls foreign key (Cls) references Cls (id) on delete cascade,
+    WrpprRcclSbSrvc number,
+    WrpprRcclSbSrvcCls number,
+    constraint FWrpprRcclSbSrvc foreign key (WrpprRcclSbSrvcCls) references Cls (id),
+    WrpprRcclThis number,
+    WrpprRcclThisCls number,
+    constraint FWrpprRcclThis foreign key (WrpprRcclThisCls) references Cls (id)    
+);
+
+create sequence SSrvrAccnts nocache;
+
+create table SrvrAccnts(
+    id number primary key,
+    Cls number not null,
+    constraint FSrvrAccntsCls foreign key (Cls) references Cls (id) on delete cascade,
+    SrvrAccntsMstr number,
+    SrvrAccntsMstrCls number,
+    constraint FSrvrAccntsMstr foreign key (SrvrAccntsMstrCls) references Cls (id),
+    SrvrAccntsObs number,
+    SrvrAccntsObsCls number,
+    constraint FSrvrAccntsObs foreign key (SrvrAccntsObsCls) references Cls (id),
+    SrvrAccntsThis number,
+    SrvrAccntsThisCls number,
+    constraint FSrvrAccntsThis foreign key (SrvrAccntsThisCls) references Cls (id)    
+);
+
+create sequence SAbstrTrnsfr nocache;
+
+create table AbstrTrnsfr(
+    id number primary key,
+    Cls number not null,
+    constraint FAbstrTrnsfrCls foreign key (Cls) references Cls (id) on delete cascade,
+    AbstrTrnsfrSbjct CLOB,
+    AbstrTrnsfrStt number,
+    AbstrTrnsfrSttCls number,
+    constraint FAbstrTrnsfrStt foreign key (AbstrTrnsfrSttCls) references Cls (id),
+    AbstrTrnsfrSbSrvc number,
+    AbstrTrnsfrSbSrvcCls number,
+    constraint FAbstrTrnsfrSbSrvc foreign key (AbstrTrnsfrSbSrvcCls) references Cls (id),
+    AbstrTrnsfrThis number,
+    AbstrTrnsfrThisCls number,
+    constraint FAbstrTrnsfrThis foreign key (AbstrTrnsfrThisCls) references Cls (id),
     TrnsfrFrmAccnt number,
     TrnsfrFrmAccntCls number,
     constraint FTrnsfrFrmAccnt foreign key (TrnsfrFrmAccntCls) references Cls (id),
@@ -269,36 +258,87 @@ create table Bkbl(
     TrnsfrAmnt varchar2(2000)    
 );
 
-create table AddTrnsfrCMD(
+create sequence STrnsfrStt nocache;
+
+create table TrnsfrStt(
     id number primary key,
     Cls number not null,
-    constraint FAddTrnsfrCMDCls foreign key (Cls) references Cls (id) on delete cascade,
-    AddTrnsfrCMDTrnsctn number,
-    AddTrnsfrCMDTrnsctnCls number,
-    constraint FAddTrnsfrCMDTrnsctn foreign key (AddTrnsfrCMDTrnsctnCls) references Cls (id),
-    AddTrnsfrCMDTrnsfr number,
-    AddTrnsfrCMDTrnsfrCls number,
-    constraint FAddTrnsfrCMDTrnsfr foreign key (AddTrnsfrCMDTrnsfrCls) references Cls (id),
-    AddTrnsfrCMDInvoker number,
-    AddTrnsfrCMDInvokerCls number,
-    constraint FAddTrnsfrCMDInvoker foreign key (AddTrnsfrCMDInvokerCls) references Cls (id),
-    AddTrnsfrCMDCReceiver number,
-    AddTrnsfrCMDCReceiverCls number,
-    constraint FAddTrnsfrCMDCReceiver foreign key (AddTrnsfrCMDCReceiverCls) references Cls (id),
-    AddTrnsfrCMDMyCmmnDt number,
-    AddTrnsfrCMDMyCmmnDtCls number,
-    constraint FAddTrnsfrCMDMyCmmnDt foreign key (AddTrnsfrCMDMyCmmnDtCls) references Cls (id)    
+    constraint FTrnsfrSttCls foreign key (Cls) references Cls (id) on delete cascade,
+    TrnsfrSttSbSrvc number,
+    TrnsfrSttSbSrvcCls number,
+    constraint FTrnsfrSttSbSrvc foreign key (TrnsfrSttSbSrvcCls) references Cls (id),
+    TrnsfrSttThis number,
+    TrnsfrSttThisCls number,
+    constraint FTrnsfrSttThis foreign key (TrnsfrSttThisCls) references Cls (id)    
 );
 
-create table TrnsfrMngrTrnsfrs(
+create sequence SSubj nocache;
+
+create table Subj(
     id number primary key,
-    frm number not null,
-    trnsfrs number not null,
     Cls number not null,
-    constraint FTrnsfrMngrTrnsfrsCls foreign key(Cls) references Cls(id) on delete cascade,
-    constraint FTrnsfrMngrTrnsfrsfrm foreign key(frm) references TrnsfrMngr(id)
+    constraint FSubjCls foreign key (Cls) references Cls (id) on delete cascade,
+    SubjThis number,
+    SubjThisCls number,
+    constraint FSubjThis foreign key (SubjThisCls) references Cls (id)    
 );
-create index IFrmTrnsfrMngrTrnsfrs on TrnsfrMngrTrnsfrs(frm);
+
+create sequence SBkCMD nocache;
+
+create table BkCMD(
+    id number primary key,
+    Cls number not null,
+    constraint FBkCMDCls foreign key (Cls) references Cls (id) on delete cascade,
+    BkCMDTrnfr number,
+    BkCMDTrnfrCls number,
+    constraint FBkCMDTrnfr foreign key (BkCMDTrnfrCls) references Cls (id),
+    BkCMDInvoker number,
+    BkCMDInvokerCls number,
+    constraint FBkCMDInvoker foreign key (BkCMDInvokerCls) references Cls (id),
+    BkCMDCReceiver number,
+    BkCMDCReceiverCls number,
+    constraint FBkCMDCReceiver foreign key (BkCMDCReceiverCls) references Cls (id),
+    BkCMDMyCmmnDt number,
+    BkCMDMyCmmnDtCls number,
+    constraint FBkCMDMyCmmnDt foreign key (BkCMDMyCmmnDtCls) references Cls (id)    
+);
+
+create sequence SAccntMngr nocache;
+
+create table AccntMngr(
+    id number primary key,
+    Cls number not null,
+    constraint FAccntMngrCls foreign key (Cls) references Cls (id) on delete cascade,
+    AccntMngrCrrntAccnts number,
+    AccntMngrCrrntAccntsCls number,
+    constraint FAccntMngrCrrntAccnts foreign key (AccntMngrCrrntAccntsCls) references Cls (id),
+    AccntMngrSbSrvc number,
+    AccntMngrSbSrvcCls number,
+    constraint FAccntMngrSbSrvc foreign key (AccntMngrSbSrvcCls) references Cls (id),
+    AccntMngrThis number,
+    AccntMngrThisCls number,
+    constraint FAccntMngrThis foreign key (AccntMngrThisCls) references Cls (id)    
+);
+
+create sequence SCmmnDt nocache;
+
+create table CmmnDt(
+    id number primary key,
+    Cls number not null,
+    constraint FCmmnDtCls foreign key (Cls) references Cls (id) on delete cascade,
+    CmmnDtCrtdt Date,
+    CmmnDtCmmtdt Date    
+);
+
+create sequence SCmmndExctr nocache;
+
+create table CmmndExctr(
+    id number primary key,
+    Cls number not null,
+    constraint FCmmndExctrCls foreign key (Cls) references Cls (id) on delete cascade    
+);
+
+create sequence SAccntEntrs nocache;
 
 create table AccntEntrs(
     id number primary key,
@@ -310,15 +350,7 @@ create table AccntEntrs(
 );
 create index IFrmAccntEntrs on AccntEntrs(frm);
 
-create table SubjObs(
-    id number primary key,
-    frm number not null,
-    obs number not null,
-    Cls number not null,
-    constraint FSubjObsCls foreign key(Cls) references Cls(id) on delete cascade,
-    constraint FSubjObsfrm foreign key(frm) references Subj(id)
-);
-create index IFrmSubjObs on SubjObs(frm);
+create sequence SCmmndCrdntrExctr nocache;
 
 create table CmmndCrdntrExctr(
     id number primary key,
@@ -330,25 +362,55 @@ create table CmmndCrdntrExctr(
 );
 create index IFrmCmmndCrdntrExctr on CmmndCrdntrExctr(frm);
 
-create table TrnsctnTrnsfrs(
+create sequence SAccntMngrCrrntAccntsObs nocache;
+
+create table AccntMngrCrrntAccntsObs(
+    id number primary key,
+    frm number not null,
+    obs number not null,
+    Cls number not null,
+    constraint FAccntMngrCrrntAccntsObsCls foreign key(Cls) references Cls(id) on delete cascade,
+    constraint FAccntMngrCrrntAccntsObsfrm foreign key(frm) references AccntMngrCrrntAccnts(id)
+);
+create index IFrmAccntMngrCrrntAccntsObs on AccntMngrCrrntAccntsObs(frm);
+
+create sequence STrnsfrMngrTrnsfrs nocache;
+
+create table TrnsfrMngrTrnsfrs(
     id number primary key,
     frm number not null,
     trnsfrs number not null,
     Cls number not null,
-    constraint FTrnsctnTrnsfrsCls foreign key(Cls) references Cls(id) on delete cascade,
-    constraint FTrnsctnTrnsfrsfrm foreign key(frm) references Bkbl(id)
+    constraint FTrnsfrMngrTrnsfrsCls foreign key(Cls) references Cls(id) on delete cascade,
+    constraint FTrnsfrMngrTrnsfrsfrm foreign key(frm) references TrnsfrMngr(id)
 );
-create index IFrmTrnsctnTrnsfrs on TrnsctnTrnsfrs(frm);
+create index IFrmTrnsfrMngrTrnsfrs on TrnsfrMngrTrnsfrs(frm);
 
-create table AccntMngrCrrntAccnts(
+create sequence SWrpprRcclRccld nocache;
+
+create table WrpprRcclRccld(
     id number primary key,
     frm number not null,
-    crrntAccnts number not null,
+    rccld number not null,
     Cls number not null,
-    constraint FAccntMngrCrrntAccntsCls foreign key(Cls) references Cls(id) on delete cascade,
-    constraint FAccntMngrCrrntAccntsfrm foreign key(frm) references AccntMngr(id)
+    constraint FWrpprRcclRccldCls foreign key(Cls) references Cls(id) on delete cascade,
+    constraint FWrpprRcclRccldfrm foreign key(frm) references WrpprRccl(id)
 );
-create index IFrmAccntMngrCrrntAccnts on AccntMngrCrrntAccnts(frm);
+create index IFrmWrpprRcclRccld on WrpprRcclRccld(frm);
+
+create sequence SSubjObs nocache;
+
+create table SubjObs(
+    id number primary key,
+    frm number not null,
+    obs number not null,
+    Cls number not null,
+    constraint FSubjObsCls foreign key(Cls) references Cls(id) on delete cascade,
+    constraint FSubjObsfrm foreign key(frm) references Subj(id)
+);
+create index IFrmSubjObs on SubjObs(frm);
+
+create sequence SCmmndExctrCommands nocache;
 
 create table CmmndExctrCommands(
     id number primary key,

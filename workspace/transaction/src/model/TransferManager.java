@@ -51,13 +51,18 @@ public class TransferManager extends PersistentObject implements PersistentTrans
         return result;
     }
     
-    public java.util.HashMap<String,Object> toHashtable(java.util.HashMap<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, TDObserver tdObserver) throws PersistenceException {
-    java.util.HashMap<String,Object> result = null;
+    @SuppressWarnings("unchecked")
+    public java.util.HashMap<String,Object> toHashtable(java.util.HashMap<String,Object> allResults, int depth, int essentialLevel, boolean forGUI, boolean leaf, boolean inDerived) throws PersistenceException {
+        java.util.HashMap<String,Object> result = null;
         if (depth > 0 && essentialLevel <= common.RPCConstantsAndServices.EssentialDepth){
-            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, tdObserver);
-            result.put("transfers", this.getTransfers().getVector(allResults, depth, essentialLevel, forGUI, tdObserver, false, true));
             String uniqueKey = common.RPCConstantsAndServices.createHashtableKey(this.getClassId(), this.getId());
-            if (leaf && !allResults.containsKey(uniqueKey)) allResults.put(uniqueKey, result);
+            if (leaf){
+                result = (java.util.HashMap<String,Object>)allResults.get(uniqueKey);
+                if (result != null) return result;
+            }
+            result = super.toHashtable(allResults, depth, essentialLevel, forGUI, false, inDerived);
+            if (leaf) allResults.put(uniqueKey, result);
+            result.put("transfers", this.getTransfers().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, false, false));
         }
         return result;
     }
@@ -67,6 +72,7 @@ public class TransferManager extends PersistentObject implements PersistentTrans
         result = new TransferManager(this.subService, 
                                      this.This, 
                                      this.getId());
+        result.transfers = this.transfers.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -181,32 +187,12 @@ public class TransferManager extends PersistentObject implements PersistentTrans
     }
     
     
-    public void addTransfer(final Transaction4Public transaction, final Transfer4Public transfer, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
-		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
-		AddTransferCommand4Public command = model.meta.AddTransferCommand.createAddTransferCommand(nw, d1170);
-		command.setTransaction(transaction);
-		command.setTransfer(transfer);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void book(final Bookable4Public bookable, final Invoker invoker) 
+    public void book(final AbstractTransfer4Public tranfer, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
 		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
 		BookCommand4Public command = model.meta.BookCommand.createBookCommand(nw, d1170);
-		command.setBookable(bookable);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
-    public void createTransaction(final String subject, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
-		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
-		CreateTransactionCommand4Public command = model.meta.CreateTransactionCommand.createCreateTransactionCommand(subject, nw, d1170);
+		command.setTranfer(tranfer);
 		command.setInvoker(invoker);
 		command.setCommandReceiver(getThis());
 		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
@@ -246,17 +232,6 @@ public class TransferManager extends PersistentObject implements PersistentTrans
 		}
 		subService.register(observee);
     }
-    public void removeTransfer(final Transaction4Public transaction, final Transfer4Public transfer, final Invoker invoker) 
-				throws PersistenceException{
-        java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
-		java.sql.Date d1170 = new java.sql.Date(new java.util.Date(0).getTime());
-		RemoveTransferCommand4Public command = model.meta.RemoveTransferCommand.createRemoveTransferCommand(nw, d1170);
-		command.setTransaction(transaction);
-		command.setTransfer(transfer);
-		command.setInvoker(invoker);
-		command.setCommandReceiver(getThis());
-		model.meta.CommandCoordinator.getTheCommandCoordinator().coordinate(command);
-    }
     public synchronized void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
         SubjInterface subService = getThis().getSubService();
@@ -270,23 +245,12 @@ public class TransferManager extends PersistentObject implements PersistentTrans
     
     // Start of section that contains operations that must be implemented.
     
-    public void addTransfer(final Transaction4Public transaction, final Transfer4Public transfer) 
-				throws PersistenceException{
-        transaction.addTransfer(transfer);  
-        getThis().getTransfers().removeFirst(transfer);
-    }
-    public void book(final Bookable4Public bookable) 
-				throws PersistenceException{
-    	bookable.book();
-        getThis().getTransfers().removeFirst(bookable);
+    public void book(final AbstractTransfer4Public tranfer) 
+				throws model.TransferException, PersistenceException{
+    	tranfer.book();
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{
-    }
-    public void createTransaction(final String subject) 
-				throws PersistenceException{
-    	Transaction4Public newTransaction =	Transaction.createTransaction(subject);
-    	getThis().getTransfers().add(newTransaction);
     }
     public void createTransfer(final AccountHandle4Public fromAccount, final AccountHandle4Public toAccount, final common.Fraction amount, final String subject) 
 				throws PersistenceException{
@@ -300,22 +264,16 @@ public class TransferManager extends PersistentObject implements PersistentTrans
     public void initializeOnInstantiation() 
 				throws PersistenceException{
     }
-    public void removeTransfer(final Transaction4Public transaction, final Transfer4Public transfer) 
-				throws model.NotPartException, PersistenceException{
-    	if (transaction.containsbookableHierarchy(transfer)) {
-			transaction.removeTransfer(transfer);
-			getThis().getTransfers().add(transfer);
-		} else {
-			throw new NotPartException("Transfer kein Teil der Transaction");
-		}
-        
-    }
     
     
     // Start of section that contains overridden operations only.
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
+    
+    
+    
     
     
     

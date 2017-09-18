@@ -5,4 +5,4 @@ public interface AccountMssgs {
 }
 
 interface AccountDOWNMssgs extends AccountHandleDOWNMssgs, AccountMssgs{}
-interface AccountUPMssgs extends Mssgs, AccountMssgs{}
+interface AccountUPMssgs extends NoAccountUPMssgs, AccountMssgs{}
