@@ -5,6 +5,7 @@ public interface StudyGroupManagerMssgsVisitor extends StudyGroupManagerDOWNMssg
 
 interface StudyGroupManagerDOWNMssgsVisitor  {
 
+    public void handleStudyGroupManagerAddStudentToGroupStudyGroupStudentMssg(StudyGroupManagerAddStudentToGroupStudyGroupStudentMssg event) throws persistence.PersistenceException;
     public void handleStudyGroupManagerCreateStudentStudyGroupStringStringDateMssg(StudyGroupManagerCreateStudentStudyGroupStringStringDateMssg event) throws persistence.PersistenceException;
     
 }
@@ -12,6 +13,7 @@ interface StudyGroupManagerDOWNMssgsVisitor  {
 
 interface StudyGroupManagerUPMssgsVisitor  {
 
+    public void handleStudyGroupManagerAddStudentToGroupStudyGroupStudentMssg(StudyGroupManagerAddStudentToGroupStudyGroupStudentMssg event) throws persistence.PersistenceException;
     public void handleStudyGroupManagerCreateStudentStudyGroupStringStringDateMssg(StudyGroupManagerCreateStudentStudyGroupStringStringDateMssg event) throws persistence.PersistenceException;
     
 }

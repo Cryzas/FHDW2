@@ -2,9 +2,6 @@
 package model;
 
 import persistence.*;
-import model.meta.ModuleManagerMssgsVisitor;
-import model.meta.ProgramManagerMssgsVisitor;
-import model.meta.ProgramManagerStartStudyGroupProgramStringMssg;
 import model.visitor.*;
 
 /* Additional import section end */
@@ -402,19 +399,11 @@ public class ProgramModuleService extends model.subAdminService implements Persi
 	}
     public void moduleManager_update(final model.meta.ModuleManagerMssgs event) 
 				throws PersistenceException{
-        event.accept(new ModuleManagerMssgsVisitor() {
-		});
+    	getThis().updatePLZ();
     }
     public void programManager_update(final model.meta.ProgramManagerMssgs event) 
 				throws PersistenceException{
-        event.accept(new ProgramManagerMssgsVisitor() {
-
-			@Override
-			public void handleProgramManagerStartStudyGroupProgramStringMssg(
-					ProgramManagerStartStudyGroupProgramStringMssg event) throws PersistenceException {
-				getThis().updatePLZ();
-			}
-		});
+    	getThis().updatePLZ();
     }
     public void removeError(final ErrorDisplay4Public error) 
 				throws PersistenceException{

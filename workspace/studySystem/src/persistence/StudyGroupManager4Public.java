@@ -16,6 +16,8 @@ public interface StudyGroupManager4Public extends Anything, SubjInterface, Abstr
     public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
+    public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student) 
+				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException;
     public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student, final Invoker invoker) 
 				throws PersistenceException;
     public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
@@ -28,7 +30,7 @@ public interface StudyGroupManager4Public extends Anything, SubjInterface, Abstr
 				throws PersistenceException;
     public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints, final Invoker invoker) 
 				throws PersistenceException;
-    public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student) 
+    public void addStudentToGroupImplementation(final StudyGroup4Public group, final Student4Public student) 
 				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;

@@ -322,7 +322,7 @@ public class StudyGroupService extends model.subAdminService implements Persiste
 	}
     public void groupManager_update(final model.meta.StudyGroupManagerMssgs event) 
 				throws PersistenceException{
-		updatePLZ();
+		getThis().updatePLZ();
 	}
     public void initializeOnCreation() 
 				throws PersistenceException{
@@ -353,6 +353,7 @@ public class StudyGroupService extends model.subAdminService implements Persiste
 	}
     public void updateMe() 
 				throws PersistenceException{
+    	getThis().getGroupManager().getGroups().filter(group -> false);
     	StudyGroup.getStudyGroupByName("%").applyToAll(group -> {
 			if(getThis().getGroupManager().getGroups().findFirst(argument -> argument.equals(group)) == null) {
 				getThis().getGroupManager().getGroups().add(group);

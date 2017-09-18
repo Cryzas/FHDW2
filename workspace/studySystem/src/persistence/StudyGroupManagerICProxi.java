@@ -61,6 +61,10 @@ public class StudyGroupManagerICProxi extends PersistentInCacheProxiOptimistic i
     }
     
     
+    public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student) 
+				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
+        ((PersistentStudyGroupManager)this.getTheObject()).addStudentToGroup(group, student);
+    }
     public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student, final Invoker invoker) 
 				throws PersistenceException{
         ((PersistentStudyGroupManager)this.getTheObject()).addStudentToGroup(group, student, invoker);
@@ -97,9 +101,9 @@ public class StudyGroupManagerICProxi extends PersistentInCacheProxiOptimistic i
 				throws PersistenceException{
         ((PersistentStudyGroupManager)this.getTheObject()).updateObservers(event);
     }
-    public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student) 
+    public void addStudentToGroupImplementation(final StudyGroup4Public group, final Student4Public student) 
 				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
-        ((PersistentStudyGroupManager)this.getTheObject()).addStudentToGroup(group, student);
+        ((PersistentStudyGroupManager)this.getTheObject()).addStudentToGroupImplementation(group, student);
     }
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException{

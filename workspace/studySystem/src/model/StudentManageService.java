@@ -318,10 +318,11 @@ public class StudentManageService extends model.subAdminService implements Persi
     }
     public void studentManager_update(final model.meta.StudentManagerMssgs event) 
 				throws PersistenceException{
-        updatePLZ();
+        getThis().updatePLZ();
     }
     public void updateMe() 
 				throws PersistenceException{
+    	getThis().getStudentManager().getStudents().filter(student -> false);
     	ServerSearchList servers = Server.getServerByUser("%");
 		servers.filter(server -> !server.getUser().equals(common.RPCConstantsAndServices.AdministratorName));
 		servers.applyToAll(server -> {

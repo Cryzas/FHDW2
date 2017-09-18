@@ -186,6 +186,13 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
     }
     
     
+    public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student) 
+				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
+        model.meta.StudyGroupManagerAddStudentToGroupStudyGroupStudentMssg event = new model.meta.StudyGroupManagerAddStudentToGroupStudyGroupStudentMssg(group, student, getThis());
+		event.execute();
+		getThis().updateObservers(event);
+		event.getResult();
+    }
     public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student, final Invoker invoker) 
 				throws PersistenceException{
         java.sql.Date nw = new java.sql.Date(new java.util.Date().getTime());
@@ -273,7 +280,7 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
     
     // Start of section that contains operations that must be implemented.
     
-    public void addStudentToGroup(final StudyGroup4Public group, final Student4Public student) 
+    public void addStudentToGroupImplementation(final StudyGroup4Public group, final Student4Public student) 
 				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
        group.addStudent(student);
        student.setProgram(group.getProgram().copyForStudent());
