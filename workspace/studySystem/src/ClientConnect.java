@@ -80,7 +80,10 @@ public class ClientConnect extends Application {
 			this.loginPanel.getColumnConstraints().add( new ColumnConstraints(180) );
 			this.loginPanel.getColumnConstraints().add( new ColumnConstraints(100) );
 			this.loginPanel.getColumnConstraints().add( new ColumnConstraints(400) );
-			this.loginPanel.add(new ImageView(logoFHDW), 0, 0, 1, 2);
+			ImageView view = new ImageView(logoFHDW);
+			view.setFitHeight(100);
+			view.setFitWidth(200);
+			this.loginPanel.add(view, 0, 0, 1, 2);
 			this.loginPanel.addColumn( 1, new Label( "Benutzername:"));
 			this.loginPanel.addColumn( 2, this.getNameTextField());
 			this.loginPanel.addColumn( 1, new Label( "Passwort:"));
