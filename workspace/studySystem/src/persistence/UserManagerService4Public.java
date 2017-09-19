@@ -32,9 +32,13 @@ public interface UserManagerService4Public extends subAdminService4Public {
 				throws PersistenceException;
     public String userManagerService_Menu_Filter(final Anything anything) 
 				throws PersistenceException;
+    public ServerSearchList users_Path_In_DeleteUsers() 
+				throws model.UserException, PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
     public void createAdminUser(final String name, final String pw) 
+				throws PersistenceException;
+    public void deleteUsers(final ServerSearchList users) 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;

@@ -107,9 +107,9 @@ public class StudyGroupServiceICProxi extends subAdminServiceICProxi implements 
 				throws PersistenceException{
         return ((PersistentStudyGroupService)this.getTheObject()).getGroupManager();
     }
-    public StudyGroupSearchList groups_Path_In_DeleteStudyGroups(final StudyGroupManager4Public manager) 
+    public StudyGroupSearchList groups_Path_In_DeleteStudyGroups() 
 				throws model.UserException, PersistenceException{
-        return ((PersistentStudyGroupService)this.getTheObject()).groups_Path_In_DeleteStudyGroups(manager);
+        return ((PersistentStudyGroupService)this.getTheObject()).groups_Path_In_DeleteStudyGroups();
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
@@ -171,9 +171,9 @@ public class StudyGroupServiceICProxi extends subAdminServiceICProxi implements 
 				throws PersistenceException{
         ((PersistentStudyGroupService)this.getTheObject()).createStudent(group, firstName, lastName, birthDate);
     }
-    public void deleteStudyGroups(final StudyGroupManager4Public manager, final StudyGroupSearchList groups) 
+    public void deleteStudyGroups(final StudyGroupSearchList groups) 
 				throws PersistenceException{
-        ((PersistentStudyGroupService)this.getTheObject()).deleteStudyGroups(manager, groups);
+        ((PersistentStudyGroupService)this.getTheObject()).deleteStudyGroups(groups);
     }
     public void disconnected() 
 				throws PersistenceException{

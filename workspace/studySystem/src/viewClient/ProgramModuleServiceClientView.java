@@ -323,10 +323,10 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
         ImageView handle(RemoveModuleFromProgPRMTRProgramPRMTRModuleAbstractLSTPRMTRMenuItem menuItem);
         ImageView handle(AddModuleToGroupPRMTRModuleGroupPRMTRModuleAbstractLSTPRMTRMenuItem menuItem);
         ImageView handle(AddModuleToProgPRMTRProgramPRMTRModuleAbstractLSTPRMTRMenuItem menuItem);
-        ImageView handle(DeleteModulesPRMTRModuleManagerPRMTRModuleAbstractLSTPRMTRMenuItem menuItem);
+        ImageView handle(DeleteModulesPRMTRModuleAbstractLSTPRMTRMenuItem menuItem);
         ImageView handle(ChangeGradeSystemPRMTRModuleAtomarPRMTRMenuItem menuItem);
         ImageView handle(CreateProgramPRMTRStringPRMTRMenuItem menuItem);
-        ImageView handle(DeleteProgramsPRMTRProgramManagerPRMTRProgramLSTPRMTRMenuItem menuItem);
+        ImageView handle(DeleteProgramsPRMTRProgramLSTPRMTRMenuItem menuItem);
         ImageView handle(StartStudyGroupPRMTRProgramPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(AddUnitPRMTRModuleWithUnitsPRMTRStringPRMTRFractionPRMTRMenuItem menuItem);
         ImageView handle(RemoveUnitPRMTRModuleWithUnitsPRMTRUnitLSTPRMTRMenuItem menuItem);
@@ -382,7 +382,7 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
             return visitor.handle(this);
         }
     }
-    private class DeleteModulesPRMTRModuleManagerPRMTRModuleAbstractLSTPRMTRMenuItem extends ProgramModuleServiceMenuItem{
+    private class DeleteModulesPRMTRModuleAbstractLSTPRMTRMenuItem extends ProgramModuleServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -397,7 +397,7 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
             return visitor.handle(this);
         }
     }
-    private class DeleteProgramsPRMTRProgramManagerPRMTRProgramLSTPRMTRMenuItem extends ProgramModuleServiceMenuItem{
+    private class DeleteProgramsPRMTRProgramLSTPRMTRMenuItem extends ProgramModuleServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -455,11 +455,35 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
             }
         });
         result.add(currentButton);
+        currentButton = new javafx.scene.control.Button("Module löschen ... ");
+        currentButton.setGraphic(new DeleteModulesPRMTRModuleAbstractLSTPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final ProgramModuleServiceDeleteModulesModuleAbstractLSTMssgWizard wizard = new ProgramModuleServiceDeleteModulesModuleAbstractLSTMssgWizard("Module löschen");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.setX( getPointForView().getX());
+                wizard.setY( getPointForView().getY());
+                wizard.showAndWait();
+            }
+        });
+        result.add(currentButton);
         currentButton = new javafx.scene.control.Button("Programm erstellen ... ");
         currentButton.setGraphic(new CreateProgramPRMTRStringPRMTRMenuItem().getGraphic());
         currentButton.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
                 final ProgramModuleServiceCreateProgramStringMssgWizard wizard = new ProgramModuleServiceCreateProgramStringMssgWizard("Programm erstellen");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.setX( getPointForView().getX());
+                wizard.setY( getPointForView().getY());
+                wizard.showAndWait();
+            }
+        });
+        result.add(currentButton);
+        currentButton = new javafx.scene.control.Button("Programme löschen ... ");
+        currentButton.setGraphic(new DeleteProgramsPRMTRProgramLSTPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final ProgramModuleServiceDeleteProgramsProgramLSTMssgWizard wizard = new ProgramModuleServiceDeleteProgramsProgramLSTMssgWizard("Programme löschen");
                 wizard.setWidth(getNavigationPanel().getWidth());
                 wizard.setX( getPointForView().getX());
                 wizard.setY( getPointForView().getY());
@@ -507,11 +531,35 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
             }
         });
         if (withStaticOperations) result.getItems().add(item);
+        item = new DeleteModulesPRMTRModuleAbstractLSTPRMTRMenuItem();
+        item.setText("(S) Module löschen ... ");
+        item.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final ProgramModuleServiceDeleteModulesModuleAbstractLSTMssgWizard wizard = new ProgramModuleServiceDeleteModulesModuleAbstractLSTMssgWizard("Module löschen");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.setX( getPointForView().getX());
+                wizard.setY( getPointForView().getY());
+                wizard.showAndWait();
+            }
+        });
+        if (withStaticOperations) result.getItems().add(item);
         item = new CreateProgramPRMTRStringPRMTRMenuItem();
         item.setText("(S) Programm erstellen ... ");
         item.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
                 final ProgramModuleServiceCreateProgramStringMssgWizard wizard = new ProgramModuleServiceCreateProgramStringMssgWizard("Programm erstellen");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.setX( getPointForView().getX());
+                wizard.setY( getPointForView().getY());
+                wizard.showAndWait();
+            }
+        });
+        if (withStaticOperations) result.getItems().add(item);
+        item = new DeleteProgramsPRMTRProgramLSTPRMTRMenuItem();
+        item.setText("(S) Programme löschen ... ");
+        item.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final ProgramModuleServiceDeleteProgramsProgramLSTMssgWizard wizard = new ProgramModuleServiceDeleteProgramsProgramLSTMssgWizard("Programme löschen");
                 wizard.setWidth(getNavigationPanel().getWidth());
                 wizard.setX( getPointForView().getX());
                 wizard.setY( getPointForView().getY());
@@ -693,36 +741,6 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
                     public void handle(javafx.event.ActionEvent e) {
                         final ProgramModuleServiceAddModuleToGroupModuleGroupModuleAbstractLSTMssgWizard wizard = new ProgramModuleServiceAddModuleToGroupModuleGroupModuleAbstractLSTMssgWizard("Module hinzufügen");
                         wizard.setFirstArgument((ModuleGroupView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.setX( getPointForView().getX());
-                        wizard.setY( getPointForView().getY());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-            }
-            if (selected instanceof ModuleManagerView){
-                item = new DeleteModulesPRMTRModuleManagerPRMTRModuleAbstractLSTPRMTRMenuItem();
-                item.setText("Module löschen ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final ProgramModuleServiceDeleteModulesModuleManagerModuleAbstractLSTMssgWizard wizard = new ProgramModuleServiceDeleteModulesModuleManagerModuleAbstractLSTMssgWizard("Module löschen");
-                        wizard.setFirstArgument((ModuleManagerView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.setX( getPointForView().getX());
-                        wizard.setY( getPointForView().getY());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-            }
-            if (selected instanceof ProgramManagerView){
-                item = new DeleteProgramsPRMTRProgramManagerPRMTRProgramLSTPRMTRMenuItem();
-                item.setText("Programme löschen ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final ProgramModuleServiceDeleteProgramsProgramManagerProgramLSTMssgWizard wizard = new ProgramModuleServiceDeleteProgramsProgramManagerProgramLSTMssgWizard("Programme löschen");
-                        wizard.setFirstArgument((ProgramManagerView)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.setX( getPointForView().getX());
                         wizard.setY( getPointForView().getY());
@@ -1125,21 +1143,21 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 		
 	}
 
-	class ProgramModuleServiceDeleteModulesModuleManagerModuleAbstractLSTMssgWizard extends Wizard {
+	class ProgramModuleServiceDeleteModulesModuleAbstractLSTMssgWizard extends Wizard {
 
-		protected ProgramModuleServiceDeleteModulesModuleManagerModuleAbstractLSTMssgWizard(String operationName){
+		protected ProgramModuleServiceDeleteModulesModuleAbstractLSTMssgWizard(String operationName){
 			super(ProgramModuleServiceClientView.this);
 			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new DeleteModulesPRMTRModuleManagerPRMTRModuleAbstractLSTPRMTRMenuItem ().getGraphic());
+			getOkButton().setGraphic(new DeleteModulesPRMTRModuleAbstractLSTPRMTRMenuItem ().getGraphic());
 		}
 		protected void initialize(){
-			this.helpFileName = "ProgramModuleServiceDeleteModulesModuleManagerModuleAbstractLSTMssgWizard.help";
+			this.helpFileName = "ProgramModuleServiceDeleteModulesModuleAbstractLSTMssgWizard.help";
 			super.initialize();		
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().deleteModules(firstArgument, (java.util.Vector<ModuleAbstractView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().deleteModules((java.util.Vector<ModuleAbstractView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
 				getConnection().setEagerRefresh();
 				this.close();	
 			} catch(ModelException me){
@@ -1155,57 +1173,41 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 			return false;
 		}
 		protected void addParameters(){
-			final ObjectCollectionSelectionPanel panel3 = new ObjectCollectionSelectionPanel("Module", "view.ModuleAbstractView", null, this, getMultiSelectionFor("deleteModulesPRMTRModuleManagerPRMTRModuleAbstractLSTPRMTRmodules"))
-											{protected ViewRoot getBrowserRoot(){
-												{try{
-													return new ListRoot(getConnection().modules_Path_In_DeleteModules((ModuleManagerView)this.navigationRoot));
-												}catch(ModelException me){
-													return (ViewRoot) this.navigationRoot;
-												}catch(UserException ue){
-													return (ViewRoot) this.navigationRoot;
-											}}}};
-			getParametersPanel().getChildren().add(panel3);		
+			try{
+				final ObjectCollectionSelectionPanel panel3 = new ObjectCollectionSelectionPanel("Module", "view.ModuleAbstractView", null, this, getMultiSelectionFor("deleteModulesPRMTRModuleAbstractLSTPRMTRmodules"));
+				getParametersPanel().getChildren().add(panel3);
+				panel3.setBrowserRoot(new ListRoot(getConnection().modules_Path_In_DeleteModules()));
+			}catch(ModelException me){;
+				handleException(me);
+				close();
+				return;
+			 }catch(UserException ue){;
+				handleUserException(ue);
+				close();
+				return;
+			 }		
 		}	
 		protected void handleDependencies(int i) {
-			if(i == 0){
-				((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(i)).setBrowserRoot((ViewRoot)firstArgument);
-			}
-		}
-		
-		
-		private ModuleManagerView firstArgument; 
-	
-		public void setFirstArgument(ModuleManagerView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			try{
-				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
-				selectionPanel0.preset((java.util.Vector<?>)firstArgument.getModules());
-				if (!selectionPanel0.check()) selectionPanel0.preset(new java.util.Vector<Object>());
-			}catch(ModelException me){
-				 handleException(me);
-			}
-			this.check();
 		}
 		
 		
 	}
 
-	class ProgramModuleServiceDeleteProgramsProgramManagerProgramLSTMssgWizard extends Wizard {
+	class ProgramModuleServiceDeleteProgramsProgramLSTMssgWizard extends Wizard {
 
-		protected ProgramModuleServiceDeleteProgramsProgramManagerProgramLSTMssgWizard(String operationName){
+		protected ProgramModuleServiceDeleteProgramsProgramLSTMssgWizard(String operationName){
 			super(ProgramModuleServiceClientView.this);
 			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new DeleteProgramsPRMTRProgramManagerPRMTRProgramLSTPRMTRMenuItem ().getGraphic());
+			getOkButton().setGraphic(new DeleteProgramsPRMTRProgramLSTPRMTRMenuItem ().getGraphic());
 		}
 		protected void initialize(){
-			this.helpFileName = "ProgramModuleServiceDeleteProgramsProgramManagerProgramLSTMssgWizard.help";
+			this.helpFileName = "ProgramModuleServiceDeleteProgramsProgramLSTMssgWizard.help";
 			super.initialize();		
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().deletePrograms(firstArgument, (java.util.Vector<ProgramView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().deletePrograms((java.util.Vector<ProgramView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
 				getConnection().setEagerRefresh();
 				this.close();	
 			} catch(ModelException me){
@@ -1221,37 +1223,21 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 			return false;
 		}
 		protected void addParameters(){
-			final ObjectCollectionSelectionPanel panel4 = new ObjectCollectionSelectionPanel("Programme", "view.ProgramView", null, this, getMultiSelectionFor("deleteProgramsPRMTRProgramManagerPRMTRProgramLSTPRMTRprograms"))
-											{protected ViewRoot getBrowserRoot(){
-												{try{
-													return new ListRoot(getConnection().programs_Path_In_DeletePrograms((ProgramManagerView)this.navigationRoot));
-												}catch(ModelException me){
-													return (ViewRoot) this.navigationRoot;
-												}catch(UserException ue){
-													return (ViewRoot) this.navigationRoot;
-											}}}};
-			getParametersPanel().getChildren().add(panel4);		
+			try{
+				final ObjectCollectionSelectionPanel panel4 = new ObjectCollectionSelectionPanel("Programme", "view.ProgramView", null, this, getMultiSelectionFor("deleteProgramsPRMTRProgramLSTPRMTRprograms"));
+				getParametersPanel().getChildren().add(panel4);
+				panel4.setBrowserRoot(new ListRoot(getConnection().programs_Path_In_DeletePrograms()));
+			}catch(ModelException me){;
+				handleException(me);
+				close();
+				return;
+			 }catch(UserException ue){;
+				handleUserException(ue);
+				close();
+				return;
+			 }		
 		}	
 		protected void handleDependencies(int i) {
-			if(i == 0){
-				((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(i)).setBrowserRoot((ViewRoot)firstArgument);
-			}
-		}
-		
-		
-		private ProgramManagerView firstArgument; 
-	
-		public void setFirstArgument(ProgramManagerView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			try{
-				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
-				selectionPanel0.preset((java.util.Vector<?>)firstArgument.getPrograms());
-				if (!selectionPanel0.check()) selectionPanel0.preset(new java.util.Vector<Object>());
-			}catch(ModelException me){
-				 handleException(me);
-			}
-			this.check();
 		}
 		
 		
@@ -1530,11 +1516,6 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 			}
 			
 			@Override
-			public ImageView handle(DeleteProgramsPRMTRProgramManagerPRMTRProgramLSTPRMTRMenuItem menuItem) {
-				return new ImageView(IconManager.getImage(8));
-			}
-			
-			@Override
 			public ImageView handle(CreateProgramPRMTRStringPRMTRMenuItem menuItem) {
 				return new ImageView(IconManager.getImage(9));
 			}
@@ -1542,11 +1523,6 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 			@Override
 			public ImageView handle(ChangeGradeSystemPRMTRModuleAtomarPRMTRMenuItem menuItem) {
 				return new ImageView(IconManager.getImage(11));
-			}
-			
-			@Override
-			public ImageView handle(DeleteModulesPRMTRModuleManagerPRMTRModuleAbstractLSTPRMTRMenuItem menuItem) {
-				return new ImageView(IconManager.getImage(8));
 			}
 			
 			@Override
@@ -1592,6 +1568,16 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 			@Override
 			public ImageView handle(UpdateMePRMTRMenuItem menuItem) {
 				return new ImageView(IconManager.getImage(16));
+			}
+
+			@Override
+			public ImageView handle(DeleteModulesPRMTRModuleAbstractLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(8));
+			}
+
+			@Override
+			public ImageView handle(DeleteProgramsPRMTRProgramLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(8));
 			}
 		});
 	}	

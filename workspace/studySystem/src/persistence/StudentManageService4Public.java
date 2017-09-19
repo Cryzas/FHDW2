@@ -35,7 +35,7 @@ public interface StudentManageService4Public extends subAdminService4Public {
 				throws model.UserException, PersistenceException;
     public String studentManageService_Menu_Filter(final Anything anything) 
 				throws PersistenceException;
-    public StudentSearchList students_Path_In_DeleteStudents(final StudentManager4Public manager) 
+    public StudentSearchList students_Path_In_DeleteStudents() 
 				throws model.UserException, PersistenceException;
     public void changeGradeOfModule(final ModuleAtomarStudent4Public module, final String grade, final String comment) 
 				throws PersistenceException;
@@ -45,7 +45,7 @@ public interface StudentManageService4Public extends subAdminService4Public {
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;
-    public void deleteStudents(final StudentManager4Public manager, final StudentSearchList students) 
+    public void deleteStudents(final StudentSearchList students) 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;

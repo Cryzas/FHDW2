@@ -119,6 +119,10 @@ public class UserManagerServiceICProxi extends subAdminServiceICProxi implements
 				throws PersistenceException{
         return ((PersistentUserManagerService)this.getTheObject()).userManagerService_Menu_Filter(anything);
     }
+    public ServerSearchList users_Path_In_DeleteUsers() 
+				throws model.UserException, PersistenceException{
+        return ((PersistentUserManagerService)this.getTheObject()).users_Path_In_DeleteUsers();
+    }
     public void connected(final String user) 
 				throws PersistenceException{
         ((PersistentUserManagerService)this.getTheObject()).connected(user);
@@ -130,6 +134,10 @@ public class UserManagerServiceICProxi extends subAdminServiceICProxi implements
     public void createAdminUser(final String name, final String pw) 
 				throws PersistenceException{
         ((PersistentUserManagerService)this.getTheObject()).createAdminUser(name, pw);
+    }
+    public void deleteUsers(final ServerSearchList users) 
+				throws PersistenceException{
+        ((PersistentUserManagerService)this.getTheObject()).deleteUsers(users);
     }
     public void disconnected() 
 				throws PersistenceException{

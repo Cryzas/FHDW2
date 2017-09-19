@@ -259,9 +259,9 @@ public class ProgramModuleService extends model.subAdminService implements Persi
         	return new ModuleAbstractSearchList(getThis().getModuleManager().
                 getModules().getList());
     }
-    public ModuleAbstractSearchList modules_Path_In_DeleteModules(final ModuleManager4Public manager) 
+    public ModuleAbstractSearchList modules_Path_In_DeleteModules() 
 				throws model.UserException, PersistenceException{
-        	return new ModuleAbstractSearchList(manager.
+        	return new ModuleAbstractSearchList(getThis().getModuleManager().
                 getModules().getList());
     }
     public ModuleAbstractSearchList modules_Path_In_RemoveModuleFromGroup(final ModuleGroup4Public group) 
@@ -279,9 +279,9 @@ public class ProgramModuleService extends model.subAdminService implements Persi
         String result = "+++";
 		return result;
     }
-    public ProgramSearchList programs_Path_In_DeletePrograms(final ProgramManager4Public manager) 
+    public ProgramSearchList programs_Path_In_DeletePrograms() 
 				throws model.UserException, PersistenceException{
-        	return new ProgramSearchList(manager.
+        	return new ProgramSearchList(getThis().getProgramManager().
                 getPrograms().getList());
     }
     public synchronized void register(final ObsInterface observee) 
@@ -367,18 +367,18 @@ public class ProgramModuleService extends model.subAdminService implements Persi
 				throws PersistenceException{
 		getThis().getProgramManager().createProgram(name, getThis());
     }
-    public void deleteModules(final ModuleManager4Public manager, final ModuleAbstractSearchList modules) 
+    public void deleteModules(final ModuleAbstractSearchList modules) 
 				throws PersistenceException{
     	modules.applyToAll(module -> {
-    		manager.getModules().removeFirst(module);
+    		getThis().getModuleManager().getModules().removeFirst(module);
     		module.delete$Me();
     	});
     	getThis().signalChanged(true);
     }
-    public void deletePrograms(final ProgramManager4Public manager, final ProgramSearchList programs) 
+    public void deletePrograms(final ProgramSearchList programs) 
 				throws PersistenceException{
     	programs.applyToAll(program -> {
-    		manager.getPrograms().removeFirst(program);
+    		getThis().getProgramManager().getPrograms().removeFirst(program);
     		program.delete$Me();
     	});
     	getThis().signalChanged(true);

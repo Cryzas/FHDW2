@@ -81,14 +81,9 @@ public class StudentManageServiceConnection extends subAdminServiceConnection {
     }
     
     @SuppressWarnings("unchecked")
-    public synchronized java.util.Vector<?> students_Path_In_DeleteStudents(StudentManagerView manager) throws ModelException, UserException{
+    public synchronized java.util.Vector<?> students_Path_In_DeleteStudents() throws ModelException, UserException{
         try {
             Vector<Object> parameters = new Vector<Object>();
-            if (manager == null){
-                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
-            } else {
-                parameters.add(((view.objects.ViewProxi)manager).createProxiInformation());
-            }
             java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "students_Path_In_DeleteStudents", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
@@ -196,14 +191,9 @@ public class StudentManageServiceConnection extends subAdminServiceConnection {
         
     }
     
-    public synchronized void deleteStudents(StudentManagerView manager, java.util.Vector<StudentView> students) throws ModelException{
+    public synchronized void deleteStudents(java.util.Vector<StudentView> students) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
-            if (manager == null){
-                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
-            } else {
-                parameters.add(((view.objects.ViewProxi)manager).createProxiInformation());
-            }
             java.util.Vector<String> studentsTrnsprt = new java.util.Vector<String>();
             java.util.Iterator<StudentView> studentsItrtr = students.iterator();
             while (studentsItrtr.hasNext()){ 

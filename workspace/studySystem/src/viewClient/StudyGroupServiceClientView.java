@@ -322,7 +322,7 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
         ImageView handle(RemoveStudentFromGroupPRMTRStudyGroupPRMTRStudentLSTPRMTRMenuItem menuItem);
         ImageView handle(AddStudentToGroupPRMTRStudyGroupPRMTRStudentLSTPRMTRMenuItem menuItem);
         ImageView handle(EndStudyGroupPRMTRStudyGroupPRMTRMenuItem menuItem);
-        ImageView handle(DeleteStudyGroupsPRMTRStudyGroupManagerPRMTRStudyGroupLSTPRMTRMenuItem menuItem);
+        ImageView handle(DeleteStudyGroupsPRMTRStudyGroupLSTPRMTRMenuItem menuItem);
     }
     private abstract class StudyGroupServiceMenuItem extends MenuItem{
         private StudyGroupServiceMenuItem(){
@@ -370,7 +370,7 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
             return visitor.handle(this);
         }
     }
-    private class DeleteStudyGroupsPRMTRStudyGroupManagerPRMTRStudyGroupLSTPRMTRMenuItem extends StudyGroupServiceMenuItem{
+    private class DeleteStudyGroupsPRMTRStudyGroupLSTPRMTRMenuItem extends StudyGroupServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -398,6 +398,18 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
                         handleException(me);
                     }
                 }
+            }
+        });
+        result.add(currentButton);
+        currentButton = new javafx.scene.control.Button("Studiengruppen löschen ... ");
+        currentButton.setGraphic(new DeleteStudyGroupsPRMTRStudyGroupLSTPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final StudyGroupServiceDeleteStudyGroupsStudyGroupLSTMssgWizard wizard = new StudyGroupServiceDeleteStudyGroupsStudyGroupLSTMssgWizard("Studiengruppen löschen");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.setX( getPointForView().getX());
+                wizard.setY( getPointForView().getY());
+                wizard.showAndWait();
             }
         });
         result.add(currentButton);
@@ -429,27 +441,24 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
             }
         });
         if (withStaticOperations) result.getItems().add(item);
+        item = new DeleteStudyGroupsPRMTRStudyGroupLSTPRMTRMenuItem();
+        item.setText("(S) Studiengruppen löschen ... ");
+        item.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final StudyGroupServiceDeleteStudyGroupsStudyGroupLSTMssgWizard wizard = new StudyGroupServiceDeleteStudyGroupsStudyGroupLSTMssgWizard("Studiengruppen löschen");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.setX( getPointForView().getX());
+                wizard.setY( getPointForView().getY());
+                wizard.showAndWait();
+            }
+        });
+        if (withStaticOperations) result.getItems().add(item);
         if (selected != null){
             try {
                 this.setPreCalculatedFilters(this.getConnection().studyGroupService_Menu_Filter((Anything)selected));
             } catch (ModelException me){
                 this.handleException(me);
                 return result;
-            }
-            if (selected instanceof StudyGroupManagerView){
-                item = new DeleteStudyGroupsPRMTRStudyGroupManagerPRMTRStudyGroupLSTPRMTRMenuItem();
-                item.setText("Studiengruppen löschen ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final StudyGroupServiceDeleteStudyGroupsStudyGroupManagerStudyGroupLSTMssgWizard wizard = new StudyGroupServiceDeleteStudyGroupsStudyGroupManagerStudyGroupLSTMssgWizard("Studiengruppen löschen");
-                        wizard.setFirstArgument((StudyGroupManagerView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.setX( getPointForView().getX());
-                        wizard.setY( getPointForView().getY());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
             }
             if (selected instanceof StudyGroupView){
                 item = new CreateStudentPRMTRStudyGroupPRMTRStringPRMTRStringPRMTRDatePRMTRMenuItem();
@@ -691,7 +700,7 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 													return (ViewRoot) this.navigationRoot;
 											}}}};
 			getParametersPanel().getChildren().add(panel2);
-			getParametersPanel().getChildren().add(new RegExprSelectionPanel("Grade", this, common.RegularExpressionManager.gradesInSimpleOrThirdSUBTYPEName.getRegExpr()));
+			getParametersPanel().getChildren().add(new RegExprSelectionPanel("Note", this, common.RegularExpressionManager.gradesInSimpleOrThirdSUBTYPEName.getRegExpr()));
 			getParametersPanel().getChildren().add(new StringSelectionPanel("Kommentar", this));		
 		}	
 		protected void handleDependencies(int i) {
@@ -763,21 +772,21 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 		
 	}
 
-	class StudyGroupServiceDeleteStudyGroupsStudyGroupManagerStudyGroupLSTMssgWizard extends Wizard {
+	class StudyGroupServiceDeleteStudyGroupsStudyGroupLSTMssgWizard extends Wizard {
 
-		protected StudyGroupServiceDeleteStudyGroupsStudyGroupManagerStudyGroupLSTMssgWizard(String operationName){
+		protected StudyGroupServiceDeleteStudyGroupsStudyGroupLSTMssgWizard(String operationName){
 			super(StudyGroupServiceClientView.this);
 			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new DeleteStudyGroupsPRMTRStudyGroupManagerPRMTRStudyGroupLSTPRMTRMenuItem ().getGraphic());
+			getOkButton().setGraphic(new DeleteStudyGroupsPRMTRStudyGroupLSTPRMTRMenuItem ().getGraphic());
 		}
 		protected void initialize(){
-			this.helpFileName = "StudyGroupServiceDeleteStudyGroupsStudyGroupManagerStudyGroupLSTMssgWizard.help";
+			this.helpFileName = "StudyGroupServiceDeleteStudyGroupsStudyGroupLSTMssgWizard.help";
 			super.initialize();		
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().deleteStudyGroups(firstArgument, (java.util.Vector<StudyGroupView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().deleteStudyGroups((java.util.Vector<StudyGroupView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
 				getConnection().setEagerRefresh();
 				this.close();	
 			} catch(ModelException me){
@@ -793,37 +802,21 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 			return false;
 		}
 		protected void addParameters(){
-			final ObjectCollectionSelectionPanel panel3 = new ObjectCollectionSelectionPanel("Studiengruppen", "view.StudyGroupView", null, this, getMultiSelectionFor("deleteStudyGroupsPRMTRStudyGroupManagerPRMTRStudyGroupLSTPRMTRgroups"))
-											{protected ViewRoot getBrowserRoot(){
-												{try{
-													return new ListRoot(getConnection().groups_Path_In_DeleteStudyGroups((StudyGroupManagerView)this.navigationRoot));
-												}catch(ModelException me){
-													return (ViewRoot) this.navigationRoot;
-												}catch(UserException ue){
-													return (ViewRoot) this.navigationRoot;
-											}}}};
-			getParametersPanel().getChildren().add(panel3);		
+			try{
+				final ObjectCollectionSelectionPanel panel3 = new ObjectCollectionSelectionPanel("Studiengruppen", "view.StudyGroupView", null, this, getMultiSelectionFor("deleteStudyGroupsPRMTRStudyGroupLSTPRMTRgroups"));
+				getParametersPanel().getChildren().add(panel3);
+				panel3.setBrowserRoot(new ListRoot(getConnection().groups_Path_In_DeleteStudyGroups()));
+			}catch(ModelException me){;
+				handleException(me);
+				close();
+				return;
+			 }catch(UserException ue){;
+				handleUserException(ue);
+				close();
+				return;
+			 }		
 		}	
 		protected void handleDependencies(int i) {
-			if(i == 0){
-				((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(i)).setBrowserRoot((ViewRoot)firstArgument);
-			}
-		}
-		
-		
-		private StudyGroupManagerView firstArgument; 
-	
-		public void setFirstArgument(StudyGroupManagerView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			try{
-				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
-				selectionPanel0.preset((java.util.Vector<?>)firstArgument.getGroups());
-				if (!selectionPanel0.check()) selectionPanel0.preset(new java.util.Vector<Object>());
-			}catch(ModelException me){
-				 handleException(me);
-			}
-			this.check();
 		}
 		
 		
@@ -983,11 +976,6 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 		return menuItem.accept(new MenuItemVisitor() {
 			
 			@Override
-			public ImageView handle(DeleteStudyGroupsPRMTRStudyGroupManagerPRMTRStudyGroupLSTPRMTRMenuItem menuItem) {
-				return new ImageView(IconManager.getImage(8));
-			}
-			
-			@Override
 			public ImageView handle(EndStudyGroupPRMTRStudyGroupPRMTRMenuItem menuItem) {
 				return new ImageView(IconManager.getImage(18));
 			}
@@ -1027,6 +1015,11 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 			public ImageView handle(
 					ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem menuItem) {
 				return new ImageView(IconManager.getImage(11));
+			}
+
+			@Override
+			public ImageView handle(DeleteStudyGroupsPRMTRStudyGroupLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(8));
 			}
 		});
 	}	

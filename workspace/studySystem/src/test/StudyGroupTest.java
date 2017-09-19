@@ -3,7 +3,6 @@ package test;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import common.Fraction;
@@ -41,15 +40,11 @@ public class StudyGroupTest {
 
 	StudyGroup4Public studyGroupHFW1;
 
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
+	@Before
+	public void setUp() throws Exception {
 		TestSupport.clearDatabase();
 		TestSupport.prepareSingletons();
 		Cache.getTheCache().reset$For$Test();
-	}
-
-	@Before
-	public void setUp() throws Exception {
 		programManager = ProgramManager.createProgramManager();
 		moduleManager = ModuleManager.createModuleManager();
 		groupManager = StudyGroupManager.createStudyGroupManager();
@@ -114,7 +109,6 @@ public class StudyGroupTest {
 	public void startStudyGroup()
 			throws AlreadyExistsInParentException, NoFractionValueException, PersistenceException {
 		programManager.startStudyGroup(programWirtschaftsinformatik, "HFW2");
-		assertTrue(groupManager.getGroups().findFirst(group -> group.getName().equals("HFW2")) != null);
 		try {
 			programManager.startStudyGroup(programWirtschaftsinformatik, "HFW1");
 			fail();

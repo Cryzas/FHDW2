@@ -314,20 +314,16 @@ public class UserManagerServiceClientView extends BorderPane implements Exceptio
 
 
     interface MenuItemVisitor{
-        ImageView handle(CreateAdminUserPRMTRStringPRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(UpdateMePRMTRMenuItem menuItem);
         ImageView handle(RemoveErrorPRMTRErrorDisplayPRMTRMenuItem menuItem);
+        ImageView handle(CreateAdminUserPRMTRStringPRMTRStringPRMTRMenuItem menuItem);
+        ImageView handle(DeleteUsersPRMTRServerLSTPRMTRMenuItem menuItem);
     }
     private abstract class UserManagerServiceMenuItem extends MenuItem{
         private UserManagerServiceMenuItem(){
             this.setGraphic(getIconForMenuItem(this));
         }
         abstract protected ImageView accept(MenuItemVisitor visitor);
-    }
-    private class CreateAdminUserPRMTRStringPRMTRStringPRMTRMenuItem extends UserManagerServiceMenuItem{
-        protected ImageView accept(MenuItemVisitor visitor){
-            return visitor.handle(this);
-        }
     }
     private class UpdateMePRMTRMenuItem extends UserManagerServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
@@ -339,21 +335,19 @@ public class UserManagerServiceClientView extends BorderPane implements Exceptio
             return visitor.handle(this);
         }
     }
+    private class CreateAdminUserPRMTRStringPRMTRStringPRMTRMenuItem extends UserManagerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
+    private class DeleteUsersPRMTRServerLSTPRMTRMenuItem extends UserManagerServiceMenuItem{
+        protected ImageView accept(MenuItemVisitor visitor){
+            return visitor.handle(this);
+        }
+    }
     private java.util.Vector<javafx.scene.control.Button> getToolButtonsForStaticOperations() {
         java.util.Vector<javafx.scene.control.Button> result = new java.util.Vector<javafx.scene.control.Button>();
         javafx.scene.control.Button currentButton = null;
-        currentButton = new javafx.scene.control.Button("Admin-User erstellen ... ");
-        currentButton.setGraphic(new CreateAdminUserPRMTRStringPRMTRStringPRMTRMenuItem().getGraphic());
-        currentButton.setOnAction(new EventHandler<ActionEvent>(){
-            public void handle(javafx.event.ActionEvent e) {
-                final UserManagerServiceCreateAdminUserStringStringMssgWizard wizard = new UserManagerServiceCreateAdminUserStringStringMssgWizard("Admin-User erstellen");
-                wizard.setWidth(getNavigationPanel().getWidth());
-                wizard.setX( getPointForView().getX());
-                wizard.setY( getPointForView().getY());
-                wizard.showAndWait();
-            }
-        });
-        result.add(currentButton);
         currentButton = new javafx.scene.control.Button("Aktualisieren");
         currentButton.setGraphic(new UpdateMePRMTRMenuItem().getGraphic());
         currentButton.setOnAction(new EventHandler<ActionEvent>(){
@@ -377,23 +371,35 @@ public class UserManagerServiceClientView extends BorderPane implements Exceptio
             }
         });
         result.add(currentButton);
-        return result;
-    }
-    private ContextMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations, final Point2D menuPos) {
-        final ContextMenu result = new ContextMenu();
-        MenuItem item = null;
-        item = new CreateAdminUserPRMTRStringPRMTRStringPRMTRMenuItem();
-        item.setText("(S) Admin-User erstellen ... ");
-        item.setOnAction(new EventHandler<ActionEvent>(){
+        currentButton = new javafx.scene.control.Button("User erstellen ... ");
+        currentButton.setGraphic(new CreateAdminUserPRMTRStringPRMTRStringPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
             public void handle(javafx.event.ActionEvent e) {
-                final UserManagerServiceCreateAdminUserStringStringMssgWizard wizard = new UserManagerServiceCreateAdminUserStringStringMssgWizard("Admin-User erstellen");
+                final UserManagerServiceCreateAdminUserStringStringMssgWizard wizard = new UserManagerServiceCreateAdminUserStringStringMssgWizard("User erstellen");
                 wizard.setWidth(getNavigationPanel().getWidth());
                 wizard.setX( getPointForView().getX());
                 wizard.setY( getPointForView().getY());
                 wizard.showAndWait();
             }
         });
-        if (withStaticOperations) result.getItems().add(item);
+        result.add(currentButton);
+        currentButton = new javafx.scene.control.Button("User löschen ... ");
+        currentButton.setGraphic(new DeleteUsersPRMTRServerLSTPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final UserManagerServiceDeleteUsersServerLSTMssgWizard wizard = new UserManagerServiceDeleteUsersServerLSTMssgWizard("User löschen");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.setX( getPointForView().getX());
+                wizard.setY( getPointForView().getY());
+                wizard.showAndWait();
+            }
+        });
+        result.add(currentButton);
+        return result;
+    }
+    private ContextMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations, final Point2D menuPos) {
+        final ContextMenu result = new ContextMenu();
+        MenuItem item = null;
         item = new UpdateMePRMTRMenuItem();
         item.setText("(S) Aktualisieren");
         item.setOnAction(new EventHandler<ActionEvent>(){
@@ -414,6 +420,30 @@ public class UserManagerServiceClientView extends BorderPane implements Exceptio
                         handleException(me);
                     }
                 }
+            }
+        });
+        if (withStaticOperations) result.getItems().add(item);
+        item = new CreateAdminUserPRMTRStringPRMTRStringPRMTRMenuItem();
+        item.setText("(S) User erstellen ... ");
+        item.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final UserManagerServiceCreateAdminUserStringStringMssgWizard wizard = new UserManagerServiceCreateAdminUserStringStringMssgWizard("User erstellen");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.setX( getPointForView().getX());
+                wizard.setY( getPointForView().getY());
+                wizard.showAndWait();
+            }
+        });
+        if (withStaticOperations) result.getItems().add(item);
+        item = new DeleteUsersPRMTRServerLSTPRMTRMenuItem();
+        item.setText("(S) User löschen ... ");
+        item.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final UserManagerServiceDeleteUsersServerLSTMssgWizard wizard = new UserManagerServiceDeleteUsersServerLSTMssgWizard("User löschen");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.setX( getPointForView().getX());
+                wizard.setY( getPointForView().getY());
+                wizard.showAndWait();
             }
         });
         if (withStaticOperations) result.getItems().add(item);
@@ -502,6 +532,56 @@ public class UserManagerServiceClientView extends BorderPane implements Exceptio
 		
 	}
 
+	class UserManagerServiceDeleteUsersServerLSTMssgWizard extends Wizard {
+
+		protected UserManagerServiceDeleteUsersServerLSTMssgWizard(String operationName){
+			super(UserManagerServiceClientView.this);
+			getOkButton().setText(operationName);
+			getOkButton().setGraphic(new DeleteUsersPRMTRServerLSTPRMTRMenuItem ().getGraphic());
+		}
+		protected void initialize(){
+			this.helpFileName = "UserManagerServiceDeleteUsersServerLSTMssgWizard.help";
+			super.initialize();		
+		}
+				
+		protected void perform() {
+			try {
+				getConnection().deleteUsers((java.util.Vector<ServerView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().setEagerRefresh();
+				this.close();	
+			} catch(ModelException me){
+				handleException(me);
+				this.close();
+			}
+			
+		}
+		protected String checkCompleteParameterSet(){
+			return null;
+		}
+		protected boolean isModifying () {
+			return false;
+		}
+		protected void addParameters(){
+			try{
+				final ObjectCollectionSelectionPanel panel1 = new ObjectCollectionSelectionPanel("User", "view.ServerView", null, this, getMultiSelectionFor("deleteUsersPRMTRServerLSTPRMTRusers"));
+				getParametersPanel().getChildren().add(panel1);
+				panel1.setBrowserRoot(new ListRoot(getConnection().users_Path_In_DeleteUsers()));
+			}catch(ModelException me){;
+				handleException(me);
+				close();
+				return;
+			 }catch(UserException ue){;
+				handleUserException(ue);
+				close();
+				return;
+			 }		
+		}	
+		protected void handleDependencies(int i) {
+		}
+		
+		
+	}
+
 	/* Menu and wizard section end */
 	
 	private ImageView getIconForMenuItem(UserManagerServiceMenuItem menuItem){
@@ -520,6 +600,11 @@ public class UserManagerServiceClientView extends BorderPane implements Exceptio
 			@Override
 			public ImageView handle(UpdateMePRMTRMenuItem menuItem) {
 				return new ImageView(IconManager.getImage(16));
+			}
+
+			@Override
+			public ImageView handle(DeleteUsersPRMTRServerLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(8));
 			}
 		});
 	}	

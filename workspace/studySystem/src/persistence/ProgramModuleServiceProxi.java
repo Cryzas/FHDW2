@@ -114,9 +114,9 @@ public class ProgramModuleServiceProxi extends subAdminServiceProxi implements P
 				throws model.UserException, PersistenceException{
         return ((PersistentProgramModuleService)this.getTheObject()).modules_Path_In_AddModuleToProg();
     }
-    public ModuleAbstractSearchList modules_Path_In_DeleteModules(final ModuleManager4Public manager) 
+    public ModuleAbstractSearchList modules_Path_In_DeleteModules() 
 				throws model.UserException, PersistenceException{
-        return ((PersistentProgramModuleService)this.getTheObject()).modules_Path_In_DeleteModules(manager);
+        return ((PersistentProgramModuleService)this.getTheObject()).modules_Path_In_DeleteModules();
     }
     public ModuleAbstractSearchList modules_Path_In_RemoveModuleFromGroup(final ModuleGroup4Public group) 
 				throws model.UserException, PersistenceException{
@@ -130,9 +130,9 @@ public class ProgramModuleServiceProxi extends subAdminServiceProxi implements P
 				throws PersistenceException{
         return ((PersistentProgramModuleService)this.getTheObject()).programModuleService_Menu_Filter(anything);
     }
-    public ProgramSearchList programs_Path_In_DeletePrograms(final ProgramManager4Public manager) 
+    public ProgramSearchList programs_Path_In_DeletePrograms() 
 				throws model.UserException, PersistenceException{
-        return ((PersistentProgramModuleService)this.getTheObject()).programs_Path_In_DeletePrograms(manager);
+        return ((PersistentProgramModuleService)this.getTheObject()).programs_Path_In_DeletePrograms();
     }
     public void register(final ObsInterface observee) 
 				throws PersistenceException{
@@ -202,13 +202,13 @@ public class ProgramModuleServiceProxi extends subAdminServiceProxi implements P
 				throws PersistenceException{
         ((PersistentProgramModuleService)this.getTheObject()).createProgram(name);
     }
-    public void deleteModules(final ModuleManager4Public manager, final ModuleAbstractSearchList modules) 
+    public void deleteModules(final ModuleAbstractSearchList modules) 
 				throws PersistenceException{
-        ((PersistentProgramModuleService)this.getTheObject()).deleteModules(manager, modules);
+        ((PersistentProgramModuleService)this.getTheObject()).deleteModules(modules);
     }
-    public void deletePrograms(final ProgramManager4Public manager, final ProgramSearchList programs) 
+    public void deletePrograms(final ProgramSearchList programs) 
 				throws PersistenceException{
-        ((PersistentProgramModuleService)this.getTheObject()).deletePrograms(manager, programs);
+        ((PersistentProgramModuleService)this.getTheObject()).deletePrograms(programs);
     }
     public void disconnected() 
 				throws PersistenceException{

@@ -86,14 +86,9 @@ public class ProgramModuleServiceConnection extends subAdminServiceConnection {
     }
     
     @SuppressWarnings("unchecked")
-    public synchronized java.util.Vector<?> modules_Path_In_DeleteModules(ModuleManagerView manager) throws ModelException, UserException{
+    public synchronized java.util.Vector<?> modules_Path_In_DeleteModules() throws ModelException, UserException{
         try {
             Vector<Object> parameters = new Vector<Object>();
-            if (manager == null){
-                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
-            } else {
-                parameters.add(((view.objects.ViewProxi)manager).createProxiInformation());
-            }
             java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "modules_Path_In_DeleteModules", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
@@ -227,14 +222,9 @@ public class ProgramModuleServiceConnection extends subAdminServiceConnection {
     }
     
     @SuppressWarnings("unchecked")
-    public synchronized java.util.Vector<?> programs_Path_In_DeletePrograms(ProgramManagerView manager) throws ModelException, UserException{
+    public synchronized java.util.Vector<?> programs_Path_In_DeletePrograms() throws ModelException, UserException{
         try {
             Vector<Object> parameters = new Vector<Object>();
-            if (manager == null){
-                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
-            } else {
-                parameters.add(((view.objects.ViewProxi)manager).createProxiInformation());
-            }
             java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "programs_Path_In_DeletePrograms", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
@@ -491,14 +481,9 @@ public class ProgramModuleServiceConnection extends subAdminServiceConnection {
         
     }
     
-    public synchronized void deleteModules(ModuleManagerView manager, java.util.Vector<ModuleAbstractView> modules) throws ModelException{
+    public synchronized void deleteModules(java.util.Vector<ModuleAbstractView> modules) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
-            if (manager == null){
-                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
-            } else {
-                parameters.add(((view.objects.ViewProxi)manager).createProxiInformation());
-            }
             java.util.Vector<String> modulesTrnsprt = new java.util.Vector<String>();
             java.util.Iterator<ModuleAbstractView> modulesItrtr = modules.iterator();
             while (modulesItrtr.hasNext()){ 
@@ -520,14 +505,9 @@ public class ProgramModuleServiceConnection extends subAdminServiceConnection {
         
     }
     
-    public synchronized void deletePrograms(ProgramManagerView manager, java.util.Vector<ProgramView> programs) throws ModelException{
+    public synchronized void deletePrograms(java.util.Vector<ProgramView> programs) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
-            if (manager == null){
-                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
-            } else {
-                parameters.add(((view.objects.ViewProxi)manager).createProxiInformation());
-            }
             java.util.Vector<String> programsTrnsprt = new java.util.Vector<String>();
             java.util.Iterator<ProgramView> programsItrtr = programs.iterator();
             while (programsItrtr.hasNext()){ 

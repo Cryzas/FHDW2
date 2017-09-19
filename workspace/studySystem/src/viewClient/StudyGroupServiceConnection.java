@@ -96,14 +96,9 @@ public class StudyGroupServiceConnection extends subAdminServiceConnection {
     }
     
     @SuppressWarnings("unchecked")
-    public synchronized java.util.Vector<?> groups_Path_In_DeleteStudyGroups(StudyGroupManagerView manager) throws ModelException, UserException{
+    public synchronized java.util.Vector<?> groups_Path_In_DeleteStudyGroups() throws ModelException, UserException{
         try {
             Vector<Object> parameters = new Vector<Object>();
-            if (manager == null){
-                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
-            } else {
-                parameters.add(((view.objects.ViewProxi)manager).createProxiInformation());
-            }
             java.util.HashMap<?,?> success = (java.util.HashMap<?,?>)this.execute(this.connectionName, "groups_Path_In_DeleteStudyGroups", parameters);
             if(!((Boolean)success.get(common.RPCConstantsAndServices.OKOrNotOKResultFieldName)).booleanValue()){
                 if (((Integer)success.get(common.RPCConstantsAndServices.ErrorNumberFieldName)).intValue() == 0)
@@ -353,14 +348,9 @@ public class StudyGroupServiceConnection extends subAdminServiceConnection {
         
     }
     
-    public synchronized void deleteStudyGroups(StudyGroupManagerView manager, java.util.Vector<StudyGroupView> groups) throws ModelException{
+    public synchronized void deleteStudyGroups(java.util.Vector<StudyGroupView> groups) throws ModelException{
         try {
             Vector<Object> parameters = new Vector<Object>();
-            if (manager == null){
-                parameters.add(common.RPCConstantsAndServices.createFromClientNullProxiRepresentation());
-            } else {
-                parameters.add(((view.objects.ViewProxi)manager).createProxiInformation());
-            }
             java.util.Vector<String> groupsTrnsprt = new java.util.Vector<String>();
             java.util.Iterator<StudyGroupView> groupsItrtr = groups.iterator();
             while (groupsItrtr.hasNext()){ 

@@ -319,7 +319,7 @@ public class StudentManageServiceClientView extends BorderPane implements Except
         ImageView handle(ChangeGradeforStudentPRMTRStudentPRMTRLectureWithGradePRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(ChangeGradeOfModulePRMTRModuleAtomarStudentPRMTRGradesInSimpleOrThirdSUBTYPENamePRMTRStringPRMTRMenuItem menuItem);
         ImageView handle(ChangeGradeOfUnitPRMTRUnitStudentPRMTRGradesInThirdSUBTYPENamePRMTRStringPRMTRMenuItem menuItem);
-        ImageView handle(DeleteStudentsPRMTRStudentManagerPRMTRStudentLSTPRMTRMenuItem menuItem);
+        ImageView handle(DeleteStudentsPRMTRStudentLSTPRMTRMenuItem menuItem);
     }
     private abstract class StudentManageServiceMenuItem extends MenuItem{
         private StudentManageServiceMenuItem(){
@@ -352,7 +352,7 @@ public class StudentManageServiceClientView extends BorderPane implements Except
             return visitor.handle(this);
         }
     }
-    private class DeleteStudentsPRMTRStudentManagerPRMTRStudentLSTPRMTRMenuItem extends StudentManageServiceMenuItem{
+    private class DeleteStudentsPRMTRStudentLSTPRMTRMenuItem extends StudentManageServiceMenuItem{
         protected ImageView accept(MenuItemVisitor visitor){
             return visitor.handle(this);
         }
@@ -383,6 +383,18 @@ public class StudentManageServiceClientView extends BorderPane implements Except
             }
         });
         result.add(currentButton);
+        currentButton = new javafx.scene.control.Button("Studenten löschen ... ");
+        currentButton.setGraphic(new DeleteStudentsPRMTRStudentLSTPRMTRMenuItem().getGraphic());
+        currentButton.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final StudentManageServiceDeleteStudentsStudentLSTMssgWizard wizard = new StudentManageServiceDeleteStudentsStudentLSTMssgWizard("Studenten löschen");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.setX( getPointForView().getX());
+                wizard.setY( getPointForView().getY());
+                wizard.showAndWait();
+            }
+        });
+        result.add(currentButton);
         return result;
     }
     private ContextMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations, final Point2D menuPos) {
@@ -408,6 +420,18 @@ public class StudentManageServiceClientView extends BorderPane implements Except
                         handleException(me);
                     }
                 }
+            }
+        });
+        if (withStaticOperations) result.getItems().add(item);
+        item = new DeleteStudentsPRMTRStudentLSTPRMTRMenuItem();
+        item.setText("(S) Studenten löschen ... ");
+        item.setOnAction(new EventHandler<ActionEvent>(){
+            public void handle(javafx.event.ActionEvent e) {
+                final StudentManageServiceDeleteStudentsStudentLSTMssgWizard wizard = new StudentManageServiceDeleteStudentsStudentLSTMssgWizard("Studenten löschen");
+                wizard.setWidth(getNavigationPanel().getWidth());
+                wizard.setX( getPointForView().getX());
+                wizard.setY( getPointForView().getY());
+                wizard.showAndWait();
             }
         });
         if (withStaticOperations) result.getItems().add(item);
@@ -465,21 +489,6 @@ public class StudentManageServiceClientView extends BorderPane implements Except
                     public void handle(javafx.event.ActionEvent e) {
                         final StudentManageServiceChangeGradeOfUnitUnitStudentGradesInThirdSUBTYPENameStringMssgWizard wizard = new StudentManageServiceChangeGradeOfUnitUnitStudentGradesInThirdSUBTYPENameStringMssgWizard("Note ändern");
                         wizard.setFirstArgument((UnitStudentView)selected);
-                        wizard.setWidth(getNavigationPanel().getWidth());
-                        wizard.setX( getPointForView().getX());
-                        wizard.setY( getPointForView().getY());
-                        wizard.showAndWait();
-                    }
-                });
-                result.getItems().add(item);
-            }
-            if (selected instanceof StudentManagerView){
-                item = new DeleteStudentsPRMTRStudentManagerPRMTRStudentLSTPRMTRMenuItem();
-                item.setText("Studenten löschen ... ");
-                item.setOnAction(new EventHandler<ActionEvent>(){
-                    public void handle(javafx.event.ActionEvent e) {
-                        final StudentManageServiceDeleteStudentsStudentManagerStudentLSTMssgWizard wizard = new StudentManageServiceDeleteStudentsStudentManagerStudentLSTMssgWizard("Studenten löschen");
-                        wizard.setFirstArgument((StudentManagerView)selected);
                         wizard.setWidth(getNavigationPanel().getWidth());
                         wizard.setX( getPointForView().getX());
                         wizard.setY( getPointForView().getY());
@@ -677,21 +686,21 @@ public class StudentManageServiceClientView extends BorderPane implements Except
 		
 	}
 
-	class StudentManageServiceDeleteStudentsStudentManagerStudentLSTMssgWizard extends Wizard {
+	class StudentManageServiceDeleteStudentsStudentLSTMssgWizard extends Wizard {
 
-		protected StudentManageServiceDeleteStudentsStudentManagerStudentLSTMssgWizard(String operationName){
+		protected StudentManageServiceDeleteStudentsStudentLSTMssgWizard(String operationName){
 			super(StudentManageServiceClientView.this);
 			getOkButton().setText(operationName);
-			getOkButton().setGraphic(new DeleteStudentsPRMTRStudentManagerPRMTRStudentLSTPRMTRMenuItem ().getGraphic());
+			getOkButton().setGraphic(new DeleteStudentsPRMTRStudentLSTPRMTRMenuItem ().getGraphic());
 		}
 		protected void initialize(){
-			this.helpFileName = "StudentManageServiceDeleteStudentsStudentManagerStudentLSTMssgWizard.help";
+			this.helpFileName = "StudentManageServiceDeleteStudentsStudentLSTMssgWizard.help";
 			super.initialize();		
 		}
 				
 		protected void perform() {
 			try {
-				getConnection().deleteStudents(firstArgument, (java.util.Vector<StudentView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
+				getConnection().deleteStudents((java.util.Vector<StudentView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
 				getConnection().setEagerRefresh();
 				this.close();	
 			} catch(ModelException me){
@@ -707,37 +716,21 @@ public class StudentManageServiceClientView extends BorderPane implements Except
 			return false;
 		}
 		protected void addParameters(){
-			final ObjectCollectionSelectionPanel panel2 = new ObjectCollectionSelectionPanel("Studenten", "view.StudentView", null, this, getMultiSelectionFor("deleteStudentsPRMTRStudentManagerPRMTRStudentLSTPRMTRstudents"))
-											{protected ViewRoot getBrowserRoot(){
-												{try{
-													return new ListRoot(getConnection().students_Path_In_DeleteStudents((StudentManagerView)this.navigationRoot));
-												}catch(ModelException me){
-													return (ViewRoot) this.navigationRoot;
-												}catch(UserException ue){
-													return (ViewRoot) this.navigationRoot;
-											}}}};
-			getParametersPanel().getChildren().add(panel2);		
+			try{
+				final ObjectCollectionSelectionPanel panel2 = new ObjectCollectionSelectionPanel("Studenten", "view.StudentView", null, this, getMultiSelectionFor("deleteStudentsPRMTRStudentLSTPRMTRstudents"));
+				getParametersPanel().getChildren().add(panel2);
+				panel2.setBrowserRoot(new ListRoot(getConnection().students_Path_In_DeleteStudents()));
+			}catch(ModelException me){;
+				handleException(me);
+				close();
+				return;
+			 }catch(UserException ue){;
+				handleUserException(ue);
+				close();
+				return;
+			 }		
 		}	
 		protected void handleDependencies(int i) {
-			if(i == 0){
-				((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(i)).setBrowserRoot((ViewRoot)firstArgument);
-			}
-		}
-		
-		
-		private StudentManagerView firstArgument; 
-	
-		public void setFirstArgument(StudentManagerView firstArgument){
-			this.firstArgument = firstArgument;
-			this.setTitle(this.firstArgument.toString());
-			try{
-				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
-				selectionPanel0.preset((java.util.Vector<?>)firstArgument.getStudents());
-				if (!selectionPanel0.check()) selectionPanel0.preset(new java.util.Vector<Object>());
-			}catch(ModelException me){
-				 handleException(me);
-			}
-			this.check();
 		}
 		
 		
@@ -747,11 +740,6 @@ public class StudentManageServiceClientView extends BorderPane implements Except
 	
 	private ImageView getIconForMenuItem(StudentManageServiceMenuItem menuItem){
 		return menuItem.accept(new MenuItemVisitor() {
-			
-			@Override
-			public ImageView handle(DeleteStudentsPRMTRStudentManagerPRMTRStudentLSTPRMTRMenuItem menuItem) {
-				return new ImageView(IconManager.getImage(8));
-			}
 			
 			@Override
 			public ImageView handle(
@@ -779,6 +767,11 @@ public class StudentManageServiceClientView extends BorderPane implements Except
 			@Override
 			public ImageView handle(UpdateMePRMTRMenuItem menuItem) {
 				return new ImageView(IconManager.getImage(16));
+			}
+
+			@Override
+			public ImageView handle(DeleteStudentsPRMTRStudentLSTPRMTRMenuItem menuItem) {
+				return new ImageView(IconManager.getImage(8));
 			}
 		});
 	}	

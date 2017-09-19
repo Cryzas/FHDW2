@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.sql.Date;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import common.Fraction;
@@ -46,16 +45,12 @@ public class StudentTest {
 	Student4Public florian;
 	Student4Public michael;
 	Student4Public jens;
-	
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-		TestSupport.clearDatabase();
-		TestSupport.prepareSingletons();
-		Cache.getTheCache().reset$For$Test();
-	}
 
 	@Before
 	public void setUp() throws Exception {
+		TestSupport.clearDatabase();
+		TestSupport.prepareSingletons();
+		Cache.getTheCache().reset$For$Test();
 		programManager = ProgramManager.createProgramManager();
 		moduleManager = ModuleManager.createModuleManager();
 		groupManager = StudyGroupManager.createStudyGroupManager();
@@ -127,6 +122,18 @@ public class StudentTest {
 	@Test
 	public void createStudent() throws PersistenceException, CycleException, AlreadyFinishedException, AlreadyExistsInParentException {
 		groupManager.createStudent(studyGroupHFW1, "Michael", "Löwe", Date.valueOf("1956-01-01"));
+		studentManager.getStudents().filter(student -> false);
+    	ServerSearchList servers = Server.getServerByUser("%");
+		servers.filter(server -> !server.getUser().equals(common.RPCConstantsAndServices.AdministratorName));
+		servers.applyToAll(server -> {
+			try {Student4Public student = Student.getById(Long.valueOf(server.getUser()));
+			if(studentManager.getStudents().findFirst(argument -> argument.equals(student)) == null) {
+				studentManager.getStudents().add(student);
+			}
+			} catch (NumberFormatException e) {
+				
+			}
+		});
 		assertTrue(studyGroupHFW1.getStudents()
 				.findFirst(student -> student.getFirstName().equals("Michael") && student.getLastName().equals("Löwe")
 						&& student.getBirthDate().equals(Date.valueOf("1956-01-01"))) != null);

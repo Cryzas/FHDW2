@@ -25,6 +25,8 @@ abstract server subAdminService {
 server UserManagerService extends subAdminService {
 	public sorted-view leaf-view Server ** users;
 	void createAdminUser @@ User_erstellen ( String name @@ Benutzername, String pw @@ Initialpasswort);
+	void deleteUsers @@ User_löschen (Server ** users @@ User {users});
+
 }
 
 server ProgramModuleService ## PMService extends subAdminService {
@@ -32,8 +34,8 @@ server ProgramModuleService ## PMService extends subAdminService {
 	public observe ModuleManager moduleManager;
 
 	/* Funktionen zum Löschen der Unterobjekte der Manager */
-	void deletePrograms @@ Programme_löschen (ProgramManager manager, Program ** programs @@ Programme {;manager;programs});
-	void deleteModules @@ Module_löschen (ModuleManager manager, ModuleAbstract ** modules @@ Module {;manager;modules});
+	void deletePrograms @@ Programme_löschen (Program ** programs @@ Programme {programManager;programs});
+	void deleteModules @@ Module_löschen (ModuleAbstract ** modules @@ Module {moduleManager;modules});
 
 	/* Funktionen zum Entfernen von Objekten aus dem Parent */
 	void removeModuleFromProg @@ Module_entfernen (Program program, ModuleAbstract ** modules @@ Module {;program;modules}); 
@@ -56,23 +58,32 @@ server ProgramModuleService ## PMService extends subAdminService {
 server StudyGroupService extends subAdminService {
 	public skip-view observe StudyGroupManager groupManager;
 	no-view derived Student ** students;
+
+	/* Kommentare siehe Manager-Klassen | Service ruft Methoden der Managerklassen auf */
 	void swapCPonModuleWithUnits @@ CP_Gewichtung_ändern (ModuleWithUnitsSGroup module, UnitSGroup fromUnit @@ Von_Unit{;module;units}, UnitSGroup ToUnit @@ Zu_Unit{;module;units}, Fraction creditPoints @@ Credit_Points);
 	void endStudyGroup @@ Studiengruppe_abschließen (StudyGroup studyGroup);
 	void addStudentToGroup @@ Studenten_hinzufügen (StudyGroup group, Student ** students @@ Studenten {students});
 	void createStudent @@ Student_erstellen (StudyGroup group, String firstName @@ Vorname, String lastName @@ Nachname, Date birthDate @@ Geburtsdatum);
+	void changeGradeforStudent @@ Note_eintragen (Student student, LectureWithGrade lecture @@ Vorlesung{;student;program;modules}, GradesInSimpleOrThirdSUBTYPEName grade @@ Note, String comment @@ Kommentar);
+
+	/* Funktionen zum Entfernen von Objekten aus dem Parent */
 	void removeStudentFromGroup @@ Studenten_entfernen (StudyGroup group, Student ** students @@ Studenten {;group;students});
-	void deleteStudyGroups @@ Studiengruppen_löschen (StudyGroupManager manager, StudyGroup ** groups @@ Studiengruppen {;manager;groups});
-	void changeGradeforStudent @@ Note_eintragen (Student student, LectureWithGrade lecture @@ Vorlesung{;student;program;modules}, GradesInSimpleOrThirdSUBTYPEName grade @@ Grade, String comment @@ Kommentar);
+	
+	/* Funktionen zum Löschen der Unterobjekte der Manager */
+	void deleteStudyGroups @@ Studiengruppen_löschen (StudyGroup ** groups @@ Studiengruppen {groupManager;groups});
 
 }
 
 server StudentManageService ## StuMService extends subAdminService {
 	public skip-view observe StudentManager studentManager;
 
+	/* Kommentare siehe Manager-Klassen | Service ruft Methoden der Managerklassen auf */
 	void changeGradeOfUnit @@ Note_ändern (UnitStudent unit, GradesInThirdSUBTYPEName grade @@ Note, String comment @@ Kommentar);
 	void changeGradeOfModule @@ Note_ändern (ModuleAtomarStudent module, GradesInSimpleOrThirdSUBTYPEName grade @@ Note, String comment @@ Kommentar);
 	void changeGradeforStudent @@ Note_eintragen (Student student, LectureWithGrade lecture @@ Vorlesung{;student;program;modules}, GradesInSimpleOrThirdSUBTYPEName grade @@ Grade, String comment @@ Kommentar);
-	void deleteStudents @@ Studenten_löschen (StudentManager manager, Student ** students @@ Studenten {;manager;students}); 
+
+	/* Funktionen zum Löschen der Unterobjekte der Manager */
+	void deleteStudents @@ Studenten_löschen (Student ** students @@ Studenten {studentManager;students}); 
 }
 
 																									/* Manager Klassen */

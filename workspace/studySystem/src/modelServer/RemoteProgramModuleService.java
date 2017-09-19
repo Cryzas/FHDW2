@@ -36,10 +36,9 @@ public  class RemoteProgramModuleService extends RemotesubAdminService {
         }
     }
     
-    public synchronized java.util.HashMap<?,?> modules_Path_In_DeleteModules(String managerProxiString){
+    public synchronized java.util.HashMap<?,?> modules_Path_In_DeleteModules(){
         try {
-            PersistentModuleManager manager = (PersistentModuleManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(managerProxiString));
-            ModuleAbstractSearchList result = ((PersistentProgramModuleService)this.server).modules_Path_In_DeleteModules(manager);
+            ModuleAbstractSearchList result = ((PersistentProgramModuleService)this.server).modules_Path_In_DeleteModules();
             return createOKResult(result.getVector(1, 0, false, false, true));
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -82,10 +81,9 @@ public  class RemoteProgramModuleService extends RemotesubAdminService {
         }
     }
     
-    public synchronized java.util.HashMap<?,?> programs_Path_In_DeletePrograms(String managerProxiString){
+    public synchronized java.util.HashMap<?,?> programs_Path_In_DeletePrograms(){
         try {
-            PersistentProgramManager manager = (PersistentProgramManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(managerProxiString));
-            ProgramSearchList result = ((PersistentProgramModuleService)this.server).programs_Path_In_DeletePrograms(manager);
+            ProgramSearchList result = ((PersistentProgramModuleService)this.server).programs_Path_In_DeletePrograms();
             return createOKResult(result.getVector(1, 0, false, false, true));
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
@@ -199,32 +197,30 @@ public  class RemoteProgramModuleService extends RemotesubAdminService {
         }
     }
     
-    public synchronized java.util.HashMap<?,?> deleteModules(String managerProxiString, java.util.Vector<String> modulesTrnsprt){
+    public synchronized java.util.HashMap<?,?> deleteModules(java.util.Vector<String> modulesTrnsprt){
         try {
-            PersistentModuleManager manager = (PersistentModuleManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(managerProxiString));
             ModuleAbstractSearchList modules = new ModuleAbstractSearchList();
 			java.util.Iterator<String> modulesItrtr = modulesTrnsprt.iterator();
 			while (modulesItrtr.hasNext()){
 				PersistentModuleAbstract currentProxi = (PersistentModuleAbstract)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(modulesItrtr.next()));
 				modules.add(currentProxi);
 			}
-            ((PersistentProgramModuleService)this.server).deleteModules(manager, modules);
+            ((PersistentProgramModuleService)this.server).deleteModules(modules);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);
         }
     }
     
-    public synchronized java.util.HashMap<?,?> deletePrograms(String managerProxiString, java.util.Vector<String> programsTrnsprt){
+    public synchronized java.util.HashMap<?,?> deletePrograms(java.util.Vector<String> programsTrnsprt){
         try {
-            PersistentProgramManager manager = (PersistentProgramManager)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(managerProxiString));
             ProgramSearchList programs = new ProgramSearchList();
 			java.util.Iterator<String> programsItrtr = programsTrnsprt.iterator();
 			while (programsItrtr.hasNext()){
 				PersistentProgram currentProxi = (PersistentProgram)PersistentProxi.createProxi(common.RPCConstantsAndServices.createProxiInformation(programsItrtr.next()));
 				programs.add(currentProxi);
 			}
-            ((PersistentProgramModuleService)this.server).deletePrograms(manager, programs);
+            ((PersistentProgramModuleService)this.server).deletePrograms(programs);
             return createOKResult();
         }catch(PersistenceException pe){
             return createExceptionResult(pe);

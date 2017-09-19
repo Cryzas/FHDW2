@@ -119,9 +119,9 @@ public class StudentManageServiceProxi extends subAdminServiceProxi implements P
 				throws PersistenceException{
         return ((PersistentStudentManageService)this.getTheObject()).studentManageService_Menu_Filter(anything);
     }
-    public StudentSearchList students_Path_In_DeleteStudents(final StudentManager4Public manager) 
+    public StudentSearchList students_Path_In_DeleteStudents() 
 				throws model.UserException, PersistenceException{
-        return ((PersistentStudentManageService)this.getTheObject()).students_Path_In_DeleteStudents(manager);
+        return ((PersistentStudentManageService)this.getTheObject()).students_Path_In_DeleteStudents();
     }
     public void updateObservers(final model.meta.Mssgs event) 
 				throws PersistenceException{
@@ -151,9 +151,9 @@ public class StudentManageServiceProxi extends subAdminServiceProxi implements P
 				throws PersistenceException{
         ((PersistentStudentManageService)this.getTheObject()).copyingPrivateUserAttributes(copy);
     }
-    public void deleteStudents(final StudentManager4Public manager, final StudentSearchList students) 
+    public void deleteStudents(final StudentSearchList students) 
 				throws PersistenceException{
-        ((PersistentStudentManageService)this.getTheObject()).deleteStudents(manager, students);
+        ((PersistentStudentManageService)this.getTheObject()).deleteStudents(students);
     }
     public void disconnected() 
 				throws PersistenceException{

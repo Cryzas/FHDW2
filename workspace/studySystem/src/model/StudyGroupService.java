@@ -221,9 +221,9 @@ public class StudyGroupService extends model.subAdminService implements Persiste
         if (this.groupManager== null) return null;
 		return this.groupManager.getObservee();
     }
-    public StudyGroupSearchList groups_Path_In_DeleteStudyGroups(final StudyGroupManager4Public manager) 
+    public StudyGroupSearchList groups_Path_In_DeleteStudyGroups() 
 				throws model.UserException, PersistenceException{
-        	return new StudyGroupSearchList(manager.
+        	return new StudyGroupSearchList(getThis().getGroupManager().
                 getGroups().getList());
     }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
@@ -301,10 +301,10 @@ public class StudyGroupService extends model.subAdminService implements Persiste
 				throws PersistenceException{
 		getThis().getGroupManager().createStudent(group, firstName, lastName, birthDate, getThis());
 	}
-    public void deleteStudyGroups(final StudyGroupManager4Public manager, final StudyGroupSearchList groups) 
+    public void deleteStudyGroups(final StudyGroupSearchList groups) 
 				throws PersistenceException{
 		groups.applyToAll(group -> {
-    		manager.getGroups().removeFirst(group);
+    		getThis().getGroupManager().getGroups().removeFirst(group);
     		group.delete$Me();
     	});
     	getThis().signalChanged(true);

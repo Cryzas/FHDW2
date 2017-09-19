@@ -218,6 +218,10 @@ public class UserManagerService extends model.subAdminService implements Persist
         String result = "+++";
 		return result;
     }
+    public ServerSearchList users_Path_In_DeleteUsers() 
+				throws model.UserException, PersistenceException{
+        	return new ServerSearchList(getThis().getUsers().getList());
+    }
     
     
     // Start of section that contains operations that must be implemented.
@@ -235,6 +239,14 @@ public class UserManagerService extends model.subAdminService implements Persist
         getThis().getUsers().add(server);
         getThis().signalChanged(true);
     }
+    public void deleteUsers(final ServerSearchList users) 
+				throws PersistenceException{
+    	users.applyToAll(user -> {
+    		getThis().getUsers().removeFirst(user);
+    		user.delete$Me();
+    	});
+    	getThis().signalChanged(true);
+    }
     public void disconnected() 
 				throws PersistenceException{
 	}
@@ -245,7 +257,16 @@ public class UserManagerService extends model.subAdminService implements Persist
     public void initializeOnInstantiation() 
 				throws PersistenceException{
 		super.initializeOnInstantiation();
-		ServerSearchList servers = Server.getServerByUser("%").copy();
+		getThis().updateMe();
+	}
+    public void removeError(final ErrorDisplay4Public error) 
+				throws PersistenceException{
+		getThis().getErrors().filter(arg -> !arg.equals(error));
+		getThis().signalChanged(true);
+    }
+    public void updateMe() 
+				throws PersistenceException{
+    	ServerSearchList servers = Server.getServerByUser("%").copy();
 		servers.filter(server -> {
 			try {
 				return Student.getById(Long.valueOf(server.getUser())) == null;
@@ -258,15 +279,6 @@ public class UserManagerService extends model.subAdminService implements Persist
 				getThis().getUsers().add(server);
 			}
 		});
-	}
-    public void removeError(final ErrorDisplay4Public error) 
-				throws PersistenceException{
-		getThis().getErrors().filter(arg -> !arg.equals(error));
-		getThis().signalChanged(true);
-    }
-    public void updateMe() 
-				throws PersistenceException{
-    	getThis().initializeOnInstantiation();
     	getThis().signalChanged(true);
     }
     public void updatePLZImplementation() 

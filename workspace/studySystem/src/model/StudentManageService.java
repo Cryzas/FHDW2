@@ -247,9 +247,9 @@ public class StudentManageService extends model.subAdminService implements Persi
         String result = "+++";
 		return result;
     }
-    public StudentSearchList students_Path_In_DeleteStudents(final StudentManager4Public manager) 
+    public StudentSearchList students_Path_In_DeleteStudents() 
 				throws model.UserException, PersistenceException{
-        	return new StudentSearchList(manager.
+        	return new StudentSearchList(getThis().getStudentManager().
                 getStudents().getList());
     }
     public synchronized void updateObservers(final model.meta.Mssgs event) 
@@ -288,10 +288,10 @@ public class StudentManageService extends model.subAdminService implements Persi
 				throws PersistenceException{
         
     }
-    public void deleteStudents(final StudentManager4Public manager, final StudentSearchList students) 
+    public void deleteStudents(final StudentSearchList students) 
 				throws PersistenceException{
     	students.applyToAll(student -> {
-    		manager.getStudents().removeFirst(student);
+    		getThis().getStudentManager().getStudents().removeFirst(student);
     		student.delete$Me();
     		Server.getServerByUser(String.valueOf(student.getMatrNr())).iterator().next().delete$Me();
     	});

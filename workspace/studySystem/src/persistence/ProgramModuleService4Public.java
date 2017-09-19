@@ -37,7 +37,7 @@ public interface ProgramModuleService4Public extends subAdminService4Public {
 				throws model.UserException, PersistenceException;
     public ModuleAbstractSearchList modules_Path_In_AddModuleToProg() 
 				throws model.UserException, PersistenceException;
-    public ModuleAbstractSearchList modules_Path_In_DeleteModules(final ModuleManager4Public manager) 
+    public ModuleAbstractSearchList modules_Path_In_DeleteModules() 
 				throws model.UserException, PersistenceException;
     public ModuleAbstractSearchList modules_Path_In_RemoveModuleFromGroup(final ModuleGroup4Public group) 
 				throws model.UserException, PersistenceException;
@@ -45,7 +45,7 @@ public interface ProgramModuleService4Public extends subAdminService4Public {
 				throws model.UserException, PersistenceException;
     public String programModuleService_Menu_Filter(final Anything anything) 
 				throws PersistenceException;
-    public ProgramSearchList programs_Path_In_DeletePrograms(final ProgramManager4Public manager) 
+    public ProgramSearchList programs_Path_In_DeletePrograms() 
 				throws model.UserException, PersistenceException;
     public UnitSearchList units_Path_In_RemoveUnit(final ModuleWithUnits4Public module) 
 				throws model.UserException, PersistenceException;
@@ -67,9 +67,9 @@ public interface ProgramModuleService4Public extends subAdminService4Public {
 				throws PersistenceException;
     public void createProgram(final String name) 
 				throws PersistenceException;
-    public void deleteModules(final ModuleManager4Public manager, final ModuleAbstractSearchList modules) 
+    public void deleteModules(final ModuleAbstractSearchList modules) 
 				throws PersistenceException;
-    public void deletePrograms(final ProgramManager4Public manager, final ProgramSearchList programs) 
+    public void deletePrograms(final ProgramSearchList programs) 
 				throws PersistenceException;
     public void initializeOnCreation() 
 				throws PersistenceException;

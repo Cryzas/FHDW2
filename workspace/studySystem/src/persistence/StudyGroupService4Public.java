@@ -33,7 +33,7 @@ public interface StudyGroupService4Public extends subAdminService4Public {
 				throws model.UserException, PersistenceException;
     public StudyGroupManager4Public getGroupManager() 
 				throws PersistenceException;
-    public StudyGroupSearchList groups_Path_In_DeleteStudyGroups(final StudyGroupManager4Public manager) 
+    public StudyGroupSearchList groups_Path_In_DeleteStudyGroups() 
 				throws model.UserException, PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
@@ -53,7 +53,7 @@ public interface StudyGroupService4Public extends subAdminService4Public {
 				throws PersistenceException;
     public void createStudent(final StudyGroup4Public group, final String firstName, final String lastName, final java.sql.Date birthDate) 
 				throws PersistenceException;
-    public void deleteStudyGroups(final StudyGroupManager4Public manager, final StudyGroupSearchList groups) 
+    public void deleteStudyGroups(final StudyGroupSearchList groups) 
 				throws PersistenceException;
     public void endStudyGroup(final StudyGroup4Public studyGroup) 
 				throws PersistenceException;
