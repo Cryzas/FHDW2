@@ -72,6 +72,7 @@ public class StudyGroupManager extends PersistentObject implements PersistentStu
         result = new StudyGroupManager(this.subService, 
                                        this.This, 
                                        this.getId());
+        result.groups = this.groups.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

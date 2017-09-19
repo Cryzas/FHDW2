@@ -12,6 +12,10 @@ public interface ModuleAbstract4Public extends Anything, programHierarchyHIERARC
     public <E extends model.UserException>  void accept(ModuleAbstractExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(ModuleAbstractReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
+    public ModuleGroupSearchList getParentGroup() 
+				throws PersistenceException;
+    public ProgramSearchList getParentProgram() 
+				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException;
     public ModuleAbstractSGroup4Public copyForStudyGroup() 

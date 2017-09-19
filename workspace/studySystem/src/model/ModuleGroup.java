@@ -71,6 +71,7 @@ public class ModuleGroup extends model.ModuleAbstract implements PersistentModul
                                  this.subService, 
                                  this.This, 
                                  this.getId());
+        result.modules = this.modules.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -228,8 +229,80 @@ public class ModuleGroup extends model.ModuleAbstract implements PersistentModul
     
     public void addModule(final ModuleAbstract4Public module) 
 				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
+    	ModuleAbstractExceptionVisitor<AlreadyExistsInParentException> visitor = new ModuleAbstractExceptionVisitor<AlreadyExistsInParentException>() {
+
+			@Override
+			public void handleModuleAtomar(ModuleAtomar4Public moduleAtomar)
+					throws PersistenceException, AlreadyExistsInParentException {
+				moduleAtomar.getParentGroup().applyToAllException(parent -> {
+					if(parent.containsprogramHierarchy(module)) {
+						throw new AlreadyExistsInParentException(String.format(AlreadyExistsInParentGroupMessage, module.getName(), parent.getName()));
+					}
+					parent.getParentGroup().applyToAllException(parentParent -> parentParent.accept(this));
+				});
+				moduleAtomar.getParentProgram().applyToAllException(parent -> {
+					if(parent.containsprogramHierarchy(module)) {
+						throw new AlreadyExistsInParentException(String.format(AlreadyExistsInParentProgramMessage, module.getName(), parent.getName()));
+					}
+				});
+			}
+
+			@Override
+			public void handleModuleGroup(ModuleGroup4Public moduleGroup)
+					throws PersistenceException, AlreadyExistsInParentException {
+				moduleGroup.getParentGroup().applyToAllException(parent -> {
+					if(parent.containsprogramHierarchy(module)) {
+						throw new AlreadyExistsInParentException(String.format(AlreadyExistsInParentGroupMessage, module.getName(), parent.getName()));
+					}
+					parent.getParentGroup().applyToAllException(parentParent -> parentParent.accept(this));
+				});
+				moduleGroup.getParentProgram().applyToAllException(parent -> {
+					if(parent.containsprogramHierarchy(module)) {
+						throw new AlreadyExistsInParentException(String.format(AlreadyExistsInParentProgramMessage, module.getName(), parent.getName()));
+					}
+				});
+			}
+
+			@Override
+			public void handleModuleWithUnits(ModuleWithUnits4Public moduleWithUnits)
+					throws PersistenceException, AlreadyExistsInParentException {
+				moduleWithUnits.getParentGroup().applyToAllException(parent -> {
+					if(parent.containsprogramHierarchy(module)) {
+						throw new AlreadyExistsInParentException(String.format(AlreadyExistsInParentGroupMessage, module.getName(), parent.getName()));
+					}
+					parent.getParentGroup().applyToAllException(parentParent -> parentParent.accept(this));
+				});
+				moduleWithUnits.getParentProgram().applyToAllException(parent -> {
+					if(parent.containsprogramHierarchy(module)) {
+						throw new AlreadyExistsInParentException(String.format(AlreadyExistsInParentProgramMessage, module.getName(), parent.getName()));
+					}
+				});
+			}
+		};
+		
+		module.accept(new ModuleAbstractExceptionVisitor<AlreadyExistsInParentException>() {
+
+			@Override
+			public void handleModuleAtomar(ModuleAtomar4Public moduleAtomar)
+					throws PersistenceException, AlreadyExistsInParentException {
+				moduleAtomar.accept(visitor);
+			}
+
+			@Override
+			public void handleModuleGroup(ModuleGroup4Public moduleGroup)
+					throws PersistenceException, AlreadyExistsInParentException {
+				moduleGroup.accept(visitor);
+				moduleGroup.getModules().applyToAllException(argument -> argument.accept(this));
+			}
+
+			@Override
+			public void handleModuleWithUnits(ModuleWithUnits4Public moduleWithUnits)
+					throws PersistenceException, AlreadyExistsInParentException {
+				moduleWithUnits.accept(visitor);
+			}
+		});
     	if(getThis().containsprogramHierarchy(module))
-    		throw new AlreadyExistsInParentException(String.format(AlreadyExistsInParentMessage, module.getName(), getThis().getName()));
+    		throw new AlreadyExistsInParentException(String.format(AlreadyExistsInParentGroupMessage, module.getName(), getThis().getName()));
     	getThis().getModules().add(module);
     }
     public ModuleAbstractSGroup4Public copyForStudyGroup() 
@@ -265,7 +338,8 @@ public class ModuleGroup extends model.ModuleAbstract implements PersistentModul
     /* Start of protected part that is not overridden by persistence generator */
     
     
-    static String AlreadyExistsInParentMessage = "Das Modul %s ist bereits in der Modulgruppe %s.";
+    static String AlreadyExistsInParentGroupMessage = "Das Modul %s ist bereits in der Modulgruppe %s.";
+    static String AlreadyExistsInParentProgramMessage = "Das Modul %s ist bereits in dem Programm %s.";
     
     
     /* End of protected part that is not overridden by persistence generator */

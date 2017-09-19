@@ -85,6 +85,7 @@ public class Program extends PersistentObject implements PersistentProgram{
                              this.subService, 
                              this.This, 
                              this.getId());
+        result.modules = this.modules.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
@@ -282,7 +283,30 @@ public class Program extends PersistentObject implements PersistentProgram{
     public void addModule(final ModuleAbstract4Public module) 
 				throws model.AlreadyExistsInParentException, model.CycleException, PersistenceException{
     	if(getThis().containsprogramHierarchy(module))
-    		throw new AlreadyExistsInParentException(AlreadyExistsInParentMessage);
+    		throw new AlreadyExistsInParentException(String.format(AlreadyExistsInParentMessage,module.getName(), getThis().getName()));
+    	module.accept(new ModuleAbstractExceptionVisitor<AlreadyExistsInParentException>() {
+
+			@Override
+			public void handleModuleAtomar(ModuleAtomar4Public moduleAtomar)
+					throws PersistenceException, AlreadyExistsInParentException {
+			}
+
+			@Override
+			public void handleModuleGroup(ModuleGroup4Public moduleGroup)
+					throws PersistenceException, AlreadyExistsInParentException {
+				moduleGroup.getModules().applyToAllException(argument -> {
+					if(getThis().containsprogramHierarchy(argument)) {
+						throw new AlreadyExistsInParentException(String.format(AlreadyExistsInParentMessage, argument.getName(), getThis().getName()));
+					}
+					argument.accept(this);
+				});
+			}
+
+			@Override
+			public void handleModuleWithUnits(ModuleWithUnits4Public moduleWithUnits)
+					throws PersistenceException, AlreadyExistsInParentException {	
+			}
+		});
     	getThis().getModules().add(module);
     }
     public ProgramSGroup4Public copyForStudyGroup() 
@@ -318,7 +342,7 @@ public class Program extends PersistentObject implements PersistentProgram{
     /* Start of protected part that is not overridden by persistence generator */
     
     
-    static String AlreadyExistsInParentMessage = "Das ausgewählte Modul ist bereits in dem Programm.";
+    static String AlreadyExistsInParentMessage = "Das Modul %s ist bereits in dem Programm %s enthalten.";
     
     
     /* End of protected part that is not overridden by persistence generator */

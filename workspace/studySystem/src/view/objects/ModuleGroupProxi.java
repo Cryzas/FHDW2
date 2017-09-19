@@ -15,9 +15,13 @@ public class ModuleGroupProxi extends ModuleAbstractProxi implements ModuleGroup
     public ModuleGroupView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         String name = (String)resultTable.get("name");
         common.Fraction creditPoints = common.Fraction.parse((String)resultTable.get("creditPoints"));
+        java.util.Vector<String> parentGroup_string = (java.util.Vector<String>)resultTable.get("parentGroup");
+        java.util.Vector<ModuleGroupView> parentGroup = ViewProxi.getProxiVector(parentGroup_string, connectionKey);
+        java.util.Vector<String> parentProgram_string = (java.util.Vector<String>)resultTable.get("parentProgram");
+        java.util.Vector<ProgramView> parentProgram = ViewProxi.getProxiVector(parentProgram_string, connectionKey);
         java.util.Vector<String> modules_string = (java.util.Vector<String>)resultTable.get("modules");
         java.util.Vector<ModuleAbstractView> modules = ViewProxi.getProxiVector(modules_string, connectionKey);
-        ModuleGroupView result$$ = new ModuleGroup((String)name,(common.Fraction)creditPoints,modules, this.getId(), this.getClassId());
+        ModuleGroupView result$$ = new ModuleGroup((String)name,(common.Fraction)creditPoints,parentGroup,parentProgram,modules, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }

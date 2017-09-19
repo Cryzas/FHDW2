@@ -11,9 +11,9 @@ public class ModuleGroup extends view.objects.ModuleAbstract implements ModuleGr
     
     protected java.util.Vector<ModuleAbstractView> modules;
     
-    public ModuleGroup(String name,common.Fraction creditPoints,java.util.Vector<ModuleAbstractView> modules,long id, long classId) {
+    public ModuleGroup(String name,common.Fraction creditPoints,java.util.Vector<ModuleGroupView> parentGroup,java.util.Vector<ProgramView> parentProgram,java.util.Vector<ModuleAbstractView> modules,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((String)name,(common.Fraction)creditPoints,id, classId);
+        super((String)name,(common.Fraction)creditPoints,parentGroup,parentProgram,id, classId);
         this.modules = modules;        
     }
     
@@ -58,6 +58,14 @@ public class ModuleGroup extends view.objects.ModuleAbstract implements ModuleGr
     }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
+        java.util.Vector<?> parentGroup = this.getParentGroup();
+        if (parentGroup != null) {
+            ViewObject.resolveVectorProxies(parentGroup, resultTable);
+        }
+        java.util.Vector<?> parentProgram = this.getParentProgram();
+        if (parentProgram != null) {
+            ViewObject.resolveVectorProxies(parentProgram, resultTable);
+        }
         java.util.Vector<?> modules = this.getModules();
         if (modules != null) {
             ViewObject.resolveVectorProxies(modules, resultTable);

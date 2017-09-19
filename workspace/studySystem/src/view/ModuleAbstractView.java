@@ -9,6 +9,8 @@ public interface ModuleAbstractView extends Anything, AbstractViewRoot {
     public String getName()throws ModelException;
     public void setName(String newValue) throws ModelException ;
     public common.Fraction getCreditPoints()throws ModelException;
+    public java.util.Vector<ModuleGroupView> getParentGroup()throws ModelException;
+    public java.util.Vector<ProgramView> getParentProgram()throws ModelException;
     
     public void accept(ModuleAbstractVisitor visitor) throws ModelException;
     public <R> R accept(ModuleAbstractReturnVisitor<R>  visitor) throws ModelException;

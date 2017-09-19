@@ -11,9 +11,14 @@ public class ModuleAtomarProxi extends ModuleAbstractProxi implements ModuleAtom
         super(objectId, classId, connectionKey);
     }
     
+    @SuppressWarnings("unchecked")
     public ModuleAtomarView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         String name = (String)resultTable.get("name");
         common.Fraction creditPoints = common.Fraction.parse((String)resultTable.get("creditPoints"));
+        java.util.Vector<String> parentGroup_string = (java.util.Vector<String>)resultTable.get("parentGroup");
+        java.util.Vector<ModuleGroupView> parentGroup = ViewProxi.getProxiVector(parentGroup_string, connectionKey);
+        java.util.Vector<String> parentProgram_string = (java.util.Vector<String>)resultTable.get("parentProgram");
+        java.util.Vector<ProgramView> parentProgram = ViewProxi.getProxiVector(parentProgram_string, connectionKey);
         ViewProxi gradeSystem = null;
         String gradeSystem$String = (String)resultTable.get("gradeSystem");
         if (gradeSystem$String != null) {
@@ -21,7 +26,7 @@ public class ModuleAtomarProxi extends ModuleAbstractProxi implements ModuleAtom
             gradeSystem = view.objects.ViewProxi.createProxi(gradeSystem$Info,connectionKey);
             gradeSystem.setToString(gradeSystem$Info.getToString());
         }
-        ModuleAtomarView result$$ = new ModuleAtomar((String)name,(common.Fraction)creditPoints,(GradeSystemView)gradeSystem, this.getId(), this.getClassId());
+        ModuleAtomarView result$$ = new ModuleAtomar((String)name,(common.Fraction)creditPoints,parentGroup,parentProgram,(GradeSystemView)gradeSystem, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }

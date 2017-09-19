@@ -100,6 +100,7 @@ public class ProgramStudent extends PersistentObject implements PersistentProgra
                                     this.subService, 
                                     this.This, 
                                     this.getId());
+        result.modules = this.modules.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

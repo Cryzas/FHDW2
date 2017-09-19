@@ -31,8 +31,8 @@ public abstract class StudentService$AuthoriseVisitor extends AnythingStandardVi
     public abstract void handleNoProgram(PersistentNoProgram noProgram) throws PersistenceException;
     public abstract void handleZ_2_3(PersistentZ_2_3 z_2_3) throws PersistenceException;
     public abstract void handleZ_2_4(PersistentZ_2_4 z_2_4) throws PersistenceException;
-    public abstract void handleZ_2_5(PersistentZ_2_5 z_2_5) throws PersistenceException;
     public abstract void handleProgram(PersistentProgram program) throws PersistenceException;
+    public abstract void handleZ_2_5(PersistentZ_2_5 z_2_5) throws PersistenceException;
     public abstract void handleZ_2_6(PersistentZ_2_6 z_2_6) throws PersistenceException;
     public abstract void handleZ_2_7(PersistentZ_2_7 z_2_7) throws PersistenceException;
     public abstract void handleZ_2_8(PersistentZ_2_8 z_2_8) throws PersistenceException;

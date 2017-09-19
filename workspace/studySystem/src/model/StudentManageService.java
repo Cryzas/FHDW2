@@ -78,6 +78,7 @@ public class StudentManageService extends model.subAdminService implements Persi
                                           this.studentManager, 
                                           this.getId());
         result.errors = this.errors.copy(result);
+        result.errors = this.errors.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

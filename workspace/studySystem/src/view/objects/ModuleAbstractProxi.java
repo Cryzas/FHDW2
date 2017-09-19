@@ -19,6 +19,12 @@ public abstract class ModuleAbstractProxi extends ViewProxi implements ModuleAbs
     public common.Fraction getCreditPoints()throws ModelException{
         return ((ModuleAbstract)this.getTheObject()).getCreditPoints();
     }
+    public java.util.Vector<ModuleGroupView> getParentGroup()throws ModelException{
+        return ((ModuleAbstract)this.getTheObject()).getParentGroup();
+    }
+    public java.util.Vector<ProgramView> getParentProgram()throws ModelException{
+        return ((ModuleAbstract)this.getTheObject()).getParentProgram();
+    }
     
     
     

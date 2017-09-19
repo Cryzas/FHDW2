@@ -15,9 +15,13 @@ public class ModuleWithUnitsProxi extends ModuleAbstractProxi implements ModuleW
     public ModuleWithUnitsView getRemoteObject(java.util.HashMap<String,Object> resultTable, ExceptionAndEventHandler connectionKey) throws ModelException{
         String name = (String)resultTable.get("name");
         common.Fraction creditPoints = common.Fraction.parse((String)resultTable.get("creditPoints"));
+        java.util.Vector<String> parentGroup_string = (java.util.Vector<String>)resultTable.get("parentGroup");
+        java.util.Vector<ModuleGroupView> parentGroup = ViewProxi.getProxiVector(parentGroup_string, connectionKey);
+        java.util.Vector<String> parentProgram_string = (java.util.Vector<String>)resultTable.get("parentProgram");
+        java.util.Vector<ProgramView> parentProgram = ViewProxi.getProxiVector(parentProgram_string, connectionKey);
         java.util.Vector<String> units_string = (java.util.Vector<String>)resultTable.get("units");
         java.util.Vector<UnitView> units = ViewProxi.getProxiVector(units_string, connectionKey);
-        ModuleWithUnitsView result$$ = new ModuleWithUnits((String)name,(common.Fraction)creditPoints,units, this.getId(), this.getClassId());
+        ModuleWithUnitsView result$$ = new ModuleWithUnits((String)name,(common.Fraction)creditPoints,parentGroup,parentProgram,units, this.getId(), this.getClassId());
         ((ViewRoot)result$$).setToString((String) resultTable.get(common.RPCConstantsAndServices.RPCToStringFieldName));
         return result$$;
     }

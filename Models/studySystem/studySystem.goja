@@ -138,7 +138,7 @@ hierarchy programHierarchy;
 
 /* Program stellt das modellierbare Studienprogramm dar */
 class Program {
-	public ModuleAbstract ** modules hierarchy programHierarchy;
+	public symmetric (public no-view parentProgram) ModuleAbstract ** modules hierarchy programHierarchy;
 	public prior indexed String name;
 	/* wird als derived attribute aus den CP der Module errechnet. */
 	public derived Fraction creditPoints;
@@ -159,7 +159,7 @@ abstract string-factory class ModuleAbstract {
 
 /** Definiert die Modul-Gruppe als Erweiterung des abstrakten Moduls */
 class ModuleGroup @@ Gruppe extends ModuleAbstract {
-	public ModuleAbstract ** modules hierarchy programHierarchy;
+	public symmetric (public no-view parentGroup) ModuleAbstract ** modules hierarchy programHierarchy;
 	/* Ermöglicht das Hinzufügen von Modulen zur jeweiligen Modul-Gruppe. Wirft Exception, falls Modul mit identischem Namen bereits in Modulgruppe vorhanden ist. */
 	void addModule(ModuleAbstract module) throws CycleException, AlreadyExistsInParentException;
 }

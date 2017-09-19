@@ -11,9 +11,9 @@ public class ModuleAtomar extends view.objects.ModuleAbstract implements ModuleA
     
     protected GradeSystemView gradeSystem;
     
-    public ModuleAtomar(String name,common.Fraction creditPoints,GradeSystemView gradeSystem,long id, long classId) {
+    public ModuleAtomar(String name,common.Fraction creditPoints,java.util.Vector<ModuleGroupView> parentGroup,java.util.Vector<ProgramView> parentProgram,GradeSystemView gradeSystem,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((String)name,(common.Fraction)creditPoints,id, classId);
+        super((String)name,(common.Fraction)creditPoints,parentGroup,parentProgram,id, classId);
         this.gradeSystem = gradeSystem;        
     }
     
@@ -58,6 +58,14 @@ public class ModuleAtomar extends view.objects.ModuleAbstract implements ModuleA
     }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
+        java.util.Vector<?> parentGroup = this.getParentGroup();
+        if (parentGroup != null) {
+            ViewObject.resolveVectorProxies(parentGroup, resultTable);
+        }
+        java.util.Vector<?> parentProgram = this.getParentProgram();
+        if (parentProgram != null) {
+            ViewObject.resolveVectorProxies(parentProgram, resultTable);
+        }
         GradeSystemView gradeSystem = this.getGradeSystem();
         if (gradeSystem != null) {
             ((ViewProxi)gradeSystem).setObject((ViewObject)resultTable.get(common.RPCConstantsAndServices.createHashtableKey(gradeSystem.getClassId(), gradeSystem.getId())));

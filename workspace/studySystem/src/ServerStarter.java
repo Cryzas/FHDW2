@@ -71,12 +71,12 @@ public class ServerStarter extends Application implements ServerReporter {
 	public void start( Stage primaryStage ) throws Exception {
 		this.stage = primaryStage;
 		this.startScene = new Scene( this.rootPane, 1100, 600);	
-		this.stage.setTitle( "GOJA Server");
+		this.stage.setTitle( "StudySystem Server");
 		this.stage.setScene( this.startScene );		
         this.getMainTabPane().getSelectionModel().selectLast();
         this.getMainTabPane().getSelectionModel().selectFirst();
         this.getPasswordField().setText("");
-		Image logo = new Image( this.getClass().getResourceAsStream("/viewResources/generatorLogo.jpg"));
+		Image logo = new Image( this.getClass().getResourceAsStream("/viewResources/studySystem_logo.png"));
 		this.stage.getIcons().add( logo );
 		this.stage.setOnCloseRequest( new EventHandler<WindowEvent>() {
 			public void handle(WindowEvent event) {

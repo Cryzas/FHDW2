@@ -11,9 +11,9 @@ public class ModuleWithUnits extends view.objects.ModuleAbstract implements Modu
     
     protected java.util.Vector<UnitView> units;
     
-    public ModuleWithUnits(String name,common.Fraction creditPoints,java.util.Vector<UnitView> units,long id, long classId) {
+    public ModuleWithUnits(String name,common.Fraction creditPoints,java.util.Vector<ModuleGroupView> parentGroup,java.util.Vector<ProgramView> parentProgram,java.util.Vector<UnitView> units,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
-        super((String)name,(common.Fraction)creditPoints,id, classId);
+        super((String)name,(common.Fraction)creditPoints,parentGroup,parentProgram,id, classId);
         this.units = units;        
     }
     
@@ -58,6 +58,14 @@ public class ModuleWithUnits extends view.objects.ModuleAbstract implements Modu
     }
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
+        java.util.Vector<?> parentGroup = this.getParentGroup();
+        if (parentGroup != null) {
+            ViewObject.resolveVectorProxies(parentGroup, resultTable);
+        }
+        java.util.Vector<?> parentProgram = this.getParentProgram();
+        if (parentProgram != null) {
+            ViewObject.resolveVectorProxies(parentProgram, resultTable);
+        }
         java.util.Vector<?> units = this.getUnits();
         if (units != null) {
             ViewObject.resolveVectorProxies(units, resultTable);

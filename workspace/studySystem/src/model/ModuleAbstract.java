@@ -27,6 +27,8 @@ public abstract class ModuleAbstract extends PersistentObject implements Persist
             if (leaf) allResults.put(uniqueKey, result);
             result.put("name", this.getName());
             result.put("creditPoints", this.getCreditPoints().toString());
+            result.put("parentGroup", this.getParentGroup().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, false, false));
+            result.put("parentProgram", this.getParentProgram().getVector(allResults, depth, essentialLevel, forGUI, false, true, inDerived, false, false));
         }
         return result;
     }
@@ -116,6 +118,20 @@ public abstract class ModuleAbstract extends PersistentObject implements Persist
     
     
     
+    public ModuleGroupSearchList getParentGroup() 
+				throws PersistenceException{
+        ModuleGroupSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theModuleGroupFacade
+										.inverseGetModules(getThis().getId(), getThis().getClassId());
+		return result;
+    }
+    public ProgramSearchList getParentProgram() 
+				throws PersistenceException{
+        ProgramSearchList result = null;
+		if (result == null) result = ConnectionHandler.getTheConnectionHandler().theProgramFacade
+										.inverseGetModules(getThis().getId(), getThis().getClassId());
+		return result;
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         this.setThis((PersistentModuleAbstract)This);

@@ -83,6 +83,14 @@ public class ModuleGroupProxi extends ModuleAbstractProxi implements PersistentM
 				throws PersistenceException{
         ((PersistentModuleGroup)this.getTheObject()).deregister(observee);
     }
+    public ModuleGroupSearchList getParentGroup() 
+				throws PersistenceException{
+        return ((PersistentModuleGroup)this.getTheObject()).getParentGroup();
+    }
+    public ProgramSearchList getParentProgram() 
+				throws PersistenceException{
+        return ((PersistentModuleGroup)this.getTheObject()).getParentProgram();
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentModuleGroup)this.getTheObject()).initialize(This, final$$Fields);

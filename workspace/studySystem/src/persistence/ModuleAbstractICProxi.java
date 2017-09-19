@@ -32,6 +32,14 @@ public abstract class ModuleAbstractICProxi extends PersistentInCacheProxiOptimi
 				throws PersistenceException{
         ((PersistentModuleAbstract)this.getTheObject()).deregister(observee);
     }
+    public ModuleGroupSearchList getParentGroup() 
+				throws PersistenceException{
+        return ((PersistentModuleAbstract)this.getTheObject()).getParentGroup();
+    }
+    public ProgramSearchList getParentProgram() 
+				throws PersistenceException{
+        return ((PersistentModuleAbstract)this.getTheObject()).getParentProgram();
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentModuleAbstract)this.getTheObject()).initialize(This, final$$Fields);

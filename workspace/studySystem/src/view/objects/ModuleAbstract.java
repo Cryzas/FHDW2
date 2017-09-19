@@ -10,12 +10,16 @@ public abstract class ModuleAbstract extends ViewObject implements ModuleAbstrac
     
     protected String name;
     protected common.Fraction creditPoints;
+    protected java.util.Vector<ModuleGroupView> parentGroup;
+    protected java.util.Vector<ProgramView> parentProgram;
     
-    public ModuleAbstract(String name,common.Fraction creditPoints,long id, long classId) {
+    public ModuleAbstract(String name,common.Fraction creditPoints,java.util.Vector<ModuleGroupView> parentGroup,java.util.Vector<ProgramView> parentProgram,long id, long classId) {
         /* Shall not be used. Objects are created on the server only */
         super(id, classId);
         this.name = name;
-        this.creditPoints = creditPoints;        
+        this.creditPoints = creditPoints;
+        this.parentGroup = parentGroup;
+        this.parentProgram = parentProgram;        
     }
     
     public String getName()throws ModelException{
@@ -27,9 +31,23 @@ public abstract class ModuleAbstract extends ViewObject implements ModuleAbstrac
     public common.Fraction getCreditPoints()throws ModelException{
         return this.creditPoints;
     }
+    public java.util.Vector<ModuleGroupView> getParentGroup()throws ModelException{
+        return this.parentGroup;
+    }
+    public java.util.Vector<ProgramView> getParentProgram()throws ModelException{
+        return this.parentProgram;
+    }
     
     
     public void resolveProxies(java.util.HashMap<String,Object> resultTable) throws ModelException {
+        java.util.Vector<?> parentGroup = this.getParentGroup();
+        if (parentGroup != null) {
+            ViewObject.resolveVectorProxies(parentGroup, resultTable);
+        }
+        java.util.Vector<?> parentProgram = this.getParentProgram();
+        if (parentProgram != null) {
+            ViewObject.resolveVectorProxies(parentProgram, resultTable);
+        }
         
     }
     public void sortSetValuedFields() throws ModelException {

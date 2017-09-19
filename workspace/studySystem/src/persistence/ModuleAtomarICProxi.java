@@ -100,6 +100,14 @@ public class ModuleAtomarICProxi extends ModuleAbstractICProxi implements Persis
 				throws PersistenceException{
         ((PersistentModuleAtomar)this.getTheObject()).deregister(observee);
     }
+    public ModuleGroupSearchList getParentGroup() 
+				throws PersistenceException{
+        return ((PersistentModuleAtomar)this.getTheObject()).getParentGroup();
+    }
+    public ProgramSearchList getParentProgram() 
+				throws PersistenceException{
+        return ((PersistentModuleAtomar)this.getTheObject()).getParentProgram();
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentModuleAtomar)this.getTheObject()).initialize(This, final$$Fields);

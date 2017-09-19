@@ -87,6 +87,14 @@ public class ModuleWithUnitsICProxi extends ModuleAbstractICProxi implements Per
 				throws PersistenceException{
         ((PersistentModuleWithUnits)this.getTheObject()).deregister(observee);
     }
+    public ModuleGroupSearchList getParentGroup() 
+				throws PersistenceException{
+        return ((PersistentModuleWithUnits)this.getTheObject()).getParentGroup();
+    }
+    public ProgramSearchList getParentProgram() 
+				throws PersistenceException{
+        return ((PersistentModuleWithUnits)this.getTheObject()).getParentProgram();
+    }
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
 				throws PersistenceException{
         ((PersistentModuleWithUnits)this.getTheObject()).initialize(This, final$$Fields);
