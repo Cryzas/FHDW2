@@ -292,8 +292,10 @@ public class StudentManageService extends model.subAdminService implements Persi
 				throws PersistenceException{
     	students.applyToAll(student -> {
     		getThis().getStudentManager().getStudents().removeFirst(student);
-    		student.delete$Me();
     		Server.getServerByUser(String.valueOf(student.getMatrNr())).iterator().next().delete$Me();
+    		student.getParentGroup().applyToAll(group -> group.getStudents().removeFirst(student));
+    		student.delete$Me();
+    		getThis().updatePLZ();
     	});
     	getThis().signalChanged(true);
     }

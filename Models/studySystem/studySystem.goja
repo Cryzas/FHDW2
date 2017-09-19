@@ -124,7 +124,6 @@ active class StudyGroupManager {
 	event void endStudyGroup (StudyGroup studyGroup) throws AlreadyFinishedException;
 /* Anlegen eines neuen Studenten zu einer Studiengruppe */
 	event void createStudent (StudyGroup group, String firstName, String lastName, Date birthDate) throws CycleException, AlreadyExistsInParentException, AlreadyFinishedException;
-
 }
 
 active class StudentManager {

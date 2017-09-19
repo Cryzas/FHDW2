@@ -19,7 +19,7 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
 	
   private static ListProxiFactory [] getTheListProxiFactories(){
 	if (listProxiFactories == null){
-		listProxiFactories = new ListProxiFactory[213];
+		listProxiFactories = new ListProxiFactory[214];
         listProxiFactories[1] = new ListProxiFactory(){
             AbstractPersistentRoot create(long objectId, long entryId){
                 return new ServerListEntryProxi(objectId, entryId);
@@ -545,7 +545,7 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
   }
   private static ProxiFactory [] getTheProxiFactories(){
 	if (proxiFactories == null){
-		proxiFactories = new ProxiFactory [213];
+		proxiFactories = new ProxiFactory [214];
         proxiFactories[1] = new ProxiFactory(){
             AbstractPersistentRoot create(long objectId){
                 return new ServerProxi(objectId);
@@ -1113,6 +1113,7 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
 	}
 
 	protected PersistentProxi(PersistentInCacheProxi object) {
+		//TODO (GOJA) Still needed for Decorator???
 		super(object.getId());
 		this.object = object;
 		this.object.incrementUserCount();
