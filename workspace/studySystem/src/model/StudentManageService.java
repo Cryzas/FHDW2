@@ -304,7 +304,7 @@ public class StudentManageService extends model.subAdminService implements Persi
     public void initializeOnCreation() 
 				throws PersistenceException{
         super.initializeOnCreation();
-		getThis().setStudentManager(StudentManager.createStudentManager(true));
+		getThis().setStudentManager(StudentManager.createStudentManager());
     }
     public void initializeOnInstantiation() 
 				throws PersistenceException{
@@ -320,7 +320,7 @@ public class StudentManageService extends model.subAdminService implements Persi
 				throws PersistenceException{
         getThis().updatePLZ();
     }
-    public void updateMe() 
+    public void updateMe()
 				throws PersistenceException{
     	getThis().getStudentManager().getStudents().filter(student -> false);
     	ServerSearchList servers = Server.getServerByUser("%");

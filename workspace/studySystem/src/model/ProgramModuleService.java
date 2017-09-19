@@ -389,8 +389,8 @@ public class ProgramModuleService extends model.subAdminService implements Persi
     public void initializeOnCreation() 
 				throws PersistenceException{
 		super.initializeOnCreation();
-		getThis().setModuleManager(ModuleManager.createModuleManager(true));
-		getThis().setProgramManager(ProgramManager.createProgramManager(true));
+		getThis().setModuleManager(ModuleManager.createModuleManager());
+		getThis().setProgramManager(ProgramManager.createProgramManager());
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{

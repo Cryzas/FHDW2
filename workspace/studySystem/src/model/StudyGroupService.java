@@ -327,7 +327,7 @@ public class StudyGroupService extends model.subAdminService implements Persiste
     public void initializeOnCreation() 
 				throws PersistenceException{
 		super.initializeOnCreation();
-		getThis().setGroupManager(StudyGroupManager.createStudyGroupManager(true));
+		getThis().setGroupManager(StudyGroupManager.createStudyGroupManager());
 	}
     public void initializeOnInstantiation() 
 				throws PersistenceException{
