@@ -345,6 +345,7 @@ public class StudyGroupService extends model.subAdminService implements Persiste
 			group.getStudents().removeFirst(student);
 			student.setProgram(NoProgram.getTheNoProgram());
 		});
+		getThis().updatePLZ();
 		getThis().signalChanged(true);
 	}
     public void swapCPonModuleWithUnits(final ModuleWithUnitsSGroup4Public module, final UnitSGroup4Public fromUnit, final UnitSGroup4Public ToUnit, final common.Fraction creditPoints) 

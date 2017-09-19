@@ -24,8 +24,6 @@ public interface ModuleAtomar4Public extends ModuleAbstract4Public {
     public <E extends model.UserException>  void accept(SubjInterfaceExceptionVisitor<E> visitor) throws PersistenceException, E;
     public <R, E extends model.UserException> R accept(SubjInterfaceReturnExceptionVisitor<R, E>  visitor) throws PersistenceException, E;
     
-    public void changeGradeSystem(final GradeSystem4Public gradeSystem) 
-				throws PersistenceException;
     public boolean containsprogramHierarchy(final programHierarchyHIERARCHY part) 
 				throws PersistenceException;
     public void initialize(final Anything This, final java.util.HashMap<String,Object> final$$Fields) 
@@ -34,7 +32,7 @@ public interface ModuleAtomar4Public extends ModuleAbstract4Public {
 				throws PersistenceException;
     public void changeCPOnModule(final common.Fraction creditPoints) 
 				throws PersistenceException;
-    public void changeGradeSystemImplementation(final GradeSystem4Public gradeSystem) 
+    public void changeGradeSystem(final GradeSystem4Public gradeSystem) 
 				throws PersistenceException;
     public void copyingPrivateUserAttributes(final Anything copy) 
 				throws PersistenceException;

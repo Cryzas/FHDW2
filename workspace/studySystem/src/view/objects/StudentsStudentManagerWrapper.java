@@ -1,7 +1,5 @@
 package view.objects;
 
-import view.ModelException;
-
 /* Additional import section end */
 
 public class StudentsStudentManagerWrapper extends AssociationInTreeWrapper {
@@ -20,8 +18,7 @@ public class StudentsStudentManagerWrapper extends AssociationInTreeWrapper {
 		String toBeAdded = "";
 		try {
 			toBeAdded = " | " + ((Student)this.getWrappedObject().getTheObject()).getParentGroup().iterator().next().getName();
-		} catch (ModelException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
 		}
     	return this.getWrappedObject().toString() + toBeAdded;
     }

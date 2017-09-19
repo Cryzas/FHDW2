@@ -84,10 +84,6 @@ public class ModuleAtomarProxi extends ModuleAbstractProxi implements Persistent
     }
     
     
-    public void changeGradeSystem(final GradeSystem4Public gradeSystem) 
-				throws PersistenceException{
-        ((PersistentModuleAtomar)this.getTheObject()).changeGradeSystem(gradeSystem);
-    }
     public boolean containsprogramHierarchy(final programHierarchyHIERARCHY part) 
 				throws PersistenceException{
         return ((PersistentModuleAtomar)this.getTheObject()).containsprogramHierarchy(part);
@@ -124,9 +120,9 @@ public class ModuleAtomarProxi extends ModuleAbstractProxi implements Persistent
 				throws PersistenceException{
         ((PersistentModuleAtomar)this.getTheObject()).changeCPOnModule(creditPoints);
     }
-    public void changeGradeSystemImplementation(final GradeSystem4Public gradeSystem) 
+    public void changeGradeSystem(final GradeSystem4Public gradeSystem) 
 				throws PersistenceException{
-        ((PersistentModuleAtomar)this.getTheObject()).changeGradeSystemImplementation(gradeSystem);
+        ((PersistentModuleAtomar)this.getTheObject()).changeGradeSystem(gradeSystem);
     }
     public ModuleAbstractSGroup4Public copyForStudyGroup() 
 				throws PersistenceException{

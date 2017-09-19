@@ -171,7 +171,7 @@ class ModuleAtomar @@ Atomar extends ModuleAbstract {
 	/* Ermöglicht das Ändern der Creditpoints, welche durch das erfolgreiche Absolvieren des Moduls erreicht werden können */
 	void changeCPOnModule(Fraction creditPoints);
 	/* Ermöglicht das Ändern des Notensystems, nach welchem das Modul bewertet wird */
-	event void changeGradeSystem (GradeSystem gradeSystem);
+	void changeGradeSystem (GradeSystem gradeSystem);
 }
 
 /** Definiert das Modul, welches sich aus Units zusammensetzt, als Erweiterung des abstrakten Moduls */
