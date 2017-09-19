@@ -198,7 +198,7 @@ class StudyGroup {
 	public-write ProgramSGroup program;
 	public leaf-view symmetric (public no-view parentGroup) Student ** students;
 	/* Fügt den Student zu der Gruppe hinzu, schmeißt Exception, wenn Student schon drin ist. */
-	void addStudent(Student student) throws AlreadyExistsInParentException;
+	void addStudent(Student student) throws AlreadyExistsInParentException, AlreadyFinishedException;
 	public no-view MyBoolean finished;
 /* Beendet die Studiengruppe, Noten können nicht mehr verändert werden | Exception wenn Studiengruppe schon beendet ist */
 	void endStudyGroup () throws AlreadyFinishedException;

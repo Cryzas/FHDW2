@@ -303,7 +303,10 @@ public class StudyGroup extends PersistentObject implements PersistentStudyGroup
     // Start of section that contains operations that must be implemented.
     
     public void addStudent(final Student4Public student) 
-				throws model.AlreadyExistsInParentException, PersistenceException{
+				throws model.AlreadyFinishedException, model.AlreadyExistsInParentException, PersistenceException{
+    	if (getThis().getFinished().toBoolean()) {
+			throw new AlreadyFinishedException(String.format(GroupAlreadyFinishedMessage, getThis().getName()));
+    	}
 		if (getThis().getStudents().findFirst(argument -> student.equals(argument)) != null) {
 			throw new AlreadyExistsInParentException(String.format(StudentAlreadyInGroupMessage, student.getFirstName(),
 					student.getLastName(), getThis().getName()));
