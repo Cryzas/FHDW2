@@ -70,8 +70,6 @@ public class UserManagerService extends model.subAdminService implements Persist
                                         this.This, 
                                         this.getId());
         result.errors = this.errors.copy(result);
-        result.errors = this.errors.copy(result);
-        result.users = this.users.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

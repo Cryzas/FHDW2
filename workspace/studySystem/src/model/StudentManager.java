@@ -74,7 +74,6 @@ public class StudentManager extends PersistentObject implements PersistentStuden
         result = new StudentManager(this.subService, 
                                     this.This, 
                                     this.getId());
-        result.students = this.students.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

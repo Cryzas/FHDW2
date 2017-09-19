@@ -90,7 +90,7 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 		if( this.navigationSplitPane == null ){
 			this.navigationSplitPane = new SplitPane();
 			this.navigationSplitPane.setOrientation( Orientation.VERTICAL);
-			this.navigationSplitPane.getItems().addAll( this.getNavigationPanel(), this.getErrorPanel());
+			this.navigationSplitPane.getItems().addAll( this.getNavigationTree(), this.getErrorPanel());
 			this.navigationSplitPane.prefHeightProperty().bind( this.getMainSplitPane().heightProperty());
 			this.navigationSplitPane.setDividerPosition( 0, 1.0);
 			this.navigationSplitPane.heightProperty().addListener(new ChangeListener<Number>() {
@@ -108,11 +108,10 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 		}
 		return this.navigationSplitPane;
 	}
-	private TitledPane treePanel = null;
-	private TitledPane getNavigationPanel() {
+	private TreeRefresh treePanel = null;
+	private TreeRefresh getNavigationPanel() {
 		if( this.treePanel == null) {
-			this.treePanel = new TitledPane( GUIConstants.NaviationTitle, this.getNavigationTree() );
-			this.treePanel.setCollapsible( false );
+			this.treePanel = this.getNavigationTree();
 			this.treePanel.prefHeightProperty().bind( this.getNavigationSplitPane().heightProperty());
 		}
 		return treePanel;

@@ -108,11 +108,10 @@ public class StudentManageServiceClientView extends BorderPane implements Except
 		}
 		return this.navigationSplitPane;
 	}
-	private TitledPane treePanel = null;
-	private TitledPane getNavigationPanel() {
+	private TreeRefresh treePanel = null;
+	private TreeRefresh getNavigationPanel() {
 		if( this.treePanel == null) {
-			this.treePanel = new TitledPane( GUIConstants.NaviationTitle, this.getNavigationTree() );
-			this.treePanel.setCollapsible( false );
+			this.treePanel = this.getNavigationTree();
 			this.treePanel.prefHeightProperty().bind( this.getNavigationSplitPane().heightProperty());
 		}
 		return treePanel;

@@ -1113,6 +1113,7 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
 	}
 
 	protected PersistentProxi(PersistentInCacheProxi object) {
+		//TODO (GOJA) Still needed for Decorator???
 		super(object.getId());
 		this.object = object;
 		this.object.incrementUserCount();
@@ -1191,15 +1192,9 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
 	}
 	
 	
-    protected void setDltd() throws PersistenceException{
-        this.getTheObject().setDltd();
-    }
-    public boolean isDltd() throws PersistenceException {
-        return this.getTheObject().isDltd();
-    }
+    	
 	
-	
-//	public void finalize(){
-//		if (this.object != null)this.object.decrementUserCount();
-//	}
+	public void finalize(){
+		if (this.object != null)this.object.decrementUserCount();
+	}
 }

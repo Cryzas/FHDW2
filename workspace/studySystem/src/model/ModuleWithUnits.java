@@ -71,7 +71,6 @@ public class ModuleWithUnits extends model.ModuleAbstract implements PersistentM
                                      this.subService, 
                                      this.This, 
                                      this.getId());
-        result.units = this.units.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

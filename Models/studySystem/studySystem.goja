@@ -24,7 +24,7 @@ abstract server subAdminService {
 
 server UserManagerService extends subAdminService {
 	public sorted-view leaf-view Server ** users;
-	void createAdminUser @@ Admin-User_erstellen ( String name @@ Benutzername, String pw @@ Initialpasswort);
+	void createAdminUser @@ User_erstellen ( String name @@ Benutzername, String pw @@ Initialpasswort);
 }
 
 server ProgramModuleService ## PMService extends subAdminService {
