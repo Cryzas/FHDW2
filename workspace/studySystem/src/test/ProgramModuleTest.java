@@ -166,12 +166,6 @@ public class ProgramModuleTest {
 		ModuleAtomar4Public moduleAtomar = ModuleAtomar.createModuleAtomar("Rechnungswesen");
 		programManager.addModuleToProg(programWirtschaftsinformatik, moduleAtomar);
 		assertTrue(programWirtschaftsinformatik.containsprogramHierarchy(moduleAtomar));
-		try {
-			programManager.addModuleToProg(programWirtschaftsinformatik, moduleAtomar);
-			fail();
-		} catch (AlreadyExistsInParentException e) {
-			// Should go in here
-		}
 	}
 	
 	@Test
@@ -185,9 +179,20 @@ public class ProgramModuleTest {
 	}
 	
 	@Test
-	public void addModuleToGroup() throws PersistenceException, AlreadyExistsInParentException, CycleException {
-		moduleManager.addModuleToGroup(moduleGroupDB, moduleAtomarSoko);
-		assertTrue(moduleGroupDB.containsprogramHierarchy(moduleAtomarSoko));
+	public void addModuleToGroupAlreadyInProgram() throws PersistenceException, CycleException {
+		try {
+			moduleManager.addModuleToGroup(moduleGroupDB, moduleAtomarSoko);
+			fail();
+		} catch (AlreadyExistsInParentException e) {
+			// Should go in here
+		}
+	}
+	
+	@Test
+	public void addModuleToGroup() throws PersistenceException, CycleException, AlreadyExistsInParentException {
+		ModuleAtomar4Public moduleAtomar = ModuleAtomar.createModuleAtomar("Rechnungswesen");
+		moduleManager.addModuleToGroup(moduleGroupDB, moduleAtomar);
+		assertTrue(moduleGroupDB.containsprogramHierarchy(moduleAtomar));
 	}
 	
 	@Test

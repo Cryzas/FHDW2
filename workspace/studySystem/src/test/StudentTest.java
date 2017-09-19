@@ -182,7 +182,7 @@ public class StudentTest {
 	}
 	
 	@Test
-	public void changeGrade() throws PersistenceException, AlreadyFinishedException, InvalidGradeForSystemException {
+	public void changeGradeUnit() throws PersistenceException, AlreadyFinishedException, InvalidGradeForSystemException {
 		UnitStudent4Public unitStudentMathe1H = ((ModuleWithUnitsStudent4Public)hakan.getProgram().getModules().findFirst(module -> module.getName().equals("Mathe"))).getUnits().findFirst(unit -> unit.getName().equals("Mathe 1"));
 		assertEquals(Fraction.Null, unitStudentMathe1H.getPassedCP());
 		studentManager.changeGrade(unitStudentMathe1H, "1.7", "");
@@ -212,11 +212,68 @@ public class StudentTest {
 	}
 	
 	@Test
+	public void changeGradeFinished() throws PersistenceException, AlreadyFinishedException, InvalidGradeForSystemException {
+		UnitStudent4Public unitStudentMathe1J = ((ModuleWithUnitsStudent4Public)jens.getProgram().getModules().findFirst(module -> module.getName().equals("Mathe"))).getUnits().findFirst(unit -> unit.getName().equals("Mathe 1"));
+		studyGroupHFW1.endStudyGroup();
+		try {
+			studentManager.changeGrade(unitStudentMathe1J, "1.0", "");
+		} catch (AlreadyFinishedException e) {
+			// Should go in here
+		}
+		assertEquals(NoGrade.getTheNoGrade(), unitStudentMathe1J.getGrade());
+		assertEquals(Fraction.Null, unitStudentMathe1J.getPassedCP());
+	}
+	
+	@Test
 	public void changeGradeHistory() throws PersistenceException, AlreadyFinishedException, InvalidGradeForSystemException {
 		UnitStudent4Public unitStudentMathe1J = ((ModuleWithUnitsStudent4Public)jens.getProgram().getModules().findFirst(module -> module.getName().equals("Mathe"))).getUnits().findFirst(unit -> unit.getName().equals("Mathe 1"));
 		studentManager.changeGrade(unitStudentMathe1J, "1.0", "");
 		assertEquals(NoGrade.getTheNoGrade(), unitStudentMathe1J.getChanges().iterator().next().getFromGrade());
 		assertEquals(T_1_0.getTheT_1_0(), unitStudentMathe1J.getChanges().iterator().next().getToGrade());
+	}
+	
+	@Test
+	public void changeGradeModuleSimple() throws PersistenceException, AlreadyFinishedException, InvalidGradeForSystemException {
+		ModuleAtomarStudent4Public moduleStudentSokoH = (ModuleAtomarStudent4Public)hakan.getProgram().getModules().findFirst(module -> module.getName().equals("Soziale Kompetenz"));
+		assertEquals(Fraction.Null, moduleStudentSokoH.getPassedCP());
+		studentManager.changeGrade(moduleStudentSokoH, "Bestanden", "");
+		assertEquals(Passed.getThePassed(), moduleStudentSokoH.getGrade());
+		assertEquals(moduleStudentSokoH.getCreditPoints(), moduleStudentSokoH.getPassedCP());
+	}
+	
+	@Test
+	public void changeGradeModuleThird() throws PersistenceException, AlreadyFinishedException, InvalidGradeForSystemException {
+		ModuleAtomarStudent4Public moduleStudentLomfH = (ModuleAtomarStudent4Public) ((ModuleGroupStudent4Public)hakan.getProgram().getModules().findFirst(module -> module.getName().equals("Informatik"))).getModules().findFirst(argument -> argument.getName().equals("LOMF"));
+		assertEquals(Fraction.Null, moduleStudentLomfH.getPassedCP());
+		studentManager.changeGrade(moduleStudentLomfH, "1.3", "");
+		assertEquals(T_1_3.getTheT_1_3(), moduleStudentLomfH.getGrade());
+		assertEquals(moduleStudentLomfH.getCreditPoints(), moduleStudentLomfH.getPassedCP());
+	}
+	
+	@Test
+	public void changeGradeModuleSimpleWrong() throws PersistenceException, AlreadyFinishedException {
+		ModuleAtomarStudent4Public moduleStudentSokoH = (ModuleAtomarStudent4Public)hakan.getProgram().getModules().findFirst(module -> module.getName().equals("Soziale Kompetenz"));
+		assertEquals(Fraction.Null, moduleStudentSokoH.getPassedCP());
+		try {
+			studentManager.changeGrade(moduleStudentSokoH, "1.0", "");
+			fail();
+		} catch (InvalidGradeForSystemException e) {
+			// Should go in here
+		}
+	}
+	
+	@Test
+	public void changeGradeModuleThirdWrong() throws PersistenceException, AlreadyFinishedException {
+		ModuleAtomarStudent4Public moduleStudentLomfH = (ModuleAtomarStudent4Public) ((ModuleGroupStudent4Public)hakan.getProgram().getModules().findFirst(module -> module.getName().equals("Informatik"))).getModules().findFirst(argument -> argument.getName().equals("LOMF"));
+		assertEquals(Fraction.Null, moduleStudentLomfH.getPassedCP());
+		try {
+			studentManager.changeGrade(moduleStudentLomfH, "Bestanden", "");
+			fail();
+		} catch (InvalidGradeForSystemException e) {
+			// Should go in here
+		}
+		assertEquals(NoGrade.getTheNoGrade(), moduleStudentLomfH.getGrade());
+		assertEquals(Fraction.Null, moduleStudentLomfH.getPassedCP());
 	}
 
 }

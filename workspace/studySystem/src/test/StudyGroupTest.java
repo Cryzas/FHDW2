@@ -39,6 +39,18 @@ public class StudyGroupTest {
 	ModuleGroup4Public moduleGroupDB;
 
 	StudyGroup4Public studyGroupHFW1;
+	
+	MyBooleanVisitor booleanVisitor = new MyBooleanVisitor() {
+
+		@Override
+		public void handleBTrue(BTrue4Public bTrue) throws PersistenceException {
+		}
+
+		@Override
+		public void handleBFalse(BFalse4Public bFalse) throws PersistenceException {
+			fail();
+		}
+	};
 
 	@Before
 	public void setUp() throws Exception {
@@ -155,42 +167,31 @@ public class StudyGroupTest {
 
 	@Test
 	public void endStudyGroup() throws AlreadyFinishedException, PersistenceException {
-		MyBooleanVisitor visitor = new MyBooleanVisitor() {
-
-			@Override
-			public void handleBTrue(BTrue4Public bTrue) throws PersistenceException {
-			}
-
-			@Override
-			public void handleBFalse(BFalse4Public bFalse) throws PersistenceException {
-				fail();
-			}
-		};
 		groupManager.endStudyGroup(studyGroupHFW1);
-		studyGroupHFW1.getFinished().accept(visitor);
-		studyGroupHFW1.getProgram().getFinished().accept(visitor);
+		studyGroupHFW1.getFinished().accept(booleanVisitor);
+		studyGroupHFW1.getProgram().getFinished().accept(booleanVisitor);
 		studyGroupHFW1.getProgram().getModules().applyToAll(module -> {
 			module.accept(new ModuleAbstractSGroupVisitor() {
 
 				@Override
 				public void handleModuleWithUnitsSGroup(ModuleWithUnitsSGroup4Public moduleWithUnitsSGroup)
 						throws PersistenceException {
-					moduleWithUnitsSGroup.getFinished().accept(visitor);
+					moduleWithUnitsSGroup.getFinished().accept(booleanVisitor);
 					moduleWithUnitsSGroup.getUnits()
-							.applyToAll(unit -> moduleWithUnitsSGroup.getFinished().accept(visitor));
+							.applyToAll(unit -> moduleWithUnitsSGroup.getFinished().accept(booleanVisitor));
 				}
 
 				@Override
 				public void handleModuleGroupSGroup(ModuleGroupSGroup4Public moduleGroupSGroup)
 						throws PersistenceException {
-					moduleGroupSGroup.getFinished().accept(visitor);
+					moduleGroupSGroup.getFinished().accept(booleanVisitor);
 					moduleGroupSGroup.getModules().applyToAll(module2 -> module2.accept(this));
 				}
 
 				@Override
 				public void handleModuleAtomarSGroup(ModuleAtomarSGroup4Public moduleAtomarSGroup)
 						throws PersistenceException {
-					moduleAtomarSGroup.getFinished().accept(visitor);
+					moduleAtomarSGroup.getFinished().accept(booleanVisitor);
 				}
 			});
 		});
@@ -200,6 +201,17 @@ public class StudyGroupTest {
 			// Should go in here
 		}
 	}
+	
+	@Test
+	public void endStudyGroupFinished() throws AlreadyFinishedException, PersistenceException {
+		groupManager.endStudyGroup(studyGroupHFW1);
+		try {
+			studyGroupHFW1.endStudyGroup();
+		} catch (AlreadyFinishedException e) {
+			// Should go in here
+		}
+	}
+
 
 	@Test
 	public void swapCP() throws AlreadyFinishedException, UnitSwapException, PersistenceException {
@@ -212,24 +224,64 @@ public class StudyGroupTest {
 		groupManager.swapCPonModuleWithUnits(moduleWithUnitsSMathe, unitGMathe2, unitGMathe1, Fraction.parse("2"));
 		assertEquals(Fraction.parse("5"), unitGMathe1.getCreditPoints());
 		assertEquals(Fraction.parse("2"), unitGMathe2.getCreditPoints());
-		try {
-			groupManager.swapCPonModuleWithUnits(moduleWithUnitsSMathe, unitGMathe2, unitGMathe1, Fraction.parse("2"));
-			fail();
-		} catch (UnitSwapException e) {
-			// Should go in here
-		}
+	}
+	
+	@Test
+	public void swapCPEquals0() throws AlreadyFinishedException, UnitSwapException, PersistenceException {
+		ModuleWithUnitsSGroup4Public moduleWithUnitsSMathe = (ModuleWithUnitsSGroup4Public) studyGroupHFW1.getProgram()
+				.getModules().findFirst(module -> module.getName().equals("Mathe"));
+		UnitSGroup4Public unitGMathe1 = moduleWithUnitsSMathe.getUnits()
+				.findFirst(unit -> unit.getName().equals("Mathe 1"));
+		UnitSGroup4Public unitGMathe2 = moduleWithUnitsSMathe.getUnits()
+				.findFirst(unit -> unit.getName().equals("Mathe 2"));
 		try {
 			groupManager.swapCPonModuleWithUnits(moduleWithUnitsSMathe, unitGMathe2, unitGMathe1, Fraction.parse("4"));
 			fail();
 		} catch (UnitSwapException e) {
 			// Should go in here
 		}
+	}
+	
+	@Test
+	public void swapCPUnder0() throws AlreadyFinishedException, UnitSwapException, PersistenceException {
+		ModuleWithUnitsSGroup4Public moduleWithUnitsSMathe = (ModuleWithUnitsSGroup4Public) studyGroupHFW1.getProgram()
+				.getModules().findFirst(module -> module.getName().equals("Mathe"));
+		UnitSGroup4Public unitGMathe1 = moduleWithUnitsSMathe.getUnits()
+				.findFirst(unit -> unit.getName().equals("Mathe 1"));
+		UnitSGroup4Public unitGMathe2 = moduleWithUnitsSMathe.getUnits()
+				.findFirst(unit -> unit.getName().equals("Mathe 2"));
 		try {
-			groupManager.swapCPonModuleWithUnits(moduleWithUnitsSMathe, unitGMathe1, unitGMathe2, Fraction.parse("-2"));
+			groupManager.swapCPonModuleWithUnits(moduleWithUnitsSMathe, unitGMathe2, unitGMathe1, Fraction.parse("5"));
 			fail();
 		} catch (UnitSwapException e) {
 			// Should go in here
 		}
+	}
+	
+	@Test
+	public void swapCPUnder0Negative() throws AlreadyFinishedException, UnitSwapException, PersistenceException {
+		ModuleWithUnitsSGroup4Public moduleWithUnitsSMathe = (ModuleWithUnitsSGroup4Public) studyGroupHFW1.getProgram()
+				.getModules().findFirst(module -> module.getName().equals("Mathe"));
+		UnitSGroup4Public unitGMathe1 = moduleWithUnitsSMathe.getUnits()
+				.findFirst(unit -> unit.getName().equals("Mathe 1"));
+		UnitSGroup4Public unitGMathe2 = moduleWithUnitsSMathe.getUnits()
+				.findFirst(unit -> unit.getName().equals("Mathe 2"));
+		try {
+			groupManager.swapCPonModuleWithUnits(moduleWithUnitsSMathe, unitGMathe1, unitGMathe2, Fraction.parse("-5"));
+			fail();
+		} catch (UnitSwapException e) {
+			// Should go in here
+		}
+	}
+	
+	@Test
+	public void swapCPFinished() throws AlreadyFinishedException, UnitSwapException, PersistenceException {
+		ModuleWithUnitsSGroup4Public moduleWithUnitsSMathe = (ModuleWithUnitsSGroup4Public) studyGroupHFW1.getProgram()
+				.getModules().findFirst(module -> module.getName().equals("Mathe"));
+		UnitSGroup4Public unitGMathe1 = moduleWithUnitsSMathe.getUnits()
+				.findFirst(unit -> unit.getName().equals("Mathe 1"));
+		UnitSGroup4Public unitGMathe2 = moduleWithUnitsSMathe.getUnits()
+				.findFirst(unit -> unit.getName().equals("Mathe 2"));
 		try {
 			groupManager.endStudyGroup(studyGroupHFW1);
 			groupManager.swapCPonModuleWithUnits(moduleWithUnitsSMathe, unitGMathe1, unitGMathe2, Fraction.parse("1"));
