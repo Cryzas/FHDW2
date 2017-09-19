@@ -68,7 +68,6 @@ public class AdminService extends model.Service implements PersistentAdminServic
                                   this.services, 
                                   this.getId());
         result.errors = this.errors.copy(result);
-        result.errors = this.errors.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

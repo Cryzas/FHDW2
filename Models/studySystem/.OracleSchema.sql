@@ -1091,6 +1091,8 @@ create table MdlGrpMdls(
 );
 create index IFrmMdlGrpMdls on MdlGrpMdls(frm);
 
+
+create index IMdlsMdlGrpMdls on MdlGrpMdls(mdls);
 create sequence SPrgrmMngrPrgrms nocache;
 
 create table PrgrmMngrPrgrms(
@@ -1115,6 +1117,8 @@ create table PrgrmMdls(
 );
 create index IFrmPrgrmMdls on PrgrmMdls(frm);
 
+
+create index IMdlsPrgrmMdls on PrgrmMdls(mdls);
 create sequence SStdGrpMngrGrps nocache;
 
 create table StdGrpMngrGrps(

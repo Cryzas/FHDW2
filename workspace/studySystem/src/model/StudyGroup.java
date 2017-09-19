@@ -98,7 +98,6 @@ public class StudyGroup extends PersistentObject implements PersistentStudyGroup
                                 this.subService, 
                                 this.This, 
                                 this.getId());
-        result.students = this.students.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

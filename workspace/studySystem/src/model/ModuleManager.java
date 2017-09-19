@@ -74,7 +74,6 @@ public class ModuleManager extends PersistentObject implements PersistentModuleM
         result = new ModuleManager(this.subService, 
                                    this.This, 
                                    this.getId());
-        result.modules = this.modules.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

@@ -49,7 +49,6 @@ public class Subj extends PersistentObject implements PersistentSubj{
         Subj result = this;
         result = new Subj(this.This, 
                           this.getId());
-        result.observee = this.observee.copy(result);
         
         return result;
     }

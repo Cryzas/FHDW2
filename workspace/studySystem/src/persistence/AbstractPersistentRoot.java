@@ -26,5 +26,5 @@ public interface AbstractPersistentRoot {
   abstract public int getLeafInfo() throws PersistenceException;
   abstract 	public Anything getThis() throws PersistenceException;
 
-  abstract boolean isDltd() throws PersistenceException ;
+  
 }

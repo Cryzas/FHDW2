@@ -72,7 +72,6 @@ public class ModuleWithUnitsSGroup extends model.ModuleAbstractSGroup implements
                                            this.subService, 
                                            this.This, 
                                            this.getId());
-        result.units = this.units.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

@@ -39,7 +39,6 @@ public class AdminServiceServices extends PersistentObject implements Persistent
         result = new AdminServiceServices(this.observer, 
                                           this.This, 
                                           this.getId());
-        result.observee = this.observee.copy(result);
         
         return result;
     }

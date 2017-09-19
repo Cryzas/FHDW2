@@ -77,7 +77,6 @@ public class StudyGroupService extends model.subAdminService implements Persiste
                                        this.groupManager, 
                                        this.getId());
         result.errors = this.errors.copy(result);
-        result.errors = this.errors.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }

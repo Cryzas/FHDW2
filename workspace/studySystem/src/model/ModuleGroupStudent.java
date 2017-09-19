@@ -71,7 +71,6 @@ public class ModuleGroupStudent extends model.ModuleAbstractStudent implements P
                                         this.subService, 
                                         this.This, 
                                         this.getId());
-        result.modules = this.modules.copy(result);
         this.copyingPrivateUserAttributes(result);
         return result;
     }
