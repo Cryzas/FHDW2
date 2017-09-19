@@ -1113,7 +1113,6 @@ public abstract class PersistentProxi extends PersistentRoot implements Persiste
 	}
 
 	protected PersistentProxi(PersistentInCacheProxi object) {
-		//TODO (GOJA) Still needed for Decorator???
 		super(object.getId());
 		this.object = object;
 		this.object.incrementUserCount();
