@@ -54,6 +54,8 @@ public class IconManager {
 			return new Image("/viewResources/StudyGroup_Manager.png");
 		case 23:
 			return new Image("/viewResources/Student_Manager.png");
+		case 24:
+			return new Image("/viewResources/Administrator.png");
 		default:
 			return new Image("/viewResources/default.png");
 		}

@@ -344,7 +344,7 @@ public class GetIconInfo$Visitor extends model.visitor.AnythingStandardVisitor {
 			
 			@Override
 			public void handleServer(Server4Public server) throws PersistenceException {
-				result = 6;
+				result = 24;
 			}
 			
 			@Override
