@@ -337,8 +337,10 @@ public class ModuleGroup extends model.ModuleAbstract implements PersistentModul
     /* Start of protected part that is not overridden by persistence generator */
     
     
+    
     static String AlreadyExistsInParentGroupMessage = "Das Modul %s ist bereits in der Modulgruppe %s.";
     static String AlreadyExistsInParentProgramMessage = "Das Modul %s ist bereits in dem Programm %s.";
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

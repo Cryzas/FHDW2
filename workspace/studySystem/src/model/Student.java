@@ -343,6 +343,8 @@ public class Student extends PersistentObject implements PersistentStudent{
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

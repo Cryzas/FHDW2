@@ -341,7 +341,9 @@ public class Program extends PersistentObject implements PersistentProgram{
     /* Start of protected part that is not overridden by persistence generator */
     
     
+    
     static String AlreadyExistsInParentMessage = "Das Modul %s ist bereits in dem Programm %s enthalten.";
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

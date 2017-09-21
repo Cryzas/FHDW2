@@ -294,6 +294,8 @@ public class Unit extends PersistentObject implements PersistentUnit{
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

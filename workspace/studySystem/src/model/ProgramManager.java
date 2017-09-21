@@ -333,10 +333,12 @@ public class ProgramManager extends PersistentObject implements PersistentProgra
     /* Start of protected part that is not overridden by persistence generator */
     
     
+    
     static String ProgramAlreadyExistsInDBMessage = "Es existiert bereits ein Programm mit dem Namen %s.";
     static String ModuleAlreadyExistsInDBMessage = "Es existiert bereits ein Modul mit dem Namen %s.";
     static String GroupAlreadyExistsMessage = "Es existiert bereits eine Studiengruppe mit dem Namen %s.";
     static String NoCPMessage = "Das Modul %s enthält keine Credit-Points.";
+    
     
     /* End of protected part that is not overridden by persistence generator */
     

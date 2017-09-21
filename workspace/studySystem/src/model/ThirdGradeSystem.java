@@ -206,6 +206,8 @@ public class ThirdGradeSystem extends model.GradeSystem implements PersistentThi
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

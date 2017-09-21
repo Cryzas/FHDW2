@@ -234,6 +234,8 @@ public class Passed extends model.GradesInSimple implements PersistentPassed{
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

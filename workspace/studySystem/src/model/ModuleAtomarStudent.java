@@ -335,9 +335,11 @@ public class ModuleAtomarStudent extends model.ModuleAbstractStudent implements 
     /* Start of protected part that is not overridden by persistence generator */
     
     
+    
     static String InvalidGradeForSystemMessage2 = "Die Note \"%s\" ist nicht mit dem zweiwertigen Notensystem des Moduls kompatibel.";    
     static String InvalidGradeForSystemMessage3 = "Die Note \"%s\" ist nicht mit dem Drittel-Notensystem des Moduls kompatibel.";
     static String FinishedMessage = "Der Studiengang ist abgeschlossen.";
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

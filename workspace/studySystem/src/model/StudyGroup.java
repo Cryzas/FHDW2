@@ -342,10 +342,12 @@ public class StudyGroup extends PersistentObject implements PersistentStudyGroup
     
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
 	static String StudentAlreadyInGroupMessage = "Der Student %s %s ist bereits in der Studiengruppe %s.";
 	static String GroupAlreadyFinishedMessage = "Die Studiengruppe %s ist bereits abgeschlossen.";
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

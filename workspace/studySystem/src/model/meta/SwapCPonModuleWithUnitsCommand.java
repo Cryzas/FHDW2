@@ -304,6 +304,8 @@ public class SwapCPonModuleWithUnitsCommand extends PersistentObject implements 
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

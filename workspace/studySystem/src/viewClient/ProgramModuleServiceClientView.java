@@ -755,7 +755,8 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
         return result;
     }
     private String preCalculatedFilters = "";
-    private String getPreCalculatedFilters() {
+    @SuppressWarnings("unused")
+	private String getPreCalculatedFilters() {
         return this.preCalculatedFilters;
     }
     private void setPreCalculatedFilters(String switchOff) {
@@ -774,6 +775,7 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 			super.initialize();		
 		}
 				
+		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
 				getConnection().addModuleToGroup(firstArgument, (java.util.Vector<ModuleAbstractView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
@@ -815,6 +817,7 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 		public void setFirstArgument(ModuleGroupView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
+			this.getIcons().add(IconManager.getImage(9));
 			try{
 				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
 				selectionPanel0.preset((java.util.Vector<?>)firstArgument.getModules());
@@ -840,6 +843,7 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 			super.initialize();		
 		}
 				
+		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
 				getConnection().addModuleToProg(firstArgument, (java.util.Vector<ModuleAbstractView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
@@ -881,6 +885,7 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 		public void setFirstArgument(ProgramView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
+			this.getIcons().add(IconManager.getImage(9));
 			try{
 				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
 				selectionPanel0.preset((java.util.Vector<?>)firstArgument.getModules());
@@ -937,6 +942,7 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 		public void setFirstArgument(ModuleWithUnitsView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
+			this.getIcons().add(IconManager.getImage(9));
 			try{
 				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
 				selectionPanel0.preset(firstArgument.getName());
@@ -998,6 +1004,7 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 		public void setFirstArgument(ModuleAtomarView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
+			this.getIcons().add(IconManager.getImage(11));
 			try{
 				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
 				selectionPanel0.preset(firstArgument.getCreditPoints());
@@ -1052,6 +1059,7 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 		public void setFirstArgument(UnitView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
+			this.getIcons().add(IconManager.getImage(11));
 			try{
 				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
 				selectionPanel0.preset(firstArgument.getCreditPoints());
@@ -1071,6 +1079,8 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 			super(ProgramModuleServiceClientView.this);
 			getOkButton().setText(operationName);
 			getOkButton().setGraphic(new CreateModulePRMTRModuleAbstractSUBTYPENamePRMTRStringPRMTRMenuItem ().getGraphic());
+			this.getIcons().add(IconManager.getImage(9));
+			this.setTitle(operationName);
 		}
 		protected void initialize(){
 			this.helpFileName = "ProgramModuleServiceCreateModuleModuleAbstractSUBTYPENameStringMssgWizard.help";
@@ -1111,6 +1121,8 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 			super(ProgramModuleServiceClientView.this);
 			getOkButton().setText(operationName);
 			getOkButton().setGraphic(new CreateProgramPRMTRStringPRMTRMenuItem ().getGraphic());
+			this.getIcons().add(IconManager.getImage(9));
+			this.setTitle(operationName);
 		}
 		protected void initialize(){
 			this.helpFileName = "ProgramModuleServiceCreateProgramStringMssgWizard.help";
@@ -1149,12 +1161,15 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 			super(ProgramModuleServiceClientView.this);
 			getOkButton().setText(operationName);
 			getOkButton().setGraphic(new DeleteModulesPRMTRModuleAbstractLSTPRMTRMenuItem ().getGraphic());
+			this.getIcons().add(IconManager.getImage(8));
+			this.setTitle(operationName);
 		}
 		protected void initialize(){
 			this.helpFileName = "ProgramModuleServiceDeleteModulesModuleAbstractLSTMssgWizard.help";
 			super.initialize();		
 		}
 				
+		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
 				getConnection().deleteModules((java.util.Vector<ModuleAbstractView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
@@ -1199,12 +1214,15 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 			super(ProgramModuleServiceClientView.this);
 			getOkButton().setText(operationName);
 			getOkButton().setGraphic(new DeleteProgramsPRMTRProgramLSTPRMTRMenuItem ().getGraphic());
+			this.getIcons().add(IconManager.getImage(8));
+			this.setTitle(operationName);
 		}
 		protected void initialize(){
 			this.helpFileName = "ProgramModuleServiceDeleteProgramsProgramLSTMssgWizard.help";
 			super.initialize();		
 		}
 				
+		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
 				getConnection().deletePrograms((java.util.Vector<ProgramView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
@@ -1255,6 +1273,7 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 			super.initialize();		
 		}
 				
+		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
 				getConnection().removeModuleFromGroup(firstArgument, (java.util.Vector<ModuleAbstractView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
@@ -1296,6 +1315,7 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 		public void setFirstArgument(ModuleGroupView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
+			this.getIcons().add(IconManager.getImage(10));
 			try{
 				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
 				selectionPanel0.preset((java.util.Vector<?>)firstArgument.getModules());
@@ -1321,6 +1341,7 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 			super.initialize();		
 		}
 				
+		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
 				getConnection().removeModuleFromProg(firstArgument, (java.util.Vector<ModuleAbstractView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
@@ -1362,6 +1383,7 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 		public void setFirstArgument(ProgramView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
+			this.getIcons().add(IconManager.getImage(10));
 			try{
 				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
 				selectionPanel0.preset((java.util.Vector<?>)firstArgument.getModules());
@@ -1387,6 +1409,7 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 			super.initialize();		
 		}
 				
+		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
 				getConnection().removeUnit(firstArgument, (java.util.Vector<UnitView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
@@ -1428,6 +1451,7 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 		public void setFirstArgument(ModuleWithUnitsView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
+			this.getIcons().add(IconManager.getImage(10));
 			try{
 				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
 				selectionPanel0.preset((java.util.Vector<?>)firstArgument.getUnits());
@@ -1482,6 +1506,7 @@ public class ProgramModuleServiceClientView extends BorderPane implements Except
 		public void setFirstArgument(ProgramView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
+			this.getIcons().add(IconManager.getImage(17));
 			try{
 				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
 				selectionPanel0.preset(firstArgument.getName());

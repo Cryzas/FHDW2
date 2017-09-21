@@ -275,6 +275,8 @@ public class ChangeGradeCommand extends PersistentObject implements PersistentCh
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

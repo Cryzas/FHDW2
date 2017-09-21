@@ -150,6 +150,8 @@ public abstract class Service extends PersistentObject implements PersistentServ
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

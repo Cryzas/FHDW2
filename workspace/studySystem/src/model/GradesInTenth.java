@@ -81,6 +81,8 @@ public abstract class GradesInTenth extends model.Grade implements PersistentGra
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

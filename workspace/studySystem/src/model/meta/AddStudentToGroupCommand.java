@@ -277,6 +277,8 @@ public class AddStudentToGroupCommand extends PersistentObject implements Persis
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

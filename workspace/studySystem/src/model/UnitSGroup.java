@@ -347,7 +347,9 @@ public class UnitSGroup extends PersistentObject implements PersistentUnitSGroup
     /* Start of protected part that is not overridden by persistence generator */
     
     
+    
     static String CreditPointsUnderNullMessage = "Die Unit %s muss mehr als 0 Credit-Points haben.";
+    
     
     /* End of protected part that is not overridden by persistence generator */
     

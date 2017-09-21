@@ -280,6 +280,8 @@ public class ModuleGroupStudent extends model.ModuleAbstractStudent implements P
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

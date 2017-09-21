@@ -383,6 +383,8 @@ public class StudentManageService extends model.subAdminService implements Persi
 
     /* Start of protected part that is not overridden by persistence generator */
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

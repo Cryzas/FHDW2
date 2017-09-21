@@ -485,7 +485,8 @@ public class UserManagerServiceClientView extends BorderPane implements Exceptio
         return result;
     }
     private String preCalculatedFilters = "";
-    private String getPreCalculatedFilters() {
+    @SuppressWarnings("unused")
+	private String getPreCalculatedFilters() {
         return this.preCalculatedFilters;
     }
     private void setPreCalculatedFilters(String switchOff) {
@@ -498,6 +499,8 @@ public class UserManagerServiceClientView extends BorderPane implements Exceptio
 			super(UserManagerServiceClientView.this);
 			getOkButton().setText(operationName);
 			getOkButton().setGraphic(new CreateAdminUserPRMTRStringPRMTRStringPRMTRMenuItem ().getGraphic());
+			this.getIcons().add(IconManager.getImage(9));
+			this.setTitle(operationName);
 		}
 		protected void initialize(){
 			this.helpFileName = "UserManagerServiceCreateAdminUserStringStringMssgWizard.help";
@@ -538,12 +541,15 @@ public class UserManagerServiceClientView extends BorderPane implements Exceptio
 			super(UserManagerServiceClientView.this);
 			getOkButton().setText(operationName);
 			getOkButton().setGraphic(new DeleteUsersPRMTRServerLSTPRMTRMenuItem ().getGraphic());
+			this.getIcons().add(IconManager.getImage(8));
+			this.setTitle(operationName);
 		}
 		protected void initialize(){
 			this.helpFileName = "UserManagerServiceDeleteUsersServerLSTMssgWizard.help";
 			super.initialize();		
 		}
 				
+		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
 				getConnection().deleteUsers((java.util.Vector<ServerView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());

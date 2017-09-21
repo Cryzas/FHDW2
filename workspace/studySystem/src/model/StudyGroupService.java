@@ -406,7 +406,9 @@ public class StudyGroupService extends model.subAdminService implements Persiste
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

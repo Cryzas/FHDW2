@@ -234,6 +234,8 @@ public class NotPassed extends model.GradesInSimple implements PersistentNotPass
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

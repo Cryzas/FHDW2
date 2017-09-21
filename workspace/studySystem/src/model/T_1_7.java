@@ -238,6 +238,8 @@ public class T_1_7 extends model.GradesInThird implements PersistentT_1_7{
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

@@ -226,6 +226,8 @@ public class Z_2_8 extends model.GradesInTenth implements PersistentZ_2_8{
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

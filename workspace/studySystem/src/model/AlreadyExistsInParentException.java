@@ -62,6 +62,8 @@ public class AlreadyExistsInParentException extends model.UserException{
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

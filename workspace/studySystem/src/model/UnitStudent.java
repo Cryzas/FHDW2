@@ -388,8 +388,10 @@ public class UnitStudent extends PersistentObject implements PersistentUnitStude
     /* Start of protected part that is not overridden by persistence generator */
     
     
+    
     static String InvalidGradeForSystemMessage = "Die Note \"%s\" ist nicht mit dem Drittel-Notensystem des Moduls kompatibel.";
     static String FinishedMessage = "Der Studiengang ist abgeschlossen.";
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

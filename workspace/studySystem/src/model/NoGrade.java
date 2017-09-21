@@ -234,6 +234,8 @@ public class NoGrade extends model.GradesInThird implements PersistentNoGrade{
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

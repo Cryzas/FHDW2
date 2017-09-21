@@ -518,7 +518,8 @@ public class StudentManageServiceClientView extends BorderPane implements Except
         return result;
     }
     private String preCalculatedFilters = "";
-    private String getPreCalculatedFilters() {
+    @SuppressWarnings("unused")
+	private String getPreCalculatedFilters() {
         return this.preCalculatedFilters;
     }
     private void setPreCalculatedFilters(String switchOff) {
@@ -568,6 +569,7 @@ public class StudentManageServiceClientView extends BorderPane implements Except
 		public void setFirstArgument(ModuleAtomarStudentView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
+			this.getIcons().add(IconManager.getImage(11));
 			this.check();
 		}
 		
@@ -617,6 +619,7 @@ public class StudentManageServiceClientView extends BorderPane implements Except
 		public void setFirstArgument(UnitStudentView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
+			this.getIcons().add(IconManager.getImage(11));
 			this.check();
 		}
 		
@@ -680,6 +683,7 @@ public class StudentManageServiceClientView extends BorderPane implements Except
 		public void setFirstArgument(StudentView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
+			this.getIcons().add(IconManager.getImage(11));
 			this.check();
 		}
 		
@@ -692,12 +696,15 @@ public class StudentManageServiceClientView extends BorderPane implements Except
 			super(StudentManageServiceClientView.this);
 			getOkButton().setText(operationName);
 			getOkButton().setGraphic(new DeleteStudentsPRMTRStudentLSTPRMTRMenuItem ().getGraphic());
+			this.getIcons().add(IconManager.getImage(8));
+			this.setTitle(operationName);
 		}
 		protected void initialize(){
 			this.helpFileName = "StudentManageServiceDeleteStudentsStudentLSTMssgWizard.help";
 			super.initialize();		
 		}
 				
+		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
 				getConnection().deleteStudents((java.util.Vector<StudentView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());

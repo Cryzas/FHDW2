@@ -273,6 +273,8 @@ public class AddUnitCommand extends PersistentObject implements PersistentAddUni
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

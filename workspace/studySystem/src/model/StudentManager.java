@@ -260,8 +260,10 @@ public class StudentManager extends PersistentObject implements PersistentStuden
     /* Start of protected part that is not overridden by persistence generator */
     
     
+    
     static String studentHasProgramMessage = "Der Student %s %s studiert bereits in der Studiengruppe %s.";
     static String GroupFinishedMessage = "Die Studiengruppe %s ist schon abgeschlossen.";
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

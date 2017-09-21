@@ -183,6 +183,8 @@ public class StudyGroupServiceGroupManager extends PersistentObject implements P
 
     /* Start of protected part that is not overridden by persistence generator */
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

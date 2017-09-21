@@ -191,6 +191,8 @@ public abstract class ModuleAbstractSGroup extends PersistentObject implements P
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

@@ -183,6 +183,8 @@ public class StudentManageServiceStudentManager extends PersistentObject impleme
 
     /* Start of protected part that is not overridden by persistence generator */
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

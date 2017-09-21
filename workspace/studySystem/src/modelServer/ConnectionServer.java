@@ -13,19 +13,13 @@ import persistence.AbstractPersistentRoot;
 import persistence.Remote;
 
 import persistence.PersistentStudyGroupService;
-import persistence.StudyGroupService4Public;
 import persistence.PersistentStudentManageService;
-import persistence.StudentManageService4Public;
 import persistence.PersistentAdminService;
-import persistence.AdminService4Public;
 import persistence.PersistentServer;
 import persistence.Server4Public;
 import persistence.PersistentUserManagerService;
-import persistence.UserManagerService4Public;
 import persistence.PersistentStudentService;
-import persistence.StudentService4Public;
 import persistence.PersistentProgramModuleService;
-import persistence.ProgramModuleService4Public;
 
 
 import common.RPCConstantsAndServices;

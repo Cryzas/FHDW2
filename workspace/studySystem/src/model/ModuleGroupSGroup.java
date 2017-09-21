@@ -271,6 +271,8 @@ public class ModuleGroupSGroup extends model.ModuleAbstractSGroup implements Per
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

@@ -359,6 +359,8 @@ public class ProgramSGroup extends PersistentObject implements PersistentProgram
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

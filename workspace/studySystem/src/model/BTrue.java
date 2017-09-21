@@ -210,6 +210,8 @@ public class BTrue extends model.MyBoolean implements PersistentBTrue{
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

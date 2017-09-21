@@ -81,6 +81,8 @@ public abstract class GradesInSimple extends model.GradesInSimpleOrThird impleme
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

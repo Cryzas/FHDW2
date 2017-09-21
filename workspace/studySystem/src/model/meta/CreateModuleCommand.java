@@ -251,6 +251,8 @@ public class CreateModuleCommand extends PersistentObject implements PersistentC
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

@@ -291,6 +291,8 @@ public class StudentService extends model.Service implements PersistentStudentSe
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

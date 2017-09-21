@@ -280,6 +280,8 @@ public class ModuleWithUnitsStudent extends model.ModuleAbstractStudent implemen
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

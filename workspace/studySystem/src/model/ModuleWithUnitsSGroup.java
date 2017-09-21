@@ -282,7 +282,9 @@ public class ModuleWithUnitsSGroup extends model.ModuleAbstractSGroup implements
 
     /* Start of protected part that is not overridden by persistence generator */
     
+    
     static String AlreadyFinishedMessage = "Der Studiengang ist bereits abgeschlossen.";    
+    
     
     /* End of protected part that is not overridden by persistence generator */
     

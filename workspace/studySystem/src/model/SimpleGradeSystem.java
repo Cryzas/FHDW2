@@ -206,6 +206,8 @@ public class SimpleGradeSystem extends model.GradeSystem implements PersistentSi
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

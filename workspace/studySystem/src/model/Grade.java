@@ -130,6 +130,8 @@ public abstract class Grade extends PersistentObject implements PersistentGrade{
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

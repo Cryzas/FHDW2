@@ -387,6 +387,7 @@ public class AdminServiceClientView extends BorderPane implements ExceptionAndEv
 		this.parent.handleUserException(exception);
 	}
 
+	@SuppressWarnings("unused")
 	private javafx.geometry.Point2D getPointForView() {
 		javafx.geometry.Point2D result = getNavigationTree().localToScene(
 				getNavigationTree().getWidth() / 18 + getNavigationTree().getScene().getWindow().getX()
@@ -416,7 +417,8 @@ public class AdminServiceClientView extends BorderPane implements ExceptionAndEv
     }
     private ContextMenu getContextMenu(final ViewRoot selected, final boolean withStaticOperations, final Point2D menuPos) {
         final ContextMenu result = new ContextMenu();
-        MenuItem item = null;
+        @SuppressWarnings("unused")
+		MenuItem item = null;
         if (selected != null){
             try {
                 this.setPreCalculatedFilters(this.getConnection().adminService_Menu_Filter((Anything)selected));
@@ -430,7 +432,8 @@ public class AdminServiceClientView extends BorderPane implements ExceptionAndEv
         return result;
     }
     private String preCalculatedFilters = "";
-    private String getPreCalculatedFilters() {
+    @SuppressWarnings("unused")
+	private String getPreCalculatedFilters() {
         return this.preCalculatedFilters;
     }
     private void setPreCalculatedFilters(String switchOff) {

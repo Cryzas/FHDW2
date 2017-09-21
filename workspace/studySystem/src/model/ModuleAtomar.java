@@ -282,6 +282,8 @@ public class ModuleAtomar extends model.ModuleAbstract implements PersistentModu
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

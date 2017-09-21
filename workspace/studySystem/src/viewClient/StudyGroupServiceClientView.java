@@ -585,7 +585,8 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
         return result;
     }
     private String preCalculatedFilters = "";
-    private String getPreCalculatedFilters() {
+    @SuppressWarnings("unused")
+	private String getPreCalculatedFilters() {
         return this.preCalculatedFilters;
     }
     private void setPreCalculatedFilters(String switchOff) {
@@ -604,6 +605,7 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 			super.initialize();		
 		}
 				
+		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
 				getConnection().addStudentToGroup(firstArgument, (java.util.Vector<StudentView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
@@ -645,6 +647,7 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 		public void setFirstArgument(StudyGroupView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
+			this.getIcons().add(IconManager.getImage(9));
 			try{
 				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
 				selectionPanel0.preset((java.util.Vector<?>)firstArgument.getStudents());
@@ -715,6 +718,7 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 		public void setFirstArgument(StudentView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
+			this.getIcons().add(IconManager.getImage(11));
 			this.check();
 		}
 		
@@ -766,6 +770,7 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 		public void setFirstArgument(StudyGroupView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
+			this.getIcons().add(IconManager.getImage(9));
 			this.check();
 		}
 		
@@ -778,12 +783,15 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 			super(StudyGroupServiceClientView.this);
 			getOkButton().setText(operationName);
 			getOkButton().setGraphic(new DeleteStudyGroupsPRMTRStudyGroupLSTPRMTRMenuItem ().getGraphic());
+			this.getIcons().add(IconManager.getImage(8));
+			this.setTitle(operationName);
 		}
 		protected void initialize(){
 			this.helpFileName = "StudyGroupServiceDeleteStudyGroupsStudyGroupLSTMssgWizard.help";
 			super.initialize();		
 		}
 				
+		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
 				getConnection().deleteStudyGroups((java.util.Vector<StudyGroupView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
@@ -834,6 +842,7 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 			super.initialize();		
 		}
 				
+		@SuppressWarnings("unchecked")
 		protected void perform() {
 			try {
 				getConnection().removeStudentFromGroup(firstArgument, (java.util.Vector<StudentView>)((ObjectCollectionSelectionPanel)getParametersPanel().getChildren().get(0)).getResult());
@@ -875,6 +884,7 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 		public void setFirstArgument(StudyGroupView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
+			this.getIcons().add(IconManager.getImage(10));
 			try{
 				final SelectionPanel selectionPanel0 = (SelectionPanel)getParametersPanel().getChildren().get(0);
 				selectionPanel0.preset((java.util.Vector<?>)firstArgument.getStudents());
@@ -957,6 +967,7 @@ public class StudyGroupServiceClientView extends BorderPane implements Exception
 		public void setFirstArgument(ModuleWithUnitsSGroupView firstArgument){
 			this.firstArgument = firstArgument;
 			this.setTitle(this.firstArgument.toString());
+			this.getIcons().add(IconManager.getImage(11));
 			try{
 				final SelectionPanel selectionPanel2 = (SelectionPanel)getParametersPanel().getChildren().get(2);
 				selectionPanel2.preset(firstArgument.getCreditPoints());

@@ -308,7 +308,9 @@ public class AdminService extends model.Service implements PersistentAdminServic
 	}
 
     /* Start of protected part that is not overridden by persistence generator */
+    
 
-	/* End of protected part that is not overridden by persistence generator */
+	
+    /* End of protected part that is not overridden by persistence generator */
     
 }

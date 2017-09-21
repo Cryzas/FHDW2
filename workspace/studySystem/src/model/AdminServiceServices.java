@@ -237,6 +237,8 @@ public class AdminServiceServices extends PersistentObject implements Persistent
 
     /* Start of protected part that is not overridden by persistence generator */
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

@@ -130,6 +130,8 @@ public abstract class MyBoolean extends PersistentObject implements PersistentMy
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

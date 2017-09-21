@@ -81,6 +81,8 @@ public abstract class GradesInSimpleOrThird extends model.Grade implements Persi
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

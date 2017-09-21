@@ -193,6 +193,8 @@ public class NoProgram extends model.ProgramStudent implements PersistentNoProgr
     
     
     
+    
+    
     /* End of protected part that is not overridden by persistence generator */
     
 }

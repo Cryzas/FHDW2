@@ -265,7 +265,9 @@ public class ModuleWithUnits extends model.ModuleAbstract implements PersistentM
     /* Start of protected part that is not overridden by persistence generator */
     
     
+    
     static String AlreadyExistsInParentMessage = "Es existiert bereits eine Unit mit dem Namen %s in dem Modul %s.";
+    
     
     
     /* End of protected part that is not overridden by persistence generator */

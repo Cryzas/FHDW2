@@ -82,7 +82,7 @@ System.out.println("setStatusbar e:" +exception.getMessage());
 	public void handleException( ModelException e ){
 		this.getStatusBar().setTextFill( Color.RED );		
 		this.getStatusBar().setFont( Font.font( null, FontWeight.BOLD, -1));
-System.out.println("handleException before setStatusbar e:" +e);		
+//		System.out.println("handleException before setStatusbar e:" +e);		
 		this.setStatusbar(e);
 	}
 	public void handleUserException( UserException exception) {
