@@ -515,5 +515,16 @@ public class GetIconInfo$Visitor extends model.visitor.AnythingStandardVisitor {
 		});
 		return result;
 	}
+	
+	@Override
+	public void handleUnitStudent(UnitStudent4Public unitStudent) throws PersistenceException {
+		if(unitStudent.getPassedCP().equals(Fraction.Null)){
+			result = 5;
+		} else if (unitStudent.getPassedCP().equals(unitStudent.getCreditPoints())) {
+			result = 3;
+		} else {
+			result = 4;
+		}
+	}
 
 }
